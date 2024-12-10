@@ -1,0 +1,74 @@
+name: Release Please
+on:
+  push:
+    branches:
+      - '*.x'
+
+# Documentation:
+# https://github.com/googleapis/release-please
+# https://github.com/googleapis/release-please-action
+# https://github.com/googleapis/release-please/blob/main/docs/customizing.md
+
+permissions:
+  contents: write
+  packages: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_REPO_STORYBOOK: ghcr.io/${{ github.repository }}/storybook
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          target-branch: ${{ github.ref_name }}
+      - name: Release Info
+        run: echo "$RELEASE_OUTPUT"
+        env:
+          RELEASE_OUTPUT: ${{ toJSON(steps.release.outputs) }}
+      - name: 'Release: Determine version'
+        id: version
+        run: echo "version=$([[ "$VERSION" != "" ]] && echo "$VERSION" || echo "rev-$GITHUB_SHA")" >> $GITHUB_OUTPUT
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+
+      - name: Get token
+        id: get_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.MAINTENANCE_APP_ID }}
+          private_key: ${{ secrets.MAINTENANCE_APP_PEM }}
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ steps.get_token.outputs.token }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+          registry-url: 'https://registry.npmjs.org'
+          scope: sbb-esta
+      - run: yarn install --frozen-lockfile --non-interactive
+
+      - name: Run build
+        run: STORYBOOK_COMPONENTS_VERSION="${{ steps.version.outputs.version }}" yarn build
+      - name: Remove files with forbidden extensions
+        run: node ./scripts/clean-storybook-files.cjs
+
+      - name: 'Release: Determine npm tag'
+        if: ${{ steps.release.outputs.release_created }}
+        id: npm_tag
+        run: echo "npm_tag=$([[ "${{ steps.version.outputs.version }}" == *"-"* ]] && echo "next" || echo "latest")" >> $GITHUB_OUTPUT
+
+      - name: 'Release: Publish @sbb-esta/lyne-angular'
+        if: ${{ steps.release.outputs.release_created }}
+        run: yarn publish dist/angular --tag ${{ steps.npm_tag.outputs.npm_tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: 'Release: Publish @sbb-esta/lyne-angular-experimental'
+        if: ${{ steps.release.outputs.release_created }}
+        run: yarn publish dist/angular-experimental --tag ${{ steps.npm_tag.outputs.npm_tag }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

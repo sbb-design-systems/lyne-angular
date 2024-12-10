@@ -1,0 +1,6 @@
+coverage
+dist
+**/__snapshots__
+
+# Changelog is formatted by release please
+CHANGELOG.md

@@ -1,59 +1,44 @@
-# LyneAngular
+# Lyne Components Angular Wrapper
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.4.
+> Lyne Components are the building blocks of the Lyne Design System
+> and are based on standard compliant Web Components
+> created using [Lit](https://lit.dev/) and
+> browsable through [Storybook](https://lyne-storybook.app.sbb.ch/)
 
-## Development server
+This is the repository for the Angular wrapper for the Lyne Web Components at
+[sbb-design-systems/lyne-components](https://github.com/sbb-design-systems/lyne-components).
 
-To start a local development server, run:
+## 📚 Documentation
 
-```bash
-ng serve
-```
+- General docs: [digital.sbb.ch](https://digital.sbb.ch)
+- Component docs: [Storybook](https://lyne-storybook.app.sbb.ch)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🔗 Packages
 
-## Code scaffolding
+| Package                               | Description                                             |
+| ------------------------------------- | ------------------------------------------------------- |
+| `@sbb-esta/lyne-angular`              | Angular wrappers for `@lyne-esta/elements`              |
+| `@sbb-esta/lyne-angular-experimental` | Angular wrappers for `@lyne-esta/elements-experimental` |
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- [NPM Packages](https://www.npmjs.com/search?q=%40sbb-esta%2Flyne-)
 
-```bash
-ng generate component component-name
-```
+## 🖥 Browser and screen reader support
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+This library supports the most recent two versions of all major browsers: Chrome (including Android), Firefox, Safari (including iOS), and Edge.
 
-```bash
-ng generate --help
-```
+We aim for great user experience with the following screen readers:
 
-## Building
+Windows: NVDA and JAWS with FF / Chrome.
+macOS: VoiceOver with Safari / Chrome.
+iOS: VoiceOver with Safari
+Android: Android Accessibility Suite (formerly TalkBack) with Chrome.
 
-To build the project run:
+## 🙌 Contributing
 
-```bash
-ng build
-```
+- [General contribution guide](./docs/CONTRIBUTING.md)
+- [Code of conduct](./docs/CODE_OF_CONDUCT.md)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 📝 License
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This software is published by SBB-CFF-FFS under the [MIT](/LICENSE) licence and unsupported unless otherwise clearly stated.
+Use at your own risk.
