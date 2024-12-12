@@ -19,6 +19,7 @@ function toKebabCase(str: string): string {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 }
 
+// FIXME we have two manifests!
 // Given a fileName, find the corresponding JS module from the custom-manifest
 function getPairedModuleFromManifest(fileName: string): JavaScriptModule | undefined {
   const name = fileName.split('/').at(-1)!.replace(/.ts$/, '.js');
@@ -29,7 +30,8 @@ function getPairedModuleFromManifest(fileName: string): JavaScriptModule | undef
 
 const isPublicProperties: (e: ClassMember) => e is CustomElementField = (
   e: ClassMember,
-): e is CustomElementField => e.privacy === 'public' && e.kind === 'field' && !e.static;
+): e is CustomElementField =>
+  e.privacy === 'public' && e.kind === 'field' && !e.static && !e.readonly;
 const isPublicMethod: (e: ClassMember) => e is ClassMethod = (e: ClassMember): e is ClassMethod =>
   e.privacy === 'public' && e.kind === 'method';
 const isPublicGetter: (e: ClassMember) => e is CustomElementField = (
@@ -97,7 +99,9 @@ export default ESLintUtils.RuleCreator.withoutDocs({
               fixer.insertTextBefore(node, `import { Component } from '@angular/core';\n`),
           });
         }
-        const classDeclaration = module.declarations!.find((e) => e.kind === 'class')!;
+        const classDeclaration = module.declarations!.find(
+          (e) => e.kind === 'class',
+        )! as CustomElementDeclaration & { classGenerics: string };
         const classSelector = toKebabCase(classDeclaration.name.replace(/Element$/, ''));
         const className = classDeclaration.name.replace(/Element$/, 'Component');
 
@@ -123,7 +127,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
   standalone: true,
   template: '<ng-template></ng-template>'
 })
-export class ${className} {
+export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration.classGenerics}>` : ''} {
 }`,
               ),
           });
@@ -144,17 +148,16 @@ export class ${className} {
         // The class and its public data that must be created in the Angular file
         const classManifestDeclaration = module.declarations!.find(
           (e: Declaration): e is CustomElementDeclaration => e.kind === 'class',
-        )!;
+        )! as CustomElementDeclaration & { classGenerics: string };
         const elementClassName = classManifestDeclaration.name;
         const publicProperties = classManifestDeclaration.members?.filter(isPublicProperties) ?? [];
-        const publicMethods = classManifestDeclaration.members?.filter(isPublicMethod) ?? [];
-        const publicGetters = classManifestDeclaration.members?.filter(isPublicGetter) ?? [];
         const publicEvents = classManifestDeclaration.events ?? [];
+        const publicGetters = classManifestDeclaration.members?.filter(isPublicGetter) ?? [];
+        const publicMethods = classManifestDeclaration.members?.filter(isPublicMethod) ?? [];
 
         // The Angular class being written on
         const classDeclaration = node.parent as unknown as TSESTree.ClassDeclaration;
-        // FIXME
-        // let hasBooleanAttributesToTransform = false;
+        let hasBooleanAttributesToTransform = false;
 
         // Add imports related to inputs and outputs properties
         if (publicProperties.length) {
@@ -184,10 +187,13 @@ export class ${className} {
               node: classDeclaration.body,
               messageId: 'angularMissingElementRef',
               fix: (fixer) => {
-                const endOfBody = classDeclaration.body.range[1] - 1; // Get the position before the closing brace
+                const endOfBody = classDeclaration.body.range[1] - 1;
+                const genericType = classManifestDeclaration.classGenerics
+                  ? `<${classManifestDeclaration.classGenerics.replace(/=.+/, '').trim()}>`
+                  : '';
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
-                  `  #element = inject(ElementRef<${elementClassName}>);\n`,
+                  `  #element: ElementRef<${elementClassName}${genericType}> = inject(ElementRef<${elementClassName}${genericType}>);\n`,
                 );
               },
             });
@@ -208,7 +214,7 @@ export class ${className} {
                 const endOfBody = classDeclaration.body.range[1] - 1;
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
-                  `  #ngZone = inject(NgZone);\n`,
+                  `  #ngZone: NgZone = inject(NgZone);\n`,
                 );
               },
             });
@@ -237,8 +243,7 @@ export class ${className} {
                   input += `{ alias: ${member.attribute} }`;
                 }
                 if (member.type) {
-                  // FIXME
-                  // hasBooleanAttributesToTransform = true;
+                  hasBooleanAttributesToTransform = true;
                   if (member.type.text === 'boolean') {
                     if (input.includes('alias')) {
                       input = input.replace(`}`, `, transform: booleanAttribute }`);
@@ -272,7 +277,91 @@ export class ${className} {
           }
         }
 
-        // TODO
+        for (const member of publicEvents) {
+          if (
+            classDeclaration.body.body.every((n) => {
+              return (
+                n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                context.sourceCode.getText(n.key) !== member.name ||
+                !context.sourceCode.getText(n).includes('@Output(')
+              );
+            })
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularMissingOutput',
+              data: { property: member.name },
+              fix: (fixer) => {
+                const endOfBody = classDeclaration.body.range[1] - 1;
+                const type =
+                  member.type?.text.replace(/.*(?<=CustomEvent<)|(?=>).*/g, '') ?? 'void';
+                return fixer.insertTextBeforeRange(
+                  [endOfBody, endOfBody],
+                  `
+  @Output() public ${member.name}: Observable<${type}> = fromEvent<${type}>(this.#element.nativeElement, '${member.name}');\n`,
+                );
+              },
+            });
+          }
+        }
+
+        for (const member of publicGetters) {
+          if (
+            classDeclaration.body.body.every((n) => {
+              return (
+                n.type !== AST_NODE_TYPES.MethodDefinition ||
+                context.sourceCode.getText(n.key) !== member.name
+              );
+            })
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularMissingMethod',
+              data: { method: member.name },
+              fix: (fixer) => {
+                const endOfBody = classDeclaration.body.range[1] - 1;
+                return fixer.insertTextBeforeRange(
+                  [endOfBody, endOfBody],
+                  `
+  public get ${member.name}(): ${member.type?.text ?? ``} {
+    return this.#element.nativeElement.${member.name};
+  }\n`,
+                );
+              },
+            });
+          }
+        }
+
+        for (const member of publicMethods) {
+          if (
+            classDeclaration.body.body.every((n) => {
+              return (
+                n.type !== AST_NODE_TYPES.MethodDefinition ||
+                context.sourceCode.getText(n.key) !== member.name
+              );
+            })
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularMissingMethod',
+              data: { method: member.name },
+              fix: (fixer) => {
+                const endOfBody = classDeclaration.body.range[1] - 1;
+                const methodParam = member.parameters
+                  ?.map((e) => `${e.name}: ${e.type?.text}`)
+                  .join(', ');
+                const methodArguments = member.parameters?.map((e) => e.name).join(', ');
+                return fixer.insertTextBeforeRange(
+                  [endOfBody, endOfBody],
+                  `
+  public ${member.name}(${methodParam ?? ``}): ${member.return?.type?.text ?? ``} {
+    return this.#element.nativeElement.${member.name}(${methodArguments ?? ``});
+  }\n`,
+                );
+              },
+            });
+          }
+        }
 
         // Add other imports
         const program = context.sourceCode.ast;
@@ -313,6 +402,29 @@ export class ${className} {
                 fixer.insertTextAfter(angularCoreImport.specifiers.at(-1)!, `, ${imports}`),
             });
           }
+        }
+
+        // booleanAttribute
+        if (
+          hasBooleanAttributesToTransform &&
+          program.body.every(
+            (n) =>
+              n.type !== 'ImportDeclaration' ||
+              n.importKind !== 'value' ||
+              n.source.value !== '@sbb-esta/lyne-angular/core',
+          )
+        ) {
+          const lastImport = program.body.filter((n) => n.type === 'ImportDeclaration').at(-1)!;
+          context.report({
+            node: lastImport,
+            messageId: 'angularMissingImport',
+            data: { symbol: 'booleanAttribute' },
+            fix: (fixer) =>
+              fixer.insertTextAfter(
+                lastImport,
+                `\nimport { booleanAttribute } from '@sbb-esta/lyne-angular/core';`,
+              ),
+          });
         }
 
         // RxJs imports
@@ -393,32 +505,12 @@ export class ${className} {
             fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport '${elementImport}';\n`),
           });
         }
-
-        // FIXME
-        // // booleanAttribute
-        // if (
-        //   hasBooleanAttributesToTransform &&
-        //   program.body.every(
-        //     (n) =>
-        //       n.type !== 'ImportDeclaration' ||
-        //       n.importKind !== 'value' ||
-        //       n.source.value !== '@sbb-esta/lyne-angular/core',
-        //   )
-        // ) {
-        //   const lastImport = program.body.filter((n) => n.type === 'ImportDeclaration').at(-1)!;
-        //   context.report({
-        //     node: lastImport,
-        //     messageId: 'angularMissingImport',
-        //     data: { symbol: 'booleanAttribute' },
-        //     fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport { booleanAttribute } from '@sbb-esta/lyne-angular/core';`),
-        //   });
-        // }
       },
     };
   },
   meta: {
     docs: {
-      description: 'Generate Angular code.',
+      description: 'Generate Angular code for Lyne elements.',
     },
     messages: {
       angularMissingImport: 'Missing import {{ symbol }}',
