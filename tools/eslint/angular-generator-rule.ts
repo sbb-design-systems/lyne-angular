@@ -20,6 +20,8 @@ import type {
   Package,
 } from 'custom-elements-manifest';
 
+const NATIVE_EVENTS_NAME: string[] = ['change', 'input'];
+
 function toKebabCase(str: string): string {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 }
@@ -265,9 +267,12 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               data: { property: member.name },
               fix: (fixer) => {
                 const endOfBody = classDeclaration.body.range[1] - 1;
-                let input = '@Input(';
+                const hasAttribute = member.attribute && member.attribute.includes('-');
+                let input = hasAttribute
+                  ? `// eslint-disable-next-line @angular-eslint/no-input-rename\n  @Input(`
+                  : '@Input(';
                 if (member.attribute && member.attribute.includes('-')) {
-                  input += `{ alias: ${member.attribute} }`;
+                  input += `{ alias: '${member.attribute}' }`;
                 }
                 if (member.type) {
                   hasBooleanAttributesToTransform = true;
@@ -306,11 +311,13 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // Add outputs
         for (const member of publicEvents) {
+          const hasPropWithSameName = publicProperties.find((prop) => prop.name === member.name);
+          const memberNameVariable = hasPropWithSameName ? `${member.name}Event` : member.name;
           if (
             classDeclaration.body.body.every((n) => {
               return (
                 n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                context.sourceCode.getText(n.key) !== member.name ||
+                context.sourceCode.getText(n.key) !== memberNameVariable ||
                 !context.sourceCode.getText(n).includes('@Output(')
               );
             })
@@ -323,10 +330,19 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 const endOfBody = classDeclaration.body.range[1] - 1;
                 const type =
                   member.type?.text.replace(/.*(?<=CustomEvent<)|(?=>).*/g, '') ?? 'void';
+                let eslintDisableRule = '';
+                if (NATIVE_EVENTS_NAME.includes(member.name)) {
+                  if (hasPropWithSameName) {
+                    eslintDisableRule = `// eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native\n  `;
+                  } else {
+                    eslintDisableRule =
+                      '// eslint-disable-next-line @angular-eslint/no-output-native\n  ';
+                  }
+                }
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
-  @Output() public ${member.name}: Observable<${type}> = fromEvent<${type}>(this.#element.nativeElement, '${member.name}');\n`,
+  ${eslintDisableRule}@Output(${hasPropWithSameName ? `'${member.name}'` : ''}) public ${memberNameVariable}: Observable<${type}> = fromEvent<${type}>(this.#element.nativeElement, '${member.name}');\n`,
                 );
               },
             });
