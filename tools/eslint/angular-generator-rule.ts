@@ -20,13 +20,15 @@ import type {
   Package,
 } from 'custom-elements-manifest';
 
-const NATIVE_EVENTS_NAME: string[] = ['change', 'input'];
+// A list of native DOM events used in @lyne-elements that need an alias.
+const NATIVE_EVENTS_NAME: string[] = ['change', 'input', 'error', 'load'];
 
+// Converts camelCase to kebab-case
 function toKebabCase(str: string): string {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 }
 
-// Given a fileName, find the corresponding JS module from the custom-manifest
+// Given a fileName, it finds the corresponding JS module from the custom-manifest
 function getPairedModuleFromManifest(fileName: string): JavaScriptModule | undefined {
   const manifest = fileName.includes('angular-experimental')
     ? elementsExperimentalManifest
@@ -37,12 +39,15 @@ function getPairedModuleFromManifest(fileName: string): JavaScriptModule | undef
   );
 }
 
+// Finds the public properties
 const isPublicProperties: (e: ClassMember) => e is CustomElementField = (
   e: ClassMember,
 ): e is CustomElementField =>
   e.privacy === 'public' && e.kind === 'field' && !e.static && !e.readonly;
+// Finds the public methods
 const isPublicMethod: (e: ClassMember) => e is ClassMethod = (e: ClassMember): e is ClassMethod =>
   e.privacy === 'public' && e.kind === 'method';
+// Finds the public getters: readonly is used from CEM to mark getters
 const isPublicGetter: (e: ClassMember) => e is CustomElementField = (
   e: ClassMember,
 ): e is CustomElementField =>
@@ -56,7 +61,6 @@ const readManifest = (name: string): Package =>
 const elementsManifest = readManifest('lyne-elements');
 const elementsExperimentalManifest = readManifest('lyne-elements-experimental');
 
-const ngPackageConfig = JSON.stringify({ lib: { entryFile: 'index.ts' } });
 const generateStructure = (pkg: Package, projectPath: string) => {
   for (const module of pkg.modules) {
     if (
@@ -72,6 +76,7 @@ const generateStructure = (pkg: Package, projectPath: string) => {
       }
       const ngPackagePath = join(directoryPath, 'ng-package.json');
       if (!existsSync(ngPackagePath)) {
+        const ngPackageConfig = `{\n  "lib": {\n    "entryFile": "index.ts"\n  }\n}\n`;
         writeFileSync(ngPackagePath, ngPackageConfig, 'utf8');
       }
       const indexPath = join(directoryPath, 'index.ts');
@@ -98,7 +103,8 @@ export default ESLintUtils.RuleCreator.withoutDocs({
           return;
         }
         const classDeclaration = module.declarations!.find(
-          (e) => e.kind === 'class',
+          (declaration) =>
+            declaration.kind === 'class' && /^(?!.*Base).*Element/.test(declaration.name),
         )! as CustomElementDeclaration & { classGenerics: string };
 
         // Disable the eslint rule for the component name.
@@ -175,7 +181,8 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // The class and its public data that must be created in the Angular file
         const classManifestDeclaration = module.declarations!.find(
-          (e: Declaration): e is CustomElementDeclaration => e.kind === 'class',
+          (decl: Declaration): decl is CustomElementDeclaration =>
+            decl.kind === 'class' && decl.name.includes('Element'),
         )! as CustomElementDeclaration & { classGenerics: string };
         const elementClassName = classManifestDeclaration.name;
         const publicProperties = classManifestDeclaration.members?.filter(isPublicProperties) ?? [];
@@ -275,8 +282,8 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   input += `{ alias: '${member.attribute}' }`;
                 }
                 if (member.type) {
-                  hasBooleanAttributesToTransform = true;
                   if (member.type.text === 'boolean') {
+                    hasBooleanAttributesToTransform = true;
                     if (input.includes('alias')) {
                       input = input.replace(`}`, `, transform: booleanAttribute }`);
                     } else {
@@ -328,8 +335,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               data: { property: member.name },
               fix: (fixer) => {
                 const endOfBody = classDeclaration.body.range[1] - 1;
-                const type =
-                  member.type?.text.replace(/.*(?<=CustomEvent<)|(?=>).*/g, '') ?? 'void';
+                const type = member.type?.text.replace(/CustomEvent<([^>]+)>/g, '$1') ?? 'void';
                 let eslintDisableRule = '';
                 if (NATIVE_EVENTS_NAME.includes(member.name)) {
                   if (hasPropWithSameName) {
@@ -396,10 +402,15 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 const methodParam = member.parameters
                   ?.map((e) => `${e.name}: ${e.type?.text}`)
                   .join(', ');
-                const methodArguments = member.parameters?.map((e) => e.name).join(', ');
+                const methodArguments = member.parameters?.map((param) => param.name).join(', ');
+                const disableAnyType =
+                  member.parameters?.some((param) => param.type?.text === 'any') ||
+                  member.return?.type?.text === 'any'
+                    ? '\n  // eslint-disable-next-line @typescript-eslint/no-explicit-any'
+                    : '';
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
-                  `
+                  `${disableAnyType}
   public ${member.name}(${methodParam ?? ``}): ${member.return?.type?.text ?? ``} {
     return this.#element.nativeElement.${member.name}(${methodArguments ?? ``});
   }\n`,
@@ -429,14 +440,14 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             messageId: 'angularMissingImport',
             data: { symbol: imports },
             fix: (fixer) =>
-              fixer.insertTextBefore(node, `import { ${imports} } from '@angular/core';\n`),
+              fixer.insertTextBefore(node, `\nimport { ${imports} } from '@angular/core';\n`),
           });
         } else {
           const existingImports = angularCoreImport.specifiers.map(
-            (s) => ((s as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name,
+            (spec) => ((spec as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name,
           );
           const importsToAdd = Array.from(expectedAngularImports).filter(
-            (i) => !existingImports.includes(i),
+            (importName) => !existingImports.includes(importName),
           );
           if (importsToAdd.length > 0) {
             const imports = importsToAdd.sort().join(', ');
@@ -483,11 +494,15 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           );
           if (!rxjsCoreImport) {
             const imports = Array.from(expectedRxJsImports).sort().join(', ');
+            const lastImport = program.body
+              .filter((n) => n.type === AST_NODE_TYPES.ImportDeclaration)
+              .at(-1)!;
             context.report({
               node: program,
               messageId: 'rxJsMissingImport',
               data: { symbol: imports },
-              fix: (fixer) => fixer.insertTextBefore(node, `import { ${imports} } from 'rxjs';\n`),
+              fix: (fixer) =>
+                fixer.insertTextAfter(lastImport, `\nimport { ${imports} } from 'rxjs';`),
             });
           } else {
             const existingImports = rxjsCoreImport.specifiers.map((s) =>
@@ -552,7 +567,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             node: lastImport,
             messageId: 'angularMissingImport',
             data: { symbol: 'element side effect' },
-            fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport '${elementImport}';\n`),
+            fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport '${elementImport}';`),
           });
         }
       },
