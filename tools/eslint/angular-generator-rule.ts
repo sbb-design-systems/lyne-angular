@@ -19,11 +19,13 @@ function toKebabCase(str: string): string {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 }
 
-// FIXME we have two manifests!
 // Given a fileName, find the corresponding JS module from the custom-manifest
 function getPairedModuleFromManifest(fileName: string): JavaScriptModule | undefined {
+  const manifest = fileName.includes('angular-experimental')
+    ? elementsManifest
+    : elementsExperimentalManifest;
   const name = fileName.split('/').at(-1)!.replace(/.ts$/, '.js');
-  return elementsManifest.modules.find(
+  return manifest.modules.find(
     (module) => module.path.includes(name) && module.declarations && module.declarations.length > 0,
   );
 }
@@ -45,7 +47,7 @@ const readManifest = (name: string): Package =>
     readFileSync(join(root, `/node_modules/@sbb-esta/${name}/custom-elements.json`), 'utf8'),
   );
 const elementsManifest = readManifest('lyne-elements');
-// const elementsExperimentalManifest = readManifest('lyne-elements-experimental');
+const elementsExperimentalManifest = readManifest('lyne-elements-experimental');
 
 const ngPackageConfig = JSON.stringify({ lib: { entryFile: 'index.ts' } });
 const generateStructure = (pkg: Package, projectPath: string) => {
@@ -221,6 +223,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           }
         }
 
+        // Add properties
         for (const member of publicProperties) {
           if (
             classDeclaration.body.body.every((n) => {
@@ -277,6 +280,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           }
         }
 
+        // Add outputs
         for (const member of publicEvents) {
           if (
             classDeclaration.body.body.every((n) => {
@@ -305,6 +309,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           }
         }
 
+        // Add get method
         for (const member of publicGetters) {
           if (
             classDeclaration.body.body.every((n) => {
@@ -332,6 +337,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           }
         }
 
+        // Add methods
         for (const member of publicMethods) {
           if (
             classDeclaration.body.body.every((n) => {
