@@ -4,7 +4,12 @@ import { dirname, relative } from 'node:path';
 import { basename, join } from 'path';
 import { fileURLToPath } from 'url';
 
-import { AST_NODE_TYPES, ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
+import {
+  AST_NODE_TYPES,
+  AST_TOKEN_TYPES,
+  ESLintUtils,
+  type TSESTree,
+} from '@typescript-eslint/utils';
 import type {
   ClassMember,
   ClassMethod,
@@ -22,8 +27,8 @@ function toKebabCase(str: string): string {
 // Given a fileName, find the corresponding JS module from the custom-manifest
 function getPairedModuleFromManifest(fileName: string): JavaScriptModule | undefined {
   const manifest = fileName.includes('angular-experimental')
-    ? elementsManifest
-    : elementsExperimentalManifest;
+    ? elementsExperimentalManifest
+    : elementsManifest;
   const name = fileName.split('/').at(-1)!.replace(/.ts$/, '.js');
   return manifest.modules.find(
     (module) => module.path.includes(name) && module.declarations && module.declarations.length > 0,
@@ -90,44 +95,64 @@ export default ESLintUtils.RuleCreator.withoutDocs({
         if (!module) {
           return;
         }
-
-        // FIXME check Component vs Directive - selector issue
-        if (node.body.every((n) => n.type !== 'ImportDeclaration')) {
-          context.report({
-            node,
-            messageId: 'angularMissingImport',
-            data: { symbol: 'Component' },
-            fix: (fixer) =>
-              fixer.insertTextBefore(node, `import { Component } from '@angular/core';\n`),
-          });
-        }
         const classDeclaration = module.declarations!.find(
           (e) => e.kind === 'class',
         )! as CustomElementDeclaration & { classGenerics: string };
+
+        // Disable the eslint rule for the component name.
+        if (
+          node.comments?.every(
+            (comment) =>
+              comment.type === AST_TOKEN_TYPES.Block &&
+              !comment.value.includes('directive-selector'),
+          )
+        ) {
+          context.report({
+            node,
+            messageId: 'eslintMissingDisableDirectiveRule',
+            fix: (fixer) =>
+              fixer.insertTextBeforeRange(
+                [node.range[0], node.range[0]],
+                `/* eslint-disable @angular-eslint/directive-selector */\n`,
+              ),
+          });
+        }
+
+        if (node.body.every((n) => n.type !== AST_NODE_TYPES.ImportDeclaration)) {
+          context.report({
+            node,
+            messageId: 'angularMissingImport',
+            data: { symbol: 'Directive' },
+            fix: (fixer) =>
+              fixer.insertTextAfterRange(
+                [node.range[1] - 1, node.range[1] - 1],
+                `import { Directive } from '@angular/core';\n`,
+              ),
+          });
+        }
+
         const classSelector = toKebabCase(classDeclaration.name.replace(/Element$/, ''));
-        const className = classDeclaration.name.replace(/Element$/, 'Component');
+        const className = classDeclaration.name.replace(/Element$/, 'Directive');
 
         if (
           node.body.every(
             (n) =>
-              n.type !== 'ExportNamedDeclaration' ||
+              n.type !== AST_NODE_TYPES.ExportNamedDeclaration ||
               !n.declaration ||
-              n.declaration.type !== 'ClassDeclaration' ||
+              n.declaration.type !== AST_NODE_TYPES.ClassDeclaration ||
               n.declaration.id?.name !== className,
           )
         ) {
           context.report({
             node,
-            messageId: 'angularMissingComponent',
+            messageId: 'angularMissingDirective',
             data: { className },
             fix: (fixer) =>
               fixer.insertTextAfter(
                 node,
-                `
-@Component({
+                `@Directive({
   selector: '${classSelector}',
   standalone: true,
-  template: '<ng-template></ng-template>'
 })
 export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration.classGenerics}>` : ''} {
 }`,
@@ -135,8 +160,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           });
         }
       },
-      // can it be just `ClassDeclaration`?
-      ['ClassDeclaration > Decorator[expression.callee.name="Component"]'](
+      ['ClassDeclaration > Decorator[expression.callee.name="Directive"]'](
         node: TSESTree.Decorator,
       ) {
         const module = getPairedModuleFromManifest(context.filename);
@@ -204,7 +228,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             publicProperties.length &&
             classDeclaration.body.body.every(
               (n) =>
-                n.type !== 'PropertyDefinition' ||
+                n.type !== AST_NODE_TYPES.PropertyDefinition ||
                 !n.value ||
                 !context.sourceCode.getText(n.value).startsWith('inject(NgZone'),
             )
@@ -380,7 +404,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         // Angular imports
         const angularCoreImport = program.body.find(
           (n): n is TSESTree.ImportDeclaration =>
-            n.type === 'ImportDeclaration' && n.source.value === '@angular/core',
+            n.type === AST_NODE_TYPES.ImportDeclaration && n.source.value === '@angular/core',
         );
         if (!angularCoreImport) {
           const imports = Array.from(expectedAngularImports).sort().join(', ');
@@ -415,12 +439,14 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           hasBooleanAttributesToTransform &&
           program.body.every(
             (n) =>
-              n.type !== 'ImportDeclaration' ||
+              n.type !== AST_NODE_TYPES.ImportDeclaration ||
               n.importKind !== 'value' ||
               n.source.value !== '@sbb-esta/lyne-angular/core',
           )
         ) {
-          const lastImport = program.body.filter((n) => n.type === 'ImportDeclaration').at(-1)!;
+          const lastImport = program.body
+            .filter((n) => n.type === AST_NODE_TYPES.ImportDeclaration)
+            .at(-1)!;
           context.report({
             node: lastImport,
             messageId: 'angularMissingImport',
@@ -437,7 +463,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         if (expectedRxJsImports.size > 0) {
           const rxjsCoreImport = program.body.find(
             (n): n is TSESTree.ImportDeclaration =>
-              n.type === 'ImportDeclaration' && n.source.value === 'rxjs',
+              n.type === AST_NODE_TYPES.ImportDeclaration && n.source.value === 'rxjs',
           );
           if (!rxjsCoreImport) {
             const imports = Array.from(expectedRxJsImports).sort().join(', ');
@@ -474,13 +500,13 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           expectedAngularImports.has('ElementRef') &&
           program.body.every(
             (n) =>
-              n.type !== 'ImportDeclaration' ||
+              n.type !== AST_NODE_TYPES.ImportDeclaration ||
               n.importKind !== 'type' ||
               n.source.value !== elementImport,
           )
         ) {
           const lastImport = program.body
-            .filter((n) => n.type === 'ImportDeclaration' && n.specifiers.length)
+            .filter((n) => n.type === AST_NODE_TYPES.ImportDeclaration && n.specifiers.length)
             .at(-1)!;
           context.report({
             node: lastImport,
@@ -498,12 +524,14 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         if (
           program.body.every(
             (n) =>
-              n.type !== 'ImportDeclaration' ||
+              n.type !== AST_NODE_TYPES.ImportDeclaration ||
               n.importKind !== 'value' ||
               n.source.value !== elementImport,
           )
         ) {
-          const lastImport = program.body.filter((n) => n.type === 'ImportDeclaration').at(-1)!;
+          const lastImport = program.body
+            .filter((n) => n.type === AST_NODE_TYPES.ImportDeclaration)
+            .at(-1)!;
           context.report({
             node: lastImport,
             messageId: 'angularMissingImport',
@@ -519,9 +547,10 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
       description: 'Generate Angular code for Lyne elements.',
     },
     messages: {
+      eslintMissingDisableDirectiveRule: 'Missing eslint disable rule for directive-selector',
       angularMissingImport: 'Missing import {{ symbol }}',
       rxJsMissingImport: 'Missing import {{ symbol }}',
-      angularMissingComponent: 'Missing class for {{ className }}',
+      angularMissingDirective: 'Missing class for {{ className }}',
       angularMissingElementRef: 'Missing ElementRef property',
       angularMissingNgZone: 'Missing NgZone property',
       angularMissingInput: 'Missing input for property {{ property }}',
