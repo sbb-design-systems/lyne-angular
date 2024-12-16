@@ -35,7 +35,10 @@ function getPairedModuleFromManifest(fileName: string): JavaScriptModule | undef
     : elementsManifest;
   const name = fileName.split('/').at(-1)!.replace(/.ts$/, '.js');
   return manifest.modules.find(
-    (module) => module.path.includes(name) && module.declarations && module.declarations.length > 0,
+    (module) =>
+      module.declarations &&
+      module.declarations.length > 0 &&
+      (module.path === name || module.path.includes(`/${name}`)),
   );
 }
 
@@ -215,7 +218,10 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               (n) =>
                 n.type !== AST_NODE_TYPES.PropertyDefinition ||
                 !n.value ||
-                !context.sourceCode.getText(n.value).startsWith('inject(ElementRef'),
+                !context.sourceCode
+                  .getText(n.value)
+                  .replace(/[\n\s]+/g, '')
+                  .startsWith('inject(ElementRef'),
             )
           ) {
             context.report({
