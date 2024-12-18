@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbAutocompleteBaseElement } from '@sbb-esta/lyne-elements/autocomplete.js';
+import type { SbbAutocompleteElement } from '@sbb-esta/lyne-elements/autocomplete.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/autocomplete.js';
 
@@ -10,8 +10,16 @@ import '@sbb-esta/lyne-elements/autocomplete.js';
   standalone: true,
 })
 export class SbbAutocompleteDirective {
-  #element: ElementRef<SbbAutocompleteBaseElement> = inject(ElementRef<SbbAutocompleteBaseElement>);
+  #element: ElementRef<SbbAutocompleteElement> = inject(ElementRef<SbbAutocompleteElement>);
   #ngZone: NgZone = inject(NgZone);
+
+  @Input({ transform: booleanAttribute })
+  public set negative(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.negative = value));
+  }
+  public get negative(): boolean {
+    return this.#element.nativeElement.negative;
+  }
 
   @Input()
   public set origin(value: string | HTMLElement | null) {
@@ -36,14 +44,6 @@ export class SbbAutocompleteDirective {
   }
   public get preserveIconSpace(): boolean {
     return this.#element.nativeElement.preserveIconSpace;
-  }
-
-  @Input({ transform: booleanAttribute })
-  public set negative(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.negative = value));
-  }
-  public get negative(): boolean {
-    return this.#element.nativeElement.negative;
   }
 
   @Output() public willOpen: Observable<void> = fromEvent<void>(

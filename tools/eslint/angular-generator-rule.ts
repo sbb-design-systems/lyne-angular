@@ -184,7 +184,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         // The class and its public data that must be created in the Angular file
         const classManifestDeclaration = module.declarations!.find(
           (decl: Declaration): decl is CustomElementDeclaration =>
-            decl.kind === 'class' && decl.name.includes('Element'),
+            decl.kind === 'class' && 'customElement' in decl && decl.customElement,
         )! as CustomElementDeclaration & { classGenerics: string };
         const elementClassName = classManifestDeclaration.name;
         const publicProperties = classManifestDeclaration.members?.filter(isPublicProperties) ?? [];
@@ -290,14 +290,14 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   if (member.type.text === 'boolean') {
                     hasBooleanAttributesToTransform = true;
                     if (input.includes('alias')) {
-                      input = input.replace(`}`, `, transform: booleanAttribute }`);
+                      input = input.replace(` }`, `, transform: booleanAttribute }`);
                     } else {
                       input += `{ transform: booleanAttribute }`;
                     }
                   } else if (member.type.text === 'number') {
                     expectedAngularImports.add('numberAttribute');
                     if (input.includes('alias')) {
-                      input = input.replace(`}`, `, transform: numberAttribute }`);
+                      input = input.replace(` }`, `, transform: numberAttribute }`);
                     } else {
                       input += `{ transform: numberAttribute }`;
                     }
