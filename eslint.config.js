@@ -82,5 +82,11 @@ export default config(
   },
   // @ts-expect-error The returned config will exist.
   eslintPluginLyne.default.configs.recommended,
+  {
+    files: ['**/*.spec.ts'],
+    rules: {
+      'lyne/angular-tests-generator-rule': 'error',
+    },
+  },
   eslintConfigPrettier,
 );

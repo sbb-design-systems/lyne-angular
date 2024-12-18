@@ -92,7 +92,6 @@ const generateStructure = (pkg: Package, projectPath: string) => {
   }
 };
 
-// TODO: Enable
 generateStructure(elementsManifest, join(root, 'src/angular'));
 generateStructure(elementsExperimentalManifest, join(root, 'src/angular-experimental'));
 
@@ -183,8 +182,8 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // The class and its public data that must be created in the Angular file
         const classManifestDeclaration = module.declarations!.find(
-          (decl: Declaration): decl is CustomElementDeclaration =>
-            decl.kind === 'class' && 'customElement' in decl && decl.customElement,
+          (declaration: Declaration): declaration is CustomElementDeclaration =>
+            declaration.kind === 'class' && /^(?!.*Base).*Element/.test(declaration.name),
         )! as CustomElementDeclaration & { classGenerics: string };
         const elementClassName = classManifestDeclaration.name;
         const publicProperties = classManifestDeclaration.members?.filter(isPublicProperties) ?? [];

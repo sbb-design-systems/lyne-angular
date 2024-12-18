@@ -6,10 +6,7 @@
     "paths": {
       "angular": ["./dist/angular"],
       "angular-experimental": ["./dist/angular-experimental"],
-      "@sbb-esta/lyne-angular": ["./src/angular"],
-      "@sbb-esta/lyne-angular/*": ["./src/angular/*"],
-      "@sbb-esta/lyne-angular-experimental": ["./src/elements-experimental"],
-      "@sbb-esta/lyne-angular-experimental/*": ["./src/elements-experimental/*"]
+      "@sbb-esta/lyne-angular/*": ["./src/angular/*"]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
