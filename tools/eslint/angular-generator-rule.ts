@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { dirname, relative } from 'node:path';
 import { basename, join } from 'path';
@@ -94,8 +93,8 @@ const generateStructure = (pkg: Package, projectPath: string) => {
 };
 
 // TODO: Enable
-// generateStructure(elementsManifest, join(root, 'src/angular'));
-// generateStructure(elementsExperimentalManifest, join(root, 'src/angular-experimental'));
+generateStructure(elementsManifest, join(root, 'src/angular'));
+generateStructure(elementsExperimentalManifest, join(root, 'src/angular-experimental'));
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
