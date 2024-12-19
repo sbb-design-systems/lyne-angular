@@ -1,1 +1,1 @@
-export * from './attribute-transform.js';
+export * from './attribute-transform';
