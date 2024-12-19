@@ -53,9 +53,7 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interactive
 
       - name: Run build
-        run: STORYBOOK_COMPONENTS_VERSION="${{ steps.version.outputs.version }}" yarn build
-      - name: Remove files with forbidden extensions
-        run: node ./scripts/clean-storybook-files.cjs
+        run: yarn build
 
       - name: 'Release: Determine npm tag'
         if: ${{ steps.release.outputs.release_created }}
