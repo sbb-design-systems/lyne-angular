@@ -2,7 +2,7 @@ import type { ESLintUtils, TSESLint } from '@typescript-eslint/utils';
 
 const rules = (
   await Promise.all(
-    ['angular-generator-rule', 'angular-tests-generator-rule'].map((name) =>
+    ['angular-generator-rule'].map((name) =>
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       import(`./${name}.js`).then((m) => ({ [name]: m.default as ESLintUtils.RuleModule<any> })),
     ),
@@ -21,10 +21,10 @@ plugin.configs!['recommended'] = {
   plugins: {
     lyne: plugin,
   },
-  rules: {
-    'lyne/angular-generator-rule': 'error',
-    'lyne/angular-tests-generator-rule': 'off',
-  },
+  rules: Object.keys(rules).reduce(
+    (current, next) => Object.assign(current, { [`lyne/${next}`]: 'error' }),
+    {} as TSESLint.FlatConfig.Rules,
+  ),
 };
 
 export default plugin;
