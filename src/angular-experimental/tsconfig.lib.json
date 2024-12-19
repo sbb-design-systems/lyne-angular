@@ -7,10 +7,7 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": [],
-    "paths": {
-      "@sbb-esta/lyne-angular/*": ["../angular/*"]
-    }
+    "types": []
   },
   "exclude": ["**/*.spec.ts"]
 }
