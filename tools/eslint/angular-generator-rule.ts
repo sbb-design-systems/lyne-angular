@@ -203,6 +203,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           expectedAngularImports.add('Output');
           expectedRxJsImports.add('fromEvent').add('type Observable');
         }
+
         // Add the private variables for the native element and the ngZone
         if (
           publicProperties.length ||
@@ -263,14 +264,13 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         // Add properties
         for (const member of publicProperties) {
           if (
-            classDeclaration.body.body.every((n) => {
-              return (
+            classDeclaration.body.body.every(
+              (n) =>
                 n.type !== AST_NODE_TYPES.MethodDefinition ||
                 n.kind !== 'set' ||
                 context.sourceCode.getText(n.key) !== member.name ||
-                !context.sourceCode.getText(n).includes('@Input(')
-              );
-            })
+                !context.sourceCode.getText(n).includes('@Input('),
+            )
           ) {
             context.report({
               node: classDeclaration.body,
@@ -325,13 +325,12 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           const hasPropWithSameName = publicProperties.find((prop) => prop.name === member.name);
           const memberNameVariable = hasPropWithSameName ? `${member.name}Event` : member.name;
           if (
-            classDeclaration.body.body.every((n) => {
-              return (
+            classDeclaration.body.body.every(
+              (n) =>
                 n.type !== AST_NODE_TYPES.PropertyDefinition ||
                 context.sourceCode.getText(n.key) !== memberNameVariable ||
-                !context.sourceCode.getText(n).includes('@Output(')
-              );
-            })
+                !context.sourceCode.getText(n).includes('@Output('),
+            )
           ) {
             context.report({
               node: classDeclaration.body,
@@ -362,12 +361,11 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         // Add get method
         for (const member of publicGetters) {
           if (
-            classDeclaration.body.body.every((n) => {
-              return (
+            classDeclaration.body.body.every(
+              (n) =>
                 n.type !== AST_NODE_TYPES.MethodDefinition ||
-                context.sourceCode.getText(n.key) !== member.name
-              );
-            })
+                context.sourceCode.getText(n.key) !== member.name,
+            )
           ) {
             context.report({
               node: classDeclaration.body,
@@ -390,12 +388,11 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         // Add methods
         for (const member of publicMethods) {
           if (
-            classDeclaration.body.body.every((n) => {
-              return (
+            classDeclaration.body.body.every(
+              (n) =>
                 n.type !== AST_NODE_TYPES.MethodDefinition ||
-                context.sourceCode.getText(n.key) !== member.name
-              );
-            })
+                context.sourceCode.getText(n.key) !== member.name,
+            )
           ) {
             context.report({
               node: classDeclaration.body,
