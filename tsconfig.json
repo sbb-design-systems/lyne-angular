@@ -4,8 +4,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "angular": ["./dist/angular"],
-      "angular-experimental": ["./dist/angular-experimental"]
+      "@sbb-esta/lyne-angular": ["./dist/angular"],
+      "@sbb-esta/lyne-angular/*": ["./dist/angular/*"],
+      "@sbb-esta/lyne-angular-experimental": ["./dist/angular-experimental"],
+      "@sbb-esta/lyne-angular-experimental/*": ["./dist/angular-experimental/*"]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
