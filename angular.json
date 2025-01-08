@@ -75,8 +75,9 @@
         "test": {
           "builder": "@angular-devkit/build-angular:web-test-runner",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
+            "include": ["src/showcase/**/*.spec.ts", "src/showcase/**/*.d.ts"],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "inlineStyleLanguage": "scss",
             "assets": [
               {
@@ -99,7 +100,7 @@
     "angular": {
       "projectType": "library",
       "root": "src/angular",
-      "sourceRoot": "src/angular/src",
+      "sourceRoot": "src/angular",
       "prefix": "sbb",
       "architect": {
         "build": {
@@ -121,6 +122,7 @@
           "builder": "@angular-devkit/build-angular:web-test-runner",
           "options": {
             "tsConfig": "src/angular/tsconfig.spec.json",
+            "include": ["src/angular/**/*.spec.ts", "src/angular/**/*.d.ts"],
             "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
@@ -136,7 +138,7 @@
     "angular-experimental": {
       "projectType": "library",
       "root": "src/angular-experimental",
-      "sourceRoot": "src/angular-experimental/src",
+      "sourceRoot": "src/angular-experimental",
       "prefix": "lib",
       "architect": {
         "build": {
@@ -158,6 +160,10 @@
           "builder": "@angular-devkit/build-angular:web-test-runner",
           "options": {
             "tsConfig": "src/angular-experimental/tsconfig.spec.json",
+            "include": [
+              "src/angular-experimental/**/*.spec.ts",
+              "src/angular-experimental/**/*.d.ts"
+            ],
             "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
