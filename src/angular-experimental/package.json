@@ -1,12 +1,31 @@
 {
   "name": "@sbb-esta/lyne-angular-experimental",
   "version": "0.0.1",
+  "description": "Lyne Design System",
+  "keywords": [
+    "design system",
+    "web components",
+    "lit",
+    "angular"
+  ],
   "peerDependencies": {
     "@angular/common": "^19.0.0",
     "@angular/core": "^19.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Lyne Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sbb-design-systems/lyne-angular.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sbb-design-systems/lyne-angular/issues"
   },
   "sideEffects": false
 }
