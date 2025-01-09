@@ -1,6 +1,6 @@
 {
   "name": "@sbb-esta/lyne-angular-experimental",
-  "version": "0.0.1",
+  "version": "0.0.0-PLACEHOLDER",
   "description": "Lyne Design System",
   "keywords": [
     "design system",
@@ -10,7 +10,8 @@
   ],
   "peerDependencies": {
     "@angular/common": "^19.0.0",
-    "@angular/core": "^19.0.0"
+    "@angular/core": "^19.0.0",
+    "@sbb-esta/lyne-angular": "0.0.0-PLACEHOLDER"
   },
   "dependencies": {
     "tslib": "^2.3.0"
