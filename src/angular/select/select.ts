@@ -1,15 +1,32 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  NgZone,
+  Output,
+  inject,
+  forwardRef,
+  ExistingProvider,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
 import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/select.js';
 
+const SBB_SELECT_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SbbSelectDirective),
+  multi: true,
+};
+
 @Directive({
   selector: 'sbb-select',
   standalone: true,
+  providers: [SBB_SELECT_CONTROL_VALUE_ACCESSOR],
 })
-export class SbbSelectDirective {
+export class SbbSelectDirective extends SbbControlValueAccessor {
   #element: ElementRef<SbbSelectElement> = inject(ElementRef<SbbSelectElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -128,5 +145,13 @@ export class SbbSelectDirective {
 
   public getDisplayValue(): string {
     return this.#element.nativeElement.getDisplayValue();
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  writeValue(value: string | string[] | null): void {
+    this.value = value;
   }
 }

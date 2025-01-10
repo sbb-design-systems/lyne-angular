@@ -1,16 +1,33 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  NgZone,
+  Output,
+  inject,
+  ExistingProvider,
+  forwardRef,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
 
+const SBB_EXPANSION_PANEL_HEADER_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SbbExpansionPanelHeaderDirective),
+  multi: true,
+};
+
 @Directive({
   selector: 'sbb-expansion-panel-header',
   standalone: true,
+  providers: [SBB_EXPANSION_PANEL_HEADER_CONTROL_VALUE_ACCESSOR],
 })
-export class SbbExpansionPanelHeaderDirective {
+export class SbbExpansionPanelHeaderDirective extends SbbControlValueAccessor {
   #element: ElementRef<SbbExpansionPanelHeaderElement> = inject(
     ElementRef<SbbExpansionPanelHeaderElement>,
   );
@@ -78,4 +95,12 @@ export class SbbExpansionPanelHeaderDirective {
     this.#element.nativeElement,
     'toggleExpanded',
   );
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  writeValue(value: string | null): void {
+    this.value = value;
+  }
 }

@@ -1,15 +1,32 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  NgZone,
+  Output,
+  inject,
+  forwardRef,
+  ExistingProvider,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/toggle-check.js';
 
+const SBB_TOGGLE_CHECK_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SbbToggleCheckDirective),
+  multi: true,
+};
+
 @Directive({
   selector: 'sbb-toggle-check',
   standalone: true,
+  providers: [SBB_TOGGLE_CHECK_CONTROL_VALUE_ACCESSOR],
 })
-export class SbbToggleCheckDirective {
+export class SbbToggleCheckDirective extends SbbControlValueAccessor {
   #element: ElementRef<SbbToggleCheckElement> = inject(ElementRef<SbbToggleCheckElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -97,5 +114,13 @@ export class SbbToggleCheckDirective {
 
   public get form(): HTMLFormElement | null {
     return this.#element.nativeElement.form;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  writeValue(value: string | null): void {
+    this.value = value;
   }
 }

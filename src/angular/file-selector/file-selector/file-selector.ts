@@ -1,16 +1,33 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  NgZone,
+  Output,
+  inject,
+  ExistingProvider,
+  forwardRef,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
 import { FormRestoreReason, FormRestoreState } from '@sbb-esta/lyne-elements/core/mixins.js';
 import type { SbbFileSelectorElement } from '@sbb-esta/lyne-elements/file-selector/file-selector.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/file-selector/file-selector.js';
 
+const SBB_FILE_SELECTOR_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SbbFileSelectorDirective),
+  multi: true,
+};
+
 @Directive({
   selector: 'sbb-file-selector',
   standalone: true,
+  providers: [SBB_FILE_SELECTOR_CONTROL_VALUE_ACCESSOR],
 })
-export class SbbFileSelectorDirective {
+export class SbbFileSelectorDirective extends SbbControlValueAccessor {
   #element: ElementRef<SbbFileSelectorElement> = inject(ElementRef<SbbFileSelectorElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -122,5 +139,13 @@ export class SbbFileSelectorDirective {
     _reason: FormRestoreReason,
   ): void {
     return this.#element.nativeElement.formStateRestoreCallback(state, _reason);
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  writeValue(value: string | null): void {
+    this.value = value;
   }
 }

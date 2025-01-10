@@ -1,17 +1,34 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  NgZone,
+  Output,
+  inject,
+  ExistingProvider,
+  forwardRef,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
 import { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
 import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
 import { SbbPanelSize } from '@sbb-esta/lyne-elements/core/mixins.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
 
+const SBB_CHECKBOX_PANEL_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SbbCheckboxPanelDirective),
+  multi: true,
+};
+
 @Directive({
   selector: 'sbb-checkbox-panel',
   standalone: true,
+  providers: [SBB_CHECKBOX_PANEL_CONTROL_VALUE_ACCESSOR],
 })
-export class SbbCheckboxPanelDirective {
+export class SbbCheckboxPanelDirective extends SbbControlValueAccessor {
   #element: ElementRef<SbbCheckboxPanelElement> = inject(ElementRef<SbbCheckboxPanelElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -109,5 +126,13 @@ export class SbbCheckboxPanelDirective {
 
   public get form(): HTMLFormElement | null {
     return this.#element.nativeElement.form;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  writeValue(value: string | null): void {
+    this.value = value;
   }
 }

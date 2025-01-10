@@ -1,17 +1,33 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  NgZone,
+  inject,
+  ExistingProvider,
+  forwardRef,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbBlockLinkButtonElement } from '@sbb-esta/lyne-elements/link/block-link-button.js';
 import '@sbb-esta/lyne-elements/link/block-link-button.js';
 import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 
+const SBB_BLOCK_LINK_BUTTON_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SbbBlockLinkButtonDirective),
+  multi: true,
+};
+
 @Directive({
   selector: 'sbb-block-link-button',
   standalone: true,
+  providers: [SBB_BLOCK_LINK_BUTTON_CONTROL_VALUE_ACCESSOR],
 })
-export class SbbBlockLinkButtonDirective {
+export class SbbBlockLinkButtonDirective extends SbbControlValueAccessor {
   #element: ElementRef<SbbBlockLinkButtonElement> = inject(ElementRef<SbbBlockLinkButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -88,5 +104,13 @@ export class SbbBlockLinkButtonDirective {
   }
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  writeValue(value: string | null): void {
+    this.value = value;
   }
 }

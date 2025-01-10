@@ -1,17 +1,34 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  NgZone,
+  Output,
+  inject,
+  ExistingProvider,
+  forwardRef,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
 import { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-group.js';
 import type { SbbRadioButtonElement } from '@sbb-esta/lyne-elements/radio-button/radio-button.js';
 import { SbbRadioButtonSize } from '@sbb-esta/lyne-elements/radio-button.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/radio-button/radio-button.js';
 
+const SBB_RADIO_BUTTON_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SbbRadioButtonDirective),
+  multi: true,
+};
+
 @Directive({
   selector: 'sbb-radio-button',
   standalone: true,
+  providers: [SBB_RADIO_BUTTON_CONTROL_VALUE_ACCESSOR],
 })
-export class SbbRadioButtonDirective {
+export class SbbRadioButtonDirective extends SbbControlValueAccessor {
   #element: ElementRef<SbbRadioButtonElement> = inject(ElementRef<SbbRadioButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -98,5 +115,13 @@ export class SbbRadioButtonDirective {
 
   public select(): void {
     return this.#element.nativeElement.select();
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  writeValue(value: string | null): void {
+    this.value = value;
   }
 }
