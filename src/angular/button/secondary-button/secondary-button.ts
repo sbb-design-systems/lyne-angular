@@ -1,16 +1,32 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  NgZone,
+  inject,
+  ExistingProvider,
+  forwardRef,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
 import type { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button/secondary-button.js';
 import '@sbb-esta/lyne-elements/button/secondary-button.js';
 import { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
+const SBB_SECONDARY_BUTTON_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SbbSecondaryButtonDirective),
+  multi: true,
+};
+
 @Directive({
   selector: 'sbb-secondary-button',
   standalone: true,
+  providers: [SBB_SECONDARY_BUTTON_CONTROL_VALUE_ACCESSOR],
 })
-export class SbbSecondaryButtonDirective {
+export class SbbSecondaryButtonDirective extends SbbControlValueAccessor {
   #element: ElementRef<SbbSecondaryButtonElement> = inject(ElementRef<SbbSecondaryButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -86,5 +102,13 @@ export class SbbSecondaryButtonDirective {
   }
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  writeValue(value: string | null): void {
+    this.value = value;
   }
 }

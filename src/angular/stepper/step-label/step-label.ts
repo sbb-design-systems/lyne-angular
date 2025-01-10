@@ -1,16 +1,32 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  NgZone,
+  inject,
+  ExistingProvider,
+  forwardRef,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
 import { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
 import '@sbb-esta/lyne-elements/stepper/step-label.js';
 
+const SBB_STEP_LABEL_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SbbStepLabelDirective),
+  multi: true,
+};
+
 @Directive({
   selector: 'sbb-step-label',
   standalone: true,
+  providers: [SBB_STEP_LABEL_CONTROL_VALUE_ACCESSOR],
 })
-export class SbbStepLabelDirective {
+export class SbbStepLabelDirective extends SbbControlValueAccessor {
   #element: ElementRef<SbbStepLabelElement> = inject(ElementRef<SbbStepLabelElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -65,5 +81,13 @@ export class SbbStepLabelDirective {
 
   public get step(): SbbStepElement | null {
     return this.#element.nativeElement.step;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  writeValue(value: string | null): void {
+    this.value = value;
   }
 }

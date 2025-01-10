@@ -1,15 +1,31 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  NgZone,
+  inject,
+  ExistingProvider,
+  forwardRef,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
 import type { SbbMiniButtonElement } from '@sbb-esta/lyne-elements/button/mini-button.js';
 import '@sbb-esta/lyne-elements/button/mini-button.js';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
+const SBB_MINI_BUTTON_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SbbMiniButtonDirective),
+  multi: true,
+};
+
 @Directive({
   selector: 'sbb-mini-button',
   standalone: true,
+  providers: [SBB_MINI_BUTTON_CONTROL_VALUE_ACCESSOR],
 })
-export class SbbMiniButtonDirective {
+export class SbbMiniButtonDirective extends SbbControlValueAccessor {
   #element: ElementRef<SbbMiniButtonElement> = inject(ElementRef<SbbMiniButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -77,5 +93,13 @@ export class SbbMiniButtonDirective {
   }
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  writeValue(value: string | null): void {
+    this.value = value;
   }
 }

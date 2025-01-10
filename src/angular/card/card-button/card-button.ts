@@ -1,15 +1,31 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  NgZone,
+  inject,
+  ExistingProvider,
+  forwardRef,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
 import type { SbbCardButtonElement } from '@sbb-esta/lyne-elements/card/card-button.js';
 import '@sbb-esta/lyne-elements/card/card-button.js';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
+const SBB_CARD_BUTTON_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => SbbCardButtonDirective),
+  multi: true,
+};
+
 @Directive({
   selector: 'sbb-card-button',
   standalone: true,
+  providers: [SBB_CARD_BUTTON_CONTROL_VALUE_ACCESSOR],
 })
-export class SbbCardButtonDirective {
+export class SbbCardButtonDirective extends SbbControlValueAccessor {
   #element: ElementRef<SbbCardButtonElement> = inject(ElementRef<SbbCardButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -51,5 +67,9 @@ export class SbbCardButtonDirective {
   }
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
+  }
+
+  writeValue(value: string | null): void {
+    this.value = value;
   }
 }
