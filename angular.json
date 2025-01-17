@@ -94,6 +94,28 @@
           "options": {
             "lintFilePatterns": ["src/showcase/**/*.ts", "src/showcase/**/*.html"]
           }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": "src/showcase/.storybook",
+            "browserTarget": "showcase:build",
+            "styles": ["node_modules/@sbb-esta/lyne-elements/standard-theme.css"],
+            "compodoc": true,
+            "compodocArgs": ["-e", "json", "-d", "src/showcase/.storybook", "--disablePrivate"],
+            "port": 6006
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": "src/showcase/.storybook",
+            "browserTarget": "showcase:build",
+            "styles": ["node_modules/@sbb-esta/lyne-elements/standard-theme.css"],
+            "compodoc": true,
+            "compodocArgs": ["-e", "json", "-d", "src/showcase/.storybook", "--disablePrivate"],
+            "outputDir": "dist/storybook/showcase"
+          }
         }
       }
     },
