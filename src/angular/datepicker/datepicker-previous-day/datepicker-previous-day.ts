@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbDatepickerPreviousDayElement } from '@sbb-esta/lyne-elements/datepicker/datepicker-previous-day.js';
 import '@sbb-esta/lyne-elements/datepicker/datepicker-previous-day.js';
@@ -18,9 +18,7 @@ import { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepic
     },
   ],
 })
-export class SbbDatepickerPreviousDayDirective<T = Date> extends SbbControlValueAccessorMixin(
-  HTMLElement,
-) {
+export class SbbDatepickerPreviousDayDirective<T = Date> {
   #element: ElementRef<SbbDatepickerPreviousDayElement<T>> = inject(
     ElementRef<SbbDatepickerPreviousDayElement<T>>,
   );
@@ -73,9 +71,5 @@ export class SbbDatepickerPreviousDayDirective<T = Date> extends SbbControlValue
   }
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
-  }
-
-  override writeValue(value: string | null): void {
-    this.value = value;
   }
 }

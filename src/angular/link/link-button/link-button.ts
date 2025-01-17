@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbLinkButtonElement } from '@sbb-esta/lyne-elements/link/link-button.js';
 import '@sbb-esta/lyne-elements/link/link-button.js';
@@ -18,7 +18,7 @@ import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
     },
   ],
 })
-export class SbbLinkButtonDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbLinkButtonDirective {
   #element: ElementRef<SbbLinkButtonElement> = inject(ElementRef<SbbLinkButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -85,13 +85,5 @@ export class SbbLinkButtonDirective extends SbbControlValueAccessorMixin(class {
   }
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
-  }
-
-  override setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  override writeValue(value: string | null): void {
-    this.value = value;
   }
 }

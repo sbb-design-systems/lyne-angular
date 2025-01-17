@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
 import { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
@@ -18,7 +18,7 @@ import '@sbb-esta/lyne-elements/stepper/step-label.js';
     },
   ],
 })
-export class SbbStepLabelDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbStepLabelDirective {
   #element: ElementRef<SbbStepLabelElement> = inject(ElementRef<SbbStepLabelElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -73,13 +73,5 @@ export class SbbStepLabelDirective extends SbbControlValueAccessorMixin(class {}
 
   public get step(): SbbStepElement | null {
     return this.#element.nativeElement.step;
-  }
-
-  override setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  override writeValue(value: string | null): void {
-    this.value = value;
   }
 }

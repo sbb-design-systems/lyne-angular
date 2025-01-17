@@ -1,7 +1,6 @@
 /* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbHeaderButtonElement } from '@sbb-esta/lyne-elements/header/header-button.js';
@@ -18,7 +17,7 @@ import '@sbb-esta/lyne-elements/header/header-button.js';
     },
   ],
 })
-export class SbbHeaderButtonDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbHeaderButtonDirective {
   #element: ElementRef<SbbHeaderButtonElement> = inject(ElementRef<SbbHeaderButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -70,9 +69,5 @@ export class SbbHeaderButtonDirective extends SbbControlValueAccessorMixin(class
   }
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
-  }
-
-  override writeValue(value: string | null): void {
-    this.value = value;
   }
 }

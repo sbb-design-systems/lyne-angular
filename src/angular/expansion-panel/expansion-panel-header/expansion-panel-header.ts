@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
 import { fromEvent, type Observable } from 'rxjs';
@@ -18,7 +18,7 @@ import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
     },
   ],
 })
-export class SbbExpansionPanelHeaderDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbExpansionPanelHeaderDirective {
   #element: ElementRef<SbbExpansionPanelHeaderElement> = inject(
     ElementRef<SbbExpansionPanelHeaderElement>,
   );
@@ -86,12 +86,4 @@ export class SbbExpansionPanelHeaderDirective extends SbbControlValueAccessorMix
     this.#element.nativeElement,
     'toggleExpanded',
   );
-
-  override setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  override writeValue(value: string | null): void {
-    this.value = value;
-  }
 }

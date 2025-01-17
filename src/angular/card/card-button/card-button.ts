@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, Input, NgZone, inject, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbCardButtonElement } from '@sbb-esta/lyne-elements/card/card-button.js';
 import '@sbb-esta/lyne-elements/card/card-button.js';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -17,7 +17,7 @@ import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
     },
   ],
 })
-export class SbbCardButtonDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbCardButtonDirective {
   #element: ElementRef<SbbCardButtonElement> = inject(ElementRef<SbbCardButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -59,9 +59,5 @@ export class SbbCardButtonDirective extends SbbControlValueAccessorMixin(class {
   }
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
-  }
-
-  override writeValue(value: string | null): void {
-    this.value = value;
   }
 }

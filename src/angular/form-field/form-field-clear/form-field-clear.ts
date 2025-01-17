@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbFormFieldClearElement } from '@sbb-esta/lyne-elements/form-field/form-field-clear.js';
 import '@sbb-esta/lyne-elements/form-field/form-field-clear.js';
@@ -17,7 +17,7 @@ import '@sbb-esta/lyne-elements/form-field/form-field-clear.js';
     },
   ],
 })
-export class SbbFormFieldClearDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbFormFieldClearDirective {
   #element: ElementRef<SbbFormFieldClearElement> = inject(ElementRef<SbbFormFieldClearElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -59,9 +59,5 @@ export class SbbFormFieldClearDirective extends SbbControlValueAccessorMixin(cla
   }
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
-  }
-
-  override writeValue(value: string | null): void {
-    this.value = value;
   }
 }

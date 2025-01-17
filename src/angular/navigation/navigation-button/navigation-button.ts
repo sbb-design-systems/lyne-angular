@@ -1,7 +1,6 @@
 /* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbNavigationButtonElement } from '@sbb-esta/lyne-elements/navigation/navigation-button.js';
 import '@sbb-esta/lyne-elements/navigation/navigation-button.js';
@@ -20,7 +19,7 @@ import { SbbNavigationActionSize } from '@sbb-esta/lyne-elements/navigation.js';
     },
   ],
 })
-export class SbbNavigationButtonDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbNavigationButtonDirective {
   #element: ElementRef<SbbNavigationButtonElement> = inject(ElementRef<SbbNavigationButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -78,9 +77,5 @@ export class SbbNavigationButtonDirective extends SbbControlValueAccessorMixin(c
 
   public get section(): SbbNavigationSectionElement | null {
     return this.#element.nativeElement.section;
-  }
-
-  override writeValue(value: string | null): void {
-    this.value = value;
   }
 }

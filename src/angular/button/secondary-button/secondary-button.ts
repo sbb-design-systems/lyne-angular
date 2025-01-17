@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button/secondary-button.js';
 import '@sbb-esta/lyne-elements/button/secondary-button.js';
 import { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
@@ -18,7 +18,7 @@ import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
     },
   ],
 })
-export class SbbSecondaryButtonDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbSecondaryButtonDirective {
   #element: ElementRef<SbbSecondaryButtonElement> = inject(ElementRef<SbbSecondaryButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -94,13 +94,5 @@ export class SbbSecondaryButtonDirective extends SbbControlValueAccessorMixin(cl
   }
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
-  }
-
-  override setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  override writeValue(value: string | null): void {
-    this.value = value;
   }
 }

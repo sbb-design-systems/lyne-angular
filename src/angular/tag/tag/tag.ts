@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
 import { fromEvent, type Observable } from 'rxjs';
@@ -18,7 +18,7 @@ import '@sbb-esta/lyne-elements/tag/tag.js';
     },
   ],
 })
-export class SbbTagDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbTagDirective {
   #element: ElementRef<SbbTagElement> = inject(ElementRef<SbbTagElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -117,12 +117,4 @@ export class SbbTagDirective extends SbbControlValueAccessorMixin(class {}) {
     this.#element.nativeElement,
     'change',
   );
-
-  override setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  override writeValue(value: string | null): void {
-    this.value = value;
-  }
 }
