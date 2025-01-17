@@ -1,15 +1,7 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import {
-  Directive,
-  ElementRef,
-  Input,
-  NgZone,
-  inject,
-  ExistingProvider,
-  forwardRef,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
+import { SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbNavigationButtonElement } from '@sbb-esta/lyne-elements/navigation/navigation-button.js';
 import '@sbb-esta/lyne-elements/navigation/navigation-button.js';
@@ -17,18 +9,18 @@ import { SbbNavigationMarkerElement } from '@sbb-esta/lyne-elements/navigation/n
 import { SbbNavigationSectionElement } from '@sbb-esta/lyne-elements/navigation/navigation-section.js';
 import { SbbNavigationActionSize } from '@sbb-esta/lyne-elements/navigation.js';
 
-const SBB_NAVIGATION_BUTTON_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SbbNavigationButtonDirective),
-  multi: true,
-};
-
 @Directive({
   selector: 'sbb-navigation-button',
   standalone: true,
-  providers: [SBB_NAVIGATION_BUTTON_CONTROL_VALUE_ACCESSOR],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbNavigationButtonDirective),
+      multi: true,
+    },
+  ],
 })
-export class SbbNavigationButtonDirective extends SbbControlValueAccessor {
+export class SbbNavigationButtonDirective extends SbbControlValueAccessorMixin(HTMLElement) {
   #element: ElementRef<SbbNavigationButtonElement> = inject(ElementRef<SbbNavigationButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -88,7 +80,7 @@ export class SbbNavigationButtonDirective extends SbbControlValueAccessor {
     return this.#element.nativeElement.section;
   }
 
-  writeValue(value: string | null): void {
+  override writeValue(value: string | null): void {
     this.value = value;
   }
 }

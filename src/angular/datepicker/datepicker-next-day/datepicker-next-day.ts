@@ -1,32 +1,26 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import {
-  Directive,
-  ElementRef,
-  Input,
-  NgZone,
-  inject,
-  ExistingProvider,
-  forwardRef,
-} from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, inject, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbDatepickerNextDayElement } from '@sbb-esta/lyne-elements/datepicker/datepicker-next-day.js';
 import '@sbb-esta/lyne-elements/datepicker/datepicker-next-day.js';
 import { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 
-const SBB_DATEPICKER_NEXT_DAY_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SbbDatepickerNextDayDirective),
-  multi: true,
-};
-
 @Directive({
   selector: 'sbb-datepicker-next-day',
   standalone: true,
-  providers: [SBB_DATEPICKER_NEXT_DAY_CONTROL_VALUE_ACCESSOR],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbDatepickerNextDayDirective),
+      multi: true,
+    },
+  ],
 })
-export class SbbDatepickerNextDayDirective<T = Date> extends SbbControlValueAccessor {
+export class SbbDatepickerNextDayDirective<T = Date> extends SbbControlValueAccessorMixin(
+  HTMLElement,
+) {
   #element: ElementRef<SbbDatepickerNextDayElement<T>> = inject(
     ElementRef<SbbDatepickerNextDayElement<T>>,
   );
@@ -81,7 +75,7 @@ export class SbbDatepickerNextDayDirective<T = Date> extends SbbControlValueAcce
     return this.#element.nativeElement.type;
   }
 
-  writeValue(value: string | null): void {
+  override writeValue(value: string | null): void {
     this.value = value;
   }
 }

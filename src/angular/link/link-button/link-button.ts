@@ -1,32 +1,24 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import {
-  Directive,
-  ElementRef,
-  Input,
-  NgZone,
-  inject,
-  ExistingProvider,
-  forwardRef,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbLinkButtonElement } from '@sbb-esta/lyne-elements/link/link-button.js';
 import '@sbb-esta/lyne-elements/link/link-button.js';
 import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 
-const SBB_LINK_BUTTON_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SbbLinkButtonDirective),
-  multi: true,
-};
-
 @Directive({
   selector: 'sbb-link-button',
   standalone: true,
-  providers: [SBB_LINK_BUTTON_CONTROL_VALUE_ACCESSOR],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbLinkButtonDirective),
+      multi: true,
+    },
+  ],
 })
-export class SbbLinkButtonDirective extends SbbControlValueAccessor {
+export class SbbLinkButtonDirective extends SbbControlValueAccessorMixin(HTMLElement) {
   #element: ElementRef<SbbLinkButtonElement> = inject(ElementRef<SbbLinkButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -95,11 +87,11 @@ export class SbbLinkButtonDirective extends SbbControlValueAccessor {
     return this.#element.nativeElement.type;
   }
 
-  setDisabledState(isDisabled: boolean): void {
+  override setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 
-  writeValue(value: string | null): void {
+  override writeValue(value: string | null): void {
     this.value = value;
   }
 }

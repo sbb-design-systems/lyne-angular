@@ -1,31 +1,23 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import {
-  Directive,
-  ElementRef,
-  Input,
-  NgZone,
-  inject,
-  ExistingProvider,
-  forwardRef,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbMenuButtonElement } from '@sbb-esta/lyne-elements/menu/menu-button.js';
 import '@sbb-esta/lyne-elements/menu/menu-button.js';
 
-const SBB_MENU_BUTTON_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SbbMenuButtonDirective),
-  multi: true,
-};
-
 @Directive({
   selector: 'sbb-menu-button',
   standalone: true,
-  providers: [SBB_MENU_BUTTON_CONTROL_VALUE_ACCESSOR],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbMenuButtonDirective),
+      multi: true,
+    },
+  ],
 })
-export class SbbMenuButtonDirective extends SbbControlValueAccessor {
+export class SbbMenuButtonDirective extends SbbControlValueAccessorMixin(HTMLElement) {
   #element: ElementRef<SbbMenuButtonElement> = inject(ElementRef<SbbMenuButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -95,11 +87,11 @@ export class SbbMenuButtonDirective extends SbbControlValueAccessor {
     return this.#element.nativeElement.type;
   }
 
-  setDisabledState(isDisabled: boolean): void {
+  override setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 
-  writeValue(value: string | null): void {
+  override writeValue(value: string | null): void {
     this.value = value;
   }
 }

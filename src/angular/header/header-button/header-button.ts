@@ -1,32 +1,24 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import {
-  Directive,
-  ElementRef,
-  Input,
-  NgZone,
-  inject,
-  ExistingProvider,
-  forwardRef,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
+import { SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbHeaderButtonElement } from '@sbb-esta/lyne-elements/header/header-button.js';
 import '@sbb-esta/lyne-elements/header/header-button.js';
 
-const SBB_HEADER_BUTTON_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SbbHeaderButtonDirective),
-  multi: true,
-};
-
 @Directive({
   selector: 'sbb-header-button',
   standalone: true,
-  providers: [SBB_HEADER_BUTTON_CONTROL_VALUE_ACCESSOR],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbHeaderButtonDirective),
+      multi: true,
+    },
+  ],
 })
-export class SbbHeaderButtonDirective extends SbbControlValueAccessor {
+export class SbbHeaderButtonDirective extends SbbControlValueAccessorMixin(HTMLElement) {
   #element: ElementRef<SbbHeaderButtonElement> = inject(ElementRef<SbbHeaderButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -80,7 +72,7 @@ export class SbbHeaderButtonDirective extends SbbControlValueAccessor {
     return this.#element.nativeElement.type;
   }
 
-  writeValue(value: string | null): void {
+  override writeValue(value: string | null): void {
     this.value = value;
   }
 }

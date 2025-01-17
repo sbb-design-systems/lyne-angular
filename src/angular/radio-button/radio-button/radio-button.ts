@@ -2,33 +2,33 @@
 import {
   Directive,
   ElementRef,
+  forwardRef,
+  HostListener,
+  inject,
   Input,
   NgZone,
   Output,
-  inject,
-  ExistingProvider,
-  forwardRef,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-group.js';
 import type { SbbRadioButtonElement } from '@sbb-esta/lyne-elements/radio-button/radio-button.js';
 import { SbbRadioButtonSize } from '@sbb-esta/lyne-elements/radio-button.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/radio-button/radio-button.js';
 
-const SBB_RADIO_BUTTON_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SbbRadioButtonDirective),
-  multi: true,
-};
-
 @Directive({
   selector: 'sbb-radio-button',
   standalone: true,
-  providers: [SBB_RADIO_BUTTON_CONTROL_VALUE_ACCESSOR],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbRadioButtonDirective),
+      multi: true,
+    },
+  ],
 })
-export class SbbRadioButtonDirective extends SbbControlValueAccessor {
+export class SbbRadioButtonDirective extends SbbControlValueAccessorMixin(HTMLElement) {
   #element: ElementRef<SbbRadioButtonElement> = inject(ElementRef<SbbRadioButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -117,11 +117,21 @@ export class SbbRadioButtonDirective extends SbbControlValueAccessor {
     return this.#element.nativeElement.select();
   }
 
-  setDisabledState(isDisabled: boolean): void {
+  @HostListener('blur')
+  onBlur() {
+    this.onTouchedFn();
+  }
+
+  @HostListener('change')
+  onChange() {
+    this.onChangeFn(this.checked ? this.value : null);
+  }
+
+  override setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 
-  writeValue(value: string | null): void {
+  override writeValue(value: string | null): void {
     this.value = value;
   }
 }

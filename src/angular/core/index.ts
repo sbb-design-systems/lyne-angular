@@ -1,2 +1,2 @@
 export * from './attribute-transform';
-export * from './control-value-accessor';
+export * from './control-value-accessor-mixin';

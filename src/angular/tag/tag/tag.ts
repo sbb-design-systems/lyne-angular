@@ -1,33 +1,24 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import {
-  Directive,
-  ElementRef,
-  Input,
-  NgZone,
-  Output,
-  inject,
-  ExistingProvider,
-  forwardRef,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/tag/tag.js';
 
-const SBB_TAG_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SbbTagDirective),
-  multi: true,
-};
-
 @Directive({
   selector: 'sbb-tag',
   standalone: true,
-  providers: [SBB_TAG_CONTROL_VALUE_ACCESSOR],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbTagDirective),
+      multi: true,
+    },
+  ],
 })
-export class SbbTagDirective extends SbbControlValueAccessor {
+export class SbbTagDirective extends SbbControlValueAccessorMixin(HTMLElement) {
   #element: ElementRef<SbbTagElement> = inject(ElementRef<SbbTagElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -127,11 +118,11 @@ export class SbbTagDirective extends SbbControlValueAccessor {
     'change',
   );
 
-  setDisabledState(isDisabled: boolean): void {
+  override setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 
-  writeValue(value: string | null): void {
+  override writeValue(value: string | null): void {
     this.value = value;
   }
 }

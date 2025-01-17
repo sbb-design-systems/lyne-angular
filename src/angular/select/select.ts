@@ -2,31 +2,31 @@
 import {
   Directive,
   ElementRef,
+  forwardRef,
+  HostListener,
+  inject,
   Input,
   NgZone,
   Output,
-  inject,
-  forwardRef,
-  ExistingProvider,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/select.js';
 
-const SBB_SELECT_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SbbSelectDirective),
-  multi: true,
-};
-
 @Directive({
   selector: 'sbb-select',
   standalone: true,
-  providers: [SBB_SELECT_CONTROL_VALUE_ACCESSOR],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbSelectDirective),
+      multi: true,
+    },
+  ],
 })
-export class SbbSelectDirective extends SbbControlValueAccessor {
+export class SbbSelectDirective extends SbbControlValueAccessorMixin(HTMLElement) {
   #element: ElementRef<SbbSelectElement> = inject(ElementRef<SbbSelectElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -147,11 +147,21 @@ export class SbbSelectDirective extends SbbControlValueAccessor {
     return this.#element.nativeElement.getDisplayValue();
   }
 
-  setDisabledState(isDisabled: boolean): void {
+  @HostListener('blur')
+  onBlur() {
+    this.onTouchedFn();
+  }
+
+  @HostListener('change')
+  onChange() {
+    this.onChangeFn(this.value);
+  }
+
+  override setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 
-  writeValue(value: string | string[] | null): void {
+  override writeValue(value: string | string[] | null): void {
     this.value = value;
   }
 }

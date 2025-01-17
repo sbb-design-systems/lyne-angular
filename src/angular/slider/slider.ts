@@ -2,31 +2,31 @@
 import {
   Directive,
   ElementRef,
+  forwardRef,
+  HostListener,
+  inject,
   Input,
   NgZone,
   Output,
-  inject,
-  ExistingProvider,
-  forwardRef,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessor } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSliderElement } from '@sbb-esta/lyne-elements/slider.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/slider.js';
 
-const SBB_SLIDER_CONTROL_VALUE_ACCESSOR: ExistingProvider = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SbbSliderDirective),
-  multi: true,
-};
-
 @Directive({
   selector: 'sbb-slider',
   standalone: true,
-  providers: [SBB_SLIDER_CONTROL_VALUE_ACCESSOR],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbSliderDirective),
+      multi: true,
+    },
+  ],
 })
-export class SbbSliderDirective extends SbbControlValueAccessor {
+export class SbbSliderDirective extends SbbControlValueAccessorMixin(HTMLElement) {
   #element: ElementRef<SbbSliderElement> = inject(ElementRef<SbbSliderElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -118,11 +118,21 @@ export class SbbSliderDirective extends SbbControlValueAccessor {
     return this.#element.nativeElement.form;
   }
 
-  setDisabledState(isDisabled: boolean): void {
+  @HostListener('blur')
+  onBlur() {
+    this.onTouchedFn();
+  }
+
+  @HostListener('change')
+  onChange() {
+    this.onChangeFn(this.value);
+  }
+
+  override setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
 
-  writeValue(value: string | null): void {
+  override writeValue(value: string | null): void {
     this.value = value;
   }
 }
