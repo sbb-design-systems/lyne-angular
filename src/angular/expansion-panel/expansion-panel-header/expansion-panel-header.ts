@@ -18,7 +18,7 @@ import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
     },
   ],
 })
-export class SbbExpansionPanelHeaderDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbExpansionPanelHeaderDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbExpansionPanelHeaderElement> = inject(
     ElementRef<SbbExpansionPanelHeaderElement>,
   );

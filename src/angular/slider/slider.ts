@@ -26,7 +26,7 @@ import '@sbb-esta/lyne-elements/slider.js';
     },
   ],
 })
-export class SbbSliderDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbSliderDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbSliderElement> = inject(ElementRef<SbbSliderElement>);
   #ngZone: NgZone = inject(NgZone);
 

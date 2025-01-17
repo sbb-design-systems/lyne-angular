@@ -17,7 +17,7 @@ import '@sbb-esta/lyne-elements/form-field/form-field-clear.js';
     },
   ],
 })
-export class SbbFormFieldClearDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbFormFieldClearDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbFormFieldClearElement> = inject(ElementRef<SbbFormFieldClearElement>);
   #ngZone: NgZone = inject(NgZone);
 

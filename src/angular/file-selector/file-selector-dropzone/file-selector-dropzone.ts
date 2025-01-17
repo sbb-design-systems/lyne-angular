@@ -27,7 +27,7 @@ import '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
     },
   ],
 })
-export class SbbFileSelectorDropzoneDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbFileSelectorDropzoneDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbFileSelectorDropzoneElement> = inject(
     ElementRef<SbbFileSelectorDropzoneElement>,
   );

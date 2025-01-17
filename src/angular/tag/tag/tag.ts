@@ -18,7 +18,7 @@ import '@sbb-esta/lyne-elements/tag/tag.js';
     },
   ],
 })
-export class SbbTagDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbTagDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbTagElement> = inject(ElementRef<SbbTagElement>);
   #ngZone: NgZone = inject(NgZone);
 

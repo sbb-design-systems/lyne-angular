@@ -18,7 +18,7 @@ import '@sbb-esta/lyne-elements/header/header-button.js';
     },
   ],
 })
-export class SbbHeaderButtonDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbHeaderButtonDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbHeaderButtonElement> = inject(ElementRef<SbbHeaderButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -28,7 +28,7 @@ import '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
     },
   ],
 })
-export class SbbCheckboxPanelDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbCheckboxPanelDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbCheckboxPanelElement> = inject(ElementRef<SbbCheckboxPanelElement>);
   #ngZone: NgZone = inject(NgZone);
 

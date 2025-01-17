@@ -17,7 +17,7 @@ import '@sbb-esta/lyne-elements/menu/menu-button.js';
     },
   ],
 })
-export class SbbMenuButtonDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbMenuButtonDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbMenuButtonElement> = inject(ElementRef<SbbMenuButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -17,7 +17,7 @@ import '@sbb-esta/lyne-elements/popover/popover-trigger.js';
     },
   ],
 })
-export class SbbPopoverTriggerDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbPopoverTriggerDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbPopoverTriggerElement> = inject(ElementRef<SbbPopoverTriggerElement>);
   #ngZone: NgZone = inject(NgZone);
 

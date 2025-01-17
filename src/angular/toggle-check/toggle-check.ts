@@ -26,7 +26,7 @@ import '@sbb-esta/lyne-elements/toggle-check.js';
     },
   ],
 })
-export class SbbToggleCheckDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbToggleCheckDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbToggleCheckElement> = inject(ElementRef<SbbToggleCheckElement>);
   #ngZone: NgZone = inject(NgZone);
 

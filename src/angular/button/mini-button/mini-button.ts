@@ -17,7 +17,7 @@ import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
     },
   ],
 })
-export class SbbMiniButtonDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbMiniButtonDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbMiniButtonElement> = inject(ElementRef<SbbMiniButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 

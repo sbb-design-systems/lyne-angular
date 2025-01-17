@@ -26,7 +26,7 @@ import '@sbb-esta/lyne-elements/select.js';
     },
   ],
 })
-export class SbbSelectDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbSelectDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbSelectElement> = inject(ElementRef<SbbSelectElement>);
   #ngZone: NgZone = inject(NgZone);
 

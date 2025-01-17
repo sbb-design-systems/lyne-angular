@@ -28,7 +28,7 @@ import '@sbb-esta/lyne-elements/radio-button/radio-button-panel.js';
     },
   ],
 })
-export class SbbRadioButtonPanelDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbRadioButtonPanelDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbRadioButtonPanelElement> = inject(ElementRef<SbbRadioButtonPanelElement>);
   #ngZone: NgZone = inject(NgZone);
 

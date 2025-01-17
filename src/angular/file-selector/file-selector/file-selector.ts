@@ -27,7 +27,7 @@ import '@sbb-esta/lyne-elements/file-selector/file-selector.js';
     },
   ],
 })
-export class SbbFileSelectorDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbFileSelectorDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbFileSelectorElement> = inject(ElementRef<SbbFileSelectorElement>);
   #ngZone: NgZone = inject(NgZone);
 

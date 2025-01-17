@@ -20,7 +20,7 @@ import { SbbNavigationActionSize } from '@sbb-esta/lyne-elements/navigation.js';
     },
   ],
 })
-export class SbbNavigationButtonDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbNavigationButtonDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbNavigationButtonElement> = inject(ElementRef<SbbNavigationButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 

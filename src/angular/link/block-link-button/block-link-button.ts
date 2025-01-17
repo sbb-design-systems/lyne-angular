@@ -19,7 +19,7 @@ import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
     },
   ],
 })
-export class SbbBlockLinkButtonDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbBlockLinkButtonDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbBlockLinkButtonElement> = inject(ElementRef<SbbBlockLinkButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -18,7 +18,7 @@ import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
     },
   ],
 })
-export class SbbTransparentButtonDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbTransparentButtonDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbTransparentButtonElement> = inject(
     ElementRef<SbbTransparentButtonElement>,
   );

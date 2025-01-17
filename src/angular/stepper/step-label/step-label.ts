@@ -18,7 +18,7 @@ import '@sbb-esta/lyne-elements/stepper/step-label.js';
     },
   ],
 })
-export class SbbStepLabelDirective extends SbbControlValueAccessorMixin(HTMLElement) {
+export class SbbStepLabelDirective extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbStepLabelElement> = inject(ElementRef<SbbStepLabelElement>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -11,7 +11,7 @@ export interface SbbControlValueAccessorMixinType extends ControlValueAccessor {
   setDisabledState?(isDisabled: boolean): void;
 }
 
-export const SbbControlValueAccessorMixin = <T extends AbstractConstructor<HTMLElement>>(
+export const SbbControlValueAccessorMixin = <T extends AbstractConstructor>(
   superclass: T,
 ): AbstractConstructor<SbbControlValueAccessorMixinType> & T => {
   abstract class SbbControlValueAccessor
