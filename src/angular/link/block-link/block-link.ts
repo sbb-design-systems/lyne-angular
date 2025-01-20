@@ -8,7 +8,6 @@ import '@sbb-esta/lyne-elements/link/block-link.js';
 
 @Directive({
   selector: 'sbb-block-link',
-  standalone: true,
 })
 export class SbbBlockLink {
   #element: ElementRef<SbbBlockLinkElement> = inject(ElementRef<SbbBlockLinkElement>);

@@ -6,7 +6,6 @@ import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
 @Directive({
   selector: 'sbb-breadcrumb',
-  standalone: true,
 })
 export class SbbBreadcrumb {
   #element: ElementRef<SbbBreadcrumbElement> = inject(ElementRef<SbbBreadcrumbElement>);

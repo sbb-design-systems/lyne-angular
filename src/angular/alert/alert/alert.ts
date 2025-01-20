@@ -7,7 +7,6 @@ import '@sbb-esta/lyne-elements/alert/alert.js';
 
 @Directive({
   selector: 'sbb-alert',
-  standalone: true,
 })
 export class SbbAlert {
   #element: ElementRef<SbbAlertElement> = inject(ElementRef<SbbAlertElement>);

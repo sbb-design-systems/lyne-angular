@@ -6,7 +6,6 @@ import { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 
 @Directive({
   selector: 'sbb-button-static',
-  standalone: true,
 })
 export class SbbButtonStatic {
   #element: ElementRef<SbbButtonStaticElement> = inject(ElementRef<SbbButtonStaticElement>);

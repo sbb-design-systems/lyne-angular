@@ -7,7 +7,6 @@ import '@sbb-esta/lyne-elements/link/link.js';
 
 @Directive({
   selector: 'sbb-link',
-  standalone: true,
 })
 export class SbbLink {
   #element: ElementRef<SbbLinkElement> = inject(ElementRef<SbbLinkElement>);

@@ -6,7 +6,6 @@ import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 
 @Directive({
   selector: 'sbb-link-static',
-  standalone: true,
 })
 export class SbbLinkStatic {
   #element: ElementRef<SbbLinkStaticElement> = inject(ElementRef<SbbLinkStaticElement>);

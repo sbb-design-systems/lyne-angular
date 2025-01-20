@@ -6,7 +6,6 @@ import '@sbb-esta/lyne-elements/slider.js';
 
 @Directive({
   selector: 'sbb-slider',
-  standalone: true,
 })
 export class SbbSlider {
   #element: ElementRef<SbbSliderElement> = inject(ElementRef<SbbSliderElement>);

@@ -7,7 +7,6 @@ import { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepic
 
 @Directive({
   selector: 'sbb-datepicker-next-day',
-  standalone: true,
 })
 export class SbbDatepickerNextDay<T = Date> {
   #element: ElementRef<SbbDatepickerNextDayElement<T>> = inject(

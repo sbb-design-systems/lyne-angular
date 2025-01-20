@@ -6,7 +6,6 @@ import { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 
 @Directive({
   selector: 'sbb-transparent-button-static',
-  standalone: true,
 })
 export class SbbTransparentButtonStatic {
   #element: ElementRef<SbbTransparentButtonStaticElement> = inject(

@@ -5,7 +5,6 @@ import '@sbb-esta/lyne-elements/option/optgroup.js';
 
 @Directive({
   selector: 'sbb-opt-group',
-  standalone: true,
 })
 export class SbbOptGroup {
   #element: ElementRef<SbbOptGroupElement> = inject(ElementRef<SbbOptGroupElement>);

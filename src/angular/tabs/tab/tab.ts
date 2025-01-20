@@ -5,7 +5,6 @@ import '@sbb-esta/lyne-elements/tabs/tab.js';
 
 @Directive({
   selector: 'sbb-tab',
-  standalone: true,
 })
 export class SbbTab {
   #element: ElementRef<SbbTabElement> = inject(ElementRef<SbbTabElement>);

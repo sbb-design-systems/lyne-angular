@@ -9,7 +9,6 @@ import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
 
 @Directive({
   selector: 'sbb-checkbox',
-  standalone: true,
 })
 export class SbbCheckbox {
   #element: ElementRef<SbbCheckboxElement> = inject(ElementRef<SbbCheckboxElement>);

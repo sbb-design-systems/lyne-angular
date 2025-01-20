@@ -7,7 +7,6 @@ import '@sbb-esta/lyne-elements/toggle/toggle.js';
 
 @Directive({
   selector: 'sbb-toggle',
-  standalone: true,
 })
 export class SbbToggle {
   #element: ElementRef<SbbToggleElement> = inject(ElementRef<SbbToggleElement>);

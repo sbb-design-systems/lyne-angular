@@ -4,7 +4,6 @@ import '@sbb-esta/lyne-elements/card/card.js';
 
 @Directive({
   selector: 'sbb-card',
-  standalone: true,
 })
 export class SbbCard {
   #element: ElementRef<SbbCardElement> = inject(ElementRef<SbbCardElement>);

@@ -7,7 +7,6 @@ import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 
 @Directive({
   selector: 'sbb-action-group',
-  standalone: true,
 })
 export class SbbActionGroup {
   #element: ElementRef<SbbActionGroupElement> = inject(ElementRef<SbbActionGroupElement>);

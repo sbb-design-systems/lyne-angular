@@ -14,7 +14,6 @@ import '@sbb-esta/lyne-elements/image.js';
 
 @Directive({
   selector: 'sbb-image',
-  standalone: true,
 })
 export class SbbImage {
   #element: ElementRef<SbbImageElement> = inject(ElementRef<SbbImageElement>);

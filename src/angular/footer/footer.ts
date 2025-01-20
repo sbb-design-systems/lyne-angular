@@ -6,7 +6,6 @@ import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 @Directive({
   selector: 'sbb-footer',
-  standalone: true,
 })
 export class SbbFooter {
   #element: ElementRef<SbbFooterElement> = inject(ElementRef<SbbFooterElement>);

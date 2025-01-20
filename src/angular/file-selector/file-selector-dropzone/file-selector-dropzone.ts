@@ -7,7 +7,6 @@ import '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
 
 @Directive({
   selector: 'sbb-file-selector-dropzone',
-  standalone: true,
 })
 export class SbbFileSelectorDropzone {
   #element: ElementRef<SbbFileSelectorDropzoneElement> = inject(
