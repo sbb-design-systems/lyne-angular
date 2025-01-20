@@ -2,8 +2,9 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbDatepickerNextDayElement } from '@sbb-esta/lyne-elements/datepicker/datepicker-next-day.js';
-import '@sbb-esta/lyne-elements/datepicker/datepicker-next-day.js';
 import { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
+
+import '@sbb-esta/lyne-elements/datepicker/datepicker-next-day.js';
 
 @Directive({
   selector: 'sbb-datepicker-next-day',

@@ -2,13 +2,13 @@
 import { ControlValueAccessor } from '@angular/forms';
 import { AbstractConstructor } from '@sbb-esta/lyne-elements/core/mixins.js';
 
-export interface SbbControlValueAccessorMixinType extends ControlValueAccessor {
-  onChangeFn: (value: any) => void;
-  onTouchedFn: () => void;
+export declare class SbbControlValueAccessorMixinType implements ControlValueAccessor {
+  writeValue(obj: any): void;
   registerOnChange(fn: any): void;
   registerOnTouched(fn: any): void;
-  writeValue(value: any): void;
-  setDisabledState?(isDisabled: boolean): void;
+  setDisabledState(isDisabled: boolean): void;
+  protected onChangeFn: (value: any) => void;
+  protected onTouchedFn: () => void;
 }
 
 export const SbbControlValueAccessorMixin = <T extends AbstractConstructor>(
@@ -16,22 +16,37 @@ export const SbbControlValueAccessorMixin = <T extends AbstractConstructor>(
 ): AbstractConstructor<SbbControlValueAccessorMixinType> & T => {
   abstract class SbbControlValueAccessor
     extends superclass
-    implements SbbControlValueAccessorMixinType
+    implements Partial<SbbControlValueAccessorMixinType>
   {
-    onChangeFn: (value: any) => void = () => {};
-    onTouchedFn: () => void = () => {};
+    abstract value: unknown;
+    abstract disabled: boolean;
 
+    protected onChangeFn: (value: any) => void = () => {};
+    protected onTouchedFn: () => void = () => {};
+
+    /**
+     * @internal
+     */
     registerOnChange(fn: any): void {
       this.onChangeFn = fn;
     }
 
+    /**
+     * @internal
+     */
     registerOnTouched(fn: any): void {
       this.onTouchedFn = fn;
     }
 
-    abstract writeValue(value: any): void;
-    abstract setDisabledState?(isDisabled: boolean): void;
+    writeValue(value: any): void {
+      this.value = value;
+    }
+
+    setDisabledState(isDisabled: boolean): void {
+      this.disabled = isDisabled;
+    }
   }
-  return SbbControlValueAccessor;
+  return SbbControlValueAccessor as unknown as AbstractConstructor<SbbControlValueAccessorMixinType> &
+    T;
 };
 /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function */

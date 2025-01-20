@@ -8,6 +8,12 @@ import '@sbb-esta/lyne-elements/select.js';
 
 @Directive({
   selector: 'sbb-select',
+  exportAs: 'sbbSelect',
+  host: {
+    '(change)': 'this.onChangeFn(this.checked)',
+    '(blur)': 'this.onTouchedFn()',
+    '(didClose)': 'this.onTouchedFn()',
+  },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -135,23 +141,5 @@ export class SbbSelect extends SbbControlValueAccessorMixin(class {}) {
 
   public getDisplayValue(): string {
     return this.#element.nativeElement.getDisplayValue();
-  }
-
-  @HostListener('blur')
-  onBlur() {
-    this.onTouchedFn();
-  }
-
-  @HostListener('change')
-  onChange() {
-    this.onChangeFn(this.value);
-  }
-
-  override setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  override writeValue(value: string | string[] | null): void {
-    this.value = value;
   }
 }

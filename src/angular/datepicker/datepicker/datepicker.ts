@@ -6,6 +6,7 @@ import type {
   SbbInputUpdateEvent,
 } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 
 @Directive({

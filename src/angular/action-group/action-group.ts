@@ -1,9 +1,10 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbActionGroupElement } from '@sbb-esta/lyne-elements/action-group.js';
-import '@sbb-esta/lyne-elements/action-group.js';
 import { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
+
+import '@sbb-esta/lyne-elements/action-group.js';
 
 @Directive({
   selector: 'sbb-action-group',

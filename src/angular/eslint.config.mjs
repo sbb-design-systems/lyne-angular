@@ -6,16 +6,7 @@ export default tseslint.config(
   ...rootConfig,
   {
     files: ['**/*.ts'],
-    rules: {
-      '@angular-eslint/component-selector': [
-        'error',
-        {
-          type: 'element',
-          prefix: 'sbb',
-          style: 'kebab-case',
-        },
-      ],
-    },
+    rules: {},
   },
   {
     files: ['**/*.html'],

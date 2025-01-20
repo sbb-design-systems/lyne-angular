@@ -1,7 +1,6 @@
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import { FormRestoreReason, FormRestoreState } from '@sbb-esta/lyne-elements/core/mixins.js';
 import type { SbbFileSelectorElement } from '@sbb-esta/lyne-elements/file-selector/file-selector.js';
 import { fromEvent, type Observable } from 'rxjs';
 
@@ -9,6 +8,11 @@ import '@sbb-esta/lyne-elements/file-selector/file-selector.js';
 
 @Directive({
   selector: 'sbb-file-selector',
+  exportAs: 'sbbFileSelector',
+  host: {
+    '(change)': 'this.onChangeFn(this.files)',
+    '(blur)': 'this.onTouchedFn()',
+  },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -118,32 +122,8 @@ export class SbbFileSelector extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.form;
   }
 
-  public formResetCallback(): void {
-    return this.#element.nativeElement.formResetCallback();
-  }
-
-  public formStateRestoreCallback(
-    state: FormRestoreState | null,
-    _reason: FormRestoreReason,
-  ): void {
-    return this.#element.nativeElement.formStateRestoreCallback(state, _reason);
-  }
-
-  @HostListener('blur')
-  onBlur() {
-    this.onTouchedFn();
-  }
-
-  @HostListener('change')
-  onChange() {
-    this.onChangeFn(this.files);
-  }
-
-  override setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  override writeValue(value: string | null): void {
-    this.value = value;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  override writeValue(value: any): void {
+    this.files = value;
   }
 }

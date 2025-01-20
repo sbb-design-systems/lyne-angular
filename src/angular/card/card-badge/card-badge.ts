@@ -1,5 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbCardBadgeElement } from '@sbb-esta/lyne-elements/card/card-badge.js';
+
 import '@sbb-esta/lyne-elements/card/card-badge.js';
 
 @Directive({

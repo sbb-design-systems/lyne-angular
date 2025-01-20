@@ -1,4 +1,14 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  forwardRef,
+  inject,
+  Input,
+  NgZone,
+  Output,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbPanelSize } from '@sbb-esta/lyne-elements/core/mixins.js';
@@ -10,6 +20,10 @@ import '@sbb-esta/lyne-elements/radio-button/radio-button-panel.js';
 
 @Directive({
   selector: 'sbb-radio-button-panel',
+  exportAs: 'sbbRadioButtonPanel',
+  host: {
+    '(change)': 'this.onChangeFn(this.checked)',
+  },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -18,9 +32,13 @@ import '@sbb-esta/lyne-elements/radio-button/radio-button-panel.js';
     },
   ],
 })
-export class SbbRadioButtonPanel extends SbbControlValueAccessorMixin(class {}) {
+export class SbbRadioButtonPanel
+  extends SbbControlValueAccessorMixin(class {})
+  implements AfterViewInit
+{
   #element: ElementRef<SbbRadioButtonPanelElement> = inject(ElementRef<SbbRadioButtonPanelElement>);
   #ngZone: NgZone = inject(NgZone);
+  #focusMonitor: FocusMonitor = inject(FocusMonitor);
 
   @Input()
   public set size(value: SbbPanelSize) {
@@ -122,21 +140,18 @@ export class SbbRadioButtonPanel extends SbbControlValueAccessorMixin(class {}) 
     return this.#element.nativeElement.select();
   }
 
-  @HostListener('blur')
-  onBlur() {
-    this.onTouchedFn();
-  }
-
-  @HostListener('change')
-  onChange() {
-    this.onChangeFn(this.checked ? this.value : null);
-  }
-
-  override setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  override writeValue(value: string | null): void {
-    this.value = value;
+  ngAfterViewInit() {
+    this.#focusMonitor.monitor(this.#element, true).subscribe((focusOrigin) => {
+      if (!focusOrigin) {
+        // When a focused element becomes disabled, the browser *immediately* fires a blur event.
+        // Angular does not expect events to be raised during change detection, so any state change
+        // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
+        // See https://github.com/angular/angular/issues/17793. To work around this, we defer
+        // telling the form control it has been touched until the next tick.
+        Promise.resolve().then(() => {
+          this.onTouchedFn();
+        });
+      }
+    });
   }
 }

@@ -8,6 +8,11 @@ import '@sbb-esta/lyne-elements/slider.js';
 
 @Directive({
   selector: 'sbb-slider',
+  exportAs: 'sbbSlider',
+  host: {
+    '(change)': 'this.onChangeFn(this.checked)',
+    '(blur)': 'this.onTouchedFn()',
+  },
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -103,23 +108,5 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
 
   public get form(): HTMLFormElement | null {
     return this.#element.nativeElement.form;
-  }
-
-  @HostListener('blur')
-  onBlur() {
-    this.onTouchedFn();
-  }
-
-  @HostListener('change')
-  onChange() {
-    this.onChangeFn(this.value);
-  }
-
-  override setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  override writeValue(value: string | null): void {
-    this.value = value;
   }
 }
