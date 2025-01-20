@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbIconElement } from '@sbb-esta/lyne-elements/icon.js';
 import '@sbb-esta/lyne-elements/icon.js';

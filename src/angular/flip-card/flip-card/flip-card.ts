@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { SbbFlipCardSummaryElement } from '@sbb-esta/lyne-elements/flip-card/flip-card-summary.js';
 import type { SbbFlipCardElement } from '@sbb-esta/lyne-elements/flip-card/flip-card.js';
 import { SbbFlipCardDetailsElement } from '@sbb-esta/lyne-elements/flip-card.js';

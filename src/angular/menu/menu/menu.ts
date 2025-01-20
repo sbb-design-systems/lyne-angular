@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import type { SbbMenuElement } from '@sbb-esta/lyne-elements/menu/menu.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/menu/menu.js';

@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbDatepickerPreviousDayElement } from '@sbb-esta/lyne-elements/datepicker/datepicker-previous-day.js';
@@ -62,5 +62,18 @@ export class SbbDatepickerPreviousDay<T = Date> {
   }
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
+  }
+
+  // eslint-disable-next-line @angular-eslint/no-input-rename
+  @Input({ alias: 'date-picker' })
+  public set datePicker(value: | string
+    | SbbDatepickerElement<T>
+    | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datePicker = value));
+  }
+  public get datePicker(): | string
+    | SbbDatepickerElement<T>
+    | null {
+    return this.#element.nativeElement.datePicker;
   }
 }

@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { CalendarView } from '@sbb-esta/lyne-elements/calendar.js';
 import type { SbbDatepickerToggleElement } from '@sbb-esta/lyne-elements/datepicker/datepicker-toggle.js';
@@ -42,5 +42,18 @@ export class SbbDatepickerToggle<T = Date> {
 
   public open(): void {
     return this.#element.nativeElement.open();
+  }
+
+  // eslint-disable-next-line @angular-eslint/no-input-rename
+  @Input({ alias: 'date-picker' })
+  public set datePicker(value: | string
+    | SbbDatepickerElement
+    | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datePicker = value));
+  }
+  public get datePicker(): | string
+    | SbbDatepickerElement
+    | null {
+    return this.#element.nativeElement.datePicker;
   }
 }

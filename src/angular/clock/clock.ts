@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbClockElement } from '@sbb-esta/lyne-elements/clock.js';
 import '@sbb-esta/lyne-elements/clock.js';
 import { SbbTime } from '@sbb-esta/lyne-elements/core/interfaces.js';

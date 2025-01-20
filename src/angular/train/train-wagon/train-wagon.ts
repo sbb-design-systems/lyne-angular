@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbTrainWagonElement } from '@sbb-esta/lyne-elements/train/train-wagon.js';
 import '@sbb-esta/lyne-elements/train/train-wagon.js';

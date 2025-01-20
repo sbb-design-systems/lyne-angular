@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbSkiplinkListElement } from '@sbb-esta/lyne-elements/skiplink-list.js';
 import '@sbb-esta/lyne-elements/skiplink-list.js';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';

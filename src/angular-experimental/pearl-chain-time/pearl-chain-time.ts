@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
-import { Directive, ElementRef, Input, NgZone, inject, numberAttribute } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { Leg, PtRideLeg } from '@sbb-esta/lyne-elements-experimental/core/timetable.js';
 import type { SbbPearlChainTimeElement } from '@sbb-esta/lyne-elements-experimental/pearl-chain-time.js';
