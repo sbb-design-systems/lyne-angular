@@ -82,6 +82,10 @@ export class SbbDatepicker<T = Date> {
   @Output() public validationChange: Observable<SbbValidationChangeEvent> =
     fromEvent<SbbValidationChangeEvent>(this.#element.nativeElement, 'validationChange');
 
+  public get inputElement(): HTMLInputElement | null {
+    return this.#element.nativeElement.inputElement;
+  }
+
   public findPreviousAvailableDate(date: T): T {
     return this.#element.nativeElement.findPreviousAvailableDate(date);
   }

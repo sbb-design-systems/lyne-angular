@@ -24,13 +24,12 @@ export class SbbDatepickerPreviousDay<T = Date> {
     return this.#element.nativeElement.negative;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input({ alias: 'date-picker' })
-  public set datePicker(value: string | SbbDatepickerElement<T> | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datePicker = value));
+  @Input()
+  public set datepicker(value: SbbDatepickerElement<T> | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datepicker = value));
   }
-  public get datePicker(): string | SbbDatepickerElement<T> | null {
-    return this.#element.nativeElement.datePicker;
+  public get datepicker(): SbbDatepickerElement<T> | null {
+    return this.#element.nativeElement.datepicker;
   }
 
   @Input()

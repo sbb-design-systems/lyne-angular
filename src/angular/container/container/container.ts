@@ -30,10 +30,10 @@ export class SbbContainer {
   }
 
   @Input()
-  public set color(value: 'transparent' | 'white' | 'milk') {
+  public set color(value: 'transparent' | 'white' | 'milk' | 'midnight' | 'charcoal') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.color = value));
   }
-  public get color(): 'transparent' | 'white' | 'milk' {
+  public get color(): 'transparent' | 'white' | 'milk' | 'midnight' | 'charcoal' {
     return this.#element.nativeElement.color;
   }
 }

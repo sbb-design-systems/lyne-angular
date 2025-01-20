@@ -31,6 +31,14 @@ export class SbbDialog {
     return this.#element.nativeElement.negative;
   }
 
+  @Input()
+  public set backdrop(value: 'opaque' | 'translucent') {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backdrop = value));
+  }
+  public get backdrop(): 'opaque' | 'translucent' {
+    return this.#element.nativeElement.backdrop;
+  }
+
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {

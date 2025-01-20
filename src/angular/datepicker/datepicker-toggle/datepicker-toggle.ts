@@ -16,13 +16,12 @@ export class SbbDatepickerToggle<T = Date> {
   );
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input({ alias: 'date-picker' })
-  public set datePicker(value: string | SbbDatepickerElement | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datePicker = value));
+  @Input()
+  public set datepicker(value: SbbDatepickerElement<T> | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datepicker = value));
   }
-  public get datePicker(): string | SbbDatepickerElement | null {
-    return this.#element.nativeElement.datePicker;
+  public get datepicker(): SbbDatepickerElement<T> | null {
+    return this.#element.nativeElement.datepicker;
   }
 
   @Input()

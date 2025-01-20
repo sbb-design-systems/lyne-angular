@@ -13,10 +13,10 @@ export class SbbStickyBar {
   #ngZone: NgZone = inject(NgZone);
 
   @Input()
-  public set color(value: 'white' | 'milk' | null) {
+  public set color(value: 'white' | 'milk' | 'midnight' | 'charcoal' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.color = value));
   }
-  public get color(): 'white' | 'milk' | null {
+  public get color(): 'white' | 'milk' | 'midnight' | 'charcoal' | null {
     return this.#element.nativeElement.color;
   }
 
