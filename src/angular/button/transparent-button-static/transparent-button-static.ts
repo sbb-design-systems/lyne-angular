@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTransparentButtonStaticElement } from '@sbb-esta/lyne-elements/button/transparent-button-static.js';
 import '@sbb-esta/lyne-elements/button/transparent-button-static.js';

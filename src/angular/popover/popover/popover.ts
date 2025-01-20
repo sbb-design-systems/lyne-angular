@@ -2,11 +2,11 @@
 import {
   Directive,
   ElementRef,
+  inject,
   Input,
   NgZone,
-  Output,
-  inject,
   numberAttribute,
+  Output,
 } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover.js';
