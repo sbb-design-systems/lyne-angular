@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -17,7 +16,6 @@ export class SbbRadioButtonGroup {
   #element: ElementRef<SbbRadioButtonGroupElement> = inject(ElementRef<SbbRadioButtonGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'allow-empty-selection', transform: booleanAttribute })
   public set allowEmptySelection(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.allowEmptySelection = value));
@@ -50,7 +48,6 @@ export class SbbRadioButtonGroup {
     return this.#element.nativeElement.size;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'horizontal-from' })
   public set horizontalFrom(value: SbbHorizontalFrom | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.horizontalFrom = value));

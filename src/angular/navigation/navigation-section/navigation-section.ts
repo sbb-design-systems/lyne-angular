@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbNavigationSectionElement } from '@sbb-esta/lyne-elements/navigation/navigation-section.js';
 import '@sbb-esta/lyne-elements/navigation/navigation-section.js';
@@ -13,7 +12,6 @@ export class SbbNavigationSection {
   );
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-content' })
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
@@ -30,7 +28,6 @@ export class SbbNavigationSection {
     return this.#element.nativeElement.trigger;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
@@ -39,7 +36,6 @@ export class SbbNavigationSection {
     return this.#element.nativeElement.accessibilityLabel;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-back-label' })
   public set accessibilityBackLabel(value: string) {
     this.#ngZone.runOutsideAngular(

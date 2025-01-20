@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbOverlayCloseEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -14,7 +13,6 @@ export class SbbDialog {
   #element: ElementRef<SbbDialogElement> = inject(ElementRef<SbbDialogElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'backdrop-action' })
   public set backdropAction(value: 'close' | 'none') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backdropAction = value));
@@ -39,7 +37,6 @@ export class SbbDialog {
     return this.#element.nativeElement.backdrop;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

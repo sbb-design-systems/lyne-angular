@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type {
@@ -32,7 +31,6 @@ export class SbbJourneyHeader {
     return this.#element.nativeElement.destination;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'round-trip', transform: booleanAttribute })
   public set roundTrip(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.roundTrip = value));

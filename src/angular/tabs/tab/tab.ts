@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject } from '@angular/core';
 import { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs/tab-label.js';
 import type { SbbTabElement } from '@sbb-esta/lyne-elements/tabs/tab.js';

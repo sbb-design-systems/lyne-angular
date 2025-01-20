@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -15,7 +14,6 @@ export class SbbLinkList {
   #element: ElementRef<SbbLinkListElement> = inject(ElementRef<SbbLinkListElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'horizontal-from' })
   public set horizontalFrom(value: SbbHorizontalFrom | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.horizontalFrom = value));
@@ -40,7 +38,6 @@ export class SbbLinkList {
     return this.#element.nativeElement.negative;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-content' })
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
@@ -49,7 +46,6 @@ export class SbbLinkList {
     return this.#element.nativeElement.titleContent;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-level' })
   public set titleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));

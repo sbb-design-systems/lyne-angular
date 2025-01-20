@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import {
   Directive,
   ElementRef,
@@ -22,7 +21,6 @@ export class SbbPaginator {
   #element: ElementRef<SbbPaginatorElement> = inject(ElementRef<SbbPaginatorElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'page-size-options' })
   public set pageSizeOptions(value: number[]) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pageSizeOptions = value));
@@ -31,7 +29,6 @@ export class SbbPaginator {
     return this.#element.nativeElement.pageSizeOptions;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'pager-position' })
   public set pagerPosition(value: 'start' | 'end') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pagerPosition = value));
@@ -48,7 +45,6 @@ export class SbbPaginator {
     return this.#element.nativeElement.length;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'page-size', transform: numberAttribute })
   public set pageSize(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pageSize = value));
@@ -57,7 +53,6 @@ export class SbbPaginator {
     return this.#element.nativeElement.pageSize;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'page-index', transform: numberAttribute })
   public set pageIndex(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pageIndex = value));

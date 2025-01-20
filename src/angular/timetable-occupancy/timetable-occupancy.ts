@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -15,7 +14,6 @@ export class SbbTimetableOccupancy {
   );
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'first-class-occupancy' })
   public set firstClassOccupancy(value: SbbOccupancy | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.firstClassOccupancy = value));
@@ -24,7 +22,6 @@ export class SbbTimetableOccupancy {
     return this.#element.nativeElement.firstClassOccupancy;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'second-class-occupancy' })
   public set secondClassOccupancy(value: SbbOccupancy | null) {
     this.#ngZone.runOutsideAngular(

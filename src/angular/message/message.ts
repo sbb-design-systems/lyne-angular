@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbMessageElement } from '@sbb-esta/lyne-elements/message.js';
 import '@sbb-esta/lyne-elements/message.js';
@@ -12,7 +11,6 @@ export class SbbMessage {
   #element: ElementRef<SbbMessageElement> = inject(ElementRef<SbbMessageElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-content' })
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
@@ -21,7 +19,6 @@ export class SbbMessage {
     return this.#element.nativeElement.titleContent;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-level' })
   public set titleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));

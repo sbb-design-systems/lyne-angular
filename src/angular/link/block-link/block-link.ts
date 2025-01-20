@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -15,7 +14,6 @@ export class SbbBlockLink {
   #element: ElementRef<SbbBlockLinkElement> = inject(ElementRef<SbbBlockLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-placement' })
   public set iconPlacement(value: SbbIconPlacement) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconPlacement = value));
@@ -32,7 +30,6 @@ export class SbbBlockLink {
     return this.#element.nativeElement.size;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
@@ -81,7 +78,6 @@ export class SbbBlockLink {
     return this.#element.nativeElement.download;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

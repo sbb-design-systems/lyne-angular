@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { Leg, PtRideLeg } from '@sbb-esta/lyne-elements-experimental/core/timetable.js';
@@ -21,7 +20,6 @@ export class SbbPearlChain {
     return this.#element.nativeElement.legs;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'disable-animation', transform: booleanAttribute })
   public set disableAnimation(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disableAnimation = value));

@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSelectionExpansionPanelElement } from '@sbb-esta/lyne-elements/selection-expansion-panel.js';
@@ -23,7 +22,6 @@ export class SbbSelectionExpansionPanel {
     return this.#element.nativeElement.color;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'force-open', transform: booleanAttribute })
   public set forceOpen(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.forceOpen = value));

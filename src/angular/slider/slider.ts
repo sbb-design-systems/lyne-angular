@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSliderElement } from '@sbb-esta/lyne-elements/slider.js';
@@ -21,7 +20,6 @@ export class SbbSlider {
     return this.#element.nativeElement.value;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'value-as-number' })
   public set valueAsNumber(value: number | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.valueAsNumber = value));
@@ -54,7 +52,6 @@ export class SbbSlider {
     return this.#element.nativeElement.readonly;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'start-icon' })
   public set startIcon(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.startIcon = value));
@@ -63,7 +60,6 @@ export class SbbSlider {
     return this.#element.nativeElement.startIcon;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'end-icon' })
   public set endIcon(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.endIcon = value));

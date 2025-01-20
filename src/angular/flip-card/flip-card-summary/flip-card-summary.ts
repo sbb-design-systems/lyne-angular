@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type {
   SbbFlipCardImageAlignment,
@@ -14,7 +13,6 @@ export class SbbFlipCardSummary {
   #element: ElementRef<SbbFlipCardSummaryElement> = inject(ElementRef<SbbFlipCardSummaryElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'image-alignment' })
   public set imageAlignment(value: SbbFlipCardImageAlignment) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.imageAlignment = value));

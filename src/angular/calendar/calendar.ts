@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { CalendarView, SbbCalendarElement } from '@sbb-esta/lyne-elements/calendar.js';
@@ -62,7 +61,6 @@ export class SbbCalendar<T = Date> {
     return this.#element.nativeElement.selected;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'date-filter' })
   public set dateFilter(value: ((date: T | null) => boolean) | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.dateFilter = value));

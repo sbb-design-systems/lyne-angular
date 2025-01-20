@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -22,7 +21,6 @@ export class SbbTeaser {
     return this.#element.nativeElement.alignment;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-level' })
   public set titleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
@@ -31,7 +29,6 @@ export class SbbTeaser {
     return this.#element.nativeElement.titleLevel;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-content' })
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
@@ -40,7 +37,6 @@ export class SbbTeaser {
     return this.#element.nativeElement.titleContent;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'chip-content' })
   public set chipContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.chipContent = value));
@@ -81,7 +77,6 @@ export class SbbTeaser {
     return this.#element.nativeElement.download;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

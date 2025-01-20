@@ -7,14 +7,7 @@ export default tseslint.config(
   {
     files: ['**/*.ts'],
     rules: {
-      '@angular-eslint/directive-selector': [
-        'error',
-        {
-          type: 'attribute',
-          prefix: 'sbb',
-          style: 'camelCase',
-        },
-      ],
+      '@angular-eslint/directive-selector': 'off',
       '@angular-eslint/component-selector': [
         'error',
         {

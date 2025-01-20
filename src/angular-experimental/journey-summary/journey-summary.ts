@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
@@ -24,7 +23,6 @@ export class SbbJourneySummary {
     return this.#element.nativeElement.trip;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'trip-back' })
   public set tripBack(value: InterfaceSbbJourneySummaryAttributes) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.tripBack = value));
@@ -33,7 +31,6 @@ export class SbbJourneySummary {
     return this.#element.nativeElement.tripBack;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'round-trip', transform: booleanAttribute })
   public set roundTrip(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.roundTrip = value));
@@ -42,7 +39,6 @@ export class SbbJourneySummary {
     return this.#element.nativeElement.roundTrip;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'header-level' })
   public set headerLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.headerLevel = value));
@@ -51,7 +47,6 @@ export class SbbJourneySummary {
     return this.#element.nativeElement.headerLevel;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'disable-animation', transform: booleanAttribute })
   public set disableAnimation(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disableAnimation = value));
@@ -60,7 +55,6 @@ export class SbbJourneySummary {
     return this.#element.nativeElement.disableAnimation;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'a11y-footpath', transform: booleanAttribute })
   public set a11yFootpath(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.a11yFootpath = value));

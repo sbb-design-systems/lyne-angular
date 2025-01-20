@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import {
   Directive,
   ElementRef,
@@ -29,7 +28,6 @@ export class SbbImage {
     return this.#element.nativeElement.alt;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'skip-lqip', transform: booleanAttribute })
   public set skipLqip(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.skipLqip = value));
@@ -38,7 +36,6 @@ export class SbbImage {
     return this.#element.nativeElement.skipLqip;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'custom-focal-point', transform: booleanAttribute })
   public set customFocalPoint(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.customFocalPoint = value));
@@ -55,7 +52,6 @@ export class SbbImage {
     return this.#element.nativeElement.decoding;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'focal-point-debug', transform: booleanAttribute })
   public set focalPointDebug(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.focalPointDebug = value));
@@ -64,7 +60,6 @@ export class SbbImage {
     return this.#element.nativeElement.focalPointDebug;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'focal-point-x', transform: numberAttribute })
   public set focalPointX(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.focalPointX = value));
@@ -73,7 +68,6 @@ export class SbbImage {
     return this.#element.nativeElement.focalPointX;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'focal-point-y', transform: numberAttribute })
   public set focalPointY(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.focalPointY = value));
@@ -82,7 +76,6 @@ export class SbbImage {
     return this.#element.nativeElement.focalPointY;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'image-src' })
   public set imageSrc(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.imageSrc = value));
@@ -107,7 +100,6 @@ export class SbbImage {
     return this.#element.nativeElement.loading;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'performance-mark' })
   public set performanceMark(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.performanceMark = value));
@@ -116,7 +108,6 @@ export class SbbImage {
     return this.#element.nativeElement.performanceMark;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'picture-sizes-config' })
   public set pictureSizesConfig(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pictureSizesConfig = value));

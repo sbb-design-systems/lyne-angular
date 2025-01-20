@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Output } from '@angular/core';
 import { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
 import type {

@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbPanelSize } from '@sbb-esta/lyne-elements/core/mixins.js';
@@ -39,7 +38,6 @@ export class SbbRadioButtonPanel {
     return this.#element.nativeElement.borderless;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'allow-empty-selection', transform: booleanAttribute })
   public set allowEmptySelection(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.allowEmptySelection = value));

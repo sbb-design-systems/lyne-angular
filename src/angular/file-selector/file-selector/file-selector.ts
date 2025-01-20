@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { FormRestoreReason, FormRestoreState } from '@sbb-esta/lyne-elements/core/mixins.js';
@@ -30,7 +29,6 @@ export class SbbFileSelector {
     return this.#element.nativeElement.multiple;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'multiple-mode' })
   public set multipleMode(value: 'default' | 'persistent') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.multipleMode = value));
@@ -47,7 +45,6 @@ export class SbbFileSelector {
     return this.#element.nativeElement.accept;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbOverlayCloseEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -22,7 +21,6 @@ export class SbbOverlay {
     return this.#element.nativeElement.expanded;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'back-button', transform: booleanAttribute })
   public set backButton(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backButton = value));
@@ -31,7 +29,6 @@ export class SbbOverlay {
     return this.#element.nativeElement.backButton;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-close-label' })
   public set accessibilityCloseLabel(value: string) {
     this.#ngZone.runOutsideAngular(
@@ -42,7 +39,6 @@ export class SbbOverlay {
     return this.#element.nativeElement.accessibilityCloseLabel;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-back-label' })
   public set accessibilityBackLabel(value: string) {
     this.#ngZone.runOutsideAngular(
@@ -61,7 +57,6 @@ export class SbbOverlay {
     return this.#element.nativeElement.negative;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

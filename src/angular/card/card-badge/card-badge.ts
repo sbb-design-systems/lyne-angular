@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbCardBadgeElement } from '@sbb-esta/lyne-elements/card/card-badge.js';
 import '@sbb-esta/lyne-elements/card/card-badge.js';

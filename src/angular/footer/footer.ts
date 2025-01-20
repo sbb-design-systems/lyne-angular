@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbFooterElement } from '@sbb-esta/lyne-elements/footer.js';
@@ -29,7 +28,6 @@ export class SbbFooter {
     return this.#element.nativeElement.expanded;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-title' })
   public set accessibilityTitle(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityTitle = value));
@@ -38,7 +36,6 @@ export class SbbFooter {
     return this.#element.nativeElement.accessibilityTitle;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-title-level' })
   public set accessibilityTitleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(

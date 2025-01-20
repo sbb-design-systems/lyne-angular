@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import {
   Directive,
   ElementRef,
@@ -32,7 +31,6 @@ export class SbbTabGroup {
     return this.#element.nativeElement.size;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'initial-selected-index', transform: numberAttribute })
   public set initialSelectedIndex(value: number) {
     this.#ngZone.runOutsideAngular(
