@@ -1,5 +1,23 @@
 # Changelog
 
+## [19.0.0-alpha.2](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-alpha.1...v19.0.0-alpha.2) (2025-01-20)
+
+
+### Features
+
+* integrate Angular form support ([#11](https://github.com/sbb-design-systems/lyne-angular/issues/11)) ([44f7160](https://github.com/sbb-design-systems/lyne-angular/commit/44f7160b541292b800cda37b534638aebe4ae790))
+
+
+### Bug Fixes
+
+* boolean transform ([#13](https://github.com/sbb-design-systems/lyne-angular/issues/13)) ([52430c1](https://github.com/sbb-design-systems/lyne-angular/commit/52430c13f8dd302307478495198d0a44be84c1f2))
+* remove 'Directive' name and update libraries ([#15](https://github.com/sbb-design-systems/lyne-angular/issues/15)) ([bfa0ffc](https://github.com/sbb-design-systems/lyne-angular/commit/bfa0ffc211089cdec52b78fa308a0d9c029aad67))
+
+
+### Code Refactoring
+
+* remove obsolete standalone flag ([#17](https://github.com/sbb-design-systems/lyne-angular/issues/17)) ([cc0370f](https://github.com/sbb-design-systems/lyne-angular/commit/cc0370f0fae3eea60c3248109d302d22faf41980))
+
 ## [19.0.0-alpha.1](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-0...v19.0.0-alpha.1) (2025-01-08)
 
 
