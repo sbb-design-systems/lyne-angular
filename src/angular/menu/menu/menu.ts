@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import type { SbbMenuElement } from '@sbb-esta/lyne-elements/menu/menu.js';
 import { fromEvent, type Observable } from 'rxjs';
@@ -8,7 +8,7 @@ import '@sbb-esta/lyne-elements/menu/menu.js';
   selector: 'sbb-menu',
   standalone: true,
 })
-export class SbbMenuDirective {
+export class SbbMenu {
   #element: ElementRef<SbbMenuElement> = inject(ElementRef<SbbMenuElement>);
   #ngZone: NgZone = inject(NgZone);
 

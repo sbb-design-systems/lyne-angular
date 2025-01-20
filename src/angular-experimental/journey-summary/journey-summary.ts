@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
@@ -12,7 +12,7 @@ import '@sbb-esta/lyne-elements-experimental/journey-summary.js';
   selector: 'sbb-journey-summary',
   standalone: true,
 })
-export class SbbJourneySummaryDirective {
+export class SbbJourneySummary {
   #element: ElementRef<SbbJourneySummaryElement> = inject(ElementRef<SbbJourneySummaryElement>);
   #ngZone: NgZone = inject(NgZone);
 

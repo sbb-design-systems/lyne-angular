@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -10,7 +10,7 @@ import { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepic
   selector: 'sbb-datepicker-previous-day',
   standalone: true,
 })
-export class SbbDatepickerPreviousDayDirective<T = Date> {
+export class SbbDatepickerPreviousDay<T = Date> {
   #element: ElementRef<SbbDatepickerPreviousDayElement<T>> = inject(
     ElementRef<SbbDatepickerPreviousDayElement<T>>,
   );

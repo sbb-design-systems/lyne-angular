@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements/menu/menu-link.js';
   selector: 'sbb-menu-link',
   standalone: true,
 })
-export class SbbMenuLinkDirective {
+export class SbbMenuLink {
   #element: ElementRef<SbbMenuLinkElement> = inject(ElementRef<SbbMenuLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 

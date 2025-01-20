@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTagGroupElement } from '@sbb-esta/lyne-elements/tag/tag-group.js';
@@ -9,7 +9,7 @@ import { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
   selector: 'sbb-tag-group',
   standalone: true,
 })
-export class SbbTagGroupDirective {
+export class SbbTagGroup {
   #element: ElementRef<SbbTagGroupElement> = inject(ElementRef<SbbTagGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 

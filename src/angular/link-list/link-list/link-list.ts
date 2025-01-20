@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -11,7 +11,7 @@ import '@sbb-esta/lyne-elements/link-list/link-list.js';
   selector: 'sbb-link-list',
   standalone: true,
 })
-export class SbbLinkListDirective {
+export class SbbLinkList {
   #element: ElementRef<SbbLinkListElement> = inject(ElementRef<SbbLinkListElement>);
   #ngZone: NgZone = inject(NgZone);
 

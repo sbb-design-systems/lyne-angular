@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonElement } from '@sbb-esta/lyne-elements/button/button.js';
@@ -10,7 +10,7 @@ import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
   selector: 'sbb-button',
   standalone: true,
 })
-export class SbbButtonDirective {
+export class SbbButton {
   #element: ElementRef<SbbButtonElement> = inject(ElementRef<SbbButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 

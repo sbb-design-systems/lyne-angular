@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbTrainFormationElement } from '@sbb-esta/lyne-elements/train/train-formation.js';
 import '@sbb-esta/lyne-elements/train/train-formation.js';
@@ -7,7 +7,7 @@ import '@sbb-esta/lyne-elements/train/train-formation.js';
   selector: 'sbb-train-formation',
   standalone: true,
 })
-export class SbbTrainFormationDirective {
+export class SbbTrainFormation {
   #element: ElementRef<SbbTrainFormationElement> = inject(ElementRef<SbbTrainFormationElement>);
   #ngZone: NgZone = inject(NgZone);
 

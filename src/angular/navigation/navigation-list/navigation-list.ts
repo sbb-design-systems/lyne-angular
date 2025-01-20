@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbNavigationListElement } from '@sbb-esta/lyne-elements/navigation/navigation-list.js';
 import '@sbb-esta/lyne-elements/navigation/navigation-list.js';
@@ -7,7 +7,7 @@ import '@sbb-esta/lyne-elements/navigation/navigation-list.js';
   selector: 'sbb-navigation-list',
   standalone: true,
 })
-export class SbbNavigationListDirective {
+export class SbbNavigationList {
   #element: ElementRef<SbbNavigationListElement> = inject(ElementRef<SbbNavigationListElement>);
   #ngZone: NgZone = inject(NgZone);
 

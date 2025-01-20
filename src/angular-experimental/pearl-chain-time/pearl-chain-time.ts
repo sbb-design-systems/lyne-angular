@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject, numberAttribute } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { Leg, PtRideLeg } from '@sbb-esta/lyne-elements-experimental/core/timetable.js';
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements-experimental/pearl-chain-time.js';
   selector: 'sbb-pearl-chain-time',
   standalone: true,
 })
-export class SbbPearlChainTimeDirective {
+export class SbbPearlChainTime {
   #element: ElementRef<SbbPearlChainTimeElement> = inject(ElementRef<SbbPearlChainTimeElement>);
   #ngZone: NgZone = inject(NgZone);
 

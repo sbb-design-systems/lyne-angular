@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTableWrapperElement } from '@sbb-esta/lyne-elements/table/table-wrapper.js';
@@ -8,7 +8,7 @@ import '@sbb-esta/lyne-elements/table/table-wrapper.js';
   selector: 'sbb-table-wrapper',
   standalone: true,
 })
-export class SbbTableWrapperDirective {
+export class SbbTableWrapper {
   #element: ElementRef<SbbTableWrapperElement> = inject(ElementRef<SbbTableWrapperElement>);
   #ngZone: NgZone = inject(NgZone);
 

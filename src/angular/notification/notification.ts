@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbNotificationElement } from '@sbb-esta/lyne-elements/notification.js';
@@ -10,7 +10,7 @@ import '@sbb-esta/lyne-elements/notification.js';
   selector: 'sbb-notification',
   standalone: true,
 })
-export class SbbNotificationDirective {
+export class SbbNotification {
   #element: ElementRef<SbbNotificationElement> = inject(ElementRef<SbbNotificationElement>);
   #ngZone: NgZone = inject(NgZone);
 

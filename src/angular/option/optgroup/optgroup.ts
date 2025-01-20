@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbOptGroupElement } from '@sbb-esta/lyne-elements/option/optgroup.js';
@@ -8,7 +8,7 @@ import '@sbb-esta/lyne-elements/option/optgroup.js';
   selector: 'sbb-opt-group',
   standalone: true,
 })
-export class SbbOptGroupDirective {
+export class SbbOptGroup {
   #element: ElementRef<SbbOptGroupElement> = inject(ElementRef<SbbOptGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 

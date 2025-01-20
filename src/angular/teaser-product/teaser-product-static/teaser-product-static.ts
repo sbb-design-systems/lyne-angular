@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTeaserProductStaticElement } from '@sbb-esta/lyne-elements/teaser-product/teaser-product-static.js';
@@ -8,7 +8,7 @@ import '@sbb-esta/lyne-elements/teaser-product/teaser-product-static.js';
   selector: 'sbb-teaser-product-static',
   standalone: true,
 })
-export class SbbTeaserProductStaticDirective {
+export class SbbTeaserProductStatic {
   #element: ElementRef<SbbTeaserProductStaticElement> = inject(
     ElementRef<SbbTeaserProductStaticElement>,
   );

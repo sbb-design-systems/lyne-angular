@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbChipLabelElement } from '@sbb-esta/lyne-elements/chip-label.js';
 import '@sbb-esta/lyne-elements/chip-label.js';
@@ -7,7 +7,7 @@ import '@sbb-esta/lyne-elements/chip-label.js';
   selector: 'sbb-chip-label',
   standalone: true,
 })
-export class SbbChipLabelDirective {
+export class SbbChipLabel {
   #element: ElementRef<SbbChipLabelElement> = inject(ElementRef<SbbChipLabelElement>);
   #ngZone: NgZone = inject(NgZone);
 

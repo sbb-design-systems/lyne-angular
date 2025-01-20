@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbCardLinkElement } from '@sbb-esta/lyne-elements/card/card-link.js';
@@ -9,7 +9,7 @@ import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
   selector: 'sbb-card-link',
   standalone: true,
 })
-export class SbbCardLinkDirective {
+export class SbbCardLink {
   #element: ElementRef<SbbCardLinkElement> = inject(ElementRef<SbbCardLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 

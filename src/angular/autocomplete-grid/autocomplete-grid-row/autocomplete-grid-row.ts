@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive } from '@angular/core';
 import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-row.js';
 
@@ -6,4 +6,4 @@ import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-row.js';
   selector: 'sbb-autocomplete-grid-row',
   standalone: true,
 })
-export class SbbAutocompleteGridRowDirective {}
+export class SbbAutocompleteGridRow {}

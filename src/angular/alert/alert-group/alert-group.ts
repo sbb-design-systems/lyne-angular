@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import type { SbbAlertGroupElement } from '@sbb-esta/lyne-elements/alert/alert-group.js';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements/alert/alert-group.js';
   selector: 'sbb-alert-group',
   standalone: true,
 })
-export class SbbAlertGroupDirective {
+export class SbbAlertGroup {
   #element: ElementRef<SbbAlertGroupElement> = inject(ElementRef<SbbAlertGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAccordionElement } from '@sbb-esta/lyne-elements/accordion.js';
@@ -9,7 +9,7 @@ import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
   selector: 'sbb-accordion',
   standalone: true,
 })
-export class SbbAccordionDirective {
+export class SbbAccordion {
   #element: ElementRef<SbbAccordionElement> = inject(ElementRef<SbbAccordionElement>);
   #ngZone: NgZone = inject(NgZone);
 

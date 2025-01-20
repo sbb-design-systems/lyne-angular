@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAutocompleteGridElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid.js';
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid.js';
   selector: 'sbb-autocomplete-grid',
   standalone: true,
 })
-export class SbbAutocompleteGridDirective {
+export class SbbAutocompleteGrid {
   #element: ElementRef<SbbAutocompleteGridElement> = inject(ElementRef<SbbAutocompleteGridElement>);
   #ngZone: NgZone = inject(NgZone);
 

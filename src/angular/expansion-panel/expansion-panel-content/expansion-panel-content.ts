@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive } from '@angular/core';
 import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-content.js';
 
@@ -6,4 +6,4 @@ import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-content.js';
   selector: 'sbb-expansion-panel-content',
   standalone: true,
 })
-export class SbbExpansionPanelContentDirective {}
+export class SbbExpansionPanelContent {}

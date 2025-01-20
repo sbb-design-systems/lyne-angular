@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -10,7 +10,7 @@ import '@sbb-esta/lyne-elements/dialog/dialog-actions.js';
   selector: 'sbb-dialog-actions',
   standalone: true,
 })
-export class SbbDialogActionsDirective {
+export class SbbDialogActions {
   #element: ElementRef<SbbDialogActionsElement> = inject(ElementRef<SbbDialogActionsElement>);
   #ngZone: NgZone = inject(NgZone);
 

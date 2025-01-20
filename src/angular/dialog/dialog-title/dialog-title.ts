@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { Breakpoint } from '@sbb-esta/lyne-elements/core/dom.js';
@@ -11,7 +11,7 @@ import '@sbb-esta/lyne-elements/dialog/dialog-title.js';
   selector: 'sbb-dialog-title',
   standalone: true,
 })
-export class SbbDialogTitleDirective {
+export class SbbDialogTitle {
   #element: ElementRef<SbbDialogTitleElement> = inject(ElementRef<SbbDialogTitleElement>);
   #ngZone: NgZone = inject(NgZone);
 

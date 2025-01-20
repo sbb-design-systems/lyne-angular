@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs/tab-label.js';
@@ -9,7 +9,7 @@ import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
   selector: 'sbb-tab-label',
   standalone: true,
 })
-export class SbbTabLabelDirective {
+export class SbbTabLabel {
   #element: ElementRef<SbbTabLabelElement> = inject(ElementRef<SbbTabLabelElement>);
   #ngZone: NgZone = inject(NgZone);
 

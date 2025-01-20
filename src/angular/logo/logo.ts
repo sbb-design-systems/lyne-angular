@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbProtectiveRoom } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements/logo.js';
   selector: 'sbb-logo',
   standalone: true,
 })
-export class SbbLogoDirective {
+export class SbbLogo {
   #element: ElementRef<SbbLogoElement> = inject(ElementRef<SbbLogoElement>);
   #ngZone: NgZone = inject(NgZone);
 

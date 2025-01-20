@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements/divider.js';
   selector: 'sbb-divider',
   standalone: true,
 })
-export class SbbDividerDirective {
+export class SbbDivider {
   #element: ElementRef<SbbDividerElement> = inject(ElementRef<SbbDividerElement>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import {
   Directive,
   ElementRef,
@@ -17,7 +17,7 @@ import '@sbb-esta/lyne-elements/toast.js';
   selector: 'sbb-toast',
   standalone: true,
 })
-export class SbbToastDirective {
+export class SbbToast {
   #element: ElementRef<SbbToastElement> = inject(ElementRef<SbbToastElement>);
   #ngZone: NgZone = inject(NgZone);
 

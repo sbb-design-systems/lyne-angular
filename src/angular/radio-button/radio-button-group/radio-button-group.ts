@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -13,7 +13,7 @@ import '@sbb-esta/lyne-elements/radio-button/radio-button-group.js';
   selector: 'sbb-radio-button-group',
   standalone: true,
 })
-export class SbbRadioButtonGroupDirective {
+export class SbbRadioButtonGroup {
   #element: ElementRef<SbbRadioButtonGroupElement> = inject(ElementRef<SbbRadioButtonGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 

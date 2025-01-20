@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbSignetElement, SbbSignetProtectiveRoom } from '@sbb-esta/lyne-elements/signet.js';
 import '@sbb-esta/lyne-elements/signet.js';
@@ -7,7 +7,7 @@ import '@sbb-esta/lyne-elements/signet.js';
   selector: 'sbb-signet',
   standalone: true,
 })
-export class SbbSignetDirective {
+export class SbbSignet {
   #element: ElementRef<SbbSignetElement> = inject(ElementRef<SbbSignetElement>);
   #ngZone: NgZone = inject(NgZone);
 

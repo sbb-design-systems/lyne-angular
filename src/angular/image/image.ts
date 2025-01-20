@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import {
   Directive,
   ElementRef,
@@ -17,7 +17,7 @@ import '@sbb-esta/lyne-elements/image.js';
   selector: 'sbb-image',
   standalone: true,
 })
-export class SbbImageDirective {
+export class SbbImage {
   #element: ElementRef<SbbImageElement> = inject(ElementRef<SbbImageElement>);
   #ngZone: NgZone = inject(NgZone);
 

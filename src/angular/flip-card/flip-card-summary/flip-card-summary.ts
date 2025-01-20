@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type {
   SbbFlipCardImageAlignment,
@@ -10,7 +10,7 @@ import '@sbb-esta/lyne-elements/flip-card/flip-card-summary.js';
   selector: 'sbb-flip-card-summary',
   standalone: true,
 })
-export class SbbFlipCardSummaryDirective {
+export class SbbFlipCardSummary {
   #element: ElementRef<SbbFlipCardSummaryElement> = inject(ElementRef<SbbFlipCardSummaryElement>);
   #ngZone: NgZone = inject(NgZone);
 

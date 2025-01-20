@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbOverlayCloseEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -10,7 +10,7 @@ import '@sbb-esta/lyne-elements/dialog/dialog.js';
   selector: 'sbb-dialog',
   standalone: true,
 })
-export class SbbDialogDirective {
+export class SbbDialog {
   #element: ElementRef<SbbDialogElement> = inject(ElementRef<SbbDialogElement>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbSkiplinkListElement } from '@sbb-esta/lyne-elements/skiplink-list.js';
 import '@sbb-esta/lyne-elements/skiplink-list.js';
@@ -8,7 +8,7 @@ import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
   selector: 'sbb-skiplink-list',
   standalone: true,
 })
-export class SbbSkiplinkListDirective {
+export class SbbSkiplinkList {
   #element: ElementRef<SbbSkiplinkListElement> = inject(ElementRef<SbbSkiplinkListElement>);
   #ngZone: NgZone = inject(NgZone);
 

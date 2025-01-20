@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option/option.js';
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements/option/option.js';
   selector: 'sbb-option',
   standalone: true,
 })
-export class SbbOptionDirective {
+export class SbbOption {
   #element: ElementRef<SbbOptionElement> = inject(ElementRef<SbbOptionElement>);
   #ngZone: NgZone = inject(NgZone);
 

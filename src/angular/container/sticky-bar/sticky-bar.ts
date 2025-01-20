@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import type { SbbStickyBarElement } from '@sbb-esta/lyne-elements/container/sticky-bar.js';
 import { fromEvent, type Observable } from 'rxjs';
@@ -8,7 +8,7 @@ import '@sbb-esta/lyne-elements/container/sticky-bar.js';
   selector: 'sbb-sticky-bar',
   standalone: true,
 })
-export class SbbStickyBarDirective {
+export class SbbStickyBar {
   #element: ElementRef<SbbStickyBarElement> = inject(ElementRef<SbbStickyBarElement>);
   #ngZone: NgZone = inject(NgZone);
 

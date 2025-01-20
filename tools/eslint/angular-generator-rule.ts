@@ -122,7 +122,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
             fix: (fixer) =>
               fixer.insertTextBeforeRange(
                 [node.range[0], node.range[0]],
-                `/* eslint-disable @angular-eslint/directive-selector */\n`,
+                `/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */\n`,
               ),
           });
         }
@@ -141,7 +141,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
         }
 
         const classSelector = toKebabCase(classDeclaration.name.replace(/Element$/, ''));
-        const className = classDeclaration.name.replace(/Element$/, 'Directive');
+        const className = classDeclaration.name.replace(/Element$/, '');
 
         if (
           node.body.every(
@@ -579,7 +579,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
       description: 'Generate Angular code for Lyne elements.',
     },
     messages: {
-      eslintMissingDisableDirectiveRule: 'Missing eslint disable rule for directive-selector',
+      eslintMissingDisableDirectiveRule: 'Missing eslint disable rules for directive',
       angularMissingImport: 'Missing import {{ symbol }}',
       rxJsMissingImport: 'Missing import {{ symbol }}',
       angularMissingDirective: 'Missing class for {{ className }}',

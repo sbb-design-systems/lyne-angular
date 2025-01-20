@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements/timetable-occupancy-icon.js';
   selector: 'sbb-timetable-occupancy-icon',
   standalone: true,
 })
-export class SbbTimetableOccupancyIconDirective {
+export class SbbTimetableOccupancyIcon {
   #element: ElementRef<SbbTimetableOccupancyIconElement> = inject(
     ElementRef<SbbTimetableOccupancyIconElement>,
   );

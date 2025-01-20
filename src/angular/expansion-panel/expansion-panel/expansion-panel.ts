@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
@@ -10,7 +10,7 @@ import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
   selector: 'sbb-expansion-panel',
   standalone: true,
 })
-export class SbbExpansionPanelDirective {
+export class SbbExpansionPanel {
   #element: ElementRef<SbbExpansionPanelElement> = inject(ElementRef<SbbExpansionPanelElement>);
   #ngZone: NgZone = inject(NgZone);
 

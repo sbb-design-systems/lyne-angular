@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbMapContainerElement } from '@sbb-esta/lyne-elements/map-container.js';
@@ -8,7 +8,7 @@ import '@sbb-esta/lyne-elements/map-container.js';
   selector: 'sbb-map-container',
   standalone: true,
 })
-export class SbbMapContainerDirective {
+export class SbbMapContainer {
   #element: ElementRef<SbbMapContainerElement> = inject(ElementRef<SbbMapContainerElement>);
   #ngZone: NgZone = inject(NgZone);
 

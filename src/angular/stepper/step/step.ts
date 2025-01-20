@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Output, inject } from '@angular/core';
 import { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
 import type {
@@ -12,7 +12,7 @@ import '@sbb-esta/lyne-elements/stepper/step.js';
   selector: 'sbb-step',
   standalone: true,
 })
-export class SbbStepDirective {
+export class SbbStep {
   #element: ElementRef<SbbStepElement> = inject(ElementRef<SbbStepElement>);
 
   @Output() public validate: Observable<SbbStepValidateEventDetails> =

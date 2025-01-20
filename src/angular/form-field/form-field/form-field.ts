@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field/form-field.js';
@@ -8,7 +8,7 @@ import '@sbb-esta/lyne-elements/form-field/form-field.js';
   selector: 'sbb-form-field',
   standalone: true,
 })
-export class SbbFormFieldDirective {
+export class SbbFormField {
   #element: ElementRef<SbbFormFieldElement> = inject(ElementRef<SbbFormFieldElement>);
   #ngZone: NgZone = inject(NgZone);
 

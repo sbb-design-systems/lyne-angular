@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbActionGroupElement } from '@sbb-esta/lyne-elements/action-group.js';
 import '@sbb-esta/lyne-elements/action-group.js';
@@ -10,7 +10,7 @@ import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
   selector: 'sbb-action-group',
   standalone: true,
 })
-export class SbbActionGroupDirective {
+export class SbbActionGroup {
   #element: ElementRef<SbbActionGroupElement> = inject(ElementRef<SbbActionGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 

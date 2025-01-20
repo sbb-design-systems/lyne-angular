@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbLoadingIndicatorElement } from '@sbb-esta/lyne-elements/loading-indicator.js';
 import '@sbb-esta/lyne-elements/loading-indicator.js';
@@ -7,7 +7,7 @@ import '@sbb-esta/lyne-elements/loading-indicator.js';
   selector: 'sbb-loading-indicator',
   standalone: true,
 })
-export class SbbLoadingIndicatorDirective {
+export class SbbLoadingIndicator {
   #element: ElementRef<SbbLoadingIndicatorElement> = inject(ElementRef<SbbLoadingIndicatorElement>);
   #ngZone: NgZone = inject(NgZone);
 

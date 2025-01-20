@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { CalendarView, SbbCalendarElement } from '@sbb-esta/lyne-elements/calendar.js';
@@ -10,7 +10,7 @@ import '@sbb-esta/lyne-elements/calendar.js';
   selector: 'sbb-calendar',
   standalone: true,
 })
-export class SbbCalendarDirective<T = Date> {
+export class SbbCalendar<T = Date> {
   #element: ElementRef<SbbCalendarElement<T>> = inject(ElementRef<SbbCalendarElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 

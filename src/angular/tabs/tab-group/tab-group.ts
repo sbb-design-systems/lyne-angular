@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import {
   Directive,
   ElementRef,
@@ -20,7 +20,7 @@ import '@sbb-esta/lyne-elements/tabs/tab-group.js';
   selector: 'sbb-tab-group',
   standalone: true,
 })
-export class SbbTabGroupDirective {
+export class SbbTabGroup {
   #element: ElementRef<SbbTabGroupElement> = inject(ElementRef<SbbTabGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 

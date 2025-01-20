@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { SbbNavigationButtonElement } from '@sbb-esta/lyne-elements/navigation/navigation-button.js';
 import { SbbNavigationLinkElement } from '@sbb-esta/lyne-elements/navigation/navigation-link.js';
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements/navigation/navigation-marker.js';
   selector: 'sbb-navigation-marker',
   standalone: true,
 })
-export class SbbNavigationMarkerDirective {
+export class SbbNavigationMarker {
   #element: ElementRef<SbbNavigationMarkerElement> = inject(ElementRef<SbbNavigationMarkerElement>);
   #ngZone: NgZone = inject(NgZone);
 

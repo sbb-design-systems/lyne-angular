@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbContainerElement } from '@sbb-esta/lyne-elements/container/container.js';
@@ -8,7 +8,7 @@ import '@sbb-esta/lyne-elements/container/container.js';
   selector: 'sbb-container',
   standalone: true,
 })
-export class SbbContainerDirective {
+export class SbbContainer {
   #element: ElementRef<SbbContainerElement> = inject(ElementRef<SbbContainerElement>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTransparentButtonLinkElement } from '@sbb-esta/lyne-elements/button/transparent-button-link.js';
@@ -10,7 +10,7 @@ import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
   selector: 'sbb-transparent-button-link',
   standalone: true,
 })
-export class SbbTransparentButtonLinkDirective {
+export class SbbTransparentButtonLink {
   #element: ElementRef<SbbTransparentButtonLinkElement> = inject(
     ElementRef<SbbTransparentButtonLinkElement>,
   );

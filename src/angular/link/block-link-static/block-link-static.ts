@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -10,7 +10,7 @@ import '@sbb-esta/lyne-elements/link/block-link-static.js';
   selector: 'sbb-block-link-static',
   standalone: true,
 })
-export class SbbBlockLinkStaticDirective {
+export class SbbBlockLinkStatic {
   #element: ElementRef<SbbBlockLinkStaticElement> = inject(ElementRef<SbbBlockLinkStaticElement>);
   #ngZone: NgZone = inject(NgZone);
 

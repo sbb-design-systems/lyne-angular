@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -10,7 +10,7 @@ import '@sbb-esta/lyne-elements/stepper/stepper.js';
   selector: 'sbb-stepper',
   standalone: true,
 })
-export class SbbStepperDirective {
+export class SbbStepper {
   #element: ElementRef<SbbStepperElement> = inject(ElementRef<SbbStepperElement>);
   #ngZone: NgZone = inject(NgZone);
 

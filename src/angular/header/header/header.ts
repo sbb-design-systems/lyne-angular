@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbHeaderElement } from '@sbb-esta/lyne-elements/header/header.js';
@@ -8,7 +8,7 @@ import '@sbb-esta/lyne-elements/header/header.js';
   selector: 'sbb-header',
   standalone: true,
 })
-export class SbbHeaderDirective {
+export class SbbHeader {
   #element: ElementRef<SbbHeaderElement> = inject(ElementRef<SbbHeaderElement>);
   #ngZone: NgZone = inject(NgZone);
 

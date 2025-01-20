@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements/visual-checkbox.js';
   selector: 'sbb-visual-checkbox',
   standalone: true,
 })
-export class SbbVisualCheckboxDirective {
+export class SbbVisualCheckbox {
   #element: ElementRef<SbbVisualCheckboxElement> = inject(ElementRef<SbbVisualCheckboxElement>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbValidationChangeEvent } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -13,7 +13,7 @@ import '@sbb-esta/lyne-elements/datepicker/datepicker.js';
   selector: 'sbb-datepicker',
   standalone: true,
 })
-export class SbbDatepickerDirective<T = Date> {
+export class SbbDatepicker<T = Date> {
   #element: ElementRef<SbbDatepickerElement<T>> = inject(ElementRef<SbbDatepickerElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 

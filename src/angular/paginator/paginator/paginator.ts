@@ -1,4 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
+/* eslint-disable @angular-eslint/directive-selector, @angular-eslint/directive-class-suffix */
 import {
   Directive,
   ElementRef,
@@ -18,7 +18,7 @@ import '@sbb-esta/lyne-elements/paginator/paginator.js';
   selector: 'sbb-paginator',
   standalone: true,
 })
-export class SbbPaginatorDirective {
+export class SbbPaginator {
   #element: ElementRef<SbbPaginatorElement> = inject(ElementRef<SbbPaginatorElement>);
   #ngZone: NgZone = inject(NgZone);
 
