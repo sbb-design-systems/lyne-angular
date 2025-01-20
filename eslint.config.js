@@ -44,14 +44,7 @@ export default config(
     rules: {
       '@angular-eslint/no-input-rename': 'off',
       '@angular-eslint/directive-class-suffix': 'off',
-      '@angular-eslint/directive-selector': [
-        'error',
-        {
-          type: 'attribute',
-          prefix: 'sbb',
-          style: 'camelCase',
-        },
-      ],
+      '@angular-eslint/directive-selector': 'off',
       '@angular-eslint/component-selector': [
         'error',
         {
