@@ -1,6 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
@@ -10,13 +9,6 @@ import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
 @Directive({
   selector: 'sbb-expansion-panel-header',
   standalone: true,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbExpansionPanelHeaderDirective),
-      multi: true,
-    },
-  ],
 })
 export class SbbExpansionPanelHeaderDirective {
   #element: ElementRef<SbbExpansionPanelHeaderElement> = inject(

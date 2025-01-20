@@ -1,6 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAccentButtonElement } from '@sbb-esta/lyne-elements/button/accent-button.js';
 import '@sbb-esta/lyne-elements/button/accent-button.js';
@@ -10,13 +9,6 @@ import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 @Directive({
   selector: 'sbb-accent-button',
   standalone: true,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbAccentButtonDirective),
-      multi: true,
-    },
-  ],
 })
 export class SbbAccentButtonDirective {
   #element: ElementRef<SbbAccentButtonElement> = inject(ElementRef<SbbAccentButtonElement>);

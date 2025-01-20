@@ -1,6 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbMiniButtonElement } from '@sbb-esta/lyne-elements/button/mini-button.js';
 import '@sbb-esta/lyne-elements/button/mini-button.js';
@@ -9,13 +8,6 @@ import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 @Directive({
   selector: 'sbb-mini-button',
   standalone: true,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbMiniButtonDirective),
-      multi: true,
-    },
-  ],
 })
 export class SbbMiniButtonDirective {
   #element: ElementRef<SbbMiniButtonElement> = inject(ElementRef<SbbMiniButtonElement>);

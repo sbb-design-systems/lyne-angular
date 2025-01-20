@@ -1,6 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
@@ -10,13 +9,6 @@ import '@sbb-esta/lyne-elements/stepper/step-label.js';
 @Directive({
   selector: 'sbb-step-label',
   standalone: true,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbStepLabelDirective),
-      multi: true,
-    },
-  ],
 })
 export class SbbStepLabelDirective {
   #element: ElementRef<SbbStepLabelElement> = inject(ElementRef<SbbStepLabelElement>);

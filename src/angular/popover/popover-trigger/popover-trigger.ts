@@ -1,6 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbPopoverTriggerElement } from '@sbb-esta/lyne-elements/popover/popover-trigger.js';
@@ -9,13 +8,6 @@ import '@sbb-esta/lyne-elements/popover/popover-trigger.js';
 @Directive({
   selector: 'sbb-popover-trigger',
   standalone: true,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbPopoverTriggerDirective),
-      multi: true,
-    },
-  ],
 })
 export class SbbPopoverTriggerDirective {
   #element: ElementRef<SbbPopoverTriggerElement> = inject(ElementRef<SbbPopoverTriggerElement>);

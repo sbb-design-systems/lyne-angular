@@ -1,6 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbNavigationButtonElement } from '@sbb-esta/lyne-elements/navigation/navigation-button.js';
 import '@sbb-esta/lyne-elements/navigation/navigation-button.js';
@@ -11,13 +10,6 @@ import { SbbNavigationActionSize } from '@sbb-esta/lyne-elements/navigation.js';
 @Directive({
   selector: 'sbb-navigation-button',
   standalone: true,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbNavigationButtonDirective),
-      multi: true,
-    },
-  ],
 })
 export class SbbNavigationButtonDirective {
   #element: ElementRef<SbbNavigationButtonElement> = inject(ElementRef<SbbNavigationButtonElement>);

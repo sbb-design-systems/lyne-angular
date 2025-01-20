@@ -1,6 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSecondaryButtonElement } from '@sbb-esta/lyne-elements/button/secondary-button.js';
 import '@sbb-esta/lyne-elements/button/secondary-button.js';
@@ -10,13 +9,6 @@ import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 @Directive({
   selector: 'sbb-secondary-button',
   standalone: true,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbSecondaryButtonDirective),
-      multi: true,
-    },
-  ],
 })
 export class SbbSecondaryButtonDirective {
   #element: ElementRef<SbbSecondaryButtonElement> = inject(ElementRef<SbbSecondaryButtonElement>);

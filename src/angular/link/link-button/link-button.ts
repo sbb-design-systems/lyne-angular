@@ -1,6 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbLinkButtonElement } from '@sbb-esta/lyne-elements/link/link-button.js';
@@ -10,13 +9,6 @@ import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 @Directive({
   selector: 'sbb-link-button',
   standalone: true,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbLinkButtonDirective),
-      multi: true,
-    },
-  ],
 })
 export class SbbLinkButtonDirective {
   #element: ElementRef<SbbLinkButtonElement> = inject(ElementRef<SbbLinkButtonElement>);

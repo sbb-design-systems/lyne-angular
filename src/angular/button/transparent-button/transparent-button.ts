@@ -1,6 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTransparentButtonElement } from '@sbb-esta/lyne-elements/button/transparent-button.js';
 import '@sbb-esta/lyne-elements/button/transparent-button.js';
@@ -10,13 +9,6 @@ import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 @Directive({
   selector: 'sbb-transparent-button',
   standalone: true,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbTransparentButtonDirective),
-      multi: true,
-    },
-  ],
 })
 export class SbbTransparentButtonDirective {
   #element: ElementRef<SbbTransparentButtonElement> = inject(

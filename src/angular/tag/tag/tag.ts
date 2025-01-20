@@ -1,6 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
@@ -10,13 +9,6 @@ import '@sbb-esta/lyne-elements/tag/tag.js';
 @Directive({
   selector: 'sbb-tag',
   standalone: true,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbTagDirective),
-      multi: true,
-    },
-  ],
 })
 export class SbbTagDirective {
   #element: ElementRef<SbbTagElement> = inject(ElementRef<SbbTagElement>);
