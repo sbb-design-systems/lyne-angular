@@ -6,7 +6,6 @@ import '@sbb-esta/lyne-elements/visual-checkbox.js';
 
 @Directive({
   selector: 'sbb-visual-checkbox',
-  standalone: true,
 })
 export class SbbVisualCheckbox {
   #element: ElementRef<SbbVisualCheckboxElement> = inject(ElementRef<SbbVisualCheckboxElement>);

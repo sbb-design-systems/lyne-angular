@@ -15,7 +15,6 @@ import '@sbb-esta/lyne-elements/paginator/paginator.js';
 
 @Directive({
   selector: 'sbb-paginator',
-  standalone: true,
 })
 export class SbbPaginator {
   #element: ElementRef<SbbPaginatorElement> = inject(ElementRef<SbbPaginatorElement>);

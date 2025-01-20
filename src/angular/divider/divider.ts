@@ -6,7 +6,6 @@ import '@sbb-esta/lyne-elements/divider.js';
 
 @Directive({
   selector: 'sbb-divider',
-  standalone: true,
 })
 export class SbbDivider {
   #element: ElementRef<SbbDividerElement> = inject(ElementRef<SbbDividerElement>);

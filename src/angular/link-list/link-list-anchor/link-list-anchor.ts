@@ -7,7 +7,6 @@ import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 @Directive({
   selector: 'sbb-link-list-anchor',
-  standalone: true,
 })
 export class SbbLinkListAnchor {
   #element: ElementRef<SbbLinkListAnchorElement> = inject(ElementRef<SbbLinkListAnchorElement>);

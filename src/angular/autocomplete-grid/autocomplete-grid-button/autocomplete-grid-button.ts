@@ -6,7 +6,6 @@ import { SbbAutocompleteGridOptionElement } from '@sbb-esta/lyne-elements/autoco
 
 @Directive({
   selector: 'sbb-autocomplete-grid-button',
-  standalone: true,
 })
 export class SbbAutocompleteGridButton {
   #element: ElementRef<SbbAutocompleteGridButtonElement> = inject(

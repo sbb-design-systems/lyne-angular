@@ -9,7 +9,6 @@ import '@sbb-esta/lyne-elements/navigation/navigation-link.js';
 
 @Directive({
   selector: 'sbb-navigation-link',
-  standalone: true,
 })
 export class SbbNavigationLink {
   #element: ElementRef<SbbNavigationLinkElement> = inject(ElementRef<SbbNavigationLinkElement>);

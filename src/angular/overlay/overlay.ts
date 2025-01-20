@@ -7,7 +7,6 @@ import '@sbb-esta/lyne-elements/overlay.js';
 
 @Directive({
   selector: 'sbb-overlay',
-  standalone: true,
 })
 export class SbbOverlay {
   #element: ElementRef<SbbOverlayElement> = inject(ElementRef<SbbOverlayElement>);

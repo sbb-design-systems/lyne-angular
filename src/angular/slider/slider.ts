@@ -8,7 +8,6 @@ import '@sbb-esta/lyne-elements/slider.js';
 
 @Directive({
   selector: 'sbb-slider',
-  standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

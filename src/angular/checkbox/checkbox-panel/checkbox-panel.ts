@@ -10,7 +10,6 @@ import '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
 
 @Directive({
   selector: 'sbb-checkbox-panel',
-  standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

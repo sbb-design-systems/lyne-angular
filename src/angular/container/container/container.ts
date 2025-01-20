@@ -5,7 +5,6 @@ import '@sbb-esta/lyne-elements/container/container.js';
 
 @Directive({
   selector: 'sbb-container',
-  standalone: true,
 })
 export class SbbContainer {
   #element: ElementRef<SbbContainerElement> = inject(ElementRef<SbbContainerElement>);

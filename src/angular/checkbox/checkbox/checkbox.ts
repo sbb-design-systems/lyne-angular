@@ -11,7 +11,6 @@ import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
 
 @Directive({
   selector: 'sbb-checkbox',
-  standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

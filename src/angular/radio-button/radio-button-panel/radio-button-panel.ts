@@ -10,7 +10,6 @@ import '@sbb-esta/lyne-elements/radio-button/radio-button-panel.js';
 
 @Directive({
   selector: 'sbb-radio-button-panel',
-  standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

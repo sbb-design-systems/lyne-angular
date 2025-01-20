@@ -9,7 +9,6 @@ import '@sbb-esta/lyne-elements-experimental/journey-summary.js';
 
 @Directive({
   selector: 'sbb-journey-summary',
-  standalone: true,
 })
 export class SbbJourneySummary {
   #element: ElementRef<SbbJourneySummaryElement> = inject(ElementRef<SbbJourneySummaryElement>);

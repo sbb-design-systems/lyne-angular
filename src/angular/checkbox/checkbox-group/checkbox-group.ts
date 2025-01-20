@@ -9,7 +9,6 @@ import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/
 
 @Directive({
   selector: 'sbb-checkbox-group',
-  standalone: true,
 })
 export class SbbCheckboxGroup {
   #element: ElementRef<SbbCheckboxGroupElement> = inject(ElementRef<SbbCheckboxGroupElement>);

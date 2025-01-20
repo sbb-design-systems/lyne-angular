@@ -8,7 +8,6 @@ import '@sbb-esta/lyne-elements/toggle-check.js';
 
 @Directive({
   selector: 'sbb-toggle-check',
-  standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

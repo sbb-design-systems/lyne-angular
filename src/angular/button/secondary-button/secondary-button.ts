@@ -7,7 +7,6 @@ import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
 @Directive({
   selector: 'sbb-secondary-button',
-  standalone: true,
 })
 export class SbbSecondaryButton {
   #element: ElementRef<SbbSecondaryButtonElement> = inject(ElementRef<SbbSecondaryButtonElement>);

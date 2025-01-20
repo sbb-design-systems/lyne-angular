@@ -7,7 +7,6 @@ import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
 
 @Directive({
   selector: 'sbb-expansion-panel-header',
-  standalone: true,
 })
 export class SbbExpansionPanelHeader {
   #element: ElementRef<SbbExpansionPanelHeaderElement> = inject(

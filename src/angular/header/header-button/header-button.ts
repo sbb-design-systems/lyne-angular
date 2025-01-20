@@ -6,7 +6,6 @@ import '@sbb-esta/lyne-elements/header/header-button.js';
 
 @Directive({
   selector: 'sbb-header-button',
-  standalone: true,
 })
 export class SbbHeaderButton {
   #element: ElementRef<SbbHeaderButtonElement> = inject(ElementRef<SbbHeaderButtonElement>);

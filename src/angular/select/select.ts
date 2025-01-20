@@ -8,7 +8,6 @@ import '@sbb-esta/lyne-elements/select.js';
 
 @Directive({
   selector: 'sbb-select',
-  standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

@@ -6,7 +6,6 @@ import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 @Directive({
   selector: 'sbb-accordion',
-  standalone: true,
 })
 export class SbbAccordion {
   #element: ElementRef<SbbAccordionElement> = inject(ElementRef<SbbAccordionElement>);

@@ -7,7 +7,6 @@ import '@sbb-esta/lyne-elements/calendar.js';
 
 @Directive({
   selector: 'sbb-calendar',
-  standalone: true,
 })
 export class SbbCalendar<T = Date> {
   #element: ElementRef<SbbCalendarElement<T>> = inject(ElementRef<SbbCalendarElement<T>>);

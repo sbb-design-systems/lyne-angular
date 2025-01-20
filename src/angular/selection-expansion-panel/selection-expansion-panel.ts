@@ -6,7 +6,6 @@ import '@sbb-esta/lyne-elements/selection-expansion-panel.js';
 
 @Directive({
   selector: 'sbb-selection-expansion-panel',
-  standalone: true,
 })
 export class SbbSelectionExpansionPanel {
   #element: ElementRef<SbbSelectionExpansionPanelElement> = inject(

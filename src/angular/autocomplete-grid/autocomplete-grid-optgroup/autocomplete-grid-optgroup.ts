@@ -5,7 +5,6 @@ import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-optgroup.js'
 
 @Directive({
   selector: 'sbb-autocomplete-grid-optgroup',
-  standalone: true,
 })
 export class SbbAutocompleteGridOptgroup {
   #element: ElementRef<SbbAutocompleteGridOptgroupElement> = inject(

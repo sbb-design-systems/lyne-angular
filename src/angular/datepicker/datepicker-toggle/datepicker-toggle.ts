@@ -7,7 +7,6 @@ import '@sbb-esta/lyne-elements/datepicker/datepicker-toggle.js';
 
 @Directive({
   selector: 'sbb-datepicker-toggle',
-  standalone: true,
 })
 export class SbbDatepickerToggle<T = Date> {
   #element: ElementRef<SbbDatepickerToggleElement<T>> = inject(
@@ -44,14 +43,10 @@ export class SbbDatepickerToggle<T = Date> {
   }
 
   @Input({ alias: 'date-picker' })
-  public set datePicker(value: | string
-    | SbbDatepickerElement
-    | null) {
+  public set datePicker(value: string | SbbDatepickerElement | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datePicker = value));
   }
-  public get datePicker(): | string
-    | SbbDatepickerElement
-    | null {
+  public get datePicker(): string | SbbDatepickerElement | null {
     return this.#element.nativeElement.datePicker;
   }
 }

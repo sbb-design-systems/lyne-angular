@@ -9,7 +9,6 @@ import '@sbb-esta/lyne-elements/file-selector/file-selector.js';
 
 @Directive({
   selector: 'sbb-file-selector',
-  standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

@@ -5,7 +5,6 @@ import { SbbTime } from '@sbb-esta/lyne-elements/core/interfaces.js';
 
 @Directive({
   selector: 'sbb-clock',
-  standalone: true,
 })
 export class SbbClock {
   #element: ElementRef<SbbClockElement> = inject(ElementRef<SbbClockElement>);
