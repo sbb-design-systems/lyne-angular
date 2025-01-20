@@ -1,12 +1,11 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import {
   Directive,
   ElementRef,
+  inject,
   Input,
   NgZone,
-  Output,
-  inject,
   numberAttribute,
+  Output,
 } from '@angular/core';
 import type {
   InterfaceSbbTabGroupTab,
@@ -20,7 +19,7 @@ import '@sbb-esta/lyne-elements/tabs/tab-group.js';
   selector: 'sbb-tab-group',
   standalone: true,
 })
-export class SbbTabGroupDirective {
+export class SbbTabGroup {
   #element: ElementRef<SbbTabGroupElement> = inject(ElementRef<SbbTabGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -32,7 +31,6 @@ export class SbbTabGroupDirective {
     return this.#element.nativeElement.size;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'initial-selected-index', transform: numberAttribute })
   public set initialSelectedIndex(value: number) {
     this.#ngZone.runOutsideAngular(

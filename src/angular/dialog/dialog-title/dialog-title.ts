@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { Breakpoint } from '@sbb-esta/lyne-elements/core/dom.js';
 import type { SbbDialogTitleElement } from '@sbb-esta/lyne-elements/dialog/dialog-title.js';
@@ -11,11 +10,10 @@ import '@sbb-esta/lyne-elements/dialog/dialog-title.js';
   selector: 'sbb-dialog-title',
   standalone: true,
 })
-export class SbbDialogTitleDirective {
+export class SbbDialogTitle {
   #element: ElementRef<SbbDialogTitleElement> = inject(ElementRef<SbbDialogTitleElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'back-button', transform: booleanAttribute })
   public set backButton(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backButton = value));
@@ -24,7 +22,6 @@ export class SbbDialogTitleDirective {
     return this.#element.nativeElement.backButton;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-close-label' })
   public set accessibilityCloseLabel(value: string) {
     this.#ngZone.runOutsideAngular(
@@ -35,7 +32,6 @@ export class SbbDialogTitleDirective {
     return this.#element.nativeElement.accessibilityCloseLabel;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-back-label' })
   public set accessibilityBackLabel(value: string) {
     this.#ngZone.runOutsideAngular(
@@ -46,7 +42,6 @@ export class SbbDialogTitleDirective {
     return this.#element.nativeElement.accessibilityBackLabel;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'hide-on-scroll' })
   public set hideOnScroll(value: Breakpoint | boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hideOnScroll = value));
@@ -63,7 +58,6 @@ export class SbbDialogTitleDirective {
     return this.#element.nativeElement.level;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'visual-level' })
   public set visualLevel(value: SbbTitleLevel | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.visualLevel = value));
@@ -80,7 +74,6 @@ export class SbbDialogTitleDirective {
     return this.#element.nativeElement.negative;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'visually-hidden', transform: booleanAttribute })
   public set visuallyHidden(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.visuallyHidden = value));

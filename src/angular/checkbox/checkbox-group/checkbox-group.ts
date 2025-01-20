@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
 import '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
@@ -12,7 +11,7 @@ import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/
   selector: 'sbb-checkbox-group',
   standalone: true,
 })
-export class SbbCheckboxGroupDirective {
+export class SbbCheckboxGroup {
   #element: ElementRef<SbbCheckboxGroupElement> = inject(ElementRef<SbbCheckboxGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -32,7 +31,6 @@ export class SbbCheckboxGroupDirective {
     return this.#element.nativeElement.size;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'horizontal-from' })
   public set horizontalFrom(value: SbbHorizontalFrom | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.horizontalFrom = value));

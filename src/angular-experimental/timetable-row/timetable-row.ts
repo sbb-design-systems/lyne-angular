@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { ITripItem } from '@sbb-esta/lyne-elements-experimental/core/timetable.js';
 import type {
@@ -13,7 +12,7 @@ import '@sbb-esta/lyne-elements-experimental/timetable-row.js';
   selector: 'sbb-timetable-row',
   standalone: true,
 })
-export class SbbTimetableRowDirective {
+export class SbbTimetableRow {
   #element: ElementRef<SbbTimetableRowElement> = inject(ElementRef<SbbTimetableRowElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -33,7 +32,6 @@ export class SbbTimetableRowDirective {
     return this.#element.nativeElement.price;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'disable-animation', transform: booleanAttribute })
   public set disableAnimation(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disableAnimation = value));
@@ -50,7 +48,6 @@ export class SbbTimetableRowDirective {
     return this.#element.nativeElement.boarding;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'loading-trip', transform: booleanAttribute })
   public set loadingTrip(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.loadingTrip = value));
@@ -59,7 +56,6 @@ export class SbbTimetableRowDirective {
     return this.#element.nativeElement.loadingTrip;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'a11y-footpath', transform: booleanAttribute })
   public set a11yFootpath(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.a11yFootpath = value));
@@ -68,7 +64,6 @@ export class SbbTimetableRowDirective {
     return this.#element.nativeElement.a11yFootpath;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'loading-price', transform: booleanAttribute })
   public set loadingPrice(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.loadingPrice = value));
@@ -77,7 +72,6 @@ export class SbbTimetableRowDirective {
     return this.#element.nativeElement.loadingPrice;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'card-action-label' })
   public set cardActionLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.cardActionLabel = value));
@@ -86,7 +80,6 @@ export class SbbTimetableRowDirective {
     return this.#element.nativeElement.cardActionLabel;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-expanded', transform: booleanAttribute })
   public set accessibilityExpanded(value: boolean) {
     this.#ngZone.runOutsideAngular(

@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTransparentButtonElement } from '@sbb-esta/lyne-elements/button/transparent-button.js';
 import '@sbb-esta/lyne-elements/button/transparent-button.js';
@@ -10,7 +9,7 @@ import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
   selector: 'sbb-transparent-button',
   standalone: true,
 })
-export class SbbTransparentButtonDirective {
+export class SbbTransparentButton {
   #element: ElementRef<SbbTransparentButtonElement> = inject(
     ElementRef<SbbTransparentButtonElement>,
   );
@@ -32,7 +31,6 @@ export class SbbTransparentButtonDirective {
     return this.#element.nativeElement.negative;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
@@ -41,7 +39,6 @@ export class SbbTransparentButtonDirective {
     return this.#element.nativeElement.iconName;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'disabled-interactive', transform: booleanAttribute })
   public set disabledInteractive(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabledInteractive = value));

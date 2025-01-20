@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive } from '@angular/core';
 import '@sbb-esta/lyne-elements/lead-container.js';
 
@@ -6,4 +5,4 @@ import '@sbb-esta/lyne-elements/lead-container.js';
   selector: 'sbb-lead-container',
   standalone: true,
 })
-export class SbbLeadContainerDirective {}
+export class SbbLeadContainer {}

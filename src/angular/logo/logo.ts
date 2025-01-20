@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbProtectiveRoom } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbLogoElement } from '@sbb-esta/lyne-elements/logo.js';
@@ -9,11 +8,10 @@ import '@sbb-esta/lyne-elements/logo.js';
   selector: 'sbb-logo',
   standalone: true,
 })
-export class SbbLogoDirective {
+export class SbbLogo {
   #element: ElementRef<SbbLogoElement> = inject(ElementRef<SbbLogoElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'protective-room' })
   public set protectiveRoom(value: SbbProtectiveRoom) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.protectiveRoom = value));
@@ -22,7 +20,6 @@ export class SbbLogoDirective {
     return this.#element.nativeElement.protectiveRoom;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

@@ -4,5 +4,5 @@
  * which does not align with the Lit and native interpretation.
  */
 export function booleanAttribute(value: unknown): boolean {
-  return typeof value === 'boolean' ? value : value != null && !!value;
+  return typeof value === 'boolean' ? value : value !== undefined && value != null;
 }

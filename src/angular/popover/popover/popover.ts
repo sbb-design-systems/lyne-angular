@@ -1,12 +1,11 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import {
   Directive,
   ElementRef,
+  inject,
   Input,
   NgZone,
-  Output,
-  inject,
   numberAttribute,
+  Output,
 } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover.js';
@@ -17,7 +16,7 @@ import '@sbb-esta/lyne-elements/popover/popover.js';
   selector: 'sbb-popover',
   standalone: true,
 })
-export class SbbPopoverDirective {
+export class SbbPopover {
   #element: ElementRef<SbbPopoverElement> = inject(ElementRef<SbbPopoverElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -29,7 +28,6 @@ export class SbbPopoverDirective {
     return this.#element.nativeElement.trigger;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'hide-close-button', transform: booleanAttribute })
   public set hideCloseButton(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hideCloseButton = value));
@@ -38,7 +36,6 @@ export class SbbPopoverDirective {
     return this.#element.nativeElement.hideCloseButton;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'hover-trigger', transform: booleanAttribute })
   public set hoverTrigger(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hoverTrigger = value));
@@ -47,7 +44,6 @@ export class SbbPopoverDirective {
     return this.#element.nativeElement.hoverTrigger;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'open-delay', transform: numberAttribute })
   public set openDelay(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.openDelay = value));
@@ -56,7 +52,6 @@ export class SbbPopoverDirective {
     return this.#element.nativeElement.openDelay;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'close-delay', transform: numberAttribute })
   public set closeDelay(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.closeDelay = value));
@@ -65,7 +60,6 @@ export class SbbPopoverDirective {
     return this.#element.nativeElement.closeDelay;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-close-label' })
   public set accessibilityCloseLabel(value: string) {
     this.#ngZone.runOutsideAngular(

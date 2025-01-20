@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbMenuButtonElement } from '@sbb-esta/lyne-elements/menu/menu-button.js';
@@ -9,11 +8,10 @@ import '@sbb-esta/lyne-elements/menu/menu-button.js';
   selector: 'sbb-menu-button',
   standalone: true,
 })
-export class SbbMenuButtonDirective {
+export class SbbMenuButton {
   #element: ElementRef<SbbMenuButtonElement> = inject(ElementRef<SbbMenuButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'disabled-interactive', transform: booleanAttribute })
   public set disabledInteractive(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabledInteractive = value));
@@ -38,7 +36,6 @@ export class SbbMenuButtonDirective {
     return this.#element.nativeElement.amount;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));

@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbNotificationElement } from '@sbb-esta/lyne-elements/notification.js';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
@@ -10,7 +9,7 @@ import '@sbb-esta/lyne-elements/notification.js';
   selector: 'sbb-notification',
   standalone: true,
 })
-export class SbbNotificationDirective {
+export class SbbNotification {
   #element: ElementRef<SbbNotificationElement> = inject(ElementRef<SbbNotificationElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -22,7 +21,6 @@ export class SbbNotificationDirective {
     return this.#element.nativeElement.type;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-content' })
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
@@ -31,7 +29,6 @@ export class SbbNotificationDirective {
     return this.#element.nativeElement.titleContent;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-level' })
   public set titleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));

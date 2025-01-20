@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
@@ -10,7 +9,7 @@ import '@sbb-esta/lyne-elements/stepper/stepper.js';
   selector: 'sbb-stepper',
   standalone: true,
 })
-export class SbbStepperDirective {
+export class SbbStepper {
   #element: ElementRef<SbbStepperElement> = inject(ElementRef<SbbStepperElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -22,7 +21,6 @@ export class SbbStepperDirective {
     return this.#element.nativeElement.linear;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'horizontal-from' })
   public set horizontalFrom(value: SbbHorizontalFrom | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.horizontalFrom = value));
@@ -55,7 +53,6 @@ export class SbbStepperDirective {
     return this.#element.nativeElement.selected;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'selected-index' })
   public set selectedIndex(value: number | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.selectedIndex = value));

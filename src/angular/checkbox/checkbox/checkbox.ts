@@ -1,14 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import {
-  Directive,
-  ElementRef,
-  Input,
-  NgZone,
-  Output,
-  inject,
-  forwardRef,
-  HostListener,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
@@ -16,6 +6,7 @@ import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkb
 import { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
 import { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
 
 @Directive({
@@ -24,12 +15,12 @@ import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbCheckboxDirective),
+      useExisting: forwardRef(() => SbbCheckbox),
       multi: true,
     },
   ],
 })
-export class SbbCheckboxDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbCheckbox extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbCheckboxElement> = inject(ElementRef<SbbCheckboxElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -41,7 +32,6 @@ export class SbbCheckboxDirective extends SbbControlValueAccessorMixin(class {})
     return this.#element.nativeElement.size;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-placement' })
   public set iconPlacement(value: SbbIconPlacement) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconPlacement = value));
@@ -98,7 +88,6 @@ export class SbbCheckboxDirective extends SbbControlValueAccessorMixin(class {})
     return this.#element.nativeElement.value;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));

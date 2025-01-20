@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAlertElement } from '@sbb-esta/lyne-elements/alert/alert.js';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
@@ -10,7 +9,7 @@ import '@sbb-esta/lyne-elements/alert/alert.js';
   selector: 'sbb-alert',
   standalone: true,
 })
-export class SbbAlertDirective {
+export class SbbAlert {
   #element: ElementRef<SbbAlertElement> = inject(ElementRef<SbbAlertElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -30,7 +29,6 @@ export class SbbAlertDirective {
     return this.#element.nativeElement.size;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
@@ -39,7 +37,6 @@ export class SbbAlertDirective {
     return this.#element.nativeElement.iconName;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-content' })
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
@@ -48,7 +45,6 @@ export class SbbAlertDirective {
     return this.#element.nativeElement.titleContent;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-level' })
   public set titleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));

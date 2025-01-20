@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import type { SbbNavigationElement } from '@sbb-esta/lyne-elements/navigation/navigation.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/navigation/navigation.js';
@@ -8,7 +7,7 @@ import '@sbb-esta/lyne-elements/navigation/navigation.js';
   selector: 'sbb-navigation',
   standalone: true,
 })
-export class SbbNavigationDirective {
+export class SbbNavigation {
   #element: ElementRef<SbbNavigationElement> = inject(ElementRef<SbbNavigationElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -20,7 +19,6 @@ export class SbbNavigationDirective {
     return this.#element.nativeElement.trigger;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-close-label' })
   public set accessibilityCloseLabel(value: string) {
     this.#ngZone.runOutsideAngular(

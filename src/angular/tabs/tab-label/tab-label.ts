@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs/tab-label.js';
 import '@sbb-esta/lyne-elements/tabs/tab-label.js';
@@ -9,7 +8,7 @@ import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
   selector: 'sbb-tab-label',
   standalone: true,
 })
-export class SbbTabLabelDirective {
+export class SbbTabLabel {
   #element: ElementRef<SbbTabLabelElement> = inject(ElementRef<SbbTabLabelElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -45,7 +44,6 @@ export class SbbTabLabelDirective {
     return this.#element.nativeElement.disabled;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));

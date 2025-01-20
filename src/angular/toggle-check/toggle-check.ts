@@ -1,18 +1,9 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import {
-  Directive,
-  ElementRef,
-  forwardRef,
-  HostListener,
-  inject,
-  Input,
-  NgZone,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/toggle-check.js';
 
 @Directive({
@@ -21,12 +12,12 @@ import '@sbb-esta/lyne-elements/toggle-check.js';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbToggleCheckDirective),
+      useExisting: forwardRef(() => SbbToggleCheck),
       multi: true,
     },
   ],
 })
-export class SbbToggleCheckDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbToggleCheck extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbToggleCheckElement> = inject(ElementRef<SbbToggleCheckElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -38,7 +29,6 @@ export class SbbToggleCheckDirective extends SbbControlValueAccessorMixin(class 
     return this.#element.nativeElement.size;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
@@ -47,7 +37,6 @@ export class SbbToggleCheckDirective extends SbbControlValueAccessorMixin(class 
     return this.#element.nativeElement.iconName;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'label-position' })
   public set labelPosition(value: 'before' | 'after') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.labelPosition = value));

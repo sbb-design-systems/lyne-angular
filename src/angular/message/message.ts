@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbMessageElement } from '@sbb-esta/lyne-elements/message.js';
 import '@sbb-esta/lyne-elements/message.js';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
@@ -8,11 +7,10 @@ import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
   selector: 'sbb-message',
   standalone: true,
 })
-export class SbbMessageDirective {
+export class SbbMessage {
   #element: ElementRef<SbbMessageElement> = inject(ElementRef<SbbMessageElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-content' })
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
@@ -21,7 +19,6 @@ export class SbbMessageDirective {
     return this.#element.nativeElement.titleContent;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-level' })
   public set titleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));

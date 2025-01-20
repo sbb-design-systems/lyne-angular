@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbTimetableDurationElement } from '@sbb-esta/lyne-elements-experimental/timetable-duration.js';
 import '@sbb-esta/lyne-elements-experimental/timetable-duration.js';
 
@@ -7,7 +6,7 @@ import '@sbb-esta/lyne-elements-experimental/timetable-duration.js';
   selector: 'sbb-timetable-duration',
   standalone: true,
 })
-export class SbbTimetableDurationDirective {
+export class SbbTimetableDuration {
   #element: ElementRef<SbbTimetableDurationElement> = inject(
     ElementRef<SbbTimetableDurationElement>,
   );

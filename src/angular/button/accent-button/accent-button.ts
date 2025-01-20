@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAccentButtonElement } from '@sbb-esta/lyne-elements/button/accent-button.js';
 import '@sbb-esta/lyne-elements/button/accent-button.js';
@@ -10,7 +9,7 @@ import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
   selector: 'sbb-accent-button',
   standalone: true,
 })
-export class SbbAccentButtonDirective {
+export class SbbAccentButton {
   #element: ElementRef<SbbAccentButtonElement> = inject(ElementRef<SbbAccentButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -30,7 +29,6 @@ export class SbbAccentButtonDirective {
     return this.#element.nativeElement.negative;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
@@ -39,7 +37,6 @@ export class SbbAccentButtonDirective {
     return this.#element.nativeElement.iconName;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'disabled-interactive', transform: booleanAttribute })
   public set disabledInteractive(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabledInteractive = value));

@@ -1,12 +1,11 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import {
   Directive,
   ElementRef,
+  inject,
   Input,
   NgZone,
-  Output,
-  inject,
   numberAttribute,
+  Output,
 } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbToastElement, SbbToastPosition } from '@sbb-esta/lyne-elements/toast.js';
@@ -17,7 +16,7 @@ import '@sbb-esta/lyne-elements/toast.js';
   selector: 'sbb-toast',
   standalone: true,
 })
-export class SbbToastDirective {
+export class SbbToast {
   #element: ElementRef<SbbToastElement> = inject(ElementRef<SbbToastElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -53,7 +52,6 @@ export class SbbToastDirective {
     return this.#element.nativeElement.politeness;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));

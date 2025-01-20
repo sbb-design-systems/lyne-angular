@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type {
   JourneyHeaderSize,
@@ -12,7 +11,7 @@ import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
   selector: 'sbb-journey-header',
   standalone: true,
 })
-export class SbbJourneyHeaderDirective {
+export class SbbJourneyHeader {
   #element: ElementRef<SbbJourneyHeaderElement> = inject(ElementRef<SbbJourneyHeaderElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -32,7 +31,6 @@ export class SbbJourneyHeaderDirective {
     return this.#element.nativeElement.destination;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'round-trip', transform: booleanAttribute })
   public set roundTrip(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.roundTrip = value));

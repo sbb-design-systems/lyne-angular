@@ -1,19 +1,10 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import {
-  Directive,
-  ElementRef,
-  forwardRef,
-  HostListener,
-  inject,
-  Input,
-  NgZone,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { FormRestoreReason, FormRestoreState } from '@sbb-esta/lyne-elements/core/mixins.js';
 import type { SbbFileSelectorDropzoneElement } from '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
 
 @Directive({
@@ -22,18 +13,17 @@ import '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbFileSelectorDropzoneDirective),
+      useExisting: forwardRef(() => SbbFileSelectorDropzone),
       multi: true,
     },
   ],
 })
-export class SbbFileSelectorDropzoneDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbFileSelectorDropzone extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbFileSelectorDropzoneElement> = inject(
     ElementRef<SbbFileSelectorDropzoneElement>,
   );
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-content' })
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
@@ -58,7 +48,6 @@ export class SbbFileSelectorDropzoneDirective extends SbbControlValueAccessorMix
     return this.#element.nativeElement.multiple;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'multiple-mode' })
   public set multipleMode(value: 'default' | 'persistent') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.multipleMode = value));
@@ -75,7 +64,6 @@ export class SbbFileSelectorDropzoneDirective extends SbbControlValueAccessorMix
     return this.#element.nativeElement.accept;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

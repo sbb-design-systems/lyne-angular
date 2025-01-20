@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbIconElement } from '@sbb-esta/lyne-elements/icon.js';
 import '@sbb-esta/lyne-elements/icon.js';
@@ -8,7 +7,7 @@ import '@sbb-esta/lyne-elements/icon.js';
   selector: 'sbb-icon',
   standalone: true,
 })
-export class SbbIconDirective {
+export class SbbIcon {
   #element: ElementRef<SbbIconElement> = inject(ElementRef<SbbIconElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -20,7 +19,6 @@ export class SbbIconDirective {
     return this.#element.nativeElement.name;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'no-sanitize', transform: booleanAttribute })
   public set noSanitize(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.noSanitize = value));

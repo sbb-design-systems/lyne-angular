@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle/toggle-option.js';
 import '@sbb-esta/lyne-elements/toggle/toggle-option.js';
@@ -8,7 +7,7 @@ import '@sbb-esta/lyne-elements/toggle/toggle-option.js';
   selector: 'sbb-toggle-option',
   standalone: true,
 })
-export class SbbToggleOptionDirective {
+export class SbbToggleOption {
   #element: ElementRef<SbbToggleOptionElement> = inject(ElementRef<SbbToggleOptionElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -36,7 +35,6 @@ export class SbbToggleOptionDirective {
     return this.#element.nativeElement.value;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));

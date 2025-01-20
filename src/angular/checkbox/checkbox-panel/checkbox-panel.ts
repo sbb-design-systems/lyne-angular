@@ -1,20 +1,11 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import {
-  Directive,
-  ElementRef,
-  Input,
-  NgZone,
-  Output,
-  inject,
-  forwardRef,
-  HostListener,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
 import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
 import { SbbPanelSize } from '@sbb-esta/lyne-elements/core/mixins.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
 
 @Directive({
@@ -23,12 +14,12 @@ import '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbCheckboxPanelDirective),
+      useExisting: forwardRef(() => SbbCheckboxPanel),
       multi: true,
     },
   ],
 })
-export class SbbCheckboxPanelDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbCheckboxPanel extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbCheckboxPanelElement> = inject(ElementRef<SbbCheckboxPanelElement>);
   #ngZone: NgZone = inject(NgZone);
 

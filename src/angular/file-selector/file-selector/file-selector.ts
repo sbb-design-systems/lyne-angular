@@ -1,19 +1,10 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import {
-  Directive,
-  ElementRef,
-  forwardRef,
-  HostListener,
-  inject,
-  Input,
-  NgZone,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { FormRestoreReason, FormRestoreState } from '@sbb-esta/lyne-elements/core/mixins.js';
 import type { SbbFileSelectorElement } from '@sbb-esta/lyne-elements/file-selector/file-selector.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/file-selector/file-selector.js';
 
 @Directive({
@@ -22,12 +13,12 @@ import '@sbb-esta/lyne-elements/file-selector/file-selector.js';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbFileSelectorDirective),
+      useExisting: forwardRef(() => SbbFileSelector),
       multi: true,
     },
   ],
 })
-export class SbbFileSelectorDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbFileSelector extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbFileSelectorElement> = inject(ElementRef<SbbFileSelectorElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -47,7 +38,6 @@ export class SbbFileSelectorDirective extends SbbControlValueAccessorMixin(class
     return this.#element.nativeElement.multiple;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'multiple-mode' })
   public set multipleMode(value: 'default' | 'persistent') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.multipleMode = value));
@@ -64,7 +54,6 @@ export class SbbFileSelectorDirective extends SbbControlValueAccessorMixin(class
     return this.#element.nativeElement.accept;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

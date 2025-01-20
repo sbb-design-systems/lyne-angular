@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbTimetableOccupancyIconElement } from '@sbb-esta/lyne-elements/timetable-occupancy-icon.js';
@@ -9,7 +8,7 @@ import '@sbb-esta/lyne-elements/timetable-occupancy-icon.js';
   selector: 'sbb-timetable-occupancy-icon',
   standalone: true,
 })
-export class SbbTimetableOccupancyIconDirective {
+export class SbbTimetableOccupancyIcon {
   #element: ElementRef<SbbTimetableOccupancyIconElement> = inject(
     ElementRef<SbbTimetableOccupancyIconElement>,
   );
@@ -31,7 +30,6 @@ export class SbbTimetableOccupancyIconDirective {
     return this.#element.nativeElement.negative;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'no-sanitize', transform: booleanAttribute })
   public set noSanitize(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.noSanitize = value));

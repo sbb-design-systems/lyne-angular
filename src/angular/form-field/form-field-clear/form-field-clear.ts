@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbFormFieldClearElement } from '@sbb-esta/lyne-elements/form-field/form-field-clear.js';
@@ -9,7 +8,7 @@ import '@sbb-esta/lyne-elements/form-field/form-field-clear.js';
   selector: 'sbb-form-field-clear',
   standalone: true,
 })
-export class SbbFormFieldClearDirective {
+export class SbbFormFieldClear {
   #element: ElementRef<SbbFormFieldClearElement> = inject(ElementRef<SbbFormFieldClearElement>);
   #ngZone: NgZone = inject(NgZone);
 

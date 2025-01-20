@@ -3,12 +3,7 @@ import { dirname, relative } from 'node:path';
 import { basename, join } from 'path';
 import { fileURLToPath } from 'url';
 
-import {
-  AST_NODE_TYPES,
-  AST_TOKEN_TYPES,
-  ESLintUtils,
-  type TSESTree,
-} from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
 import type {
   ClassMember,
   ClassMethod,
@@ -108,25 +103,6 @@ export default ESLintUtils.RuleCreator.withoutDocs({
             declaration.kind === 'class' && /^(?!.*Base).*Element/.test(declaration.name),
         )! as CustomElementDeclaration & { classGenerics: string };
 
-        // Disable the eslint rule for the component name.
-        if (
-          node.comments?.every(
-            (comment) =>
-              comment.type === AST_TOKEN_TYPES.Block &&
-              !comment.value.includes('directive-selector'),
-          )
-        ) {
-          context.report({
-            node,
-            messageId: 'eslintMissingDisableDirectiveRule',
-            fix: (fixer) =>
-              fixer.insertTextBeforeRange(
-                [node.range[0], node.range[0]],
-                `/* eslint-disable @angular-eslint/directive-selector */\n`,
-              ),
-          });
-        }
-
         if (node.body.every((n) => n.type !== AST_NODE_TYPES.ImportDeclaration)) {
           context.report({
             node,
@@ -141,7 +117,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
         }
 
         const classSelector = toKebabCase(classDeclaration.name.replace(/Element$/, ''));
-        const className = classDeclaration.name.replace(/Element$/, 'Directive');
+        const className = classDeclaration.name.replace(/Element$/, '');
 
         if (
           node.body.every(
@@ -278,10 +254,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               data: { property: member.name },
               fix: (fixer) => {
                 const endOfBody = classDeclaration.body.range[1] - 1;
-                const hasAttribute = member.attribute && member.attribute.includes('-');
-                let input = hasAttribute
-                  ? `// eslint-disable-next-line @angular-eslint/no-input-rename\n  @Input(`
-                  : '@Input(';
+                let input = '@Input(';
                 if (member.attribute && member.attribute.includes('-')) {
                   input += `{ alias: '${member.attribute}' }`;
                 }
@@ -579,7 +552,6 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
       description: 'Generate Angular code for Lyne elements.',
     },
     messages: {
-      eslintMissingDisableDirectiveRule: 'Missing eslint disable rule for directive-selector',
       angularMissingImport: 'Missing import {{ symbol }}',
       rxJsMissingImport: 'Missing import {{ symbol }}',
       angularMissingDirective: 'Missing class for {{ className }}',

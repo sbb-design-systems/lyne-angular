@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAutocompleteElement } from '@sbb-esta/lyne-elements/autocomplete.js';
 import { fromEvent, type Observable } from 'rxjs';
@@ -9,7 +8,7 @@ import '@sbb-esta/lyne-elements/autocomplete.js';
   selector: 'sbb-autocomplete',
   standalone: true,
 })
-export class SbbAutocompleteDirective {
+export class SbbAutocomplete {
   #element: ElementRef<SbbAutocompleteElement> = inject(ElementRef<SbbAutocompleteElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -37,7 +36,6 @@ export class SbbAutocompleteDirective {
     return this.#element.nativeElement.trigger;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'preserve-icon-space', transform: booleanAttribute })
   public set preserveIconSpace(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.preserveIconSpace = value));

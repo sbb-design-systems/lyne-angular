@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTeaserProductElement } from '@sbb-esta/lyne-elements/teaser-product/teaser-product.js';
@@ -9,11 +8,10 @@ import '@sbb-esta/lyne-elements/teaser-product/teaser-product.js';
   selector: 'sbb-teaser-product',
   standalone: true,
 })
-export class SbbTeaserProductDirective {
+export class SbbTeaserProduct {
   #element: ElementRef<SbbTeaserProductElement> = inject(ElementRef<SbbTeaserProductElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'image-alignment' })
   public set imageAlignment(value: 'after' | 'before') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.imageAlignment = value));
@@ -62,7 +60,6 @@ export class SbbTeaserProductDirective {
     return this.#element.nativeElement.download;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

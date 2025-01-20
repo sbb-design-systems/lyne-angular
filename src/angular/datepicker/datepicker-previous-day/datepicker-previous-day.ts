@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbDatepickerPreviousDayElement } from '@sbb-esta/lyne-elements/datepicker/datepicker-previous-day.js';
@@ -10,7 +9,7 @@ import { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepic
   selector: 'sbb-datepicker-previous-day',
   standalone: true,
 })
-export class SbbDatepickerPreviousDayDirective<T = Date> {
+export class SbbDatepickerPreviousDay<T = Date> {
   #element: ElementRef<SbbDatepickerPreviousDayElement<T>> = inject(
     ElementRef<SbbDatepickerPreviousDayElement<T>>,
   );
@@ -24,13 +23,12 @@ export class SbbDatepickerPreviousDayDirective<T = Date> {
     return this.#element.nativeElement.negative;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input({ alias: 'date-picker' })
-  public set datePicker(value: string | SbbDatepickerElement<T> | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datePicker = value));
+  @Input()
+  public set datepicker(value: SbbDatepickerElement<T> | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datepicker = value));
   }
-  public get datePicker(): string | SbbDatepickerElement<T> | null {
-    return this.#element.nativeElement.datePicker;
+  public get datepicker(): SbbDatepickerElement<T> | null {
+    return this.#element.nativeElement.datepicker;
   }
 
   @Input()
@@ -63,5 +61,13 @@ export class SbbDatepickerPreviousDayDirective<T = Date> {
   }
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
+  }
+
+  @Input({ alias: 'date-picker' })
+  public set datePicker(value: string | SbbDatepickerElement<T> | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datePicker = value));
+  }
+  public get datePicker(): string | SbbDatepickerElement<T> | null {
+    return this.#element.nativeElement.datePicker;
   }
 }

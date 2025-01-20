@@ -1,18 +1,9 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import {
-  Directive,
-  ElementRef,
-  forwardRef,
-  HostListener,
-  inject,
-  Input,
-  NgZone,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSliderElement } from '@sbb-esta/lyne-elements/slider.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/slider.js';
 
 @Directive({
@@ -21,12 +12,12 @@ import '@sbb-esta/lyne-elements/slider.js';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbSliderDirective),
+      useExisting: forwardRef(() => SbbSlider),
       multi: true,
     },
   ],
 })
-export class SbbSliderDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbSliderElement> = inject(ElementRef<SbbSliderElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -38,7 +29,6 @@ export class SbbSliderDirective extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.value;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'value-as-number' })
   public set valueAsNumber(value: number | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.valueAsNumber = value));
@@ -71,7 +61,6 @@ export class SbbSliderDirective extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.readonly;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'start-icon' })
   public set startIcon(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.startIcon = value));
@@ -80,7 +69,6 @@ export class SbbSliderDirective extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.startIcon;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'end-icon' })
   public set endIcon(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.endIcon = value));

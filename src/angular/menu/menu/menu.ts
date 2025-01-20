@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import type { SbbMenuElement } from '@sbb-esta/lyne-elements/menu/menu.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/menu/menu.js';
@@ -8,7 +7,7 @@ import '@sbb-esta/lyne-elements/menu/menu.js';
   selector: 'sbb-menu',
   standalone: true,
 })
-export class SbbMenuDirective {
+export class SbbMenu {
   #element: ElementRef<SbbMenuElement> = inject(ElementRef<SbbMenuElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -20,7 +19,6 @@ export class SbbMenuDirective {
     return this.#element.nativeElement.trigger;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'list-accessibility-label' })
   public set listAccessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(

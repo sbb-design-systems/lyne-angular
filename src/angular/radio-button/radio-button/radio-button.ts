@@ -1,20 +1,11 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import {
-  Directive,
-  ElementRef,
-  forwardRef,
-  HostListener,
-  inject,
-  Input,
-  NgZone,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-group.js';
 import type { SbbRadioButtonElement } from '@sbb-esta/lyne-elements/radio-button/radio-button.js';
 import { SbbRadioButtonSize } from '@sbb-esta/lyne-elements/radio-button.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/radio-button/radio-button.js';
 
 @Directive({
@@ -23,12 +14,12 @@ import '@sbb-esta/lyne-elements/radio-button/radio-button.js';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbRadioButtonDirective),
+      useExisting: forwardRef(() => SbbRadioButton),
       multi: true,
     },
   ],
 })
-export class SbbRadioButtonDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbRadioButton extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbRadioButtonElement> = inject(ElementRef<SbbRadioButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -40,7 +31,6 @@ export class SbbRadioButtonDirective extends SbbControlValueAccessorMixin(class 
     return this.#element.nativeElement.size;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'allow-empty-selection', transform: booleanAttribute })
   public set allowEmptySelection(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.allowEmptySelection = value));

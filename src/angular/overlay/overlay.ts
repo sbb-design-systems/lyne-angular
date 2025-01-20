@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbOverlayCloseEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay.js';
@@ -10,7 +9,7 @@ import '@sbb-esta/lyne-elements/overlay.js';
   selector: 'sbb-overlay',
   standalone: true,
 })
-export class SbbOverlayDirective {
+export class SbbOverlay {
   #element: ElementRef<SbbOverlayElement> = inject(ElementRef<SbbOverlayElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -22,7 +21,6 @@ export class SbbOverlayDirective {
     return this.#element.nativeElement.expanded;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'back-button', transform: booleanAttribute })
   public set backButton(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backButton = value));
@@ -31,7 +29,6 @@ export class SbbOverlayDirective {
     return this.#element.nativeElement.backButton;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-close-label' })
   public set accessibilityCloseLabel(value: string) {
     this.#ngZone.runOutsideAngular(
@@ -42,7 +39,6 @@ export class SbbOverlayDirective {
     return this.#element.nativeElement.accessibilityCloseLabel;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-back-label' })
   public set accessibilityBackLabel(value: string) {
     this.#ngZone.runOutsideAngular(
@@ -61,7 +57,6 @@ export class SbbOverlayDirective {
     return this.#element.nativeElement.negative;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

@@ -1,18 +1,9 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import {
-  Directive,
-  ElementRef,
-  forwardRef,
-  HostListener,
-  inject,
-  Input,
-  NgZone,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/select.js';
 
 @Directive({
@@ -21,12 +12,12 @@ import '@sbb-esta/lyne-elements/select.js';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbSelectDirective),
+      useExisting: forwardRef(() => SbbSelect),
       multi: true,
     },
   ],
 })
-export class SbbSelectDirective extends SbbControlValueAccessorMixin(class {}) {
+export class SbbSelect extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbSelectElement> = inject(ElementRef<SbbSelectElement>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbStatusElement, SbbStatusType } from '@sbb-esta/lyne-elements/status.js';
 import '@sbb-esta/lyne-elements/status.js';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
@@ -8,7 +7,7 @@ import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
   selector: 'sbb-status',
   standalone: true,
 })
-export class SbbStatusDirective {
+export class SbbStatus {
   #element: ElementRef<SbbStatusElement> = inject(ElementRef<SbbStatusElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -20,7 +19,6 @@ export class SbbStatusDirective {
     return this.#element.nativeElement.type;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-content' })
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
@@ -29,7 +27,6 @@ export class SbbStatusDirective {
     return this.#element.nativeElement.titleContent;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-level' })
   public set titleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
@@ -38,7 +35,6 @@ export class SbbStatusDirective {
     return this.#element.nativeElement.titleLevel;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));

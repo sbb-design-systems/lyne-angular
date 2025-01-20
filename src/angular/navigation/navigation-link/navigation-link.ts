@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbNavigationLinkElement } from '@sbb-esta/lyne-elements/navigation/navigation-link.js';
@@ -12,7 +11,7 @@ import '@sbb-esta/lyne-elements/navigation/navigation-link.js';
   selector: 'sbb-navigation-link',
   standalone: true,
 })
-export class SbbNavigationLinkDirective {
+export class SbbNavigationLink {
   #element: ElementRef<SbbNavigationLinkElement> = inject(ElementRef<SbbNavigationLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -64,7 +63,6 @@ export class SbbNavigationLinkDirective {
     return this.#element.nativeElement.download;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

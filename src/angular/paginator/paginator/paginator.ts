@@ -1,12 +1,11 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import {
   Directive,
   ElementRef,
+  inject,
   Input,
   NgZone,
-  Output,
-  inject,
   numberAttribute,
+  Output,
 } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -18,11 +17,10 @@ import '@sbb-esta/lyne-elements/paginator/paginator.js';
   selector: 'sbb-paginator',
   standalone: true,
 })
-export class SbbPaginatorDirective {
+export class SbbPaginator {
   #element: ElementRef<SbbPaginatorElement> = inject(ElementRef<SbbPaginatorElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'page-size-options' })
   public set pageSizeOptions(value: number[]) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pageSizeOptions = value));
@@ -31,7 +29,6 @@ export class SbbPaginatorDirective {
     return this.#element.nativeElement.pageSizeOptions;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'pager-position' })
   public set pagerPosition(value: 'start' | 'end') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pagerPosition = value));
@@ -48,7 +45,6 @@ export class SbbPaginatorDirective {
     return this.#element.nativeElement.length;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'page-size', transform: numberAttribute })
   public set pageSize(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pageSize = value));
@@ -57,7 +53,6 @@ export class SbbPaginatorDirective {
     return this.#element.nativeElement.pageSize;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'page-index', transform: numberAttribute })
   public set pageIndex(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pageIndex = value));

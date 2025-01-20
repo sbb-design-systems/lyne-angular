@@ -1,12 +1,11 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import {
   Directive,
   ElementRef,
+  inject,
   Input,
   NgZone,
-  Output,
-  inject,
   numberAttribute,
+  Output,
 } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -18,7 +17,7 @@ import '@sbb-esta/lyne-elements/paginator/compact-paginator.js';
   selector: 'sbb-compact-paginator',
   standalone: true,
 })
-export class SbbCompactPaginatorDirective {
+export class SbbCompactPaginator {
   #element: ElementRef<SbbCompactPaginatorElement> = inject(ElementRef<SbbCompactPaginatorElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -30,7 +29,6 @@ export class SbbCompactPaginatorDirective {
     return this.#element.nativeElement.length;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'page-size', transform: numberAttribute })
   public set pageSize(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pageSize = value));
@@ -39,7 +37,6 @@ export class SbbCompactPaginatorDirective {
     return this.#element.nativeElement.pageSize;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'page-index', transform: numberAttribute })
   public set pageIndex(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pageIndex = value));
@@ -48,7 +45,6 @@ export class SbbCompactPaginatorDirective {
     return this.#element.nativeElement.pageIndex;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'pager-position' })
   public set pagerPosition(value: 'start' | 'end') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pagerPosition = value));

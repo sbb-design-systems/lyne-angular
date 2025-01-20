@@ -1,5 +1,4 @@
-/* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTransparentButtonLinkElement } from '@sbb-esta/lyne-elements/button/transparent-button-link.js';
 import '@sbb-esta/lyne-elements/button/transparent-button-link.js';
@@ -10,7 +9,7 @@ import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
   selector: 'sbb-transparent-button-link',
   standalone: true,
 })
-export class SbbTransparentButtonLinkDirective {
+export class SbbTransparentButtonLink {
   #element: ElementRef<SbbTransparentButtonLinkElement> = inject(
     ElementRef<SbbTransparentButtonLinkElement>,
   );
@@ -32,7 +31,6 @@ export class SbbTransparentButtonLinkDirective {
     return this.#element.nativeElement.negative;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
@@ -41,7 +39,6 @@ export class SbbTransparentButtonLinkDirective {
     return this.#element.nativeElement.iconName;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'disabled-interactive', transform: booleanAttribute })
   public set disabledInteractive(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabledInteractive = value));
@@ -90,7 +87,6 @@ export class SbbTransparentButtonLinkDirective {
     return this.#element.nativeElement.download;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
