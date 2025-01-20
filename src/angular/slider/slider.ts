@@ -1,13 +1,27 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSliderElement } from '@sbb-esta/lyne-elements/slider.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/slider.js';
 
 @Directive({
   selector: 'sbb-slider',
+  exportAs: 'sbbSlider',
+  host: {
+    '(change)': 'this.onChangeFn(this.checked)',
+    '(blur)': 'this.onTouchedFn()',
+  },
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbSlider),
+      multi: true,
+    },
+  ],
 })
-export class SbbSlider {
+export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbSliderElement> = inject(ElementRef<SbbSliderElement>);
   #ngZone: NgZone = inject(NgZone);
 

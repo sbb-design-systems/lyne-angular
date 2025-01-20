@@ -2,6 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbMenuButtonElement } from '@sbb-esta/lyne-elements/menu/menu-button.js';
+
 import '@sbb-esta/lyne-elements/menu/menu-button.js';
 
 @Directive({

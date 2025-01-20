@@ -1,13 +1,28 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/select.js';
 
 @Directive({
   selector: 'sbb-select',
+  exportAs: 'sbbSelect',
+  host: {
+    '(change)': 'this.onChangeFn(this.checked)',
+    '(blur)': 'this.onTouchedFn()',
+    '(didClose)': 'this.onTouchedFn()',
+  },
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbSelect),
+      multi: true,
+    },
+  ],
 })
-export class SbbSelect {
+export class SbbSelect extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbSelectElement> = inject(ElementRef<SbbSelectElement>);
   #ngZone: NgZone = inject(NgZone);
 

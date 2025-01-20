@@ -2,6 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/c
 import type { SbbAlertGroupElement } from '@sbb-esta/lyne-elements/alert/alert-group.js';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/alert/alert-group.js';
 
 @Directive({

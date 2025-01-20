@@ -1,8 +1,9 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSecondaryButtonStaticElement } from '@sbb-esta/lyne-elements/button/secondary-button-static.js';
-import '@sbb-esta/lyne-elements/button/secondary-button-static.js';
 import { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
+
+import '@sbb-esta/lyne-elements/button/secondary-button-static.js';
 
 @Directive({
   selector: 'sbb-secondary-button-static',

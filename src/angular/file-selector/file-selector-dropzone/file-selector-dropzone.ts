@@ -1,14 +1,27 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { FormRestoreReason, FormRestoreState } from '@sbb-esta/lyne-elements/core/mixins.js';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbFileSelectorDropzoneElement } from '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
 
 @Directive({
   selector: 'sbb-file-selector-dropzone',
+  exportAs: 'sbbFileSelectorDropzone',
+  host: {
+    '(change)': 'this.onChangeFn(this.files)',
+    '(blur)': 'this.onTouchedFn()',
+  },
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbFileSelectorDropzone),
+      multi: true,
+    },
+  ],
 })
-export class SbbFileSelectorDropzone {
+export class SbbFileSelectorDropzone extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbFileSelectorDropzoneElement> = inject(
     ElementRef<SbbFileSelectorDropzoneElement>,
   );
@@ -119,14 +132,8 @@ export class SbbFileSelectorDropzone {
     return this.#element.nativeElement.form;
   }
 
-  public formResetCallback(): void {
-    return this.#element.nativeElement.formResetCallback();
-  }
-
-  public formStateRestoreCallback(
-    state: FormRestoreState | null,
-    _reason: FormRestoreReason,
-  ): void {
-    return this.#element.nativeElement.formStateRestoreCallback(state, _reason);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  override writeValue(value: any): void {
+    this.files = value;
   }
 }

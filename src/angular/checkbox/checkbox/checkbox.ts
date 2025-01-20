@@ -1,18 +1,42 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  forwardRef,
+  inject,
+  Input,
+  NgZone,
+  Output,
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
 import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkbox.js';
 import { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
 import { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
 
 @Directive({
   selector: 'sbb-checkbox',
+  exportAs: 'sbbCheckbox',
+  host: {
+    '(change)': 'this.onChangeFn(this.checked)',
+  },
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbCheckbox),
+      multi: true,
+    },
+  ],
 })
-export class SbbCheckbox {
+export class SbbCheckbox extends SbbControlValueAccessorMixin(class {}) implements AfterViewInit {
   #element: ElementRef<SbbCheckboxElement> = inject(ElementRef<SbbCheckboxElement>);
   #ngZone: NgZone = inject(NgZone);
+  #focusMonitor: FocusMonitor = inject(FocusMonitor);
 
   @Input()
   public set size(value: SbbCheckboxSize) {
@@ -108,5 +132,25 @@ export class SbbCheckbox {
 
   public get form(): HTMLFormElement | null {
     return this.#element.nativeElement.form;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  override writeValue(value: any): void {
+    this.checked = !!value;
+  }
+
+  ngAfterViewInit() {
+    this.#focusMonitor.monitor(this.#element, true).subscribe((focusOrigin) => {
+      if (!focusOrigin) {
+        // When a focused element becomes disabled, the browser *immediately* fires a blur event.
+        // Angular does not expect events to be raised during change detection, so any state change
+        // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
+        // See https://github.com/angular/angular/issues/17793. To work around this, we defer
+        // telling the form control it has been touched until the next tick.
+        Promise.resolve().then(() => {
+          this.onTouchedFn();
+        });
+      }
+    });
   }
 }

@@ -1,5 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbCardElement } from '@sbb-esta/lyne-elements/card/card.js';
+
 import '@sbb-esta/lyne-elements/card/card.js';
 
 @Directive({

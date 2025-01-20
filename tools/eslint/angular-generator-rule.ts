@@ -164,7 +164,10 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         const publicProperties = classManifestDeclaration.members?.filter(isPublicProperties) ?? [];
         const publicEvents = classManifestDeclaration.events ?? [];
         const publicGetters = classManifestDeclaration.members?.filter(isPublicGetter) ?? [];
-        const publicMethods = classManifestDeclaration.members?.filter(isPublicMethod) ?? [];
+        const publicMethods =
+          classManifestDeclaration.members
+            ?.filter(isPublicMethod)
+            .filter((m) => !m.name.endsWith('Callback')) ?? [];
 
         // The Angular class being written on
         const classDeclaration = node.parent as unknown as TSESTree.ClassDeclaration;

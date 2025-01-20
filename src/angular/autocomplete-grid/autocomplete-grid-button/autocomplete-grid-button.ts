@@ -1,8 +1,9 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAutocompleteGridButtonElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-button.js';
-import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-button.js';
 import { SbbAutocompleteGridOptionElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-option.js';
+
+import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-button.js';
 
 @Directive({
   selector: 'sbb-autocomplete-grid-button',

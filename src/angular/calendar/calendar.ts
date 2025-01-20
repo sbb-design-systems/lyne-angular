@@ -3,6 +3,7 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { CalendarView, SbbCalendarElement } from '@sbb-esta/lyne-elements/calendar.js';
 import { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/calendar.js';
 
 @Directive({

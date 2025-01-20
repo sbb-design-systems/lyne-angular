@@ -1,13 +1,27 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/toggle-check.js';
 
 @Directive({
   selector: 'sbb-toggle-check',
+  exportAs: 'sbbToggleCheck',
+  host: {
+    '(change)': 'this.onChangeFn(this.checked)',
+    '(blur)': 'this.onTouchedFn()',
+  },
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbToggleCheck),
+      multi: true,
+    },
+  ],
 })
-export class SbbToggleCheck {
+export class SbbToggleCheck extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbToggleCheckElement> = inject(ElementRef<SbbToggleCheckElement>);
   #ngZone: NgZone = inject(NgZone);
 
