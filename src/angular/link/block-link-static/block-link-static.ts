@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbBlockLinkStaticElement } from '@sbb-esta/lyne-elements/link/block-link-static.js';

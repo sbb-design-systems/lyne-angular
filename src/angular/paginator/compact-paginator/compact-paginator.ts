@@ -2,11 +2,11 @@
 import {
   Directive,
   ElementRef,
+  inject,
   Input,
   NgZone,
-  Output,
-  inject,
   numberAttribute,
+  Output,
 } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';

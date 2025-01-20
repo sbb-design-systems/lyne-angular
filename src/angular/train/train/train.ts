@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import type { SbbTrainElement } from '@sbb-esta/lyne-elements/train/train.js';
 import '@sbb-esta/lyne-elements/train/train.js';

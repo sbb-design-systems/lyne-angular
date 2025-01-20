@@ -2,11 +2,11 @@
 import {
   Directive,
   ElementRef,
+  inject,
   Input,
   NgZone,
-  Output,
-  inject,
   numberAttribute,
+  Output,
 } from '@angular/core';
 import type {
   InterfaceSbbTabGroupTab,

@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonLinkElement } from '@sbb-esta/lyne-elements/button/button-link.js';
 import '@sbb-esta/lyne-elements/button/button-link.js';

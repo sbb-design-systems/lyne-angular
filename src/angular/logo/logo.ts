@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbProtectiveRoom } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbLogoElement } from '@sbb-esta/lyne-elements/logo.js';

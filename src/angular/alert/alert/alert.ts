@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAlertElement } from '@sbb-esta/lyne-elements/alert/alert.js';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';

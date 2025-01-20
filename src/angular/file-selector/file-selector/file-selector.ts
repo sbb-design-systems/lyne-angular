@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { FormRestoreReason, FormRestoreState } from '@sbb-esta/lyne-elements/core/mixins.js';
 import type { SbbFileSelectorElement } from '@sbb-esta/lyne-elements/file-selector/file-selector.js';

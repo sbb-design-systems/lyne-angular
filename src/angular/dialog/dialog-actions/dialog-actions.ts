@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbDialogActionsElement } from '@sbb-esta/lyne-elements/dialog/dialog-actions.js';
