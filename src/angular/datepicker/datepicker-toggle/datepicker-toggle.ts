@@ -42,12 +42,4 @@ export class SbbDatepickerToggle<T = Date> {
   public open(): void {
     return this.#element.nativeElement.open();
   }
-
-  @Input({ alias: 'date-picker' })
-  public set datePicker(value: string | SbbDatepickerElement | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datePicker = value));
-  }
-  public get datePicker(): string | SbbDatepickerElement | null {
-    return this.#element.nativeElement.datePicker;
-  }
 }
