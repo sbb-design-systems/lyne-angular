@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -11,11 +10,10 @@ import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
   selector: 'sbb-block-link-button',
   standalone: true,
 })
-export class SbbBlockLinkButtonDirective {
+export class SbbBlockLinkButton {
   #element: ElementRef<SbbBlockLinkButtonElement> = inject(ElementRef<SbbBlockLinkButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-placement' })
   public set iconPlacement(value: SbbIconPlacement) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconPlacement = value));
@@ -32,7 +30,6 @@ export class SbbBlockLinkButtonDirective {
     return this.#element.nativeElement.size;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
@@ -41,7 +38,6 @@ export class SbbBlockLinkButtonDirective {
     return this.#element.nativeElement.iconName;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'disabled-interactive', transform: booleanAttribute })
   public set disabledInteractive(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabledInteractive = value));

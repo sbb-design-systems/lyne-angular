@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -10,13 +9,12 @@ import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
   selector: 'sbb-expansion-panel-header',
   standalone: true,
 })
-export class SbbExpansionPanelHeaderDirective {
+export class SbbExpansionPanelHeader {
   #element: ElementRef<SbbExpansionPanelHeaderElement> = inject(
     ElementRef<SbbExpansionPanelHeaderElement>,
   );
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'disabled-interactive', transform: booleanAttribute })
   public set disabledInteractive(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabledInteractive = value));
@@ -33,7 +31,6 @@ export class SbbExpansionPanelHeaderDirective {
     return this.#element.nativeElement.disabled;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));

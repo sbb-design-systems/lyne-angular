@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSecondaryButtonLinkElement } from '@sbb-esta/lyne-elements/button/secondary-button-link.js';
@@ -10,7 +9,7 @@ import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
   selector: 'sbb-secondary-button-link',
   standalone: true,
 })
-export class SbbSecondaryButtonLinkDirective {
+export class SbbSecondaryButtonLink {
   #element: ElementRef<SbbSecondaryButtonLinkElement> = inject(
     ElementRef<SbbSecondaryButtonLinkElement>,
   );
@@ -32,7 +31,6 @@ export class SbbSecondaryButtonLinkDirective {
     return this.#element.nativeElement.negative;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
@@ -41,7 +39,6 @@ export class SbbSecondaryButtonLinkDirective {
     return this.#element.nativeElement.iconName;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'disabled-interactive', transform: booleanAttribute })
   public set disabledInteractive(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabledInteractive = value));
@@ -90,7 +87,6 @@ export class SbbSecondaryButtonLinkDirective {
     return this.#element.nativeElement.download;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbFormErrorElement } from '@sbb-esta/lyne-elements/form-error.js';
@@ -8,7 +7,7 @@ import '@sbb-esta/lyne-elements/form-error.js';
   selector: 'sbb-form-error',
   standalone: true,
 })
-export class SbbFormErrorDirective {
+export class SbbFormError {
   #element: ElementRef<SbbFormErrorElement> = inject(ElementRef<SbbFormErrorElement>);
   #ngZone: NgZone = inject(NgZone);
 

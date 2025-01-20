@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -9,11 +8,10 @@ import '@sbb-esta/lyne-elements/teaser-hero.js';
   selector: 'sbb-teaser-hero',
   standalone: true,
 })
-export class SbbTeaserHeroDirective {
+export class SbbTeaserHero {
   #element: ElementRef<SbbTeaserHeroElement> = inject(ElementRef<SbbTeaserHeroElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'link-content' })
   public set linkContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.linkContent = value));
@@ -54,7 +52,6 @@ export class SbbTeaserHeroDirective {
     return this.#element.nativeElement.download;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

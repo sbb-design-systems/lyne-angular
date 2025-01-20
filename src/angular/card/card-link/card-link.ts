@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbCardLinkElement } from '@sbb-esta/lyne-elements/card/card-link.js';
@@ -9,7 +8,7 @@ import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
   selector: 'sbb-card-link',
   standalone: true,
 })
-export class SbbCardLinkDirective {
+export class SbbCardLink {
   #element: ElementRef<SbbCardLinkElement> = inject(ElementRef<SbbCardLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -53,7 +52,6 @@ export class SbbCardLinkDirective {
     return this.#element.nativeElement.download;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

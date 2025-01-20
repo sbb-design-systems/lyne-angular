@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAutocompleteGridOptionElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-option.js';
@@ -9,7 +8,7 @@ import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-option.js';
   selector: 'sbb-autocomplete-grid-option',
   standalone: true,
 })
-export class SbbAutocompleteGridOptionDirective {
+export class SbbAutocompleteGridOption {
   #element: ElementRef<SbbAutocompleteGridOptionElement> = inject(
     ElementRef<SbbAutocompleteGridOptionElement>,
   );
@@ -23,7 +22,6 @@ export class SbbAutocompleteGridOptionDirective {
     return this.#element.nativeElement.disabled;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));

@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { SbbValidationChangeEvent } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.js';
@@ -9,7 +8,7 @@ import '@sbb-esta/lyne-elements/time-input.js';
   selector: 'sbb-time-input',
   standalone: true,
 })
-export class SbbTimeInputDirective {
+export class SbbTimeInput {
   #element: ElementRef<SbbTimeInputElement> = inject(ElementRef<SbbTimeInputElement>);
   #ngZone: NgZone = inject(NgZone);
 

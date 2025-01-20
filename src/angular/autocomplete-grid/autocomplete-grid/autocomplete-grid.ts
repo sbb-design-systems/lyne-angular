@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAutocompleteGridElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid.js';
@@ -9,7 +8,7 @@ import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid.js';
   selector: 'sbb-autocomplete-grid',
   standalone: true,
 })
-export class SbbAutocompleteGridDirective {
+export class SbbAutocompleteGrid {
   #element: ElementRef<SbbAutocompleteGridElement> = inject(ElementRef<SbbAutocompleteGridElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -37,7 +36,6 @@ export class SbbAutocompleteGridDirective {
     return this.#element.nativeElement.trigger;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'preserve-icon-space', transform: booleanAttribute })
   public set preserveIconSpace(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.preserveIconSpace = value));

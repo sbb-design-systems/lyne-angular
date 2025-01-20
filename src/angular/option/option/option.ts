@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option/option.js';
@@ -9,7 +8,7 @@ import '@sbb-esta/lyne-elements/option/option.js';
   selector: 'sbb-option',
   standalone: true,
 })
-export class SbbOptionDirective {
+export class SbbOption {
   #element: ElementRef<SbbOptionElement> = inject(ElementRef<SbbOptionElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -21,7 +20,6 @@ export class SbbOptionDirective {
     return this.#element.nativeElement.disabled;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));

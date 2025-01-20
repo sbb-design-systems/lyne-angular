@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbActionGroupElement } from '@sbb-esta/lyne-elements/action-group.js';
 import '@sbb-esta/lyne-elements/action-group.js';
@@ -10,11 +9,10 @@ import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
   selector: 'sbb-action-group',
   standalone: true,
 })
-export class SbbActionGroupDirective {
+export class SbbActionGroup {
   #element: ElementRef<SbbActionGroupElement> = inject(ElementRef<SbbActionGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'align-group' })
   public set alignGroup(value: 'start' | 'center' | 'stretch' | 'end') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.alignGroup = value));
@@ -23,7 +21,6 @@ export class SbbActionGroupDirective {
     return this.#element.nativeElement.alignGroup;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'horizontal-from' })
   public set horizontalFrom(value: SbbHorizontalFrom) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.horizontalFrom = value));
@@ -40,7 +37,6 @@ export class SbbActionGroupDirective {
     return this.#element.nativeElement.orientation;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'button-size' })
   public set buttonSize(value: SbbButtonSize) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.buttonSize = value));
@@ -49,7 +45,6 @@ export class SbbActionGroupDirective {
     return this.#element.nativeElement.buttonSize;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'link-size' })
   public set linkSize(value: SbbLinkSize) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.linkSize = value));

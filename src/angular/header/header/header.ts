@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbHeaderElement } from '@sbb-esta/lyne-elements/header/header.js';
@@ -8,7 +7,7 @@ import '@sbb-esta/lyne-elements/header/header.js';
   selector: 'sbb-header',
   standalone: true,
 })
-export class SbbHeaderDirective {
+export class SbbHeader {
   #element: ElementRef<SbbHeaderElement> = inject(ElementRef<SbbHeaderElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -20,7 +19,6 @@ export class SbbHeaderDirective {
     return this.#element.nativeElement.expanded;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'scroll-origin' })
   public set scrollOrigin(value: string | HTMLElement | Document) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.scrollOrigin = value));
@@ -29,7 +27,6 @@ export class SbbHeaderDirective {
     return this.#element.nativeElement.scrollOrigin;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'hide-on-scroll', transform: booleanAttribute })
   public set hideOnScroll(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hideOnScroll = value));

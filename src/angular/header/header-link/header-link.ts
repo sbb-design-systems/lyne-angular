@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -10,11 +9,10 @@ import '@sbb-esta/lyne-elements/header/header-link.js';
   selector: 'sbb-header-link',
   standalone: true,
 })
-export class SbbHeaderLinkDirective {
+export class SbbHeaderLink {
   #element: ElementRef<SbbHeaderLinkElement> = inject(ElementRef<SbbHeaderLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'expand-from' })
   public set expandFrom(value: SbbHorizontalFrom) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.expandFrom = value));
@@ -23,7 +21,6 @@ export class SbbHeaderLinkDirective {
     return this.#element.nativeElement.expandFrom;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
@@ -64,7 +61,6 @@ export class SbbHeaderLinkDirective {
     return this.#element.nativeElement.download;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

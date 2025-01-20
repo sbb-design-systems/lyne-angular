@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbLoadingIndicatorCircleElement } from '@sbb-esta/lyne-elements/loading-indicator-circle.js';
 import '@sbb-esta/lyne-elements/loading-indicator-circle.js';
@@ -7,7 +6,7 @@ import '@sbb-esta/lyne-elements/loading-indicator-circle.js';
   selector: 'sbb-loading-indicator-circle',
   standalone: true,
 })
-export class SbbLoadingIndicatorCircleDirective {
+export class SbbLoadingIndicatorCircle {
   #element: ElementRef<SbbLoadingIndicatorCircleElement> = inject(
     ElementRef<SbbLoadingIndicatorCircleElement>,
   );

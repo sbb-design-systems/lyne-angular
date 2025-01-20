@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
@@ -9,7 +8,7 @@ import '@sbb-esta/lyne-elements/toggle-check.js';
   selector: 'sbb-toggle-check',
   standalone: true,
 })
-export class SbbToggleCheckDirective {
+export class SbbToggleCheck {
   #element: ElementRef<SbbToggleCheckElement> = inject(ElementRef<SbbToggleCheckElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -21,7 +20,6 @@ export class SbbToggleCheckDirective {
     return this.#element.nativeElement.size;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
@@ -30,7 +28,6 @@ export class SbbToggleCheckDirective {
     return this.#element.nativeElement.iconName;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'label-position' })
   public set labelPosition(value: 'before' | 'after') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.labelPosition = value));

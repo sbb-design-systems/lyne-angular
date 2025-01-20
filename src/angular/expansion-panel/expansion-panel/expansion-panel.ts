@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
@@ -10,11 +9,10 @@ import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
   selector: 'sbb-expansion-panel',
   standalone: true,
 })
-export class SbbExpansionPanelDirective {
+export class SbbExpansionPanel {
   #element: ElementRef<SbbExpansionPanelElement> = inject(ElementRef<SbbExpansionPanelElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-level' })
   public set titleLevel(value: SbbTitleLevel | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));

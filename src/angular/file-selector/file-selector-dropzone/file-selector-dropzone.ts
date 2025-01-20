@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { FormRestoreReason, FormRestoreState } from '@sbb-esta/lyne-elements/core/mixins.js';
@@ -10,13 +9,12 @@ import '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
   selector: 'sbb-file-selector-dropzone',
   standalone: true,
 })
-export class SbbFileSelectorDropzoneDirective {
+export class SbbFileSelectorDropzone {
   #element: ElementRef<SbbFileSelectorDropzoneElement> = inject(
     ElementRef<SbbFileSelectorDropzoneElement>,
   );
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-content' })
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
@@ -41,7 +39,6 @@ export class SbbFileSelectorDropzoneDirective {
     return this.#element.nativeElement.multiple;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'multiple-mode' })
   public set multipleMode(value: 'default' | 'persistent') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.multipleMode = value));
@@ -58,7 +55,6 @@ export class SbbFileSelectorDropzoneDirective {
     return this.#element.nativeElement.accept;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-label' })
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));

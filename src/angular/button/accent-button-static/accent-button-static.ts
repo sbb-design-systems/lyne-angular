@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAccentButtonStaticElement } from '@sbb-esta/lyne-elements/button/accent-button-static.js';
@@ -9,7 +8,7 @@ import { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
   selector: 'sbb-accent-button-static',
   standalone: true,
 })
-export class SbbAccentButtonStaticDirective {
+export class SbbAccentButtonStatic {
   #element: ElementRef<SbbAccentButtonStaticElement> = inject(
     ElementRef<SbbAccentButtonStaticElement>,
   );
@@ -31,7 +30,6 @@ export class SbbAccentButtonStaticDirective {
     return this.#element.nativeElement.negative;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));

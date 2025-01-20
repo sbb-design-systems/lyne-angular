@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAccordionElement } from '@sbb-esta/lyne-elements/accordion.js';
@@ -9,7 +8,7 @@ import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
   selector: 'sbb-accordion',
   standalone: true,
 })
-export class SbbAccordionDirective {
+export class SbbAccordion {
   #element: ElementRef<SbbAccordionElement> = inject(ElementRef<SbbAccordionElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -21,7 +20,6 @@ export class SbbAccordionDirective {
     return this.#element.nativeElement.size;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'title-level' })
   public set titleLevel(value: SbbTitleLevel | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));

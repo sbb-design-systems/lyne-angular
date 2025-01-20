@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbContainerElement } from '@sbb-esta/lyne-elements/container/container.js';
@@ -8,7 +7,7 @@ import '@sbb-esta/lyne-elements/container/container.js';
   selector: 'sbb-container',
   standalone: true,
 })
-export class SbbContainerDirective {
+export class SbbContainer {
   #element: ElementRef<SbbContainerElement> = inject(ElementRef<SbbContainerElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -20,7 +19,6 @@ export class SbbContainerDirective {
     return this.#element.nativeElement.expanded;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'background-expanded', transform: booleanAttribute })
   public set backgroundExpanded(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backgroundExpanded = value));
@@ -30,10 +28,10 @@ export class SbbContainerDirective {
   }
 
   @Input()
-  public set color(value: 'transparent' | 'white' | 'milk') {
+  public set color(value: 'transparent' | 'white' | 'milk' | 'midnight' | 'charcoal') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.color = value));
   }
-  public get color(): 'transparent' | 'white' | 'milk' {
+  public get color(): 'transparent' | 'white' | 'milk' | 'midnight' | 'charcoal' {
     return this.#element.nativeElement.color;
   }
 }

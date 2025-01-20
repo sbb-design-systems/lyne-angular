@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
@@ -12,7 +11,7 @@ import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
   selector: 'sbb-checkbox',
   standalone: true,
 })
-export class SbbCheckboxDirective {
+export class SbbCheckbox {
   #element: ElementRef<SbbCheckboxElement> = inject(ElementRef<SbbCheckboxElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -24,7 +23,6 @@ export class SbbCheckboxDirective {
     return this.#element.nativeElement.size;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-placement' })
   public set iconPlacement(value: SbbIconPlacement) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconPlacement = value));
@@ -81,7 +79,6 @@ export class SbbCheckboxDirective {
     return this.#element.nativeElement.value;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));

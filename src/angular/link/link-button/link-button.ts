@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -10,7 +9,7 @@ import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
   selector: 'sbb-link-button',
   standalone: true,
 })
-export class SbbLinkButtonDirective {
+export class SbbLinkButton {
   #element: ElementRef<SbbLinkButtonElement> = inject(ElementRef<SbbLinkButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -30,7 +29,6 @@ export class SbbLinkButtonDirective {
     return this.#element.nativeElement.negative;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'disabled-interactive', transform: booleanAttribute })
   public set disabledInteractive(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabledInteractive = value));

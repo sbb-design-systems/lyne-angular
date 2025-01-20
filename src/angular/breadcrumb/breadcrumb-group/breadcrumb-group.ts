@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive } from '@angular/core';
 import '@sbb-esta/lyne-elements/breadcrumb/breadcrumb-group.js';
 
@@ -6,4 +5,4 @@ import '@sbb-esta/lyne-elements/breadcrumb/breadcrumb-group.js';
   selector: 'sbb-breadcrumb-group',
   standalone: true,
 })
-export class SbbBreadcrumbGroupDirective {}
+export class SbbBreadcrumbGroup {}

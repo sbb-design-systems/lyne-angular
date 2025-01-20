@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import type { SbbAlertGroupElement } from '@sbb-esta/lyne-elements/alert/alert-group.js';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
@@ -9,7 +8,7 @@ import '@sbb-esta/lyne-elements/alert/alert-group.js';
   selector: 'sbb-alert-group',
   standalone: true,
 })
-export class SbbAlertGroupDirective {
+export class SbbAlertGroup {
   #element: ElementRef<SbbAlertGroupElement> = inject(ElementRef<SbbAlertGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -21,7 +20,6 @@ export class SbbAlertGroupDirective {
     return this.#element.nativeElement.role;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-title' })
   public set accessibilityTitle(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityTitle = value));
@@ -30,7 +28,6 @@ export class SbbAlertGroupDirective {
     return this.#element.nativeElement.accessibilityTitle;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'accessibility-title-level' })
   public set accessibilityTitleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(

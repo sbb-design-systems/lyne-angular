@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive } from '@angular/core';
 import '@sbb-esta/lyne-elements/screen-reader-only.js';
 
@@ -6,4 +5,4 @@ import '@sbb-esta/lyne-elements/screen-reader-only.js';
   selector: 'sbb-screen-reader-only',
   standalone: true,
 })
-export class SbbScreenReaderOnlyDirective {}
+export class SbbScreenReaderOnly {}

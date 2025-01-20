@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbTrainWagonElement } from '@sbb-esta/lyne-elements/train/train-wagon.js';
@@ -8,7 +7,7 @@ import '@sbb-esta/lyne-elements/train/train-wagon.js';
   selector: 'sbb-train-wagon',
   standalone: true,
 })
-export class SbbTrainWagonDirective {
+export class SbbTrainWagon {
   #element: ElementRef<SbbTrainWagonElement> = inject(ElementRef<SbbTrainWagonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -54,7 +53,6 @@ export class SbbTrainWagonDirective {
     return this.#element.nativeElement.sector;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'blocked-passage' })
   public set blockedPassage(value: 'previous' | 'next' | 'both' | 'none') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.blockedPassage = value));
@@ -63,7 +61,6 @@ export class SbbTrainWagonDirective {
     return this.#element.nativeElement.blockedPassage;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'wagon-class' })
   public set wagonClass(value: '1' | '2' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.wagonClass = value));
@@ -80,7 +77,6 @@ export class SbbTrainWagonDirective {
     return this.#element.nativeElement.label;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'additional-accessibility-text' })
   public set additionalAccessibilityText(value: string) {
     this.#ngZone.runOutsideAngular(

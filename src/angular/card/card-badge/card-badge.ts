@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbCardBadgeElement } from '@sbb-esta/lyne-elements/card/card-badge.js';
 import '@sbb-esta/lyne-elements/card/card-badge.js';
@@ -7,7 +6,7 @@ import '@sbb-esta/lyne-elements/card/card-badge.js';
   selector: 'sbb-card-badge',
   standalone: true,
 })
-export class SbbCardBadgeDirective {
+export class SbbCardBadge {
   #element: ElementRef<SbbCardBadgeElement> = inject(ElementRef<SbbCardBadgeElement>);
   #ngZone: NgZone = inject(NgZone);
 

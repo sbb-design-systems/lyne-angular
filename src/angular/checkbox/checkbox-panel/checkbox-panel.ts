@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
@@ -11,7 +10,7 @@ import '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
   selector: 'sbb-checkbox-panel',
   standalone: true,
 })
-export class SbbCheckboxPanelDirective {
+export class SbbCheckboxPanel {
   #element: ElementRef<SbbCheckboxPanelElement> = inject(ElementRef<SbbCheckboxPanelElement>);
   #ngZone: NgZone = inject(NgZone);
 

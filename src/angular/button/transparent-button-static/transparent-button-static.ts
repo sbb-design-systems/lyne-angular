@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTransparentButtonStaticElement } from '@sbb-esta/lyne-elements/button/transparent-button-static.js';
@@ -9,7 +8,7 @@ import { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
   selector: 'sbb-transparent-button-static',
   standalone: true,
 })
-export class SbbTransparentButtonStaticDirective {
+export class SbbTransparentButtonStatic {
   #element: ElementRef<SbbTransparentButtonStaticElement> = inject(
     ElementRef<SbbTransparentButtonStaticElement>,
   );
@@ -31,7 +30,6 @@ export class SbbTransparentButtonStaticDirective {
     return this.#element.nativeElement.negative;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'icon-name' })
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));

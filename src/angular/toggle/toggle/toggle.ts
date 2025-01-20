@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle/toggle-option.js';
@@ -10,7 +9,7 @@ import '@sbb-esta/lyne-elements/toggle/toggle.js';
   selector: 'sbb-toggle',
   standalone: true,
 })
-export class SbbToggleDirective {
+export class SbbToggle {
   #element: ElementRef<SbbToggleElement> = inject(ElementRef<SbbToggleElement>);
   #ngZone: NgZone = inject(NgZone);
 

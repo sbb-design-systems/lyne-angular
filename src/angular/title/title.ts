@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTitleElement, SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
@@ -8,7 +7,7 @@ import '@sbb-esta/lyne-elements/title.js';
   selector: 'sbb-title',
   standalone: true,
 })
-export class SbbTitleDirective {
+export class SbbTitle {
   #element: ElementRef<SbbTitleElement> = inject(ElementRef<SbbTitleElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -28,7 +27,6 @@ export class SbbTitleDirective {
     return this.#element.nativeElement.level;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'visual-level' })
   public set visualLevel(value: SbbTitleLevel | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.visualLevel = value));
@@ -37,7 +35,6 @@ export class SbbTitleDirective {
     return this.#element.nativeElement.visualLevel;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'visually-hidden', transform: booleanAttribute })
   public set visuallyHidden(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.visuallyHidden = value));

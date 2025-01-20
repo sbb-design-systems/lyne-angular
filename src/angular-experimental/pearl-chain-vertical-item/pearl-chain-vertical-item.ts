@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type {
@@ -11,13 +10,12 @@ import '@sbb-esta/lyne-elements-experimental/pearl-chain-vertical-item.js';
   selector: 'sbb-pearl-chain-vertical-item',
   standalone: true,
 })
-export class SbbPearlChainVerticalItemDirective {
+export class SbbPearlChainVerticalItem {
   #element: ElementRef<SbbPearlChainVerticalItemElement> = inject(
     ElementRef<SbbPearlChainVerticalItemElement>,
   );
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'pearl-chain-vertical-item-attributes' })
   public set pearlChainVerticalItemAttributes(value: PearlChainVerticalItemAttributes) {
     this.#ngZone.runOutsideAngular(
@@ -28,7 +26,6 @@ export class SbbPearlChainVerticalItemDirective {
     return this.#element.nativeElement.pearlChainVerticalItemAttributes;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'disable-animation', transform: booleanAttribute })
   public set disableAnimation(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disableAnimation = value));

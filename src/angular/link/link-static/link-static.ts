@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbLinkStaticElement } from '@sbb-esta/lyne-elements/link/link-static.js';
@@ -9,7 +8,7 @@ import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
   selector: 'sbb-link-static',
   standalone: true,
 })
-export class SbbLinkStaticDirective {
+export class SbbLinkStatic {
   #element: ElementRef<SbbLinkStaticElement> = inject(ElementRef<SbbLinkStaticElement>);
   #ngZone: NgZone = inject(NgZone);
 

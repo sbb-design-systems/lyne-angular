@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field/form-field.js';
@@ -8,11 +7,10 @@ import '@sbb-esta/lyne-elements/form-field/form-field.js';
   selector: 'sbb-form-field',
   standalone: true,
 })
-export class SbbFormFieldDirective {
+export class SbbFormField {
   #element: ElementRef<SbbFormFieldElement> = inject(ElementRef<SbbFormFieldElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'error-space' })
   public set errorSpace(value: 'none' | 'reserve') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.errorSpace = value));
@@ -53,7 +51,6 @@ export class SbbFormFieldDirective {
     return this.#element.nativeElement.width;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'hidden-label', transform: booleanAttribute })
   public set hiddenLabel(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hiddenLabel = value));
@@ -62,7 +59,6 @@ export class SbbFormFieldDirective {
     return this.#element.nativeElement.hiddenLabel;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'floating-label', transform: booleanAttribute })
   public set floatingLabel(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.floatingLabel = value));

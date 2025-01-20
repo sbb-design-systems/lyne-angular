@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
@@ -9,7 +8,7 @@ import '@sbb-esta/lyne-elements/select.js';
   selector: 'sbb-select',
   standalone: true,
 })
-export class SbbSelectDirective {
+export class SbbSelect {
   #element: ElementRef<SbbSelectElement> = inject(ElementRef<SbbSelectElement>);
   #ngZone: NgZone = inject(NgZone);
 

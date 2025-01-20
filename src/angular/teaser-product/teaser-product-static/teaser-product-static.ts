@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTeaserProductStaticElement } from '@sbb-esta/lyne-elements/teaser-product/teaser-product-static.js';
@@ -8,13 +7,12 @@ import '@sbb-esta/lyne-elements/teaser-product/teaser-product-static.js';
   selector: 'sbb-teaser-product-static',
   standalone: true,
 })
-export class SbbTeaserProductStaticDirective {
+export class SbbTeaserProductStatic {
   #element: ElementRef<SbbTeaserProductStaticElement> = inject(
     ElementRef<SbbTeaserProductStaticElement>,
   );
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'image-alignment' })
   public set imageAlignment(value: 'after' | 'before') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.imageAlignment = value));

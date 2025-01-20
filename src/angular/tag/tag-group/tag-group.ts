@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/directive-selector */
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTagGroupElement } from '@sbb-esta/lyne-elements/tag/tag-group.js';
@@ -9,11 +8,10 @@ import { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
   selector: 'sbb-tag-group',
   standalone: true,
 })
-export class SbbTagGroupDirective {
+export class SbbTagGroup {
   #element: ElementRef<SbbTagGroupElement> = inject(ElementRef<SbbTagGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input({ alias: 'list-accessibility-label' })
   public set listAccessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(

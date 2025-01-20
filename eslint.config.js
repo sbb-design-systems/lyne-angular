@@ -42,14 +42,9 @@ export default config(
     ],
     processor: processInlineTemplates,
     rules: {
-      '@angular-eslint/directive-selector': [
-        'error',
-        {
-          type: 'attribute',
-          prefix: 'sbb',
-          style: 'camelCase',
-        },
-      ],
+      '@angular-eslint/no-input-rename': 'off',
+      '@angular-eslint/directive-class-suffix': 'off',
+      '@angular-eslint/directive-selector': 'off',
       '@angular-eslint/component-selector': [
         'error',
         {
@@ -58,7 +53,6 @@ export default config(
           style: 'kebab-case',
         },
       ],
-
       'import-x/first': 'error',
       'import-x/named': 'off',
       'import-x/no-absolute-path': 'error',
