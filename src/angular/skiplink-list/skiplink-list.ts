@@ -5,7 +5,6 @@ import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 @Directive({
   selector: 'sbb-skiplink-list',
-  standalone: true,
 })
 export class SbbSkiplinkList {
   #element: ElementRef<SbbSkiplinkListElement> = inject(ElementRef<SbbSkiplinkListElement>);

@@ -6,7 +6,6 @@ import '@sbb-esta/lyne-elements/teaser-hero.js';
 
 @Directive({
   selector: 'sbb-teaser-hero',
-  standalone: true,
 })
 export class SbbTeaserHero {
   #element: ElementRef<SbbTeaserHeroElement> = inject(ElementRef<SbbTeaserHeroElement>);

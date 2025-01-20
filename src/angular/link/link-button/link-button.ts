@@ -7,7 +7,6 @@ import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 
 @Directive({
   selector: 'sbb-link-button',
-  standalone: true,
 })
 export class SbbLinkButton {
   #element: ElementRef<SbbLinkButtonElement> = inject(ElementRef<SbbLinkButtonElement>);

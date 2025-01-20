@@ -5,7 +5,6 @@ import '@sbb-esta/lyne-elements/map-container.js';
 
 @Directive({
   selector: 'sbb-map-container',
-  standalone: true,
 })
 export class SbbMapContainer {
   #element: ElementRef<SbbMapContainerElement> = inject(ElementRef<SbbMapContainerElement>);

@@ -4,7 +4,6 @@ import '@sbb-esta/lyne-elements/loading-indicator-circle.js';
 
 @Directive({
   selector: 'sbb-loading-indicator-circle',
-  standalone: true,
 })
 export class SbbLoadingIndicatorCircle {
   #element: ElementRef<SbbLoadingIndicatorCircleElement> = inject(

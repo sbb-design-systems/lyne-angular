@@ -7,7 +7,6 @@ import '@sbb-esta/lyne-elements/file-selector/file-selector.js';
 
 @Directive({
   selector: 'sbb-file-selector',
-  standalone: true,
 })
 export class SbbFileSelector {
   #element: ElementRef<SbbFileSelectorElement> = inject(ElementRef<SbbFileSelectorElement>);

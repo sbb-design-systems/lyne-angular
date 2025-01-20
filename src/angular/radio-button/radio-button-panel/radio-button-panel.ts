@@ -8,7 +8,6 @@ import '@sbb-esta/lyne-elements/radio-button/radio-button-panel.js';
 
 @Directive({
   selector: 'sbb-radio-button-panel',
-  standalone: true,
 })
 export class SbbRadioButtonPanel {
   #element: ElementRef<SbbRadioButtonPanelElement> = inject(ElementRef<SbbRadioButtonPanelElement>);

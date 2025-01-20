@@ -4,7 +4,6 @@ import '@sbb-esta/lyne-elements/loading-indicator.js';
 
 @Directive({
   selector: 'sbb-loading-indicator',
-  standalone: true,
 })
 export class SbbLoadingIndicator {
   #element: ElementRef<SbbLoadingIndicatorElement> = inject(ElementRef<SbbLoadingIndicatorElement>);

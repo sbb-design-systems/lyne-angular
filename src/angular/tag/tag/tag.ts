@@ -7,7 +7,6 @@ import '@sbb-esta/lyne-elements/tag/tag.js';
 
 @Directive({
   selector: 'sbb-tag',
-  standalone: true,
 })
 export class SbbTag {
   #element: ElementRef<SbbTagElement> = inject(ElementRef<SbbTagElement>);

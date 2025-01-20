@@ -5,7 +5,6 @@ import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 @Directive({
   selector: 'sbb-message',
-  standalone: true,
 })
 export class SbbMessage {
   #element: ElementRef<SbbMessageElement> = inject(ElementRef<SbbMessageElement>);

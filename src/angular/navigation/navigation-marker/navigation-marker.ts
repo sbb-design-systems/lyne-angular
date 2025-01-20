@@ -6,7 +6,6 @@ import '@sbb-esta/lyne-elements/navigation/navigation-marker.js';
 
 @Directive({
   selector: 'sbb-navigation-marker',
-  standalone: true,
 })
 export class SbbNavigationMarker {
   #element: ElementRef<SbbNavigationMarkerElement> = inject(ElementRef<SbbNavigationMarkerElement>);

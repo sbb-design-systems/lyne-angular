@@ -6,7 +6,6 @@ import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid.js';
 
 @Directive({
   selector: 'sbb-autocomplete-grid',
-  standalone: true,
 })
 export class SbbAutocompleteGrid {
   #element: ElementRef<SbbAutocompleteGridElement> = inject(ElementRef<SbbAutocompleteGridElement>);

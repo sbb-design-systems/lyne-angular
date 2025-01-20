@@ -10,7 +10,6 @@ import '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 
 @Directive({
   selector: 'sbb-datepicker',
-  standalone: true,
 })
 export class SbbDatepicker<T = Date> {
   #element: ElementRef<SbbDatepickerElement<T>> = inject(ElementRef<SbbDatepickerElement<T>>);

@@ -6,7 +6,6 @@ import '@sbb-esta/lyne-elements/select.js';
 
 @Directive({
   selector: 'sbb-select',
-  standalone: true,
 })
 export class SbbSelect {
   #element: ElementRef<SbbSelectElement> = inject(ElementRef<SbbSelectElement>);

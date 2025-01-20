@@ -7,7 +7,6 @@ import '@sbb-esta/lyne-elements/stepper/stepper.js';
 
 @Directive({
   selector: 'sbb-stepper',
-  standalone: true,
 })
 export class SbbStepper {
   #element: ElementRef<SbbStepperElement> = inject(ElementRef<SbbStepperElement>);

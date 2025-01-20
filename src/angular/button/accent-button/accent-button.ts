@@ -7,7 +7,6 @@ import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
 @Directive({
   selector: 'sbb-accent-button',
-  standalone: true,
 })
 export class SbbAccentButton {
   #element: ElementRef<SbbAccentButtonElement> = inject(ElementRef<SbbAccentButtonElement>);

@@ -8,7 +8,6 @@ import { SbbNavigationActionSize } from '@sbb-esta/lyne-elements/navigation.js';
 
 @Directive({
   selector: 'sbb-navigation-button',
-  standalone: true,
 })
 export class SbbNavigationButton {
   #element: ElementRef<SbbNavigationButtonElement> = inject(ElementRef<SbbNavigationButtonElement>);
