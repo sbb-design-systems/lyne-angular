@@ -8,7 +8,7 @@ const config: StorybookConfig = {
     options: {},
   },
   docs: {
-    defaultName: 'docs',
+    defaultName: 'Docs',
   },
 };
 export default config;

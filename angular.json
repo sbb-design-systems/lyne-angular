@@ -16,77 +16,14 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@storybook/angular:build-storybook",
           "options": {
-            "outputPath": "dist/showcase",
-            "index": "src/showcase/index.html",
-            "browser": "src/showcase/main.ts",
-            "polyfills": ["zone.js"],
-            "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": ["src/showcase/styles.scss"],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "showcase:build:production"
-            },
-            "development": {
-              "buildTarget": "showcase:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:web-test-runner",
-          "options": {
-            "tsConfig": "tsconfig.spec.json",
-            "include": ["src/showcase/**/*.spec.ts", "src/showcase/**/*.d.ts"],
-            "polyfills": ["zone.js", "zone.js/testing"],
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": ["src/showcase/styles.scss"],
-            "scripts": []
+            "configDir": "src/showcase/.storybook",
+            "browserTarget": "showcase:build",
+            "styles": ["node_modules/@sbb-esta/lyne-elements/standard-theme.css"],
+            "compodoc": true,
+            "compodocArgs": ["-e", "json", "-d", "src/showcase/.storybook", "--disablePrivate"],
+            "outputDir": "dist/storybook/showcase"
           }
         },
         "lint": {
@@ -104,17 +41,6 @@
             "compodoc": true,
             "compodocArgs": ["-e", "json", "-d", "src/showcase/.storybook", "--disablePrivate"],
             "port": 6006
-          }
-        },
-        "build-storybook": {
-          "builder": "@storybook/angular:build-storybook",
-          "options": {
-            "configDir": "src/showcase/.storybook",
-            "browserTarget": "showcase:build",
-            "styles": ["node_modules/@sbb-esta/lyne-elements/standard-theme.css"],
-            "compodoc": true,
-            "compodocArgs": ["-e", "json", "-d", "src/showcase/.storybook", "--disablePrivate"],
-            "outputDir": "dist/storybook/showcase"
           }
         }
       }

@@ -33557,14 +33557,84 @@
   "miscellaneous": {
     "variables": [
       {
+        "name": "breakpointNames",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/showcase/.storybook/preview.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Record<string, number>",
+        "defaultValue": "breakpoints.reduce(\n  (current, next) => Object.assign(current, { [next.key]: next.value }),\n  {} as Record<string, number>,\n)"
+      },
+      {
+        "name": "breakpoints",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/showcase/.storybook/preview.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Object.entries(tokens)\n  .filter(([key]) => key.startsWith('SbbBreakpoint') && key.endsWith('Min'))\n  .map(([key, value]) => ({ key: getViewportName(key), value: value as number }))\n  .sort((a, b) => a.value - b.value)"
+      },
+      {
+        "name": "Default",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/showcase/stories/button/button.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "object",
+        "defaultValue": "{}"
+      },
+      {
+        "name": "Disabled",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/showcase/stories/button/button.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "object",
+        "defaultValue": "{\n  args: {\n    disabled: true\n  }\n}"
+      },
+      {
+        "name": "getViewportName",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/showcase/.storybook/preview.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "(key: string): string =>\n  key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase()"
+      },
+      {
+        "name": "Icon",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/showcase/stories/button/button.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "object",
+        "defaultValue": "{\n  args: {\n    'icon-name': 'pie-small',\n    text: undefined\n  }\n}"
+      },
+      {
         "name": "meta",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/showcase/test.stories.ts",
+        "file": "src/showcase/stories/button/button.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "Meta",
-        "defaultValue": "{\n  decorators: [withActions],\n  component: SbbButtonDirective,\n  parameters: {\n    actions: {\n      handles: ['click'],\n    },\n    parameters: {\n      docs: {\n        page: Readme,\n      },\n    },\n  },\n  render: (args) => ({\n    prop: args,\n    template: `<sbb-button ${argsToT(args)}>Test</sbb-button>`,\n  }),\n}"
+        "defaultValue": "{\n  decorators: [withActions],\n  title: 'elements/sbb-button',\n  component: SbbButtonDirective,\n  parameters: {\n    actions: { handles: ['click'] },\n    docs: { description: { component: readme } },\n  },\n  argTypes: {\n    text: {control: 'text'}\n  },\n  args: {\n    text: 'Button'\n  },\n  // render via template is needed due to the directive implementation\n  render: ({ text, ...args }) => ({\n    prop: { text, ...args },\n    template: `<sbb-button ${spreadArgs(args)}>${text ?? ''}</sbb-button>`,\n  }),\n}"
+      },
+      {
+        "name": "Negative",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/showcase/stories/button/button.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "object",
+        "defaultValue": "{\n  args: {\n    negative: true\n  }\n}"
       },
       {
         "name": "preview",
@@ -33574,48 +33644,30 @@
         "deprecated": false,
         "deprecationMessage": "",
         "type": "Preview",
-        "defaultValue": "{\n  tags: ['autodocs'],\n  parameters: {\n    controls: { expanded: true },\n  },\n}"
+        "defaultValue": "{\n  tags: ['autodocs'],\n  parameters: {\n    breakpoints: {\n      breakpointNames,\n      debounceTimeout: 10,\n    },\n    docs: {\n      toc: {\n        ignoreSelector: '.docs-story h2',\n        headingSelector: 'h2',\n      },\n      source: { format: 'html' },\n    },\n    viewport: { viewports: storybookViewports },\n    backgrounds: { disable: true },\n  },\n}"
       },
       {
-        "name": "Test",
+        "name": "SizeM",
         "ctype": "miscellaneous",
         "subtype": "variable",
-        "file": "src/showcase/test.stories.ts",
+        "file": "src/showcase/stories/button/button.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
         "type": "object",
-        "defaultValue": "{\n  args: {\n    'icon-name': 'pie-small',\n  },\n}"
+        "defaultValue": "{\n  args: {\n    size: 'm'\n  }\n}"
+      },
+      {
+        "name": "storybookViewports",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "src/showcase/.storybook/preview.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "breakpoints.reduce(\n  (current, next) =>\n    Object.assign(current, {\n      [next.key]: {\n        name: `Breakpoint ${next.key}`,\n        styles: {\n          width: `${next.value || 320}px`,\n          height: '',\n        },\n      },\n    }),\n  {} as Record<string, number>,\n)"
       }
     ],
     "functions": [
-      {
-        "name": "argsToT",
-        "file": "src/showcase/test.stories.ts",
-        "ctype": "miscellaneous",
-        "subtype": "function",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "description": "",
-        "args": [
-          {
-            "name": "args",
-            "type": "Record",
-            "deprecated": false,
-            "deprecationMessage": ""
-          }
-        ],
-        "jsdoctags": [
-          {
-            "name": "args",
-            "type": "Record",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "tagName": {
-              "text": "param"
-            }
-          }
-        ]
-      },
       {
         "name": "booleanAttribute",
         "file": "src/angular/core/attribute-transform.ts",
@@ -33647,29 +33699,37 @@
     "typealiases": [],
     "enumerations": [],
     "groupedVariables": {
-      "src/showcase/test.stories.ts": [
+      "src/showcase/.storybook/preview.ts": [
         {
-          "name": "meta",
+          "name": "breakpointNames",
           "ctype": "miscellaneous",
           "subtype": "variable",
-          "file": "src/showcase/test.stories.ts",
+          "file": "src/showcase/.storybook/preview.ts",
           "deprecated": false,
           "deprecationMessage": "",
-          "type": "Meta",
-          "defaultValue": "{\n  decorators: [withActions],\n  component: SbbButtonDirective,\n  parameters: {\n    actions: {\n      handles: ['click'],\n    },\n    parameters: {\n      docs: {\n        page: Readme,\n      },\n    },\n  },\n  render: (args) => ({\n    prop: args,\n    template: `<sbb-button ${argsToT(args)}>Test</sbb-button>`,\n  }),\n}"
+          "type": "Record<string, number>",
+          "defaultValue": "breakpoints.reduce(\n  (current, next) => Object.assign(current, { [next.key]: next.value }),\n  {} as Record<string, number>,\n)"
         },
         {
-          "name": "Test",
+          "name": "breakpoints",
           "ctype": "miscellaneous",
           "subtype": "variable",
-          "file": "src/showcase/test.stories.ts",
+          "file": "src/showcase/.storybook/preview.ts",
           "deprecated": false,
           "deprecationMessage": "",
-          "type": "object",
-          "defaultValue": "{\n  args: {\n    'icon-name': 'pie-small',\n  },\n}"
-        }
-      ],
-      "src/showcase/.storybook/preview.ts": [
+          "type": "",
+          "defaultValue": "Object.entries(tokens)\n  .filter(([key]) => key.startsWith('SbbBreakpoint') && key.endsWith('Min'))\n  .map(([key, value]) => ({ key: getViewportName(key), value: value as number }))\n  .sort((a, b) => a.value - b.value)"
+        },
+        {
+          "name": "getViewportName",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/showcase/.storybook/preview.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "(key: string): string =>\n  key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase()"
+        },
         {
           "name": "preview",
           "ctype": "miscellaneous",
@@ -33678,41 +33738,83 @@
           "deprecated": false,
           "deprecationMessage": "",
           "type": "Preview",
-          "defaultValue": "{\n  tags: ['autodocs'],\n  parameters: {\n    controls: { expanded: true },\n  },\n}"
+          "defaultValue": "{\n  tags: ['autodocs'],\n  parameters: {\n    breakpoints: {\n      breakpointNames,\n      debounceTimeout: 10,\n    },\n    docs: {\n      toc: {\n        ignoreSelector: '.docs-story h2',\n        headingSelector: 'h2',\n      },\n      source: { format: 'html' },\n    },\n    viewport: { viewports: storybookViewports },\n    backgrounds: { disable: true },\n  },\n}"
+        },
+        {
+          "name": "storybookViewports",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/showcase/.storybook/preview.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "breakpoints.reduce(\n  (current, next) =>\n    Object.assign(current, {\n      [next.key]: {\n        name: `Breakpoint ${next.key}`,\n        styles: {\n          width: `${next.value || 320}px`,\n          height: '',\n        },\n      },\n    }),\n  {} as Record<string, number>,\n)"
+        }
+      ],
+      "src/showcase/stories/button/button.stories.ts": [
+        {
+          "name": "Default",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/showcase/stories/button/button.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "object",
+          "defaultValue": "{}"
+        },
+        {
+          "name": "Disabled",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/showcase/stories/button/button.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "object",
+          "defaultValue": "{\n  args: {\n    disabled: true\n  }\n}"
+        },
+        {
+          "name": "Icon",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/showcase/stories/button/button.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "object",
+          "defaultValue": "{\n  args: {\n    'icon-name': 'pie-small',\n    text: undefined\n  }\n}"
+        },
+        {
+          "name": "meta",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/showcase/stories/button/button.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Meta",
+          "defaultValue": "{\n  decorators: [withActions],\n  title: 'elements/sbb-button',\n  component: SbbButtonDirective,\n  parameters: {\n    actions: { handles: ['click'] },\n    docs: { description: { component: readme } },\n  },\n  argTypes: {\n    text: {control: 'text'}\n  },\n  args: {\n    text: 'Button'\n  },\n  // render via template is needed due to the directive implementation\n  render: ({ text, ...args }) => ({\n    prop: { text, ...args },\n    template: `<sbb-button ${spreadArgs(args)}>${text ?? ''}</sbb-button>`,\n  }),\n}"
+        },
+        {
+          "name": "Negative",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/showcase/stories/button/button.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "object",
+          "defaultValue": "{\n  args: {\n    negative: true\n  }\n}"
+        },
+        {
+          "name": "SizeM",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "src/showcase/stories/button/button.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "object",
+          "defaultValue": "{\n  args: {\n    size: 'm'\n  }\n}"
         }
       ]
     },
     "groupedFunctions": {
-      "src/showcase/test.stories.ts": [
-        {
-          "name": "argsToT",
-          "file": "src/showcase/test.stories.ts",
-          "ctype": "miscellaneous",
-          "subtype": "function",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "description": "",
-          "args": [
-            {
-              "name": "args",
-              "type": "Record",
-              "deprecated": false,
-              "deprecationMessage": ""
-            }
-          ],
-          "jsdoctags": [
-            {
-              "name": "args",
-              "type": "Record",
-              "deprecated": false,
-              "deprecationMessage": "",
-              "tagName": {
-                "text": "param"
-              }
-            }
-          ]
-        }
-      ],
       "src/angular/core/attribute-transform.ts": [
         {
           "name": "booleanAttribute",
@@ -34963,23 +35065,83 @@
         "type": "variable",
         "linktype": "miscellaneous",
         "linksubtype": "variable",
+        "name": "breakpointNames",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/showcase/.storybook/preview.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "breakpoints",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/showcase/.storybook/preview.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "getViewportName",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/showcase/.storybook/preview.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
         "name": "preview",
         "coveragePercent": 0,
         "coverageCount": "0/1",
         "status": "low"
       },
       {
-        "filePath": "src/showcase/test.stories.ts",
-        "type": "function",
+        "filePath": "src/showcase/.storybook/preview.ts",
+        "type": "variable",
         "linktype": "miscellaneous",
-        "linksubtype": "function",
-        "name": "argsToT",
+        "linksubtype": "variable",
+        "name": "storybookViewports",
         "coveragePercent": 0,
         "coverageCount": "0/1",
         "status": "low"
       },
       {
-        "filePath": "src/showcase/test.stories.ts",
+        "filePath": "src/showcase/stories/button/button.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Default",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/showcase/stories/button/button.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Disabled",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/showcase/stories/button/button.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Icon",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/showcase/stories/button/button.stories.ts",
         "type": "variable",
         "linktype": "miscellaneous",
         "linksubtype": "variable",
@@ -34989,11 +35151,21 @@
         "status": "low"
       },
       {
-        "filePath": "src/showcase/test.stories.ts",
+        "filePath": "src/showcase/stories/button/button.stories.ts",
         "type": "variable",
         "linktype": "miscellaneous",
         "linksubtype": "variable",
-        "name": "Test",
+        "name": "Negative",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "src/showcase/stories/button/button.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "SizeM",
         "coveragePercent": 0,
         "coverageCount": "0/1",
         "status": "low"
