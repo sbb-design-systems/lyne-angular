@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbRouterLinkSupportMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbTransparentButtonLinkElement } from '@sbb-esta/lyne-elements/button/transparent-button-link.js';
 import { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements/button/transparent-button-link.js';
 @Directive({
   selector: 'sbb-transparent-button-link',
 })
-export class SbbTransparentButtonLink {
+export class SbbTransparentButtonLink extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbTransparentButtonLinkElement> = inject(
     ElementRef<SbbTransparentButtonLinkElement>,
   );
