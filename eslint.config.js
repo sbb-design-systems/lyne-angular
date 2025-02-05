@@ -43,6 +43,7 @@ export default config(
     processor: processInlineTemplates,
     rules: {
       '@angular-eslint/no-input-rename': 'off',
+      '@angular-eslint/component-class-suffix': 'off',
       '@angular-eslint/directive-class-suffix': 'off',
       '@angular-eslint/directive-selector': 'off',
       '@angular-eslint/component-selector': [
@@ -53,6 +54,9 @@ export default config(
           style: 'kebab-case',
         },
       ],
+      '@angular-eslint/no-inputs-metadata-property': 'off',
+      '@angular-eslint/no-output-rename': 'off',
+      '@typescript-eslint/no-inferrable-types': 'off',
       'import-x/first': 'error',
       'import-x/named': 'off',
       'import-x/no-absolute-path': 'error',

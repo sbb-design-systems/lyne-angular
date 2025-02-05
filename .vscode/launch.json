@@ -3,6 +3,14 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "test:angular",
+      "request": "launch",
+      "runtimeArgs": ["run", "test:angular"],
+      "runtimeExecutable": "yarn",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",

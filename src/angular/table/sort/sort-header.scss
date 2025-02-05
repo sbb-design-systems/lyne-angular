@@ -1,0 +1,80 @@
+@use '@sbb-esta/lyne-elements' as sbb;
+
+.sbb-sort-header {
+  cursor: pointer;
+  position: relative;
+
+  // Usually we could rely on the arrow showing up to be focus indication, but if a header is
+  // active, the arrow will always be shown so the user has no way of telling the difference.
+  &:is(.cdk-keyboard-focused, .cdk-program-focused) {
+    // @include sbb.sbbFocusOutline();
+  }
+
+  &:hover .sbb-sort-header-container {
+    color: var(--sbb-color-call-to-action-hover);
+  }
+}
+
+.sbb-sort-header-sorted {
+  color: var(--sbb-color-text);
+}
+
+.sbb-sort-header-container {
+  display: flex;
+  letter-spacing: normal;
+  text-align: left;
+  height: 100%;
+
+  // Needs to be reset since we don't want an outline around the inner
+  // div which is focusable. We have our own alternate focus styling.
+  outline: 0;
+
+  .sbb-sort-header-disabled & {
+    cursor: default;
+  }
+
+  .sbb-table-align-center & {
+    text-align: center;
+  }
+}
+
+.sbb-sort-header-content {
+  flex-shrink: 1;
+  flex-grow: 1;
+}
+
+.sbb-sort-header-position-before {
+  flex-direction: row-reverse;
+}
+
+.sbb-sort-header-arrow {
+  height: var(--sbb-icon-size-default);
+  width: var(--sbb-icon-size-default);
+  min-width: var(--sbb-icon-size-default);
+  position: relative;
+
+  // Start off at 0 since the arrow may become visible while parent are animating.
+  // This will be overwritten when the arrow animations kick in. See #11819.
+  opacity: 0;
+
+  margin: calc(#{sbb.px-to-rem-build(-1)} * var(--sbb-scaling-factor))
+    calc(#{sbb.px-to-rem-build(-8)} * var(--sbb-scaling-factor))
+    calc(#{sbb.px-to-rem-build(-1)} * var(--sbb-scaling-factor))
+    var(--sbb-table-sort-header-arrow-margin);
+
+  .sbb-sort-header-position-before & {
+    margin: calc(#{sbb.px-to-rem-build(-1)} * var(--sbb-scaling-factor))
+      var(--sbb-table-sort-header-arrow-margin)
+      calc(#{sbb.px-to-rem-build(-1)} * var(--sbb-scaling-factor))
+      calc(#{sbb.px-to-rem-build(-1)} * var(--sbb-scaling-factor));
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+
+    :where(path:nth-child(2)) {
+      transform-origin: center;
+    }
+  }
+}
