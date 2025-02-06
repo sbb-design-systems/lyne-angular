@@ -77,4 +77,14 @@ export class SbbNavigationLink extends SbbRouterLinkSupportMixin(class {}) {
   public get section(): SbbNavigationSectionElement | null {
     return this.#element.nativeElement.section;
   }
+
+  @Input({ alias: 'accessibility-current' })
+  public set accessibilityCurrent(value: string) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.accessibilityCurrent = value),
+    );
+  }
+  public get accessibilityCurrent(): string {
+    return this.#element.nativeElement.accessibilityCurrent;
+  }
 }
