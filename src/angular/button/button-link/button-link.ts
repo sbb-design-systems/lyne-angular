@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbRouterLinkSupportMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonLinkElement } from '@sbb-esta/lyne-elements/button/button-link.js';
 import { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements/button/button-link.js';
 @Directive({
   selector: 'sbb-button-link',
 })
-export class SbbButtonLink {
+export class SbbButtonLink extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbButtonLinkElement> = inject(ElementRef<SbbButtonLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -91,5 +91,15 @@ export class SbbButtonLink {
   }
   public get accessibilityLabel(): string {
     return this.#element.nativeElement.accessibilityLabel;
+  }
+
+  @Input({ alias: 'accessibility-current' })
+  public set accessibilityCurrent(value: string) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.accessibilityCurrent = value),
+    );
+  }
+  public get accessibilityCurrent(): string {
+    return this.#element.nativeElement.accessibilityCurrent;
   }
 }

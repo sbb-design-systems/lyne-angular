@@ -1,5 +1,12 @@
 # Changelog
 
+## [19.0.0-alpha.3](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-alpha.2...v19.0.0-alpha.3) (2025-01-21)
+
+
+### Features
+
+* support Angular RouterLink ([#18](https://github.com/sbb-design-systems/lyne-angular/issues/18)) ([f323b77](https://github.com/sbb-design-systems/lyne-angular/commit/f323b775bb3cb2e189d27448f09868acdb77b89e))
+
 ## [19.0.0-alpha.2](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-alpha.1...v19.0.0-alpha.2) (2025-01-20)
 
 

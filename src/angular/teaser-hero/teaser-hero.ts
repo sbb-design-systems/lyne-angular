@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbRouterLinkSupportMixin } from '@sbb-esta/lyne-angular/core';
 import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTeaserHeroElement } from '@sbb-esta/lyne-elements/teaser-hero.js';
 import '@sbb-esta/lyne-elements/teaser-hero.js';
@@ -7,7 +7,7 @@ import '@sbb-esta/lyne-elements/teaser-hero.js';
 @Directive({
   selector: 'sbb-teaser-hero',
 })
-export class SbbTeaserHero {
+export class SbbTeaserHero extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbTeaserHeroElement> = inject(ElementRef<SbbTeaserHeroElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -57,5 +57,15 @@ export class SbbTeaserHero {
   }
   public get accessibilityLabel(): string {
     return this.#element.nativeElement.accessibilityLabel;
+  }
+
+  @Input({ alias: 'accessibility-current' })
+  public set accessibilityCurrent(value: string) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.accessibilityCurrent = value),
+    );
+  }
+  public get accessibilityCurrent(): string {
+    return this.#element.nativeElement.accessibilityCurrent;
   }
 }

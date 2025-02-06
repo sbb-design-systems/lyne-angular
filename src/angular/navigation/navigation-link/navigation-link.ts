@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbRouterLinkSupportMixin } from '@sbb-esta/lyne-angular/core';
 import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbNavigationLinkElement } from '@sbb-esta/lyne-elements/navigation/navigation-link.js';
 import { SbbNavigationMarkerElement } from '@sbb-esta/lyne-elements/navigation/navigation-marker.js';
@@ -10,7 +10,7 @@ import '@sbb-esta/lyne-elements/navigation/navigation-link.js';
 @Directive({
   selector: 'sbb-navigation-link',
 })
-export class SbbNavigationLink {
+export class SbbNavigationLink extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbNavigationLinkElement> = inject(ElementRef<SbbNavigationLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -76,5 +76,15 @@ export class SbbNavigationLink {
 
   public get section(): SbbNavigationSectionElement | null {
     return this.#element.nativeElement.section;
+  }
+
+  @Input({ alias: 'accessibility-current' })
+  public set accessibilityCurrent(value: string) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.accessibilityCurrent = value),
+    );
+  }
+  public get accessibilityCurrent(): string {
+    return this.#element.nativeElement.accessibilityCurrent;
   }
 }

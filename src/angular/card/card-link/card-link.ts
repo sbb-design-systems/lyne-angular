@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbRouterLinkSupportMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbCardLinkElement } from '@sbb-esta/lyne-elements/card/card-link.js';
 import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
@@ -8,7 +8,7 @@ import '@sbb-esta/lyne-elements/card/card-link.js';
 @Directive({
   selector: 'sbb-card-link',
 })
-export class SbbCardLink {
+export class SbbCardLink extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbCardLinkElement> = inject(ElementRef<SbbCardLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -58,5 +58,15 @@ export class SbbCardLink {
   }
   public get accessibilityLabel(): string {
     return this.#element.nativeElement.accessibilityLabel;
+  }
+
+  @Input({ alias: 'accessibility-current' })
+  public set accessibilityCurrent(value: string) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.accessibilityCurrent = value),
+    );
+  }
+  public get accessibilityCurrent(): string {
+    return this.#element.nativeElement.accessibilityCurrent;
   }
 }
