@@ -1,7 +1,7 @@
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Meta } from '@storybook/angular';
 
-import { SbbButtonDirective } from '../../../angular/button/button';
+import { SbbButton } from '../../../angular/button/button';
 import { spreadArgs } from '../../tools/spread-args';
 
 import readme from './readme.md';
@@ -9,7 +9,7 @@ import readme from './readme.md';
 const meta: Meta = {
   decorators: [withActions],
   title: 'elements/sbb-button',
-  component: SbbButtonDirective,
+  component: SbbButton,
   parameters: {
     actions: { handles: ['click'] },
     docs: { description: { component: readme } },
