@@ -29,7 +29,8 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/showcase/**/*.ts", "src/showcase/**/*.html"]
+            "lintFilePatterns": ["src/showcase/**/*.ts", "src/showcase/**/*.html"],
+            "eslintConfig": "src/showcase/eslint.config.mjs"
           }
         },
         "storybook": {
