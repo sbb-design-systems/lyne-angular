@@ -12,7 +12,7 @@ const meta: Meta = {
       imports: [SbbLink],
     }),
   ],
-  title: 'elements/sbb-alert',
+  title: 'elements/sbb-alert/sbb-alert',
   component: SbbAlert,
   // render via template is needed due to the directive implementation
   render: (args) => ({

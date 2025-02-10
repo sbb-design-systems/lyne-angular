@@ -13,7 +13,7 @@ const meta: Meta = {
       imports: [SbbAlert, SbbLink],
     }),
   ],
-  title: 'elements/sbb-alert-group',
+  title: 'elements/sbb-alert/sbb-alert-group',
   component: SbbAlertGroup,
   parameters: {
     actions: { handles: ['click'] },

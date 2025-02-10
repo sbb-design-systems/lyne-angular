@@ -4,7 +4,7 @@ import { SbbExpansionPanelContent } from '@sbb-esta/lyne-angular/expansion-panel
 import { SbbExpansionPanelHeader } from '@sbb-esta/lyne-angular/expansion-panel/expansion-panel-header';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Meta, moduleMetadata } from '@storybook/angular';
-import { InputType } from '@storybook/types';
+import { InputType, StoryContext } from '@storybook/types';
 
 import { spreadArgs } from '../../../tools/spread-args';
 
@@ -70,6 +70,8 @@ const meta: Meta = {
   component: SbbAccordion,
   parameters: {
     actions: { handles: ['click'] },
+    backgroundColor: (context: StoryContext) =>
+      context.args['borderless'] ? 'var(--sbb-color-cement)' : 'var(--sbb-color-white)',
   },
   argTypes,
   args,

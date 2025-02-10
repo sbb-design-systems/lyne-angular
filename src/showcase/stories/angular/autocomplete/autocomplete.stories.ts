@@ -4,7 +4,7 @@ import { SbbOptGroup } from '@sbb-esta/lyne-angular/option/optgroup';
 import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 import { spreadArgs } from '../../../tools/spread-args';
 
@@ -88,6 +88,10 @@ const meta: Meta = {
       imports: [SbbFormField, SbbOptGroup, SbbOption],
     }),
   ],
+  parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+  },
   title: 'elements/sbb-autocomplete',
   component: SbbAutocomplete,
   argTypes,
@@ -99,7 +103,7 @@ const meta: Meta = {
       <sbb-form-field [negative]=${negative} [borderless]=${borderless} [floating-label]=${floatingLabel} size=${size}>
         <label>Label</label>
         <input [disabled]=${disabled} [readonly]=${readonly} />
-        <sbb-autocomplete ${spreadArgs({ ...args })}>
+        <sbb-autocomplete ${spreadArgs(args)}>
           <sbb-opt-group label="Group 1">
             <sbb-option value="1">1</sbb-option>
             <sbb-option value="2">2</sbb-option>

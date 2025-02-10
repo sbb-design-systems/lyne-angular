@@ -1,9 +1,33 @@
 import * as tokens from '@sbb-esta/lyne-design-tokens';
 import { setCompodocJson } from '@storybook/addon-docs/angular';
 import type { Preview } from '@storybook/angular';
+import { makeDecorator } from '@storybook/preview-api';
+import { StoryContext } from '@storybook/types';
 
 import docJson from './documentation.json';
 setCompodocJson(docJson);
+
+const withBackgroundDecorator = makeDecorator({
+  name: 'withContextSpecificBackgroundColor',
+  parameterName: 'backgroundColor',
+  skipIfNoParametersOrOptions: false,
+  wrapper: (getStory, context, { parameters }) => {
+    const backgroundColor = parameters as (context: StoryContext) => string;
+
+    const rootElement = (context.canvasElement as unknown as HTMLElement).closest<HTMLElement>(
+      '.docs-story, .sb-show-main',
+    )!;
+
+    // If no background function is set, remove background color.
+    if (!backgroundColor) {
+      rootElement.style.removeProperty('background-color');
+    } else {
+      rootElement.style.backgroundColor = backgroundColor(context);
+    }
+
+    return getStory(context);
+  },
+});
 
 const getViewportName = (key: string): string =>
   key.replace(/(^SbbBreakpoint|Min$)/g, '').toLowerCase();
@@ -32,6 +56,7 @@ const storybookViewports = breakpoints.reduce(
 );
 
 const preview: Preview = {
+  decorators: [withBackgroundDecorator],
   tags: ['autodocs'],
   parameters: {
     breakpoints: {
