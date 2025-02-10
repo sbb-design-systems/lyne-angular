@@ -3,6 +3,14 @@
 export function spreadArgs(args: Record<string, unknown>) {
   return Object.entries(args)
     .filter(([key]) => args[key] !== undefined && args[key] !== false)
-    .map(([key, value]) => `${key}="${value}"`)
+    .map(([key, value]) => {
+      let attr;
+      if (typeof value === 'function') {
+        attr = `(${key})="${[key]}($event)"`;
+      } else {
+        attr = `${key}="${value}"`;
+      }
+      return attr;
+    })
     .join(' ');
 }

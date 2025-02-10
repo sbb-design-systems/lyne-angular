@@ -124,7 +124,7 @@ const meta: Meta = {
   },
   // render via template is needed due to the directive implementation
   render: ({ ...args }) => ({
-    prop: { ...args },
+    props: { ...args },
     template: ${template}
   })
 };
