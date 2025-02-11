@@ -36,7 +36,7 @@ const args: Args = {
 
 const meta: Meta = {
   decorators: [withActions],
-  title: 'elements/sbb-transparent-button-link',
+  title: 'elements/sbb-button/sbb-transparent-button-link',
   component: SbbTransparentButtonLink,
   parameters: {
     actions: { handles: ['click'] },
