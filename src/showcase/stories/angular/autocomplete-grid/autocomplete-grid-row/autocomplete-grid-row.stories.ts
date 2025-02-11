@@ -35,7 +35,6 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   },
-  // render via template is needed due to the directive implementation
   render: (args) => ({
     props: { ...args },
     template: `

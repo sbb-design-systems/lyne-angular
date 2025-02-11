@@ -86,7 +86,6 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  // render via template is needed due to the directive implementation
   render: ({ color, expanded, borderless, disabled, iconName, ...args }) => ({
     props: { color, expanded, borderless, disabled, iconName, ...args },
     template: `

@@ -150,7 +150,6 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  // render via template is needed due to the directive implementation
   render: ({
     negative,
     borderless,

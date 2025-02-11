@@ -26,7 +26,6 @@ const meta: Meta = {
     disabled: false,
     negative: false,
   },
-  // render via template is needed due to the directive implementation
   render: (args) => ({
     props: { ...args },
     template: `

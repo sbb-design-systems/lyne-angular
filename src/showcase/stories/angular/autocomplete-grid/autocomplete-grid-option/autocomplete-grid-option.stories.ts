@@ -14,7 +14,6 @@ const meta: Meta = {
   ],
   title: 'elements/sbb-autocomplete-grid/sbb-autocomplete-grid-option',
   component: SbbAutocompleteGridOption,
-  // render via template is needed due to the directive implementation
   render: (args) => ({
     props: { ...args },
     template: `
