@@ -63,6 +63,33 @@ const floatingLabel: InputType = {
   },
 };
 
+const iconName: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Option',
+  },
+};
+
+const disableOption: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Option',
+  },
+};
+
+const disableGroup: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Option group',
+  },
+};
+
 const argTypes: ArgTypes = {
   negative,
   disabled,
@@ -70,6 +97,9 @@ const argTypes: ArgTypes = {
   borderless,
   size,
   floatingLabel,
+  iconName,
+  disableOption,
+  disableGroup,
 };
 
 const args: Args = {
@@ -79,6 +109,9 @@ const args: Args = {
   borderless: false,
   size: size.options![0],
   floatingLabel: false,
+  iconName: 'clock-small',
+  disableOption: false,
+  disableGroup: false,
 };
 
 const meta: Meta = {
@@ -88,30 +121,52 @@ const meta: Meta = {
       imports: [SbbFormField, SbbOptGroup, SbbOption],
     }),
   ],
+  title: 'elements/sbb-autocomplete',
+  component: SbbAutocomplete,
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   },
-  title: 'elements/sbb-autocomplete',
-  component: SbbAutocomplete,
   argTypes,
   args,
   // render via template is needed due to the directive implementation
-  render: ({ negative, borderless, floatingLabel, size, disabled, readonly, ...args }) => ({
-    props: { negative, borderless, floatingLabel, size, disabled, readonly, ...args },
+  render: ({
+    negative,
+    borderless,
+    floatingLabel,
+    size,
+    disabled,
+    readonly,
+    iconName,
+    disableOption,
+    disableGroup,
+    ...args
+  }) => ({
+    props: {
+      negative,
+      borderless,
+      floatingLabel,
+      size,
+      disabled,
+      readonly,
+      iconName,
+      disableOption,
+      disableGroup,
+      ...args,
+    },
     template: `
       <sbb-form-field [negative]=${negative} [borderless]=${borderless} [floating-label]=${floatingLabel} size=${size}>
         <label>Label</label>
         <input [disabled]=${disabled} [readonly]=${readonly} />
         <sbb-autocomplete ${spreadArgs(args)}>
-          <sbb-opt-group label="Group 1">
-            <sbb-option value="1">1</sbb-option>
-            <sbb-option value="2">2</sbb-option>
-          </sbb-opt-group>
-          <sbb-opt-group label="Group 2">
-            <sbb-option value="3">3</sbb-option>
-            <sbb-option value="4">4</sbb-option>
-          </sbb-opt-group>
+          <sbb-optgroup disabled=${disableGroup} label="Group 1">
+            <sbb-option icon-name=${iconName} disabled=${disableOption} value="1">1</sbb-option>
+            <sbb-option icon-name=${iconName} value="2">2</sbb-option>
+          </sbb-optgroup>
+          <sbb-optgroup label="Group 2">
+            <sbb-option icon-name=${iconName} value="3">3</sbb-option>
+            <sbb-option icon-name=${iconName} value="4">4</sbb-option>
+          </sbb-optgroup>
         </sbb-autocomplete>
       </sbb-form-field>
     `,

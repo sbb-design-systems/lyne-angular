@@ -45,11 +45,21 @@ const disabled: InputType = {
   },
 };
 
+const iconName: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Header',
+  },
+};
+
 const argTypes = {
   color,
   expanded,
   borderless,
   disabled,
+  iconName,
 };
 
 const args = {
@@ -57,6 +67,7 @@ const args = {
   expanded: false,
   borderless: false,
   disabled: false,
+  iconName: 'pie-small',
 };
 
 const meta: Meta = {
@@ -76,24 +87,24 @@ const meta: Meta = {
   argTypes,
   args,
   // render via template is needed due to the directive implementation
-  render: ({ color, expanded, borderless, disabled, ...args }) => ({
-    props: { color, expanded, borderless, disabled, ...args },
+  render: ({ color, expanded, borderless, disabled, iconName, ...args }) => ({
+    props: { color, expanded, borderless, disabled, iconName, ...args },
     template: `
       <sbb-accordion ${spreadArgs(args)}>
         <sbb-expansion-panel
           color=${color}
           expanded=${expanded}
           borderless=${borderless}
-          disabled=${!!disabled}>
-          <sbb-expansion-panel-header>Header</sbb-expansion-panel-header>
+          disabled=${disabled}>
+          <sbb-expansion-panel-header icon-name=${iconName}>Header</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
         </sbb-expansion-panel>
         <sbb-expansion-panel
           color=${color}
           expanded=${expanded}
           borderless=${borderless}
-          disabled=${!!disabled}>
-          <sbb-expansion-panel-header>Header 2</sbb-expansion-panel-header>
+          disabled=${disabled}>
+          <sbb-expansion-panel-header icon-name=${iconName}>Header 2</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>Content 2</sbb-expansion-panel-content>
         </sbb-expansion-panel>
       </sbb-accordion>
