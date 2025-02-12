@@ -1,13 +1,11 @@
 import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-option';
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
-import { withActions } from '@storybook/addon-actions/decorator';
 import { Meta, moduleMetadata } from '@storybook/angular';
 
 import { spreadArgs } from '../../../../tools/spread-args';
 
 const meta: Meta = {
   decorators: [
-    withActions,
     moduleMetadata({
       imports: [SbbAutocompleteGridRow],
     }),

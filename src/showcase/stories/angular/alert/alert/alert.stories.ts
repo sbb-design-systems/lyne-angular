@@ -1,6 +1,5 @@
 import { SbbAlert } from '@sbb-esta/lyne-angular/alert/alert';
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
-import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
@@ -39,7 +38,6 @@ const args: Args = {
 
 const meta: Meta = {
   decorators: [
-    withActions,
     moduleMetadata({
       imports: [SbbLink],
     }),

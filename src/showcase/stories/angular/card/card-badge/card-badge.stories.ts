@@ -1,13 +1,11 @@
 import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
 import { SbbCardBadge } from '@sbb-esta/lyne-angular/card/card-badge';
-import { withActions } from '@storybook/addon-actions/decorator';
 import { Meta, moduleMetadata } from '@storybook/angular';
 
 import { spreadArgs } from '../../../../tools/spread-args';
 
 const meta: Meta = {
   decorators: [
-    withActions,
     moduleMetadata({
       imports: [SbbCard],
     }),

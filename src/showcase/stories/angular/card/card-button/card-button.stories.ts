@@ -1,7 +1,6 @@
 import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
 import { SbbCardButton } from '@sbb-esta/lyne-angular/card/card-button';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { withActions } from '@storybook/addon-actions/decorator';
 import { Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes } from '@storybook/types';
 
@@ -13,7 +12,6 @@ const args = { label: 'Click this card to follow the action.' };
 
 const meta: Meta = {
   decorators: [
-    withActions,
     moduleMetadata({
       imports: [SbbCard, SbbTitle],
     }),

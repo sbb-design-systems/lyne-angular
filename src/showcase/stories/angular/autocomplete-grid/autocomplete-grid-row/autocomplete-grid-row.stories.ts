@@ -2,7 +2,6 @@ import { SbbAutocompleteGridCell } from '@sbb-esta/lyne-angular/autocomplete-gri
 import { SbbAutocompleteGridOptgroup } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-optgroup';
 import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-option';
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
-import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
@@ -22,7 +21,6 @@ const args: Args = {
 
 const meta: Meta = {
   decorators: [
-    withActions,
     moduleMetadata({
       imports: [SbbAutocompleteGridCell, SbbAutocompleteGridOptgroup, SbbAutocompleteGridOption],
     }),

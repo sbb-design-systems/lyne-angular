@@ -2,7 +2,6 @@ import { SbbAutocomplete } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { SbbOptGroup } from '@sbb-esta/lyne-angular/option/optgroup';
 import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
-import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
@@ -116,7 +115,6 @@ const args: Args = {
 
 const meta: Meta = {
   decorators: [
-    withActions,
     moduleMetadata({
       imports: [SbbFormField, SbbOptGroup, SbbOption],
     }),

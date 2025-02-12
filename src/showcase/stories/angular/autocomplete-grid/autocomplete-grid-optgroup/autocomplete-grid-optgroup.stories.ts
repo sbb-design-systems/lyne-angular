@@ -3,13 +3,11 @@ import { SbbAutocompleteGridCell } from '@sbb-esta/lyne-angular/autocomplete-gri
 import { SbbAutocompleteGridOptgroup } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-optgroup';
 import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-option';
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
-import { withActions } from '@storybook/addon-actions/decorator';
 import { Meta, moduleMetadata } from '@storybook/angular';
 import { StoryContext } from '@storybook/types';
 
 const meta: Meta = {
   decorators: [
-    withActions,
     moduleMetadata({
       imports: [
         SbbAutocompleteGridOption,
