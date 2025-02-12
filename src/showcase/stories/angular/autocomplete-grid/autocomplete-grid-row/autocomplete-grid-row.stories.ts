@@ -44,7 +44,7 @@ const meta: Meta = {
           <sbb-autocomplete-grid-button icon-name="pie-small" [negative]=${args['negative']}></sbb-autocomplete-grid-button>
         </sbb-autocomplete-grid-cell>
       </sbb-autocomplete-grid-row>
-      <sbb-autocomplete-grid-row [data-negative]=${negative}>
+      <sbb-autocomplete-grid-row [data-negative]=${args['negative']}>
         <sbb-autocomplete-grid-option>Opt 2</sbb-autocomplete-grid-option>
         <sbb-autocomplete-grid-cell>
           <sbb-autocomplete-grid-button icon-name="dog-small" [negative]=${args['negative']}></sbb-autocomplete-grid-button>
