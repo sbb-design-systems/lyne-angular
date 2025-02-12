@@ -5,7 +5,18 @@ import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 import { spreadArgs } from '../../../../tools/spread-args';
 
-const text: InputType = { control: { type: 'text' } };
+const text: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['l', 'm', 's'],
+};
 
 const hrefs = ['https://www.sbb.ch', 'https://github.com/sbb-design-systems/lyne-components'];
 const href: InputType = {
@@ -25,6 +36,7 @@ const href: InputType = {
 
 const argTypes: ArgTypes = {
   text,
+  size,
   href,
 };
 

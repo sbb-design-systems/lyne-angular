@@ -2,9 +2,42 @@ import { SbbAlert } from '@sbb-esta/lyne-angular/alert/alert';
 import { SbbAlertGroup } from '@sbb-esta/lyne-angular/alert/alert-group';
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { ArgTypes, InputType } from '@storybook/types';
 
 import { spreadArgs } from '../../../../tools/spread-args';
+
+const accessibilityTitleLevel: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [1, 2, 3, 4, 5, 6],
+};
+
+const ariaLive: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['off', 'polite', 'assertive'],
+};
+
+const role: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const argTypes: ArgTypes = {
+  'accessibility-title-level': accessibilityTitleLevel,
+  'aria-live': ariaLive,
+  role,
+};
+
+const args: Args = {
+  'accessibility-title-level': accessibilityTitleLevel.options![1],
+  'aria-live': undefined,
+  role: 'status',
+};
 
 const meta: Meta = {
   decorators: [
@@ -18,6 +51,8 @@ const meta: Meta = {
   parameters: {
     actions: { handles: ['click'] },
   },
+  argTypes,
+  args,
   render: ({ ...args }) => ({
     props: { ...args },
     template: `

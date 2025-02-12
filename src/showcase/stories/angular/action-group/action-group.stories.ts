@@ -3,9 +3,61 @@ import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { ArgTypes, InputType } from '@storybook/types';
 
 import { spreadArgs } from '../../../tools/spread-args';
+
+const alignGroup: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['start', 'center', 'stretch', 'end'],
+};
+
+const orientation: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['horizontal', 'vertical'],
+};
+
+const horizontalFrom: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+};
+
+const buttonSize: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['l', 'm', 's'],
+};
+
+const linkSize: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['m', 's', 'xs'],
+};
+
+const argTypes: ArgTypes = {
+  'align-group': alignGroup,
+  orientation,
+  'horizontal-from': horizontalFrom,
+  'button-size': buttonSize,
+  'link-size': linkSize,
+};
+
+const args: Args = {
+  'align-group': alignGroup.options![0],
+  orientation: orientation.options![0],
+  'horizontal-from': horizontalFrom.options![0],
+  'button-size': buttonSize.options![0],
+  'link-size': linkSize.options![0],
+};
 
 const meta: Meta = {
   decorators: [
@@ -16,6 +68,8 @@ const meta: Meta = {
   ],
   title: 'elements/sbb-action-group',
   component: SbbActionGroup,
+  argTypes,
+  args,
   parameters: {
     actions: { handles: ['click'] },
   },

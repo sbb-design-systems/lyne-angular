@@ -8,6 +8,16 @@ import { InputType, StoryContext } from '@storybook/types';
 
 import { spreadArgs } from '../../../tools/spread-args';
 
+const titleLevel: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [1, 2, 3, 4, 5, 6, null],
+  table: {
+    category: 'Accordion',
+  },
+};
+
 const color: InputType = {
   control: {
     type: 'inline-radio',
@@ -55,6 +65,7 @@ const iconName: InputType = {
 };
 
 const argTypes = {
+  'title-level': titleLevel,
   color,
   expanded,
   borderless,
@@ -63,6 +74,7 @@ const argTypes = {
 };
 
 const args = {
+  'title-level': titleLevel.options![2],
   color: color.options![0],
   expanded: false,
   borderless: false,

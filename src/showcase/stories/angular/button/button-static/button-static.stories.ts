@@ -1,13 +1,32 @@
 import { SbbButtonStatic } from '@sbb-esta/lyne-angular/button/button-static';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, Meta } from '@storybook/angular';
-import { ArgTypes, StoryContext } from '@storybook/types';
+import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 import { spreadArgs } from '../../../../tools/spread-args';
 
-const argTypes: ArgTypes = { text: { control: { type: 'text' } } };
+const text: InputType = {
+  control: {
+    type: 'text',
+  },
+};
 
-const args: Args = { text: 'Button' };
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['l', 'm', 's'],
+};
+
+const argTypes: ArgTypes = {
+  text,
+  size,
+};
+
+const args: Args = {
+  text: 'Button',
+  size: size.options![0],
+};
 
 const meta: Meta = {
   decorators: [withActions],
