@@ -24,7 +24,7 @@ export class SbbDatepicker<T = Date> {
     return this.#element.nativeElement.wide;
   }
 
-  @Input()
+  @Input({ alias: 'date-filter' })
   public set dateFilter(value: (date: T | null) => boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.dateFilter = value));
   }
