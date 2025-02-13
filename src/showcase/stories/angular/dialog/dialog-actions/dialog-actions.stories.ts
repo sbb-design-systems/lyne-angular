@@ -1,13 +1,13 @@
-import { SbbActionGroup } from '@sbb-esta/lyne-angular/action-group';
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
+import { SbbDialogActions } from '@sbb-esta/lyne-angular/dialog/dialog-actions';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
-import { spreadArgs } from '../../../tools/spread-args';
+import { spreadArgs } from '../../../../tools/spread-args';
 
 const alignGroup: InputType = {
   control: {
@@ -64,24 +64,32 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [SbbButton, SbbSecondaryButton, SbbBlockLink],
+      imports: [SbbButton, SbbBlockLink, SbbSecondaryButton],
     }),
   ],
-  title: 'elements/sbb-action-group',
-  component: SbbActionGroup,
-  argTypes,
-  args,
+  title: 'elements/sbb-dialog/sbb-dialog-actions',
+  component: SbbDialogActions,
   parameters: {
     actions: { handles: ['click'] },
   },
-  render: ({ ...args }) => ({
+  argTypes,
+  args,
+  render: (args) => ({
     props: { ...args },
     template: `
-      <sbb-action-group ${spreadArgs(args)}>
-        <sbb-button>Button 1</sbb-button>
-        <sbb-secondary-button>Button 2</sbb-secondary-button>
-        <sbb-block-link href="/" icon-name="chevron-small-left-small">Link</sbb-block-link>
-      </sbb-action-group>`,
+      <sbb-dialog-actions ${spreadArgs(args)}>
+      <sbb-block-link
+        align-self="start"
+        icon-name="chevron-small-left-small"
+        href="https://www.sbb.ch/en/"
+        sbb-dialog-close
+      >
+        Link
+      </sbb-block-link>
+      <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
+      <sbb-button sbb-dialog-close> Confirm </sbb-button>
+    </sbb-dialog-actions>
+    `,
   }),
 };
 export default meta;
