@@ -89,7 +89,7 @@ const meta: Meta = {
       imports: [SbbExpansionPanel, SbbExpansionPanelHeader, SbbExpansionPanelContent],
     }),
   ],
-  title: 'elements/sbb-accordion',
+  title: 'elements/sbb-accordion/sbb-accordion',
   component: SbbAccordion,
   parameters: {
     actions: { handles: ['click'] },
