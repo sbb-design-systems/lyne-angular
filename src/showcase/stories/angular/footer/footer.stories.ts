@@ -42,7 +42,7 @@ const meta: Meta = {
 export default meta;
 
 export const Default = {
-  render: (args: Record<string, string>) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-footer ${spreadArgs(args)}>
@@ -85,7 +85,7 @@ export const Default = {
 
 export const ClockColumns = {
   args: { variant: variant.options![1] },
-  render: (args: Record<string, string>) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-footer ${spreadArgs(args)}>

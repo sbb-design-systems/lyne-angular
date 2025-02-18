@@ -157,12 +157,12 @@ const meta: Meta = {
         <input [disabled]=${disabled} [readonly]=${readonly} />
         <sbb-autocomplete ${spreadArgs(args)}>
           <sbb-optgroup disabled=${disableGroup} label="Group 1">
-            <sbb-option icon-name=${iconName} disabled=${disableOption} value="1">1</sbb-option>
-            <sbb-option icon-name=${iconName} value="2">2</sbb-option>
+            <sbb-option icon-name=${iconName} disabled=${disableOption} value="1">Value 1</sbb-option>
+            <sbb-option icon-name=${iconName} value="2">Value 2</sbb-option>
           </sbb-optgroup>
           <sbb-optgroup label="Group 2">
-            <sbb-option icon-name=${iconName} value="3">3</sbb-option>
-            <sbb-option icon-name=${iconName} value="4">4</sbb-option>
+            <sbb-option icon-name=${iconName} value="3">Value 3</sbb-option>
+            <sbb-option icon-name=${iconName} value="4">Value 4</sbb-option>
           </sbb-optgroup>
         </sbb-autocomplete>
       </sbb-form-field>

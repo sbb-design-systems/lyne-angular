@@ -151,20 +151,20 @@ const meta: Meta = {
 export default meta;
 
 export const Input = {
-  render: (args: Record<string, unknown>) => ({
+  render: (args: Args) => ({
     template: inputStory(args),
   }),
 };
 
 export const Select = {
-  render: (args: Record<string, unknown>) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: selectStory(args),
   }),
 };
 
 export const Textarea = {
-  render: (args: Record<string, unknown>) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: textareaStory(args),
   }),

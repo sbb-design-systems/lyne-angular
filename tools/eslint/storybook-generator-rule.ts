@@ -120,7 +120,7 @@ const meta: Meta = {
   component: ${element},
   parameters: {
     // add events or remove the 'action' object
-    actions: { handles: ['click'] }
+    actions: { handles: ['click'] },
   },
   // render via template is needed due to the directive implementation
   render: ({ ...args }) => ({
