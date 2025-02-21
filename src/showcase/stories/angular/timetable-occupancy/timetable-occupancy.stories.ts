@@ -29,7 +29,7 @@ const args: Args = {
 };
 
 const meta: Meta = {
-  title: 'elements/sbb-timetable-occupancy',
+  title: 'elements/sbb-timetable/sbb-timetable-occupancy',
   component: SbbTimetableOccupancy,
   parameters: {
     backgroundColor: (context: StoryContext) =>

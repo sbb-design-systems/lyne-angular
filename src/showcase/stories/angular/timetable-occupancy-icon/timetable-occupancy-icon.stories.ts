@@ -16,7 +16,7 @@ const argTypes: ArgTypes = { occupancy };
 const args: Args = { occupancy: occupancy.options![0] };
 
 const meta: Meta = {
-  title: 'elements/sbb-timetable-occupancy-icon',
+  title: 'elements/sbb-timetable/sbb-timetable-occupancy-icon',
   component: SbbTimetableOccupancyIcon,
   parameters: {
     backgroundColor: (context: StoryContext) =>
