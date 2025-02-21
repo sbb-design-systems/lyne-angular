@@ -44,7 +44,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ label, ...args }) => ({
+  render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
     template: `<sbb-navigation-button ${spreadArgs(args)}>${label}</sbb-navigation-button>`,
   }),

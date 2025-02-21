@@ -24,7 +24,7 @@ const meta: Meta = {
   component: SbbSignet,
   argTypes,
   args,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <div style="max-width: 300px;">

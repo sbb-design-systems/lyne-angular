@@ -37,7 +37,7 @@ const meta: Meta = {
   component: SbbClock,
   argTypes,
   args,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: Template({ ...args }),
   }),

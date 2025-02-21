@@ -54,7 +54,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ withChip, withFooter, ...args }) => ({
+  render: ({ withChip, withFooter, ...args }: Args) => ({
     props: { withChip, withFooter, ...args },
     template: `
       <sbb-teaser-product ${spreadArgs(args)}>

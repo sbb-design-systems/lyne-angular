@@ -69,7 +69,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ iconName, label, labelTwo, ...args }) => ({
+  render: ({ iconName, label, labelTwo, ...args }: Args) => ({
     props: { iconName, label, labelTwo, ...args },
     template: `
     <sbb-toggle ${spreadArgs(args)}>

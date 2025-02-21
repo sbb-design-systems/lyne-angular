@@ -94,7 +94,7 @@ const meta: Meta = {
   component: SbbSkiplinkList,
   argTypes,
   args,
-  render: ({ labelFirstLink, hrefFirstLink, labelSecondLink, hrefSecondLink, ...args }) => ({
+  render: ({ labelFirstLink, hrefFirstLink, labelSecondLink, hrefSecondLink, ...args }: Args) => ({
     props: { labelFirstLink, hrefFirstLink, labelSecondLink, hrefSecondLink, ...args },
     template: `
       <sbb-skiplink-list ${spreadArgs(args)}>

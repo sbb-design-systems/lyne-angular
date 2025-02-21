@@ -1,6 +1,6 @@
 import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { StoryContext } from '@storybook/types';
 
 import { spreadArgs } from '../../../../tools/spread-args';
@@ -17,7 +17,7 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args['color'] === 'milk' ? 'var(--sbb-color-white)' : 'var(--sbb-color-milk)',
   },
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-card ${spreadArgs(args)}>

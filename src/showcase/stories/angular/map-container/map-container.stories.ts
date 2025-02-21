@@ -6,7 +6,7 @@ import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
 import { SbbMapContainer } from '@sbb-esta/lyne-angular/map-container';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 
 import { spreadArgs } from '../../../tools/spread-args';
 
@@ -29,7 +29,7 @@ const meta: Meta = {
   parameters: {
     layout: 'fullscreen',
   },
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-header expanded>

@@ -3,7 +3,7 @@ import { SbbExpansionPanel } from '@sbb-esta/lyne-angular/expansion-panel/expans
 import { SbbExpansionPanelContent } from '@sbb-esta/lyne-angular/expansion-panel/expansion-panel-content';
 import { SbbExpansionPanelHeader } from '@sbb-esta/lyne-angular/expansion-panel/expansion-panel-header';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { InputType, StoryContext } from '@storybook/types';
 
 import { spreadArgs } from '../../../tools/spread-args';
@@ -98,7 +98,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ color, expanded, borderless, disabled, iconName, ...args }) => ({
+  render: ({ color, expanded, borderless, disabled, iconName, ...args }: Args) => ({
     props: { color, expanded, borderless, disabled, iconName, ...args },
     template: `
       <sbb-accordion ${spreadArgs(args)}>

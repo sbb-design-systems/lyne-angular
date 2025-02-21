@@ -48,7 +48,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ text, ...args }) => ({
+  render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
     template: `<sbb-block-link-static ${spreadArgs(args)}>${text}</sbb-block-link-static>`,
   }),

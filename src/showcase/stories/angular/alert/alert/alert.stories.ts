@@ -46,7 +46,7 @@ const meta: Meta = {
   component: SbbAlert,
   argTypes,
   args,
-  render: ({ text, ...args }) => ({
+  render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
     template: `
       <sbb-alert ${spreadArgs(args)}>

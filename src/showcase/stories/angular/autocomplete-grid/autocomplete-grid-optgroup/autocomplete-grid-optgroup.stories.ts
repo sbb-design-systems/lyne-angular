@@ -3,7 +3,7 @@ import { SbbAutocompleteGridCell } from '@sbb-esta/lyne-angular/autocomplete-gri
 import { SbbAutocompleteGridOptgroup } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-optgroup';
 import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-option';
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { StoryContext } from '@storybook/types';
 
 const meta: Meta = {
@@ -27,7 +27,7 @@ const meta: Meta = {
     label: 'Option group',
     disabled: false,
   },
-  render: ({ ...args }) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-autocomplete-grid-optgroup label="${args['label']} 1" disabled=${args['disabled']}>

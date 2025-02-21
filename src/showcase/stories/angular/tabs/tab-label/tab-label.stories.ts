@@ -48,7 +48,7 @@ const meta: Meta = {
   component: SbbTabLabel,
   argTypes,
   args,
-  render: ({ label, ...args }) => ({
+  render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
     template: `
       <sbb-tab-label ${spreadArgs(args)}>

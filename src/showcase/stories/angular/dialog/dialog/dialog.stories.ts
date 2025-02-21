@@ -133,7 +133,7 @@ const meta: Meta = {
     accessibilityCloseLabel,
     accessibilityBackLabel,
     ...args
-  }) => ({
+  }: Args) => ({
     props: {
       level,
       backButton,

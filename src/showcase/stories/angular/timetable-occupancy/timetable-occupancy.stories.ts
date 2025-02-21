@@ -29,7 +29,7 @@ const args: Args = {
 };
 
 const meta: Meta = {
-  title: 'elements/sbb-timetable/sbb-timetable-occupancy',
+  title: 'elements/timetable/sbb-timetable-occupancy',
   component: SbbTimetableOccupancy,
   parameters: {
     backgroundColor: (context: StoryContext) =>
@@ -37,7 +37,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `<sbb-timetable-occupancy ${spreadArgs(args)}></sbb-timetable-occupancy>`,
   }),

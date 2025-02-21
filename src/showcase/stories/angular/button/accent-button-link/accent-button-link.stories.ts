@@ -57,7 +57,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ text, ...args }) => ({
+  render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
     template: `<sbb-accent-button-link ${spreadArgs(args)}>${text}</sbb-accent-button-link>`,
   }),

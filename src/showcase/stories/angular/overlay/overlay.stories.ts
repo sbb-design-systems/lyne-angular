@@ -3,7 +3,7 @@ import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { SbbOverlay } from '@sbb-esta/lyne-angular/overlay';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay.js';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 
 import { spreadArgs } from '../../../tools/spread-args';
 
@@ -26,7 +26,7 @@ const meta: Meta = {
   args: {
     openOverlay: (e: PointerEvent, id: string) => openOverlay(e, id),
   },
-  render: ({ openOverlay, ...args }) => ({
+  render: ({ openOverlay, ...args }: Args) => ({
     props: { openOverlay, ...args },
     template: `
       <sbb-button

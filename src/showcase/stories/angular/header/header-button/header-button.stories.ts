@@ -41,7 +41,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ active, text, ...args }) => ({
+  render: ({ active, text, ...args }: Args) => ({
     props: { active, text, ...args },
     template: `
       <sbb-header-button ${spreadArgs(args)} class=${active ? 'sbb-active' : ''}>

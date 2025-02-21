@@ -84,7 +84,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ numberOfBreadcrumbs, ...args }) => ({
+  render: ({ numberOfBreadcrumbs, ...args }: Args) => ({
     props: { ...args },
     template: `
       <sbb-breadcrumb-group>

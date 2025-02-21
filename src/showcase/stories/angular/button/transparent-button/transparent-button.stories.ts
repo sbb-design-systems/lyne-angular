@@ -51,7 +51,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ text, ...args }) => ({
+  render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
     template: `<sbb-transparent-button ${spreadArgs(args)}>${text}</sbb-transparent-button>`,
   }),

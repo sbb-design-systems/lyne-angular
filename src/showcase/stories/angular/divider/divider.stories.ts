@@ -1,5 +1,5 @@
 import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
-import { Meta } from '@storybook/angular';
+import { Args, Meta } from '@storybook/angular';
 import { InputType, StoryContext } from '@storybook/types';
 
 import { spreadArgs } from '../../../tools/spread-args';
@@ -28,7 +28,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <div style="height: 340px; padding: 20px;">

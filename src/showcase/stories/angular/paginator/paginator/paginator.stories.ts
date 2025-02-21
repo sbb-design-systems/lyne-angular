@@ -57,7 +57,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ pageSizeOptions, ...args }) => ({
+  render: ({ pageSizeOptions, ...args }: Args) => ({
     props: { pageSizeOptions, ...args },
     template: `
      <sbb-paginator aria-label="Select page" [page-size-options]="[${pageSizeOptions}]" ${spreadArgs(args)}></sbb-paginator>

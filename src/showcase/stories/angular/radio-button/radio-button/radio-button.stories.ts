@@ -33,7 +33,7 @@ const meta: Meta = {
   component: SbbRadioButton,
   argTypes,
   args,
-  render: ({ label, ...args }) => ({
+  render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
     template: `
       <sbb-radio-button ${spreadArgs(args)}>

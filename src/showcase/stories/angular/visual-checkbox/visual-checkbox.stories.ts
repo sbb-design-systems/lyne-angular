@@ -29,7 +29,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `<sbb-visual-checkbox ${spreadArgs(args)}></sbb-visual-checkbox>`,
   }),

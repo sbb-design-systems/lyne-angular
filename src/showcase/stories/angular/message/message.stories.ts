@@ -32,7 +32,7 @@ const meta: Meta = {
   component: SbbMessage,
   argTypes,
   args,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <div style="max-width: 45rem; margin: auto">

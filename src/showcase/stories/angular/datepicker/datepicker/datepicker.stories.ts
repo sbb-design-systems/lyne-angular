@@ -243,7 +243,7 @@ const meta: Meta = {
     readonly,
     required,
     ...args
-  }) => ({
+  }: Args) => ({
     props: {
       size,
       negative,

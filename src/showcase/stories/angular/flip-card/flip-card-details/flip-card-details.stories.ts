@@ -1,6 +1,6 @@
 import { SbbFlipCardDetails } from '@sbb-esta/lyne-angular/flip-card/flip-card-details';
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 
 const meta: Meta = {
   decorators: [
@@ -10,7 +10,7 @@ const meta: Meta = {
   ],
   title: 'elements/sbb-flip-card/sbb-flip-card-details',
   component: SbbFlipCardDetails,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-flip-card-details style="--sbb-flip-card-details-opacity: 1">

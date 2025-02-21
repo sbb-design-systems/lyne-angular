@@ -46,7 +46,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ ...args }) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-autocomplete-grid-row ${args['negative'] ? 'data-negative' : ''}>

@@ -40,7 +40,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `<sbb-compact-paginator aria-label="Select page" ${spreadArgs(args)}></sbb-compact-paginator>`,
   }),

@@ -27,7 +27,7 @@ const meta: Meta = {
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   },
   args,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <div style="color: ${args['negative'] ? 'var(--sbb-color-white)' : 'var(--sbb-color-black)'}">

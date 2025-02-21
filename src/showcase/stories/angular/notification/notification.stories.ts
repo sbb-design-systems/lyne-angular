@@ -55,7 +55,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <div style="display: flex; gap: var(--sbb-spacing-fixed-4x); flex-direction: column;">

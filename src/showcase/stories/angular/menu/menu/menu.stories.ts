@@ -66,7 +66,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ iconName, amount, disabled }) => ({
+  render: ({ iconName, amount, disabled }: Args) => ({
     props: { iconName, amount, disabled },
     template: `
       <sbb-button id="menu-trigger" size="m">Menu trigger</sbb-button>

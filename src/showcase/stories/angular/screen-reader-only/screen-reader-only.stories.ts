@@ -1,5 +1,5 @@
 import { SbbScreenReaderOnly } from '@sbb-esta/lyne-angular/screen-reader-only';
-import { Meta } from '@storybook/angular';
+import { Args, Meta } from '@storybook/angular';
 
 const meta: Meta = {
   title: 'internals/sbb-screen-reader-only',
@@ -10,7 +10,7 @@ const meta: Meta = {
   args: {
     content: `I'm visually hidden, but read to screen reader.`,
   },
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       There is a visually hidden text here:

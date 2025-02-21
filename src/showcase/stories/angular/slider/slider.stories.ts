@@ -55,7 +55,7 @@ const meta: Meta = {
   component: SbbSlider,
   argTypes,
   args,
-  render: ({ label, optional, ...args }) => ({
+  render: ({ label, optional, ...args }: Args) => ({
     props: { label, optional, ...args },
     template: `
       <sbb-form-field [optional]=${optional}>

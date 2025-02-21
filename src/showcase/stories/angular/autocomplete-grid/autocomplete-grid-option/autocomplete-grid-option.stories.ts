@@ -1,6 +1,6 @@
 import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-option';
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 
 import { spreadArgs } from '../../../../tools/spread-args';
 
@@ -12,7 +12,7 @@ const meta: Meta = {
   ],
   title: 'elements/sbb-autocomplete-grid/sbb-autocomplete-grid-option',
   component: SbbAutocompleteGridOption,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-autocomplete-grid-row>

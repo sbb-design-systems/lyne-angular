@@ -126,7 +126,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ checked, iconName, iconPlacement, label, ...args }) => ({
+  render: ({ checked, iconName, iconPlacement, label, ...args }: Args) => ({
     props: { checked, iconName, iconPlacement, label, ...args },
     template: `<sbb-checkbox-group ${spreadArgs(args)}>${checkboxes(checked, iconName, iconPlacement, label)}</sbb-checkbox-group>`,
   }),

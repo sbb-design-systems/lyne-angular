@@ -2,7 +2,7 @@ import { SbbMiniButton } from '@sbb-esta/lyne-angular/button/mini-button';
 import { SbbMiniButtonGroup } from '@sbb-esta/lyne-angular/button/mini-button-group';
 import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { InputType, StoryContext } from '@storybook/types';
 
 import { spreadArgs } from '../../../../tools/spread-args';
@@ -43,7 +43,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ disabled, ...args }) => ({
+  render: ({ disabled, ...args }: Args) => ({
     props: { disabled, ...args },
     template: `
       <sbb-mini-button-group ${spreadArgs(args)}>

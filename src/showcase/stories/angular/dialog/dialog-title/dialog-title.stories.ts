@@ -38,7 +38,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `<sbb-dialog-title ${spreadArgs(args)}>Dialog title</sbb-dialog-title>`,
   }),

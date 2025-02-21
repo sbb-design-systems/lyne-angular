@@ -134,7 +134,7 @@ const meta: Meta = {
     disableOption,
     disableGroup,
     ...args
-  }) => ({
+  }: Args) => ({
     props: { borderless, size, negative, floatingLabel, disableOption, disableGroup, ...args },
     template: `
       <sbb-form-field

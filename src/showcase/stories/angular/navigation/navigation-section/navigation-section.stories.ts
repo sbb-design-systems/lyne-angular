@@ -4,7 +4,7 @@ import { SbbNavigationList } from '@sbb-esta/lyne-angular/navigation/navigation-
 import { SbbNavigationMarker } from '@sbb-esta/lyne-angular/navigation/navigation-marker';
 import { SbbNavigationSection } from '@sbb-esta/lyne-angular/navigation/navigation-section';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 
 import { spreadArgs } from '../../../../tools/spread-args';
 
@@ -35,7 +35,7 @@ const meta: Meta = {
   parameters: {
     actions: { handles: ['click'] },
   },
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-secondary-button id="navigation-trigger" size="l" icon-name="hamburger-menu-small"></sbb-secondary-button>

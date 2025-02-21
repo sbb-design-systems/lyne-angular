@@ -1,6 +1,6 @@
 import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
 import { SbbCardBadge } from '@sbb-esta/lyne-angular/card/card-badge';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 
 import { spreadArgs } from '../../../../tools/spread-args';
 
@@ -12,7 +12,7 @@ const meta: Meta = {
   ],
   title: 'elements/sbb-card/sbb-card-badge',
   component: SbbCardBadge,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-card color="milk">

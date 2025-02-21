@@ -61,7 +61,7 @@ const meta: Meta = {
   component: SbbStepper,
   argTypes,
   args,
-  render: ({ disabled, ...args }) => ({
+  render: ({ disabled, ...args }: Args) => ({
     props: { disabled, ...args },
     template: `
       <sbb-stepper ${spreadArgs(args)} aria-label="Purpose of this flow" selected-index="0">

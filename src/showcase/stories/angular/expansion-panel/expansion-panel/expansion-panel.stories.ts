@@ -125,7 +125,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ headerText, iconName, contentText, disabledInteractive, ...args }) => ({
+  render: ({ headerText, iconName, contentText, disabledInteractive, ...args }: Args) => ({
     props: { headerText, iconName, contentText, disabledInteractive, ...args },
     template: `
       <sbb-expansion-panel ${spreadArgs(args)}>

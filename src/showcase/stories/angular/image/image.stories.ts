@@ -64,7 +64,7 @@ const meta: Meta = {
   component: SbbImage,
   argTypes,
   args,
-  render: ({ aspectRatio, borderRadius, ...args }) => ({
+  render: ({ aspectRatio, borderRadius, ...args }: Args) => ({
     props: { aspectRatio, borderRadius, ...args },
     template: `
       <div style="max-width: 480px;">
@@ -82,7 +82,7 @@ export const Default = {};
 export const WithChip = {
   argTypes: { ...argTypes, chipPosition },
   args: { ...args, chipPosition: chipPosition.options![0] },
-  render: ({ aspectRatio, borderRadius, chipPosition, ...args }: Record<string, unknown>) => ({
+  render: ({ aspectRatio, borderRadius, chipPosition, ...args }: Args) => ({
     props: { aspectRatio, borderRadius, chipPosition, ...args },
     template: `
       <div style="max-width: 480px;">

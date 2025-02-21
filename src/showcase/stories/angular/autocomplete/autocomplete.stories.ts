@@ -138,7 +138,7 @@ const meta: Meta = {
     disableOption,
     disableGroup,
     ...args
-  }) => ({
+  }: Args) => ({
     props: {
       negative,
       borderless,

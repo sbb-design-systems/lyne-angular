@@ -32,7 +32,7 @@ const meta: Meta = {
   component: SbbToggleOption,
   argTypes,
   args,
-  render: ({ label, 'icon-name': iconName, ...args }) => ({
+  render: ({ label, 'icon-name': iconName, ...args }: Args) => ({
     props: { label, 'icon-name': iconName, ...args },
     template: `<sbb-toggle-option ${iconName ? `icon-name="${iconName}"` : ''} ${spreadArgs(args)}>${label}</sbb-toggle-option>`,
   }),

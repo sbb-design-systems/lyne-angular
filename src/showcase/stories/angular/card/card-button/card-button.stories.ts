@@ -1,7 +1,7 @@
 import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
 import { SbbCardButton } from '@sbb-esta/lyne-angular/card/card-button';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes } from '@storybook/types';
 
 import { spreadArgs } from '../../../../tools/spread-args';
@@ -20,7 +20,7 @@ const meta: Meta = {
   component: SbbCardButton,
   argTypes,
   args,
-  render: ({ label, ...args }) => ({
+  render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
     template: `
       <sbb-card color="milk">

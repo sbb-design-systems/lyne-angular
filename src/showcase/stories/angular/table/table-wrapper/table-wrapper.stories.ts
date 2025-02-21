@@ -1,5 +1,5 @@
 import { SbbTableWrapper } from '@sbb-esta/lyne-angular/table/table-wrapper';
-import { Meta } from '@storybook/angular';
+import { Args, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 const negative: InputType = { control: { type: 'boolean' } };
@@ -79,7 +79,7 @@ const meta: Meta = {
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   },
   argTypes,
-  render: ({ negative }) => ({
+  render: ({ negative }: Args) => ({
     props: { negative },
     template: `
       <sbb-table-wrapper [negative]=${negative}>

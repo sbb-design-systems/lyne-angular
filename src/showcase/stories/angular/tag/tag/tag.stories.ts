@@ -32,7 +32,7 @@ const meta: Meta = {
   component: SbbTag,
   argTypes,
   args,
-  render: ({ label, ...args }) => ({
+  render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
     template: `<sbb-tag ${spreadArgs(args)}>${label}</sbb-tag>`,
   }),

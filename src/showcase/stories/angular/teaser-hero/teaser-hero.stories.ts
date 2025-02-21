@@ -94,7 +94,7 @@ const meta: Meta = {
     imageSrc,
     imageAlt,
     ...args
-  }) => ({
+  }: Args) => ({
     props: {
       content,
       'link-content': linkContent,

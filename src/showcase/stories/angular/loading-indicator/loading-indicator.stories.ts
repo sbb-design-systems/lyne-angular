@@ -37,7 +37,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `<sbb-loading-indicator ${spreadArgs(args)}></sbb-loading-indicator>`,
   }),

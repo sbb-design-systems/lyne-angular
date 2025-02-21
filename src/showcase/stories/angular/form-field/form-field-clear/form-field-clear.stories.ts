@@ -60,7 +60,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ type, negative, ...args }) => ({
+  render: ({ type, negative, ...args }: Args) => ({
     props: { type, negative, ...args },
     template: `
       <sbb-form-field [negative]=${negative}>

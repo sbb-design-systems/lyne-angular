@@ -53,7 +53,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ ...args }) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-alert-group ${spreadArgs(args)}>

@@ -78,7 +78,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ label, iconName, amount, size, ...args }) => ({
+  render: ({ label, iconName, amount, size, ...args }: Args) => ({
     props: { label, iconName, amount, size, ...args },
     template: `
       <sbb-tab-group size=${size} initial-selected-index="0">

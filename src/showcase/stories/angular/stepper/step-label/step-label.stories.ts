@@ -24,7 +24,7 @@ const meta: Meta = {
   component: SbbStepLabel,
   argTypes,
   args,
-  render: ({ label, ...args }) => ({
+  render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
     template: `<sbb-step-label slot="step-label" ${spreadArgs(args)}>${label}</sbb-step-label>`,
   }),

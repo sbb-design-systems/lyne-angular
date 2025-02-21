@@ -105,7 +105,13 @@ const meta: Meta = {
   component: SbbStickyBar,
   argTypes,
   args,
-  render: ({ containerColor, containerExpanded, containerBackgroundExpanded, color, ...args }) => ({
+  render: ({
+    containerColor,
+    containerExpanded,
+    containerBackgroundExpanded,
+    color,
+    ...args
+  }: Args) => ({
     props: { containerColor, containerExpanded, containerBackgroundExpanded, color, ...args },
     template: `
       <sbb-container

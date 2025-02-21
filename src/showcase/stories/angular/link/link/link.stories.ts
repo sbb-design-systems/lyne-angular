@@ -1,6 +1,6 @@
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Meta } from '@storybook/angular';
+import { Args, Meta } from '@storybook/angular';
 import { InputType, StoryContext } from '@storybook/types';
 
 import { spreadArgs } from '../../../../tools/spread-args';
@@ -55,7 +55,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ text, ...args }) => ({
+  render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
     template: `
       <p

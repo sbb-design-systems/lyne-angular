@@ -145,7 +145,7 @@ const meta: Meta = {
   argTypes,
   args,
   // FIXME https://github.com/sbb-design-systems/lyne-components/issues/3415
-  render: ({ size, optional, borderless, negative, label, iconStart, iconEnd, ...args }) => ({
+  render: ({ size, optional, borderless, negative, label, iconStart, iconEnd, ...args }: Args) => ({
     props: { size, optional, borderless, negative, label, iconStart, iconEnd, ...args },
     template: `
       <sbb-form-field size=${size} [optional]=${optional} [borderless]=${borderless} [negative]=${negative} width="collapse">

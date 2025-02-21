@@ -89,7 +89,7 @@ const meta: Meta = {
     ...args,
     openToast: (e: Event) => openToast(e),
   },
-  render: ({ action, ...args }) => ({
+  render: ({ action, ...args }: Args) => ({
     props: { action, ...args },
     template: `
       <sbb-button (click)="openToast($event)">Show toast</sbb-button>

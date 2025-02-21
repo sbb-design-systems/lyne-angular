@@ -46,7 +46,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ label, ...args }) => ({
+  render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
     template: `<sbb-checkbox ${spreadArgs(args)}>${label}</sbb-checkbox>`,
   }),

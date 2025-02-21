@@ -8,7 +8,7 @@ import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { SbbNotification } from '@sbb-esta/lyne-angular/notification';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 
 const meta: Meta = {
   decorators: [
@@ -31,7 +31,7 @@ const meta: Meta = {
   parameters: {
     layout: 'fullscreen',
   },
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
     <sbb-lead-container>

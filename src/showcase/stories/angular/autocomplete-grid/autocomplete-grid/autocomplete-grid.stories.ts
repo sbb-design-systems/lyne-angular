@@ -160,7 +160,7 @@ const meta: Meta = {
     buttonIconName,
     disableGroup,
     ...args
-  }) => ({
+  }: Args) => ({
     props: {
       negative,
       borderless,

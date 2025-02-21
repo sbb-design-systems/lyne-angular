@@ -46,7 +46,7 @@ const meta: Meta = {
   component: SbbTagGroup,
   argTypes,
   args,
-  render: ({ label, ...args }) => ({
+  render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
     template: `
       <sbb-tag-group ${spreadArgs(args)}>

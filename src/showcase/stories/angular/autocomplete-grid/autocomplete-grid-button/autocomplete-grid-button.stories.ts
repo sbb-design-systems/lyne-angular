@@ -2,7 +2,7 @@ import { SbbAutocompleteGridButton } from '@sbb-esta/lyne-angular/autocomplete-g
 import { SbbAutocompleteGridCell } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-cell';
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { StoryContext } from '@storybook/types';
 
 import { spreadArgs } from '../../../../tools/spread-args';
@@ -26,7 +26,7 @@ const meta: Meta = {
     disabled: false,
     negative: false,
   },
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-autocomplete-grid-row  ${args['negative'] ? 'data-negative' : ''}>

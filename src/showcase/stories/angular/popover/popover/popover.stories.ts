@@ -51,7 +51,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ triggerPosition, ...args }) => ({
+  render: ({ triggerPosition, ...args }: Args) => ({
     props: { ...args },
     template: `
       <sbb-popover-trigger

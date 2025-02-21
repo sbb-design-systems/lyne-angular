@@ -74,7 +74,7 @@ const meta: Meta = {
   parameters: {
     actions: { handles: ['click'] },
   },
-  render: ({ ...args }) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-action-group ${spreadArgs(args)}>

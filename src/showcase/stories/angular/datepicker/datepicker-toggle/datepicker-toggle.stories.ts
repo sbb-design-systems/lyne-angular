@@ -2,7 +2,7 @@ import { SbbDatepicker } from '@sbb-esta/lyne-angular/datepicker/datepicker';
 import { SbbDatepickerToggle } from '@sbb-esta/lyne-angular/datepicker/datepicker-toggle';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 
 import { spreadArgs } from '../../../../tools/spread-args';
 
@@ -18,7 +18,7 @@ const meta: Meta = {
   parameters: {
     actions: { handles: ['click'] },
   },
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-form-field negative=${args['negative']}>

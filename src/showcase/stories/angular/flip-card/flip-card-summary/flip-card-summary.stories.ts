@@ -32,7 +32,7 @@ const meta: Meta = {
   component: SbbFlipCardSummary,
   argTypes,
   args,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `
       <div

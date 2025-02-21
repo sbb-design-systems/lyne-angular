@@ -39,7 +39,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ text, ...args }) => ({
+  render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
     template: `<sbb-secondary-button-static ${spreadArgs(args)}>${text}</sbb-secondary-button-static>`,
   }),

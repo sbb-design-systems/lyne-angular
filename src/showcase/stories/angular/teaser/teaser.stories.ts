@@ -74,7 +74,7 @@ const meta: Meta = {
   component: SbbTeaser,
   argTypes,
   args,
-  render: ({ description, ...args }) => ({
+  render: ({ description, ...args }: Args) => ({
     props: { description, ...args },
     template: `
       <div style="max-width: 760px;">

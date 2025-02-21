@@ -56,7 +56,7 @@ const meta: Meta = {
   component: SbbRadioButtonPanel,
   argTypes,
   args,
-  render: ({ label, ...args }) => ({
+  render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
     template: `
       <sbb-radio-button-panel ${spreadArgs(args)}>

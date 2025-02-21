@@ -39,7 +39,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: (args) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: `<sbb-file-selector-dropzone ${spreadArgs(args)}></sbb-file-selector-dropzone>`,
   }),

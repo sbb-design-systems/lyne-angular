@@ -30,7 +30,7 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   },
-  render: ({ errorText, ...args }) => ({
+  render: ({ errorText, ...args }: Args) => ({
     props: { errorText, ...args },
     template: `<sbb-form-error ${spreadArgs(args)}>${errorText}</sbb-form-error>`,
   }),

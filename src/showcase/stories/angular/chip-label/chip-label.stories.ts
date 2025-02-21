@@ -27,7 +27,7 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ label, ...args }) => ({
+  render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
     template: `<sbb-chip-label ${spreadArgs(args)}>${label}</sbb-chip-label>`,
   }),

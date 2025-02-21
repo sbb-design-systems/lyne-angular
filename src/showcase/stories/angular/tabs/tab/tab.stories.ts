@@ -17,7 +17,7 @@ const meta: Meta = {
   component: SbbTab,
   argTypes,
   args,
-  render: ({ text }) => ({
+  render: ({ text }: Args) => ({
     props: { text },
     template: `<sbb-tab>${text}</sbb-tab>`,
   }),
