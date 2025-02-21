@@ -72,6 +72,11 @@ const preview: Preview = {
     },
     viewport: { viewports: storybookViewports },
     backgrounds: { disable: true },
+    options: {
+      storySort: {
+        order: ['introduction', 'pages', 'elements', 'experimental', 'styles', 'internals'],
+      },
+    },
   },
 };
 

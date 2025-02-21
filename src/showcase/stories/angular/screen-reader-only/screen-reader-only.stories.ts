@@ -2,7 +2,7 @@ import { SbbScreenReaderOnly } from '@sbb-esta/lyne-angular/screen-reader-only';
 import { Meta } from '@storybook/angular';
 
 const meta: Meta = {
-  title: 'elements/sbb-screen-reader-only',
+  title: 'internals/sbb-screen-reader-only',
   component: SbbScreenReaderOnly,
   argTypes: {
     content: { control: { type: 'text' } },
