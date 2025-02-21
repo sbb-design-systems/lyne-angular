@@ -5,7 +5,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { StoryContext } from '@storybook/types';
 
-import { spreadArgs } from '../../../../tools/spread-args';
+import { spreadArgs } from '../../../../helpers/spread-args';
 
 const args: Args = {
   'aria-label': 'Click to open the popover',

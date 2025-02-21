@@ -4,7 +4,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
-import { spreadArgs } from '../../../../tools/spread-args';
+import { spreadArgs } from '../../../../helpers/spread-args';
 
 const inputTemplate = ({ cssClass, ...args }: Record<string, unknown>): string => `
   <input class=${cssClass} ${spreadArgs(args)}/>

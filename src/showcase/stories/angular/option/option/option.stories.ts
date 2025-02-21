@@ -6,7 +6,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
-import { spreadArgs } from '../../../../tools/spread-args';
+import { spreadArgs } from '../../../../helpers/spread-args';
 
 const createOptions = ({ disabled, value, preserveIconSpace, ...args }: Args): string => {
   const style = preserveIconSpace ? '--sbb-option-icon-container-display: block' : '';

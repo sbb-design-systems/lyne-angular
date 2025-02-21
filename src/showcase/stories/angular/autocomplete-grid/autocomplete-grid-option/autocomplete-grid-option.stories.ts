@@ -2,7 +2,7 @@ import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-g
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 
-import { spreadArgs } from '../../../../tools/spread-args';
+import { spreadArgs } from '../../../../helpers/spread-args';
 
 const meta: Meta = {
   decorators: [

@@ -2,7 +2,7 @@ import { SbbTag } from '@sbb-esta/lyne-angular/tag/tag';
 import { Args, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
-import { spreadArgs } from '../../../../tools/spread-args';
+import { spreadArgs } from '../../../../helpers/spread-args';
 
 const label: InputType = {
   control: {

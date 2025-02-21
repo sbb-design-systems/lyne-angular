@@ -2,7 +2,7 @@ import { SbbJourneyHeader } from '@sbb-esta/lyne-angular/journey-header';
 import { Args, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
-import { spreadArgs } from '../../../tools/spread-args';
+import { spreadArgs } from '../../../helpers/spread-args';
 
 const level: InputType = {
   control: {

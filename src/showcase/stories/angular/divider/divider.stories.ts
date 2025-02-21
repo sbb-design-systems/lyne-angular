@@ -2,7 +2,7 @@ import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
 import { Args, Meta } from '@storybook/angular';
 import { InputType, StoryContext } from '@storybook/types';
 
-import { spreadArgs } from '../../../tools/spread-args';
+import { spreadArgs } from '../../../helpers/spread-args';
 
 const orientation: InputType = {
   control: {

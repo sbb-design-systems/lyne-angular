@@ -8,7 +8,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
-import { spreadArgs } from '../../../tools/spread-args';
+import { spreadArgs } from '../../../helpers/spread-args';
 
 const openToast = (event: Event) => {
   ((event.currentTarget as SbbButtonElement).parentElement!.querySelector(

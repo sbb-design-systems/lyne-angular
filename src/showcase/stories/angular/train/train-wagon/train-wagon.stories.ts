@@ -2,7 +2,7 @@ import { SbbTrainWagon } from '@sbb-esta/lyne-angular/train/train-wagon';
 import { Args, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
-import { spreadArgs } from '../../../../tools/spread-args';
+import { spreadArgs } from '../../../../helpers/spread-args';
 
 const withIcons: InputType = {
   control: {

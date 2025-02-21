@@ -8,7 +8,7 @@ import { SbbNavigationSection } from '@sbb-esta/lyne-angular/navigation/navigati
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 
-import { spreadArgs } from '../../../../tools/spread-args';
+import { spreadArgs } from '../../../../helpers/spread-args';
 
 const navigationActionsL = (): string => `
   <sbb-navigation-button id="nav-1">Tickets & Offers</sbb-navigation-button>

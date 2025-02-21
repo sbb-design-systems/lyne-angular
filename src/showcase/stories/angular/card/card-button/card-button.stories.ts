@@ -4,7 +4,7 @@ import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes } from '@storybook/types';
 
-import { spreadArgs } from '../../../../tools/spread-args';
+import { spreadArgs } from '../../../../helpers/spread-args';
 
 const argTypes: ArgTypes = { label: { control: { type: 'text' } } };
 

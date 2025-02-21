@@ -3,7 +3,7 @@ import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
-import { spreadArgs } from '../../../tools/spread-args';
+import { spreadArgs } from '../../../helpers/spread-args';
 
 const imageSrc: InputType = {
   control: {

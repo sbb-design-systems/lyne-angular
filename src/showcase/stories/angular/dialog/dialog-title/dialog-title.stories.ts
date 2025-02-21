@@ -3,7 +3,7 @@ import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import { Args, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
-import { spreadArgs } from '../../../../tools/spread-args';
+import { spreadArgs } from '../../../../helpers/spread-args';
 
 const level: InputType = {
   control: {

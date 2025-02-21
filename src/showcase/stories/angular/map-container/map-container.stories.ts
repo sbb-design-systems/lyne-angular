@@ -8,7 +8,7 @@ import { SbbMapContainer } from '@sbb-esta/lyne-angular/map-container';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 
-import { spreadArgs } from '../../../tools/spread-args';
+import { spreadArgs } from '../../../helpers/spread-args';
 
 const meta: Meta = {
   decorators: [

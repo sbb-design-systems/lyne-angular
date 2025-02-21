@@ -3,7 +3,7 @@ import { SbbTime } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { Args, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
-import { spreadArgs } from '../../../tools/spread-args';
+import { spreadArgs } from '../../../helpers/spread-args';
 
 const hours: InputType = { control: { type: 'number', min: 0, max: 23 } };
 const minutes: InputType = { control: { type: 'number', min: 0, max: 59 } };

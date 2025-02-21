@@ -3,7 +3,7 @@ import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
-import { spreadArgs } from '../../../../tools/spread-args';
+import { spreadArgs } from '../../../../helpers/spread-args';
 
 const titleContent: InputType = {
   control: {

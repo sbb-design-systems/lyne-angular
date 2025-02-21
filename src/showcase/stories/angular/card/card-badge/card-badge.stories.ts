@@ -2,7 +2,7 @@ import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
 import { SbbCardBadge } from '@sbb-esta/lyne-angular/card/card-badge';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 
-import { spreadArgs } from '../../../../tools/spread-args';
+import { spreadArgs } from '../../../../helpers/spread-args';
 
 const meta: Meta = {
   decorators: [

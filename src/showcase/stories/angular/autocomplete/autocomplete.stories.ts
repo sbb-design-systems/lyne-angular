@@ -5,7 +5,7 @@ import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
-import { spreadArgs } from '../../../tools/spread-args';
+import { spreadArgs } from '../../../helpers/spread-args';
 
 const disabled: InputType = {
   control: {

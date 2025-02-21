@@ -6,7 +6,7 @@ import { SbbNavigationSection } from '@sbb-esta/lyne-angular/navigation/navigati
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 
-import { spreadArgs } from '../../../../tools/spread-args';
+import { spreadArgs } from '../../../../helpers/spread-args';
 
 const navigationList = (label: string): string => `
   <sbb-navigation-list label=${label}>

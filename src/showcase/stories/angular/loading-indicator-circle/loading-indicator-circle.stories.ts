@@ -2,7 +2,7 @@ import { SbbLoadingIndicatorCircle } from '@sbb-esta/lyne-angular/loading-indica
 import { Args, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
-import { spreadArgs } from '../../../tools/spread-args';
+import { spreadArgs } from '../../../helpers/spread-args';
 
 const color: InputType = {
   control: {

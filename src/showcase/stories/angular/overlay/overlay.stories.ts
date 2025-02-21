@@ -5,7 +5,7 @@ import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay.js';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 
-import { spreadArgs } from '../../../tools/spread-args';
+import { spreadArgs } from '../../../helpers/spread-args';
 
 const openOverlay = (_event: PointerEvent, id: string): void => {
   const overlay = document.getElementById(id) as SbbOverlayElement;

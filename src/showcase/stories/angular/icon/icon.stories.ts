@@ -2,7 +2,7 @@ import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { Args, Meta } from '@storybook/angular';
 import { InputType } from '@storybook/types';
 
-import { spreadArgs } from '../../../tools/spread-args';
+import { spreadArgs } from '../../../helpers/spread-args';
 
 const iconName: InputType = {
   control: {
