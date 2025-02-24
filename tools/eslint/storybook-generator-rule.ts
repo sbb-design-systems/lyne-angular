@@ -36,7 +36,6 @@ const readManifest = (name: string): Package =>
 const elementsManifest = readManifest('lyne-elements');
 const elementsExperimentalManifest = readManifest('lyne-elements-experimental');
 
- 
 const generateStructure = (pkg: Package, projectPath: string) => {
   for (const module of pkg.modules) {
     if (
