@@ -1,10 +1,8 @@
 import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
 import { SbbCardLink } from '@sbb-esta/lyne-angular/card/card-link';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const label: InputType = {
   control: { type: 'text' },
@@ -51,7 +49,7 @@ const meta: Meta = {
     props: { label, ...args },
     template: `
       <sbb-card color="milk">
-        <sbb-card-link ${spreadArgs(args)}>${label}</sbb-card-link>
+        <sbb-card-link ${argsToTemplate(args)}>${label}</sbb-card-link>
         <sbb-title level="4">Example text</sbb-title>
         <span class="sbb-text-m">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor blandit odio, ut blandit

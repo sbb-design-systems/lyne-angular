@@ -2,10 +2,8 @@ import { SbbMiniButton } from '@sbb-esta/lyne-angular/button/mini-button';
 import { SbbMiniButtonGroup } from '@sbb-esta/lyne-angular/button/mini-button-group';
 import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const disabled: InputType = {
   control: {
@@ -46,7 +44,7 @@ const meta: Meta = {
   render: ({ disabled, ...args }: Args) => ({
     props: { disabled, ...args },
     template: `
-      <sbb-mini-button-group ${spreadArgs(args)}>
+      <sbb-mini-button-group ${argsToTemplate(args)}>
         <sbb-mini-button disabled=${disabled} aria-label="previous" icon-name="chevron-small-left-small"></sbb-mini-button>
         <sbb-mini-button disabled=${disabled} aria-label="next" icon-name="chevron-small-right-small"></sbb-mini-button>
         <sbb-divider orientation="vertical"></sbb-divider>

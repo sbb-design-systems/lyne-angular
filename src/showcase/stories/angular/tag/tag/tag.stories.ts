@@ -1,8 +1,6 @@
 import { SbbTag } from '@sbb-esta/lyne-angular/tag/tag';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const label: InputType = {
   control: {
@@ -34,7 +32,7 @@ const meta: Meta = {
   args,
   render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
-    template: `<sbb-tag ${spreadArgs(args)}>${label}</sbb-tag>`,
+    template: `<sbb-tag ${argsToTemplate(args)}>${label}</sbb-tag>`,
   }),
 };
 export default meta;

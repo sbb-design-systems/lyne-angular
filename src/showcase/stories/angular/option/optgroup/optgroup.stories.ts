@@ -4,10 +4,8 @@ import { SbbOptGroup } from '@sbb-esta/lyne-angular/option/optgroup';
 import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
 import { SbbSelect } from '@sbb-esta/lyne-angular/select';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const label: InputType = {
   control: {
@@ -52,7 +50,7 @@ const createOptions = ({ disabledSingle, value, ...args }: Args, groupId: string
     .fill(null)
     .map(
       (_, i) => `
-        <sbb-option [disabled]=${disabledSingle && i === 0} value="${value} ${groupId} - ${i + 1}" ${spreadArgs(args)}>
+        <sbb-option [disabled]=${disabledSingle && i === 0} value="${value} ${groupId} - ${i + 1}" ${argsToTemplate(args)}>
           ${value} ${groupId} - ${i + 1}
         </sbb-option>`,
     )

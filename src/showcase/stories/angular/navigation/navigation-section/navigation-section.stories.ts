@@ -4,9 +4,7 @@ import { SbbNavigationList } from '@sbb-esta/lyne-angular/navigation/navigation-
 import { SbbNavigationMarker } from '@sbb-esta/lyne-angular/navigation/navigation-marker';
 import { SbbNavigationSection } from '@sbb-esta/lyne-angular/navigation/navigation-section';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 
 const navigationList = (label: string): string => `
   <sbb-navigation-list label=${label}>
@@ -46,12 +44,12 @@ const meta: Meta = {
           <sbb-navigation-button id="nav-3">Label 3</sbb-navigation-button>
         </sbb-navigation-marker>
 
-        <sbb-navigation-section title-content="Title one" id="navigation-section" trigger="nav-1" ${spreadArgs(args)}>
+        <sbb-navigation-section title-content="Title one" id="navigation-section" trigger="nav-1" ${argsToTemplate(args)}>
           ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
           <sbb-button size="m" style="width: fit-content;"> Button </sbb-button>
         </sbb-navigation-section>
 
-        <sbb-navigation-section title-content="Title two" id="navigation-section" trigger="nav-2" ${spreadArgs(args)}>
+        <sbb-navigation-section title-content="Title two" id="navigation-section" trigger="nav-2" ${argsToTemplate(args)}>
           ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
           ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
           ${navigationList('Label')} ${navigationList('Label')}

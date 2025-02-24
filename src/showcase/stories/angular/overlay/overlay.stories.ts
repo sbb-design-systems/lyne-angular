@@ -3,9 +3,7 @@ import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { SbbOverlay } from '@sbb-esta/lyne-angular/overlay';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay.js';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
-
-import { spreadArgs } from '../../../helpers/spread-args';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 
 const openOverlay = (_event: PointerEvent, id: string): void => {
   const overlay = document.getElementById(id) as SbbOverlayElement;
@@ -38,7 +36,7 @@ const meta: Meta = {
       >
         Open overlay
       </sbb-button>
-      <sbb-overlay id="my-overlay" ${spreadArgs(args)}>
+      <sbb-overlay id="my-overlay" ${argsToTemplate(args)}>
         <div class="overlay-content">
           <sbb-title visual-level="2" negative=${args['negative'] === true} style="margin-block-start: 0">
             Many Meetings

@@ -6,10 +6,8 @@ import { SbbBlockLinkButton } from '@sbb-esta/lyne-angular/link/block-link-butto
 import { SbbRadioButtonGroup } from '@sbb-esta/lyne-angular/radio-button/radio-button-group';
 import { SbbRadioButtonPanel } from '@sbb-esta/lyne-angular/radio-button/radio-button-panel';
 import { SbbSelectionExpansionPanel } from '@sbb-esta/lyne-angular/selection-expansion-panel';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const cardBadge = (): string => `<sbb-card-badge>%</sbb-card-badge>`;
 
@@ -37,21 +35,21 @@ const WithCheckboxGroupTemplate = ({
   ...args
 }: Args): string => `
   <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
-    <sbb-selection-expansion-panel ${spreadArgs(args)}>
+    <sbb-selection-expansion-panel ${argsToTemplate(args)}>
       <sbb-checkbox-panel checked=${checkedInput}>
         Value one ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-checkbox-panel>
       ${innerContent()}
     </sbb-selection-expansion-panel>
 
-    <sbb-selection-expansion-panel ${spreadArgs(args)}>
+    <sbb-selection-expansion-panel ${argsToTemplate(args)}>
       <sbb-checkbox-panel disabled=${disabledInput}>
         Value two ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-checkbox-panel>
       ${innerContent()}
     </sbb-selection-expansion-panel>
 
-    <sbb-selection-expansion-panel ${spreadArgs(args)}>
+    <sbb-selection-expansion-panel ${argsToTemplate(args)}>
       <sbb-checkbox-panel>
         Value three ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-checkbox-panel>
@@ -73,21 +71,21 @@ const WithRadioButtonGroupTemplate = ({
     [allow-empty-selection]=${allowEmptySelection}
     size=${size}
   >
-    <sbb-selection-expansion-panel ${spreadArgs(args)}>
+    <sbb-selection-expansion-panel ${argsToTemplate(args)}>
       <sbb-radio-button-panel value="Value one" checked=${checkedInput}>
         Value one ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-radio-button-panel>
       ${innerContent()}
     </sbb-selection-expansion-panel>
 
-    <sbb-selection-expansion-panel ${spreadArgs(args)}>
+    <sbb-selection-expansion-panel ${argsToTemplate(args)}>
       <sbb-radio-button-panel value="Value two" disabled=${disabledInput}>
         Value two ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-radio-button-panel>
       ${innerContent()}
     </sbb-selection-expansion-panel>
 
-    <sbb-selection-expansion-panel ${spreadArgs(args)}>
+    <sbb-selection-expansion-panel ${argsToTemplate(args)}>
       <sbb-radio-button-panel value="Value three">
         Value three ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-radio-button-panel>

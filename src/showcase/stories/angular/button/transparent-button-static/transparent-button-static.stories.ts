@@ -1,9 +1,7 @@
 import { SbbTransparentButtonStatic } from '@sbb-esta/lyne-angular/button/transparent-button-static';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const text: InputType = {
   control: {
@@ -41,7 +39,7 @@ const meta: Meta = {
   args,
   render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
-    template: `<sbb-transparent-button-static ${spreadArgs(args)}>${text}</sbb-transparent-button-static>`,
+    template: `<sbb-transparent-button-static ${argsToTemplate(args)}>${text}</sbb-transparent-button-static>`,
   }),
 };
 export default meta;

@@ -5,10 +5,8 @@ import { SbbFooter } from '@sbb-esta/lyne-angular/footer';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbLinkList } from '@sbb-esta/lyne-angular/link-list/link-list';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const variant: InputType = {
   control: {
@@ -45,7 +43,7 @@ export const Default = {
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <sbb-footer ${spreadArgs(args)}>
+      <sbb-footer ${argsToTemplate(args)}>
         <sbb-link-list horizontal-from="large" [negative]=${args['negative']}>
           <sbb-block-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
@@ -88,7 +86,7 @@ export const ClockColumns = {
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <sbb-footer ${spreadArgs(args)}>
+      <sbb-footer ${argsToTemplate(args)}>
         <div class="sbb-link-list-button-group">
           <sbb-link-list title-level="2" title-content="Help &amp; Contact." [negative]=${args['negative']}>
             <sbb-block-link

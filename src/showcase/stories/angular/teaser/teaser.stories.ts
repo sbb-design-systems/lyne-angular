@@ -1,9 +1,7 @@
 import { SbbChipLabel } from '@sbb-esta/lyne-angular/chip-label';
 import { SbbTeaser } from '@sbb-esta/lyne-angular/teaser';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const titleContent: InputType = {
   control: {
@@ -78,7 +76,7 @@ const meta: Meta = {
     props: { description, ...args },
     template: `
       <div style="max-width: 760px;">
-        <sbb-teaser ${spreadArgs(args)}>
+        <sbb-teaser ${argsToTemplate(args)}>
           <figure slot="image" class="sbb-figure">
             <img src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg" alt="400x300" />
             <sbb-chip-label class="sbb-figure-overlap-start-start">AI Generated</sbb-chip-label>

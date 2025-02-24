@@ -1,9 +1,7 @@
 import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header/header-button';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const text: InputType = {
   control: {
@@ -44,7 +42,7 @@ const meta: Meta = {
   render: ({ active, text, ...args }: Args) => ({
     props: { active, text, ...args },
     template: `
-      <sbb-header-button ${spreadArgs(args)} class=${active ? 'sbb-active' : ''}>
+      <sbb-header-button ${argsToTemplate(args)} class=${active ? 'sbb-active' : ''}>
         ${text}
       </sbb-header-button>
     `,

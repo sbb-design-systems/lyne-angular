@@ -1,8 +1,6 @@
 import { SbbJourneyHeader } from '@sbb-esta/lyne-angular/journey-header';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const level: InputType = {
   control: {
@@ -41,7 +39,7 @@ const meta: Meta = {
   args,
   render: (args: Args) => ({
     props: { ...args },
-    template: `<sbb-journey-header ${spreadArgs(args)}></sbb-journey-header>`,
+    template: `<sbb-journey-header ${argsToTemplate(args)}></sbb-journey-header>`,
   }),
 };
 export default meta;

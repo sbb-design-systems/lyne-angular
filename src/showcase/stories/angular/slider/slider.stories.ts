@@ -1,9 +1,7 @@
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { SbbSlider } from '@sbb-esta/lyne-angular/slider';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const value: InputType = {
   control: {
@@ -60,7 +58,7 @@ const meta: Meta = {
     template: `
       <sbb-form-field [optional]=${optional}>
         ${label && `<label>${label}</label>`}
-        <sbb-slider ${spreadArgs(args)} name="slider"></sbb-slider>
+        <sbb-slider ${argsToTemplate(args)} name="slider"></sbb-slider>
       </sbb-form-field>
     `,
   }),

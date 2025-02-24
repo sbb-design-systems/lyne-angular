@@ -1,8 +1,6 @@
 import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
 import { SbbCardBadge } from '@sbb-esta/lyne-angular/card/card-badge';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 
 const meta: Meta = {
   decorators: [
@@ -16,7 +14,7 @@ const meta: Meta = {
     props: { ...args },
     template: `
       <sbb-card color="milk">
-        <sbb-card-badge ${spreadArgs(args)}>
+        <sbb-card-badge ${argsToTemplate(args)}>
           <span>%</span>
           <span>from CHF</span>
           <span>92.50</span>

@@ -1,9 +1,7 @@
 import { SbbVisualCheckbox } from '@sbb-esta/lyne-angular/visual-checkbox';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const size: InputType = {
   control: {
@@ -31,7 +29,7 @@ const meta: Meta = {
   args,
   render: (args: Args) => ({
     props: { ...args },
-    template: `<sbb-visual-checkbox ${spreadArgs(args)}></sbb-visual-checkbox>`,
+    template: `<sbb-visual-checkbox ${argsToTemplate(args)}></sbb-visual-checkbox>`,
   }),
 };
 export default meta;

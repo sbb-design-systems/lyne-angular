@@ -2,10 +2,8 @@ import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-butt
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { SbbNotification } from '@sbb-esta/lyne-angular/notification';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const type: InputType = {
   control: {
@@ -65,7 +63,7 @@ const meta: Meta = {
           aria-live="polite"
         >
           <sbb-notification
-            ${spreadArgs(args)}
+            ${argsToTemplate(args)}
             style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
           >
             The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy

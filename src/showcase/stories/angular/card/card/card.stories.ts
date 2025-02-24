@@ -1,9 +1,7 @@
 import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const meta: Meta = {
   decorators: [
@@ -20,7 +18,7 @@ const meta: Meta = {
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <sbb-card ${spreadArgs(args)}>
+      <sbb-card ${argsToTemplate(args)}>
         <sbb-title level="4">Example text</sbb-title>
         <span class="sbb-text-m">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor blandit odio, ut blandit

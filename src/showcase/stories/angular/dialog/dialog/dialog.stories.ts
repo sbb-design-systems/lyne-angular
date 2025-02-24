@@ -8,10 +8,8 @@ import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import { SbbDialogElement } from '@sbb-esta/lyne-elements/dialog/dialog.js';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const openDialog = (_event: PointerEvent, id: string): void => {
   const dialog = document.getElementById(id) as SbbDialogElement;
@@ -152,7 +150,7 @@ const meta: Meta = {
       >
         Open dialog
       </sbb-button>
-      <sbb-dialog id="my-dialog-1" ${spreadArgs(args)}>
+      <sbb-dialog id="my-dialog-1" ${argsToTemplate(args)}>
         <sbb-dialog-title
           level=${level}
           ${backButton ? 'back-button' : ''}

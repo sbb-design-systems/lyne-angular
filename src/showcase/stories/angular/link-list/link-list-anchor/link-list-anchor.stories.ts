@@ -1,10 +1,8 @@
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbLinkListAnchor } from '@sbb-esta/lyne-angular/link-list/link-list-anchor';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
 
@@ -55,7 +53,7 @@ const meta: Meta = {
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <sbb-link-list-anchor ${spreadArgs(args)}>
+      <sbb-link-list-anchor ${argsToTemplate(args)}>
         ${links.map((linkTitle) => {
           return `
             <sbb-block-link

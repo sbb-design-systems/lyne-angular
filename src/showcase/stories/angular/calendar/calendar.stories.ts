@@ -1,9 +1,7 @@
 import { SbbCalendar } from '@sbb-esta/lyne-angular/calendar';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const selected: InputType = {
   control: {
@@ -70,7 +68,7 @@ const meta: Meta = {
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <sbb-calendar ${spreadArgs(args)} selected=${args['selected'] / 1000}></sbb-calendar>`,
+      <sbb-calendar ${argsToTemplate(args)} selected=${args['selected'] / 1000}></sbb-calendar>`,
   }),
 };
 export default meta;

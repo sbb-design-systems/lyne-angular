@@ -1,8 +1,6 @@
 import { SbbLoadingIndicatorCircle } from '@sbb-esta/lyne-angular/loading-indicator-circle';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const color: InputType = {
   control: {
@@ -35,11 +33,11 @@ const meta: Meta = {
         }
       >
         <p>
-          <sbb-loading-indicator-circle ${spreadArgs(args)}></sbb-loading-indicator-circle> Inline loading
+          <sbb-loading-indicator-circle ${argsToTemplate(args)}></sbb-loading-indicator-circle> Inline loading
           indicator
         </p>
         <sbb-title level="4">
-          <sbb-loading-indicator-circle ${spreadArgs(args)}></sbb-loading-indicator-circle> Adaptive to
+          <sbb-loading-indicator-circle ${argsToTemplate(args)}></sbb-loading-indicator-circle> Adaptive to
           font size
         </sbb-title>
       </div>

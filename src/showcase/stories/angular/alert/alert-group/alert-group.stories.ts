@@ -2,10 +2,8 @@ import { SbbAlert } from '@sbb-esta/lyne-angular/alert/alert';
 import { SbbAlertGroup } from '@sbb-esta/lyne-angular/alert/alert-group';
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const accessibilityTitleLevel: InputType = {
   control: {
@@ -56,7 +54,7 @@ const meta: Meta = {
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <sbb-alert-group ${spreadArgs(args)}>
+      <sbb-alert-group ${argsToTemplate(args)}>
         <sbb-alert title-content="Interruption between Genève and Lausanne" size="l">
           The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
           <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>

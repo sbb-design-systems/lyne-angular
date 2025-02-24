@@ -1,9 +1,7 @@
 import { SbbCheckbox } from '@sbb-esta/lyne-angular/checkbox/checkbox';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const label: InputType = {
   control: {
@@ -48,7 +46,7 @@ const meta: Meta = {
   args,
   render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
-    template: `<sbb-checkbox ${spreadArgs(args)}>${label}</sbb-checkbox>`,
+    template: `<sbb-checkbox ${argsToTemplate(args)}>${label}</sbb-checkbox>`,
   }),
 };
 export default meta;

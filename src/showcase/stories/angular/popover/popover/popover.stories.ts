@@ -2,10 +2,8 @@ import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbPopover } from '@sbb-esta/lyne-angular/popover/popover';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const positions = [
   'inset-inline-start: 2rem;',
@@ -58,7 +56,7 @@ const meta: Meta = {
         style="margin-inline: 2rem; position: absolute; cursor: pointer; ${triggerPosition}"
         id="popover-trigger"
       ></sbb-popover-trigger>
-      <sbb-popover trigger="popover-trigger" ${spreadArgs(args)}>
+      <sbb-popover trigger="popover-trigger" ${argsToTemplate(args)}>
         <sbb-title level="2" visual-level="6" style="margin-block-start: 0"> Title. </sbb-title>
         <p style="margin: 0" class="sbb-text-s">
           Some content.

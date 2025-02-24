@@ -1,8 +1,6 @@
 import { SbbTrain } from '@sbb-esta/lyne-angular/train/train';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const direction: InputType = {
   control: {
@@ -45,7 +43,7 @@ const meta: Meta = {
   args,
   render: (args: Args) => ({
     props: { ...args },
-    template: `<sbb-train ${spreadArgs(args)}></sbb-train>`,
+    template: `<sbb-train ${argsToTemplate(args)}></sbb-train>`,
   }),
 };
 export default meta;

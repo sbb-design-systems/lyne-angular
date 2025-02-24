@@ -1,10 +1,8 @@
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbSkiplinkList } from '@sbb-esta/lyne-angular/skiplink-list';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const hrefs: string[] = [
   'https://www.sbb.ch',
@@ -97,7 +95,7 @@ const meta: Meta = {
   render: ({ labelFirstLink, hrefFirstLink, labelSecondLink, hrefSecondLink, ...args }: Args) => ({
     props: { labelFirstLink, hrefFirstLink, labelSecondLink, hrefSecondLink, ...args },
     template: `
-      <sbb-skiplink-list ${spreadArgs(args)}>
+      <sbb-skiplink-list ${argsToTemplate(args)}>
         <sbb-block-link href="${hrefFirstLink}">${labelFirstLink}</sbb-block-link>
         <sbb-block-link href="${hrefSecondLink}">${labelSecondLink}</sbb-block-link>
       </sbb-skiplink-list>

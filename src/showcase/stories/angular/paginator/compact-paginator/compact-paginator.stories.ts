@@ -1,8 +1,6 @@
 import { SbbCompactPaginator } from '@sbb-esta/lyne-angular/paginator/compact-paginator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const pagerPosition: InputType = {
   control: {
@@ -42,7 +40,7 @@ const meta: Meta = {
   args,
   render: (args: Args) => ({
     props: { ...args },
-    template: `<sbb-compact-paginator aria-label="Select page" ${spreadArgs(args)}></sbb-compact-paginator>`,
+    template: `<sbb-compact-paginator aria-label="Select page" ${argsToTemplate(args)}></sbb-compact-paginator>`,
   }),
 };
 export default meta;

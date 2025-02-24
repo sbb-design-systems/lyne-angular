@@ -1,8 +1,6 @@
 import { SbbRadioButton } from '@sbb-esta/lyne-angular/radio-button/radio-button';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const label: InputType = {
   control: {
@@ -36,7 +34,7 @@ const meta: Meta = {
   render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
     template: `
-      <sbb-radio-button ${spreadArgs(args)}>
+      <sbb-radio-button ${argsToTemplate(args)}>
         ${label}
       </sbb-radio-button>
     `,

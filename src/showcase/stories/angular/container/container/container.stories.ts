@@ -2,10 +2,8 @@ import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-butt
 import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
 import { SbbContainer } from '@sbb-esta/lyne-angular/container/container';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 function isDark(colorArg: string): boolean {
   return colorArg === 'midnight' || colorArg === 'charcoal';
@@ -66,7 +64,7 @@ const meta: Meta = {
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <sbb-container ${spreadArgs(args)}>
+      <sbb-container ${argsToTemplate(args)}>
         ${containerContent('Example title', isDark(args['color']))}
         ${containerContent('Another one', isDark(args['color']))}
         ${containerContent('And another one', isDark(args['color']), true)}

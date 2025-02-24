@@ -3,10 +3,8 @@ import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { SbbRadioButton } from '@sbb-esta/lyne-angular/radio-button/radio-button';
 import { SbbRadioButtonGroup } from '@sbb-esta/lyne-angular/radio-button/radio-button-group';
 import { SbbRadioButtonPanel } from '@sbb-esta/lyne-angular/radio-button/radio-button-panel';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const suffixAndSubtext = (): string => `
   <span slot="subtext">Subtext</span>
@@ -18,7 +16,7 @@ const suffixAndSubtext = (): string => `
 `;
 
 const DefaultTemplate = (args: Args): string => `
-  <sbb-radio-button-group ${spreadArgs(args)}>
+  <sbb-radio-button-group ${argsToTemplate(args)}>
     <sbb-radio-button value="Value one">Value one</sbb-radio-button>
     <sbb-radio-button value="Value two">Value two</sbb-radio-button>
     <sbb-radio-button value="Value three" disabled> Value three </sbb-radio-button>
@@ -27,7 +25,7 @@ const DefaultTemplate = (args: Args): string => `
 `;
 
 const PanelTemplate = (args: Args): string => `
-  <sbb-radio-button-group ${spreadArgs(args)}>
+  <sbb-radio-button-group ${argsToTemplate(args)}>
     <sbb-radio-button-panel value="Value one">
       Value 1 ${suffixAndSubtext()}
     </sbb-radio-button-panel>

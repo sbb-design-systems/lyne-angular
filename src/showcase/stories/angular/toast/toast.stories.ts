@@ -5,10 +5,8 @@ import { SbbToast } from '@sbb-esta/lyne-angular/toast';
 import { SbbButtonElement } from '@sbb-esta/lyne-elements/button/button.js';
 import { SbbToastElement } from '@sbb-esta/lyne-elements/toast.js';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const openToast = (event: Event) => {
   ((event.currentTarget as SbbButtonElement).parentElement!.querySelector(
@@ -93,7 +91,7 @@ const meta: Meta = {
     props: { action, ...args },
     template: `
       <sbb-button (click)="openToast($event)">Show toast</sbb-button>
-      <sbb-toast ${spreadArgs(args)}>
+      <sbb-toast ${argsToTemplate(args)}>
         Lorem ipsum dolor amet.
         ${
           action === 'button'

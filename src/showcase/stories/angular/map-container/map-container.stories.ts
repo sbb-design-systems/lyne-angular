@@ -6,9 +6,7 @@ import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
 import { SbbMapContainer } from '@sbb-esta/lyne-angular/map-container';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
-
-import { spreadArgs } from '../../../helpers/spread-args';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 
 const meta: Meta = {
   decorators: [
@@ -39,7 +37,7 @@ const meta: Meta = {
         <div class="sbb-header-spacer"></div>
         <sbb-logo protective-room="none" class="sbb-header-logo"></sbb-logo>
       </sbb-header>
-      <sbb-map-container ${spreadArgs(args)}>
+      <sbb-map-container ${argsToTemplate(args)}>
         <div style="padding: var(--sbb-spacing-fixed-4x)">
           <sbb-form-field style="width: 100%">
             <sbb-icon slot="prefix" name="magnifying-glass-small"></sbb-icon>

@@ -4,10 +4,8 @@ import { SbbDatepickerPreviousDay } from '@sbb-esta/lyne-angular/datepicker/date
 import { SbbDatepickerToggle } from '@sbb-esta/lyne-angular/datepicker/datepicker-toggle';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const convertMillisecondsToSeconds = (milliseconds: number): number => {
   return milliseconds / 1000;
@@ -278,7 +276,7 @@ const meta: Meta = {
           ${max ? `max=${convertMillisecondsToSeconds(max)}` : ''}
         />
         <sbb-datepicker
-          ${spreadArgs(args)}
+          ${argsToTemplate(args)}
           date-filter=${dateFilter}
           wide=${wide}
           ${now ? `now=${convertMillisecondsToSeconds(now)}` : ''}

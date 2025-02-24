@@ -1,9 +1,7 @@
 import { SbbChipLabel } from '@sbb-esta/lyne-angular/chip-label';
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const imageSrc: InputType = {
   control: {
@@ -68,7 +66,7 @@ const meta: Meta = {
     props: { aspectRatio, borderRadius, ...args },
     template: `
       <div style="max-width: 480px;">
-        <sbb-image ${spreadArgs(args)}
+        <sbb-image ${argsToTemplate(args)}
           class="sbb-image-${aspectRatio} sbb-image-border-radius-${borderRadius}">
         </sbb-image>
       </div>
@@ -88,7 +86,7 @@ export const WithChip = {
       <div style="max-width: 480px;">
         <figure class="sbb-figure">
           <sbb-image
-            ${spreadArgs(args)}
+            ${argsToTemplate(args)}
             class="\`sbb-image-${aspectRatio} sbb-image-border-radius-${borderRadius}\`">
           </sbb-image>
           <sbb-chip-label class="sbb-figure-overlap-${chipPosition}">AI generated</sbb-chip-label>

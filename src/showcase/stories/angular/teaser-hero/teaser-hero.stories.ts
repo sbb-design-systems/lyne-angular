@@ -1,10 +1,8 @@
 import { SbbChipLabel } from '@sbb-esta/lyne-angular/chip-label';
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { SbbTeaserHero } from '@sbb-esta/lyne-angular/teaser-hero';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const hrefs: string[] = [
   'https://www.sbb.ch',
@@ -104,7 +102,7 @@ const meta: Meta = {
       ...args,
     },
     template: `
-      <sbb-teaser-hero ${spreadArgs(args)}>
+      <sbb-teaser-hero ${argsToTemplate(args)}>
         ${content ?? ''}
         ${linkContent ? `<span slot="link-content">${linkContent}</span>` : ''}
         ${

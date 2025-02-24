@@ -3,10 +3,8 @@ import { SbbExpansionPanel } from '@sbb-esta/lyne-angular/expansion-panel/expans
 import { SbbExpansionPanelContent } from '@sbb-esta/lyne-angular/expansion-panel/expansion-panel-content';
 import { SbbExpansionPanelHeader } from '@sbb-esta/lyne-angular/expansion-panel/expansion-panel-header';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const titleLevel: InputType = {
   control: {
@@ -101,7 +99,7 @@ const meta: Meta = {
   render: ({ color, expanded, borderless, disabled, iconName, ...args }: Args) => ({
     props: { color, expanded, borderless, disabled, iconName, ...args },
     template: `
-      <sbb-accordion ${spreadArgs(args)}>
+      <sbb-accordion ${argsToTemplate(args)}>
         <sbb-expansion-panel
           color=${color}
           expanded=${expanded}

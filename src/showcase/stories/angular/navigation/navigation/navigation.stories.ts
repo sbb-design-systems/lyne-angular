@@ -6,9 +6,7 @@ import { SbbNavigationList } from '@sbb-esta/lyne-angular/navigation/navigation-
 import { SbbNavigationMarker } from '@sbb-esta/lyne-angular/navigation/navigation-marker';
 import { SbbNavigationSection } from '@sbb-esta/lyne-angular/navigation/navigation-section';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 
 const navigationActionsL = (): string => `
   <sbb-navigation-button id="nav-1">Tickets & Offers</sbb-navigation-button>
@@ -72,7 +70,7 @@ const meta: Meta = {
           aria-label="trigger navigation"
           aria-haspopup="true"
         ></sbb-secondary-button>
-      <sbb-navigation id="navigation" trigger="navigation-trigger" ${spreadArgs(args)}>
+      <sbb-navigation id="navigation" trigger="navigation-trigger" ${argsToTemplate(args)}>
         <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
         <sbb-navigation-marker size="s">${navigationActionsS()}</sbb-navigation-marker>
 

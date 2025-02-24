@@ -6,10 +6,8 @@ import { SbbMenu } from '@sbb-esta/lyne-angular/menu/menu';
 import { SbbMenuButton } from '@sbb-esta/lyne-angular/menu/menu-button';
 import { SbbSignet } from '@sbb-esta/lyne-angular/signet';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const LoremIpsumTemplate = `
   <div>
@@ -60,7 +58,7 @@ const meta: Meta = {
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <sbb-header ${spreadArgs(args)}>
+      <sbb-header ${argsToTemplate(args)}>
         <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
           Menu
         </sbb-header-button>

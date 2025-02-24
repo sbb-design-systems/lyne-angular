@@ -1,8 +1,6 @@
 import { SbbLoadingIndicator } from '@sbb-esta/lyne-angular/loading-indicator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const size: InputType = {
   control: {
@@ -39,7 +37,7 @@ const meta: Meta = {
   args,
   render: (args: Args) => ({
     props: { ...args },
-    template: `<sbb-loading-indicator ${spreadArgs(args)}></sbb-loading-indicator>`,
+    template: `<sbb-loading-indicator ${argsToTemplate(args)}></sbb-loading-indicator>`,
   }),
 };
 export default meta;

@@ -1,8 +1,6 @@
 import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-option';
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 
 const meta: Meta = {
   decorators: [
@@ -16,13 +14,13 @@ const meta: Meta = {
     props: { ...args },
     template: `
       <sbb-autocomplete-grid-row>
-        <sbb-autocomplete-grid-option value='1' ${spreadArgs(args)}>1</sbb-autocomplete-grid-option>
+        <sbb-autocomplete-grid-option value='1' ${argsToTemplate(args)}>1</sbb-autocomplete-grid-option>
       </sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-row>
-        <sbb-autocomplete-grid-option value='2' ${spreadArgs(args)}>2</sbb-autocomplete-grid-option>
+        <sbb-autocomplete-grid-option value='2' ${argsToTemplate(args)}>2</sbb-autocomplete-grid-option>
       </sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-row>
-        <sbb-autocomplete-grid-option value='3' ${spreadArgs(args)}>3</sbb-autocomplete-grid-option>
+        <sbb-autocomplete-grid-option value='3' ${argsToTemplate(args)}>3</sbb-autocomplete-grid-option>
       </sbb-autocomplete-grid-row>
     `,
   }),

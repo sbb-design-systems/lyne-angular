@@ -1,9 +1,7 @@
 import { SbbBlockLinkStatic } from '@sbb-esta/lyne-angular/link/block-link-static';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const text: InputType = {
   control: {
@@ -50,7 +48,7 @@ const meta: Meta = {
   args,
   render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
-    template: `<sbb-block-link-static ${spreadArgs(args)}>${text}</sbb-block-link-static>`,
+    template: `<sbb-block-link-static ${argsToTemplate(args)}>${text}</sbb-block-link-static>`,
   }),
 };
 export default meta;

@@ -4,10 +4,8 @@ import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
 import { SbbStep } from '@sbb-esta/lyne-angular/stepper/step';
 import { SbbStepLabel } from '@sbb-esta/lyne-angular/stepper/step-label';
 import { SbbStepper } from '@sbb-esta/lyne-angular/stepper/stepper';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const loremIpsum = `
   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
@@ -31,6 +29,12 @@ const horizontalFrom: InputType = {
   options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
+const selectedIndex: InputType = {
+  control: {
+    type: 'number',
+  },
+};
+
 const size: InputType = {
   control: {
     type: 'inline-radio',
@@ -42,6 +46,7 @@ const argTypes: ArgTypes = {
   orientation,
   'horizontal-from': horizontalFrom,
   size,
+  'selected-index': selectedIndex,
 };
 
 const args: Args = {
@@ -49,6 +54,7 @@ const args: Args = {
   orientation: orientation.options![0],
   'horizontal-from': horizontalFrom.options![0],
   size: size.options![1],
+  'selected-index': 0,
 };
 
 const meta: Meta = {
@@ -64,7 +70,7 @@ const meta: Meta = {
   render: ({ disabled, ...args }: Args) => ({
     props: { disabled, ...args },
     template: `
-      <sbb-stepper ${spreadArgs(args)} aria-label="Purpose of this flow" selected-index="0">
+      <sbb-stepper ${argsToTemplate(args)} aria-label="Purpose of this flow">
         ${['First', 'Second', 'Third', 'Fourth'].map(
           (element, index, arr) => `
               <sbb-step-label [disabled]=${disabled && index === 2}>${element} step</sbb-step-label>

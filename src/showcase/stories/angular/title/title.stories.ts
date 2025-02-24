@@ -1,8 +1,6 @@
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const text: InputType = {
   control: {
@@ -39,7 +37,7 @@ const meta: Meta = {
   args,
   render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
-    template: `<sbb-title ${spreadArgs(args)}>${text}</sbb-title>`,
+    template: `<sbb-title ${argsToTemplate(args)}>${text}</sbb-title>`,
   }),
 };
 export default meta;

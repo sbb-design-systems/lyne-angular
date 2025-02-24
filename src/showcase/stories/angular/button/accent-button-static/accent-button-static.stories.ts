@@ -1,9 +1,7 @@
 import { SbbAccentButtonStatic } from '@sbb-esta/lyne-angular/button/accent-button-static';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const text: InputType = {
   control: {
@@ -41,7 +39,7 @@ const meta: Meta = {
   args,
   render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
-    template: `<sbb-accent-button-static ${spreadArgs(args)}>${text}</sbb-accent-button-static>`,
+    template: `<sbb-accent-button-static ${argsToTemplate(args)}>${text}</sbb-accent-button-static>`,
   }),
 };
 export default meta;

@@ -1,9 +1,7 @@
 import { SbbAlert } from '@sbb-esta/lyne-angular/alert/alert';
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const titleContent: InputType = {
   control: {
@@ -49,7 +47,7 @@ const meta: Meta = {
   render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
     template: `
-      <sbb-alert ${spreadArgs(args)}>
+      <sbb-alert ${argsToTemplate(args)}>
         ${text}
         <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
       </sbb-alert>`,

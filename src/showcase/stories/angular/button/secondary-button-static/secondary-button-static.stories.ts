@@ -1,9 +1,7 @@
 import { SbbSecondaryButtonStatic } from '@sbb-esta/lyne-angular/button/secondary-button-static';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const text: InputType = {
   control: {
@@ -41,7 +39,7 @@ const meta: Meta = {
   args,
   render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
-    template: `<sbb-secondary-button-static ${spreadArgs(args)}>${text}</sbb-secondary-button-static>`,
+    template: `<sbb-secondary-button-static ${argsToTemplate(args)}>${text}</sbb-secondary-button-static>`,
   }),
 };
 export default meta;

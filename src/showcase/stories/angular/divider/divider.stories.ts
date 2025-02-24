@@ -1,8 +1,6 @@
 import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const orientation: InputType = {
   control: {
@@ -32,7 +30,7 @@ const meta: Meta = {
     props: { ...args },
     template: `
       <div style="height: 340px; padding: 20px;">
-        <sbb-divider ${spreadArgs(args)}></sbb-divider>
+        <sbb-divider ${argsToTemplate(args)}></sbb-divider>
       </div>
     `,
   }),

@@ -4,10 +4,8 @@ import { SbbDialogActions } from '@sbb-esta/lyne-angular/dialog/dialog-actions';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const alignGroup: InputType = {
   control: {
@@ -77,7 +75,7 @@ const meta: Meta = {
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <sbb-dialog-actions ${spreadArgs(args)}>
+      <sbb-dialog-actions ${argsToTemplate(args)}>
       <sbb-block-link
         align-self="start"
         icon-name="chevron-small-left-small"

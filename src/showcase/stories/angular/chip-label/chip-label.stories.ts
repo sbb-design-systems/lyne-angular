@@ -1,9 +1,7 @@
 import { SbbChipLabel } from '@sbb-esta/lyne-angular/chip-label';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const label: InputType = {
   control: {
@@ -29,7 +27,7 @@ const meta: Meta = {
   args,
   render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
-    template: `<sbb-chip-label ${spreadArgs(args)}>${label}</sbb-chip-label>`,
+    template: `<sbb-chip-label ${argsToTemplate(args)}>${label}</sbb-chip-label>`,
   }),
 };
 export default meta;

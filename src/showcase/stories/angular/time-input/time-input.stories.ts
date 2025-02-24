@@ -2,10 +2,8 @@ import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { SbbTimeInput } from '@sbb-esta/lyne-angular/time-input';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const value: InputType = {
   control: {
@@ -151,7 +149,7 @@ const meta: Meta = {
       <sbb-form-field size=${size} [optional]=${optional} [borderless]=${borderless} [negative]=${negative} width="collapse">
         ${label ? `<label>${label}</label>` : ''}
         ${iconStart ? `<sbb-icon slot="prefix" name=${iconStart}></sbb-icon>` : ''}
-        <input ${spreadArgs(args)}>
+        <input ${argsToTemplate(args)}>
         <sbb-time-input></sbb-time-input>
         ${iconEnd ? `<sbb-icon slot="suffix" name=${iconEnd}></sbb-icon>` : ''}
       </sbb-form-field>

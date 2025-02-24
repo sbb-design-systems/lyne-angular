@@ -2,10 +2,8 @@ import { SbbAutocompleteGridButton } from '@sbb-esta/lyne-angular/autocomplete-g
 import { SbbAutocompleteGridCell } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-cell';
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const meta: Meta = {
   decorators: [
@@ -31,7 +29,7 @@ const meta: Meta = {
     template: `
       <sbb-autocomplete-grid-row  ${args['negative'] ? 'data-negative' : ''}>
         <sbb-autocomplete-grid-cell>
-          <sbb-autocomplete-grid-button ${spreadArgs(args)}></sbb-autocomplete-grid-button>
+          <sbb-autocomplete-grid-button ${argsToTemplate(args)}></sbb-autocomplete-grid-button>
         </sbb-autocomplete-grid-cell>
       </sbb-autocomplete-grid-row>
     `,

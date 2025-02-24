@@ -1,8 +1,6 @@
 import { SbbNavigationLink } from '@sbb-esta/lyne-angular/navigation/navigation-link';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const label: InputType = {
   control: {
@@ -53,7 +51,7 @@ const meta: Meta = {
   args,
   render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
-    template: `<sbb-navigation-link ${spreadArgs(args)}>${label}</sbb-navigation-link>`,
+    template: `<sbb-navigation-link ${argsToTemplate(args)}>${label}</sbb-navigation-link>`,
   }),
 };
 export default meta;

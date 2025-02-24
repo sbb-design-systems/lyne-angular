@@ -1,8 +1,6 @@
 import { SbbStatus } from '@sbb-esta/lyne-angular/status';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const type: InputType = {
   control: {
@@ -43,7 +41,7 @@ const meta: Meta = {
   args,
   render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
-    template: `<sbb-status ${spreadArgs(args)}>${text}</sbb-status>`,
+    template: `<sbb-status ${argsToTemplate(args)}>${text}</sbb-status>`,
   }),
 };
 export default meta;

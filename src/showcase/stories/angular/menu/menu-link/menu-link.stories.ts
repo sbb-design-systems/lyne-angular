@@ -1,9 +1,7 @@
 import { SbbMenuLink } from '@sbb-esta/lyne-angular/menu/menu-link';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const text: InputType = {
   control: {
@@ -51,9 +49,9 @@ const meta: Meta = {
     props: { text, ...args },
     template: `
       <div style="width: 256px;">
-       <sbb-menu-link ${spreadArgs(args)}>${text} 1</sbb-menu-link>
-       <sbb-menu-link ${spreadArgs(args)}>${text} 2</sbb-menu-link>
-       <sbb-menu-link ${spreadArgs(args)}>${text} 3</sbb-menu-link>
+       <sbb-menu-link ${argsToTemplate(args)}>${text} 1</sbb-menu-link>
+       <sbb-menu-link ${argsToTemplate(args)}>${text} 2</sbb-menu-link>
+       <sbb-menu-link ${argsToTemplate(args)}>${text} 3</sbb-menu-link>
       </div>
     `,
   }),

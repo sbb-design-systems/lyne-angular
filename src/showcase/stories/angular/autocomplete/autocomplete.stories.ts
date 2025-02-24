@@ -2,10 +2,8 @@ import { SbbAutocomplete } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { SbbOptGroup } from '@sbb-esta/lyne-angular/option/optgroup';
 import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const disabled: InputType = {
   control: {
@@ -155,7 +153,7 @@ const meta: Meta = {
       <sbb-form-field [negative]=${negative} [borderless]=${borderless} [floating-label]=${floatingLabel} size=${size}>
         <label>Label</label>
         <input [disabled]=${disabled} [readonly]=${readonly} />
-        <sbb-autocomplete ${spreadArgs(args)}>
+        <sbb-autocomplete ${argsToTemplate(args)}>
           <sbb-optgroup disabled=${disableGroup} label="Group 1">
             <sbb-option icon-name=${iconName} disabled=${disableOption} value="1">Value 1</sbb-option>
             <sbb-option icon-name=${iconName} value="2">Value 2</sbb-option>

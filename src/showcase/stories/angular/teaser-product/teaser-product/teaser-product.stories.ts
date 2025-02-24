@@ -2,10 +2,8 @@ import { SbbButtonStatic } from '@sbb-esta/lyne-angular/button/button-static';
 import { SbbChipLabel } from '@sbb-esta/lyne-angular/chip-label';
 import { SbbTeaserProduct } from '@sbb-esta/lyne-angular/teaser-product/teaser-product';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const imageAlignment: InputType = {
   control: {
@@ -57,7 +55,7 @@ const meta: Meta = {
   render: ({ withChip, withFooter, ...args }: Args) => ({
     props: { withChip, withFooter, ...args },
     template: `
-      <sbb-teaser-product ${spreadArgs(args)}>
+      <sbb-teaser-product ${argsToTemplate(args)}>
         <figure slot="image" class="sbb-figure">
           <img src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg' alt="" />
           ${

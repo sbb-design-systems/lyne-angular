@@ -4,10 +4,8 @@ import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-butt
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const alignGroup: InputType = {
   control: {
@@ -77,7 +75,7 @@ const meta: Meta = {
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <sbb-action-group ${spreadArgs(args)}>
+      <sbb-action-group ${argsToTemplate(args)}>
         <sbb-button>Button 1</sbb-button>
         <sbb-secondary-button>Button 2</sbb-secondary-button>
         <sbb-block-link href="/" icon-name="chevron-small-left-small">Link</sbb-block-link>

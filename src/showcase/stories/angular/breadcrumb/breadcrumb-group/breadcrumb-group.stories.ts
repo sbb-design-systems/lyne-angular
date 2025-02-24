@@ -1,10 +1,8 @@
 import { SbbBreadcrumb } from '@sbb-esta/lyne-angular/breadcrumb/breadcrumb';
 import { SbbBreadcrumbGroup } from '@sbb-esta/lyne-angular/breadcrumb/breadcrumb-group';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const numberOfBreadcrumbs: InputType = { control: { type: 'number' } };
 
@@ -92,7 +90,8 @@ const meta: Meta = {
         ${new Array(numberOfBreadcrumbs - 1)
           .fill(undefined)
           .map(
-            (_, i) => `<sbb-breadcrumb ${spreadArgs(args)}>Breadcrumb ${i + 1}</sbb-breadcrumb>`,
+            (_, i) =>
+              `<sbb-breadcrumb ${argsToTemplate(args)}>Breadcrumb ${i + 1}</sbb-breadcrumb>`,
           )}
       </sbb-breadcrumb-group>
     `,

@@ -1,9 +1,7 @@
 import { SbbDialogTitle } from '@sbb-esta/lyne-angular/dialog/dialog-title';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const level: InputType = {
   control: {
@@ -40,7 +38,7 @@ const meta: Meta = {
   args,
   render: (args: Args) => ({
     props: { ...args },
-    template: `<sbb-dialog-title ${spreadArgs(args)}>Dialog title</sbb-dialog-title>`,
+    template: `<sbb-dialog-title ${argsToTemplate(args)}>Dialog title</sbb-dialog-title>`,
   }),
 };
 export default meta;

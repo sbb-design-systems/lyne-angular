@@ -1,8 +1,6 @@
 import { SbbTabLabel } from '@sbb-esta/lyne-angular/tabs/tab-label';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const label: InputType = {
   control: {
@@ -51,7 +49,7 @@ const meta: Meta = {
   render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
     template: `
-      <sbb-tab-label ${spreadArgs(args)}>
+      <sbb-tab-label ${argsToTemplate(args)}>
         ${label}
       </sbb-tab-label>
     `,

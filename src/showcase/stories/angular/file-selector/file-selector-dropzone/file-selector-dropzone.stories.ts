@@ -1,9 +1,7 @@
 import { SbbFileSelectorDropzone } from '@sbb-esta/lyne-angular/file-selector/file-selector-dropzone';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const size: InputType = {
   control: {
@@ -41,7 +39,7 @@ const meta: Meta = {
   args,
   render: (args: Args) => ({
     props: { ...args },
-    template: `<sbb-file-selector-dropzone ${spreadArgs(args)}></sbb-file-selector-dropzone>`,
+    template: `<sbb-file-selector-dropzone ${argsToTemplate(args)}></sbb-file-selector-dropzone>`,
   }),
 };
 export default meta;

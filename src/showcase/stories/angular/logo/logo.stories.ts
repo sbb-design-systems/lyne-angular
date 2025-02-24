@@ -1,8 +1,6 @@
 import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const protectiveRoom: InputType = {
   control: {
@@ -28,7 +26,7 @@ const meta: Meta = {
     props: { ...args },
     template: `
       <div style='max-width: 300px;'>
-        <sbb-logo ${spreadArgs(args)}></sbb-logo>
+        <sbb-logo ${argsToTemplate(args)}></sbb-logo>
       </div>
     `,
   }),

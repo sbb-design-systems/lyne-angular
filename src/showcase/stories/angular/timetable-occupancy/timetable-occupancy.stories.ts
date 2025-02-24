@@ -1,8 +1,6 @@
 import { SbbTimetableOccupancy } from '@sbb-esta/lyne-angular/timetable-occupancy';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const firstClassOccupancy: InputType = {
   control: {
@@ -39,7 +37,7 @@ const meta: Meta = {
   args,
   render: (args: Args) => ({
     props: { ...args },
-    template: `<sbb-timetable-occupancy ${spreadArgs(args)}></sbb-timetable-occupancy>`,
+    template: `<sbb-timetable-occupancy ${argsToTemplate(args)}></sbb-timetable-occupancy>`,
   }),
 };
 export default meta;

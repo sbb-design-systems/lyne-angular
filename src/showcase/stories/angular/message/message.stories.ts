@@ -1,10 +1,8 @@
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { SbbMessage } from '@sbb-esta/lyne-angular/message';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const titleLevel: InputType = {
   control: {
@@ -36,7 +34,7 @@ const meta: Meta = {
     props: { ...args },
     template: `
       <div style="max-width: 45rem; margin: auto">
-        <sbb-message ${spreadArgs(args)}>
+        <sbb-message ${argsToTemplate(args)}>
           <sbb-image slot="image" image-src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Help-Teaser-Landscape.png'></sbb-image>
           <p slot="subtitle">Please reload the page or try your search again later.</p>
           <p slot="legend">Error code: 0001</p>

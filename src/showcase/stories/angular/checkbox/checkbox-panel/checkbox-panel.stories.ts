@@ -2,10 +2,8 @@ import { SbbCardBadge } from '@sbb-esta/lyne-angular/card/card-badge';
 import { SbbCheckboxPanel } from '@sbb-esta/lyne-angular/checkbox/checkbox-panel';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const label: InputType = {
   control: {
@@ -41,7 +39,7 @@ const meta: Meta = {
   render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
     template: `
-      <sbb-checkbox-panel ${spreadArgs(args)}>
+      <sbb-checkbox-panel ${argsToTemplate(args)}>
         ${label}
         <span slot="subtext">Subtext</span>
         <span slot="suffix" style="margin-inline-start: auto; display:flex; align-items:center;">

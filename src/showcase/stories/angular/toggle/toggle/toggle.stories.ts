@@ -1,10 +1,8 @@
 import { SbbToggle } from '@sbb-esta/lyne-angular/toggle/toggle';
 import { SbbToggleOption } from '@sbb-esta/lyne-angular/toggle/toggle-option';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const size: InputType = {
   control: {
@@ -72,7 +70,7 @@ const meta: Meta = {
   render: ({ iconName, label, labelTwo, ...args }: Args) => ({
     props: { iconName, label, labelTwo, ...args },
     template: `
-    <sbb-toggle ${spreadArgs(args)}>
+    <sbb-toggle ${argsToTemplate(args)}>
       <sbb-toggle-option ${iconName ? `icon-name="${iconName}"` : ''} value="Value 1">
         ${label}
       </sbb-toggle-option>

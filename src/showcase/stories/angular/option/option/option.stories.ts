@@ -3,22 +3,20 @@ import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
 import { SbbSelect } from '@sbb-esta/lyne-angular/select';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const createOptions = ({ disabled, value, preserveIconSpace, ...args }: Args): string => {
   const style = preserveIconSpace ? '--sbb-option-icon-container-display: block' : '';
   return [
     ...new Array(5).fill(null).map(
       (_, i) => `
-        <sbb-option style="${style}" [disabled]=${disabled && i === 0} value="${value} ${i + 1}" ${spreadArgs(args)}>
+        <sbb-option style="${style}" [disabled]=${disabled && i === 0} value="${value} ${i + 1}" ${argsToTemplate(args)}>
           ${value} ${i + 1}
         </sbb-option
         >`,
     ),
-    `<sbb-option style="${style}" ${spreadArgs(args)} value="long-value">
+    `<sbb-option style="${style}" ${argsToTemplate(args)} value="long-value">
         Option Lorem ipsum dolor sit amet.
       </sbb-option>`,
   ].join('');

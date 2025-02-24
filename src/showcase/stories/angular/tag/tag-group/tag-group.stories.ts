@@ -1,9 +1,7 @@
 import { SbbTag } from '@sbb-esta/lyne-angular/tag/tag';
 import { SbbTagGroup } from '@sbb-esta/lyne-angular/tag/tag-group';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const label: InputType = {
   control: {
@@ -49,7 +47,7 @@ const meta: Meta = {
   render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
     template: `
-      <sbb-tag-group ${spreadArgs(args)}>
+      <sbb-tag-group ${argsToTemplate(args)}>
         ${new Array(8).fill(null).map(
           (_e, i) => `
           <sbb-tag [checked]=${i === 0} value=${label} amount="123" icon-name="pie-small">

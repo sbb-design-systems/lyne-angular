@@ -2,10 +2,8 @@ import { SbbCheckbox } from '@sbb-esta/lyne-angular/checkbox/checkbox';
 import { SbbCheckboxGroup } from '@sbb-esta/lyne-angular/checkbox/checkbox-group';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const checkboxes = (
   checked: boolean,
@@ -128,7 +126,7 @@ const meta: Meta = {
   args,
   render: ({ checked, iconName, iconPlacement, label, ...args }: Args) => ({
     props: { checked, iconName, iconPlacement, label, ...args },
-    template: `<sbb-checkbox-group ${spreadArgs(args)}>${checkboxes(checked, iconName, iconPlacement, label)}</sbb-checkbox-group>`,
+    template: `<sbb-checkbox-group ${argsToTemplate(args)}>${checkboxes(checked, iconName, iconPlacement, label)}</sbb-checkbox-group>`,
   }),
 };
 export default meta;

@@ -2,10 +2,8 @@ import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { SbbFormFieldClear } from '@sbb-esta/lyne-angular/form-field/form-field-clear';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const disabled: InputType = {
   control: {
@@ -66,7 +64,7 @@ const meta: Meta = {
       <sbb-form-field [negative]=${negative}>
         <label>Label</label>
         <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
-        <input type="text" placeholder="Input placeholder" value="Input value" ${spreadArgs(args)} />
+        <input type="text" placeholder="Input placeholder" value="Input value" ${argsToTemplate(args)} />
         <sbb-form-field-clear type=${type} [negative]=${negative}></sbb-form-field-clear>
       </sbb-form-field>
     `,

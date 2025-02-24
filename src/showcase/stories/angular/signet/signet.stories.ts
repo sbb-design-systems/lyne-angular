@@ -1,8 +1,6 @@
 import { SbbSignet } from '@sbb-esta/lyne-angular/signet';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const protectiveRoom: InputType = {
   control: {
@@ -28,7 +26,7 @@ const meta: Meta = {
     props: { ...args },
     template: `
       <div style="max-width: 300px;">
-        <sbb-signet ${spreadArgs(args)}></sbb-signet>
+        <sbb-signet ${argsToTemplate(args)}></sbb-signet>
       </div>
     `,
   }),

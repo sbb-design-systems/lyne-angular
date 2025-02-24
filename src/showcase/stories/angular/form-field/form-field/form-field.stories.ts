@@ -1,17 +1,15 @@
 import { SbbFormError } from '@sbb-esta/lyne-angular/form-error';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
-import { spreadArgs } from '../../../../helpers/spread-args';
-
 const inputTemplate = ({ cssClass, ...args }: Record<string, unknown>): string => `
-  <input class=${cssClass} ${spreadArgs(args)}/>
+  <input class=${cssClass} ${argsToTemplate(args)}/>
 `;
 
 const selectTemplate = ({ cssClass, ...args }: Record<string, unknown>): string => `
-  <select class=${cssClass} ${spreadArgs(args)}>
+  <select class=${cssClass} ${argsToTemplate(args)}>
     <option value="1">Value 1</option>
     <option value="2">Value 2</option>
     <option value="3">Value 3</option>
@@ -19,14 +17,14 @@ const selectTemplate = ({ cssClass, ...args }: Record<string, unknown>): string 
 `;
 
 const textareaTemplate = ({ cssClass, ...args }: Record<string, unknown>): string => `
-  <textarea class=${cssClass} ${spreadArgs(args)}></textarea>
+  <textarea class=${cssClass} ${argsToTemplate(args)}></textarea>
 `;
 
 const formFieldTemplate = (
   { label, cssClass, ...args }: Record<string, unknown>,
   template: string,
 ): string => `
-  <sbb-form-field ${spreadArgs(args)}>
+  <sbb-form-field ${argsToTemplate(args)}>
     ${label && `<label>${label}</label>`}
     ${template}
     <sbb-form-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-form-error>

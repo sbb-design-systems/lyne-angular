@@ -1,9 +1,7 @@
 import { SbbClock } from '@sbb-esta/lyne-angular/clock';
 import { SbbTime } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const hours: InputType = { control: { type: 'number', min: 0, max: 23 } };
 const minutes: InputType = { control: { type: 'number', min: 0, max: 59 } };
@@ -27,7 +25,7 @@ const Template = ({ hours, minutes, seconds, ...args }: Args): string => {
   const hasCustomTime = hours !== undefined && minutes !== undefined && seconds !== undefined;
   return `
     <div style='max-width: 600px;'>
-      <sbb-clock now=${hasCustomTime ? timeString : null} ${spreadArgs(args)}></sbb-clock>
+      <sbb-clock now=${hasCustomTime ? timeString : null} ${argsToTemplate(args)}></sbb-clock>
     </div>
 `;
 };

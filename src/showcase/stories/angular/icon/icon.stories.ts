@@ -1,8 +1,6 @@
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const iconName: InputType = {
   control: {
@@ -28,7 +26,7 @@ const meta: Meta = {
   args,
   render: (args: Args) => ({
     props: { ...args },
-    template: `<sbb-icon ${spreadArgs(args)}></sbb-icon>`,
+    template: `<sbb-icon ${argsToTemplate(args)}></sbb-icon>`,
   }),
 };
 export default meta;

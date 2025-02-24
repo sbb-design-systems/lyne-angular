@@ -3,10 +3,8 @@ import { SbbOptGroup } from '@sbb-esta/lyne-angular/option/optgroup';
 import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
 import { SbbSelect } from '@sbb-esta/lyne-angular/select';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const createOptions = (
   disableOption: boolean,
@@ -144,7 +142,7 @@ const meta: Meta = {
         [floating-label]=${floatingLabel}
       >
         <label>Select</label>
-        <sbb-select ${spreadArgs(args)}>
+        <sbb-select ${argsToTemplate(args)}>
           <sbb-optgroup label="Group 1" disabled=${disableGroup}>
             ${createOptions(disableOption, '1', args['value'])}
           </sbb-optgroup>

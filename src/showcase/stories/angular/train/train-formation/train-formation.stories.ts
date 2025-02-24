@@ -4,10 +4,8 @@ import { SbbTrainBlockedPassage } from '@sbb-esta/lyne-angular/train/train-block
 import { SbbTrainFormation } from '@sbb-esta/lyne-angular/train/train-formation';
 import { SbbTrainWagon } from '@sbb-esta/lyne-angular/train/train-wagon';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const view: InputType = {
   control: {
@@ -38,7 +36,7 @@ const meta: Meta = {
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <sbb-train-formation ${spreadArgs(args)}>
+      <sbb-train-formation ${argsToTemplate(args)}>
         <sbb-train
           direction-label="Direction of travel"
           station="Bern"

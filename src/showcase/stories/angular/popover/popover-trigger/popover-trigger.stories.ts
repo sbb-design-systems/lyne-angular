@@ -2,10 +2,8 @@ import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbPopoverTrigger } from '@sbb-esta/lyne-angular/popover/popover-trigger';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const args: Args = {
   'aria-label': 'Click to open the popover',
@@ -33,7 +31,7 @@ const meta: Meta = {
       <div style="color: ${args['negative'] ? 'var(--sbb-color-white)' : 'var(--sbb-color-black)'}">
         <span class="sbb-text-s" style="display: flex; align-items: center;">
           <span style="margin-inline-end: var(--sbb-spacing-fixed-1x);"> This is a demo text. </span>
-          <sbb-popover-trigger id="popover-trigger" ${spreadArgs(args)}></sbb-popover-trigger>
+          <sbb-popover-trigger id="popover-trigger" ${argsToTemplate(args)}></sbb-popover-trigger>
         </span>
         <sbb-popover trigger="popover-trigger">
           <sbb-title level="2" visual-level="6" style="margin-block-start: 0">

@@ -5,10 +5,8 @@ import { SbbAutocompleteGridOptgroup } from '@sbb-esta/lyne-angular/autocomplete
 import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-option';
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const disabled: InputType = {
   control: {
@@ -188,7 +186,7 @@ const meta: Meta = {
           [disabled]=${disabled}
           [readonly]=${readonly}
         />
-        <sbb-autocomplete-grid ${spreadArgs(args)}>
+        <sbb-autocomplete-grid ${argsToTemplate(args)}>
           <sbb-autocomplete-grid-row>
             <sbb-autocomplete-grid-option value="Current location" icon-name="gps-small">Current location</sbb-autocomplete-grid-option>
           </sbb-autocomplete-grid-row>

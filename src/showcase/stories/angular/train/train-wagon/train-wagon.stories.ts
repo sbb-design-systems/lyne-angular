@@ -1,8 +1,6 @@
 import { SbbTrainWagon } from '@sbb-esta/lyne-angular/train/train-wagon';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const withIcons: InputType = {
   control: {
@@ -67,7 +65,7 @@ const meta: Meta = {
           <sbb-train-wagon
             ${occupancy ? `occupancy=${occupancy}` : ''}
             ${wagonClass ? `wagon-class=${wagonClass}` : ''}
-            ${spreadArgs(args)}
+            ${argsToTemplate(args)}
           >
           ${
             withIcons

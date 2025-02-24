@@ -1,9 +1,7 @@
 import { SbbToggleCheck } from '@sbb-esta/lyne-angular/toggle-check';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const size: InputType = {
   control: {
@@ -48,7 +46,7 @@ const meta: Meta = {
   args,
   render: ({ label, ...args }: Args) => ({
     props: { label, ...args },
-    template: `<sbb-toggle-check ${spreadArgs(args)}>${label}</sbb-toggle-check>`,
+    template: `<sbb-toggle-check ${argsToTemplate(args)}>${label}</sbb-toggle-check>`,
   }),
 };
 export default meta;

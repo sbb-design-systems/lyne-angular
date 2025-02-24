@@ -1,8 +1,6 @@
 import { SbbFormError } from '@sbb-esta/lyne-angular/form-error';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../helpers/spread-args';
 
 const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus.`;
@@ -32,7 +30,7 @@ const meta: Meta = {
   },
   render: ({ errorText, ...args }: Args) => ({
     props: { errorText, ...args },
-    template: `<sbb-form-error ${spreadArgs(args)}>${errorText}</sbb-form-error>`,
+    template: `<sbb-form-error ${argsToTemplate(args)}>${errorText}</sbb-form-error>`,
   }),
 };
 export default meta;

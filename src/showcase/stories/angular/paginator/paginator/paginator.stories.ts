@@ -1,8 +1,6 @@
 import { SbbPaginator } from '@sbb-esta/lyne-angular/paginator/paginator';
-import { Args, Meta } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const pageSizeOptionsValues = [[], [10, 20, 50, 100], [10, 50, 100, 500]];
 const pageSizeOptions: InputType = {
@@ -33,8 +31,7 @@ const size: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  pageSizeOptions,
-  'page-size-options': { control: false, table: { disable: true } },
+  'page-size-options': pageSizeOptions,
   'pager-position': pagerPosition,
   size,
 };
@@ -43,7 +40,7 @@ const args: Args = {
   length: 100,
   'page-size': 10,
   'page-index': 0,
-  pageSizeOptions: pageSizeOptions.options![0],
+  'page-size-options': pageSizeOptions.options![0],
   'pager-position': pagerPosition.options![0],
   size: size.options![0],
 };
@@ -57,10 +54,10 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ pageSizeOptions, ...args }: Args) => ({
-    props: { pageSizeOptions, ...args },
+  render: ({ ...args }: Args) => ({
+    props: { ...args },
     template: `
-     <sbb-paginator aria-label="Select page" [page-size-options]="[${pageSizeOptions}]" ${spreadArgs(args)}></sbb-paginator>
+     <sbb-paginator aria-label="Select page" ${argsToTemplate(args)}></sbb-paginator>
     `,
   }),
 };

@@ -1,10 +1,8 @@
 import { SbbNavigationButton } from '@sbb-esta/lyne-angular/navigation/navigation-button';
 import { SbbNavigationMarker } from '@sbb-esta/lyne-angular/navigation/navigation-marker';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const size: InputType = {
   control: {
@@ -39,7 +37,7 @@ const meta: Meta = {
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <sbb-navigation-marker ${spreadArgs(args)}>
+      <sbb-navigation-marker ${argsToTemplate(args)}>
         <sbb-navigation-button id="nav-1">Tickets & Offers</sbb-navigation-button>
         <sbb-navigation-button id="nav-2">
           Vacations & Recreation

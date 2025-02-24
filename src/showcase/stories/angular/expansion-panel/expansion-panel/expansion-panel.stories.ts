@@ -2,10 +2,8 @@ import { SbbExpansionPanel } from '@sbb-esta/lyne-angular/expansion-panel/expans
 import { SbbExpansionPanelContent } from '@sbb-esta/lyne-angular/expansion-panel/expansion-panel-content';
 import { SbbExpansionPanelHeader } from '@sbb-esta/lyne-angular/expansion-panel/expansion-panel-header';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
-
-import { spreadArgs } from '../../../../helpers/spread-args';
 
 const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -128,7 +126,7 @@ const meta: Meta = {
   render: ({ headerText, iconName, contentText, disabledInteractive, ...args }: Args) => ({
     props: { headerText, iconName, contentText, disabledInteractive, ...args },
     template: `
-      <sbb-expansion-panel ${spreadArgs(args)}>
+      <sbb-expansion-panel ${argsToTemplate(args)}>
         <sbb-expansion-panel-header ${iconName ? `icon-name=${iconName}` : ''} disabled-interactive=${disabledInteractive}>
           ${headerText}
         </sbb-expansion-panel-header>
