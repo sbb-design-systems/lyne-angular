@@ -5,6 +5,15 @@ import { makeDecorator } from '@storybook/preview-api';
 import { StoryContext } from '@storybook/types';
 
 import docJson from './documentation.json';
+
+// FIXME
+//  compodoc has no parameter in the config to exclude methods and outputs from controls
+//  so they have to be manually removed
+//  https://github.com/storybookjs/storybook/issues/15906
+for (const directive of docJson.directives) {
+  directive.outputsClass = [];
+  directive.methodsClass = [];
+}
 setCompodocJson(docJson);
 
 const withBackgroundDecorator = makeDecorator({
