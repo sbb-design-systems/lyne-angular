@@ -7,9 +7,7 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
-const convertMillisecondsToSeconds = (milliseconds: number): number => {
-  return milliseconds / 1000;
-};
+import { convertMillisecondsToSeconds } from '../../../../helpers/converter';
 
 const value: InputType = {
   control: {

@@ -36,7 +36,7 @@ const readManifest = (name: string): Package =>
 const elementsManifest = readManifest('lyne-elements');
 const elementsExperimentalManifest = readManifest('lyne-elements-experimental');
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 const generateStructure = (pkg: Package, projectPath: string) => {
   for (const module of pkg.modules) {
     if (
@@ -57,11 +57,11 @@ const generateStructure = (pkg: Package, projectPath: string) => {
   }
 };
 
-// generateStructure(elementsManifest, join(root, 'src/showcase/stories/angular'));
-// generateStructure(
-//   elementsExperimentalManifest,
-//   join(root, 'src/showcase/stories/angular-experimental'),
-// );
+generateStructure(elementsManifest, join(root, 'src/showcase/stories/angular'));
+generateStructure(
+  elementsExperimentalManifest,
+  join(root, 'src/showcase/stories/angular-experimental'),
+);
 
 export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
@@ -79,7 +79,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
         const element = classDeclaration.name.replace(/Element$/, '');
         const classSelector = toKebabCase(classDeclaration.name.replace(/Element$/, ''));
         const storyFolder = context.filename.includes('experimental') ? 'experimental' : 'elements';
-        const template = `\`<${classSelector} \${spreadArgs(args)}></${classSelector}>\``;
+        const template = `\`<${classSelector} \${argsToTemplate(args)}></${classSelector}>\``;
         const elementPath = relative(root, dirname(context.filename)).replace(
           'src/showcase/stories/',
           '@sbb-esta/lyne-',
@@ -94,7 +94,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
                 [node.range[1] - 1, node.range[1] - 1],
                 `import { ${element} } from '${elementPath}';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 `,
               ),
           });
@@ -122,8 +122,7 @@ const meta: Meta = {
     // add events or remove the 'action' object
     actions: { handles: ['click'] },
   },
-  // render via template is needed due to the directive implementation
-  render: ({ ...args }) => ({
+  render: (args: Args) => ({
     props: { ...args },
     template: ${template}
   })
