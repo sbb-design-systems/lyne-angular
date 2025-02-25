@@ -14,7 +14,7 @@ const label: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -23,7 +23,7 @@ const optional: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 

@@ -14,7 +14,7 @@ const value: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'Native input',
   },
 };
 
@@ -23,7 +23,7 @@ const disabled: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'Native input',
   },
 };
 
@@ -32,7 +32,7 @@ const readonly: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'Native input',
   },
 };
 
@@ -41,7 +41,7 @@ const required: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'Native input',
   },
 };
 
@@ -50,7 +50,7 @@ const form: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'Native input',
   },
 };
 
@@ -59,7 +59,7 @@ const min: InputType = {
     type: 'date',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'Native input',
   },
 };
 
@@ -68,16 +68,13 @@ const max: InputType = {
     type: 'date',
   },
   table: {
-    category: 'Input datepicker attribute',
+    category: 'Native input',
   },
 };
 
 const wide: InputType = {
   control: {
     type: 'boolean',
-  },
-  table: {
-    category: 'Datepicker attribute',
   },
 };
 
@@ -101,17 +98,11 @@ const dateFilter: InputType = {
       4: 'The dateFilter function excludes months from January to July',
     },
   },
-  table: {
-    category: 'Datepicker attribute',
-  },
 };
 
 const ariaLabel: InputType = {
   control: {
     type: 'text',
-  },
-  table: {
-    category: 'Datepicker attribute',
   },
 };
 
@@ -121,7 +112,7 @@ const size: InputType = {
   },
   options: ['s', 'm', 'l'],
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -130,7 +121,7 @@ const negative: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -139,7 +130,7 @@ const label: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -148,7 +139,7 @@ const optional: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 
@@ -157,7 +148,7 @@ const borderless: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Form-field attribute',
+    category: 'Form-field',
   },
 };
 

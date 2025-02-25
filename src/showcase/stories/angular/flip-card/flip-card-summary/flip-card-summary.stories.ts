@@ -9,9 +9,6 @@ const imageAlignment: InputType = {
     type: 'select',
   },
   options: ['after', 'below'],
-  table: {
-    category: 'Summary',
-  },
 };
 
 const argTypes: ArgTypes = {

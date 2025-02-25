@@ -20,9 +20,6 @@ const href: InputType = {
       1: 'GitHub Lyne Components',
     },
   },
-  table: {
-    category: 'Link',
-  },
 };
 
 const target: InputType = {

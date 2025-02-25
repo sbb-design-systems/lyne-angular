@@ -7,9 +7,6 @@ const direction: InputType = {
     type: 'inline-radio',
   },
   options: ['left', 'right'],
-  table: {
-    category: 'Direction indicator',
-  },
 };
 
 const directionLabelLevel: InputType = {
@@ -17,9 +14,6 @@ const directionLabelLevel: InputType = {
     type: 'inline-radio',
   },
   options: [2, 3, 4, 5, 6],
-  table: {
-    category: 'Direction indicator',
-  },
 };
 
 const argTypes: ArgTypes = {

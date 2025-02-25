@@ -9,9 +9,6 @@ const disabled: InputType = {
   control: {
     type: 'boolean',
   },
-  table: {
-    category: 'Button',
-  },
 };
 
 const size: InputType = {

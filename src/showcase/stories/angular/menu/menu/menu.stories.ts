@@ -17,26 +17,17 @@ const iconName: InputType = {
   control: {
     type: 'text',
   },
-  table: {
-    category: 'Menu action',
-  },
 };
 
 const amount: InputType = {
   control: {
     type: 'text',
   },
-  table: {
-    category: 'Menu action',
-  },
 };
 
 const disabled: InputType = {
   control: {
     type: 'boolean',
-  },
-  table: {
-    category: 'Menu action',
   },
 };
 

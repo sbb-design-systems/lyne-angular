@@ -21,9 +21,6 @@ const type: InputType = {
     type: 'select',
   },
   options: ['button', 'reset', 'submit'],
-  table: {
-    category: 'Button',
-  },
 };
 
 const argTypes: ArgTypes = {

@@ -11,9 +11,6 @@ const label: InputType = {
   control: {
     type: 'text',
   },
-  table: {
-    category: 'Option group',
-  },
 };
 
 const disabledSingle: InputType = {

@@ -32,9 +32,6 @@ const titleLevel: InputType = {
     type: 'inline-radio',
   },
   options: [2, 3, 4, 5, 6],
-  table: {
-    category: 'List Title',
-  },
 };
 
 const argTypes: ArgTypes = {

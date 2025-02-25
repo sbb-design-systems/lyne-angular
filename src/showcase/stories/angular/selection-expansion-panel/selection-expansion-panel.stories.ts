@@ -116,7 +116,7 @@ const checkedInput: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input',
+    category: 'Native input',
   },
 };
 
@@ -125,7 +125,7 @@ const disabledInput: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input',
+    category: 'Native input',
   },
 };
 

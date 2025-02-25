@@ -11,9 +11,6 @@ const titleLevel: InputType = {
     type: 'inline-radio',
   },
   options: [1, 2, 3, 4, 5, 6, null],
-  table: {
-    category: 'Accordion',
-  },
 };
 
 const color: InputType = {

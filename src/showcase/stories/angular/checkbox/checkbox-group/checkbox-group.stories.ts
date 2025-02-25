@@ -65,9 +65,6 @@ const orientation: InputType = {
     type: 'inline-radio',
   },
   options: ['horizontal', 'vertical'],
-  table: {
-    category: 'Checkbox group',
-  },
 };
 
 const horizontalFrom: InputType = {
@@ -75,9 +72,6 @@ const horizontalFrom: InputType = {
     type: 'select',
   },
   options: [...breakpoints],
-  table: {
-    category: 'Checkbox group',
-  },
 };
 
 const size: InputType = {
@@ -85,9 +79,6 @@ const size: InputType = {
     type: 'inline-radio',
   },
   options: ['m', 's', 'xs'],
-  table: {
-    category: 'Checkbox group',
-  },
 };
 
 const argTypes: ArgTypes = {

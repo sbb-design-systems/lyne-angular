@@ -19,9 +19,6 @@ const href: InputType = {
       1: 'GitHub Lyne Components',
     },
   },
-  table: {
-    category: 'Card Action Link',
-  },
 };
 
 const argTypes: ArgTypes = {

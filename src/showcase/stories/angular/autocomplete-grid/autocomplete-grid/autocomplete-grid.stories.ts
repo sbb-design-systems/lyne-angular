@@ -13,7 +13,7 @@ const disabled: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input',
+    category: 'Native input',
   },
 };
 
@@ -22,7 +22,7 @@ const readonly: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input',
+    category: 'Native input',
   },
 };
 

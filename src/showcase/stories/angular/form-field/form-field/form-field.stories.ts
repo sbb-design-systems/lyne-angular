@@ -61,7 +61,7 @@ const placeholder: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Input attribute',
+    category: 'Native input',
   },
 };
 
@@ -71,7 +71,7 @@ const cssClass: InputType = {
   },
   options: [null, 'sbb-invalid'],
   table: {
-    category: 'Input attribute',
+    category: 'Native input',
   },
 };
 
@@ -80,7 +80,7 @@ const disabled: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input attribute',
+    category: 'Native input',
   },
 };
 
@@ -89,7 +89,7 @@ const readonly: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Input attribute',
+    category: 'Native input',
   },
 };
 
@@ -98,16 +98,13 @@ const value: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Input attribute',
+    category: 'Native input',
   },
 };
 
 const label: InputType = {
   control: {
     type: 'text',
-  },
-  table: {
-    category: 'Form-field',
   },
 };
 
