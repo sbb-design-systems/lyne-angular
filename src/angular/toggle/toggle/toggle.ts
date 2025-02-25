@@ -53,4 +53,40 @@ export class SbbToggle {
   public get options(): SbbToggleOptionElement[] {
     return this.#element.nativeElement.options;
   }
+
+  @Input()
+  public set name(value: string) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.name = value));
+  }
+  public get name(): string {
+    return this.#element.nativeElement.name;
+  }
+
+  public get form(): HTMLFormElement | null {
+    return this.#element.nativeElement.form;
+  }
+
+  public get validity(): ValidityState {
+    return this.#element.nativeElement.validity;
+  }
+
+  public get validationMessage(): string {
+    return this.#element.nativeElement.validationMessage;
+  }
+
+  public get willValidate(): boolean {
+    return this.#element.nativeElement.willValidate;
+  }
+
+  public checkValidity(): boolean {
+    return this.#element.nativeElement.checkValidity();
+  }
+
+  public reportValidity(): boolean {
+    return this.#element.nativeElement.reportValidity();
+  }
+
+  public setCustomValidity(message: string): void {
+    return this.#element.nativeElement.setCustomValidity(message);
+  }
 }
