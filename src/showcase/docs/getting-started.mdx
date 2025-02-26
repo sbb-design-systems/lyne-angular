@@ -1,0 +1,67 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="introduction/Getting Started" />
+
+# Getting Started
+
+1.  Install Angular CLI, see [Angular CLI documentation](https://cli.angular.io/)
+2.  Install the `@sbb-esta/lyne-angular` and the `@sbb-esta/lyne-elements` packages:
+
+    ```sh
+      npm install --save @sbb-esta/lyne-angular @sbb-esta/lyne-elements
+    ```
+
+    or, if using yarn:
+
+    ```sh
+      yarn add @sbb-esta/lyne-angular @sbb-esta/lyne-elements
+    ```
+
+3.  Including global styles is strongly recommended to apply all SBB styles to your application.
+    Importing stylesheets is doable by editing the `styles.(s)css`:
+
+        ```css
+          @import 'node_modules/@sbb-esta/lyne-elements/standard-theme.css';
+        ```
+
+        or editing your `angular.json`:
+
+        ```json
+          ...
+          "styles": [
+            "src/styles.scss",
+            "node_modules/@sbb-esta/lyne-elements/standard-theme.css"
+          ],
+          ...
+        ```
+
+4.  In each component, import the Lyne component and add it to the `imports` array.
+
+## Example
+
+```ts
+import { Component, Input } from '@angular/core';
+import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
+
+@Component({
+  selector: 'my-app-example',
+  imports: [SbbButton],
+  template: `
+    <sbb-button [icon-name]="icon" (click)="logger($event)">
+      {{ label }}
+    </sbb-button>
+  `,
+  standalone: true,
+})
+export class ExampleComponent {
+  @Input()
+  label: string = 'Button label';
+
+  @Input()
+  icon: string = 'pie-small';
+
+  public logger(e: Event) {
+    console.log(e);
+  }
+}
+```
