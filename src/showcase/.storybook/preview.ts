@@ -16,6 +16,26 @@ for (const directive of docJson.directives) {
 }
 setCompodocJson(docJson);
 
+/**
+ * The Lean design is applied by adding the 'sbb-lean' class to the document.
+ */
+const withLeanDecorator = makeDecorator({
+  name: 'withLeanStyle',
+  parameterName: 'isLean',
+  skipIfNoParametersOrOptions: false,
+  wrapper: (getStory, context, { parameters }) => {
+    const isLean = parameters as unknown as boolean;
+
+    if (isLean) {
+      document.documentElement.classList.add('sbb-lean');
+    } else {
+      document.documentElement.classList.remove('sbb-lean');
+    }
+
+    return getStory(context);
+  },
+});
+
 const withBackgroundDecorator = makeDecorator({
   name: 'withContextSpecificBackgroundColor',
   parameterName: 'backgroundColor',
@@ -65,7 +85,7 @@ const storybookViewports = breakpoints.reduce(
 );
 
 const preview: Preview = {
-  decorators: [withBackgroundDecorator],
+  decorators: [withBackgroundDecorator, withLeanDecorator],
   tags: ['autodocs'],
   parameters: {
     breakpoints: {
