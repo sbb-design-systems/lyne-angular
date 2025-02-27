@@ -1,0 +1,17 @@
+@use 'node_modules/@sbb-esta/lyne-elements/core/styles' as sbb;
+
+.negative {
+  background-color: var(--sbb-color-charcoal);
+  color: var(--sbb-color-white);
+}
+
+.overflow-container {
+  padding: var(--sbb-spacing-responsive-xs);
+  width: 400px;
+  height: 300px;
+  overflow: auto;
+}
+
+.inner-box {
+  width: 500px;
+}
