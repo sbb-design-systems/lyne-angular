@@ -1,5 +1,12 @@
 # Changelog
 
+## [19.0.0-alpha.5](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-alpha.4...v19.0.0-alpha.5) (2025-02-28)
+
+
+### Miscellaneous Chores
+
+* set version ([38163a6](https://github.com/sbb-design-systems/lyne-angular/commit/38163a6110768f2de6572bad74fda062a721f52d))
+
 ## [19.0.0-alpha.4](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-alpha.3...v19.0.0-alpha.4) (2025-02-28)
 
 
