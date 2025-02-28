@@ -5,6 +5,13 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
+const trigger: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
 const positions = [
   'inset-inline-start: 2rem;',
   'inset-inline-start: calc(50% - 44px);',
@@ -29,7 +36,10 @@ const triggerPosition: InputType = {
   },
 };
 
-const argTypes: ArgTypes = { triggerPosition };
+const argTypes: ArgTypes = {
+  trigger,
+  triggerPosition,
+};
 
 const args: Args = {
   triggerPosition: triggerPosition.options![0],

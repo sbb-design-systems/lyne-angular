@@ -15,9 +15,24 @@ const size: InputType = {
   options: ['s', 'm'],
 };
 
+const type: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['button', 'reset', 'submit'],
+};
+
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   label,
   size,
+  type,
+  value,
 };
 
 const args: Args = {

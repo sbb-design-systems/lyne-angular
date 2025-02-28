@@ -10,6 +10,9 @@ const meta: Meta = {
   ],
   title: 'elements/sbb-flip-card/sbb-flip-card-details',
   component: SbbFlipCardDetails,
+  parameters: {
+    backgroundColor: () => 'var(--sbb-color-midnight)',
+  },
   render: (args: Args) => ({
     props: { ...args },
     template: `

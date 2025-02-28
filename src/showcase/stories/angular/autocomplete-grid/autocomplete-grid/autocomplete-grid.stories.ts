@@ -8,6 +8,20 @@ import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
+const trigger: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
+const origin: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
 const disabled: InputType = {
   control: {
     type: 'boolean',
@@ -100,6 +114,8 @@ const disableGroup: InputType = {
 };
 
 const argTypes: ArgTypes = {
+  trigger,
+  origin,
   negative,
   disabled,
   readonly,

@@ -118,7 +118,7 @@ const meta: Meta = {
   },
   argTypes: {
     ...argTypes,
-    openDialog: { type: 'function', control: false },
+    openDialog: { type: 'function', control: false, table: { disable: true } },
   },
   args: {
     ...args,
@@ -172,7 +172,7 @@ const meta: Meta = {
             align-self="start"
             icon-name="chevron-small-left-small"
             href="https://www.sbb.ch/en/"
-            negative=${args['negative']}
+            [negative]=${args['negative']}
             sbb-dialog-close
           >
             Link

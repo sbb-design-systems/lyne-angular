@@ -31,10 +31,18 @@ const disabled: InputType = {
   },
 };
 
+const trigger: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
 const argTypes: ArgTypes = {
   iconName,
   amount,
   disabled,
+  trigger,
 };
 
 const args: Args = {

@@ -10,6 +10,13 @@ const level: InputType = {
   options: [1, 2, 3, 4, 5, 6],
 };
 
+const visualLevel: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [1, 2, 3, 4, 5, 6],
+};
+
 const hideOnScroll: InputType = {
   control: {
     type: 'select',
@@ -19,6 +26,7 @@ const hideOnScroll: InputType = {
 
 const argTypes: ArgTypes = {
   level,
+  'visual-level': visualLevel,
   'hide-on-scroll': hideOnScroll,
 };
 

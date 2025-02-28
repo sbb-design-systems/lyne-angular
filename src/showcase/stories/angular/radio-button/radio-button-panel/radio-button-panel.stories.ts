@@ -54,10 +54,10 @@ const meta: Meta = {
   component: SbbRadioButtonPanel,
   argTypes,
   args,
-  render: ({ label, ...args }: Args) => ({
-    props: { label, ...args },
+  render: ({ label, color, ...args }: Args) => ({
+    props: { label, color, ...args },
     template: `
-      <sbb-radio-button-panel ${argsToTemplate(args)}>
+      <sbb-radio-button-panel ${argsToTemplate(args)} color="${color}">
         ${label}
         <span slot="subtext">Subtext</span>
         <span slot="suffix" style="margin-inline-start: auto; display:flex; align-items:center;">

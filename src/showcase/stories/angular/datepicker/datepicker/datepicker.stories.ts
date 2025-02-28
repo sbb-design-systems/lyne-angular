@@ -5,7 +5,7 @@ import { SbbDatepickerToggle } from '@sbb-esta/lyne-angular/datepicker/datepicke
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 import { convertMillisecondsToSeconds } from '../../../../helpers/converter';
 
@@ -161,6 +161,20 @@ const now: InputType = {
   },
 };
 
+const input: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
+const valueAsDate: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
 const argTypes: ArgTypes = {
   value,
   form,
@@ -178,6 +192,9 @@ const argTypes: ArgTypes = {
   negative,
   optional,
   borderless,
+  input,
+  valueAsDate,
+  'date-filter': { table: { disable: true } },
 };
 
 const args: Args = {
@@ -210,6 +227,8 @@ const meta: Meta = {
   component: SbbDatepicker,
   parameters: {
     actions: { handles: ['click'] },
+    backgroundColor: (context: StoryContext) =>
+      context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   },
   argTypes,
   args,
@@ -223,7 +242,6 @@ const meta: Meta = {
     min,
     max,
     now,
-    dateFilter,
     value,
     form,
     disabled,
@@ -241,7 +259,6 @@ const meta: Meta = {
       min,
       max,
       now,
-      dateFilter,
       value,
       form,
       disabled,
@@ -266,7 +283,6 @@ const meta: Meta = {
         />
         <sbb-datepicker
           ${argsToTemplate(args)}
-          date-filter=${dateFilter}
           wide=${wide}
           ${now ? `now=${convertMillisecondsToSeconds(now)}` : ''}
         ></sbb-datepicker>

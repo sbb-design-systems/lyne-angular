@@ -26,10 +26,18 @@ const animation: InputType = {
   options: ['all', 'close', 'open', 'none'],
 };
 
+const titleLevel: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [1, 2, 3, 4, 5, 6],
+};
+
 const argTypes: ArgTypes = {
   type,
   size,
   animation,
+  'title-level': titleLevel,
 };
 
 const args: Args = {

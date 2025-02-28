@@ -18,9 +18,31 @@ const size: InputType = {
   options: ['m', 's'],
 };
 
-const argTypes: ArgTypes = { label, size };
+const color: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['white', 'milk'],
+};
 
-const args: Args = { label: 'Label', size: size.options![0] };
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const argTypes: ArgTypes = {
+  label,
+  size,
+  color,
+  value,
+};
+
+const args: Args = {
+  label: 'Label',
+  size: size.options![0],
+  color: color.options![0],
+};
 
 const meta: Meta = {
   decorators: [
@@ -36,10 +58,10 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ label, ...args }: Args) => ({
-    props: { label, ...args },
+  render: ({ label, color, ...args }: Args) => ({
+    props: { label, color, ...args },
     template: `
-      <sbb-checkbox-panel ${argsToTemplate(args)}>
+      <sbb-checkbox-panel ${argsToTemplate(args)} color="${color}">
         ${label}
         <span slot="subtext">Subtext</span>
         <span slot="suffix" style="margin-inline-start: auto; display:flex; align-items:center;">

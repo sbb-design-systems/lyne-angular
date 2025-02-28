@@ -17,9 +17,24 @@ const multipleMode: InputType = {
   options: ['default', 'persistent'],
 };
 
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const files: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
 const argTypes: ArgTypes = {
   size,
   'multiple-mode': multipleMode,
+  value,
+  files,
 };
 
 const args: Args = {

@@ -12,6 +12,7 @@ const argTypes: ArgTypes = {
   hours,
   minutes,
   seconds,
+  now: { table: { disable: true } },
 };
 
 const args: Args = {
@@ -25,7 +26,7 @@ const Template = ({ hours, minutes, seconds, ...args }: Args): string => {
   const hasCustomTime = hours !== undefined && minutes !== undefined && seconds !== undefined;
   return `
     <div style='max-width: 600px;'>
-      <sbb-clock now=${hasCustomTime ? timeString : null} ${argsToTemplate(args)}></sbb-clock>
+      <sbb-clock ${hasCustomTime ? `now=${timeString}` : ''} ${argsToTemplate(args)}></sbb-clock>
     </div>
 `;
 };

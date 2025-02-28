@@ -81,7 +81,7 @@ const meta: Meta = {
   },
   argTypes: {
     ...argTypes,
-    openToast: { type: 'function', control: false },
+    openToast: { type: 'function', control: false, table: { disable: true } },
   },
   args: {
     ...args,

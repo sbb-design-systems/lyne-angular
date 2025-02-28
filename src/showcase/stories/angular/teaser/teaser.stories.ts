@@ -9,6 +9,19 @@ const titleContent: InputType = {
   },
 };
 
+const titleLevel: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [1, 2, 3, 4, 5, 6],
+};
+
+const target: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const chipContent: InputType = {
   control: {
     type: 'text',
@@ -46,6 +59,8 @@ const description: InputType = {
 
 const argTypes: ArgTypes = {
   'title-content': titleContent,
+  'title-level': titleLevel,
+  target,
   'chip-content': chipContent,
   alignment,
   href,
@@ -54,6 +69,7 @@ const argTypes: ArgTypes = {
 
 const args: Args = {
   'title-content': 'This is a title',
+  target: '_blank',
   'chip-content': undefined,
   alignment: alignment.options![0],
   href: href.options![1],

@@ -49,8 +49,9 @@ const OrderedListTemplate = (): string => `
 `;
 
 const StepListTemplate = (): string => `
-  ${['xs', 's', 'm', 'l', 'xl'].map(
-    (textSize) => `
+  ${['xs', 's', 'm', 'l', 'xl']
+    .map(
+      (textSize) => `
       <sbb-title level="5">Text size ${textSize}</sbb-title>
       <ol class=${`sbb-step-list sbb-text-${textSize}`}>
         ${ListContent()}
@@ -62,7 +63,8 @@ const StepListTemplate = (): string => `
         </li>
       </ol>
     `,
-  )}
+    )
+    .join('')}
 `;
 
 const IconListTemplate = (): string => `

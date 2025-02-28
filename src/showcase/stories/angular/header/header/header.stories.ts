@@ -52,6 +52,7 @@ const meta: Meta = {
   component: SbbHeader,
   parameters: {
     actions: { handles: ['click'] },
+    layout: 'fullscreen',
   },
   argTypes,
   args,

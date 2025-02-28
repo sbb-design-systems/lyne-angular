@@ -8,8 +8,15 @@ const label: InputType = {
   },
 };
 
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   label,
+  value,
 };
 
 const args: Args = {

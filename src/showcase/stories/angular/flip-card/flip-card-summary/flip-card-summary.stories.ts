@@ -1,7 +1,7 @@
 import { SbbFlipCardSummary } from '@sbb-esta/lyne-angular/flip-card/flip-card-summary';
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
 const imageAlignment: InputType = {
@@ -12,11 +12,11 @@ const imageAlignment: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  imageAlignment,
+  'image-alignment': imageAlignment,
 };
 
 const args: Args = {
-  imageAlignment: imageAlignment.options![0],
+  'image-alignment': imageAlignment.options![0],
 };
 
 const meta: Meta = {
@@ -34,7 +34,7 @@ const meta: Meta = {
     template: `
       <div
         style="position: relative; display: flex; flex-flow: column wrap; gap: var(--sbb-spacing-responsive-xs); min-height: 17.5rem; background-color: var(--sbb-color-cloud-alpha-80);">
-        <sbb-flip-card-summary image-alignment=${args['imageAlignment']}>
+        <sbb-flip-card-summary ${argsToTemplate(args)}>
           <sbb-title level="4">Summary</sbb-title>
           <sbb-image
             slot="image"

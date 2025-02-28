@@ -11,9 +11,30 @@ const slot: InputType = {
   options: ['prefix', 'suffix'],
 };
 
-const argTypes = { slot };
+const type: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['button', 'reset', 'submit'],
+};
 
-const args = { slot: slot.options![0], 'icon-name': 'pen-small' };
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const argTypes = {
+  slot,
+  type,
+  value,
+};
+
+const args = {
+  slot: slot.options![0],
+  'icon-name': 'pen-small',
+  type: type.options![0],
+};
 
 const meta: Meta = {
   decorators: [
@@ -34,7 +55,7 @@ const meta: Meta = {
   render: ({ slot, ...args }: Args) => ({
     props: { ...args },
     template: `
-      <sbb-form-field negative=${args['negative']}>
+      <sbb-form-field [negative]=${args['negative']}>
         <label>sbb-mini-button</label>
         <input placeholder="Placeholder" [disabled]=${args['disabled']}>
         <sbb-mini-button ${argsToTemplate(args)} slot=${slot}></sbb-mini-button>

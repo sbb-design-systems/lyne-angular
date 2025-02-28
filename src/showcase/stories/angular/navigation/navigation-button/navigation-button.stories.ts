@@ -22,10 +22,25 @@ const type: InputType = {
   options: ['button', 'reset', 'submit'],
 };
 
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const connectedSection: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
 const argTypes: ArgTypes = {
   label,
   size,
   type,
+  value,
+  connectedSection,
 };
 
 const args: Args = {

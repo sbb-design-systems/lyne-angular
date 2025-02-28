@@ -105,6 +105,20 @@ const iconEnd: InputType = {
   },
 };
 
+const input: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
+const valueAsDate: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
 const argTypes: ArgTypes = {
   value,
   disabled,
@@ -117,6 +131,8 @@ const argTypes: ArgTypes = {
   borderless,
   iconStart,
   iconEnd,
+  input,
+  valueAsDate,
 };
 
 const args: Args = {

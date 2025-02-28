@@ -29,12 +29,6 @@ const horizontalFrom: InputType = {
   options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
 };
 
-const selectedIndex: InputType = {
-  control: {
-    type: 'number',
-  },
-};
-
 const size: InputType = {
   control: {
     type: 'inline-radio',
@@ -42,10 +36,25 @@ const size: InputType = {
   options: ['s', 'm'],
 };
 
+const selected: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
+const selectedIndex: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
 const argTypes: ArgTypes = {
   orientation,
   'horizontal-from': horizontalFrom,
   size,
+  selected,
   'selected-index': selectedIndex,
 };
 
@@ -54,7 +63,6 @@ const args: Args = {
   orientation: orientation.options![0],
   'horizontal-from': horizontalFrom.options![0],
   size: size.options![1],
-  'selected-index': 0,
 };
 
 const meta: Meta = {

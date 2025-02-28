@@ -48,12 +48,20 @@ const negative: InputType = {
   },
 };
 
+const selectedIndex: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
 const argTypes: ArgTypes = {
   label,
   iconName,
   amount,
   size,
   negative,
+  'initial-selected-index': selectedIndex,
 };
 
 const args: Args = {

@@ -70,6 +70,7 @@ const breakpointNames: Record<string, number> = breakpoints.reduce(
   (current, next) => Object.assign(current, { [next.key]: next.value }),
   {} as Record<string, number>,
 );
+
 const storybookViewports = breakpoints.reduce(
   (current, next) =>
     Object.assign(current, {

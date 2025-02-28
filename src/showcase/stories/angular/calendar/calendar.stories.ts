@@ -54,6 +54,7 @@ const argTypes: ArgTypes = {
   min,
   max,
   dateFilter,
+  'date-filter': { table: { disable: true } },
   now,
 };
 

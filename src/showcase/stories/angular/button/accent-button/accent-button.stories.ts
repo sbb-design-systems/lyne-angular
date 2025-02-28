@@ -23,10 +23,17 @@ const type: InputType = {
   options: ['button', 'reset', 'submit'],
 };
 
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   text,
   size,
   type,
+  value,
 };
 
 const args: Args = {

@@ -23,10 +23,17 @@ const size: InputType = {
   options: ['xs', 's', 'm'],
 };
 
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   text,
   type,
   size,
+  value,
 };
 
 const args: Args = {

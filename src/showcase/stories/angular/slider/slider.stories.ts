@@ -18,6 +18,13 @@ const label: InputType = {
   },
 };
 
+const valueAsNumber: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
 const optional: InputType = {
   control: {
     type: 'boolean',
@@ -31,6 +38,7 @@ const argTypes: ArgTypes = {
   value,
   label,
   optional,
+  'value-as-number': valueAsNumber,
 };
 
 const args: Args = {

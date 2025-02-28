@@ -30,11 +30,18 @@ const iconPlacement: InputType = {
   options: ['start', 'end'],
 };
 
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   text,
   size,
   type,
   'icon-placement': iconPlacement,
+  value,
 };
 
 const args: Args = {

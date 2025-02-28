@@ -30,10 +30,17 @@ const type: InputType = {
   options: ['button', 'reset', 'submit'],
 };
 
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   disabled,
   readonly,
   type,
+  value,
 };
 
 const args: Args = {

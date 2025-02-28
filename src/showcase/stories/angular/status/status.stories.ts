@@ -2,6 +2,13 @@ import { SbbStatus } from '@sbb-esta/lyne-angular/status';
 import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
+const titleLevel: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: [1, 2, 3, 4, 5, 6],
+};
+
 const type: InputType = {
   control: {
     type: 'select',
@@ -25,6 +32,7 @@ const text: InputType = {
 };
 
 const argTypes: ArgTypes = {
+  'title-level': titleLevel,
   type,
   text,
 };

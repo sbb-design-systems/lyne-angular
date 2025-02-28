@@ -28,10 +28,18 @@ const href: InputType = {
   },
 };
 
+const connectedSection: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
 const argTypes: ArgTypes = {
   label,
   size,
   href,
+  connectedSection,
 };
 
 const args: Args = {

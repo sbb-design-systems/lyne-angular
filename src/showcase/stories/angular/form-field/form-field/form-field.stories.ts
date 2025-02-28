@@ -2,59 +2,51 @@ import { SbbFormError } from '@sbb-esta/lyne-angular/form-error';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import { InputType, StoryContext } from '@storybook/types';
 
-const inputTemplate = ({ cssClass, ...args }: Record<string, unknown>): string => `
-  <input class=${cssClass} ${argsToTemplate(args)}/>
-`;
-
-const selectTemplate = ({ cssClass, ...args }: Record<string, unknown>): string => `
-  <select class=${cssClass} ${argsToTemplate(args)}>
-    <option value="1">Value 1</option>
-    <option value="2">Value 2</option>
-    <option value="3">Value 3</option>
-  </select>
-`;
-
-const textareaTemplate = ({ cssClass, ...args }: Record<string, unknown>): string => `
-  <textarea class=${cssClass} ${argsToTemplate(args)}></textarea>
-`;
-
-const formFieldTemplate = (
-  { label, cssClass, ...args }: Record<string, unknown>,
-  template: string,
-): string => `
-  <sbb-form-field ${argsToTemplate(args)}>
-    ${label && `<label>${label}</label>`}
-    ${template}
-    <sbb-form-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-form-error>
-  </sbb-form-field>
-`;
-
-const inputStory = ({ placeholder, cssClass, disabled, readonly, value, ...args }: Args): string =>
-  formFieldTemplate(
-    { cssClass, ...args },
-    inputTemplate({ placeholder, cssClass, disabled, readonly, value }),
-  );
-
-const selectStory = ({ placeholder, cssClass, disabled, readonly, value, ...args }: Args): string =>
-  formFieldTemplate(
-    { cssClass, ...args },
-    selectTemplate({ placeholder, cssClass, disabled, readonly, value }),
-  );
-
-const textareaStory = ({
+const inputStory = ({
+  label,
   placeholder,
   cssClass,
   disabled,
   readonly,
   value,
   ...args
-}: Args): string =>
-  formFieldTemplate(
-    { cssClass, ...args },
-    textareaTemplate({ placeholder, cssClass, disabled, readonly, value }),
-  );
+}: Args): string => `
+  <sbb-form-field ${argsToTemplate(args)}>
+    ${label && `<label>${label}</label>`}
+    <input ${cssClass ? `class=${cssClass}` : ''} placeholder="${placeholder}" value="${value}" [disabled]=${disabled} [readonly]=${readonly}/>
+    <sbb-form-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-form-error>
+  </sbb-form-field>
+`;
+
+const selectStory = ({ label, cssClass, disabled, ...args }: Args): string => `
+  <sbb-form-field ${argsToTemplate(args)}>
+    ${label && `<label>${label}</label>`}
+    <select ${cssClass ? `class=${cssClass}` : ''} [disabled]=${disabled}>
+      <option value="1">Value 1</option>
+      <option value="2">Value 2</option>
+      <option value="3">Value 3</option>
+    </select>
+    <sbb-form-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-form-error>
+  </sbb-form-field>
+`;
+
+const textareaStory = ({
+  label,
+  placeholder,
+  cssClass,
+  disabled,
+  readonly,
+  value,
+  ...args
+}: Args): string => `
+  <sbb-form-field ${argsToTemplate(args)}>
+    ${label && `<label>${label}</label>`}
+    <textarea ${cssClass ? `class=${cssClass}` : ''} placeholder="${placeholder}" [disabled]=${disabled} [readonly]=${readonly}>${value || ''}</textarea>
+    <sbb-form-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-form-error>
+  </sbb-form-field>
+`;
 
 const placeholder: InputType = {
   control: {
@@ -108,24 +100,6 @@ const label: InputType = {
   },
 };
 
-const argTypes: ArgTypes = {
-  label,
-  cssClass,
-  placeholder,
-  disabled,
-  readonly,
-  value,
-};
-
-const args: Args = {
-  label: 'Input name',
-  cssClass: null,
-  placeholder: 'Input placeholder',
-  disabled: false,
-  readonly: false,
-  value: 'Input value',
-};
-
 const meta: Meta = {
   decorators: [
     withActions,
@@ -140,18 +114,42 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   },
-  argTypes,
-  args,
 };
 export default meta;
 
 export const Input = {
+  argTypes: {
+    label,
+    cssClass,
+    placeholder,
+    disabled,
+    readonly,
+    value,
+  },
+  args: {
+    label: 'Input name',
+    cssClass: null,
+    placeholder: 'Input placeholder',
+    disabled: false,
+    readonly: false,
+    value: 'Input value',
+  },
   render: (args: Args) => ({
     template: inputStory(args),
   }),
 };
 
 export const Select = {
+  argTypes: {
+    label,
+    cssClass,
+    disabled,
+  },
+  args: {
+    label: 'Input name',
+    cssClass: null,
+    disabled: false,
+  },
   render: (args: Args) => ({
     props: { ...args },
     template: selectStory(args),
@@ -159,6 +157,22 @@ export const Select = {
 };
 
 export const Textarea = {
+  argTypes: {
+    label,
+    cssClass,
+    placeholder,
+    disabled,
+    readonly,
+    value,
+  },
+  args: {
+    label: 'Input name',
+    cssClass: null,
+    placeholder: 'Input placeholder',
+    disabled: false,
+    readonly: false,
+    value: 'Input value',
+  },
   render: (args: Args) => ({
     props: { ...args },
     template: textareaStory(args),

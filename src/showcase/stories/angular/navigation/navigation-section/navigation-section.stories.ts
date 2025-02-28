@@ -5,6 +5,14 @@ import { SbbNavigationMarker } from '@sbb-esta/lyne-angular/navigation/navigatio
 import { SbbNavigationSection } from '@sbb-esta/lyne-angular/navigation/navigation-section';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
+import { InputType } from '@storybook/types';
+
+const trigger: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
 
 const navigationList = (label: string): string => `
   <sbb-navigation-list label=${label}>
@@ -33,6 +41,7 @@ const meta: Meta = {
   parameters: {
     actions: { handles: ['click'] },
   },
+  argTypes: { trigger },
   render: (args: Args) => ({
     props: { ...args },
     template: `

@@ -29,10 +29,17 @@ const argTypes: ArgTypes = {
   'label-position': labelPosition,
 };
 
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const args: Args = {
   size: size.options![1],
   label: 'Label',
   'label-position': labelPosition.options![1],
+  value,
 };
 
 const meta: Meta = {

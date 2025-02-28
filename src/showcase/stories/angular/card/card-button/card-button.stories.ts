@@ -2,11 +2,37 @@ import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
 import { SbbCardButton } from '@sbb-esta/lyne-angular/card/card-button';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes } from '@storybook/types';
+import { ArgTypes, InputType } from '@storybook/types';
 
-const argTypes: ArgTypes = { label: { control: { type: 'text' } } };
+const label: InputType = {
+  control: {
+    type: 'text',
+  },
+};
 
-const args = { label: 'Click this card to follow the action.' };
+const type: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['button', 'reset', 'submit'],
+};
+
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const argTypes: ArgTypes = {
+  label,
+  type,
+  value,
+};
+
+const args = {
+  label: 'Click this card to follow the action.',
+  type: type.options![0],
+};
 
 const meta: Meta = {
   decorators: [

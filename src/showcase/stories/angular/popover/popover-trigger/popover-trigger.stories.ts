@@ -3,7 +3,25 @@ import { SbbPopoverTrigger } from '@sbb-esta/lyne-angular/popover/popover-trigge
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { StoryContext } from '@storybook/types';
+import { ArgTypes, InputType, StoryContext } from '@storybook/types';
+
+const type: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['button', 'reset', 'submit'],
+};
+
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const argTypes: ArgTypes = {
+  type,
+  value,
+};
 
 const args: Args = {
   'aria-label': 'Click to open the popover',
@@ -24,6 +42,7 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   },
+  argTypes,
   args,
   render: (args: Args) => ({
     props: { ...args },

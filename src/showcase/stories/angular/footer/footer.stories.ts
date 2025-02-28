@@ -1,3 +1,4 @@
+import { SbbButtonLink } from '@sbb-esta/lyne-angular/button/button-link';
 import { SbbSecondaryButtonLink } from '@sbb-esta/lyne-angular/button/secondary-button-link';
 import { SbbClock } from '@sbb-esta/lyne-angular/clock';
 import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
@@ -26,7 +27,15 @@ const args: Args = {
 const meta: Meta = {
   decorators: [
     moduleMetadata({
-      imports: [SbbSecondaryButtonLink, SbbBlockLink, SbbClock, SbbDivider, SbbLinkList, SbbTitle],
+      imports: [
+        SbbButtonLink,
+        SbbSecondaryButtonLink,
+        SbbBlockLink,
+        SbbClock,
+        SbbDivider,
+        SbbLinkList,
+        SbbTitle,
+      ],
     }),
   ],
   parameters: {

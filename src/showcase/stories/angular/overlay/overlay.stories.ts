@@ -19,7 +19,7 @@ const meta: Meta = {
   title: 'elements/sbb-overlay',
   component: SbbOverlay,
   argTypes: {
-    openOverlay: { type: 'function', control: false },
+    openOverlay: { type: 'function', control: false, table: { disable: true } },
   },
   args: {
     openOverlay: (e: PointerEvent, id: string) => openOverlay(e, id),
