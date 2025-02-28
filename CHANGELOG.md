@@ -1,5 +1,12 @@
 # Changelog
 
+## [19.0.0-alpha.4](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-alpha.3...v19.0.0-alpha.4) (2025-02-28)
+
+
+### Features
+
+* add storybook ([#19](https://github.com/sbb-design-systems/lyne-angular/issues/19)) ([bc23fbb](https://github.com/sbb-design-systems/lyne-angular/commit/bc23fbba147ec1b1d8a549d87ca113de40af32ef))
+
 ## [19.0.0-alpha.3](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-alpha.2...v19.0.0-alpha.3) (2025-01-21)
 
 
