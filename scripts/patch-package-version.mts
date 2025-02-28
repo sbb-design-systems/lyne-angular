@@ -16,8 +16,15 @@ if (!existsSync(packageJsonPath)) {
   );
 }
 
-const { version } = JSON.parse(
+const { version, dependencies } = JSON.parse(
   readFileSync(fileURLToPath(import.meta.resolve('../package.json')), 'utf8'),
 );
-const content = readFileSync(packageJsonPath, 'utf8');
-writeFileSync(packageJsonPath, content.replaceAll('0.0.0-PLACEHOLDER', version), 'utf8');
+let lyneVersion = dependencies['@sbb-esta/lyne-elements'] as string;
+if (!lyneVersion.startsWith('^')) {
+  lyneVersion = `^${lyneVersion}`;
+}
+
+const content = readFileSync(packageJsonPath, 'utf8')
+  .replaceAll('0.0.0-PLACEHOLDER', version)
+  .replaceAll('0.0.0-LYNE_ELEMENTS', lyneVersion);
+writeFileSync(packageJsonPath, content, 'utf8');
