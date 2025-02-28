@@ -5,21 +5,29 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
-const checkboxes = (
-  checked: boolean,
-  iconName: string,
-  iconPlacement: 'start' | 'end',
-  label: string,
-): string => `
-  <sbb-checkbox value="checkbox-1" checked=${checked} icon-name=${iconName} icon-placement=${iconPlacement}>
-    ${label} 1
-  </sbb-checkbox>
-  <sbb-checkbox value="checkbox-2" icon-name=${iconName} icon-placement=${iconPlacement}>
-    ${label} 2
-  </sbb-checkbox>
-  <sbb-checkbox value="checkbox-3" icon-name=${iconName} icon-placement=${iconPlacement}>
-    ${label} 3
-  </sbb-checkbox>
+const suffixAndSubtext = (): string => `
+  <span slot="subtext">Subtext</span>
+  <span slot="suffix" style="margin-inline-start: auto; display:flex; align-items:center;">
+    <sbb-icon name="diamond-small" style="margin-inline: var(--sbb-spacing-fixed-2x);" data-namespace="default" role="img" aria-hidden="true"></sbb-icon>
+    <span class="${args['size'] ? `sbb-text-${args['size']}` : 'sbb-text-m'} sbb-text--bold">
+      CHF 40.00
+    </span>
+  </span>
+  <sbb-card-badge>%</sbb-card-badge>
+`;
+
+const PanelTemplate = (args: Args): string => `
+  <sbb-checkbox-group ${argsToTemplate(args)}>
+    <sbb-checkbox-panel value="Value one">
+      Value 1 ${suffixAndSubtext()}
+    </sbb-checkbox-panel>
+    <sbb-checkbox-panel value="Value two">
+      Value 2 ${suffixAndSubtext()}
+    </sbb-checkbox-panel>
+    <sbb-checkbox-panel value="Value three">
+      Value 3 ${suffixAndSubtext()}
+    </sbb-checkbox-panel>
+  </sbb-checkbox-group>
 `;
 
 const checked: InputType = {
@@ -115,11 +123,31 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ checked, iconName, iconPlacement, label, ...args }: Args) => ({
-    props: { checked, iconName, iconPlacement, label, ...args },
-    template: `<sbb-checkbox-group ${argsToTemplate(args)}>${checkboxes(checked, iconName, iconPlacement, label)}</sbb-checkbox-group>`,
-  }),
 };
 export default meta;
 
-export const Default = {};
+export const Default = {
+  render: ({ checked, iconName, iconPlacement, label, ...args }: Args) => ({
+    props: { checked, iconName, iconPlacement, label, ...args },
+    template: `
+      <sbb-checkbox-group ${argsToTemplate(args)}>
+        <sbb-checkbox value="checkbox-1" checked=${checked} icon-name=${iconName} icon-placement=${iconPlacement}>
+          ${label} 1
+        </sbb-checkbox>
+        <sbb-checkbox value="checkbox-2" icon-name=${iconName} icon-placement=${iconPlacement}>
+          ${label} 2
+        </sbb-checkbox>
+        <sbb-checkbox value="checkbox-3" icon-name=${iconName} icon-placement=${iconPlacement}>
+          ${label} 3
+        </sbb-checkbox>
+      </sbb-checkbox-group>
+    `,
+  }),
+};
+
+export const Panel = {
+  render: (args: Args) => ({
+    props: { ...args },
+    template: PanelTemplate(args),
+  }),
+};
