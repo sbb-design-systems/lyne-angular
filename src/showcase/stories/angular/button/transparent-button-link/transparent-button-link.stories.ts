@@ -1,0 +1,62 @@
+import { SbbTransparentButtonLink } from '@sbb-esta/lyne-angular/button/transparent-button-link';
+import { withActions } from '@storybook/addon-actions/decorator';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
+import { ArgTypes, InputType, StoryContext } from '@storybook/types';
+
+const text: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['l', 'm', 's'],
+};
+
+const hrefs = ['https://www.sbb.ch', 'https://github.com/sbb-design-systems/lyne-components'];
+const href: InputType = {
+  options: Object.keys(hrefs),
+  mapping: hrefs,
+  control: {
+    type: 'select',
+    labels: {
+      0: 'sbb.ch',
+      1: 'GitHub Lyne Components',
+    },
+  },
+};
+
+const argTypes: ArgTypes = {
+  text,
+  size,
+  href,
+};
+
+const args: Args = {
+  text: 'Button',
+  href: href.options![0],
+  target: '_blank',
+};
+
+const meta: Meta = {
+  decorators: [withActions],
+  title: 'elements/sbb-button/sbb-transparent-button-link',
+  component: SbbTransparentButtonLink,
+  parameters: {
+    actions: { handles: ['click'] },
+    backgroundColor: (context: StoryContext) =>
+      context.args['negative'] ? 'var(--sbb-color-iron)' : 'var(--sbb-color-white)',
+  },
+  argTypes,
+  args,
+  render: ({ text, ...args }: Args) => ({
+    props: { text, ...args },
+    template: `<sbb-transparent-button-link ${argsToTemplate(args)}>${text}</sbb-transparent-button-link>`,
+  }),
+};
+export default meta;
+
+export const Default = {};

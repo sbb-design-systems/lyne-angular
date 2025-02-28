@@ -14,6 +14,14 @@ export class SbbBlockLink extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbBlockLinkElement> = inject(ElementRef<SbbBlockLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
+  @Input({ transform: booleanAttribute })
+  public set negative(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.negative = value));
+  }
+  public get negative(): boolean {
+    return this.#element.nativeElement.negative;
+  }
+
   @Input({ alias: 'icon-placement' })
   public set iconPlacement(value: SbbIconPlacement) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconPlacement = value));

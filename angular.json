@@ -16,83 +16,46 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@storybook/angular:build-storybook",
           "options": {
-            "outputPath": "dist/showcase",
-            "index": "src/showcase/index.html",
-            "browser": "src/showcase/main.ts",
-            "polyfills": ["zone.js"],
-            "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+            "configDir": "src/showcase/.storybook",
+            "browserTarget": "showcase:build",
+            "styles": [
+              "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
+              "src/showcase/stories/styles/layout/layout.scss",
+              "src/showcase/stories/styles/scrollbar/scrollbar-internal.scss",
+              "src/showcase/stories/styles/typography/typo-internal.scss",
+              "src/showcase/stories/pages/home/home.scss",
+              "src/showcase/stories/pages/lean/lean.scss"
             ],
-            "styles": ["src/showcase/styles.scss"],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "showcase:build:production"
-            },
-            "development": {
-              "buildTarget": "showcase:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:web-test-runner",
-          "options": {
-            "tsConfig": "tsconfig.spec.json",
-            "include": ["src/showcase/**/*.spec.ts", "src/showcase/**/*.d.ts"],
-            "polyfills": ["zone.js", "zone.js/testing"],
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
-            ],
-            "styles": ["src/showcase/styles.scss"],
-            "scripts": []
+            "compodoc": true,
+            "compodocArgs": ["-e", "json", "-d", "src/showcase/.storybook", "--disablePrivate"],
+            "outputDir": "dist/storybook/showcase"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/showcase/**/*.ts", "src/showcase/**/*.html"]
+            "lintFilePatterns": ["src/showcase/**/*.ts", "src/showcase/**/*.html"],
+            "eslintConfig": "src/showcase/eslint.config.mjs"
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": "src/showcase/.storybook",
+            "browserTarget": "showcase:build",
+            "styles": [
+              "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
+              "src/showcase/stories/styles/layout/layout.scss",
+              "src/showcase/stories/styles/scrollbar/scrollbar-internal.scss",
+              "src/showcase/stories/styles/typography/typo-internal.scss",
+              "src/showcase/stories/pages/home/home.scss",
+              "src/showcase/stories/pages/lean/lean.scss"
+            ],
+            "compodoc": true,
+            "compodocArgs": ["-e", "json", "-d", "src/showcase/.storybook", "--disablePrivate"],
+            "port": 6006
           }
         }
       }
