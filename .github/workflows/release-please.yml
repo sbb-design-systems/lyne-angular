@@ -95,3 +95,4 @@ jobs:
           docker image list
         env:
           DOCKER_BUILDKIT: 1
+          VERSION: ${{ steps.release.outputs.version }}
