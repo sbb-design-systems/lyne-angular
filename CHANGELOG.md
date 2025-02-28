@@ -1,5 +1,12 @@
 # Changelog
 
+## [19.0.0-beta.0](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-alpha.5...v19.0.0-beta.0) (2025-02-28)
+
+
+### Miscellaneous Chores
+
+* set next release version ([841861d](https://github.com/sbb-design-systems/lyne-angular/commit/841861d5c0d12ba865faa6de2d24a6cb0d4ad692))
+
 ## [19.0.0-alpha.5](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-alpha.4...v19.0.0-alpha.5) (2025-02-28)
 
 
