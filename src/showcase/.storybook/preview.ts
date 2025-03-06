@@ -99,6 +99,10 @@ const preview: Preview = {
         headingSelector: 'h2',
       },
       source: { format: 'html' },
+      description: {
+        component:
+          'For documentation and API, check the Lyne Elements Storybook on https://lyne-storybook.app.sbb.ch.',
+      },
     },
     viewport: { viewports: storybookViewports },
     backgrounds: { disable: true },

@@ -3,7 +3,7 @@
 > Lyne Components are the building blocks of the Lyne Design System
 > and are based on standard compliant Web Components
 > created using [Lit](https://lit.dev/) and
-> browsable through [Storybook](https://lyne-storybook.app.sbb.ch/)
+> browsable through [Storybook](https://lyne-storybook.app.sbb.ch/) respectively [Lyne Angular Storybook](https://lyne-angular-storybook.app.sbb.ch/)
 
 This is the repository for the Angular wrapper for the Lyne Web Components at
 [sbb-design-systems/lyne-components](https://github.com/sbb-design-systems/lyne-components).
@@ -11,7 +11,8 @@ This is the repository for the Angular wrapper for the Lyne Web Components at
 ## 📚 Documentation
 
 - General docs: [digital.sbb.ch](https://digital.sbb.ch)
-- Component docs: [Storybook](https://lyne-storybook.app.sbb.ch)
+- Lyne Component docs: [Storybook](https://lyne-storybook.app.sbb.ch)
+- Lyne Angular docs: [Storybook](https://lyne-angular-storybook.app.sbb.ch)
 
 ## 🔗 Packages
 
