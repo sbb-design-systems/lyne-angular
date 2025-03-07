@@ -10,7 +10,7 @@ import '@sbb-esta/lyne-elements/select.js';
   selector: 'sbb-select',
   exportAs: 'sbbSelect',
   host: {
-    '(change)': 'this.onChangeFn(this.checked)',
+    '(change)': 'this.onChangeFn(this.value)',
     '(blur)': 'this.onTouchedFn()',
     '(didClose)': 'this.onTouchedFn()',
   },
