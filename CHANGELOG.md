@@ -1,5 +1,27 @@
 # Changelog
 
+## [19.0.0-beta.1](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-beta.0...v19.0.0-beta.1) (2025-03-10)
+
+
+### Features
+
+* **sbb-toggle:** add ControlValueAccessor implementation ([#32](https://github.com/sbb-design-systems/lyne-angular/issues/32)) ([5a88cf8](https://github.com/sbb-design-systems/lyne-angular/commit/5a88cf8ac3820edee0f6531f1cccd46da3db31de))
+
+
+### Bug Fixes
+
+* **sbb-select:** correctly update state on change ([#30](https://github.com/sbb-design-systems/lyne-angular/issues/30)) ([007dc61](https://github.com/sbb-design-systems/lyne-angular/commit/007dc61df94c6b15f269284d6596396620499237))
+
+
+### Documentation
+
+* improve documentation ([#28](https://github.com/sbb-design-systems/lyne-angular/issues/28)) ([a73a7e0](https://github.com/sbb-design-systems/lyne-angular/commit/a73a7e089494cdc0db10fd9dbf9e54f1c3af9c48))
+
+
+### Code Refactoring
+
+* move ControlValueAccessor implementation to radio button group ([#31](https://github.com/sbb-design-systems/lyne-angular/issues/31)) ([a62747d](https://github.com/sbb-design-systems/lyne-angular/commit/a62747d7bc5d3902a80b182d02ffdf9de513dfe2))
+
 ## [19.0.0-beta.0](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-alpha.5...v19.0.0-beta.0) (2025-02-28)
 
 
