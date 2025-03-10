@@ -1,17 +1,33 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-group.js';
-import { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-panel.js';
-import { SbbRadioButtonElement } from '@sbb-esta/lyne-elements/radio-button/radio-button.js';
-import { SbbRadioButtonSize } from '@sbb-esta/lyne-elements/radio-button.js';
+import type {
+  SbbRadioButtonElement,
+  SbbRadioButtonPanelElement,
+  SbbRadioButtonSize,
+} from '@sbb-esta/lyne-elements/radio-button.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/radio-button/radio-button-group.js';
 
 @Directive({
   selector: 'sbb-radio-button-group',
+  exportAs: 'sbbRadioButtonGroup',
+  host: {
+    '(change)': 'this.onChangeFn(this.value)',
+    '(focusout)': 'this.onTouchedFn()',
+  },
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbRadioButtonGroup),
+      multi: true,
+    },
+  ],
 })
-export class SbbRadioButtonGroup {
+export class SbbRadioButtonGroup extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbRadioButtonGroupElement> = inject(ElementRef<SbbRadioButtonGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 
