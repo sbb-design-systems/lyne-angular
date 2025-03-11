@@ -1,5 +1,12 @@
 # Changelog
 
+## [19.0.0-beta.2](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-beta.1...v19.0.0-beta.2) (2025-03-11)
+
+
+### Features
+
+* upgrade lyne-elements to 2.4.1 ([#33](https://github.com/sbb-design-systems/lyne-angular/issues/33)) ([093e203](https://github.com/sbb-design-systems/lyne-angular/commit/093e20354204931859948f1ca29e5b270a57236a))
+
 ## [19.0.0-beta.1](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-beta.0...v19.0.0-beta.1) (2025-03-10)
 
 
