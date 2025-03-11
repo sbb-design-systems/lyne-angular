@@ -135,6 +135,7 @@ export const Input = {
     value: 'Input value',
   },
   render: (args: Args) => ({
+    props: { ...args },
     template: inputStory(args),
   }),
 };
