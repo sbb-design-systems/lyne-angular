@@ -69,6 +69,14 @@ export class SbbCalendar<T = Date> {
     return this.#element.nativeElement.dateFilter;
   }
 
+  @Input()
+  public set orientation(value: 'horizontal' | 'vertical') {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.orientation = value));
+  }
+  public get orientation(): 'horizontal' | 'vertical' {
+    return this.#element.nativeElement.orientation;
+  }
+
   @Output() public dateSelected: Observable<T> = fromEvent<T>(
     this.#element.nativeElement,
     'dateSelected',

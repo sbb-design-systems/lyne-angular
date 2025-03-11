@@ -21,6 +21,13 @@ const max: InputType = {
   },
 };
 
+const orientation: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['horizontal', 'vertical'],
+};
+
 const now: InputType = {
   control: {
     type: 'date',
@@ -54,6 +61,7 @@ const argTypes: ArgTypes = {
   min,
   max,
   dateFilter,
+  orientation,
   'date-filter': { table: { disable: true } },
   now,
 };
