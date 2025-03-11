@@ -1,13 +1,26 @@
-import { Directive, ElementRef, Input, NgZone, Output, inject } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, Input, NgZone, Output, inject, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
 import { fromEvent, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/date-input.js';
 
 @Directive({
   selector: 'sbb-date-input',
+  exportAs: 'sbbDateInput',
+  host: {
+    '(change)': 'this.onChangeFn(this.value)',
+    '(blur)': 'this.onTouchedFn()',
+  },
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbDateInput),
+      multi: true,
+    },
+  ],
 })
-export class SbbDateInput<T = Date> {
+export class SbbDateInput<T = Date> extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbDateInputElement<T>> = inject(ElementRef<SbbDateInputElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
