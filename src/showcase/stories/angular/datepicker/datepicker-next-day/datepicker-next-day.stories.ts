@@ -1,3 +1,4 @@
+import { SbbDateInput } from '@sbb-esta/lyne-angular/date-input';
 import { SbbDatepicker } from '@sbb-esta/lyne-angular/datepicker/datepicker';
 import { SbbDatepickerNextDay } from '@sbb-esta/lyne-angular/datepicker/datepicker-next-day';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
@@ -31,7 +32,7 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [SbbFormField, SbbDatepicker],
+      imports: [SbbFormField, SbbDatepicker, SbbDateInput],
     }),
   ],
   title: 'elements/sbb-datepicker/sbb-datepicker-next-day',
@@ -47,7 +48,7 @@ const meta: Meta = {
     props: { ...args },
     template: `
       <sbb-form-field [negative]=${args['negative']}>
-        <input value="15.02.2023" />
+        <sbb-date-input value="2023-02-15"></sbb-date-input>
         <sbb-datepicker></sbb-datepicker>
         <sbb-datepicker-next-day ${argsToTemplate(args)}></sbb-datepicker-next-day>
       </sbb-form-field>
