@@ -1,28 +1,25 @@
 import { Directive, ElementRef, Input, NgZone, Output, inject, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import { readConfig } from '@sbb-esta/lyne-elements/core/config.js';
+import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
 import { fromEvent, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/date-input.js';
 
 @Directive({
   selector: 'sbb-date-input',
   exportAs: 'sbbDateInput',
-  host: {
-    '(change)': 'this.onChangeFn(this.value)',
-    '(blur)': 'this.onTouchedFn()',
-  },
+  host: { '(change)': 'this.onChangeFn(this.valueAsDate)', '(blur)': 'this.onTouchedFn()' },
   providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbDateInput),
-      multi: true,
-    },
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SbbDateInput), multi: true },
   ],
 })
 export class SbbDateInput<T = Date> extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbDateInputElement<T>> = inject(ElementRef<SbbDateInputElement<T>>);
   #ngZone: NgZone = inject(NgZone);
+  #dateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
 
   @Input()
   public set value(value: string) {
@@ -142,6 +139,18 @@ export class SbbDateInput<T = Date> extends SbbControlValueAccessorMixin(class {
 
   public get willValidate(): boolean {
     return this.#element.nativeElement.willValidate;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  override writeValue(value: any): void {
+    if (this.#dateAdapter.isDateInstance(value) && this.#dateAdapter.isValid(value)) {
+      this.valueAsDate = value;
+    } else {
+      this.valueAsDate = this.#dateAdapter.parse(value);
+      if (!this.valueAsDate) {
+        this.value = value;
+      }
+    }
   }
 
   public focus(options: FocusOptions): void {
