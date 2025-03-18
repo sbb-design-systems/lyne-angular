@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { Breakpoint } from '@sbb-esta/lyne-elements/core/dom.js';
 import type { SbbDialogTitleElement } from '@sbb-esta/lyne-elements/dialog/dialog-title.js';
@@ -81,7 +81,7 @@ export class SbbDialogTitle {
     return this.#element.nativeElement.visuallyHidden;
   }
 
-  @Output() public requestBackAction: Observable<void> = fromEvent<void>(
+  public requestBackAction: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'requestBackAction',
   );

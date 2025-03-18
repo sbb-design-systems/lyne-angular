@@ -1,12 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  inject,
-  Input,
-  NgZone,
-  numberAttribute,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover.js';
 import { fromEvent, type Observable } from 'rxjs';
@@ -69,21 +61,15 @@ export class SbbPopover {
     return this.#element.nativeElement.accessibilityCloseLabel;
   }
 
-  @Output() public willOpen: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'willOpen',
-  );
+  public willOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willOpen');
 
-  @Output() public didOpen: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didOpen',
-  );
+  public didOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didOpen');
 
-  @Output() public willClose: Observable<{ closeTarget: HTMLElement }> = fromEvent<{
+  public willClose: Observable<{ closeTarget: HTMLElement }> = fromEvent<{
     closeTarget: HTMLElement;
   }>(this.#element.nativeElement, 'willClose');
 
-  @Output() public didClose: Observable<{ closeTarget: HTMLElement }> = fromEvent<{
+  public didClose: Observable<{ closeTarget: HTMLElement }> = fromEvent<{
     closeTarget: HTMLElement;
   }>(this.#element.nativeElement, 'didClose');
 

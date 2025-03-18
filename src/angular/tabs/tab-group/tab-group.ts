@@ -1,12 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  inject,
-  Input,
-  NgZone,
-  numberAttribute,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
 import type {
   InterfaceSbbTabGroupTab,
   SbbTabChangedEventDetails,
@@ -40,8 +32,10 @@ export class SbbTabGroup {
     return this.#element.nativeElement.initialSelectedIndex;
   }
 
-  @Output() public didChange: Observable<SbbTabChangedEventDetails> =
-    fromEvent<SbbTabChangedEventDetails>(this.#element.nativeElement, 'didChange');
+  public didChange: Observable<SbbTabChangedEventDetails> = fromEvent<SbbTabChangedEventDetails>(
+    this.#element.nativeElement,
+    'didChange',
+  );
 
   public disableTab(tabIndex: number): void {
     return this.#element.nativeElement.disableTab(tabIndex);

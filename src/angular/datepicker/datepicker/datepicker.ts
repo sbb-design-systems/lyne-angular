@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbValidationChangeEvent } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
@@ -57,29 +57,21 @@ export class SbbDatepicker<T = Date> {
     return this.#element.nativeElement.valueAsDate;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public change: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'change',
-  );
+  public change: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'change');
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
-  @Output('input') public inputEvent: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'input',
-  );
+  public inputEvent: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
 
-  @Output() public inputUpdated: Observable<SbbInputUpdateEvent> = fromEvent<SbbInputUpdateEvent>(
+  public inputUpdated: Observable<SbbInputUpdateEvent> = fromEvent<SbbInputUpdateEvent>(
     this.#element.nativeElement,
     'inputUpdated',
   );
 
-  @Output() public datePickerUpdated: Observable<void> = fromEvent<void>(
+  public datePickerUpdated: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'datePickerUpdated',
   );
 
-  @Output() public validationChange: Observable<SbbValidationChangeEvent> =
+  public validationChange: Observable<SbbValidationChangeEvent> =
     fromEvent<SbbValidationChangeEvent>(this.#element.nativeElement, 'validationChange');
 
   public get inputElement(): HTMLInputElement | SbbDateInputElement<T> | null {
