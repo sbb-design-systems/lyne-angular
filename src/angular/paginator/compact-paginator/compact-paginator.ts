@@ -1,12 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  inject,
-  Input,
-  NgZone,
-  numberAttribute,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbCompactPaginatorElement } from '@sbb-esta/lyne-elements/paginator/compact-paginator.js';
@@ -76,6 +68,8 @@ export class SbbCompactPaginator {
     return this.#element.nativeElement.disabled;
   }
 
-  @Output() public page: Observable<SbbPaginatorPageEventDetails> =
-    fromEvent<SbbPaginatorPageEventDetails>(this.#element.nativeElement, 'page');
+  public page: Observable<SbbPaginatorPageEventDetails> = fromEvent<SbbPaginatorPageEventDetails>(
+    this.#element.nativeElement,
+    'page',
+  );
 }

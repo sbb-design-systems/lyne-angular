@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
@@ -70,7 +70,7 @@ export class SbbExpansionPanelHeader {
     return this.#element.nativeElement.type;
   }
 
-  @Output() public toggleExpanded: Observable<void> = fromEvent<void>(
+  public toggleExpanded: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'toggleExpanded',
   );

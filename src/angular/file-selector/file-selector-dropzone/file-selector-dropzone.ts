@@ -1,4 +1,4 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbFileSelectorDropzoneElement } from '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
@@ -107,22 +107,14 @@ export class SbbFileSelectorDropzone extends SbbControlValueAccessorMixin(class 
     return this.#element.nativeElement.name;
   }
 
-  @Output() public fileChanged: Observable<readonly File[]> = fromEvent<readonly File[]>(
+  public fileChanged: Observable<readonly File[]> = fromEvent<readonly File[]>(
     this.#element.nativeElement,
     'fileChanged',
   );
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public change: Observable<Event> = fromEvent<Event>(
-    this.#element.nativeElement,
-    'change',
-  );
+  public change: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'change');
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public input: Observable<Event> = fromEvent<Event>(
-    this.#element.nativeElement,
-    'input',
-  );
+  public input: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'input');
 
   public get type(): string {
     return this.#element.nativeElement.type;

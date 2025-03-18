@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, NgZone, Output, inject, forwardRef } from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, inject, forwardRef } from '@angular/core';
 import {
   AbstractControl,
   NG_VALIDATORS,
@@ -128,17 +128,12 @@ export class SbbDateInput<T = Date>
     return this.#element.nativeElement.name;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public input: Observable<InputEvent> = fromEvent<InputEvent>(
+  public input: Observable<InputEvent> = fromEvent<InputEvent>(
     this.#element.nativeElement,
     'input',
   );
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public change: Observable<Event> = fromEvent<Event>(
-    this.#element.nativeElement,
-    'change',
-  );
+  public change: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'change');
 
   public get type(): string {
     return this.#element.nativeElement.type;

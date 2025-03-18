@@ -7,7 +7,6 @@ import {
   inject,
   Input,
   NgZone,
-  Output,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
@@ -110,14 +109,9 @@ export class SbbCheckbox extends SbbControlValueAccessorMixin(class {}) implemen
     return this.#element.nativeElement.iconName;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public change: Observable<Event> = fromEvent<Event>(
-    this.#element.nativeElement,
-    'change',
-  );
+  public change: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'change');
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public input: Observable<InputEvent> = fromEvent<InputEvent>(
+  public input: Observable<InputEvent> = fromEvent<InputEvent>(
     this.#element.nativeElement,
     'input',
   );

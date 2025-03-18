@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
@@ -93,19 +93,11 @@ export class SbbTag {
     return this.#element.nativeElement.type;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public input: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
+  public input: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
 
-  @Output() public didChange: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didChange',
-  );
+  public didChange: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didChange');
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public change: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'change',
-  );
+  public change: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'change');
 
   public get validity(): ValidityState {
     return this.#element.nativeElement.validity;

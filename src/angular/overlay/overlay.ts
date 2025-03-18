@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbOverlayCloseEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay.js';
@@ -64,25 +64,18 @@ export class SbbOverlay {
     return this.#element.nativeElement.accessibilityLabel;
   }
 
-  @Output() public willOpen: Observable<void> = fromEvent<void>(
+  public willOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willOpen');
+
+  public didOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didOpen');
+
+  public willClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willClose');
+
+  public didClose: Observable<SbbOverlayCloseEventDetails> = fromEvent<SbbOverlayCloseEventDetails>(
     this.#element.nativeElement,
-    'willOpen',
+    'didClose',
   );
 
-  @Output() public didOpen: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didOpen',
-  );
-
-  @Output() public willClose: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'willClose',
-  );
-
-  @Output() public didClose: Observable<SbbOverlayCloseEventDetails> =
-    fromEvent<SbbOverlayCloseEventDetails>(this.#element.nativeElement, 'didClose');
-
-  @Output() public requestBackAction: Observable<void> = fromEvent<void>(
+  public requestBackAction: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'requestBackAction',
   );

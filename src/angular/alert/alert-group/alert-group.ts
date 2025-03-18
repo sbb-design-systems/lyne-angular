@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbAlertGroupElement } from '@sbb-esta/lyne-elements/alert/alert-group.js';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, type Observable } from 'rxjs';
@@ -38,5 +38,5 @@ export class SbbAlertGroup {
     return this.#element.nativeElement.accessibilityTitleLevel;
   }
 
-  @Output() public empty: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'empty');
+  public empty: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'empty');
 }

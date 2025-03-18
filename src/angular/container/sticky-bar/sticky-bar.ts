@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbStickyBarElement } from '@sbb-esta/lyne-elements/container/sticky-bar.js';
 import { fromEvent, type Observable } from 'rxjs';
 
@@ -19,25 +19,16 @@ export class SbbStickyBar {
     return this.#element.nativeElement.color;
   }
 
-  @Output() public willStick: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'willStick',
-  );
+  public willStick: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willStick');
 
-  @Output() public didStick: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didStick',
-  );
+  public didStick: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didStick');
 
-  @Output() public willUnstick: Observable<void> = fromEvent<void>(
+  public willUnstick: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'willUnstick',
   );
 
-  @Output() public didUnstick: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didUnstick',
-  );
+  public didUnstick: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didUnstick');
 
   public stick(): void {
     return this.#element.nativeElement.stick();

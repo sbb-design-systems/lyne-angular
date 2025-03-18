@@ -14,9 +14,6 @@ import type {
   Package,
 } from 'custom-elements-manifest';
 
-// A list of native DOM events used in @lyne-elements that need an alias.
-const NATIVE_EVENTS_NAME: string[] = ['change', 'input', 'error', 'load'];
-
 // Converts camelCase to kebab-case
 function toKebabCase(str: string): string {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
@@ -178,7 +175,6 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           expectedAngularImports.add('Input').add('NgZone');
         }
         if (publicEvents.length) {
-          expectedAngularImports.add('Output');
           expectedRxJsImports.add('fromEvent').add('type Observable');
         }
 
@@ -303,8 +299,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             classDeclaration.body.body.every(
               (n) =>
                 n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                context.sourceCode.getText(n.key) !== memberNameVariable ||
-                !context.sourceCode.getText(n).includes('@Output('),
+                context.sourceCode.getText(n.key) !== memberNameVariable,
             )
           ) {
             context.report({
@@ -314,19 +309,10 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               fix: (fixer) => {
                 const endOfBody = classDeclaration.body.range[1] - 1;
                 const type = member.type?.text.replace(/CustomEvent<([^>]+)>/g, '$1') ?? 'void';
-                let eslintDisableRule = '';
-                if (NATIVE_EVENTS_NAME.includes(member.name)) {
-                  if (hasPropWithSameName) {
-                    eslintDisableRule = `// eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native\n  `;
-                  } else {
-                    eslintDisableRule =
-                      '// eslint-disable-next-line @angular-eslint/no-output-native\n  ';
-                  }
-                }
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
-  ${eslintDisableRule}@Output(${hasPropWithSameName ? `'${member.name}'` : ''}) public ${memberNameVariable}: Observable<${type}> = fromEvent<${type}>(this.#element.nativeElement, '${member.name}');\n`,
+  public ${memberNameVariable}: Observable<${type}> = fromEvent<${type}>(this.#element.nativeElement, '${member.name}');\n`,
                 );
               },
             });

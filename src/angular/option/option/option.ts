@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option/option.js';
 import { fromEvent, type Observable } from 'rxjs';
@@ -43,12 +43,12 @@ export class SbbOption {
     return this.#element.nativeElement.selected;
   }
 
-  @Output() public optionSelectionChange: Observable<void> = fromEvent<void>(
+  public optionSelectionChange: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'optionSelectionChange',
   );
 
-  @Output() public optionSelected: Observable<void> = fromEvent<void>(
+  public optionSelected: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'optionSelected',
   );

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSliderElement } from '@sbb-esta/lyne-elements/slider.js';
@@ -97,10 +97,7 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.name;
   }
 
-  @Output() public didChange: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didChange',
-  );
+  public didChange: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didChange');
 
   public get type(): string {
     return this.#element.nativeElement.type;
