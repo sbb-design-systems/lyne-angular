@@ -7,6 +7,7 @@ import {
   inject,
   Input,
   NgZone,
+  Output,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
@@ -14,7 +15,7 @@ import { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkb
 import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkbox.js';
 import { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
 import { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
 
@@ -109,8 +110,12 @@ export class SbbCheckbox extends SbbControlValueAccessorMixin(class {}) implemen
     return this.#element.nativeElement.iconName;
   }
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  @Output('change') protected _change: (typeof this)['change'] = NEVER;
   public change: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'change');
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  @Output('input') protected _input: (typeof this)['input'] = NEVER;
   public input: Observable<InputEvent> = fromEvent<InputEvent>(
     this.#element.nativeElement,
     'input',

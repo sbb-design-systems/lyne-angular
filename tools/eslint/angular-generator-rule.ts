@@ -14,6 +14,9 @@ import type {
   Package,
 } from 'custom-elements-manifest';
 
+// A list of native DOM events used in @lyne-elements that need an alias.
+const NATIVE_EVENTS_NAME: string[] = ['change', 'input', 'error', 'load'];
+
 // Converts camelCase to kebab-case
 function toKebabCase(str: string): string {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
@@ -175,7 +178,8 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           expectedAngularImports.add('Input').add('NgZone');
         }
         if (publicEvents.length) {
-          expectedRxJsImports.add('fromEvent').add('type Observable');
+          expectedAngularImports.add('Output');
+          expectedRxJsImports.add('fromEvent').add('NEVER').add('type Observable');
         }
 
         // Add the private variables for the native element and the ngZone
@@ -295,6 +299,35 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         for (const member of publicEvents) {
           const hasPropWithSameName = publicProperties.find((prop) => prop.name === member.name);
           const memberNameVariable = hasPropWithSameName ? `${member.name}Event` : member.name;
+          const type = member.type?.text.replace(/CustomEvent<([^>]+)>/g, '$1') ?? 'void';
+          if (
+            classDeclaration.body.body.every(
+              (n) =>
+                n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                context.sourceCode.getText(n.key) !== `_${member.name}` ||
+                !context.sourceCode.getText(n).includes(`@Output('${member.name}')`),
+            )
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularMissingOutput',
+              data: { property: member.name },
+              fix: (fixer) => {
+                const endOfBody = classDeclaration.body.range[1] - 1;
+                let eslintDisableRule =
+                  '// eslint-disable-next-line @angular-eslint/no-output-rename';
+                if (NATIVE_EVENTS_NAME.includes(member.name)) {
+                  eslintDisableRule += `, @angular-eslint/no-output-native`;
+                }
+                return fixer.insertTextBeforeRange(
+                  [endOfBody, endOfBody],
+                  `
+  ${eslintDisableRule}
+  @Output('${member.name}') protected _${member.name}: (typeof this)['${memberNameVariable}'] = NEVER;`,
+                );
+              },
+            });
+          }
           if (
             classDeclaration.body.body.every(
               (n) =>
@@ -308,7 +341,6 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               data: { property: member.name },
               fix: (fixer) => {
                 const endOfBody = classDeclaration.body.range[1] - 1;
-                const type = member.type?.text.replace(/CustomEvent<([^>]+)>/g, '$1') ?? 'void';
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `

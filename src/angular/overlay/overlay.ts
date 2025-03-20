@@ -1,8 +1,8 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbOverlayCloseEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/overlay.js';
 
 @Directive({
@@ -64,17 +64,28 @@ export class SbbOverlay {
     return this.#element.nativeElement.accessibilityLabel;
   }
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;
   public willOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willOpen');
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('didOpen') protected _didOpen: (typeof this)['didOpen'] = NEVER;
   public didOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didOpen');
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('willClose') protected _willClose: (typeof this)['willClose'] = NEVER;
   public willClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willClose');
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('didClose') protected _didClose: (typeof this)['didClose'] = NEVER;
   public didClose: Observable<SbbOverlayCloseEventDetails> = fromEvent<SbbOverlayCloseEventDetails>(
     this.#element.nativeElement,
     'didClose',
   );
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('requestBackAction') protected _requestBackAction: (typeof this)['requestBackAction'] =
+    NEVER;
   public requestBackAction: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'requestBackAction',

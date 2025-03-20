@@ -1,8 +1,8 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAlertElement } from '@sbb-esta/lyne-elements/alert/alert.js';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/alert/alert.js';
 
 @Directive({
@@ -60,12 +60,20 @@ export class SbbAlert {
     return this.#element.nativeElement.animation;
   }
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;
   public willOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willOpen');
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('didOpen') protected _didOpen: (typeof this)['didOpen'] = NEVER;
   public didOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didOpen');
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('willClose') protected _willClose: (typeof this)['willClose'] = NEVER;
   public willClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willClose');
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('didClose') protected _didClose: (typeof this)['didClose'] = NEVER;
   public didClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didClose');
 
   public get isOpen(): boolean {

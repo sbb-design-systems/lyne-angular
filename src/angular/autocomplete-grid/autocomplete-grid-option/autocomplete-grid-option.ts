@@ -1,7 +1,7 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAutocompleteGridOptionElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-option.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-option.js';
 
@@ -46,11 +46,18 @@ export class SbbAutocompleteGridOption {
     return this.#element.nativeElement.selected;
   }
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('autocompleteOptionSelectionChange')
+  protected _autocompleteOptionSelectionChange: (typeof this)['autocompleteOptionSelectionChange'] =
+    NEVER;
   public autocompleteOptionSelectionChange: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'autocompleteOptionSelectionChange',
   );
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('autocompleteOptionSelected')
+  protected _autocompleteOptionSelected: (typeof this)['autocompleteOptionSelected'] = NEVER;
   public autocompleteOptionSelected: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'autocompleteOptionSelected',

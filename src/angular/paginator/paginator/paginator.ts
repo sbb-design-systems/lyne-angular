@@ -1,8 +1,16 @@
-import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  inject,
+  Input,
+  NgZone,
+  numberAttribute,
+  Output,
+} from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbPaginatorElement } from '@sbb-esta/lyne-elements/paginator/paginator.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/paginator/paginator.js';
 
 @Directive({
@@ -76,6 +84,8 @@ export class SbbPaginator {
     return this.#element.nativeElement.disabled;
   }
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('page') protected _page: (typeof this)['page'] = NEVER;
   public page: Observable<SbbPaginatorPageEventDetails> = fromEvent<SbbPaginatorPageEventDetails>(
     this.#element.nativeElement,
     'page',
