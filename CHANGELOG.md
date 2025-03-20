@@ -1,5 +1,21 @@
 # Changelog
 
+## [19.0.0-beta.2](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-beta.1...v19.0.0-beta.2) (2025-03-20)
+
+
+### Features
+
+* **sbb-date-input:** add Angular Forms validation ([#39](https://github.com/sbb-design-systems/lyne-angular/issues/39)) ([8e5f849](https://github.com/sbb-design-systems/lyne-angular/commit/8e5f84944c60c3d31168890524ad2c363279e570))
+* upgrade lyne-elements to 2.4.1 ([#33](https://github.com/sbb-design-systems/lyne-angular/issues/33)) ([093e203](https://github.com/sbb-design-systems/lyne-angular/commit/093e20354204931859948f1ca29e5b270a57236a))
+
+
+### Bug Fixes
+
+* duplicate events ([#42](https://github.com/sbb-design-systems/lyne-angular/issues/42)) ([d86f67e](https://github.com/sbb-design-systems/lyne-angular/commit/d86f67ed90a3bd251c1fe4e0994772d38640295b))
+* remove output annotation to avoid duplicate events ([#40](https://github.com/sbb-design-systems/lyne-angular/issues/40)) ([d5bf664](https://github.com/sbb-design-systems/lyne-angular/commit/d5bf66489bc2fd65f75a1a5db4e6d684fc457401))
+* replace input with sbb-date-input in stories ([#37](https://github.com/sbb-design-systems/lyne-angular/issues/37)) ([a00d19f](https://github.com/sbb-design-systems/lyne-angular/commit/a00d19fde175af15de256a30832755ec280154fe))
+* **sbb-date-input:** handle value state correctly ([#38](https://github.com/sbb-design-systems/lyne-angular/issues/38)) ([f074e65](https://github.com/sbb-design-systems/lyne-angular/commit/f074e65ba228a8417305d7c9950c7a85ba8500a8))
+
 ## [19.0.0-beta.1](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-beta.0...v19.0.0-beta.1) (2025-03-10)
 
 
