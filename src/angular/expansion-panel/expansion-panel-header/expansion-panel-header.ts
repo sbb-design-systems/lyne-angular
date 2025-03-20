@@ -1,8 +1,8 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
 
 @Directive({
@@ -70,6 +70,8 @@ export class SbbExpansionPanelHeader {
     return this.#element.nativeElement.type;
   }
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('toggleExpanded') protected _toggleExpanded: (typeof this)['toggleExpanded'] = NEVER;
   public toggleExpanded: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'toggleExpanded',

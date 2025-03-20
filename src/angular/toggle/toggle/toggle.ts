@@ -1,9 +1,9 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle/toggle-option.js';
 import type { SbbToggleElement } from '@sbb-esta/lyne-elements/toggle/toggle.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/toggle/toggle.js';
 
@@ -58,6 +58,8 @@ export class SbbToggle extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.value;
   }
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  @Output('change') protected _change: (typeof this)['change'] = NEVER;
   public change: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'change');
 
   public get options(): SbbToggleOptionElement[] {

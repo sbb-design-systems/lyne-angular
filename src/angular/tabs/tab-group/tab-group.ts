@@ -1,10 +1,18 @@
-import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  inject,
+  Input,
+  NgZone,
+  numberAttribute,
+  Output,
+} from '@angular/core';
 import type {
   InterfaceSbbTabGroupTab,
   SbbTabChangedEventDetails,
   SbbTabGroupElement,
 } from '@sbb-esta/lyne-elements/tabs/tab-group.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/tabs/tab-group.js';
 
 @Directive({
@@ -32,6 +40,8 @@ export class SbbTabGroup {
     return this.#element.nativeElement.initialSelectedIndex;
   }
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
   public didChange: Observable<SbbTabChangedEventDetails> = fromEvent<SbbTabChangedEventDetails>(
     this.#element.nativeElement,
     'didChange',

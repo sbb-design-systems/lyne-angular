@@ -1,10 +1,10 @@
-import { Directive, ElementRef, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Output } from '@angular/core';
 import { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
 import type {
   SbbStepElement,
   SbbStepValidateEventDetails,
 } from '@sbb-esta/lyne-elements/stepper/step.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/stepper/step.js';
 
 @Directive({
@@ -13,6 +13,8 @@ import '@sbb-esta/lyne-elements/stepper/step.js';
 export class SbbStep {
   #element: ElementRef<SbbStepElement> = inject(ElementRef<SbbStepElement>);
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('validate') protected _validate: (typeof this)['validate'] = NEVER;
   public validate: Observable<SbbStepValidateEventDetails> = fromEvent<SbbStepValidateEventDetails>(
     this.#element.nativeElement,
     'validate',

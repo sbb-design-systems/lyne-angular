@@ -1,8 +1,8 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSliderElement } from '@sbb-esta/lyne-elements/slider.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/slider.js';
 
@@ -97,6 +97,8 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.name;
   }
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
   public didChange: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didChange');
 
   public get type(): string {

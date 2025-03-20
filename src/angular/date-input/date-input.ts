@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, NgZone, inject, forwardRef } from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, inject, forwardRef, Output } from '@angular/core';
 import {
   AbstractControl,
   NG_VALIDATORS,
@@ -12,7 +12,7 @@ import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-a
 import { readConfig } from '@sbb-esta/lyne-elements/core/config.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/date-input.js';
 
@@ -128,11 +128,15 @@ export class SbbDateInput<T = Date>
     return this.#element.nativeElement.name;
   }
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  @Output('input') protected _input: (typeof this)['input'] = NEVER;
   public input: Observable<InputEvent> = fromEvent<InputEvent>(
     this.#element.nativeElement,
     'input',
   );
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  @Output('change') protected _change: (typeof this)['change'] = NEVER;
   public change: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'change');
 
   public get type(): string {

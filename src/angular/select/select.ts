@@ -1,8 +1,8 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/select.js';
 
@@ -90,16 +90,28 @@ export class SbbSelect extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.value;
   }
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  @Output('change') protected _change: (typeof this)['change'] = NEVER;
   public change: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'change');
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  @Output('input') protected _input: (typeof this)['input'] = NEVER;
   public input: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;
   public willOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willOpen');
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('didOpen') protected _didOpen: (typeof this)['didOpen'] = NEVER;
   public didOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didOpen');
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('willClose') protected _willClose: (typeof this)['willClose'] = NEVER;
   public willClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willClose');
 
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('didClose') protected _didClose: (typeof this)['didClose'] = NEVER;
   public didClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didClose');
 
   public get type(): string {
