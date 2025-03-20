@@ -72,7 +72,7 @@ export class SbbDateInput<T = Date>
     return this.#element.nativeElement.max;
   }
 
-  @Input()
+  @Input({ alias: 'date-filter' })
   public set dateFilter(value: (date: T | null) => boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.dateFilter = value));
   }

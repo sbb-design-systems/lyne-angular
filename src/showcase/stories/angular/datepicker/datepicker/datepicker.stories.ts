@@ -1,3 +1,4 @@
+import { SbbDateInput } from '@sbb-esta/lyne-angular/date-input';
 import { SbbDatepicker } from '@sbb-esta/lyne-angular/datepicker/datepicker';
 import { SbbDatepickerNextDay } from '@sbb-esta/lyne-angular/datepicker/datepicker-next-day';
 import { SbbDatepickerPreviousDay } from '@sbb-esta/lyne-angular/datepicker/datepicker-previous-day';
@@ -220,7 +221,13 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [SbbFormField, SbbDatepickerPreviousDay, SbbDatepickerNextDay, SbbDatepickerToggle],
+      imports: [
+        SbbFormField,
+        SbbDatepickerPreviousDay,
+        SbbDatepickerNextDay,
+        SbbDatepickerToggle,
+        SbbDateInput,
+      ],
     }),
   ],
   title: 'elements/sbb-datepicker/sbb-datepicker',
@@ -272,15 +279,15 @@ const meta: Meta = {
         <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
         <sbb-datepicker-next-day></sbb-datepicker-next-day>
         <sbb-datepicker-toggle></sbb-datepicker-toggle>
-        <input
+        <sbb-date-input
           value=${value}
-          [form]=${form}
           [disabled]=${disabled}
-          [readonly]=${readonly}
+          [readOnly]=${readonly}
           [required]=${required}
+          ${form ? `form=${form}` : ''}
           ${min ? `min=${convertMillisecondsToSeconds(min)}` : ''}
           ${max ? `max=${convertMillisecondsToSeconds(max)}` : ''}
-        />
+        ></sbb-date-input>
         <sbb-datepicker
           ${argsToTemplate(args)}
           wide=${wide}
