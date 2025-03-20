@@ -332,7 +332,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             classDeclaration.body.body.every(
               (n) =>
                 n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                context.sourceCode.getText(n.key) !== `${memberNameVariable}`,
+                context.sourceCode.getText(n.key) !== memberNameVariable,
             )
           ) {
             context.report({
