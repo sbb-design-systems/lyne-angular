@@ -1,8 +1,8 @@
-import { SbbIconSidebarContainer } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-container.js';
+import { SbbIconSidebarContainer } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-container';
 import { Meta } from '@storybook/angular';
 
 const meta: Meta = {
-  title: 'elements/sbb-icon-sidebar-container',
+  title: 'elements/sbb-sidebar/sbb-icon-sidebar-container',
   component: SbbIconSidebarContainer,
   render: () => ({
     template: `

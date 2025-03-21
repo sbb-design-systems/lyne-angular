@@ -10,7 +10,7 @@ const meta: Meta = {
       imports: [],
     }),
   ],
-  title: 'elements/sbb-icon-sidebar-link',
+  title: 'elements/sbb-sidebar/sbb-icon-sidebar-link',
   component: SbbIconSidebarLink,
   parameters: {
     // add events or remove the 'action' object

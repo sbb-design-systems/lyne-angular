@@ -1,4 +1,4 @@
-import { SbbIconSidebarButton } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-button.js';
+import { SbbIconSidebarButton } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-button';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 
@@ -10,7 +10,7 @@ const meta: Meta = {
       imports: [],
     }),
   ],
-  title: 'elements/sbb-icon-sidebar-button',
+  title: 'elements/sbb-sidebar/sbb-icon-sidebar-button',
   component: SbbIconSidebarButton,
   parameters: {
     // add events or remove the 'action' object

@@ -2,7 +2,7 @@ import { SbbSidebarContent } from '@sbb-esta/lyne-angular/sidebar/sidebar-conten
 import { Meta } from '@storybook/angular';
 
 const meta: Meta = {
-  title: 'elements/sbb-sidebar-content',
+  title: 'elements/sbb-sidebar/sbb-sidebar-content',
   component: SbbSidebarContent,
   render: () => ({
     template: `

@@ -10,7 +10,7 @@ const meta: Meta = {
       imports: [],
     }),
   ],
-  title: 'elements/sbb-sidebar-close-button',
+  title: 'elements/sbb-sidebar/sbb-sidebar-close-button',
   component: SbbSidebarCloseButton,
   parameters: {
     // add events or remove the 'action' object

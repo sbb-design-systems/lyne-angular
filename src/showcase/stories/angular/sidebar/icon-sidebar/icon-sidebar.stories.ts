@@ -13,11 +13,18 @@ const meta: Meta = {
       imports: [SbbIconSidebarContainer, SbbIconSidebarContent, SbbIconSidebarLink],
     }),
   ],
-  title: 'elements/sbb-icon-sidebar',
+  title: 'elements/sbb-sidebar/sbb-icon-sidebar',
   component: SbbIconSidebar,
   render: (args: Args) => ({
     props: { ...args },
-    template: `<sbb-icon-sidebar-container><sbb-icon-sidebar ${argsToTemplate(args)}><sbb-icon-sidebar-link [icon-name]="unicorn-small" aria-label="Unicorn" href="#"></sbb-icon-sidebar-link><sbb-icon-sidebar-link [icon-name]="unicorn-small" aria-label="Unicorn" class="sbb-active" href="#"></sbb-icon-sidebar-link></sbb-icon-sidebar><sbb-sidebar-content>Content</sbb-sidebar-content></sbb-icon-sidebar-container>`,
+    template: `
+      <sbb-icon-sidebar-container>
+        <sbb-icon-sidebar ${argsToTemplate(args)}>
+          <sbb-icon-sidebar-link [icon-name]="unicorn-small" aria-label="Unicorn" href="#"></sbb-icon-sidebar-link>
+          <sbb-icon-sidebar-link [icon-name]="unicorn-small" aria-label="Unicorn" class="sbb-active" href="#"></sbb-icon-sidebar-link>
+        </sbb-icon-sidebar>
+        <sbb-sidebar-content>Content</sbb-sidebar-content>
+      </sbb-icon-sidebar-container>`,
   }),
 };
 export default meta;
