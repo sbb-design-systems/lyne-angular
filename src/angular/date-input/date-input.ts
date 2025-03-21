@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, NgZone, inject, forwardRef, Output } from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import {
   AbstractControl,
   NG_VALIDATORS,
@@ -12,7 +12,8 @@ import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-a
 import { readConfig } from '@sbb-esta/lyne-elements/core/config.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
-import { fromEvent, type Observable, NEVER } from 'rxjs';
+import { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
+import { fromEvent, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/date-input.js';
 
@@ -221,5 +222,9 @@ export class SbbDateInput<T = Date>
 
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
+  }
+
+  public get datepicker(): SbbDatepickerElement<T> | null {
+    return this.#element.nativeElement.datepicker;
   }
 }
