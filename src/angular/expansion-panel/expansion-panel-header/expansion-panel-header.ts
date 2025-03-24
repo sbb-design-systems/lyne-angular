@@ -2,7 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/c
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
 
 @Directive({
@@ -70,8 +70,34 @@ export class SbbExpansionPanelHeader {
     return this.#element.nativeElement.type;
   }
 
-  @Output() public toggleExpanded: Observable<void> = fromEvent<void>(
+   
+  @Output('toggleExpanded') protected _toggleExpanded: (typeof this)['toggleExpanded'] = NEVER;
+  public toggleExpanded: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'toggleExpanded',
   );
+
+  public get validity(): ValidityState {
+    return this.#element.nativeElement.validity;
+  }
+
+  public get validationMessage(): string {
+    return this.#element.nativeElement.validationMessage;
+  }
+
+  public get willValidate(): boolean {
+    return this.#element.nativeElement.willValidate;
+  }
+
+  public checkValidity(): boolean {
+    return this.#element.nativeElement.checkValidity();
+  }
+
+  public reportValidity(): boolean {
+    return this.#element.nativeElement.reportValidity();
+  }
+
+  public setCustomValidity(message: string): void {
+    return this.#element.nativeElement.setCustomValidity(message);
+  }
 }

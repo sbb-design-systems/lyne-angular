@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option/option.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/option/option.js';
 
 @Directive({
@@ -43,12 +43,17 @@ export class SbbOption {
     return this.#element.nativeElement.selected;
   }
 
-  @Output() public optionSelectionChange: Observable<void> = fromEvent<void>(
+   
+  @Output('optionSelectionChange')
+  protected _optionSelectionChange: (typeof this)['optionSelectionChange'] = NEVER;
+  public optionSelectionChange: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'optionSelectionChange',
   );
 
-  @Output() public optionSelected: Observable<void> = fromEvent<void>(
+   
+  @Output('optionSelected') protected _optionSelected: (typeof this)['optionSelected'] = NEVER;
+  public optionSelected: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'optionSelected',
   );

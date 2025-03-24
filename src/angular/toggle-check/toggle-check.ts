@@ -2,7 +2,7 @@ import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/toggle-check.js';
 
@@ -90,13 +90,12 @@ export class SbbToggleCheck extends SbbControlValueAccessorMixin(class {}) {
   }
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public change: Observable<Event> = fromEvent<Event>(
-    this.#element.nativeElement,
-    'change',
-  );
+  @Output('change') protected _change: (typeof this)['change'] = NEVER;
+  public change: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'change');
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public input: Observable<InputEvent> = fromEvent<InputEvent>(
+  @Output('input') protected _input: (typeof this)['input'] = NEVER;
+  public input: Observable<InputEvent> = fromEvent<InputEvent>(
     this.#element.nativeElement,
     'input',
   );
@@ -107,5 +106,29 @@ export class SbbToggleCheck extends SbbControlValueAccessorMixin(class {}) {
 
   public get form(): HTMLFormElement | null {
     return this.#element.nativeElement.form;
+  }
+
+  public get validity(): ValidityState {
+    return this.#element.nativeElement.validity;
+  }
+
+  public get validationMessage(): string {
+    return this.#element.nativeElement.validationMessage;
+  }
+
+  public get willValidate(): boolean {
+    return this.#element.nativeElement.willValidate;
+  }
+
+  public checkValidity(): boolean {
+    return this.#element.nativeElement.checkValidity();
+  }
+
+  public reportValidity(): boolean {
+    return this.#element.nativeElement.reportValidity();
+  }
+
+  public setCustomValidity(message: string): void {
+    return this.#element.nativeElement.setCustomValidity(message);
   }
 }

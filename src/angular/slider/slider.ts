@@ -2,7 +2,7 @@ import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSliderElement } from '@sbb-esta/lyne-elements/slider.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/slider.js';
 
@@ -97,10 +97,9 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.name;
   }
 
-  @Output() public didChange: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didChange',
-  );
+   
+  @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
+  public didChange: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didChange');
 
   public get type(): string {
     return this.#element.nativeElement.type;
@@ -108,5 +107,29 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
 
   public get form(): HTMLFormElement | null {
     return this.#element.nativeElement.form;
+  }
+
+  public get validity(): ValidityState {
+    return this.#element.nativeElement.validity;
+  }
+
+  public get validationMessage(): string {
+    return this.#element.nativeElement.validationMessage;
+  }
+
+  public get willValidate(): boolean {
+    return this.#element.nativeElement.willValidate;
+  }
+
+  public checkValidity(): boolean {
+    return this.#element.nativeElement.checkValidity();
+  }
+
+  public reportValidity(): boolean {
+    return this.#element.nativeElement.reportValidity();
+  }
+
+  public setCustomValidity(message: string): void {
+    return this.#element.nativeElement.setCustomValidity(message);
   }
 }

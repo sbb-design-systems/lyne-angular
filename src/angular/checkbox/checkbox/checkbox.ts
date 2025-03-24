@@ -15,7 +15,7 @@ import { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkb
 import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkbox.js';
 import { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
 import { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
 
@@ -111,13 +111,12 @@ export class SbbCheckbox extends SbbControlValueAccessorMixin(class {}) implemen
   }
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public change: Observable<Event> = fromEvent<Event>(
-    this.#element.nativeElement,
-    'change',
-  );
+  @Output('change') protected _change: (typeof this)['change'] = NEVER;
+  public change: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'change');
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public input: Observable<InputEvent> = fromEvent<InputEvent>(
+  @Output('input') protected _input: (typeof this)['input'] = NEVER;
+  public input: Observable<InputEvent> = fromEvent<InputEvent>(
     this.#element.nativeElement,
     'input',
   );
@@ -152,5 +151,29 @@ export class SbbCheckbox extends SbbControlValueAccessorMixin(class {}) implemen
         });
       }
     });
+  }
+
+  public get validity(): ValidityState {
+    return this.#element.nativeElement.validity;
+  }
+
+  public get validationMessage(): string {
+    return this.#element.nativeElement.validationMessage;
+  }
+
+  public get willValidate(): boolean {
+    return this.#element.nativeElement.willValidate;
+  }
+
+  public checkValidity(): boolean {
+    return this.#element.nativeElement.checkValidity();
+  }
+
+  public reportValidity(): boolean {
+    return this.#element.nativeElement.reportValidity();
+  }
+
+  public setCustomValidity(message: string): void {
+    return this.#element.nativeElement.setCustomValidity(message);
   }
 }

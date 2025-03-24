@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbImageElement } from '@sbb-esta/lyne-elements/image.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/image.js';
 
 @Directive({
@@ -116,13 +116,12 @@ export class SbbImage {
   }
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public load: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'load');
+  @Output('load') protected _load: (typeof this)['load'] = NEVER;
+  public load: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'load');
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public error: Observable<Event> = fromEvent<Event>(
-    this.#element.nativeElement,
-    'error',
-  );
+  @Output('error') protected _error: (typeof this)['error'] = NEVER;
+  public error: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'error');
 
   public get complete(): boolean {
     return this.#element.nativeElement.complete;

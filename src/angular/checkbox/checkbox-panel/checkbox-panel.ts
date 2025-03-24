@@ -14,7 +14,7 @@ import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-a
 import { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
 import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
 import { SbbPanelSize } from '@sbb-esta/lyne-elements/core/mixins.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
 
@@ -113,13 +113,12 @@ export class SbbCheckboxPanel
   }
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public change: Observable<Event> = fromEvent<Event>(
-    this.#element.nativeElement,
-    'change',
-  );
+  @Output('change') protected _change: (typeof this)['change'] = NEVER;
+  public change: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'change');
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public input: Observable<InputEvent> = fromEvent<InputEvent>(
+  @Output('input') protected _input: (typeof this)['input'] = NEVER;
+  public input: Observable<InputEvent> = fromEvent<InputEvent>(
     this.#element.nativeElement,
     'input',
   );
@@ -154,5 +153,29 @@ export class SbbCheckboxPanel
         });
       }
     });
+  }
+
+  public get validity(): ValidityState {
+    return this.#element.nativeElement.validity;
+  }
+
+  public get validationMessage(): string {
+    return this.#element.nativeElement.validationMessage;
+  }
+
+  public get willValidate(): boolean {
+    return this.#element.nativeElement.willValidate;
+  }
+
+  public checkValidity(): boolean {
+    return this.#element.nativeElement.checkValidity();
+  }
+
+  public reportValidity(): boolean {
+    return this.#element.nativeElement.reportValidity();
+  }
+
+  public setCustomValidity(message: string): void {
+    return this.#element.nativeElement.setCustomValidity(message);
   }
 }

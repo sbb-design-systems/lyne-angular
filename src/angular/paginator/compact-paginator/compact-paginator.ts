@@ -10,7 +10,7 @@ import {
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbCompactPaginatorElement } from '@sbb-esta/lyne-elements/paginator/compact-paginator.js';
-import { from, fromEvent, map, type Observable } from 'rxjs';
+import { from, fromEvent, map, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/paginator/compact-paginator.js';
 
 @Directive({
@@ -76,8 +76,12 @@ export class SbbCompactPaginator {
     return this.#element.nativeElement.disabled;
   }
 
-  @Output() public page: Observable<SbbPaginatorPageEventDetails> =
-    fromEvent<SbbPaginatorPageEventDetails>(this.#element.nativeElement, 'page');
+   
+  @Output('page') protected _page: (typeof this)['page'] = NEVER;
+  public page: Observable<SbbPaginatorPageEventDetails> = fromEvent<SbbPaginatorPageEventDetails>(
+    this.#element.nativeElement,
+    'page',
+  );
 
   readonly initialized: Observable<void> = from(this.#element.nativeElement.updateComplete).pipe(
     map(() => undefined),

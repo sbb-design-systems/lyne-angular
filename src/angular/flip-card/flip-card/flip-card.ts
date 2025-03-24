@@ -2,7 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/c
 import { SbbFlipCardSummaryElement } from '@sbb-esta/lyne-elements/flip-card/flip-card-summary.js';
 import type { SbbFlipCardElement } from '@sbb-esta/lyne-elements/flip-card/flip-card.js';
 import { SbbFlipCardDetailsElement } from '@sbb-esta/lyne-elements/flip-card.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/flip-card/flip-card.js';
 
 @Directive({
@@ -20,7 +20,9 @@ export class SbbFlipCard {
     return this.#element.nativeElement.accessibilityLabel;
   }
 
-  @Output() public flip: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'flip');
+   
+  @Output('flip') protected _flip: (typeof this)['flip'] = NEVER;
+  public flip: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'flip');
 
   public get summary(): SbbFlipCardSummaryElement | null {
     return this.#element.nativeElement.summary;

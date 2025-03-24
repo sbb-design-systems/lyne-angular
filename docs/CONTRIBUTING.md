@@ -54,7 +54,8 @@ You can file new issues by providing the above information [here](https://github
 
 ### <a name="submit-pr"></a> Submitting a Pull Request (PR)
 
-- Search [GitHub](https://github.com/angular/components/pulls) for an open or closed PR
+- Search [GitHub](https://github.com/sbb-design-systems/lyne-components/pulls)
+- and [GitHub](https://github.com/sbb-design-systems/lyne-angular/pulls) for an open or closed PR
   that relates to your submission. You don't want to duplicate effort.
 - Make your changes in a new git branch:
 
@@ -177,7 +178,7 @@ This project publishes the following package:
 
 ### Styling
 
-This project uses [SASS](https://sass-lang.com/) for styling the components.
+This project uses [Sass](https://sass-lang.com/) for styling the components.
 
 ## Language
 

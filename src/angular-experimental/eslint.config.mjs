@@ -6,7 +6,9 @@ export default tseslint.config(
   ...rootConfig,
   {
     files: ['**/*.ts'],
-    rules: {},
+    rules: {
+      'lyne/storybook-generator-rule': 'off',
+    },
   },
   {
     files: ['**/*.html'],

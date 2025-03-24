@@ -1,5 +1,64 @@
 # Changelog
 
+## [19.0.0-beta.2](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-beta.1...v19.0.0-beta.2) (2025-03-20)
+
+
+### Features
+
+* **sbb-date-input:** add Angular Forms validation ([#39](https://github.com/sbb-design-systems/lyne-angular/issues/39)) ([8e5f849](https://github.com/sbb-design-systems/lyne-angular/commit/8e5f84944c60c3d31168890524ad2c363279e570))
+* upgrade lyne-elements to 2.4.1 ([#33](https://github.com/sbb-design-systems/lyne-angular/issues/33)) ([093e203](https://github.com/sbb-design-systems/lyne-angular/commit/093e20354204931859948f1ca29e5b270a57236a))
+
+
+### Bug Fixes
+
+* duplicate events ([#42](https://github.com/sbb-design-systems/lyne-angular/issues/42)) ([d86f67e](https://github.com/sbb-design-systems/lyne-angular/commit/d86f67ed90a3bd251c1fe4e0994772d38640295b))
+* remove output annotation to avoid duplicate events ([#40](https://github.com/sbb-design-systems/lyne-angular/issues/40)) ([d5bf664](https://github.com/sbb-design-systems/lyne-angular/commit/d5bf66489bc2fd65f75a1a5db4e6d684fc457401))
+* replace input with sbb-date-input in stories ([#37](https://github.com/sbb-design-systems/lyne-angular/issues/37)) ([a00d19f](https://github.com/sbb-design-systems/lyne-angular/commit/a00d19fde175af15de256a30832755ec280154fe))
+* **sbb-date-input:** handle value state correctly ([#38](https://github.com/sbb-design-systems/lyne-angular/issues/38)) ([f074e65](https://github.com/sbb-design-systems/lyne-angular/commit/f074e65ba228a8417305d7c9950c7a85ba8500a8))
+
+## [19.0.0-beta.1](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-beta.0...v19.0.0-beta.1) (2025-03-10)
+
+
+### Features
+
+* **sbb-toggle:** add ControlValueAccessor implementation ([#32](https://github.com/sbb-design-systems/lyne-angular/issues/32)) ([5a88cf8](https://github.com/sbb-design-systems/lyne-angular/commit/5a88cf8ac3820edee0f6531f1cccd46da3db31de))
+
+
+### Bug Fixes
+
+* **sbb-select:** correctly update state on change ([#30](https://github.com/sbb-design-systems/lyne-angular/issues/30)) ([007dc61](https://github.com/sbb-design-systems/lyne-angular/commit/007dc61df94c6b15f269284d6596396620499237))
+
+
+### Documentation
+
+* improve documentation ([#28](https://github.com/sbb-design-systems/lyne-angular/issues/28)) ([a73a7e0](https://github.com/sbb-design-systems/lyne-angular/commit/a73a7e089494cdc0db10fd9dbf9e54f1c3af9c48))
+
+
+### Code Refactoring
+
+* move ControlValueAccessor implementation to radio button group ([#31](https://github.com/sbb-design-systems/lyne-angular/issues/31)) ([a62747d](https://github.com/sbb-design-systems/lyne-angular/commit/a62747d7bc5d3902a80b182d02ffdf9de513dfe2))
+
+## [19.0.0-beta.0](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-alpha.5...v19.0.0-beta.0) (2025-02-28)
+
+
+### Miscellaneous Chores
+
+* set next release version ([841861d](https://github.com/sbb-design-systems/lyne-angular/commit/841861d5c0d12ba865faa6de2d24a6cb0d4ad692))
+
+## [19.0.0-alpha.5](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-alpha.4...v19.0.0-alpha.5) (2025-02-28)
+
+
+### Miscellaneous Chores
+
+* set version ([38163a6](https://github.com/sbb-design-systems/lyne-angular/commit/38163a6110768f2de6572bad74fda062a721f52d))
+
+## [19.0.0-alpha.4](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-alpha.3...v19.0.0-alpha.4) (2025-02-28)
+
+
+### Features
+
+* add storybook ([#19](https://github.com/sbb-design-systems/lyne-angular/issues/19)) ([bc23fbb](https://github.com/sbb-design-systems/lyne-angular/commit/bc23fbba147ec1b1d8a549d87ca113de40af32ef))
+
 ## [19.0.0-alpha.3](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-alpha.2...v19.0.0-alpha.3) (2025-01-21)
 
 

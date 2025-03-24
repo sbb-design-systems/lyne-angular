@@ -2,7 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/c
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/tag/tag.js';
 
@@ -94,16 +94,38 @@ export class SbbTag {
   }
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public input: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
+  @Output('input') protected _input: (typeof this)['input'] = NEVER;
+  public input: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
 
-  @Output() public didChange: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didChange',
-  );
+   
+  @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
+  public didChange: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didChange');
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public change: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'change',
-  );
+  @Output('change') protected _change: (typeof this)['change'] = NEVER;
+  public change: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'change');
+
+  public get validity(): ValidityState {
+    return this.#element.nativeElement.validity;
+  }
+
+  public get validationMessage(): string {
+    return this.#element.nativeElement.validationMessage;
+  }
+
+  public get willValidate(): boolean {
+    return this.#element.nativeElement.willValidate;
+  }
+
+  public checkValidity(): boolean {
+    return this.#element.nativeElement.checkValidity();
+  }
+
+  public reportValidity(): boolean {
+    return this.#element.nativeElement.reportValidity();
+  }
+
+  public setCustomValidity(message: string): void {
+    return this.#element.nativeElement.setCustomValidity(message);
+  }
 }

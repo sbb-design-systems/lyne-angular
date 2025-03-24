@@ -2,7 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/c
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { CalendarView, SbbCalendarElement } from '@sbb-esta/lyne-elements/calendar.js';
 import { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/calendar.js';
 
@@ -69,10 +69,17 @@ export class SbbCalendar<T = Date> {
     return this.#element.nativeElement.dateFilter;
   }
 
-  @Output() public dateSelected: Observable<T> = fromEvent<T>(
-    this.#element.nativeElement,
-    'dateSelected',
-  );
+  @Input()
+  public set orientation(value: 'horizontal' | 'vertical') {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.orientation = value));
+  }
+  public get orientation(): 'horizontal' | 'vertical' {
+    return this.#element.nativeElement.orientation;
+  }
+
+   
+  @Output('dateSelected') protected _dateSelected: (typeof this)['dateSelected'] = NEVER;
+  public dateSelected: Observable<T> = fromEvent<T>(this.#element.nativeElement, 'dateSelected');
 
   public resetPosition(): void {
     return this.#element.nativeElement.resetPosition();

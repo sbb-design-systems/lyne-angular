@@ -2,7 +2,7 @@ import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbFileSelectorDropzoneElement } from '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
 
@@ -107,22 +107,20 @@ export class SbbFileSelectorDropzone extends SbbControlValueAccessorMixin(class 
     return this.#element.nativeElement.name;
   }
 
-  @Output() public fileChanged: Observable<readonly File[]> = fromEvent<readonly File[]>(
+   
+  @Output('fileChanged') protected _fileChanged: (typeof this)['fileChanged'] = NEVER;
+  public fileChanged: Observable<readonly File[]> = fromEvent<readonly File[]>(
     this.#element.nativeElement,
     'fileChanged',
   );
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public change: Observable<Event> = fromEvent<Event>(
-    this.#element.nativeElement,
-    'change',
-  );
+  @Output('change') protected _change: (typeof this)['change'] = NEVER;
+  public change: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'change');
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public input: Observable<Event> = fromEvent<Event>(
-    this.#element.nativeElement,
-    'input',
-  );
+  @Output('input') protected _input: (typeof this)['input'] = NEVER;
+  public input: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'input');
 
   public get type(): string {
     return this.#element.nativeElement.type;
@@ -135,5 +133,29 @@ export class SbbFileSelectorDropzone extends SbbControlValueAccessorMixin(class 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   override writeValue(value: any): void {
     this.files = value;
+  }
+
+  public get validity(): ValidityState {
+    return this.#element.nativeElement.validity;
+  }
+
+  public get validationMessage(): string {
+    return this.#element.nativeElement.validationMessage;
+  }
+
+  public get willValidate(): boolean {
+    return this.#element.nativeElement.willValidate;
+  }
+
+  public checkValidity(): boolean {
+    return this.#element.nativeElement.checkValidity();
+  }
+
+  public reportValidity(): boolean {
+    return this.#element.nativeElement.reportValidity();
+  }
+
+  public setCustomValidity(message: string): void {
+    return this.#element.nativeElement.setCustomValidity(message);
   }
 }

@@ -12,7 +12,7 @@ import type {
   SbbTabChangedEventDetails,
   SbbTabGroupElement,
 } from '@sbb-esta/lyne-elements/tabs/tab-group.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/tabs/tab-group.js';
 
 @Directive({
@@ -40,8 +40,12 @@ export class SbbTabGroup {
     return this.#element.nativeElement.initialSelectedIndex;
   }
 
-  @Output() public didChange: Observable<SbbTabChangedEventDetails> =
-    fromEvent<SbbTabChangedEventDetails>(this.#element.nativeElement, 'didChange');
+   
+  @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
+  public didChange: Observable<SbbTabChangedEventDetails> = fromEvent<SbbTabChangedEventDetails>(
+    this.#element.nativeElement,
+    'didChange',
+  );
 
   public disableTab(tabIndex: number): void {
     return this.#element.nativeElement.disableTab(tabIndex);

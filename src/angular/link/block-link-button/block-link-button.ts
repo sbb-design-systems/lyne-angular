@@ -14,6 +14,14 @@ export class SbbBlockLinkButton {
   #element: ElementRef<SbbBlockLinkButtonElement> = inject(ElementRef<SbbBlockLinkButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
+  @Input({ transform: booleanAttribute })
+  public set negative(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.negative = value));
+  }
+  public get negative(): boolean {
+    return this.#element.nativeElement.negative;
+  }
+
   @Input({ alias: 'icon-placement' })
   public set iconPlacement(value: SbbIconPlacement) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconPlacement = value));
@@ -84,5 +92,29 @@ export class SbbBlockLinkButton {
   }
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
+  }
+
+  public get validity(): ValidityState {
+    return this.#element.nativeElement.validity;
+  }
+
+  public get validationMessage(): string {
+    return this.#element.nativeElement.validationMessage;
+  }
+
+  public get willValidate(): boolean {
+    return this.#element.nativeElement.willValidate;
+  }
+
+  public checkValidity(): boolean {
+    return this.#element.nativeElement.checkValidity();
+  }
+
+  public reportValidity(): boolean {
+    return this.#element.nativeElement.reportValidity();
+  }
+
+  public setCustomValidity(message: string): void {
+    return this.#element.nativeElement.setCustomValidity(message);
   }
 }

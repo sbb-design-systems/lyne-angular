@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import type { SbbStickyBarElement } from '@sbb-esta/lyne-elements/container/sticky-bar.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/container/sticky-bar.js';
 
@@ -19,25 +19,24 @@ export class SbbStickyBar {
     return this.#element.nativeElement.color;
   }
 
-  @Output() public willStick: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'willStick',
-  );
+   
+  @Output('willStick') protected _willStick: (typeof this)['willStick'] = NEVER;
+  public willStick: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willStick');
 
-  @Output() public didStick: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didStick',
-  );
+   
+  @Output('didStick') protected _didStick: (typeof this)['didStick'] = NEVER;
+  public didStick: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didStick');
 
-  @Output() public willUnstick: Observable<void> = fromEvent<void>(
+   
+  @Output('willUnstick') protected _willUnstick: (typeof this)['willUnstick'] = NEVER;
+  public willUnstick: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'willUnstick',
   );
 
-  @Output() public didUnstick: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didUnstick',
-  );
+   
+  @Output('didUnstick') protected _didUnstick: (typeof this)['didUnstick'] = NEVER;
+  public didUnstick: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didUnstick');
 
   public stick(): void {
     return this.#element.nativeElement.stick();

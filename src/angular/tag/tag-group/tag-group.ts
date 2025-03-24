@@ -45,6 +45,14 @@ export class SbbTagGroup {
     return this.#element.nativeElement.value;
   }
 
+  @Input({ transform: booleanAttribute })
+  public set disabled(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabled = value));
+  }
+  public get disabled(): boolean {
+    return this.#element.nativeElement.disabled;
+  }
+
   public get tags(): SbbTagElement[] {
     return this.#element.nativeElement.tags;
   }

@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import type { SbbNavigationElement } from '@sbb-esta/lyne-elements/navigation/navigation.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/navigation/navigation.js';
 
 @Directive({
@@ -28,25 +28,21 @@ export class SbbNavigation {
     return this.#element.nativeElement.accessibilityCloseLabel;
   }
 
-  @Output() public willOpen: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'willOpen',
-  );
+   
+  @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;
+  public willOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willOpen');
 
-  @Output() public didOpen: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didOpen',
-  );
+   
+  @Output('didOpen') protected _didOpen: (typeof this)['didOpen'] = NEVER;
+  public didOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didOpen');
 
-  @Output() public willClose: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'willClose',
-  );
+   
+  @Output('willClose') protected _willClose: (typeof this)['willClose'] = NEVER;
+  public willClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willClose');
 
-  @Output() public didClose: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didClose',
-  );
+   
+  @Output('didClose') protected _didClose: (typeof this)['didClose'] = NEVER;
+  public didClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didClose');
 
   public get activeNavigationSection(): HTMLElement | null {
     return this.#element.nativeElement.activeNavigationSection;

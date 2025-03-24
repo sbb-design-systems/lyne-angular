@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { SbbValidationChangeEvent } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/time-input.js';
 
 @Directive({
@@ -27,11 +27,13 @@ export class SbbTimeInput {
     return this.#element.nativeElement.valueAsDate;
   }
 
-  @Output() public didChange: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didChange',
-  );
+   
+  @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
+  public didChange: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didChange');
 
-  @Output() public validationChange: Observable<SbbValidationChangeEvent> =
+   
+  @Output('validationChange') protected _validationChange: (typeof this)['validationChange'] =
+    NEVER;
+  public validationChange: Observable<SbbValidationChangeEvent> =
     fromEvent<SbbValidationChangeEvent>(this.#element.nativeElement, 'validationChange');
 }

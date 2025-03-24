@@ -54,7 +54,9 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interactive
 
       - name: Run build
-        run: yarn build
+        run: STORYBOOK_COMPONENTS_VERSION="${{ steps.version.outputs.version }}" yarn build
+      - name: Remove files with forbidden extensions
+        run: node ./scripts/clean-storybook-files.cjs
 
       - name: 'Release: Determine npm tag'
         if: ${{ steps.release.outputs.release_created }}
@@ -71,3 +73,22 @@ jobs:
         run: yarn publish dist/angular-experimental --tag ${{ steps.npm_tag.outputs.npm_tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - uses: ./.github/actions/setup-mint
+      - name: 'Container: Build and publish release image'
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
+          docker build --tag $IMAGE_REPO_STORYBOOK:$VERSION-fat .
+          mint slim \
+            --target $IMAGE_REPO_STORYBOOK:$VERSION-fat \
+            --tag $IMAGE_REPO_STORYBOOK:$VERSION \
+            --preserve-path /usr/share/nginx/html \
+            --include-new false
+          docker push $IMAGE_REPO_STORYBOOK:$VERSION
+          docker tag $IMAGE_REPO_STORYBOOK:$VERSION $IMAGE_REPO_STORYBOOK:latest
+          docker push $IMAGE_REPO_STORYBOOK:latest
+          docker image list
+        env:
+          DOCKER_BUILDKIT: 1
+          VERSION: ${{ steps.release.outputs.version }}

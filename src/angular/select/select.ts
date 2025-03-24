@@ -2,7 +2,7 @@ import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/select.js';
 
@@ -10,7 +10,7 @@ import '@sbb-esta/lyne-elements/select.js';
   selector: 'sbb-select',
   exportAs: 'sbbSelect',
   host: {
-    '(change)': 'this.onChangeFn(this.checked)',
+    '(change)': 'this.onChangeFn(this.value)',
     '(blur)': 'this.onTouchedFn()',
     '(didClose)': 'this.onTouchedFn()',
   },
@@ -91,33 +91,28 @@ export class SbbSelect extends SbbControlValueAccessorMixin(class {}) {
   }
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public change: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'change',
-  );
+  @Output('change') protected _change: (typeof this)['change'] = NEVER;
+  public change: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'change');
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public input: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
+  @Output('input') protected _input: (typeof this)['input'] = NEVER;
+  public input: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
 
-  @Output() public willOpen: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'willOpen',
-  );
+   
+  @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;
+  public willOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willOpen');
 
-  @Output() public didOpen: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didOpen',
-  );
+   
+  @Output('didOpen') protected _didOpen: (typeof this)['didOpen'] = NEVER;
+  public didOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didOpen');
 
-  @Output() public willClose: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'willClose',
-  );
+   
+  @Output('willClose') protected _willClose: (typeof this)['willClose'] = NEVER;
+  public willClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willClose');
 
-  @Output() public didClose: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didClose',
-  );
+   
+  @Output('didClose') protected _didClose: (typeof this)['didClose'] = NEVER;
+  public didClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didClose');
 
   public get type(): string {
     return this.#element.nativeElement.type;
@@ -141,5 +136,29 @@ export class SbbSelect extends SbbControlValueAccessorMixin(class {}) {
 
   public getDisplayValue(): string {
     return this.#element.nativeElement.getDisplayValue();
+  }
+
+  public get validity(): ValidityState {
+    return this.#element.nativeElement.validity;
+  }
+
+  public get validationMessage(): string {
+    return this.#element.nativeElement.validationMessage;
+  }
+
+  public get willValidate(): boolean {
+    return this.#element.nativeElement.willValidate;
+  }
+
+  public checkValidity(): boolean {
+    return this.#element.nativeElement.checkValidity();
+  }
+
+  public reportValidity(): boolean {
+    return this.#element.nativeElement.reportValidity();
+  }
+
+  public setCustomValidity(message: string): void {
+    return this.#element.nativeElement.setCustomValidity(message);
   }
 }

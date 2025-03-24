@@ -179,7 +179,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         }
         if (publicEvents.length) {
           expectedAngularImports.add('Output');
-          expectedRxJsImports.add('fromEvent').add('type Observable');
+          expectedRxJsImports.add('fromEvent').add('NEVER').add('type Observable');
         }
 
         // Add the private variables for the native element and the ngZone
@@ -299,12 +299,13 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         for (const member of publicEvents) {
           const hasPropWithSameName = publicProperties.find((prop) => prop.name === member.name);
           const memberNameVariable = hasPropWithSameName ? `${member.name}Event` : member.name;
+          const type = member.type?.text.replace(/CustomEvent<([^>]+)>/g, '$1') ?? 'void';
           if (
             classDeclaration.body.body.every(
               (n) =>
                 n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                context.sourceCode.getText(n.key) !== memberNameVariable ||
-                !context.sourceCode.getText(n).includes('@Output('),
+                context.sourceCode.getText(n.key) !== `_${member.name}` ||
+                !context.sourceCode.getText(n).includes(`@Output('${member.name}')`),
             )
           ) {
             context.report({
@@ -313,20 +314,37 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               data: { property: member.name },
               fix: (fixer) => {
                 const endOfBody = classDeclaration.body.range[1] - 1;
-                const type = member.type?.text.replace(/CustomEvent<([^>]+)>/g, '$1') ?? 'void';
-                let eslintDisableRule = '';
+                let eslintDisableRule =
+                  '// eslint-disable-next-line @angular-eslint/no-output-rename';
                 if (NATIVE_EVENTS_NAME.includes(member.name)) {
-                  if (hasPropWithSameName) {
-                    eslintDisableRule = `// eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native\n  `;
-                  } else {
-                    eslintDisableRule =
-                      '// eslint-disable-next-line @angular-eslint/no-output-native\n  ';
-                  }
+                  eslintDisableRule += `, @angular-eslint/no-output-native`;
                 }
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
-  ${eslintDisableRule}@Output(${hasPropWithSameName ? `'${member.name}'` : ''}) public ${memberNameVariable}: Observable<${type}> = fromEvent<${type}>(this.#element.nativeElement, '${member.name}');\n`,
+  ${eslintDisableRule}
+  @Output('${member.name}') protected _${member.name}: (typeof this)['${memberNameVariable}'] = NEVER;`,
+                );
+              },
+            });
+          }
+          if (
+            classDeclaration.body.body.every(
+              (n) =>
+                n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                context.sourceCode.getText(n.key) !== memberNameVariable,
+            )
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularMissingOutput',
+              data: { property: member.name },
+              fix: (fixer) => {
+                const endOfBody = classDeclaration.body.range[1] - 1;
+                return fixer.insertTextBeforeRange(
+                  [endOfBody, endOfBody],
+                  `
+  public ${memberNameVariable}: Observable<${type}> = fromEvent<${type}>(this.#element.nativeElement, '${member.name}');\n`,
                 );
               },
             });

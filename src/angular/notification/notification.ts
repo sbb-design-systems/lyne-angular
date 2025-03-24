@@ -2,7 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/c
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbNotificationElement } from '@sbb-esta/lyne-elements/notification.js';
 import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/notification.js';
 
 @Directive({
@@ -60,25 +60,21 @@ export class SbbNotification {
     return this.#element.nativeElement.animation;
   }
 
-  @Output() public willOpen: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'willOpen',
-  );
+   
+  @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;
+  public willOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willOpen');
 
-  @Output() public didOpen: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didOpen',
-  );
+   
+  @Output('didOpen') protected _didOpen: (typeof this)['didOpen'] = NEVER;
+  public didOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didOpen');
 
-  @Output() public willClose: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'willClose',
-  );
+   
+  @Output('willClose') protected _willClose: (typeof this)['willClose'] = NEVER;
+  public willClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willClose');
 
-  @Output() public didClose: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'didClose',
-  );
+   
+  @Output('didClose') protected _didClose: (typeof this)['didClose'] = NEVER;
+  public didClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didClose');
 
   public close(): void {
     return this.#element.nativeElement.close();

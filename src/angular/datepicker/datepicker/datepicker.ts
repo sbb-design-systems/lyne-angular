@@ -1,11 +1,12 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbValidationChangeEvent } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
 import type {
   SbbDatepickerElement,
   SbbInputUpdateEvent,
 } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
-import { fromEvent, type Observable } from 'rxjs';
+import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 
@@ -24,7 +25,7 @@ export class SbbDatepicker<T = Date> {
     return this.#element.nativeElement.wide;
   }
 
-  @Input()
+  @Input({ alias: 'date-filter' })
   public set dateFilter(value: (date: T | null) => boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.dateFilter = value));
   }
@@ -57,31 +58,35 @@ export class SbbDatepicker<T = Date> {
   }
 
   // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output() public change: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'change',
-  );
+  @Output('change') protected _change: (typeof this)['change'] = NEVER;
+  public change: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'change');
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
-  @Output('input') public inputEvent: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'input',
-  );
+  // eslint-disable-next-line @angular-eslint/no-output-native
+  @Output('input') protected _input: (typeof this)['inputEvent'] = NEVER;
+  public inputEvent: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
 
-  @Output() public inputUpdated: Observable<SbbInputUpdateEvent> = fromEvent<SbbInputUpdateEvent>(
+   
+  @Output('inputUpdated') protected _inputUpdated: (typeof this)['inputUpdated'] = NEVER;
+  public inputUpdated: Observable<SbbInputUpdateEvent> = fromEvent<SbbInputUpdateEvent>(
     this.#element.nativeElement,
     'inputUpdated',
   );
 
-  @Output() public datePickerUpdated: Observable<void> = fromEvent<void>(
+   
+  @Output('datePickerUpdated') protected _datePickerUpdated: (typeof this)['datePickerUpdated'] =
+    NEVER;
+  public datePickerUpdated: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'datePickerUpdated',
   );
 
-  @Output() public validationChange: Observable<SbbValidationChangeEvent> =
+   
+  @Output('validationChange') protected _validationChange: (typeof this)['validationChange'] =
+    NEVER;
+  public validationChange: Observable<SbbValidationChangeEvent> =
     fromEvent<SbbValidationChangeEvent>(this.#element.nativeElement, 'validationChange');
 
-  public get inputElement(): HTMLInputElement | null {
+  public get inputElement(): HTMLInputElement | SbbDateInputElement<T> | null {
     return this.#element.nativeElement.inputElement;
   }
 
