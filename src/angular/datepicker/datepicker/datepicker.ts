@@ -65,14 +65,12 @@ export class SbbDatepicker<T = Date> {
   @Output('input') protected _input: (typeof this)['inputEvent'] = NEVER;
   public inputEvent: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
 
-   
   @Output('inputUpdated') protected _inputUpdated: (typeof this)['inputUpdated'] = NEVER;
   public inputUpdated: Observable<SbbInputUpdateEvent> = fromEvent<SbbInputUpdateEvent>(
     this.#element.nativeElement,
     'inputUpdated',
   );
 
-   
   @Output('datePickerUpdated') protected _datePickerUpdated: (typeof this)['datePickerUpdated'] =
     NEVER;
   public datePickerUpdated: Observable<void> = fromEvent<void>(
@@ -80,7 +78,6 @@ export class SbbDatepicker<T = Date> {
     'datePickerUpdated',
   );
 
-   
   @Output('validationChange') protected _validationChange: (typeof this)['validationChange'] =
     NEVER;
   public validationChange: Observable<SbbValidationChangeEvent> =

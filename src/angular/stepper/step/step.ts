@@ -13,7 +13,6 @@ import '@sbb-esta/lyne-elements/stepper/step.js';
 export class SbbStep {
   #element: ElementRef<SbbStepElement> = inject(ElementRef<SbbStepElement>);
 
-   
   @Output('validate') protected _validate: (typeof this)['validate'] = NEVER;
   public validate: Observable<SbbStepValidateEventDetails> = fromEvent<SbbStepValidateEventDetails>(
     this.#element.nativeElement,

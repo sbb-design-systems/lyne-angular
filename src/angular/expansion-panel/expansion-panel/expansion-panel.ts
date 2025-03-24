@@ -60,19 +60,15 @@ export class SbbExpansionPanel {
     return this.#element.nativeElement.size;
   }
 
-   
   @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;
   public willOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willOpen');
 
-   
   @Output('didOpen') protected _didOpen: (typeof this)['didOpen'] = NEVER;
   public didOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didOpen');
 
-   
   @Output('willClose') protected _willClose: (typeof this)['willClose'] = NEVER;
   public willClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willClose');
 
-   
   @Output('didClose') protected _didClose: (typeof this)['didClose'] = NEVER;
   public didClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didClose');
 }

@@ -97,7 +97,6 @@ export class SbbTag {
   @Output('input') protected _input: (typeof this)['input'] = NEVER;
   public input: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
 
-   
   @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
   public didChange: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didChange');
 

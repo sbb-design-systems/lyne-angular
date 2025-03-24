@@ -97,7 +97,6 @@ export class SbbFileSelector extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.name;
   }
 
-   
   @Output('fileChanged') protected _fileChanged: (typeof this)['fileChanged'] = NEVER;
   public fileChanged: Observable<readonly File[]> = fromEvent<readonly File[]>(
     this.#element.nativeElement,

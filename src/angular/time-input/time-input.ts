@@ -27,11 +27,9 @@ export class SbbTimeInput {
     return this.#element.nativeElement.valueAsDate;
   }
 
-   
   @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
   public didChange: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didChange');
 
-   
   @Output('validationChange') protected _validationChange: (typeof this)['validationChange'] =
     NEVER;
   public validationChange: Observable<SbbValidationChangeEvent> =
