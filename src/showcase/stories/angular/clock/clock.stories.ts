@@ -1,5 +1,5 @@
 import { SbbClock } from '@sbb-esta/lyne-angular/clock';
-import { SbbTime } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbTime } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
