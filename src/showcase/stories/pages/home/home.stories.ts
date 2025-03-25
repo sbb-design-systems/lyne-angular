@@ -38,7 +38,7 @@ import { SbbSkiplinkList } from '@sbb-esta/lyne-angular/skiplink-list';
 import { SbbTeaserHero } from '@sbb-esta/lyne-angular/teaser-hero';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { SbbPearlChain } from '@sbb-esta/lyne-angular-experimental/pearl-chain';
-import { SbbDialogElement } from '@sbb-esta/lyne-elements/dialog/dialog.js';
+import type { SbbDialogElement } from '@sbb-esta/lyne-elements/dialog/dialog.js';
 import { Args, Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
 

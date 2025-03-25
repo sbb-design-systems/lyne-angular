@@ -2,7 +2,7 @@ import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { SbbOverlay } from '@sbb-esta/lyne-angular/overlay';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay.js';
+import type { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay.js';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 
 const openOverlay = (_event: PointerEvent, id: string): void => {
