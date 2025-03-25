@@ -10,7 +10,7 @@ import '@sbb-esta/lyne-elements/slider.js';
   selector: 'sbb-slider',
   exportAs: 'sbbSlider',
   host: {
-    '(change)': 'this.onChangeFn(this.checked)',
+    '(change)': 'this.onChangeFn(this.value)',
     '(blur)': 'this.onTouchedFn()',
   },
   providers: [
