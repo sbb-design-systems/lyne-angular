@@ -8,7 +8,6 @@ import { SbbIconSidebarContainer } from '@sbb-esta/lyne-angular/sidebar/icon-sid
 import { SbbIconSidebarContent } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-content';
 import { SbbIconSidebarLink } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-link';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, ArgTypes, Meta, moduleMetadata } from '@storybook/angular';
 import { InputType } from '@storybook/types';
 
@@ -19,21 +18,12 @@ const position: InputType = {
   options: ['start', 'end'],
 };
 
-const color: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['white', 'milk'],
-};
-
 const argTypes: ArgTypes = {
-  position: position,
-  color: color,
+  position,
 };
 
 const args: Args = {
   position: 'start',
-  color: 'white',
 };
 
 const iconSidebar = (args: Args) => `<sbb-icon-sidebar ${argsToTemplate(args)}>
@@ -57,7 +47,6 @@ const iconSidebar = (args: Args) => `<sbb-icon-sidebar ${argsToTemplate(args)}>
 
 const meta: Meta = {
   decorators: [
-    withActions,
     moduleMetadata({
       imports: [
         SbbChipLabel,

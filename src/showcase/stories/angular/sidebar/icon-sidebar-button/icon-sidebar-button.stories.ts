@@ -15,12 +15,6 @@ const ariaLabel: InputType = {
   },
 };
 
-const iconName: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
 const currentPage: InputType = {
   control: {
     type: 'boolean',
@@ -28,7 +22,6 @@ const currentPage: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'icon-name': iconName,
   'aria-label': ariaLabel,
   currentPage,
 };
@@ -52,7 +45,6 @@ const meta: Meta = {
   title: 'elements/sbb-sidebar/sbb-icon-sidebar-button',
   component: SbbIconSidebarButton,
   parameters: {
-    // add events or remove the 'action' object
     actions: { handles: ['click'] },
   },
   argTypes,

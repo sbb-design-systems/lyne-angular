@@ -1,5 +1,4 @@
 import { SbbIconSidebarLink } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-link';
-import { withActions } from '@storybook/addon-actions/decorator';
 import {
   Args,
   argsToTemplate,
@@ -9,24 +8,6 @@ import {
 } from '@storybook/angular';
 import { InputType } from '@storybook/types';
 
-const accessibilityLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const iconName: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const href: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
 const currentPage: InputType = {
   control: {
     type: 'boolean',
@@ -34,9 +15,6 @@ const currentPage: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'icon-name': iconName,
-  'accessibility-label': accessibilityLabel,
-  href,
   currentPage,
 };
 
@@ -49,7 +27,6 @@ const args: Args = {
 
 const meta: Meta = {
   decorators: [
-    withActions,
     componentWrapperDecorator(
       (story) => `<div style="max-width: var(--sbb-size-element-m)">
         <!-- The max-width is only set for storybook. Don't copy it. -->
@@ -59,10 +36,6 @@ const meta: Meta = {
   ],
   title: 'elements/sbb-sidebar/sbb-icon-sidebar-link',
   component: SbbIconSidebarLink,
-  parameters: {
-    // add events or remove the 'action' object
-    actions: { handles: ['click'] },
-  },
   argTypes,
   args,
   render: ({ currentPage, ...args }) => ({
