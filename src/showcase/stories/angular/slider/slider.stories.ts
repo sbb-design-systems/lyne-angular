@@ -38,15 +38,15 @@ const argTypes: ArgTypes = {
   value,
   label,
   optional,
-  'value-as-number': valueAsNumber,
+  valueAsNumber,
 };
 
 const args: Args = {
   value: '40',
   min: '0',
   max: '100',
-  'start-icon': 'walk-slow-small',
-  'end-icon': 'walk-fast-small',
+  startIcon: 'walk-slow-small',
+  endIcon: 'walk-fast-small',
   label: 'Label',
   optional: undefined,
 };
@@ -64,7 +64,7 @@ const meta: Meta = {
   render: ({ label, optional, ...args }: Args) => ({
     props: { label, optional, ...args },
     template: `
-      <sbb-form-field [optional]=${optional}>
+      <sbb-form-field [optional]="optional">
         ${label && `<label>${label}</label>`}
         <sbb-slider ${argsToTemplate(args)} name="slider"></sbb-slider>
       </sbb-form-field>

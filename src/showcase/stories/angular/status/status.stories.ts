@@ -32,7 +32,7 @@ const text: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'title-level': titleLevel,
+  titleLevel,
   type,
   text,
 };

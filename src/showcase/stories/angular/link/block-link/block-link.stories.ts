@@ -39,7 +39,7 @@ const href: InputType = {
 const argTypes = {
   text,
   size,
-  'icon-placement': iconPlacement,
+  iconPlacement,
   href,
 };
 

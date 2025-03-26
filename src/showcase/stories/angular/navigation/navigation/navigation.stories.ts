@@ -75,7 +75,7 @@ const meta: Meta = {
       <sbb-secondary-button
           id="navigation-trigger"
           size="l"
-          icon-name="hamburger-menu-small"
+          iconName="hamburger-menu-small"
           aria-label="trigger navigation"
           aria-haspopup="true"
         ></sbb-secondary-button>
@@ -83,22 +83,22 @@ const meta: Meta = {
         <sbb-navigation-marker id="nav-marker">${navigationActionsL()}</sbb-navigation-marker>
         <sbb-navigation-marker size="s">${navigationActionsS()}</sbb-navigation-marker>
 
-        <sbb-navigation-section trigger="nav-1" title-content="Title one">
+        <sbb-navigation-section trigger="nav-1" titleContent="Title one">
           ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
           ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
           <sbb-button size="m" style="width: fit-content"> All Tickets & Offers </sbb-button>
         </sbb-navigation-section>
 
-        <sbb-navigation-section trigger="nav-2" title-content="Title two">
+        <sbb-navigation-section trigger="nav-2" titleContent="Title two">
           ${navigationList('Label', true)} ${navigationList('Label')} ${navigationList('Label')}
           ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
         </sbb-navigation-section>
 
-        <sbb-navigation-section trigger="nav-3" title-content="Title three">
+        <sbb-navigation-section trigger="nav-3" titleContent="Title three">
           ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
           <sbb-secondary-button
             size="m"
-            icon-name="circle-information-small"
+            iconName="circle-information-small"
             style="width: fit-content;"
           >
             Travel Information

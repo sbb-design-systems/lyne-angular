@@ -25,7 +25,7 @@ const argTypes: ArgTypes = {
 
 const args: Args = {
   'aria-label': 'Click to open the popover',
-  'icon-name': 'circle-information-small',
+  iconName: 'circle-information-small',
 };
 
 const meta: Meta = {
@@ -53,15 +53,15 @@ const meta: Meta = {
           <sbb-popover-trigger id="popover-trigger" ${argsToTemplate(args)}></sbb-popover-trigger>
         </span>
         <sbb-popover trigger="popover-trigger">
-          <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
+          <sbb-title level="2" visualLevel="6" style="margin-block-start: 0">
             Simple popover with link.
           </sbb-title>
           <p class="sbb-text-s" style="margin: 0;">
             Some content.
             <sbb-block-link
               size="s"
-              icon-name="chevron-small-right-small"
-              icon-placement="end"
+              iconName="chevron-small-right-small"
+              iconPlacement="end"
               sbb-popover-close
             >
               Learn More

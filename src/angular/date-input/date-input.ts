@@ -72,7 +72,7 @@ export class SbbDateInput<T = Date>
     return this.#element.nativeElement.max;
   }
 
-  @Input({ alias: 'date-filter' })
+  @Input()
   public set dateFilter(value: (date: T | null) => boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.dateFilter = value));
   }
@@ -80,7 +80,7 @@ export class SbbDateInput<T = Date>
     return this.#element.nativeElement.dateFilter;
   }
 
-  @Input({ alias: 'weekday-style' })
+  @Input()
   public set weekdayStyle(value: 'short' | 'none') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.weekdayStyle = value));
   }

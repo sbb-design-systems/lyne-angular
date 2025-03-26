@@ -32,14 +32,14 @@ const value: InputType = {
 const argTypes: ArgTypes = {
   label,
   size,
-  'icon-placement': iconPlacement,
+  iconPlacement,
   value,
 };
 
 const args: Args = {
   label: 'Label',
   size: size.options![0],
-  'icon-placement': undefined,
+  iconPlacement: undefined,
 };
 
 const meta: Meta = {

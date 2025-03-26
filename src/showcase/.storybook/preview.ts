@@ -13,6 +13,7 @@ import docJson from './documentation.json';
 for (const directive of docJson.directives) {
   directive.outputsClass = [];
   directive.methodsClass = [];
+  directive.propertiesClass = [];
 }
 setCompodocJson(docJson);
 

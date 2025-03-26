@@ -31,7 +31,7 @@ export class SbbTimetableRow {
     return this.#element.nativeElement.price;
   }
 
-  @Input({ alias: 'disable-animation', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set disableAnimation(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disableAnimation = value));
   }
@@ -47,7 +47,7 @@ export class SbbTimetableRow {
     return this.#element.nativeElement.boarding;
   }
 
-  @Input({ alias: 'loading-trip', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set loadingTrip(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.loadingTrip = value));
   }
@@ -55,7 +55,7 @@ export class SbbTimetableRow {
     return this.#element.nativeElement.loadingTrip;
   }
 
-  @Input({ alias: 'a11y-footpath', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set a11yFootpath(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.a11yFootpath = value));
   }
@@ -63,7 +63,7 @@ export class SbbTimetableRow {
     return this.#element.nativeElement.a11yFootpath;
   }
 
-  @Input({ alias: 'loading-price', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set loadingPrice(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.loadingPrice = value));
   }
@@ -71,7 +71,7 @@ export class SbbTimetableRow {
     return this.#element.nativeElement.loadingPrice;
   }
 
-  @Input({ alias: 'card-action-label' })
+  @Input()
   public set cardActionLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.cardActionLabel = value));
   }
@@ -79,7 +79,7 @@ export class SbbTimetableRow {
     return this.#element.nativeElement.cardActionLabel;
   }
 
-  @Input({ alias: 'accessibility-expanded', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set accessibilityExpanded(value: boolean) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityExpanded = value),

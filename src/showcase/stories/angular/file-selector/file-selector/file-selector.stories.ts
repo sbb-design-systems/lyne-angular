@@ -32,14 +32,14 @@ const files: InputType = {
 
 const argTypes: ArgTypes = {
   size,
-  'multiple-mode': multipleMode,
+  multipleMode,
   value,
   files,
 };
 
 const args: Args = {
   size: size.options![0],
-  'multiple-mode': multipleMode.options![0],
+  multipleMode: multipleMode.options![0],
 };
 
 const meta: Meta = {

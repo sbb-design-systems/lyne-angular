@@ -17,13 +17,13 @@ const secondClassOccupancy: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'first-class-occupancy': firstClassOccupancy,
-  'second-class-occupancy': secondClassOccupancy,
+  firstClassOccupancy,
+  secondClassOccupancy,
 };
 
 const args: Args = {
-  'first-class-occupancy': firstClassOccupancy.options![3],
-  'second-class-occupancy': secondClassOccupancy.options![3],
+  firstClassOccupancy: firstClassOccupancy.options![3],
+  secondClassOccupancy: secondClassOccupancy.options![3],
 };
 
 const meta: Meta = {

@@ -71,10 +71,10 @@ const meta: Meta = {
     props: { iconName, label, labelTwo, ...args },
     template: `
     <sbb-toggle ${argsToTemplate(args)}>
-      <sbb-toggle-option ${iconName ? `icon-name="${iconName}"` : ''} value="Value 1">
+      <sbb-toggle-option ${iconName ? `[iconName]="iconName"` : ''} value="Value 1">
         ${label}
       </sbb-toggle-option>
-      <sbb-toggle-option ${iconName ? `icon-name="arrows-right-left-small"` : ''} value="Value 2">
+      <sbb-toggle-option ${iconName ? `iconName="arrows-right-left-small"` : ''} value="Value 2">
         ${labelTwo}
       </sbb-toggle-option>
     </sbb-toggle>

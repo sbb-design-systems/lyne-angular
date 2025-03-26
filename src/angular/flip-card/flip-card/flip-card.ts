@@ -12,7 +12,7 @@ export class SbbFlipCard {
   #element: ElementRef<SbbFlipCardElement> = inject(ElementRef<SbbFlipCardElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'accessibility-label' })
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }

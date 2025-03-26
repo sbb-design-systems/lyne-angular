@@ -37,11 +37,11 @@ const argTypes: ArgTypes = {
   type,
   size,
   animation,
-  'title-level': titleLevel,
+  titleLevel,
 };
 
 const args: Args = {
-  'title-content': 'Title',
+  titleContent: 'Title',
   type: type.options![0],
   size: size.options![1],
   animation: animation.options![0],

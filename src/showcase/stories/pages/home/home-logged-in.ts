@@ -16,40 +16,40 @@ export const homeLoggedInTemplate = ({ legs, ...args }: Args): string => `
     ${skiplinkList()}
 
     <!-- Header section -->
-    <sbb-header hide-on-scroll expanded=${args['expanded']}>
-      <sbb-header-button id="hamburger-menu" icon-name="hamburger-menu-small" expand-from="small">
+    <sbb-header hideOnScroll expanded=${args['expanded']}>
+      <sbb-header-button id="hamburger-menu" iconName="hamburger-menu-small" expandFrom="small">
         Menu
       </sbb-header-button>
       <div class="sbb-header-spacer"></div>
-      <sbb-header-link icon-name="magnifying-glass-small" href="/"> Search </sbb-header-link>
+      <sbb-header-link iconName="magnifying-glass-small" href="/"> Search </sbb-header-link>
       <sbb-header-button
-        icon-name="user-small"
+        iconName="user-small"
         id="user-menu-trigger"
         class="sbb-header-shrinkable"
       >
         Christina Müller
       </sbb-header-button>
       <sbb-menu trigger="user-menu-trigger">
-        <sbb-menu-link icon-name="user-small" href="/"> Account </sbb-menu-link>
-        <sbb-menu-button icon-name="tickets-class-small">Tickets</sbb-menu-button>
-        <sbb-menu-button icon-name="shopping-cart-small" amount="1">
+        <sbb-menu-link iconName="user-small" href="/"> Account </sbb-menu-link>
+        <sbb-menu-button iconName="tickets-class-small">Tickets</sbb-menu-button>
+        <sbb-menu-button iconName="shopping-cart-small" amount="1">
           Shopping cart
         </sbb-menu-button>
         <sbb-divider></sbb-divider>
-        <sbb-menu-button icon-name="exit-small">Sign out</sbb-menu-button>
+        <sbb-menu-button iconName="exit-small">Sign out</sbb-menu-button>
       </sbb-menu>
-      <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
+      <sbb-header-button iconName="globe-small" id="language-menu-trigger" class="last-element">
         English
       </sbb-header-button>
       <sbb-menu trigger="language-menu-trigger">
         <sbb-menu-button aria-pressed="false">Deutsch</sbb-menu-button>
         <sbb-menu-button aria-pressed="false">Français</sbb-menu-button>
         <sbb-menu-button aria-pressed="false">Italiano</sbb-menu-button>
-        <sbb-menu-button icon-name="tick-small" aria-pressed="true"> English </sbb-menu-button>
+        <sbb-menu-button iconName="tick-small" aria-pressed="true"> English </sbb-menu-button>
       </sbb-menu>
       <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
       <a href="https://www.sbb.ch" class="sbb-header-logo">
-        <sbb-logo protective-room="none"></sbb-logo>
+        <sbb-logo protectiveRoom="none"></sbb-logo>
       </a>
     </sbb-header>
 
@@ -63,10 +63,10 @@ export const homeLoggedInTemplate = ({ legs, ...args }: Args): string => `
       <div class="grid-reduced-width logged-in-overview">
         <div class="welcome">
           <span class="avatar-mock"></span>
-          <sbb-title level="2" visual-level="1"> Welcome, Christina Müller </sbb-title>
+          <sbb-title level="2" visualLevel="1"> Welcome, Christina Müller </sbb-title>
         </div>
         <div class="current-tickets">
-          <sbb-title level="3" visual-level="4"> Your current tickets & trips. </sbb-title>
+          <sbb-title level="3" visualLevel="4"> Your current tickets & trips. </sbb-title>
           <ul class="current-tickets-list">
             <li>
               <sbb-card>
@@ -85,20 +85,20 @@ export const homeLoggedInTemplate = ({ legs, ...args }: Args): string => `
                   <sbb-icon name="ticket-route-medium"></sbb-icon>
                   <span class="content">
                     <span class="sbb-text-s card-description">Saver ticket</span>
-                    <sbb-title level="2" visual-level="1"> GA </sbb-title>
+                    <sbb-title level="2" visualLevel="1"> GA </sbb-title>
                     <sbb-journey-header
                       origin="La Chaux de Fonds"
                       destination="Loèche-les-Bains"
-                      round-trip
+                      roundTrip
                       level="2"
                     ></sbb-journey-header>
-                    <sbb-title level="3" visual-level="6"> Generalabonnement </sbb-title>
+                    <sbb-title level="3" visualLevel="6"> Generalabonnement </sbb-title>
                     <span class="sbb-text-s card-description">
                       2nd class, valid until 30.11.2022
                     </span>
                     <sbb-pearl-chain now="2021-12-08T12:11:00+01:00" ${argsToTemplate({ legs: legs })}></sbb-pearl-chain>
                   </span>
-                  <sbb-secondary-button-static icon-name="qrcode-small">
+                  <sbb-secondary-button-static iconName="qrcode-small">
                     Ticket
                   </sbb-secondary-button-static>
                 </span>
@@ -114,10 +114,10 @@ export const homeLoggedInTemplate = ({ legs, ...args }: Args): string => `
                   <sbb-icon name="ticket-route-medium"></sbb-icon>
                   <span class="content">
                     <span class="sbb-text-s card-description">Saver ticket</span>
-                    <sbb-title level="2" visual-level="6"> Libero day ticket: All zones </sbb-title>
+                    <sbb-title level="2" visualLevel="6"> Libero day ticket: All zones </sbb-title>
                     <span class="sbb-text-s card-description">Today, Valid 24 hours</span>
                   </span>
-                  <sbb-secondary-button-static icon-name="qrcode-small">
+                  <sbb-secondary-button-static iconName="qrcode-small">
                     Ticket
                   </sbb-secondary-button-static>
                 </span>
@@ -134,11 +134,11 @@ export const homeLoggedInTemplate = ({ legs, ...args }: Args): string => `
                     <sbb-journey-header
                       origin="La Chaux de Fonds"
                       destination="Loèche-les-Bains"
-                      round-trip=""
+                      roundTrip
                       level="2"
                     ></sbb-journey-header>
                     <span class="sbb-text-s card-description">
-                      Saturday, 21.02.2021, 1 h 26 minargsto
+                      Saturday, 21.02.2021, 1 h 26 min
                     </span>
                     <sbb-pearl-chain now="2021-12-08T12:11:00+01:00" ${argsToTemplate({ legs: legs })}></sbb-pearl-chain>
                   </span>
@@ -168,14 +168,14 @@ export const homeLoggedInTemplate = ({ legs, ...args }: Args): string => `
             </sbb-dialog-content>
 
             <sbb-dialog-actions
-              align-group="stretch"
+              alignGroup="stretch"
               orientation="vertical"
-              horizontal-from="medium"
+              horizontalFrom="medium"
             >
               <sbb-block-link
                 size="s"
                 align-self="start"
-                icon-name="chevron-small-left-small"
+                iconName="chevron-small-left-small"
                 href="https://www.sbb.ch/en/"
                 sbb-dialog-close
               >
@@ -187,7 +187,7 @@ export const homeLoggedInTemplate = ({ legs, ...args }: Args): string => `
           </sbb-dialog>
 
           <sbb-dialog id="my-stacked-dialog">
-            <sbb-dialog-title back-button>Stacked Dialog</sbb-dialog-title>
+            <sbb-dialog-title backButton>Stacked Dialog</sbb-dialog-title>
             <sbb-dialog-content>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
               incididunt ut labore et dolore magna aliqua.
@@ -203,13 +203,13 @@ export const homeLoggedInTemplate = ({ legs, ...args }: Args): string => `
         <sbb-title level="2" negative=${args['negative']}> Your tickets & subscriptions. </sbb-title>
         <div class="tickets">
           <div class="purchase-tickets-again">
-            <sbb-title level="3" visual-level="4" negative=${args['negative']}>
+            <sbb-title level="3" visualLevel="4" negative=${args['negative']}>
               Purchase tickets again.
             </sbb-title>
             ${dailyTicketProduct()} ${bikeProduct()} ${liberoProduct()}
           </div>
           <div class="your-subscriptions">
-            <sbb-title level="3" visual-level="4" negative=${args['negative']}>
+            <sbb-title level="3" visualLevel="4" negative=${args['negative']}>
               Your subscriptions.
             </sbb-title>
             <sbb-card color="milk" size="s">
@@ -219,8 +219,8 @@ export const homeLoggedInTemplate = ({ legs, ...args }: Args): string => `
 
               <span class="card-product-big">
                 <span class="content">
-                  <sbb-title level="2" visual-level="1"> GA </sbb-title>
-                  <sbb-title level="3" visual-level="6"> Generalabonnement </sbb-title>
+                  <sbb-title level="2" visualLevel="1"> GA </sbb-title>
+                  <sbb-title level="3" visualLevel="6"> Generalabonnement </sbb-title>
                   <span class="sbb-text-s card-description">2nd class, valid until 30.11.2022</span>
                 </span>
                 <sbb-secondary-button-static> Edit subscription </sbb-secondary-button-static>

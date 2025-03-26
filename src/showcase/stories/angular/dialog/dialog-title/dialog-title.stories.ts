@@ -26,13 +26,13 @@ const hideOnScroll: InputType = {
 
 const argTypes: ArgTypes = {
   level,
-  'visual-level': visualLevel,
-  'hide-on-scroll': hideOnScroll,
+  visualLevel,
+  hideOnScroll,
 };
 
 const args: Args = {
-  'hide-on-scroll': hideOnScroll.options![0],
-  'back-button': true,
+  hideOnScroll: hideOnScroll.options![0],
+  backButton: true,
 };
 
 const meta: Meta = {

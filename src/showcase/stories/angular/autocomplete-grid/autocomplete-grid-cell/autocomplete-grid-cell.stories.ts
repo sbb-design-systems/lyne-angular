@@ -49,13 +49,13 @@ const meta: Meta = {
     template: `
       <sbb-autocomplete-grid-row ${args['negative'] ? 'data-negative' : ''}>
         <sbb-autocomplete-grid-cell>
-          <sbb-autocomplete-grid-button ${argsToTemplate(args)} icon-name='star-small'></sbb-autocomplete-grid-button>
+          <sbb-autocomplete-grid-button ${argsToTemplate(args)} iconName='star-small'></sbb-autocomplete-grid-button>
         </sbb-autocomplete-grid-cell>
         <sbb-autocomplete-grid-cell>
-          <sbb-autocomplete-grid-button ${argsToTemplate(args)} icon-name='pen-small'></sbb-autocomplete-grid-button>
+          <sbb-autocomplete-grid-button ${argsToTemplate(args)} iconName='pen-small'></sbb-autocomplete-grid-button>
         </sbb-autocomplete-grid-cell>
         <sbb-autocomplete-grid-cell>
-          <sbb-autocomplete-grid-button ${argsToTemplate(args)} icon-name='trash-small'></sbb-autocomplete-grid-button>
+          <sbb-autocomplete-grid-button ${argsToTemplate(args)} iconName='trash-small'></sbb-autocomplete-grid-button>
         </sbb-autocomplete-grid-cell>
       </sbb-autocomplete-grid-row>
     `,

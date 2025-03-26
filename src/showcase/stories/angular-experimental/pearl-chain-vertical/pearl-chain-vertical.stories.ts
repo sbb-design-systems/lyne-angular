@@ -61,7 +61,7 @@ const argTypes: ArgTypes = {
 };
 
 const args: Args = {
-  'pearl-chain-vertical-item-attributes': {
+  pearlChainVerticalItemAttributes: {
     lineType: lineType.options![1],
     lineColor: lineColor.options![0],
     bulletType: bulletType.options![0],

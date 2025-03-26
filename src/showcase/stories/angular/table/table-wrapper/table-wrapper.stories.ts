@@ -82,7 +82,7 @@ const meta: Meta = {
   render: ({ negative }: Args) => ({
     props: { negative },
     template: `
-      <sbb-table-wrapper [negative]=${negative}>
+      <sbb-table-wrapper [negative]="negative">
         <table
           aria-label="Train lines 2024"
           class="sbb-table ${negative ? 'sbb-table--negative' : ''}"

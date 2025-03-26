@@ -88,7 +88,7 @@ const argTypes: ArgTypes = {
   iconName,
   contentText,
   expanded,
-  'title-level': titleLevel,
+  titleLevel,
   color,
   borderless,
   disabled,
@@ -101,7 +101,7 @@ const args: Args = {
   iconName: undefined,
   contentText: longText,
   expanded: false,
-  'title-level': titleLevel.options![2],
+  titleLevel: titleLevel.options![2],
   color: color.options![0],
   borderless: false,
   disabled: false,
@@ -127,7 +127,7 @@ const meta: Meta = {
     props: { headerText, iconName, contentText, disabledInteractive, ...args },
     template: `
       <sbb-expansion-panel ${argsToTemplate(args)}>
-        <sbb-expansion-panel-header ${iconName ? `icon-name=${iconName}` : ''} disabled-interactive=${disabledInteractive}>
+        <sbb-expansion-panel-header ${iconName ? `[iconName]='iconName'` : ''} [disabledInteractive]=${disabledInteractive}>
           ${headerText}
         </sbb-expansion-panel-header>
         <sbb-expansion-panel-content>${contentText}</sbb-expansion-panel-content>

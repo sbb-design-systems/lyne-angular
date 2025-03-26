@@ -40,7 +40,7 @@ const argTypes: ArgTypes = {
   text,
   size,
   type,
-  'icon-placement': iconPlacement,
+  iconPlacement,
   value,
 };
 
@@ -48,7 +48,7 @@ const args: Args = {
   text: 'Travelcards & tickets',
   size: size.options![1],
   type: type.options![0],
-  'icon-placement': iconPlacement.options![0],
+  iconPlacement: iconPlacement.options![0],
 };
 
 const meta: Meta = {

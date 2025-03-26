@@ -11,7 +11,7 @@ export class SbbTagGroup {
   #element: ElementRef<SbbTagGroupElement> = inject(ElementRef<SbbTagGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'list-accessibility-label' })
+  @Input()
   public set listAccessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.listAccessibilityLabel = value),

@@ -74,11 +74,11 @@ const meta: Meta = {
         <span style="${userInfoStyle}">UIS9057</span>
         <sbb-block-link href="https://www.sbb.ch/en" target="_blank" negative size="xs"> Profile </sbb-block-link>
         <sbb-divider></sbb-divider>
-        <sbb-menu-link ${iconName && `icon-name=${iconName}`} href="https://www.sbb.ch/en">View</sbb-menu-link>
-        <sbb-menu-button icon-name="tickets-class-small" disabled=${disabled}>Tickets</sbb-menu-button>
-        <sbb-menu-button icon-name="shopping-cart-small" amount=${amount}>Cart</sbb-menu-button>
+        <sbb-menu-link ${iconName && `[iconName]="iconName"`} href="https://www.sbb.ch/en">View</sbb-menu-link>
+        <sbb-menu-button iconName="tickets-class-small" [disabled]="disabled">Tickets</sbb-menu-button>
+        <sbb-menu-button iconName="shopping-cart-small" [amount]="amount">Cart</sbb-menu-button>
         <sbb-divider></sbb-divider>
-        <sbb-menu-button icon-name="exit-small">Log Out</sbb-menu-button>
+        <sbb-menu-button iconName="exit-small">Log Out</sbb-menu-button>
       </sbb-menu>
     `,
   }),

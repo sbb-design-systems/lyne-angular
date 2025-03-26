@@ -28,7 +28,7 @@ export class SbbCompactPaginator {
     return this.#element.nativeElement.length;
   }
 
-  @Input({ alias: 'page-size', transform: numberAttribute })
+  @Input({ transform: numberAttribute })
   public set pageSize(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pageSize = value));
   }
@@ -36,7 +36,7 @@ export class SbbCompactPaginator {
     return this.#element.nativeElement.pageSize;
   }
 
-  @Input({ alias: 'page-index', transform: numberAttribute })
+  @Input({ transform: numberAttribute })
   public set pageIndex(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pageIndex = value));
   }
@@ -44,7 +44,7 @@ export class SbbCompactPaginator {
     return this.#element.nativeElement.pageIndex;
   }
 
-  @Input({ alias: 'pager-position' })
+  @Input()
   public set pagerPosition(value: 'start' | 'end') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pagerPosition = value));
   }

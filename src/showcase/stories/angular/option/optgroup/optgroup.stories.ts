@@ -79,10 +79,10 @@ export default meta;
 export const Autocomplete = {
   argTypes,
   args,
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ negative, ...args }: Args) => ({
+    props: { negative, ...args },
     template: `
-      <sbb-form-field [negative]=${args['negative']}>
+      <sbb-form-field [negative]='negative'>
         <label>Autocomplete</label>
         <input placeholder="Placeholder" />
         <sbb-autocomplete>${Template(args)}</sbb-autocomplete>
@@ -94,12 +94,12 @@ export const Autocomplete = {
 export const Select = {
   argTypes: { ...argTypes, multiple },
   args: { ...args, multiple: false },
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ negative, multiple, ...args }: Args) => ({
+    props: { negative, multiple, ...args },
     template: `
-      <sbb-form-field [negative]=${args['negative']}>
+      <sbb-form-field [negative]='negative'>
         <label>Select</label>
-        <sbb-select [multiple]=${args['multiple']} placeholder="Select"> ${Template(args)} </sbb-select>
+        <sbb-select [multiple]='multiple' placeholder="Select"> ${Template({ negative, ...args })} </sbb-select>
       </sbb-form-field>
     `,
   }),

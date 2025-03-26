@@ -21,7 +21,7 @@ const argTypes: ArgTypes = {
 
 const args: Args = {
   label: 'Label',
-  'icon-name': 'tick-small',
+  iconName: 'tick-small',
 };
 
 const meta: Meta = {

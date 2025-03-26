@@ -115,9 +115,9 @@ const meta: Meta = {
     props: { containerColor, containerExpanded, containerBackgroundExpanded, color, ...args },
     template: `
       <sbb-container
-        color=${containerColor}
-        expanded=${containerExpanded}
-        background-expanded=${containerBackgroundExpanded}
+        [color]="containerColor"
+        [expanded]="containerExpanded"
+        [backgroundExpanded]="containerBackgroundExpanded"
       >
         ${containerContent('Example title', isDark(containerColor))}
         ${containerContent('Another one', isDark(containerColor))}

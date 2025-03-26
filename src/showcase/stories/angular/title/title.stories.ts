@@ -18,7 +18,7 @@ const level: InputType = {
 const argTypes: ArgTypes = {
   text,
   level,
-  'visual-level': level,
+  visualLevel: level,
 };
 
 const args: Args = {

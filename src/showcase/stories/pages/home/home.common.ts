@@ -1,7 +1,7 @@
 import { Args } from '@storybook/angular';
 
 export const skiplinkList = (): string => `
-  <sbb-skiplink-list title-level="2" title-content="Skip to">
+  <sbb-skiplink-list titleLevel="2" titleContent="Skip to">
     <sbb-block-link href="#">Skip to content</sbb-block-link>
     <sbb-block-link href="#">Go to help page</sbb-block-link>
   </sbb-skiplink-list>
@@ -37,7 +37,7 @@ export const navigation = (): string => `
       </sbb-navigation-button>
     </sbb-navigation-marker>
 
-    <sbb-navigation-section title-content="Title one" trigger="nav-1">
+    <sbb-navigation-section titleContent="Title one" trigger="nav-1">
       <sbb-navigation-list label="Label">
         <sbb-navigation-button aria-current="page" class="sbb-active">Label</sbb-navigation-button>
         <sbb-navigation-button>Label</sbb-navigation-button>
@@ -77,7 +77,7 @@ export const navigation = (): string => `
       <sbb-button size="m" class="navigation-button"> All Tickets & Offers </sbb-button>
     </sbb-navigation-section>
 
-    <sbb-navigation-section title-content="Title two" trigger="nav-2">
+    <sbb-navigation-section titleContent="Title two" trigger="nav-2">
       <sbb-navigation-list label="Label">
         <sbb-navigation-button>Label</sbb-navigation-button>
         <sbb-navigation-button>Label</sbb-navigation-button>
@@ -109,7 +109,7 @@ export const navigation = (): string => `
       </sbb-navigation-list>
     </sbb-navigation-section>
 
-    <sbb-navigation-section title-content="Title three" trigger="nav-3">
+    <sbb-navigation-section titleContent="Title three" trigger="nav-3">
       <sbb-navigation-list label="Label">
         <sbb-navigation-button>Label</sbb-navigation-button>
         <sbb-navigation-button>Label</sbb-navigation-button>
@@ -128,7 +128,7 @@ export const navigation = (): string => `
         <sbb-navigation-button>Label</sbb-navigation-button>
       </sbb-navigation-list>
 
-      <sbb-secondary-button size="m" icon-name="circle-information-small" class="navigation-button">
+      <sbb-secondary-button size="m" iconName="circle-information-small" class="navigation-button">
         Travel Information
       </sbb-secondary-button>
     </sbb-navigation-section>
@@ -144,7 +144,7 @@ export const dailyTicketProduct = (): string => `
     <span class="card-product">
       <sbb-icon name="ticket-route-medium"></sbb-icon>
       <span class="content">
-        <sbb-title level="2" visual-level="6"> Daily ticket </sbb-title>
+        <sbb-title level="2" visualLevel="6"> Daily ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
       <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
@@ -161,7 +161,7 @@ export const bikeProduct = (): string => `
     <span class="card-product">
       <sbb-icon name="bicycle-medium"></sbb-icon>
       <span class="content">
-        <sbb-title level="2" visual-level="6"> Bike day pass </sbb-title>
+        <sbb-title level="2" visualLevel="6"> Bike day pass </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
       <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
@@ -178,7 +178,7 @@ export const liberoProduct = (): string => `
     <span class="card-product">
       <sbb-icon name="ticket-route-medium"></sbb-icon>
       <span class="content">
-        <sbb-title level="2" visual-level="6"> Libero short distance ticket </sbb-title>
+        <sbb-title level="2" visualLevel="6"> Libero short distance ticket </sbb-title>
         <span class="sbb-text-s card-description">Valid today</span>
       </span>
       <sbb-secondary-button-static size="m"> Buy </sbb-secondary-button-static>
@@ -188,11 +188,11 @@ export const liberoProduct = (): string => `
 
 export const teaserHero = (): string => `
   <section class="sbb-page-spacing">
-    <sbb-teaser-hero class="teaser-hero" link-content="Learn more" href="https://www.sbb.ch">
+    <sbb-teaser-hero class="teaser-hero" linkContent="Learn more" href="https://www.sbb.ch">
       Considerate with SBB Green Class.
       <sbb-image
         slot="image"
-        image-src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
+        imageSrc="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
       ></sbb-image>
     </sbb-teaser-hero>
   </section>
@@ -200,13 +200,13 @@ export const teaserHero = (): string => `
 
 export const footer = (args: Args): string => `
   <sbb-footer
-    accessibility-title="Footer"
+    accessibilityTitle="Footer"
     variant="clock-columns"
     negative=${args['negative']}
     expanded=${args['expanded']}
   >
     <div class="sbb-link-list-button-group">
-      <sbb-link-list title-level="2" title-content="Help &amp; Contact." negative=${args['negative']}>
+      <sbb-link-list titleLevel="2" titleContent="Help &amp; Contact." negative=${args['negative']}>
         <sbb-block-link
           href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
           negative=${args['negative']}
@@ -245,7 +245,7 @@ export const footer = (args: Args): string => `
         All help topics
       </sbb-button-link>
     </div>
-    <sbb-link-list title-level="2" title-content="More SBB." negative=${args['negative']}>
+    <sbb-link-list titleLevel="2" titleContent="More SBB." negative=${args['negative']}>
       <sbb-block-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         negative=${args['negative']}
@@ -279,7 +279,7 @@ export const footer = (args: Args): string => `
     </sbb-link-list>
     <div class="sbb-link-list-button-group">
       <span>
-        <sbb-title level="2" visual-level="5" negative=${args['negative']} class="footer-title">
+        <sbb-title level="2" visualLevel="5" negative=${args['negative']} class="footer-title">
           Newsletter.
         </sbb-title>
         <p class="footer-text">
@@ -295,7 +295,7 @@ export const footer = (args: Args): string => `
     </div>
     <sbb-clock></sbb-clock>
     <sbb-divider negative=${args['negative']}></sbb-divider>
-    <sbb-link-list horizontal-from="large" negative=${args['negative']}>
+    <sbb-link-list horizontalFrom="large" negative=${args['negative']}>
       <sbb-block-link
         href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
         negative=${args['negative']}

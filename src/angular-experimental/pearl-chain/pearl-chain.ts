@@ -19,7 +19,7 @@ export class SbbPearlChain {
     return this.#element.nativeElement.legs;
   }
 
-  @Input({ alias: 'disable-animation', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set disableAnimation(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disableAnimation = value));
   }

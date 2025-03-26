@@ -39,7 +39,7 @@ const value: InputType = {
 const argTypes: ArgTypes = {
   text,
   type,
-  'expand-from': expandFrom,
+  expandFrom,
   active,
   value,
 };
@@ -47,8 +47,8 @@ const argTypes: ArgTypes = {
 const args: Args = {
   text: 'Menu',
   type: type.options![0],
-  'expand-from': expandFrom.options![0],
-  'icon-name': 'hamburger-menu-small',
+  expandFrom: expandFrom.options![0],
+  iconName: 'hamburger-menu-small',
 };
 
 const meta: Meta = {

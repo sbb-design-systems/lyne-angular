@@ -45,10 +45,10 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ negative, ...args }: Args) => ({
+    props: { negative, ...args },
     template: `
-      <sbb-form-field [negative]=${args['negative']}>
+      <sbb-form-field [negative]="negative">
         <sbb-date-input value="2023-02-15"></sbb-date-input>
         <sbb-datepicker-toggle ${argsToTemplate(args)}></sbb-datepicker-toggle>
         <sbb-datepicker></sbb-datepicker>

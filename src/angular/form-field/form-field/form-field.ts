@@ -10,7 +10,7 @@ export class SbbFormField {
   #element: ElementRef<SbbFormFieldElement> = inject(ElementRef<SbbFormFieldElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'error-space' })
+  @Input()
   public set errorSpace(value: 'none' | 'reserve') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.errorSpace = value));
   }
@@ -50,7 +50,7 @@ export class SbbFormField {
     return this.#element.nativeElement.width;
   }
 
-  @Input({ alias: 'hidden-label', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set hiddenLabel(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hiddenLabel = value));
   }
@@ -58,7 +58,7 @@ export class SbbFormField {
     return this.#element.nativeElement.hiddenLabel;
   }
 
-  @Input({ alias: 'floating-label', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set floatingLabel(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.floatingLabel = value));
   }

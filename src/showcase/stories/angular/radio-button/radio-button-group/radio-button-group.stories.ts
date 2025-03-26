@@ -61,14 +61,14 @@ const size: InputType = {
 
 const argTypes: ArgTypes = {
   orientation,
-  'horizontal-from': horizontalFrom,
+  horizontalFrom,
   size,
 };
 
 const args: Args = {
   value: 'Value two',
   orientation: orientation.options![0],
-  'horizontal-from': undefined,
+  horizontalFrom: undefined,
   size: size.options![0],
 };
 

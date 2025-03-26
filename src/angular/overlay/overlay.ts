@@ -20,7 +20,7 @@ export class SbbOverlay {
     return this.#element.nativeElement.expanded;
   }
 
-  @Input({ alias: 'back-button', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set backButton(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backButton = value));
   }
@@ -28,7 +28,7 @@ export class SbbOverlay {
     return this.#element.nativeElement.backButton;
   }
 
-  @Input({ alias: 'accessibility-close-label' })
+  @Input()
   public set accessibilityCloseLabel(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityCloseLabel = value),
@@ -38,7 +38,7 @@ export class SbbOverlay {
     return this.#element.nativeElement.accessibilityCloseLabel;
   }
 
-  @Input({ alias: 'accessibility-back-label' })
+  @Input()
   public set accessibilityBackLabel(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityBackLabel = value),
@@ -56,7 +56,7 @@ export class SbbOverlay {
     return this.#element.nativeElement.negative;
   }
 
-  @Input({ alias: 'accessibility-label' })
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }

@@ -63,7 +63,7 @@ export class SbbDatepickerPreviousDay<T = Date> {
     return this.#element.nativeElement.type;
   }
 
-  @Input({ alias: 'date-picker' })
+  @Input()
   public set datePicker(value: string | SbbDatepickerElement<T> | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datePicker = value));
   }

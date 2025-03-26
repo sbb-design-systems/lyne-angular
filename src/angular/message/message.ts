@@ -10,7 +10,7 @@ export class SbbMessage {
   #element: ElementRef<SbbMessageElement> = inject(ElementRef<SbbMessageElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'title-content' })
+  @Input()
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
   }
@@ -18,7 +18,7 @@ export class SbbMessage {
     return this.#element.nativeElement.titleContent;
   }
 
-  @Input({ alias: 'title-level' })
+  @Input()
   public set titleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
   }

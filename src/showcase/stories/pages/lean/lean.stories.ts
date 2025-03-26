@@ -57,26 +57,26 @@ const meta: Meta = {
   render: () => ({
     template: `
       <sbb-header hide-on-scroll expanded>
-        <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+        <sbb-header-button iconName="hamburger-menu-small" expandFrom="small">
           Menu
         </sbb-header-button>
         <div class="sbb-header-spacer"></div>
-        <sbb-header-link icon-name="magnifying-glass-small" href="/"> Search </sbb-header-link>
-        <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
+        <sbb-header-link iconName="magnifying-glass-small" href="/"> Search </sbb-header-link>
+        <sbb-header-button iconName="user-small" class="sbb-header-shrinkable">
           Sign in
         </sbb-header-button>
-        <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
+        <sbb-header-button iconName="globe-small" id="language-menu-trigger" class="last-element">
           English
         </sbb-header-button>
         <sbb-menu trigger="language-menu-trigger">
           <sbb-menu-button aria-pressed="false">Deutsch</sbb-menu-button>
           <sbb-menu-button aria-pressed="false">Français</sbb-menu-button>
           <sbb-menu-button aria-pressed="false">Italiano</sbb-menu-button>
-          <sbb-menu-button icon-name="tick-small" aria-pressed="true"> English </sbb-menu-button>
+          <sbb-menu-button iconName="tick-small" aria-pressed="true"> English </sbb-menu-button>
         </sbb-menu>
         <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
         <a aria-label="Homepage" href="/" class="sbb-header-logo">
-          <sbb-signet protective-room="panel"></sbb-signet>
+          <sbb-signet protectiveRoom="panel"></sbb-signet>
         </a>
       </sbb-header>
 
@@ -151,7 +151,7 @@ const meta: Meta = {
             <sbb-paginator page-size="10" length="100"></sbb-paginator>
           </div>
           <div class="lean-wrapper-half">
-            <sbb-radio-button-group orientation="vertical" horizontal-from="small">
+            <sbb-radio-button-group orientation="vertical" horizontalFrom="small">
               <sbb-radio-button value="Value one">Value one</sbb-radio-button>
               <sbb-radio-button value="Value two">Value two</sbb-radio-button>
               <sbb-radio-button value="Value three" disabled> Value three </sbb-radio-button>

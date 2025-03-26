@@ -12,7 +12,7 @@ export class SbbTeaserProductStatic {
   );
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'image-alignment' })
+  @Input()
   public set imageAlignment(value: 'after' | 'before') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.imageAlignment = value));
   }

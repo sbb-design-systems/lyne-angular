@@ -25,13 +25,13 @@ const withFooter: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'image-alignment': imageAlignment,
+  imageAlignment,
   withChip,
   withFooter,
 };
 
 const args: Args = {
-  'image-alignment': imageAlignment.options![0],
+  imageAlignment: imageAlignment.options![0],
   withChip: true,
   withFooter: true,
   href: 'https://www.sbb.ch',
@@ -52,15 +52,15 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ withChip, withFooter, ...args }: Args) => ({
-    props: { withChip, withFooter, ...args },
+  render: ({ withChip, withFooter, imageAlignment, ...args }: Args) => ({
+    props: { withChip, withFooter, imageAlignment, ...args },
     template: `
-      <sbb-teaser-product ${argsToTemplate(args)}>
+      <sbb-teaser-product ${argsToTemplate({ imageAlignment, ...args })}>
         <figure slot="image" class="sbb-figure">
           <img src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg' alt="" />
           ${
             withChip
-              ? `<sbb-chip-label class=${args['image-alignment'] === 'after' ? 'sbb-figure-overlap-start-end' : 'sbb-figure-overlap-start-start'}>
+              ? `<sbb-chip-label class=${imageAlignment === 'after' ? 'sbb-figure-overlap-start-end' : 'sbb-figure-overlap-start-start'}>
                   AI generated
                 </sbb-chip-label>`
               : ''

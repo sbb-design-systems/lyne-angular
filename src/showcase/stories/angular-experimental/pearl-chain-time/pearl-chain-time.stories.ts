@@ -42,34 +42,40 @@ const now: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'departure-walk': departureWalk,
-  'arrival-walk': arrivalWalk,
-  'arrival-time': arrivalTime,
-  'departure-time': departureTime,
-  'disable-animation': disableAnimation,
+  departureWalk,
+  arrivalWalk,
+  arrivalTime,
+  departureTime,
+  disableAnimation,
   now,
 };
 
 const args: Args = {
   legs: [progressLeg],
-  'departure-walk': '5',
-  'arrival-walk': '10',
-  'arrival-time': '2022-12-11T14:11:00',
-  'departure-time': '2022-12-11T12:11:00',
-  'disable-animation': false,
+  departureWalk: 5,
+  arrivalWalk: 10,
+  arrivalTime: '2022-12-11T14:11:00',
+  departureTime: '2022-12-11T12:11:00',
+  disableAnimation: false,
   now: new Date('2022-12-05T12:11:00').valueOf(),
 };
 
 const meta: Meta = {
   title: 'experimental/sbb-pearl-chain-time',
   component: SbbPearlChainTime,
-  argTypes,
-  args,
+  argTypes: {
+    ...argTypes,
+    convertMillisecondsToSeconds: { type: 'function', control: false, table: { disable: true } },
+  },
+  args: {
+    ...args,
+    convertMillisecondsToSeconds: (e: number): number => convertMillisecondsToSeconds(e),
+  },
   render: ({ now, ...args }: Args) => ({
     props: { now, ...args },
     template: `
       <div style="max-width: 20rem;">
-        <sbb-pearl-chain-time ${argsToTemplate(args)} ${now ? `now=${convertMillisecondsToSeconds(now)}` : ''}></sbb-pearl-chain-time>
+        <sbb-pearl-chain-time ${argsToTemplate(args)} [now]="convertMillisecondsToSeconds(now)"></sbb-pearl-chain-time>
       </div>
     `,
   }),
