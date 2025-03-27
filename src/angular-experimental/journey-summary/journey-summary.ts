@@ -22,7 +22,7 @@ export class SbbJourneySummary {
     return this.#element.nativeElement.trip;
   }
 
-  @Input({ alias: 'trip-back' })
+  @Input()
   public set tripBack(value: InterfaceSbbJourneySummaryAttributes) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.tripBack = value));
   }
@@ -30,7 +30,7 @@ export class SbbJourneySummary {
     return this.#element.nativeElement.tripBack;
   }
 
-  @Input({ alias: 'round-trip', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set roundTrip(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.roundTrip = value));
   }
@@ -38,7 +38,7 @@ export class SbbJourneySummary {
     return this.#element.nativeElement.roundTrip;
   }
 
-  @Input({ alias: 'header-level' })
+  @Input()
   public set headerLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.headerLevel = value));
   }
@@ -46,7 +46,7 @@ export class SbbJourneySummary {
     return this.#element.nativeElement.headerLevel;
   }
 
-  @Input({ alias: 'disable-animation', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set disableAnimation(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disableAnimation = value));
   }
@@ -54,7 +54,7 @@ export class SbbJourneySummary {
     return this.#element.nativeElement.disableAnimation;
   }
 
-  @Input({ alias: 'a11y-footpath', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set a11yFootpath(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.a11yFootpath = value));
   }

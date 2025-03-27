@@ -68,11 +68,11 @@ const meta: Meta = {
   render: ({ type, negative, ...args }: Args) => ({
     props: { type, negative, ...args },
     template: `
-      <sbb-form-field [negative]=${negative}>
+      <sbb-form-field [negative]="negative">
         <label>Label</label>
         <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
         <input type="text" placeholder="Input placeholder" value="Input value" ${argsToTemplate(args)} />
-        <sbb-form-field-clear type=${type} [negative]=${negative}></sbb-form-field-clear>
+        <sbb-form-field-clear [type]="type" [negative]="negative"></sbb-form-field-clear>
       </sbb-form-field>
     `,
   }),

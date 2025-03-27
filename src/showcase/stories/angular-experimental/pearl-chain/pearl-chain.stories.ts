@@ -29,13 +29,19 @@ const args: Args = {
 const meta: Meta = {
   title: 'experimental/sbb-pearl-chain',
   component: SbbPearlChain,
-  argTypes,
-  args,
+  argTypes: {
+    ...argTypes,
+    convertMillisecondsToSeconds: { type: 'function', control: false, table: { disable: true } },
+  },
+  args: {
+    ...args,
+    convertMillisecondsToSeconds: (e: number): number => convertMillisecondsToSeconds(e),
+  },
   render: ({ now, ...args }: Args) => ({
     props: { now, ...args },
     template: `
       <div style="max-width: 80%;">
-        <sbb-pearl-chain ${argsToTemplate(args)} ${now ? `now=${convertMillisecondsToSeconds(now)}` : ''}></sbb-pearl-chain>
+        <sbb-pearl-chain ${argsToTemplate(args)} [now]="convertMillisecondsToSeconds(now)"></sbb-pearl-chain>
       </div>
     `,
   }),

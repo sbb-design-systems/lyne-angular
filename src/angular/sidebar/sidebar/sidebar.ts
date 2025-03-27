@@ -45,7 +45,7 @@ export class SbbSidebar {
     return this.#element.nativeElement.opened;
   }
 
-  @Input({ alias: 'focus-on-open', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set focusOnOpen(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.focusOnOpen = value));
   }

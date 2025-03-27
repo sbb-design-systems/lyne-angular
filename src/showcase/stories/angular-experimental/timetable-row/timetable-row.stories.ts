@@ -37,7 +37,7 @@ const price: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'card-action-label': cardActionLabel,
+  cardActionLabel,
   now,
   trip,
   boarding,
@@ -45,7 +45,7 @@ const argTypes: ArgTypes = {
 };
 
 const args: Args = {
-  'card-action-label': '',
+  cardActionLabel: '',
   now: new Date('2022-12-01T12:11:00').valueOf(),
   trip: defaultTrip,
   boarding: { name: 'sa-rs', text: 'boarding' },
@@ -60,11 +60,17 @@ const meta: Meta = {
     actions: { handles: ['click'] },
     backgroundColor: () => 'var(--sbb-color-milk)',
   },
-  argTypes,
-  args,
+  argTypes: {
+    ...argTypes,
+    convertMillisecondsToSeconds: { type: 'function', control: false, table: { disable: true } },
+  },
+  args: {
+    ...args,
+    convertMillisecondsToSeconds: (e: number): number => convertMillisecondsToSeconds(e),
+  },
   render: ({ now, ...args }: Args) => ({
     props: { now, ...args },
-    template: `<sbb-timetable-row ${argsToTemplate(args)} ${now ? `now=${convertMillisecondsToSeconds(now)}` : ''}></sbb-timetable-row>`,
+    template: `<sbb-timetable-row ${argsToTemplate(args)} [now]="convertMillisecondsToSeconds(now)"></sbb-timetable-row>`,
   }),
 };
 export default meta;

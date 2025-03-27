@@ -20,7 +20,7 @@ export class SbbNotification {
     return this.#element.nativeElement.type;
   }
 
-  @Input({ alias: 'title-content' })
+  @Input()
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
   }
@@ -28,7 +28,7 @@ export class SbbNotification {
     return this.#element.nativeElement.titleContent;
   }
 
-  @Input({ alias: 'title-level' })
+  @Input()
   public set titleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
   }

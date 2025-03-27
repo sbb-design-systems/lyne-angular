@@ -14,7 +14,7 @@ export class SbbExpansionPanelHeader {
   );
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'disabled-interactive', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set disabledInteractive(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabledInteractive = value));
   }
@@ -30,7 +30,7 @@ export class SbbExpansionPanelHeader {
     return this.#element.nativeElement.disabled;
   }
 
-  @Input({ alias: 'icon-name' })
+  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }

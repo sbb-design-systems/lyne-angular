@@ -58,23 +58,23 @@ const description: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'title-content': titleContent,
-  'title-level': titleLevel,
+  titleContent,
+  titleLevel,
   target,
-  'chip-content': chipContent,
+  chipContent,
   alignment,
   href,
   description,
 };
 
 const args: Args = {
-  'title-content': 'This is a title',
+  titleContent: 'This is a title',
   target: '_blank',
-  'chip-content': undefined,
+  chipContent: undefined,
   alignment: alignment.options![0],
   href: href.options![1],
   description: 'This is a paragraph',
-  'accessibility-label':
+  accessibilityLabel:
     'The text which gets exposed to screen reader users. The text should reflect all the information which gets passed into the components slots and which is visible in the Teaser, either through text or iconography',
 };
 

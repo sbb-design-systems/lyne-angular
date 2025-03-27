@@ -41,7 +41,7 @@ export class SbbFileSelector extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.multiple;
   }
 
-  @Input({ alias: 'multiple-mode' })
+  @Input()
   public set multipleMode(value: 'default' | 'persistent') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.multipleMode = value));
   }
@@ -57,7 +57,7 @@ export class SbbFileSelector extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.accept;
   }
 
-  @Input({ alias: 'accessibility-label' })
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }

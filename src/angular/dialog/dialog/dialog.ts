@@ -12,7 +12,7 @@ export class SbbDialog {
   #element: ElementRef<SbbDialogElement> = inject(ElementRef<SbbDialogElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'backdrop-action' })
+  @Input()
   public set backdropAction(value: 'close' | 'none') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backdropAction = value));
   }
@@ -36,7 +36,7 @@ export class SbbDialog {
     return this.#element.nativeElement.backdrop;
   }
 
-  @Input({ alias: 'accessibility-label' })
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }

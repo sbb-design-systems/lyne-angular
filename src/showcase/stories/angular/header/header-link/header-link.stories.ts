@@ -39,15 +39,15 @@ const active: InputType = {
 const argTypes: ArgTypes = {
   text,
   href,
-  'expand-from': expandFrom,
+  expandFrom,
   active,
 };
 
 const args: Args = {
   text: 'Menu',
   href: href.options![0],
-  'expand-from': expandFrom.options![0],
-  'icon-name': 'hamburger-menu-small',
+  expandFrom: expandFrom.options![0],
+  iconName: 'hamburger-menu-small',
   target: '_blank',
 };
 

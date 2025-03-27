@@ -44,24 +44,23 @@ const selected: InputType = {
 };
 
 const selectedIndex: InputType = {
-  control: false,
-  table: {
-    disable: true,
+  control: {
+    type: 'number',
   },
 };
 
 const argTypes: ArgTypes = {
   orientation,
-  'horizontal-from': horizontalFrom,
+  horizontalFrom,
   size,
   selected,
-  'selected-index': selectedIndex,
+  selectedIndex,
 };
 
 const args: Args = {
   linear: false,
   orientation: orientation.options![0],
-  'horizontal-from': horizontalFrom.options![0],
+  horizontalFrom: horizontalFrom.options![0],
   size: size.options![1],
 };
 

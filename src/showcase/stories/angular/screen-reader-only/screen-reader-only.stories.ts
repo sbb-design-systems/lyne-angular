@@ -10,11 +10,11 @@ const meta: Meta = {
   args: {
     content: `I'm visually hidden, but read to screen reader.`,
   },
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ content }: Args) => ({
+    props: { content },
     template: `
       There is a visually hidden text here:
-      <sbb-screen-reader-only>${args['content']}</sbb-screen-reader-only>
+      <sbb-screen-reader-only>{{content}}</sbb-screen-reader-only>
     `,
   }),
 };

@@ -11,7 +11,7 @@ export class SbbLogo {
   #element: ElementRef<SbbLogoElement> = inject(ElementRef<SbbLogoElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'protective-room' })
+  @Input()
   public set protectiveRoom(value: SbbProtectiveRoom) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.protectiveRoom = value));
   }
@@ -19,7 +19,7 @@ export class SbbLogo {
     return this.#element.nativeElement.protectiveRoom;
   }
 
-  @Input({ alias: 'accessibility-label' })
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }

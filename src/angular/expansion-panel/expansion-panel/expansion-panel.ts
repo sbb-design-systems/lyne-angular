@@ -12,7 +12,7 @@ export class SbbExpansionPanel {
   #element: ElementRef<SbbExpansionPanelElement> = inject(ElementRef<SbbExpansionPanelElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'title-level' })
+  @Input()
   public set titleLevel(value: SbbTitleLevel | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
   }

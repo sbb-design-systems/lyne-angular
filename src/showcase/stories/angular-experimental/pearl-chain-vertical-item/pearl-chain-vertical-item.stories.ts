@@ -35,7 +35,7 @@ const argTypes: ArgTypes = {
 };
 
 const args: Args = {
-  'pearl-chain-vertical-item-attributes': {
+  pearlChainVerticalItemAttributes: {
     minHeight: '100',
     hideLine: false,
     lineType: lineType.options![0],

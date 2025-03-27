@@ -9,9 +9,9 @@ const protectiveRoom: InputType = {
   options: ['none', 'minimal', 'ideal'],
 };
 
-const argTypes: ArgTypes = { 'protective-room': protectiveRoom };
+const argTypes: ArgTypes = { protectiveRoom };
 
-const args: Args = { 'protective-room': protectiveRoom.options![0] };
+const args: Args = { protectiveRoom: protectiveRoom.options![0] };
 
 const meta: Meta = {
   title: 'elements/sbb-logo',

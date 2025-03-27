@@ -12,12 +12,12 @@ const titleLevel: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'title-level': titleLevel,
+  titleLevel,
 };
 
 const args: Args = {
-  'title-content': 'Unfortunately, an error has occurred.',
-  'title-level': 3,
+  titleContent: 'Unfortunately, an error has occurred.',
+  titleLevel: 3,
 };
 
 const meta: Meta = {
@@ -35,10 +35,10 @@ const meta: Meta = {
     template: `
       <div style="max-width: 45rem; margin: auto">
         <sbb-message ${argsToTemplate(args)}>
-          <sbb-image slot="image" image-src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Help-Teaser-Landscape.png'></sbb-image>
+          <sbb-image slot="image" imageSrc='https://cdn.img.sbb.ch/content/dam/internet/lyne/Help-Teaser-Landscape.png'></sbb-image>
           <p slot="subtitle">Please reload the page or try your search again later.</p>
           <p slot="legend">Error code: 0001</p>
-          <sbb-secondary-button slot="action" icon-name="arrows-circle-small" size="m"></sbb-secondary-button>
+          <sbb-secondary-button slot="action" iconName="arrows-circle-small" size="m"></sbb-secondary-button>
         </sbb-message>
       </div>
     `,

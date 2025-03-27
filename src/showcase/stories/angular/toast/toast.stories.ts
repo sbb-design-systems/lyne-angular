@@ -95,7 +95,7 @@ const meta: Meta = {
         Lorem ipsum dolor amet.
         ${
           action === 'button'
-            ? `<sbb-transparent-button slot="action" icon-name="clock-small" aria-label="Remind me later" sbb-toast-close></sbb-transparent-button>`
+            ? `<sbb-transparent-button slot="action" iconName="clock-small" aria-label="Remind me later" sbb-toast-close></sbb-transparent-button>`
             : ''
         }
         ${

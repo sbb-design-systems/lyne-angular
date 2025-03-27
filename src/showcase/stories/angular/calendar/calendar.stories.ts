@@ -62,7 +62,6 @@ const argTypes: ArgTypes = {
   max,
   dateFilter,
   orientation,
-  'date-filter': { table: { disable: true } },
   now,
 };
 
@@ -74,10 +73,10 @@ const meta: Meta = {
     actions: { handles: ['click'] },
   },
   argTypes,
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ selected, dateFilter, ...args }: Args) => ({
+    props: { selected, dateFilter, ...args },
     template: `
-      <sbb-calendar ${argsToTemplate(args)} selected=${args['selected'] / 1000}></sbb-calendar>`,
+      <sbb-calendar ${argsToTemplate(args)} selected=${selected / 1000} [dateFilter]="dateFilter"></sbb-calendar>`,
   }),
 };
 export default meta;

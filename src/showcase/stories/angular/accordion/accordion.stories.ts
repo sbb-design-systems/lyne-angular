@@ -60,7 +60,7 @@ const iconName: InputType = {
 };
 
 const argTypes = {
-  'title-level': titleLevel,
+  titleLevel,
   color,
   expanded,
   borderless,
@@ -69,7 +69,7 @@ const argTypes = {
 };
 
 const args = {
-  'title-level': titleLevel.options![2],
+  titleLevel: titleLevel.options![2],
   color: color.options![0],
   expanded: false,
   borderless: false,
@@ -98,19 +98,19 @@ const meta: Meta = {
     template: `
       <sbb-accordion ${argsToTemplate(args)}>
         <sbb-expansion-panel
-          color=${color}
-          expanded=${expanded}
-          borderless=${borderless}
-          disabled=${disabled}>
-          <sbb-expansion-panel-header icon-name=${iconName}>Header</sbb-expansion-panel-header>
+          [color]="color"
+          [expanded]="expanded"
+          [borderless]="borderless"
+          [disabled]="disabled">
+          <sbb-expansion-panel-header [iconName]="iconName">Header</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
         </sbb-expansion-panel>
         <sbb-expansion-panel
-          color=${color}
-          expanded=${expanded}
-          borderless=${borderless}
-          disabled=${disabled}>
-          <sbb-expansion-panel-header icon-name=${iconName}>Header 2</sbb-expansion-panel-header>
+          [color]="color"
+          [expanded]="expanded"
+          [borderless]="borderless"
+          [disabled]="disabled">
+          <sbb-expansion-panel-header [iconName]="iconName">Header 2</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>Content 2</sbb-expansion-panel-content>
         </sbb-expansion-panel>
       </sbb-accordion>

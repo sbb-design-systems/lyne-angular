@@ -23,23 +23,23 @@ const labelPosition: InputType = {
   options: ['before', 'after'],
 };
 
-const argTypes: ArgTypes = {
-  size,
-  label,
-  'label-position': labelPosition,
-};
-
 const value: InputType = {
   control: {
     type: 'text',
   },
 };
 
+const argTypes: ArgTypes = {
+  size,
+  label,
+  labelPosition,
+  value,
+};
+
 const args: Args = {
   size: size.options![1],
   label: 'Label',
-  'label-position': labelPosition.options![1],
-  value,
+  labelPosition: labelPosition.options![1],
 };
 
 const meta: Meta = {

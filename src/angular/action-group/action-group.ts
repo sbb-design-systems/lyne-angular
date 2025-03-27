@@ -13,7 +13,7 @@ export class SbbActionGroup {
   #element: ElementRef<SbbActionGroupElement> = inject(ElementRef<SbbActionGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'align-group' })
+  @Input()
   public set alignGroup(value: 'start' | 'center' | 'stretch' | 'end') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.alignGroup = value));
   }
@@ -21,7 +21,7 @@ export class SbbActionGroup {
     return this.#element.nativeElement.alignGroup;
   }
 
-  @Input({ alias: 'horizontal-from' })
+  @Input()
   public set horizontalFrom(value: SbbHorizontalFrom) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.horizontalFrom = value));
   }
@@ -37,7 +37,7 @@ export class SbbActionGroup {
     return this.#element.nativeElement.orientation;
   }
 
-  @Input({ alias: 'button-size' })
+  @Input()
   public set buttonSize(value: SbbButtonSize) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.buttonSize = value));
   }
@@ -45,7 +45,7 @@ export class SbbActionGroup {
     return this.#element.nativeElement.buttonSize;
   }
 
-  @Input({ alias: 'link-size' })
+  @Input()
   public set linkSize(value: SbbLinkSize) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.linkSize = value));
   }

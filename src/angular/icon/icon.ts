@@ -18,7 +18,7 @@ export class SbbIcon {
     return this.#element.nativeElement.name;
   }
 
-  @Input({ alias: 'no-sanitize', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set noSanitize(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.noSanitize = value));
   }

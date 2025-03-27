@@ -43,19 +43,19 @@ const linkSize: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'align-group': alignGroup,
+  alignGroup,
   orientation,
-  'horizontal-from': horizontalFrom,
-  'button-size': buttonSize,
-  'link-size': linkSize,
+  horizontalFrom,
+  buttonSize,
+  linkSize,
 };
 
 const args: Args = {
-  'align-group': alignGroup.options![0],
+  alignGroup: alignGroup.options![0],
   orientation: orientation.options![0],
-  'horizontal-from': horizontalFrom.options![0],
-  'button-size': buttonSize.options![0],
-  'link-size': linkSize.options![0],
+  horizontalFrom: horizontalFrom.options![0],
+  buttonSize: buttonSize.options![0],
+  linkSize: linkSize.options![0],
 };
 
 const meta: Meta = {
@@ -77,7 +77,6 @@ const meta: Meta = {
     template: `
       <sbb-dialog-actions ${argsToTemplate(args)}>
       <sbb-block-link
-        align-self="start"
         icon-name="chevron-small-left-small"
         href="https://www.sbb.ch/en/"
         sbb-dialog-close

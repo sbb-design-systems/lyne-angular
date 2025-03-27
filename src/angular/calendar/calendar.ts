@@ -61,7 +61,7 @@ export class SbbCalendar<T = Date> {
     return this.#element.nativeElement.selected;
   }
 
-  @Input({ alias: 'date-filter' })
+  @Input()
   public set dateFilter(value: ((date: T | null) => boolean) | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.dateFilter = value));
   }

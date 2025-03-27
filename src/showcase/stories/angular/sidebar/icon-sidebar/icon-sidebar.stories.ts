@@ -26,24 +26,26 @@ const args: Args = {
   position: 'start',
 };
 
-const iconSidebar = (args: Args) => `<sbb-icon-sidebar ${argsToTemplate(args)}>
-          <sbb-icon-sidebar-link
-            accessibility-label="Go to the party"
-            icon-name="glass-cocktail-small"
-            href="#"
-          ></sbb-icon-sidebar-link>
-          <sbb-icon-sidebar-link
-            accessibility-label="Be a unicorn"
-            icon-name="unicorn-small"
-            href="#"
-            class="sbb-active"
-            accessibility-current="page"
-          ></sbb-icon-sidebar-link>
-          <sbb-icon-sidebar-button
-            aria-label="Be happy"
-            icon-name="face-grinning-small"
-          ></sbb-icon-sidebar-button>
-        </sbb-icon-sidebar>`;
+const iconSidebar = (args: Args) => `
+  <sbb-icon-sidebar ${argsToTemplate(args)}>
+    <sbb-icon-sidebar-link
+      accessibilityLabel="Go to the party"
+      iconName="glass-cocktail-small"
+      href="#"
+    ></sbb-icon-sidebar-link>
+    <sbb-icon-sidebar-link
+      accessibilityLabel="Be a unicorn"
+      iconName="unicorn-small"
+      href="#"
+      class="sbb-active"
+      accessibilityCurrent="page"
+    ></sbb-icon-sidebar-link>
+    <sbb-icon-sidebar-button
+      aria-label="Be happy"
+      iconName="face-grinning-small"
+    ></sbb-icon-sidebar-button>
+  </sbb-icon-sidebar>
+`;
 
 const meta: Meta = {
   decorators: [

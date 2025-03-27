@@ -28,7 +28,7 @@ export class SbbButtonStatic {
     return this.#element.nativeElement.negative;
   }
 
-  @Input({ alias: 'icon-name' })
+  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }

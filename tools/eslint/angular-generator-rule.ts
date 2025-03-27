@@ -257,25 +257,13 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               fix: (fixer) => {
                 const endOfBody = classDeclaration.body.range[1] - 1;
                 let input = '@Input(';
-                if (member.attribute && member.attribute.includes('-')) {
-                  input += `{ alias: '${member.attribute}' }`;
+                if (member.type?.text === 'boolean') {
+                  hasBooleanAttributesToTransform = true;
+                  input += `{ transform: booleanAttribute }`;
                 }
-                if (member.type) {
-                  if (member.type.text === 'boolean') {
-                    hasBooleanAttributesToTransform = true;
-                    if (input.includes('alias')) {
-                      input = input.replace(` }`, `, transform: booleanAttribute }`);
-                    } else {
-                      input += `{ transform: booleanAttribute }`;
-                    }
-                  } else if (member.type.text === 'number') {
-                    expectedAngularImports.add('numberAttribute');
-                    if (input.includes('alias')) {
-                      input = input.replace(` }`, `, transform: numberAttribute }`);
-                    } else {
-                      input += `{ transform: numberAttribute }`;
-                    }
-                  }
+                if (member.type?.text === 'number') {
+                  expectedAngularImports.add('numberAttribute');
+                  input += `{ transform: numberAttribute }`;
                 }
                 input += `)`;
 

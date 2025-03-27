@@ -190,47 +190,47 @@ const meta: Meta = {
     },
     template: `
       <sbb-form-field
-        [negative]=${negative}
-        [borderless]=${borderless}
-        [size]=${size}
-        [floating-label]=${floatingLabel}
+        [negative]="negative"
+        [borderless]="borderless"
+        [size]="size"
+        [floatingLabel]="floatingLabel"
       >
         <label>Label</label>
         <input
           placeholder="Placeholder"
           aria-label="Listed options have extra buttons, use arrow keys to reach them."
-          [disabled]=${disabled}
-          [readonly]=${readonly}
+          [disabled]="disabled"
+          [readonly]="readonly"
         />
         <sbb-autocomplete-grid ${argsToTemplate(args)}>
           <sbb-autocomplete-grid-row>
-            <sbb-autocomplete-grid-option value="Current location" icon-name="gps-small">Current location</sbb-autocomplete-grid-option>
+            <sbb-autocomplete-grid-option value="Current location" iconName="gps-small">Current location</sbb-autocomplete-grid-option>
           </sbb-autocomplete-grid-row>
           <sbb-autocomplete-grid-optgroup label="Group 1">
             <sbb-autocomplete-grid-row>
-              <sbb-autocomplete-grid-option value="1" icon-name=${optionIconName} disabled=${disableOption}>Option 1-1</sbb-autocomplete-grid-option>
+              <sbb-autocomplete-grid-option value="1" [iconName]="optionIconName" [disabled]="disableOption">Option 1-1</sbb-autocomplete-grid-option>
               <sbb-autocomplete-grid-cell>
-                <sbb-autocomplete-grid-button icon-name=${buttonIconName} aria-label=${buttonIconName}></sbb-autocomplete-grid-button>
+                <sbb-autocomplete-grid-button [iconName]="buttonIconName" aria-label=${buttonIconName}></sbb-autocomplete-grid-button>
               </sbb-autocomplete-grid-cell>
             </sbb-autocomplete-grid-row>
             <sbb-autocomplete-grid-row>
-              <sbb-autocomplete-grid-option value="2" icon-name=${optionIconName}>Option 1-2</sbb-autocomplete-grid-option>
+              <sbb-autocomplete-grid-option value="2" [iconName]="optionIconName">Option 1-2</sbb-autocomplete-grid-option>
               <sbb-autocomplete-grid-cell>
-                <sbb-autocomplete-grid-button icon-name=${buttonIconName} aria-label=${buttonIconName}></sbb-autocomplete-grid-button>
+                <sbb-autocomplete-grid-button [iconName]="buttonIconName" aria-label=${buttonIconName}></sbb-autocomplete-grid-button>
               </sbb-autocomplete-grid-cell>
             </sbb-autocomplete-grid-row>
           </sbb-autocomplete-grid-optgroup>
-          <sbb-autocomplete-grid-optgroup label="Group 2" disabled=${disableGroup}>
+          <sbb-autocomplete-grid-optgroup label="Group 2" [disabled]="disableGroup">
           <sbb-autocomplete-grid-row>
-              <sbb-autocomplete-grid-option value="3" icon-name=${optionIconName}>Option 2-3</sbb-autocomplete-grid-option>
+              <sbb-autocomplete-grid-option value="3" [iconName]="optionIconName">Option 2-3</sbb-autocomplete-grid-option>
               <sbb-autocomplete-grid-cell>
-                <sbb-autocomplete-grid-button icon-name=${buttonIconName} aria-label=${buttonIconName}></sbb-autocomplete-grid-button>
+                <sbb-autocomplete-grid-button [iconName]="buttonIconName" aria-label=${buttonIconName}></sbb-autocomplete-grid-button>
               </sbb-autocomplete-grid-cell>
             </sbb-autocomplete-grid-row>
             <sbb-autocomplete-grid-row>
               <sbb-autocomplete-grid-option value="4">Option 2-4</sbb-autocomplete-grid-option>
               <sbb-autocomplete-grid-cell>
-                <sbb-autocomplete-grid-button icon-name=${buttonIconName} aria-label=${buttonIconName}></sbb-autocomplete-grid-button>
+                <sbb-autocomplete-grid-button [iconName]="buttonIconName" aria-label=${buttonIconName}></sbb-autocomplete-grid-button>
               </sbb-autocomplete-grid-cell>
             </sbb-autocomplete-grid-row>
           </sbb-autocomplete-grid-optgroup>

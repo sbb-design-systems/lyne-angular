@@ -33,7 +33,7 @@ export class SbbToggleCheck extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.size;
   }
 
-  @Input({ alias: 'icon-name' })
+  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }
@@ -41,7 +41,7 @@ export class SbbToggleCheck extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.iconName;
   }
 
-  @Input({ alias: 'label-position' })
+  @Input()
   public set labelPosition(value: 'before' | 'after') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.labelPosition = value));
   }

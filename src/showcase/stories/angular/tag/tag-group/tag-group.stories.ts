@@ -50,7 +50,7 @@ const meta: Meta = {
       <sbb-tag-group ${argsToTemplate(args)}>
         ${new Array(8).fill(null).map(
           (_e, i) => `
-          <sbb-tag [checked]=${i === 0} value=${label} amount="123" icon-name="pie-small">
+          <sbb-tag [checked]=${i === 0} value=${label} amount="123" iconName="pie-small">
             ${label} ${i + 1}
           </sbb-tag>
         `,

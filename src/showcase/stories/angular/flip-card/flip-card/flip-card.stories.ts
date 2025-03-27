@@ -45,14 +45,14 @@ const accessibilityLabel: InputType = {
 const argTypes: ArgTypes = {
   imageAlignment,
   label,
-  'accessibility-label': accessibilityLabel,
+  accessibilityLabel,
   text,
 };
 
 const args: Args = {
   imageAlignment: imageAlignment.options![0],
   label: 'Summary',
-  'accessibility-label': undefined,
+  accessibilityLabel: undefined,
   text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam luctus ornare condimentum.`,
 };
 
@@ -70,21 +70,21 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ imageAlignment, label, accessibilityLabel, text }: Args) => ({
+    props: { imageAlignment, label, accessibilityLabel, text },
     template: `
       <div style="max-width: 792px;">
-        <sbb-flip-card accessibility-label=${args['accessibility-label']}>
-          <sbb-flip-card-summary image-alignment=${args['imageAlignment']}>
-            <sbb-title level="4">${args['label']}</sbb-title>
+        <sbb-flip-card [accessibilityLabel]="accessibilityLabel">
+          <sbb-flip-card-summary [imageAlignment]="imageAlignment">
+            <sbb-title level="4">{{label}}</sbb-title>
             <sbb-image
               slot="image"
-              image-src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg'
+              imageSrc='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg'
               alt="Conductor controlling a ticket"
             ></sbb-image>
           </sbb-flip-card-summary>
           <sbb-flip-card-details>
-            ${args['text']}
+            {{text}}
             <sbb-link href="https://www.sbb.ch" negative>Link</sbb-link>
           </sbb-flip-card-details>
         </sbb-flip-card>

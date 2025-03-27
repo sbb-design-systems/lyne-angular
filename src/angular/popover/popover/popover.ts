@@ -27,7 +27,7 @@ export class SbbPopover {
     return this.#element.nativeElement.trigger;
   }
 
-  @Input({ alias: 'hide-close-button', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set hideCloseButton(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hideCloseButton = value));
   }
@@ -35,7 +35,7 @@ export class SbbPopover {
     return this.#element.nativeElement.hideCloseButton;
   }
 
-  @Input({ alias: 'hover-trigger', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set hoverTrigger(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hoverTrigger = value));
   }
@@ -43,7 +43,7 @@ export class SbbPopover {
     return this.#element.nativeElement.hoverTrigger;
   }
 
-  @Input({ alias: 'open-delay', transform: numberAttribute })
+  @Input({ transform: numberAttribute })
   public set openDelay(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.openDelay = value));
   }
@@ -51,7 +51,7 @@ export class SbbPopover {
     return this.#element.nativeElement.openDelay;
   }
 
-  @Input({ alias: 'close-delay', transform: numberAttribute })
+  @Input({ transform: numberAttribute })
   public set closeDelay(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.closeDelay = value));
   }
@@ -59,7 +59,7 @@ export class SbbPopover {
     return this.#element.nativeElement.closeDelay;
   }
 
-  @Input({ alias: 'accessibility-close-label' })
+  @Input()
   public set accessibilityCloseLabel(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityCloseLabel = value),

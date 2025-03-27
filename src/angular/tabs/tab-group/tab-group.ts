@@ -30,7 +30,7 @@ export class SbbTabGroup {
     return this.#element.nativeElement.size;
   }
 
-  @Input({ alias: 'initial-selected-index', transform: numberAttribute })
+  @Input({ transform: numberAttribute })
   public set initialSelectedIndex(value: number) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.initialSelectedIndex = value),

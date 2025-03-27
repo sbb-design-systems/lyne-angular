@@ -46,7 +46,7 @@ export class SbbCheckbox extends SbbControlValueAccessorMixin(class {}) implemen
     return this.#element.nativeElement.size;
   }
 
-  @Input({ alias: 'icon-placement' })
+  @Input()
   public set iconPlacement(value: SbbIconPlacement) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconPlacement = value));
   }
@@ -102,7 +102,7 @@ export class SbbCheckbox extends SbbControlValueAccessorMixin(class {}) implemen
     return this.#element.nativeElement.value;
   }
 
-  @Input({ alias: 'icon-name' })
+  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }

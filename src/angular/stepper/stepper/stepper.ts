@@ -20,7 +20,7 @@ export class SbbStepper {
     return this.#element.nativeElement.linear;
   }
 
-  @Input({ alias: 'horizontal-from' })
+  @Input()
   public set horizontalFrom(value: SbbHorizontalFrom | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.horizontalFrom = value));
   }
@@ -52,7 +52,7 @@ export class SbbStepper {
     return this.#element.nativeElement.selected;
   }
 
-  @Input({ alias: 'selected-index' })
+  @Input()
   public set selectedIndex(value: number | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.selectedIndex = value));
   }

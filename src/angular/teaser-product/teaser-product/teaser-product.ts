@@ -11,7 +11,7 @@ export class SbbTeaserProduct extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbTeaserProductElement> = inject(ElementRef<SbbTeaserProductElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'image-alignment' })
+  @Input()
   public set imageAlignment(value: 'after' | 'before') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.imageAlignment = value));
   }
@@ -59,7 +59,7 @@ export class SbbTeaserProduct extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.download;
   }
 
-  @Input({ alias: 'accessibility-label' })
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }
@@ -67,7 +67,7 @@ export class SbbTeaserProduct extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.accessibilityLabel;
   }
 
-  @Input({ alias: 'accessibility-current' })
+  @Input()
   public set accessibilityCurrent(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityCurrent = value),

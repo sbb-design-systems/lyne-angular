@@ -20,7 +20,7 @@ const meta: Meta = {
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   },
   args: {
-    'icon-name': 'pie-small',
+    iconName: 'pie-small',
     disabled: false,
     negative: false,
   },

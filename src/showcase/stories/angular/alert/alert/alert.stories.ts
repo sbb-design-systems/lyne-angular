@@ -23,15 +23,15 @@ const titleLevel: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'title-content': titleContent,
+  titleContent,
   text,
-  'title-level': titleLevel,
+  titleLevel,
 };
 
 const args: Args = {
-  'title-content': 'Interruption between Berne and Olten',
+  titleContent: 'Interruption between Berne and Olten',
   text: "Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock construction work will take place. You have to expect changed travel times and changed connections.",
-  'title-level': titleLevel.options![2],
+  titleLevel: titleLevel.options![2],
 };
 
 const meta: Meta = {

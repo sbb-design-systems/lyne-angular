@@ -37,7 +37,14 @@ const size: InputType = {
   options: ['m', 's'],
 };
 
-const argTypes = { size };
+const scrollOrigin: InputType = {
+  control: false,
+  table: {
+    disable: true,
+  },
+};
+
+const argTypes = { size, scrollOrigin };
 
 const args = { size: size.options![0] };
 
@@ -60,7 +67,7 @@ const meta: Meta = {
     props: { ...args },
     template: `
       <sbb-header ${argsToTemplate(args)}>
-        <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+        <sbb-header-button iconName="hamburger-menu-small" expandFrom="small">
           Menu
         </sbb-header-button>
         ${args['size'] === 's' ? appName : ''}
@@ -68,35 +75,35 @@ const meta: Meta = {
         <sbb-header-link
           href="https://www.sbb.ch"
           target="_blank"
-          icon-name="magnifying-glass-small"
+          iconName="magnifying-glass-small"
           class="sbb-active"
           accessibility-current="page"
         >
           Search
         </sbb-header-link>
-        <sbb-header-button icon-name="user-small" class="sbb-header-shrinkable">
+        <sbb-header-button iconName="user-small" class="sbb-header-shrinkable">
           Sign in
         </sbb-header-button>
-        <sbb-header-button icon-name="globe-small" id="language-menu-trigger" class="last-element">
+        <sbb-header-button iconName="globe-small" id="language-menu-trigger" class="last-element">
           English
         </sbb-header-button>
         <sbb-menu trigger="language-menu-trigger">
           <sbb-menu-button>Deutsch</sbb-menu-button>
           <sbb-menu-button>Français</sbb-menu-button>
           <sbb-menu-button>Italiano</sbb-menu-button>
-          <sbb-menu-button icon-name="tick-small">English</sbb-menu-button>
+          <sbb-menu-button iconName="tick-small">English</sbb-menu-button>
         </sbb-menu>
         <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
         ${
           args['size'] === 's'
             ? `
                 <a aria-label="Homepage" href="/" class="sbb-header-logo">
-                  <sbb-signet protective-room="panel"></sbb-signet>
+                  <sbb-signet protectiveRoom="panel"></sbb-signet>
                 </a>
               `
             : `
                 <a aria-label="Homepage" href="/" class="sbb-header-logo">
-                  <sbb-logo protective-room="none"></sbb-logo>
+                  <sbb-logo protectiveRoom="none"></sbb-logo>
                 </a>
               `
         }

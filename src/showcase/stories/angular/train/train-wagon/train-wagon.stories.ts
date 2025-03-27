@@ -41,7 +41,7 @@ const argTypes: ArgTypes = {
   withIcons,
   occupancy,
   type,
-  'wagon-class': wagonClass,
+  wagonClass,
 };
 
 const args: Args = {
@@ -49,7 +49,7 @@ const args: Args = {
   label: '36',
   occupancy: occupancy.options![2],
   type: type.options![0],
-  'wagon-class': wagonClass.options![1],
+  wagonClass: wagonClass.options![1],
 };
 
 const meta: Meta = {
@@ -57,14 +57,14 @@ const meta: Meta = {
   component: SbbTrainWagon,
   argTypes,
   args,
-  render: ({ withIcons, 'wagon-class': wagonClass, occupancy, ...args }: Args) => ({
-    props: { withIcons, 'wagon-class': wagonClass, occupancy, ...args },
+  render: ({ withIcons, wagonClass, occupancy, ...args }: Args) => ({
+    props: { withIcons, wagonClass, occupancy, ...args },
     template: `
       <sbb-train-formation>
         <sbb-train>
           <sbb-train-wagon
-            ${occupancy ? `occupancy=${occupancy}` : ''}
-            ${wagonClass ? `wagon-class=${wagonClass}` : ''}
+            ${occupancy ? `[occupancy]="occupancy"` : ''}
+            ${wagonClass ? `[wagonClass]="wagonClass"` : ''}
             ${argsToTemplate(args)}
           >
           ${

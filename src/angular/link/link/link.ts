@@ -68,7 +68,7 @@ export class SbbLink extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.download;
   }
 
-  @Input({ alias: 'accessibility-label' })
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }
@@ -76,7 +76,7 @@ export class SbbLink extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.accessibilityLabel;
   }
 
-  @Input({ alias: 'accessibility-current' })
+  @Input()
   public set accessibilityCurrent(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityCurrent = value),

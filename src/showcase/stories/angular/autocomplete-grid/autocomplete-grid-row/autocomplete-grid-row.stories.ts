@@ -39,13 +39,13 @@ const meta: Meta = {
       <sbb-autocomplete-grid-row ${args['negative'] ? 'data-negative' : ''}>
         <sbb-autocomplete-grid-option>Opt 1</sbb-autocomplete-grid-option>
         <sbb-autocomplete-grid-cell>
-          <sbb-autocomplete-grid-button icon-name="pie-small" [negative]=${args['negative']}></sbb-autocomplete-grid-button>
+          <sbb-autocomplete-grid-button iconName="pie-small" [negative]=${args['negative']}></sbb-autocomplete-grid-button>
         </sbb-autocomplete-grid-cell>
       </sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-row ${args['negative'] ? 'data-negative' : ''}>
         <sbb-autocomplete-grid-option>Opt 2</sbb-autocomplete-grid-option>
         <sbb-autocomplete-grid-cell>
-          <sbb-autocomplete-grid-button icon-name="dog-small" [negative]=${args['negative']}></sbb-autocomplete-grid-button>
+          <sbb-autocomplete-grid-button iconName="dog-small" [negative]=${args['negative']}></sbb-autocomplete-grid-button>
         </sbb-autocomplete-grid-cell>
       </sbb-autocomplete-grid-row>
     `,

@@ -18,7 +18,7 @@ export class SbbHeader {
     return this.#element.nativeElement.expanded;
   }
 
-  @Input({ alias: 'scroll-origin' })
+  @Input()
   public set scrollOrigin(value: string | HTMLElement | Document) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.scrollOrigin = value));
   }
@@ -26,7 +26,7 @@ export class SbbHeader {
     return this.#element.nativeElement.scrollOrigin;
   }
 
-  @Input({ alias: 'hide-on-scroll', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set hideOnScroll(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hideOnScroll = value));
   }

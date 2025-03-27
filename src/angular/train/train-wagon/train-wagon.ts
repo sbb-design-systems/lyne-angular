@@ -52,7 +52,7 @@ export class SbbTrainWagon {
     return this.#element.nativeElement.sector;
   }
 
-  @Input({ alias: 'blocked-passage' })
+  @Input()
   public set blockedPassage(value: 'previous' | 'next' | 'both' | 'none') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.blockedPassage = value));
   }
@@ -60,7 +60,7 @@ export class SbbTrainWagon {
     return this.#element.nativeElement.blockedPassage;
   }
 
-  @Input({ alias: 'wagon-class' })
+  @Input()
   public set wagonClass(value: '1' | '2' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.wagonClass = value));
   }
@@ -76,7 +76,7 @@ export class SbbTrainWagon {
     return this.#element.nativeElement.label;
   }
 
-  @Input({ alias: 'additional-accessibility-text' })
+  @Input()
   public set additionalAccessibilityText(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.additionalAccessibilityText = value),

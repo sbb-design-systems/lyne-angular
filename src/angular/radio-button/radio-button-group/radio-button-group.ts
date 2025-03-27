@@ -31,7 +31,7 @@ export class SbbRadioButtonGroup extends SbbControlValueAccessorMixin(class {}) 
   #element: ElementRef<SbbRadioButtonGroupElement> = inject(ElementRef<SbbRadioButtonGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'allow-empty-selection', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set allowEmptySelection(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.allowEmptySelection = value));
   }
@@ -63,7 +63,7 @@ export class SbbRadioButtonGroup extends SbbControlValueAccessorMixin(class {}) 
     return this.#element.nativeElement.size;
   }
 
-  @Input({ alias: 'horizontal-from' })
+  @Input()
   public set horizontalFrom(value: SbbHorizontalFrom | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.horizontalFrom = value));
   }

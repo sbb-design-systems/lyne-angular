@@ -20,7 +20,7 @@ export class SbbTeaser extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.alignment;
   }
 
-  @Input({ alias: 'title-level' })
+  @Input()
   public set titleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
   }
@@ -28,7 +28,7 @@ export class SbbTeaser extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.titleLevel;
   }
 
-  @Input({ alias: 'title-content' })
+  @Input()
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
   }
@@ -36,7 +36,7 @@ export class SbbTeaser extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.titleContent;
   }
 
-  @Input({ alias: 'chip-content' })
+  @Input()
   public set chipContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.chipContent = value));
   }
@@ -76,7 +76,7 @@ export class SbbTeaser extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.download;
   }
 
-  @Input({ alias: 'accessibility-label' })
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }
@@ -84,7 +84,7 @@ export class SbbTeaser extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.accessibilityLabel;
   }
 
-  @Input({ alias: 'accessibility-current' })
+  @Input()
   public set accessibilityCurrent(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityCurrent = value),

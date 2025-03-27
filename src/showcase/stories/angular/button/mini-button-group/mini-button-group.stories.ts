@@ -42,14 +42,14 @@ const meta: Meta = {
     props: { disabled, ...args },
     template: `
       <sbb-mini-button-group ${argsToTemplate(args)}>
-        <sbb-mini-button disabled=${disabled} aria-label="previous" icon-name="chevron-small-left-small"></sbb-mini-button>
-        <sbb-mini-button disabled=${disabled} aria-label="next" icon-name="chevron-small-right-small"></sbb-mini-button>
+        <sbb-mini-button [disabled]="disabled" aria-label="previous" iconName="chevron-small-left-small"></sbb-mini-button>
+        <sbb-mini-button [disabled]="disabled" aria-label="next" iconName="chevron-small-right-small"></sbb-mini-button>
         <sbb-divider orientation="vertical"></sbb-divider>
-        <sbb-mini-button aria-label="edit" icon-name="pen-small"></sbb-mini-button>
-        <sbb-mini-button aria-label="duplicate" icon-name="copy-small"></sbb-mini-button>
-        <sbb-mini-button aria-label="delete" icon-name="trash-small"></sbb-mini-button>
+        <sbb-mini-button aria-label="edit" iconName="pen-small"></sbb-mini-button>
+        <sbb-mini-button aria-label="duplicate" iconName="copy-small"></sbb-mini-button>
+        <sbb-mini-button aria-label="delete" iconName="trash-small"></sbb-mini-button>
         <sbb-divider orientation="vertical"></sbb-divider>
-        <sbb-mini-button aria-label="bookmark" icon-name="star-small"></sbb-mini-button>
+        <sbb-mini-button aria-label="bookmark" iconName="star-small"></sbb-mini-button>
       </sbb-mini-button-group>
     `,
   }),

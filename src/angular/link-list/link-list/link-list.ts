@@ -13,7 +13,7 @@ export class SbbLinkList {
   #element: ElementRef<SbbLinkListElement> = inject(ElementRef<SbbLinkListElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'horizontal-from' })
+  @Input()
   public set horizontalFrom(value: SbbHorizontalFrom | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.horizontalFrom = value));
   }
@@ -37,7 +37,7 @@ export class SbbLinkList {
     return this.#element.nativeElement.negative;
   }
 
-  @Input({ alias: 'title-content' })
+  @Input()
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
   }
@@ -45,7 +45,7 @@ export class SbbLinkList {
     return this.#element.nativeElement.titleContent;
   }
 
-  @Input({ alias: 'title-level' })
+  @Input()
   public set titleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
   }

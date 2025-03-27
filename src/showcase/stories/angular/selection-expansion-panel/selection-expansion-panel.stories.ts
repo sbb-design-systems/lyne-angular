@@ -34,7 +34,7 @@ const WithCheckboxGroupTemplate = ({
   size,
   ...args
 }: Args): string => `
-  <sbb-checkbox-group orientation="vertical" horizontal-from="large" size=${size}>
+  <sbb-checkbox-group orientation="vertical" horizontalFrom="large" size=${size}>
     <sbb-selection-expansion-panel ${argsToTemplate(args)}>
       <sbb-checkbox-panel checked=${checkedInput}>
         Value one ${suffixAndSubtext(size)} ${cardBadge()}
@@ -68,7 +68,7 @@ const WithRadioButtonGroupTemplate = ({
   <sbb-radio-button-group
     orientation="vertical"
     horizontal-from="large"
-    [allow-empty-selection]=${allowEmptySelection}
+    [allowEmptySelection]=${allowEmptySelection}
     size=${size}
   >
     <sbb-selection-expansion-panel ${argsToTemplate(args)}>

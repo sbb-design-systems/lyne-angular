@@ -25,7 +25,7 @@ export class SbbRadioButton {
     return this.#element.nativeElement.size;
   }
 
-  @Input({ alias: 'allow-empty-selection', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set allowEmptySelection(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.allowEmptySelection = value));
   }

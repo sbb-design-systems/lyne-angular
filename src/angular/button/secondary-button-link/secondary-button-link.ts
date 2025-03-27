@@ -31,7 +31,7 @@ export class SbbSecondaryButtonLink extends SbbRouterLinkSupportMixin(class {}) 
     return this.#element.nativeElement.negative;
   }
 
-  @Input({ alias: 'icon-name' })
+  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }
@@ -39,7 +39,7 @@ export class SbbSecondaryButtonLink extends SbbRouterLinkSupportMixin(class {}) 
     return this.#element.nativeElement.iconName;
   }
 
-  @Input({ alias: 'disabled-interactive', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set disabledInteractive(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabledInteractive = value));
   }
@@ -87,7 +87,7 @@ export class SbbSecondaryButtonLink extends SbbRouterLinkSupportMixin(class {}) 
     return this.#element.nativeElement.download;
   }
 
-  @Input({ alias: 'accessibility-label' })
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }
@@ -95,7 +95,7 @@ export class SbbSecondaryButtonLink extends SbbRouterLinkSupportMixin(class {}) 
     return this.#element.nativeElement.accessibilityLabel;
   }
 
-  @Input({ alias: 'accessibility-current' })
+  @Input()
   public set accessibilityCurrent(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityCurrent = value),

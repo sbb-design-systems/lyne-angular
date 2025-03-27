@@ -10,7 +10,7 @@ export class SbbMapContainer {
   #element: ElementRef<SbbMapContainerElement> = inject(ElementRef<SbbMapContainerElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'hide-scroll-up-button', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set hideScrollUpButton(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hideScrollUpButton = value));
   }

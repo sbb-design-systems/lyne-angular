@@ -13,7 +13,7 @@ export class SbbTimetableOccupancy {
   );
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'first-class-occupancy' })
+  @Input()
   public set firstClassOccupancy(value: SbbOccupancy | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.firstClassOccupancy = value));
   }
@@ -21,7 +21,7 @@ export class SbbTimetableOccupancy {
     return this.#element.nativeElement.firstClassOccupancy;
   }
 
-  @Input({ alias: 'second-class-occupancy' })
+  @Input()
   public set secondClassOccupancy(value: SbbOccupancy | null) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.secondClassOccupancy = value),

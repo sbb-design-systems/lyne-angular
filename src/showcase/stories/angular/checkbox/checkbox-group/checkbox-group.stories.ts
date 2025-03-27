@@ -95,7 +95,7 @@ const argTypes: ArgTypes = {
   iconName,
   iconPlacement,
   orientation,
-  'horizontal-from': horizontalFrom,
+  horizontalFrom,
   size,
 };
 
@@ -105,7 +105,7 @@ const args: Args = {
   iconName: iconName.options![0],
   iconPlacement: undefined,
   orientation: orientation.options![0],
-  'horizontal-from': undefined,
+  horizontalFrom: undefined,
   size: size.options![1],
 };
 
@@ -131,13 +131,13 @@ export const Default = {
     props: { checked, iconName, iconPlacement, label, ...args },
     template: `
       <sbb-checkbox-group ${argsToTemplate(args)}>
-        <sbb-checkbox value="checkbox-1" checked=${checked} icon-name=${iconName} icon-placement=${iconPlacement}>
+        <sbb-checkbox value="checkbox-1" [checked]="checked" [iconName]="iconName" [iconPlacement]="iconPlacement">
           ${label} 1
         </sbb-checkbox>
-        <sbb-checkbox value="checkbox-2" icon-name=${iconName} icon-placement=${iconPlacement}>
+        <sbb-checkbox value="checkbox-2" [iconName]="iconName" [iconPlacement]="iconPlacement">
           ${label} 2
         </sbb-checkbox>
-        <sbb-checkbox value="checkbox-3" icon-name=${iconName} icon-placement=${iconPlacement}>
+        <sbb-checkbox value="checkbox-3" [iconName]="iconName" [iconPlacement]="iconPlacement">
           ${label} 3
         </sbb-checkbox>
       </sbb-checkbox-group>

@@ -43,13 +43,13 @@ const chipPosition: InputType = {
 const argTypes: ArgTypes = {
   borderRadius,
   aspectRatio,
-  'image-src': imageSrc,
+  imageSrc,
 };
 
 const args: Args = {
   borderRadius: borderRadius.options![0],
   aspectRatio: aspectRatio.options![0],
-  'image-src': imageSrc.options![0],
+  imageSrc: imageSrc.options![0],
 };
 
 const meta: Meta = {

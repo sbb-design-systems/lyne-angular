@@ -13,7 +13,7 @@ export class SbbDialogTitle {
   #element: ElementRef<SbbDialogTitleElement> = inject(ElementRef<SbbDialogTitleElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'back-button', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set backButton(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backButton = value));
   }
@@ -21,7 +21,7 @@ export class SbbDialogTitle {
     return this.#element.nativeElement.backButton;
   }
 
-  @Input({ alias: 'accessibility-close-label' })
+  @Input()
   public set accessibilityCloseLabel(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityCloseLabel = value),
@@ -31,7 +31,7 @@ export class SbbDialogTitle {
     return this.#element.nativeElement.accessibilityCloseLabel;
   }
 
-  @Input({ alias: 'accessibility-back-label' })
+  @Input()
   public set accessibilityBackLabel(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityBackLabel = value),
@@ -41,7 +41,7 @@ export class SbbDialogTitle {
     return this.#element.nativeElement.accessibilityBackLabel;
   }
 
-  @Input({ alias: 'hide-on-scroll' })
+  @Input()
   public set hideOnScroll(value: Breakpoint | boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hideOnScroll = value));
   }
@@ -57,7 +57,7 @@ export class SbbDialogTitle {
     return this.#element.nativeElement.level;
   }
 
-  @Input({ alias: 'visual-level' })
+  @Input()
   public set visualLevel(value: SbbTitleLevel | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.visualLevel = value));
   }
@@ -73,7 +73,7 @@ export class SbbDialogTitle {
     return this.#element.nativeElement.negative;
   }
 
-  @Input({ alias: 'visually-hidden', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set visuallyHidden(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.visuallyHidden = value));
   }

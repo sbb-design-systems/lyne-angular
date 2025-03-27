@@ -29,7 +29,7 @@ export class SbbTimetableOccupancyIcon {
     return this.#element.nativeElement.negative;
   }
 
-  @Input({ alias: 'no-sanitize', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set noSanitize(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.noSanitize = value));
   }

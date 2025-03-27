@@ -60,17 +60,17 @@ const argTypes: ArgTypes = {
   href,
   target,
   content,
-  'link-content': linkContent,
+  linkContent,
   imageSrc,
   imageAlt,
-  'chip-label': chipLabel,
+  chipLabel,
 };
 
 const args: Args = {
   href: href.options![0],
   target: '_blank',
   content: 'Break out and explore castles and palaces.',
-  'link-content': 'Find out more',
+  linkContent: 'Find out more',
   imageSrc: 'https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg',
   imageAlt: 'image alt',
 };
@@ -85,18 +85,11 @@ const meta: Meta = {
   component: SbbTeaserHero,
   argTypes,
   args,
-  render: ({
-    content,
-    'link-content': linkContent,
-    'chip-label': chipLabel,
-    imageSrc,
-    imageAlt,
-    ...args
-  }: Args) => ({
+  render: ({ content, linkContent, chipLabel, imageSrc, imageAlt, ...args }: Args) => ({
     props: {
       content,
-      'link-content': linkContent,
-      'chip-label': chipLabel,
+      linkContent,
+      chipLabel,
       imageSrc,
       imageAlt,
       ...args,
@@ -104,15 +97,15 @@ const meta: Meta = {
     template: `
       <sbb-teaser-hero ${argsToTemplate(args)}>
         ${content ?? ''}
-        ${linkContent ? `<span slot="link-content">${linkContent}</span>` : ''}
+        ${linkContent ? `<span slot="link-content">{{linkContent}}</span>` : ''}
         ${
           !chipLabel
-            ? `<sbb-image slot="image" image-src="${imageSrc}" alt=${imageAlt}></sbb-image>`
+            ? `<sbb-image slot="image" [imageSrc]="imageSrc" [alt]="imageAlt"></sbb-image>`
             : `
             <figure class="sbb-figure" slot="image">
-              <sbb-image image-src="${imageSrc}" alt=${imageAlt}></sbb-image>
+              <sbb-image [imageSrc]="imageSrc" [alt]="imageAlt"></sbb-image>
               <sbb-chip-label class="sbb-figure-overlap-start-start" style="z-index: 1">
-                ${chipLabel}
+                {{chipLabel}}
               </sbb-chip-label>
             </figure>
         `

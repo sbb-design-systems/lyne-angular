@@ -30,7 +30,7 @@ export class SbbJourneyHeader {
     return this.#element.nativeElement.destination;
   }
 
-  @Input({ alias: 'round-trip', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set roundTrip(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.roundTrip = value));
   }

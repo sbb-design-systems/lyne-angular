@@ -136,14 +136,14 @@ const meta: Meta = {
     props: { borderless, size, negative, floatingLabel, disableOption, disableGroup, ...args },
     template: `
       <sbb-form-field
-        borderless=${borderless}
-        size=${size}
-        [negative]=${negative}
-        [floating-label]=${floatingLabel}
+        [borderless]="borderless"
+        [size]="size"
+        [negative]="negative"
+        [floatingLabel]="floatingLabel"
       >
         <label>Select</label>
         <sbb-select ${argsToTemplate(args)}>
-          <sbb-optgroup label="Group 1" disabled=${disableGroup}>
+          <sbb-optgroup label="Group 1" [disabled]="disableGroup">
             ${createOptions(disableOption, '1', args['value'])}
           </sbb-optgroup>
           <sbb-optgroup label="Group 2">

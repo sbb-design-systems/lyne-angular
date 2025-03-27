@@ -26,7 +26,7 @@ export class SbbTitle {
     return this.#element.nativeElement.level;
   }
 
-  @Input({ alias: 'visual-level' })
+  @Input()
   public set visualLevel(value: SbbTitleLevel | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.visualLevel = value));
   }
@@ -34,7 +34,7 @@ export class SbbTitle {
     return this.#element.nativeElement.visualLevel;
   }
 
-  @Input({ alias: 'visually-hidden', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set visuallyHidden(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.visuallyHidden = value));
   }

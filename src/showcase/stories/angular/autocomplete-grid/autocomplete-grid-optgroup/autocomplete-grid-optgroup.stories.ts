@@ -34,13 +34,13 @@ const meta: Meta = {
         <sbb-autocomplete-grid-row>
           <sbb-autocomplete-grid-option value="1">1</sbb-autocomplete-grid-option>
           <sbb-autocomplete-grid-cell>
-            <sbb-autocomplete-grid-button icon-name="pie-small"></sbb-autocomplete-grid-button>
+            <sbb-autocomplete-grid-button iconName="pie-small"></sbb-autocomplete-grid-button>
           </sbb-autocomplete-grid-cell>
         </sbb-autocomplete-grid-row>
         <sbb-autocomplete-grid-row>
           <sbb-autocomplete-grid-option value="2">2</sbb-autocomplete-grid-option>
           <sbb-autocomplete-grid-cell>
-            <sbb-autocomplete-grid-button icon-name="star-small"></sbb-autocomplete-grid-button>
+            <sbb-autocomplete-grid-button iconName="star-small"></sbb-autocomplete-grid-button>
           </sbb-autocomplete-grid-cell>
         </sbb-autocomplete-grid-row>
         </sbb-autocomplete-grid-optgroup>
@@ -48,7 +48,7 @@ const meta: Meta = {
           <sbb-autocomplete-grid-row>
             <sbb-autocomplete-grid-option value="3">3</sbb-autocomplete-grid-option>
             <sbb-autocomplete-grid-cell>
-              <sbb-autocomplete-grid-button icon-name="dog-small"></sbb-autocomplete-grid-button>
+              <sbb-autocomplete-grid-button iconName="dog-small"></sbb-autocomplete-grid-button>
             </sbb-autocomplete-grid-cell>
           </sbb-autocomplete-grid-row>
         </sbb-autocomplete-grid-optgroup>

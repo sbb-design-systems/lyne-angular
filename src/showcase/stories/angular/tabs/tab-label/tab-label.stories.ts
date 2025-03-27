@@ -30,14 +30,14 @@ const level: InputType = {
 
 const argTypes: ArgTypes = {
   label,
-  'icon-name': iconName,
+  iconName,
   amount,
   level,
 };
 
 const args: Args = {
   label: 'Tab title',
-  'icon-name': iconName.options![0],
+  iconName: iconName.options![0],
   amount: 123,
 };
 

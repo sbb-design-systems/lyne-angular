@@ -18,7 +18,7 @@ export class SbbNavigation {
     return this.#element.nativeElement.trigger;
   }
 
-  @Input({ alias: 'accessibility-close-label' })
+  @Input()
   public set accessibilityCloseLabel(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityCloseLabel = value),

@@ -18,7 +18,7 @@ export class SbbStatus {
     return this.#element.nativeElement.type;
   }
 
-  @Input({ alias: 'title-content' })
+  @Input()
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
   }
@@ -26,7 +26,7 @@ export class SbbStatus {
     return this.#element.nativeElement.titleContent;
   }
 
-  @Input({ alias: 'title-level' })
+  @Input()
   public set titleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
   }
@@ -34,7 +34,7 @@ export class SbbStatus {
     return this.#element.nativeElement.titleLevel;
   }
 
-  @Input({ alias: 'icon-name' })
+  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }

@@ -31,7 +31,7 @@ const argTypes: ArgTypes = {
 const args: Args = {
   text: 'Details',
   amount: '99',
-  'icon-name': 'tick-small',
+  iconName: 'tick-small',
   type: type.options![0],
 };
 

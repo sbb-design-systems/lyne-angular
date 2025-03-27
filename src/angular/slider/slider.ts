@@ -33,7 +33,7 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.value;
   }
 
-  @Input({ alias: 'value-as-number' })
+  @Input()
   public set valueAsNumber(value: number | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.valueAsNumber = value));
   }
@@ -65,7 +65,7 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.readonly;
   }
 
-  @Input({ alias: 'start-icon' })
+  @Input()
   public set startIcon(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.startIcon = value));
   }
@@ -73,7 +73,7 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.startIcon;
   }
 
-  @Input({ alias: 'end-icon' })
+  @Input()
   public set endIcon(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.endIcon = value));
   }
