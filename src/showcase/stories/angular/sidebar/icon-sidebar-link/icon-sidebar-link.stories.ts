@@ -19,10 +19,11 @@ const argTypes: ArgTypes = {
 };
 
 const args: Args = {
-  'icon-name': 'glass-cocktail-small',
+  iconName: 'glass-cocktail-small',
   'accessibility-label': 'Go to the party',
   href: '#',
   currentPage: false,
+  target: '_blank',
 };
 
 const meta: Meta = {
@@ -40,11 +41,13 @@ const meta: Meta = {
   args,
   render: ({ currentPage, ...args }) => ({
     props: { currentPage, ...args },
-    template: `<sbb-icon-sidebar-link
-                ${argsToTemplate(args)}
-                 [class.sbb-active]=${currentPage}
-                 accessibility-current=${currentPage ? 'page' : ''}
-               ></sbb-icon-sidebar-link>`,
+    template: `
+      <sbb-icon-sidebar-link
+        ${argsToTemplate(args)}
+         [class.sbb-active]=${currentPage}
+         accessibility-current=${currentPage ? 'page' : ''}
+       ></sbb-icon-sidebar-link>
+    `,
   }),
 };
 export default meta;

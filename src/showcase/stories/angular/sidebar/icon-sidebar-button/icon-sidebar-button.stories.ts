@@ -9,6 +9,19 @@ import {
 } from '@storybook/angular';
 import { InputType } from '@storybook/types';
 
+const type: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['button', 'reset', 'submit'],
+};
+
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const ariaLabel: InputType = {
   control: {
     type: 'text',
@@ -24,12 +37,15 @@ const currentPage: InputType = {
 const argTypes: ArgTypes = {
   'aria-label': ariaLabel,
   currentPage,
+  type,
+  value,
 };
 
 const args: Args = {
-  'icon-name': 'glass-cocktail-small',
+  iconName: 'glass-cocktail-small',
   'aria-label': 'Go to the party',
   currentPage: false,
+  type: type.options![0],
 };
 
 const meta: Meta = {
@@ -51,11 +67,13 @@ const meta: Meta = {
   args,
   render: ({ currentPage, ...args }) => ({
     props: { currentPage, ...args },
-    template: `<sbb-icon-sidebar-button
-                 ${argsToTemplate(args)}
-                 [class.sbb-active]=${currentPage}
-                 aria-current=${currentPage ? 'page' : ''}
-               ></sbb-icon-sidebar-button>`,
+    template: `
+      <sbb-icon-sidebar-button
+         ${argsToTemplate(args)}
+         [class.sbb-active]=${currentPage}
+         aria-current=${currentPage ? 'page' : ''}
+       ></sbb-icon-sidebar-button>
+    `,
   }),
 };
 export default meta;
