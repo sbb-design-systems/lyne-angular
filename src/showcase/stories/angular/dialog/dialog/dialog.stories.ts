@@ -6,7 +6,7 @@ import { SbbDialogContent } from '@sbb-esta/lyne-angular/dialog/dialog-content';
 import { SbbDialogTitle } from '@sbb-esta/lyne-angular/dialog/dialog-title';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
-import { SbbDialogElement } from '@sbb-esta/lyne-elements/dialog/dialog.js';
+import type { SbbDialogElement } from '@sbb-esta/lyne-elements/dialog/dialog.js';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
