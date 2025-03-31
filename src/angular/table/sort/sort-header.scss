@@ -11,7 +11,7 @@
   }
 
   &:hover .sbb-sort-header-container {
-    color: var(--sbb-color-call-to-action-hover);
+    color: var(--sbb-color-red125);
   }
 }
 
@@ -48,25 +48,21 @@
 }
 
 .sbb-sort-header-arrow {
-  height: var(--sbb-icon-size-default);
-  width: var(--sbb-icon-size-default);
-  min-width: var(--sbb-icon-size-default);
+  height: var(--sbb-size-icon-ui-small);
+  width: var(--sbb-size-icon-ui-small);
+  min-width: var(--sbb-size-icon-ui-small);
   position: relative;
 
   // Start off at 0 since the arrow may become visible while parent are animating.
   // This will be overwritten when the arrow animations kick in. See #11819.
   opacity: 0;
 
-  margin: calc(#{sbb.px-to-rem-build(-1)} * var(--sbb-scaling-factor))
-    calc(#{sbb.px-to-rem-build(-8)} * var(--sbb-scaling-factor))
-    calc(#{sbb.px-to-rem-build(-1)} * var(--sbb-scaling-factor))
-    var(--sbb-table-sort-header-arrow-margin);
+  margin: #{sbb.px-to-rem-build(-1)} #{sbb.px-to-rem-build(-8)} #{sbb.px-to-rem-build(-1)}
+    #{sbb.px-to-rem-build(-8)};
 
   .sbb-sort-header-position-before & {
-    margin: calc(#{sbb.px-to-rem-build(-1)} * var(--sbb-scaling-factor))
-      var(--sbb-table-sort-header-arrow-margin)
-      calc(#{sbb.px-to-rem-build(-1)} * var(--sbb-scaling-factor))
-      calc(#{sbb.px-to-rem-build(-1)} * var(--sbb-scaling-factor));
+    margin: #{sbb.px-to-rem-build(-1)} #{sbb.px-to-rem-build(-8)} #{sbb.px-to-rem-build(-1)}
+      #{sbb.px-to-rem-build(-1)};
   }
 
   svg {
