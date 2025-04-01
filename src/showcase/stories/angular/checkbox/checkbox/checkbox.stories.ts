@@ -29,17 +29,27 @@ const value: InputType = {
   },
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   label,
   size,
   iconPlacement,
   value,
+  ariaLabel,
 };
 
 const args: Args = {
   label: 'Label',
-  size: size.options![0],
+  size: size.options![1],
   iconPlacement: undefined,
+  checked: false,
+  indeterminate: false,
+  disabled: false,
 };
 
 const meta: Meta = {
@@ -51,9 +61,13 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ label, ...args }: Args) => ({
-    props: { label, ...args },
-    template: `<sbb-checkbox ${argsToTemplate(args)}>${label}</sbb-checkbox>`,
+  render: ({ label, ariaLabel, ...args }: Args) => ({
+    props: { label, ariaLabel, ...args },
+    template: `
+      <sbb-checkbox ${argsToTemplate(args)} ${ariaLabel ? `aria-label="${ariaLabel}"` : ''}>
+        ${label}
+      </sbb-checkbox>
+    `,
   }),
 };
 export default meta;

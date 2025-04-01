@@ -1,5 +1,7 @@
+import { SbbCardBadge } from '@sbb-esta/lyne-angular/card/card-badge';
 import { SbbCheckbox } from '@sbb-esta/lyne-angular/checkbox/checkbox';
 import { SbbCheckboxGroup } from '@sbb-esta/lyne-angular/checkbox/checkbox-group';
+import { SbbCheckboxPanel } from '@sbb-esta/lyne-angular/checkbox/checkbox-panel';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
@@ -16,16 +18,16 @@ const suffixAndSubtext = (): string => `
   <sbb-card-badge>%</sbb-card-badge>
 `;
 
-const PanelTemplate = (args: Args): string => `
+const PanelTemplate = ({ label, checked, ...args }: Args): string => `
   <sbb-checkbox-group ${argsToTemplate(args)}>
-    <sbb-checkbox-panel value="Value one">
-      Value 1 ${suffixAndSubtext()}
+    <sbb-checkbox-panel checked="${checked}" value="Value one">
+      ${label} 1 ${suffixAndSubtext()}
     </sbb-checkbox-panel>
     <sbb-checkbox-panel value="Value two">
-      Value 2 ${suffixAndSubtext()}
+      ${label} 2 ${suffixAndSubtext()}
     </sbb-checkbox-panel>
     <sbb-checkbox-panel value="Value three">
-      Value 3 ${suffixAndSubtext()}
+      ${label} 3 ${suffixAndSubtext()}
     </sbb-checkbox-panel>
   </sbb-checkbox-group>
 `;
@@ -92,8 +94,6 @@ const size: InputType = {
 const argTypes: ArgTypes = {
   label,
   checked,
-  iconName,
-  iconPlacement,
   orientation,
   horizontalFrom,
   size,
@@ -102,8 +102,6 @@ const argTypes: ArgTypes = {
 const args: Args = {
   label: 'Label',
   checked: true,
-  iconName: iconName.options![0],
-  iconPlacement: undefined,
   orientation: orientation.options![0],
   horizontalFrom: undefined,
   size: size.options![1],
@@ -113,7 +111,7 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [SbbCheckbox],
+      imports: [SbbCheckbox, SbbCheckboxPanel, SbbCardBadge],
     }),
   ],
   title: 'elements/sbb-checkbox/sbb-checkbox-group',
@@ -127,6 +125,16 @@ const meta: Meta = {
 export default meta;
 
 export const Default = {
+  argTypes: {
+    ...argTypes,
+    iconName,
+    iconPlacement,
+  },
+  args: {
+    ...args,
+    iconName: iconName.options![0],
+    iconPlacement: undefined,
+  },
   render: ({ checked, iconName, iconPlacement, label, ...args }: Args) => ({
     props: { checked, iconName, iconPlacement, label, ...args },
     template: `

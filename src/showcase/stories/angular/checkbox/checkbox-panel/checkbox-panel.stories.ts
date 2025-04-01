@@ -31,11 +31,18 @@ const value: InputType = {
   },
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   label,
   size,
   color,
   value,
+  ariaLabel,
 };
 
 const args: Args = {
@@ -58,10 +65,10 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ label, color, ...args }: Args) => ({
-    props: { label, color, ...args },
+  render: ({ label, ariaLabel, color, ...args }: Args) => ({
+    props: { label, ariaLabel, color, ...args },
     template: `
-      <sbb-checkbox-panel ${argsToTemplate(args)} color="${color}">
+      <sbb-checkbox-panel ${argsToTemplate(args)} [color]="color" ${ariaLabel ? `aria-label="${ariaLabel}"` : ''}>
         ${label}
         <span slot="subtext">Subtext</span>
         <span slot="suffix" style="margin-inline-start: auto; display:flex; align-items:center;">
