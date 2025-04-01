@@ -168,7 +168,7 @@ const meta: Meta = {
     template: `
       <sbb-form-field [negative]="negative" [borderless]="borderless" [floatingLabel]="floatingLabel" size="size">
         <label>Label</label>
-        <input [disabled]="disabled" [readonly]="readonly" />
+        <input [disabled]="disabled" [readonly]="readonly" placeholder="Please select."/>
         <sbb-autocomplete ${argsToTemplate(args)}>
           <sbb-optgroup [disabled]="disableGroup" label="Group 1">
             <sbb-option [iconName]="iconName" [disabled]="disableOption" value="1">Value 1</sbb-option>

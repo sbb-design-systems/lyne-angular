@@ -29,6 +29,15 @@ const iconName: InputType = {
   },
 };
 
+const disabledInteractive: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Header',
+  },
+};
+
 const contentText: InputType = {
   control: {
     type: 'text',
@@ -65,12 +74,6 @@ const borderless: InputType = {
 };
 
 const disabled: InputType = {
-  control: {
-    type: 'boolean',
-  },
-};
-
-const disabledInteractive: InputType = {
   control: {
     type: 'boolean',
   },

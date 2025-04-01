@@ -31,7 +31,6 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      // add slotted components or remove
       imports: [SbbAutocompleteGridButton, SbbAutocompleteGridRow],
     }),
   ],

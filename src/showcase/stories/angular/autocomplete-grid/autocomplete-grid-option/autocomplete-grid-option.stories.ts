@@ -1,7 +1,18 @@
+import { SbbAutocompleteGrid } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid';
 import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-option';
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
+import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { InputType } from '@storybook/types';
+import { InputType, StoryContext } from '@storybook/types';
+
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form field',
+  },
+};
 
 const selected: InputType = {
   control: false,
@@ -10,30 +21,59 @@ const selected: InputType = {
   },
 };
 
-const meta: Meta = {
-  decorators: [
-    moduleMetadata({
-      imports: [SbbAutocompleteGridRow],
-    }),
-  ],
-  title: 'elements/sbb-autocomplete-grid/sbb-autocomplete-grid-option',
-  component: SbbAutocompleteGridOption,
+export const Standalone = {
   argTypes: { selected },
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ value, ...args }: Args) => ({
+    props: { value, ...args },
     template: `
       <sbb-autocomplete-grid-row>
-        <sbb-autocomplete-grid-option value='1' ${argsToTemplate(args)}>1</sbb-autocomplete-grid-option>
+        <sbb-autocomplete-grid-option value='{{value}} - 1' ${argsToTemplate(args)}>Option 1</sbb-autocomplete-grid-option>
       </sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-row>
-        <sbb-autocomplete-grid-option value='2' ${argsToTemplate(args)}>2</sbb-autocomplete-grid-option>
+        <sbb-autocomplete-grid-option value='{{value}} - 2' ${argsToTemplate(args)}>Option 2</sbb-autocomplete-grid-option>
       </sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-row>
-        <sbb-autocomplete-grid-option value='3' ${argsToTemplate(args)}>3</sbb-autocomplete-grid-option>
+        <sbb-autocomplete-grid-option value='{{value}} - 3' ${argsToTemplate(args)}>Option 3</sbb-autocomplete-grid-option>
       </sbb-autocomplete-grid-row>
     `,
   }),
 };
-export default meta;
 
-export const Default = {};
+export const Autocomplete = {
+  argTypes: { negative, selected },
+  render: ({ value, negative, ...args }: Args) => ({
+    props: { value, negative, ...args },
+    template: `
+      <sbb-form-field [negative]="negative">
+        <label>sbb-autocomplete-grid</label>
+        <input placeholder="Please select." />
+        <sbb-autocomplete-grid>
+          <sbb-autocomplete-grid-row>
+            <sbb-autocomplete-grid-option value='{{value}} - 1' ${argsToTemplate(args)}>Option 1</sbb-autocomplete-grid-option>
+          </sbb-autocomplete-grid-row>
+          <sbb-autocomplete-grid-row>
+            <sbb-autocomplete-grid-option value='{{value}} - 2' ${argsToTemplate(args)}>Option 2</sbb-autocomplete-grid-option>
+          </sbb-autocomplete-grid-row>
+          <sbb-autocomplete-grid-row>
+            <sbb-autocomplete-grid-option value='{{value}} - 3' ${argsToTemplate(args)}>Option 3</sbb-autocomplete-grid-option>
+          </sbb-autocomplete-grid-row>
+        </sbb-autocomplete-grid>
+      </sbb-form-field>
+    `,
+  }),
+};
+
+const meta: Meta = {
+  decorators: [
+    moduleMetadata({
+      imports: [SbbFormField, SbbAutocompleteGridRow, SbbAutocompleteGrid],
+    }),
+  ],
+  title: 'elements/sbb-autocomplete-grid/sbb-autocomplete-grid-option',
+  component: SbbAutocompleteGridOption,
+  parameters: {
+    backgroundColor: (context: StoryContext) =>
+      context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+  },
+};
+export default meta;

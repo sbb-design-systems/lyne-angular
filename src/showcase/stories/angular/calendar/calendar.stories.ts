@@ -34,6 +34,13 @@ const now: InputType = {
   },
 };
 
+const view: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['day', 'month', 'year'],
+};
+
 const filterFunctions = [
   undefined,
   (d: Date): boolean => d.getDay() !== 6 && d.getDay() !== 0,
@@ -60,9 +67,20 @@ const argTypes: ArgTypes = {
   selected,
   min,
   max,
+  view,
   dateFilter,
   orientation,
   now,
+};
+
+const today = new Date();
+today.setDate(today.getDate() >= 15 ? 8 : 18);
+
+const args: Args = {
+  view: view.options![0],
+  orientation: orientation.options![0],
+  wide: false,
+  selected: today,
 };
 
 const meta: Meta = {
@@ -73,6 +91,7 @@ const meta: Meta = {
     actions: { handles: ['click'] },
   },
   argTypes,
+  args,
   render: ({ selected, dateFilter, ...args }: Args) => ({
     props: { selected, dateFilter, ...args },
     template: `

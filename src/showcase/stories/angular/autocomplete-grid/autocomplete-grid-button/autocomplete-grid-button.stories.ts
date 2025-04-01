@@ -20,6 +20,7 @@ const meta: Meta = {
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   },
   args: {
+    ariaLabel: 'arrow-right-small',
     iconName: 'pie-small',
     disabled: false,
     negative: false,
@@ -29,7 +30,7 @@ const meta: Meta = {
     template: `
       <sbb-autocomplete-grid-row  ${args['negative'] ? 'data-negative' : ''}>
         <sbb-autocomplete-grid-cell>
-          <sbb-autocomplete-grid-button ${argsToTemplate(args)}></sbb-autocomplete-grid-button>
+          <sbb-autocomplete-grid-button ${argsToTemplate(args)} ${args['ariaLabel'] ? `aria-label=${args['ariaLabel']}` : ''}></sbb-autocomplete-grid-button>
         </sbb-autocomplete-grid-cell>
       </sbb-autocomplete-grid-row>
     `,

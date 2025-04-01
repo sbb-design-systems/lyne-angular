@@ -32,6 +32,7 @@ const argTypes: ArgTypes = {
 };
 
 const args: Args = {
+  accessibilityTitle: 'Disruptions',
   accessibilityTitleLevel: accessibilityTitleLevel.options![1],
   'aria-live': undefined,
   role: 'status',

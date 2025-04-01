@@ -1,15 +1,60 @@
+import { SbbAutocompleteGrid } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid';
 import { SbbAutocompleteGridButton } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-button';
 import { SbbAutocompleteGridCell } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-cell';
 import { SbbAutocompleteGridOptgroup } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-optgroup';
 import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-option';
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
+import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
-import { StoryContext } from '@storybook/types';
+import { ArgTypes, InputType, StoryContext } from '@storybook/types';
+
+const iconName: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Option',
+  },
+};
+
+const disabledSingle: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Option',
+  },
+};
+
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Form field',
+  },
+};
+
+const argTypes: ArgTypes = {
+  iconName,
+  disabledSingle,
+  negative,
+};
+
+const args: Args = {
+  label: 'Option group',
+  disabled: false,
+  iconName: undefined,
+  disabledSingle: false,
+  negative: false,
+};
 
 const meta: Meta = {
   decorators: [
     moduleMetadata({
       imports: [
+        SbbFormField,
+        SbbAutocompleteGrid,
         SbbAutocompleteGridOption,
         SbbAutocompleteGridRow,
         SbbAutocompleteGridCell,
@@ -23,35 +68,45 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   },
-  args: {
-    label: 'Option group',
-    disabled: false,
-  },
-  render: (args: Args) => ({
-    props: { ...args },
+  argTypes,
+  args,
+  render: ({ label, iconName, disabled, disabledSingle, negative, ...args }: Args) => ({
+    props: { label, iconName, disabled, disabledSingle, negative, ...args },
     template: `
-      <sbb-autocomplete-grid-optgroup label="${args['label']} 1" disabled=${args['disabled']}>
-        <sbb-autocomplete-grid-row>
-          <sbb-autocomplete-grid-option value="1">1</sbb-autocomplete-grid-option>
-          <sbb-autocomplete-grid-cell>
-            <sbb-autocomplete-grid-button iconName="pie-small"></sbb-autocomplete-grid-button>
-          </sbb-autocomplete-grid-cell>
-        </sbb-autocomplete-grid-row>
-        <sbb-autocomplete-grid-row>
-          <sbb-autocomplete-grid-option value="2">2</sbb-autocomplete-grid-option>
-          <sbb-autocomplete-grid-cell>
-            <sbb-autocomplete-grid-button iconName="star-small"></sbb-autocomplete-grid-button>
-          </sbb-autocomplete-grid-cell>
-        </sbb-autocomplete-grid-row>
-        </sbb-autocomplete-grid-optgroup>
-        <sbb-autocomplete-grid-optgroup label="${args['label']} 2">
-          <sbb-autocomplete-grid-row>
-            <sbb-autocomplete-grid-option value="3">3</sbb-autocomplete-grid-option>
-            <sbb-autocomplete-grid-cell>
-              <sbb-autocomplete-grid-button iconName="dog-small"></sbb-autocomplete-grid-button>
-            </sbb-autocomplete-grid-cell>
-          </sbb-autocomplete-grid-row>
-        </sbb-autocomplete-grid-optgroup>
+      <sbb-form-field [negative]="negative">
+        <label>Autocomplete</label>
+        <input placeholder="Placeholder" />
+        <sbb-autocomplete-grid>
+          <sbb-autocomplete-grid-optgroup label="{{label}} 1" [disabled]="disabled">
+            <sbb-autocomplete-grid-row>
+              <sbb-autocomplete-grid-option [disabled]="disabledSingle" value="1">
+                Option 1
+              </sbb-autocomplete-grid-option>
+              <sbb-autocomplete-grid-cell>
+                <sbb-autocomplete-grid-button [disabled]="disabledSingle" [iconName]="iconName"></sbb-autocomplete-grid-button>
+              </sbb-autocomplete-grid-cell>
+            </sbb-autocomplete-grid-row>
+            <sbb-autocomplete-grid-row>
+              <sbb-autocomplete-grid-option value="2">
+                Option 2
+              </sbb-autocomplete-grid-option>
+              <sbb-autocomplete-grid-cell>
+                <sbb-autocomplete-grid-button iconName="star-small"></sbb-autocomplete-grid-button>
+              </sbb-autocomplete-grid-cell>
+            </sbb-autocomplete-grid-row>
+          </sbb-autocomplete-grid-optgroup>
+          <sbb-autocomplete-grid-optgroup label="{{label}} 2">
+            <sbb-autocomplete-grid-row>
+              <sbb-autocomplete-grid-option value="3">
+                Option 3
+              </sbb-autocomplete-grid-option>
+              <sbb-autocomplete-grid-cell>
+                <sbb-autocomplete-grid-button iconName="dog-small"></sbb-autocomplete-grid-button>
+              </sbb-autocomplete-grid-cell>
+            </sbb-autocomplete-grid-row>
+          </sbb-autocomplete-grid-optgroup>
+        </sbb-autocomplete-grid>
+      </sbb-form-field>
     `,
   }),
 };
