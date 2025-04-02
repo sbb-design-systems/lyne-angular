@@ -11,7 +11,10 @@ const protectiveRoom: InputType = {
 
 const argTypes: ArgTypes = { protectiveRoom };
 
-const args: Args = { protectiveRoom: protectiveRoom.options![0] };
+const args: Args = {
+  protectiveRoom: protectiveRoom.options![0],
+  negative: false,
+};
 
 const meta: Meta = {
   title: 'elements/sbb-logo',

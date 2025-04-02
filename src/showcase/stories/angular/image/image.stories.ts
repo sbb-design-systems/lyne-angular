@@ -3,6 +3,21 @@ import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
+const importance: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const decoding: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const pictureSizesConfig: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const imageSrc: InputType = {
   control: {
     type: 'select',
@@ -44,6 +59,9 @@ const argTypes: ArgTypes = {
   borderRadius,
   aspectRatio,
   imageSrc,
+  importance,
+  decoding,
+  pictureSizesConfig,
 };
 
 const args: Args = {

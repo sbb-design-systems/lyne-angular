@@ -36,18 +36,24 @@ const value: InputType = {
   },
 };
 
+const ariaLabel: InputType = {
+  control: { type: 'text' },
+};
+
 const argTypes: ArgTypes = {
   text,
   type,
   expandFrom,
   active,
   value,
+  ariaLabel,
 };
 
 const args: Args = {
   text: 'Menu',
   type: type.options![0],
   expandFrom: expandFrom.options![0],
+  active: false,
   iconName: 'hamburger-menu-small',
 };
 
@@ -60,10 +66,12 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ active, text, ...args }: Args) => ({
-    props: { active, text, ...args },
+  render: ({ active, text, ariaLabel, ...args }: Args) => ({
+    props: { active, text, ariaLabel, ...args },
     template: `
-      <sbb-header-button ${argsToTemplate(args)} class=${active ? 'sbb-active' : ''}>
+      <sbb-header-button ${active ? 'class="sbb-active"' : ''}
+                         ${ariaLabel ? `aria-label="${ariaLabel}"` : ''}
+                         ${argsToTemplate(args)}>
         ${text}
       </sbb-header-button>
     `,

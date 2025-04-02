@@ -29,17 +29,28 @@ const value: InputType = {
   },
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   text,
   type,
   size,
   value,
+  ariaLabel,
 };
 
 const args: Args = {
   text: 'Travelcards & tickets',
   type: type.options![0],
+  name: 'Button name',
   size: size.options![1],
+  disabled: false,
+  disabledInteractive: false,
+  negative: false,
 };
 
 const meta: Meta = {
@@ -53,8 +64,8 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ text, ...args }: Args) => ({
-    props: { text, ...args },
+  render: ({ text, ariaLabel, ...args }: Args) => ({
+    props: { text, ariaLabel, ...args },
     template: `
        <p
         style="${args['negative'] ? 'color: var(--sbb-color-aluminium);' : 'color: var(--sbb-color-iron)'}"
@@ -63,7 +74,8 @@ const meta: Meta = {
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt
         ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
         dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
-        sit amet. <sbb-link-button ${argsToTemplate(args)}>${text}</sbb-link-button>
+        sit amet.
+        <sbb-link-button ${argsToTemplate(args)} ${ariaLabel ? `aria-label="${ariaLabel}"` : ''}>${text}</sbb-link-button>
       </p>
     `,
   }),

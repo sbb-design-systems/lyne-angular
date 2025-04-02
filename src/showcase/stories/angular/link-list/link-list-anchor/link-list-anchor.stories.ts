@@ -29,6 +29,7 @@ const args: Args = {
   size: size.options![1],
   titleLevel: titleLevel.options![0],
   titleContent: 'Help & Contact',
+  negative: false,
 };
 
 const meta: Meta = {

@@ -29,10 +29,16 @@ const size: InputType = {
   options: ['xs', 's', 'm'],
 };
 
+const accessibilityCurrent: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes = {
   text,
   href,
   size,
+  accessibilityCurrent,
 };
 
 const args = {
@@ -40,6 +46,9 @@ const args = {
   href: href.options![1],
   size: size.options![1],
   target: '_blank',
+  disabled: false,
+  download: false,
+  negative: false,
 };
 
 const meta: Meta = {

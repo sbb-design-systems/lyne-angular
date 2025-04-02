@@ -36,12 +36,19 @@ const value: InputType = {
   },
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   text,
   size,
   type,
   iconPlacement,
   value,
+  ariaLabel,
 };
 
 const args: Args = {
@@ -49,6 +56,8 @@ const args: Args = {
   size: size.options![1],
   type: type.options![0],
   iconPlacement: iconPlacement.options![0],
+  name: 'Button name',
+  negative: false,
 };
 
 const meta: Meta = {
@@ -62,9 +71,13 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ text, ...args }: Args) => ({
-    props: { text, ...args },
-    template: `<sbb-block-link-button ${argsToTemplate(args)}>${text}</sbb-block-link-button>`,
+  render: ({ text, ariaLabel, ...args }: Args) => ({
+    props: { text, ariaLabel, ...args },
+    template: `
+      <sbb-block-link-button ${argsToTemplate(args)} ${ariaLabel ? `aria-label="${ariaLabel}"` : ''}>
+        ${text}
+      </sbb-block-link-button>
+    `,
   }),
 };
 export default meta;

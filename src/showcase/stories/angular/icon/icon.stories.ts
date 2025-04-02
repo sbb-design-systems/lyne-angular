@@ -2,7 +2,12 @@ import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { InputType } from '@storybook/types';
 
-const iconName: InputType = {
+const noSanitize: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const name: InputType = {
   control: {
     type: 'select',
   },
@@ -15,9 +20,14 @@ const iconName: InputType = {
   ],
 };
 
-const argTypes = { name: iconName };
+const argTypes = {
+  name,
+  noSanitize,
+};
 
-const args = { name: iconName.options![0] };
+const args = {
+  name: name.options![0],
+};
 
 const meta: Meta = {
   title: 'elements/sbb-icon',
