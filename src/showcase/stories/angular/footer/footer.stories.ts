@@ -10,18 +10,24 @@ import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
 const variant: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['default', 'clock-columns'],
+  control: false,
+  table: { disable: true },
+};
+
+const accessibilityTitleLevel: InputType = {
+  control: false,
+  table: { disable: true },
 };
 
 const argTypes: ArgTypes = {
   variant,
+  accessibilityTitleLevel,
 };
 
 const args: Args = {
-  variant: variant.options![0],
+  accessibilityTitle: 'Footer',
+  expanded: false,
+  negative: false,
 };
 
 const meta: Meta = {
@@ -52,7 +58,7 @@ export const Default = {
   render: ({ negative, ...args }: Args) => ({
     props: { negative, ...args },
     template: `
-      <sbb-footer ${argsToTemplate({ negative, ...args })}>
+      <sbb-footer variant="default" ${argsToTemplate({ negative, ...args })}>
         <sbb-link-list horizontalFrom="large" [negative]='negative'>
           <sbb-block-link
             href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
@@ -91,11 +97,10 @@ export const Default = {
 };
 
 export const ClockColumns = {
-  args: { variant: variant.options![1] },
   render: ({ negative, ...args }: Args) => ({
     props: { negative, ...args },
     template: `
-      <sbb-footer ${argsToTemplate({ negative, ...args })}>
+      <sbb-footer variant="clock-columns" ${argsToTemplate({ negative, ...args })}>
         <div class="sbb-link-list-button-group">
           <sbb-link-list title-level="2" titleContent="Help &amp; Contact." [negative]='negative'>
             <sbb-block-link

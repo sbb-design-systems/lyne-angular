@@ -74,6 +74,9 @@ const argTypes: ArgTypes = {
 };
 
 const args: Args = {
+  disabled: false,
+  readOnly: false,
+  negative: false,
   value: '2024-01-01',
   weekdayStyle: weekdayStyle.options![0],
   dateFilter: dateFilter.options![0],

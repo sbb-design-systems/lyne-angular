@@ -17,22 +17,25 @@ const multipleMode: InputType = {
   options: ['default', 'persistent'],
 };
 
+const name: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const value: InputType = {
-  control: {
-    type: 'text',
-  },
+  control: false,
+  table: { disable: true },
 };
 
 const files: InputType = {
   control: false,
-  table: {
-    disable: true,
-  },
+  table: { disable: true },
 };
 
 const argTypes: ArgTypes = {
   size,
   multipleMode,
+  name,
   value,
   files,
 };
@@ -41,6 +44,7 @@ const args: Args = {
   size: size.options![0],
   multipleMode: multipleMode.options![0],
   titleContent: 'Title',
+  accessibilityLabel: 'Select from hard disk',
 };
 
 const meta: Meta = {

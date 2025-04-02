@@ -15,7 +15,7 @@ const datepicker: InputType = {
 
 const view: InputType = {
   control: {
-    type: 'select',
+    type: 'inline-radio',
   },
   options: ['day', 'month', 'year'],
 };
@@ -25,8 +25,9 @@ const argTypes: ArgTypes = {
   view,
 };
 
-const args: ArgTypes = {
+const args: Args = {
   view: view.options![0],
+  negative: false,
 };
 
 const meta: Meta = {

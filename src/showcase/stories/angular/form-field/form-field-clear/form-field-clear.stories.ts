@@ -24,16 +24,23 @@ const readonly: InputType = {
 };
 
 const type: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['button', 'reset', 'submit'],
+  control: false,
+  table: { disable: true },
 };
 
 const value: InputType = {
-  control: {
-    type: 'text',
-  },
+  control: false,
+  table: { disable: true },
+};
+
+const form: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const name: InputType = {
+  control: false,
+  table: { disable: true },
 };
 
 const argTypes: ArgTypes = {
@@ -41,12 +48,13 @@ const argTypes: ArgTypes = {
   readonly,
   type,
   value,
+  form,
+  name,
 };
 
 const args: Args = {
   disabled: false,
   readonly: false,
-  type: type.options![0],
 };
 
 const meta: Meta = {
