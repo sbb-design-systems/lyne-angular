@@ -211,17 +211,23 @@ const withFilterTemplate = ({ columns, datasource, negative }: Args) => `
 
       <ng-container sbbColumnDef="filter-line">
         <th sbb-header-cell *sbbHeaderCellDef class="sbb-table-filter">
-          <input class="sbb-input-element" formControlName="line" />
+          <sbb-form-field>
+            <input formControlName="line" />
+          </sbb-form-field>
         </th>
       </ng-container>
       <ng-container sbbColumnDef="filter-from">
         <th sbb-header-cell *sbbHeaderCellDef class="sbb-table-filter">
-          <input class="sbb-input-element" formControlName="from" />
+          <sbb-form-field>
+            <input formControlName="from" />
+          </sbb-form-field>
         </th>
       </ng-container>
       <ng-container sbbColumnDef="filter-to">
         <th sbb-header-cell *sbbHeaderCellDef class="sbb-table-filter">
-          <input class="sbb-input-element" formControlName="to" />
+          <sbb-form-field>
+            <input formControlName="to" />
+          </sbb-form-field>
         </th>
       </ng-container>
       <ng-container sbbColumnDef="empty">
@@ -299,7 +305,8 @@ const filterForm = new FormGroup({
 
 export const WithFiltering = {
   argTypes: {
-    filterForm: { type: 'object', control: false, table: { disable: true } }, // workaround to access 'filterForm' from the template
+    // workaround to access 'filterForm' from the template
+    filterForm: { type: 'object', control: false, table: { disable: true } },
   },
   args: {
     filterForm: filterForm,
