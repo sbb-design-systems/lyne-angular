@@ -7,9 +7,7 @@ import { ArgTypes, InputType } from '@storybook/types';
 
 const trigger: InputType = {
   control: false,
-  table: {
-    disable: true,
-  },
+  table: { disable: true },
 };
 
 const positions = [
@@ -43,6 +41,8 @@ const argTypes: ArgTypes = {
 
 const args: Args = {
   triggerPosition: triggerPosition.options![0],
+  hoverTrigger: false,
+  hideCloseButton: false,
 };
 
 const meta: Meta = {

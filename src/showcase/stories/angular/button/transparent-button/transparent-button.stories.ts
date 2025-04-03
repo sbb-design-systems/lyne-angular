@@ -60,10 +60,10 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ text, ariaLabel, ...args }: Args) => ({
-    props: { text, ariaLabel, ...args },
+  render: ({ text, ...args }: Args) => ({
+    props: { text, ...args },
     template: `
-      <sbb-transparent-button ${argsToTemplate(args)} ${ariaLabel ? `aria-label="${ariaLabel}"` : ''}>
+      <sbb-transparent-button ${argsToTemplate(args)}>
         ${text}
       </sbb-transparent-button>
     `,

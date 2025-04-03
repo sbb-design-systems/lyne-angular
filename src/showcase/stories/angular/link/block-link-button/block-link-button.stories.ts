@@ -71,10 +71,10 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ text, ariaLabel, ...args }: Args) => ({
-    props: { text, ariaLabel, ...args },
+  render: ({ text, ...args }: Args) => ({
+    props: { text, ...args },
     template: `
-      <sbb-block-link-button ${argsToTemplate(args)} ${ariaLabel ? `aria-label="${ariaLabel}"` : ''}>
+      <sbb-block-link-button ${argsToTemplate(args)}>
         ${text}
       </sbb-block-link-button>
     `,

@@ -19,7 +19,7 @@ const iconName: InputType = {
   },
 };
 
-const amount: InputType = {
+const badge: InputType = {
   control: {
     type: 'text',
   },
@@ -31,23 +31,33 @@ const disabled: InputType = {
   },
 };
 
+const amount: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const trigger: InputType = {
   control: false,
-  table: {
-    disable: true,
-  },
+  table: { disable: true },
+};
+
+const listAccessibilityLabel: InputType = {
+  control: false,
+  table: { disable: true },
 };
 
 const argTypes: ArgTypes = {
   iconName,
+  badge,
   amount,
   disabled,
   trigger,
+  listAccessibilityLabel,
 };
 
 const args: Args = {
   iconName: 'link-small',
-  amount: '123',
+  badge: '9',
   disabled: false,
 };
 
@@ -65,8 +75,8 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ iconName, amount, disabled }: Args) => ({
-    props: { iconName, amount, disabled },
+  render: ({ iconName, badge, disabled }: Args) => ({
+    props: { iconName, badge, disabled },
     template: `
       <sbb-button id="menu-trigger" size="m">Menu trigger</sbb-button>
       <sbb-menu trigger="menu-trigger">
@@ -76,7 +86,7 @@ const meta: Meta = {
         <sbb-divider></sbb-divider>
         <sbb-menu-link ${iconName && `[iconName]="iconName"`} href="https://www.sbb.ch/en">View</sbb-menu-link>
         <sbb-menu-button iconName="tickets-class-small" [disabled]="disabled">Tickets</sbb-menu-button>
-        <sbb-menu-button iconName="shopping-cart-small" [amount]="amount">Cart</sbb-menu-button>
+        <sbb-menu-button iconName="shopping-cart-small" ${!disabled && badge ? `sbb-badge="${badge}"` : ''}>Cart</sbb-menu-button>
         <sbb-divider></sbb-divider>
         <sbb-menu-button iconName="exit-small">Log Out</sbb-menu-button>
       </sbb-menu>

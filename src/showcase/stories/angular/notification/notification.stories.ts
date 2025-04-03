@@ -27,10 +27,8 @@ const animation: InputType = {
 };
 
 const titleLevel: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: [1, 2, 3, 4, 5, 6],
+  control: false,
+  table: { disable: true },
 };
 
 const argTypes: ArgTypes = {

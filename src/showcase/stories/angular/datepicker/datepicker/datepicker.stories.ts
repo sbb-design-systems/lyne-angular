@@ -266,7 +266,6 @@ const meta: Meta = {
     readonly,
     required,
     dateFilter,
-    ariaLabel,
     ...args
   }: Args) => ({
     props: {
@@ -285,7 +284,6 @@ const meta: Meta = {
       readonly,
       required,
       dateFilter,
-      ariaLabel,
       ...args,
     },
     template: `
@@ -305,7 +303,6 @@ const meta: Meta = {
         ></sbb-date-input>
         <sbb-datepicker
           ${argsToTemplate(args)}
-          ${ariaLabel ? `aria-label="${ariaLabel}"` : ''}
           [wide]="wide"
           [now]="convertMillisecondsToSeconds(now)"
         ></sbb-datepicker>

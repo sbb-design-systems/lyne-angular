@@ -16,6 +16,12 @@ const trigger: InputType = {
   },
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const navigationActionsL = (): string => `
   <sbb-navigation-button id="nav-1">Tickets & Offers</sbb-navigation-button>
   <sbb-navigation-button id="nav-2" class="sbb-active" aria-current="page"
@@ -68,7 +74,7 @@ const meta: Meta = {
   parameters: {
     actions: { handles: ['click'] },
   },
-  argTypes: { trigger },
+  argTypes: { trigger, ariaLabel },
   render: (args: Args) => ({
     props: { ...args },
     template: `

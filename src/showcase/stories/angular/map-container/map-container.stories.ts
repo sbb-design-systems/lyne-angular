@@ -27,6 +27,9 @@ const meta: Meta = {
   parameters: {
     layout: 'fullscreen',
   },
+  args: {
+    hideScrollUpButton: false,
+  },
   render: (args: Args) => ({
     props: { ...args },
     template: `

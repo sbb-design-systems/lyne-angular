@@ -64,8 +64,8 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ text, ariaLabel, ...args }: Args) => ({
-    props: { text, ariaLabel, ...args },
+  render: ({ text, ...args }: Args) => ({
+    props: { text, ...args },
     template: `
        <p
         style="${args['negative'] ? 'color: var(--sbb-color-aluminium);' : 'color: var(--sbb-color-iron)'}"
@@ -75,7 +75,7 @@ const meta: Meta = {
         ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
         dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor
         sit amet.
-        <sbb-link-button ${argsToTemplate(args)} ${ariaLabel ? `aria-label="${ariaLabel}"` : ''}>${text}</sbb-link-button>
+        <sbb-link-button ${argsToTemplate(args)}>${text}</sbb-link-button>
       </p>
     `,
   }),

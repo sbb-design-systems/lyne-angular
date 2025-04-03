@@ -66,12 +66,10 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ active, text, ariaLabel, ...args }: Args) => ({
-    props: { active, text, ariaLabel, ...args },
+  render: ({ active, text, ...args }: Args) => ({
+    props: { active, text, ...args },
     template: `
-      <sbb-header-button ${active ? 'class="sbb-active"' : ''}
-                         ${ariaLabel ? `aria-label="${ariaLabel}"` : ''}
-                         ${argsToTemplate(args)}>
+      <sbb-header-button ${active ? 'class="sbb-active"' : ''}${argsToTemplate(args)}>
         ${text}
       </sbb-header-button>
     `,

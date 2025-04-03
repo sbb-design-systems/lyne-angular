@@ -35,11 +35,17 @@ const connectedSection: InputType = {
   },
 };
 
+const accessibilityCurrent: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   label,
   size,
   href,
   connectedSection,
+  accessibilityCurrent,
 };
 
 const args: Args = {

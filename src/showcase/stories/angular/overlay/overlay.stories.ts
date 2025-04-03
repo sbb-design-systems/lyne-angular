@@ -22,6 +22,9 @@ const meta: Meta = {
     openOverlay: { type: 'function', control: false, table: { disable: true } },
   },
   args: {
+    backButton: false,
+    expanded: false,
+    negative: false,
     openOverlay: (e: PointerEvent, id: string) => openOverlay(e, id),
   },
   render: ({ openOverlay, ...args }: Args) => ({

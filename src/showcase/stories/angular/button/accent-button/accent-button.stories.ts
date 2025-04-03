@@ -60,10 +60,10 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ text, ariaLabel, ...args }: Args) => ({
-    props: { text, ariaLabel, ...args },
+  render: ({ text, ...args }: Args) => ({
+    props: { text, ...args },
     template: `
-      <sbb-accent-button ${argsToTemplate(args)} ${ariaLabel ? `aria-label="${ariaLabel}"` : ''}>
+      <sbb-accent-button ${argsToTemplate(args)}>
         ${text}
       </sbb-accent-button>
     `,

@@ -61,10 +61,10 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ label, ariaLabel, ...args }: Args) => ({
-    props: { label, ariaLabel, ...args },
+  render: ({ label, ...args }: Args) => ({
+    props: { label, ...args },
     template: `
-      <sbb-checkbox ${argsToTemplate(args)} ${ariaLabel ? `aria-label="${ariaLabel}"` : ''}>
+      <sbb-checkbox ${argsToTemplate(args)}>
         ${label}
       </sbb-checkbox>
     `,

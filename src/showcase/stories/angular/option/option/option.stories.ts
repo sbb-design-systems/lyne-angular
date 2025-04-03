@@ -28,12 +28,26 @@ const preserveIconSpace: InputType = {
   },
 };
 
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const selected: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   preserveIconSpace,
+  negative,
+  selected,
 };
 
 const args: Args = {
   value: 'Value',
+  negative: false,
 };
 
 const meta: Meta = {

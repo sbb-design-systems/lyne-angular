@@ -27,6 +27,8 @@ const args: Args = {
   pageIndex: 0,
   pagerPosition: pagerPosition.options![0],
   size: size.options![0],
+  negative: false,
+  disabled: false,
 };
 
 const meta: Meta = {

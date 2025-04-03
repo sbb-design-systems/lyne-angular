@@ -26,11 +26,11 @@ const meta: Meta = {
   component: SbbCardBadge,
   argTypes,
   args,
-  render: ({ ariaLabel, ...args }: Args) => ({
-    props: { ariaLabel, ...args },
+  render: (args: Args) => ({
+    props: { ...args },
     template: `
       <sbb-card color="milk">
-        <sbb-card-badge ${argsToTemplate(args)} ${ariaLabel ? `aria-label="${ariaLabel}"` : ''}>
+        <sbb-card-badge ${argsToTemplate(args)}>
           <span>%</span>
           <span>from CHF</span>
           <span>92.50</span>
