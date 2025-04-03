@@ -46,6 +46,12 @@ const argTypes: ArgTypes = {
 
 const args: Args = {
   cardActionLabel: '',
+  a11yFootpath: false,
+  accessibilityExpanded: false,
+  active: false,
+  disableAnimation: false,
+  loadingPrice: false,
+  loadingTrip: false,
   now: new Date('2022-12-01T12:11:00').valueOf(),
   trip: defaultTrip,
   boarding: { name: 'sa-rs', text: 'boarding' },

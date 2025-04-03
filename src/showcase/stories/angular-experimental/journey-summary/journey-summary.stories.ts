@@ -55,6 +55,8 @@ const args: Args = {
     duration: 120,
   },
   roundTrip: true,
+  a11yFootpath: false,
+  disableAnimation: false,
 };
 
 const meta: Meta = {
