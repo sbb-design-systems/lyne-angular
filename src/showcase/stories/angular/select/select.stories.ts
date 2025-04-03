@@ -80,6 +80,15 @@ const disableOption: InputType = {
   },
 };
 
+const withOptionGroup: InputType = {
+  control: {
+    type: 'boolean',
+  },
+  table: {
+    category: 'Option group',
+  },
+};
+
 const disableGroup: InputType = {
   control: {
     type: 'boolean',
@@ -89,6 +98,11 @@ const disableGroup: InputType = {
   },
 };
 
+const name: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   borderless,
   size,
@@ -96,17 +110,25 @@ const argTypes: ArgTypes = {
   floatingLabel,
   value,
   disableOption,
+  withOptionGroup,
   disableGroup,
+  name,
 };
 
 const args: Args = {
-  borderless: false,
   size: size.options![0],
+  placeholder: 'Please select value.',
+  value: undefined,
+  borderless: false,
   negative: false,
   floatingLabel: false,
-  value: undefined,
   disableOption: false,
+  withOptionGroup: false,
   disableGroup: false,
+  disabled: false,
+  readonly: false,
+  multiple: false,
+  required: false,
 };
 
 const meta: Meta = {
@@ -130,10 +152,20 @@ const meta: Meta = {
     negative,
     floatingLabel,
     disableOption,
+    withOptionGroup,
     disableGroup,
     ...args
   }: Args) => ({
-    props: { borderless, size, negative, floatingLabel, disableOption, disableGroup, ...args },
+    props: {
+      borderless,
+      size,
+      negative,
+      floatingLabel,
+      disableOption,
+      withOptionGroup,
+      disableGroup,
+      ...args,
+    },
     template: `
       <sbb-form-field
         [borderless]="borderless"
@@ -143,12 +175,21 @@ const meta: Meta = {
       >
         <label>Select</label>
         <sbb-select ${argsToTemplate(args)}>
-          <sbb-optgroup label="Group 1" [disabled]="disableGroup">
-            ${createOptions(disableOption, '1', args['value'])}
-          </sbb-optgroup>
-          <sbb-optgroup label="Group 2">
-            ${createOptions(disableOption, '2', args['value'])}
-          </sbb-optgroup>
+          ${
+            withOptionGroup
+              ? `
+                <sbb-optgroup label="Group 1" [disabled]="disableGroup">
+                  ${createOptions(disableOption, '1', args['value'])}
+                </sbb-optgroup>
+                <sbb-optgroup label="Group 2">
+                  ${createOptions(disableOption, '2', args['value'])}
+                </sbb-optgroup>
+              `
+              : `
+                ${createOptions(disableOption, '1', args['value'])}
+                ${createOptions(disableOption, '2', args['value'])}
+              `
+          }
         </sbb-select>
       </sbb-form-field>`,
   }),

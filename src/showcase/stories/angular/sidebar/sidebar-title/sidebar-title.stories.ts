@@ -10,15 +10,19 @@ const level: InputType = {
 };
 
 const visualLevel: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: [1, 2, 3, 4, 5, 6],
+  control: false,
+  table: { disable: true },
+};
+
+const visuallyHidden: InputType = {
+  control: false,
+  table: { disable: true },
 };
 
 const argTypes: ArgTypes = {
   level,
   visualLevel,
+  visuallyHidden,
 };
 
 const meta: Meta = {

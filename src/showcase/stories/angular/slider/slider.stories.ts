@@ -9,19 +9,18 @@ const value: InputType = {
   },
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const label: InputType = {
   control: {
     type: 'text',
   },
   table: {
     category: 'Form-field',
-  },
-};
-
-const valueAsNumber: InputType = {
-  control: false,
-  table: {
-    disable: true,
   },
 };
 
@@ -34,9 +33,21 @@ const optional: InputType = {
   },
 };
 
+const valueAsNumber: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const name: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   value,
+  ariaLabel,
   label,
+  name,
   optional,
   valueAsNumber,
 };

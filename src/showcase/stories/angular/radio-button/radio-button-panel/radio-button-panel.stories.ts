@@ -30,11 +30,30 @@ const size: InputType = {
   options: ['m', 's'],
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const name: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const required: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   label,
   value,
   color,
   size,
+  ariaLabel,
+  name,
+  required,
 };
 
 const args: Args = {
@@ -42,6 +61,10 @@ const args: Args = {
   value: 'Value',
   color: color.options![0],
   size: size.options![0],
+  borderless: false,
+  allowEmptySelection: false,
+  checked: false,
+  disabled: false,
 };
 
 const meta: Meta = {

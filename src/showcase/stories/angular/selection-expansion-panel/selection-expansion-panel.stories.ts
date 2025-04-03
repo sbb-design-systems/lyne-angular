@@ -28,6 +28,15 @@ const innerContent = (): string => `
   </div>
 `;
 
+const WithCheckboxTemplate = ({ checkedInput, disabledInput, size, ...args }: Args): string => `
+  <sbb-selection-expansion-panel ${argsToTemplate(args)}>
+    <sbb-checkbox-panel [checked]=${checkedInput} [disabled]=${disabledInput}>
+      Value one ${suffixAndSubtext(size)} ${cardBadge()}
+    </sbb-checkbox-panel>
+    ${innerContent()}
+  </sbb-selection-expansion-panel>
+`;
+
 const WithCheckboxGroupTemplate = ({
   checkedInput,
   disabledInput,
@@ -36,14 +45,14 @@ const WithCheckboxGroupTemplate = ({
 }: Args): string => `
   <sbb-checkbox-group orientation="vertical" horizontalFrom="large" size=${size}>
     <sbb-selection-expansion-panel ${argsToTemplate(args)}>
-      <sbb-checkbox-panel checked=${checkedInput}>
+      <sbb-checkbox-panel [checked]="${checkedInput}">
         Value one ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-checkbox-panel>
       ${innerContent()}
     </sbb-selection-expansion-panel>
 
     <sbb-selection-expansion-panel ${argsToTemplate(args)}>
-      <sbb-checkbox-panel disabled=${disabledInput}>
+      <sbb-checkbox-panel [disabled]="${disabledInput}">
         Value two ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-checkbox-panel>
       ${innerContent()}
@@ -56,6 +65,15 @@ const WithCheckboxGroupTemplate = ({
       ${innerContent()}
     </sbb-selection-expansion-panel>
   </sbb-checkbox-group>
+`;
+
+const WithRadioButtonTemplate = ({ checkedInput, disabledInput, size, ...args }: Args): string => `
+  <sbb-selection-expansion-panel ${argsToTemplate(args)}>
+    <sbb-radio-button-panel value="Value one" [checked]="${checkedInput}" [disabled]="${disabledInput}">
+      Value one ${suffixAndSubtext(size)} ${cardBadge()}
+    </sbb-radio-button-panel>
+    ${innerContent()}
+  </sbb-selection-expansion-panel>
 `;
 
 const WithRadioButtonGroupTemplate = ({
@@ -72,14 +90,14 @@ const WithRadioButtonGroupTemplate = ({
     size=${size}
   >
     <sbb-selection-expansion-panel ${argsToTemplate(args)}>
-      <sbb-radio-button-panel value="Value one" checked=${checkedInput}>
+      <sbb-radio-button-panel value="Value one" [checked]="${checkedInput}">
         Value one ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-radio-button-panel>
       ${innerContent()}
     </sbb-selection-expansion-panel>
 
     <sbb-selection-expansion-panel ${argsToTemplate(args)}>
-      <sbb-radio-button-panel value="Value two" disabled=${disabledInput}>
+      <sbb-radio-button-panel value="Value two" [disabled]="${disabledInput}">
         Value two ${suffixAndSubtext(size)} ${cardBadge()}
       </sbb-radio-button-panel>
       ${innerContent()}
@@ -139,8 +157,9 @@ const argTypes: ArgTypes = {
 const args: Args = {
   color: color.options![0],
   size: size.options![0],
-  checkedInput: true,
-  disabledInput: true,
+  forceOpen: false,
+  checkedInput: false,
+  disabledInput: false,
 };
 
 const meta: Meta = {
@@ -164,16 +183,30 @@ const meta: Meta = {
 };
 export default meta;
 
-export const RadioGroup = {
+export const Checkbox = {
   render: (args: Args) => ({
     props: { ...args },
-    template: WithRadioButtonGroupTemplate(args),
+    template: WithCheckboxTemplate(args),
+  }),
+};
+
+export const Radio = {
+  render: (args: Args) => ({
+    props: { ...args },
+    template: WithRadioButtonTemplate(args),
   }),
 };
 
 export const CheckboxGroup = {
   render: (args: Args) => ({
-    props: { ...args },
-    template: WithCheckboxGroupTemplate(args),
+    props: { ...args, checkedInput: true },
+    template: WithCheckboxGroupTemplate({ ...args, checkedInput: true }),
+  }),
+};
+
+export const RadioGroup = {
+  render: (args: Args) => ({
+    props: { ...args, checkedInput: true },
+    template: WithRadioButtonGroupTemplate({ ...args, checkedInput: true }),
   }),
 };

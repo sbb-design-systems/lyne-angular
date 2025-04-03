@@ -10,16 +10,23 @@ import {
 import { InputType } from '@storybook/types';
 
 const type: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['button', 'reset', 'submit'],
+  control: false,
+  table: { disable: true },
 };
 
 const value: InputType = {
-  control: {
-    type: 'text',
-  },
+  control: false,
+  table: { disable: true },
+};
+
+const form: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const name: InputType = {
+  control: false,
+  table: { disable: true },
 };
 
 const ariaLabel: InputType = {
@@ -35,17 +42,18 @@ const currentPage: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'aria-label': ariaLabel,
+  ariaLabel,
   currentPage,
   type,
   value,
+  form,
+  name,
 };
 
 const args: Args = {
   iconName: 'glass-cocktail-small',
-  'aria-label': 'Go to the party',
+  ariaLabel: 'Go to the party',
   currentPage: false,
-  type: type.options![0],
 };
 
 const meta: Meta = {

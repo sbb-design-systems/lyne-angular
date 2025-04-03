@@ -15,15 +15,37 @@ const size: InputType = {
   options: ['m', 's', 'xs'],
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const name: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const required: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   label,
   size,
+  ariaLabel,
+  name,
+  required,
 };
 
 const args: Args = {
   label: 'Label',
   value: 'Value',
   size: size.options![0],
+  allowEmptySelection: false,
+  checked: false,
+  disabled: false,
 };
 
 const meta: Meta = {

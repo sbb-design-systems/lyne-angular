@@ -60,9 +60,15 @@ const showCloseButton: InputType = {
   },
 };
 
+const isAnimating: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   showTitle,
   showCloseButton,
+  isAnimating,
   toggleClick: { type: 'function', control: false, table: { disable: true } },
   didOpen: { type: 'function', control: false, table: { disable: true } },
   didClose: { type: 'function', control: false, table: { disable: true } },

@@ -2,21 +2,22 @@ import { SbbSidebarCloseButton } from '@sbb-esta/lyne-angular/sidebar/sidebar-cl
 import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
-const size: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['l', 'm', 's'],
+const disabledControl: InputType = {
+  control: false,
+  table: { disable: true },
 };
 
-const type: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['button', 'reset', 'submit'],
-};
+const size: InputType = disabledControl;
+const type: InputType = disabledControl;
+const disabled: InputType = disabledControl;
+const disabledInteractive: InputType = disabledControl;
+const form: InputType = disabledControl;
+const iconName: InputType = disabledControl;
+const name: InputType = disabledControl;
+const negative: InputType = disabledControl;
+const value: InputType = disabledControl;
 
-const value: InputType = {
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
@@ -25,12 +26,14 @@ const value: InputType = {
 const argTypes: ArgTypes = {
   size,
   type,
+  disabled,
+  disabledInteractive,
+  form,
+  iconName,
+  name,
+  negative,
   value,
-};
-
-const args: Args = {
-  size: size.options![0],
-  type: type.options![0],
+  ariaLabel,
 };
 
 const meta: Meta = {
@@ -42,7 +45,6 @@ const meta: Meta = {
       context.args['negative'] ? 'var(--sbb-color-charcoal)' : 'var(--sbb-color-white)',
   },
   argTypes,
-  args,
   render: (args: Args) => ({
     props: { ...args },
     template: `<sbb-sidebar-close-button ${argsToTemplate(args)}></sbb-sidebar-close-button>`,

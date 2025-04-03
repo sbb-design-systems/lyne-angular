@@ -14,16 +14,39 @@ const currentPage: InputType = {
   },
 };
 
+const accessibilityCurrent: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const download: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const rel: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const target: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   currentPage,
+  accessibilityCurrent,
+  download,
+  rel,
+  target,
 };
 
 const args: Args = {
   iconName: 'glass-cocktail-small',
-  'accessibility-label': 'Go to the party',
+  accessibilityLabel: 'Go to the party',
   href: '#',
   currentPage: false,
-  target: '_blank',
 };
 
 const meta: Meta = {
