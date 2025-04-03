@@ -22,16 +22,25 @@ const size: InputType = {
   options: ['s', 'm'],
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   label,
   value,
   size,
+  ariaLabel,
 };
 
 const args: Args = {
   label: 'Label',
   multiple: true,
   size: size.options![1],
+  disabled: false,
+  listAccessibilityLabel: 'Select your desired filter',
 };
 
 const meta: Meta = {

@@ -56,6 +56,16 @@ const chipLabel: InputType = {
   },
 };
 
+const accessibilityCurrent: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const download: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   href,
   target,
@@ -64,11 +74,12 @@ const argTypes: ArgTypes = {
   imageSrc,
   imageAlt,
   chipLabel,
+  accessibilityCurrent,
+  download,
 };
 
 const args: Args = {
   href: href.options![0],
-  target: '_blank',
   content: 'Break out and explore castles and palaces.',
   linkContent: 'Find out more',
   imageSrc: 'https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg',

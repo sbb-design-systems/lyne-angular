@@ -61,10 +61,12 @@ const argTypes: ArgTypes = {
 };
 
 const args: Args = {
+  iconName: 'circle-tick-small',
   action: action.options![0],
   position: position.options![6],
   timeout: 6000,
   politeness: politeness.options![1],
+  dismissible: false,
 };
 
 const meta: Meta = {

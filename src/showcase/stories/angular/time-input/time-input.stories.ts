@@ -107,16 +107,12 @@ const iconEnd: InputType = {
 
 const input: InputType = {
   control: false,
-  table: {
-    disable: true,
-  },
+  table: { disable: true },
 };
 
 const valueAsDate: InputType = {
   control: false,
-  table: {
-    disable: true,
-  },
+  table: { disable: true },
 };
 
 const argTypes: ArgTypes = {
@@ -141,6 +137,12 @@ const args: Args = {
   size: size.options![1],
   iconStart: 'clock-small',
   iconEnd: 'circle-information-small',
+  disabled: false,
+  readonly: false,
+  required: false,
+  negative: false,
+  optional: false,
+  borderless: false,
 };
 
 const meta: Meta = {

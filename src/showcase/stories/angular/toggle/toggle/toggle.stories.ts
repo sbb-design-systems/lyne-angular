@@ -39,11 +39,24 @@ const iconName: InputType = {
   },
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const name: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   size,
   label,
   labelTwo,
   iconName,
+  ariaLabel,
+  name,
 };
 
 const args: Args = {
@@ -51,6 +64,9 @@ const args: Args = {
   label: 'Bern',
   labelTwo: 'Zürich',
   iconName: iconName.options![0],
+  value: 'Value 1',
+  disabled: false,
+  even: false,
 };
 
 const meta: Meta = {

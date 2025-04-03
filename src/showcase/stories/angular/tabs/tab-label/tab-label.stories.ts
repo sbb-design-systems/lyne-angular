@@ -22,10 +22,8 @@ const amount: InputType = {
 };
 
 const level: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: [1, 2, 3, 4, 5, 6],
+  control: false,
+  table: { disable: true },
 };
 
 const argTypes: ArgTypes = {
@@ -39,6 +37,8 @@ const args: Args = {
   label: 'Tab title',
   iconName: iconName.options![0],
   amount: 123,
+  active: false,
+  disabled: false,
 };
 
 const meta: Meta = {

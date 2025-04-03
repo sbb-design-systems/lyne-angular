@@ -24,6 +24,8 @@ const argTypes: ArgTypes = {
 const args: Args = {
   text: 'Data without insights are trivial, and insights without action are pointless',
   level: level.options![0],
+  negative: false,
+  visuallyHidden: false,
 };
 
 const meta: Meta = {

@@ -24,10 +24,34 @@ const withFooter: InputType = {
   },
 };
 
+const accessibilityCurrent: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const download: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const target: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const rel: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   imageAlignment,
   withChip,
   withFooter,
+  accessibilityCurrent,
+  download,
+  target,
+  rel,
 };
 
 const args: Args = {
@@ -35,7 +59,7 @@ const args: Args = {
   withChip: true,
   withFooter: true,
   href: 'https://www.sbb.ch',
-  target: '_blank',
+  accessibilityLabel: 'Benefit from up to 70% discount, Follow the link to benefit.',
 };
 
 const meta: Meta = {

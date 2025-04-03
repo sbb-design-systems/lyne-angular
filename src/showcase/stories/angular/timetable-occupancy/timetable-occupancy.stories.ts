@@ -24,6 +24,7 @@ const argTypes: ArgTypes = {
 const args: Args = {
   firstClassOccupancy: firstClassOccupancy.options![3],
   secondClassOccupancy: secondClassOccupancy.options![3],
+  negative: false,
 };
 
 const meta: Meta = {

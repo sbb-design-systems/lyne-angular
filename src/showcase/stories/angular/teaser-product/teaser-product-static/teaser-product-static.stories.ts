@@ -34,6 +34,7 @@ const args: Args = {
   imageAlignment: imageAlignment.options![0],
   withChip: true,
   withFooter: true,
+  negative: false,
 };
 
 const meta: Meta = {
