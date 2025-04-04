@@ -50,6 +50,13 @@ const LONG_DATA_SAMPLE = [
 const shortDatasource = new SbbTableDataSource(DATA_SAMPLE);
 const longDatasource = new SbbTableDataSource(LONG_DATA_SAMPLE);
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['xs', 's', 'm'],
+};
+
 const negative: InputType = { control: { type: 'boolean' } };
 
 const datasource: InputType = {
@@ -79,23 +86,25 @@ const columns: InputType = {
 };
 
 const argTypes: ArgTypes = {
+  size,
   negative,
   datasource,
   columns,
 };
 
 const args: Args = {
+  size: 'm',
   negative: false,
   datasource: 'short',
   columns: columns.options![0],
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const defaultTemplate = ({ columns, datasource, negative }: Args) => `
+const defaultTemplate = ({ columns, datasource, size, negative }: Args) => `
   <sbb-table-wrapper [negative]=${negative}>
     <table sbb-table [dataSource]=datasource
       aria-label="Train lines 2024"
-      class="sbb-table ${negative ? 'sbb-table--negative' : ''}"
+      class="sbb-table sbb-table-${size} ${negative ? 'sbb-table--negative' : ''}"
     >
       <sbb-text-column name="line"></sbb-text-column>
       <sbb-text-column name="from"></sbb-text-column>
@@ -115,11 +124,11 @@ const defaultTemplate = ({ columns, datasource, negative }: Args) => `
 `;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const withSortTemplate = ({ columns, datasource, negative }: Args) => `
+const withSortTemplate = ({ columns, datasource, size, negative }: Args) => `
   <sbb-table-wrapper [negative]=${negative}>
     <table sbb-table [dataSource]=datasource
       aria-label="Train lines 2024"
-      class="sbb-table ${negative ? 'sbb-table--negative' : ''}"
+      class="sbb-table sbb-table-${size} ${negative ? 'sbb-table--negative' : ''}"
       sbbSort
       sbbSortActive="from"
       sbbSortDirection="desc"
@@ -164,11 +173,11 @@ const withSortTemplate = ({ columns, datasource, negative }: Args) => `
 `;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const withPaginatorTemplate = ({ columns, datasource, negative }: Args) => `
+const withPaginatorTemplate = ({ columns, datasource, size, negative }: Args) => `
   <sbb-table-wrapper [negative]=${negative}>
     <table sbb-table [dataSource]=datasource
       aria-label="Train lines 2024"
-      class="sbb-table ${negative ? 'sbb-table--negative' : ''}"
+      class="sbb-table sbb-table-${size} ${negative ? 'sbb-table--negative' : ''}"
     >
       <sbb-text-column name="line"></sbb-text-column>
       <sbb-text-column name="from"></sbb-text-column>
@@ -190,15 +199,15 @@ const withPaginatorTemplate = ({ columns, datasource, negative }: Args) => `
 `;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const withFilterTemplate = ({ columns, datasource, negative }: Args) => `
-  <sbb-form-field style="margin-block-end: var(--sbb-spacing-fixed-2x)">
+const withFilterTemplate = ({ columns, datasource, size, negative }: Args) => `
+  <sbb-form-field size="s" [negative]=${negative} style="margin-block-end: var(--sbb-spacing-fixed-2x)">
     <label>Global filtering</label>
     <input formControlName="_">
   </sbb-form-field>
   <sbb-table-wrapper [negative]=${negative}>
     <table sbb-table [dataSource]=datasource
       aria-label="Train lines 2024"
-      class="sbb-table ${negative ? 'sbb-table--negative' : ''}"
+      class="sbb-table sbb-table-${size} ${negative ? 'sbb-table--negative' : ''}"
     >
       <sbb-text-column name="line"></sbb-text-column>
       <sbb-text-column name="from"></sbb-text-column>
@@ -211,21 +220,21 @@ const withFilterTemplate = ({ columns, datasource, negative }: Args) => `
 
       <ng-container sbbColumnDef="filter-line">
         <th sbb-header-cell *sbbHeaderCellDef class="sbb-table-filter">
-          <sbb-form-field>
+          <sbb-form-field size="s" [negative]=${negative}>
             <input formControlName="line" />
           </sbb-form-field>
         </th>
       </ng-container>
       <ng-container sbbColumnDef="filter-from">
         <th sbb-header-cell *sbbHeaderCellDef class="sbb-table-filter">
-          <sbb-form-field>
+          <sbb-form-field size="s" [negative]=${negative}>
             <input formControlName="from" />
           </sbb-form-field>
         </th>
       </ng-container>
       <ng-container sbbColumnDef="filter-to">
         <th sbb-header-cell *sbbHeaderCellDef class="sbb-table-filter">
-          <sbb-form-field>
+          <sbb-form-field size="s" [negative]=${negative}>
             <input formControlName="to" />
           </sbb-form-field>
         </th>
