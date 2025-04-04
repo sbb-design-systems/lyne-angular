@@ -3,7 +3,13 @@ import { SbbAutocompleteGridCell } from '@sbb-esta/lyne-angular/autocomplete-gri
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { StoryContext } from '@storybook/types';
+import { InputType, StoryContext } from '@storybook/types';
+
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
 
 const meta: Meta = {
   decorators: [
@@ -19,9 +25,12 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   },
+  argTypes: {
+    ariaLabel,
+  },
   args: {
     ariaLabel: 'arrow-right-small',
-    iconName: 'pie-small',
+    iconName: 'arrow-right-small',
     disabled: false,
     negative: false,
   },
@@ -30,7 +39,7 @@ const meta: Meta = {
     template: `
       <sbb-autocomplete-grid-row  ${args['negative'] ? 'data-negative' : ''}>
         <sbb-autocomplete-grid-cell>
-          <sbb-autocomplete-grid-button ${argsToTemplate(args)} ${args['ariaLabel'] ? `aria-label=${args['ariaLabel']}` : ''}></sbb-autocomplete-grid-button>
+          <sbb-autocomplete-grid-button ${argsToTemplate(args)}></sbb-autocomplete-grid-button>
         </sbb-autocomplete-grid-cell>
       </sbb-autocomplete-grid-row>
     `,
