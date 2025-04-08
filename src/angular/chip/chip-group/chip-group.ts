@@ -11,11 +11,9 @@ import '@sbb-esta/lyne-elements/chip/chip-group.js';
 
 @Directive({
   selector: 'sbb-chip-group',
-  exportAs: 'sbbChipGroup',
   host: {
     '(change)': 'this.onChangeFn(this.value)',
-    // TODO: Check, maybe we have to check the input for blur?
-    '(blur)': 'this.onTouchedFn()',
+    '(focusout)': 'this.onTouchedFn()',
   },
   providers: [
     {
