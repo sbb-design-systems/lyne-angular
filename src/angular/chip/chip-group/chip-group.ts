@@ -11,6 +11,7 @@ import '@sbb-esta/lyne-elements/chip/chip-group.js';
 
 @Directive({
   selector: 'sbb-chip-group',
+  exportAs: 'sbbChipGroup',
   host: {
     '(change)': 'this.onChangeFn(this.value)',
     '(focusout)': 'this.onTouchedFn()',
