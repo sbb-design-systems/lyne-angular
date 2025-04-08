@@ -1,16 +1,15 @@
 import { SbbChip } from '@sbb-esta/lyne-angular/chip/chip';
 import { SbbChipGroup } from '@sbb-esta/lyne-angular/chip/chip-group';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
-import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
 const readonly: InputType = {
-  table: {
-    category: 'Input field',
-  },
   control: {
     type: 'boolean',
+  },
+  table: {
+    category: 'Input field',
   },
 };
 
@@ -60,9 +59,7 @@ const args: Args = {
 
 const meta: Meta = {
   decorators: [
-    withActions,
     moduleMetadata({
-      // add slotted components or remove
       imports: [SbbFormField, SbbChip],
     }),
   ],
@@ -70,21 +67,21 @@ const meta: Meta = {
   component: SbbChipGroup,
   argTypes,
   args,
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ negative, size, hiddenLabel, floatingLabel, disabled, readonly }: Args) => ({
+    props: { negative, size, hiddenLabel, floatingLabel, disabled, readonly },
     template: `
       <sbb-form-field
-        [negative]=${args['negative']}
-        size=${args['size']}
-        [hidden-label]=${args['hiddenLabel']}
-        [floating-label]=${args['floatingLabel']}
+        [negative]=${negative}
+        size=${size}
+        [hidden-label]=${hiddenLabel}
+        [floating-label]=${floatingLabel}
       >
         <label>Label</label>
         <sbb-chip-group>
           <sbb-chip value="chip 1"></sbb-chip>
           <sbb-chip value="chip 2"></sbb-chip>
           <sbb-chip value="chip 3"></sbb-chip>
-          <input placeholder="Placeholder" [disabled]=${args['disabled']} [readonly]=${args['readonly']} />
+          <input placeholder="Placeholder" [disabled]=${disabled} [readonly]=${readonly} />
         </sbb-chip-group>
       </sbb-form-field>
     `,

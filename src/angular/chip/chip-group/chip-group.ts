@@ -36,7 +36,7 @@ export class SbbChipGroup extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.value;
   }
 
-  @Input({ alias: 'separator-keys' })
+  @Input()
   public set separatorKeys(value: string[]) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.separatorKeys = value));
   }
