@@ -1,24 +1,14 @@
 import { SbbChip } from '@sbb-esta/lyne-angular/chip/chip';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, argsToTemplate, Meta } from '@storybook/angular';
 
 const meta: Meta = {
-  decorators: [
-    withActions,
-    moduleMetadata({
-      // add slotted components or remove
-      imports: [],
-    }),
-  ],
+  decorators: [withActions],
   title: 'elements/sbb-chip/sbb-chip',
   component: SbbChip,
-  parameters: {
-    // add events or remove the 'action' object
-    actions: { handles: ['click'] },
-  },
   render: (args: Args) => ({
     props: { ...args },
-    template: `<sbb-chip ${argsToTemplate(args)}></sbb-chip>`,
+    template: `<sbb-chip ${argsToTemplate(args)}>Label</sbb-chip>`,
   }),
 };
 export default meta;
