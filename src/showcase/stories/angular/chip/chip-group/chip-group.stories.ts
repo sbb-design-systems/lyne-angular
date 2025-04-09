@@ -71,10 +71,10 @@ const meta: Meta = {
     props: { negative, size, hiddenLabel, floatingLabel, disabled, readonly },
     template: `
       <sbb-form-field
-        [negative]=${negative}
-        size=${size}
-        [hidden-label]=${hiddenLabel}
-        [floating-label]=${floatingLabel}
+        [negative]="negative"
+        [size]="size"
+        [hidden-label]="hiddenLabel"
+        [floating-label]="floatingLabel"
       >
         <label>Label</label>
         <sbb-chip-group>
