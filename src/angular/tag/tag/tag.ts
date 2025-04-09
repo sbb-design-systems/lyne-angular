@@ -1,5 +1,6 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
 import { fromEvent, type Observable, NEVER } from 'rxjs';
@@ -8,8 +9,19 @@ import '@sbb-esta/lyne-elements/tag/tag.js';
 
 @Directive({
   selector: 'sbb-tag',
+  exportAs: 'sbbTag',
+  host: {
+    '(change)': 'this.onChangeFn(this.checked)',
+  },
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbTag),
+      multi: true,
+    },
+  ],
 })
-export class SbbTag {
+export class SbbTag extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbTagElement> = inject(ElementRef<SbbTagElement>);
   #ngZone: NgZone = inject(NgZone);
 

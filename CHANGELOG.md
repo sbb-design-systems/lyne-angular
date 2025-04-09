@@ -1,5 +1,19 @@
 # Changelog
 
+## [19.0.0-beta.3](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-beta.2...v19.0.0-beta.3) (2025-03-25)
+
+
+### Bug Fixes
+
+* **sbb-slider:** update value correctly ([#44](https://github.com/sbb-design-systems/lyne-angular/issues/44)) ([bc6d262](https://github.com/sbb-design-systems/lyne-angular/commit/bc6d262b3da89c437b79e1c8cd384226023bf0b8))
+* **sbb-tag:** add form support ([#45](https://github.com/sbb-design-systems/lyne-angular/issues/45)) ([cd73512](https://github.com/sbb-design-systems/lyne-angular/commit/cd735124f675e5cf31cdff16164f6434e485fe0e))
+
+
+### Code Refactoring
+
+* update angular elements ([#43](https://github.com/sbb-design-systems/lyne-angular/issues/43)) ([cc044d6](https://github.com/sbb-design-systems/lyne-angular/commit/cc044d68e17277539517d69e5fa909167f7204c9))
+* use type imports in stories where possible ([#47](https://github.com/sbb-design-systems/lyne-angular/issues/47)) ([e7fe25d](https://github.com/sbb-design-systems/lyne-angular/commit/e7fe25d1627dbb4ab85568f2e63c173e70328107))
+
 ## [19.0.0-beta.2](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-beta.1...v19.0.0-beta.2) (2025-03-20)
 
 

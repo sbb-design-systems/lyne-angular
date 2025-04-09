@@ -56,11 +56,11 @@ export class SbbAutocomplete {
   @Output('didClose') protected _didClose: (typeof this)['didClose'] = NEVER;
   public didClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didClose');
 
-  public get originElement(): HTMLElement {
+  public get originElement(): HTMLElement | null {
     return this.#element.nativeElement.originElement;
   }
 
-  public get triggerElement(): HTMLInputElement | undefined {
+  public get triggerElement(): HTMLInputElement | null | undefined {
     return this.#element.nativeElement.triggerElement;
   }
 
