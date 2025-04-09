@@ -81,7 +81,7 @@ const meta: Meta = {
           <sbb-chip value="chip 1"></sbb-chip>
           <sbb-chip value="chip 2"></sbb-chip>
           <sbb-chip value="chip 3"></sbb-chip>
-          <input placeholder="Placeholder" [disabled]=${disabled} [readonly]=${readonly} />
+          <input placeholder="Placeholder" [disabled]="disabled" [readonly]="readonly" />
         </sbb-chip-group>
       </sbb-form-field>
     `,
