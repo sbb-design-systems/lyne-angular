@@ -36,19 +36,28 @@ const value: InputType = {
   },
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   text,
   size,
   type,
-  'icon-placement': iconPlacement,
+  iconPlacement,
   value,
+  ariaLabel,
 };
 
 const args: Args = {
   text: 'Travelcards & tickets',
   size: size.options![1],
   type: type.options![0],
-  'icon-placement': iconPlacement.options![0],
+  iconPlacement: iconPlacement.options![0],
+  name: 'Button name',
+  negative: false,
 };
 
 const meta: Meta = {
@@ -64,7 +73,11 @@ const meta: Meta = {
   args,
   render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
-    template: `<sbb-block-link-button ${argsToTemplate(args)}>${text}</sbb-block-link-button>`,
+    template: `
+      <sbb-block-link-button ${argsToTemplate(args)}>
+        ${text}
+      </sbb-block-link-button>
+    `,
   }),
 };
 export default meta;

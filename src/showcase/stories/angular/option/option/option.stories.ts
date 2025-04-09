@@ -28,12 +28,26 @@ const preserveIconSpace: InputType = {
   },
 };
 
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const selected: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   preserveIconSpace,
+  negative,
+  selected,
 };
 
 const args: Args = {
   value: 'Value',
+  negative: false,
 };
 
 const meta: Meta = {
@@ -56,26 +70,26 @@ const meta: Meta = {
 export default meta;
 
 export const Autocomplete = {
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ negative, ...args }: Args) => ({
+    props: { negative, ...args },
     template: `
-      <sbb-form-field [negative]=${args['negative']}>
+      <sbb-form-field [negative]='negative'>
         <label>sbb-autocomplete</label>
         <input placeholder="Please select." />
-        <sbb-autocomplete>${createOptions(args)}</sbb-autocomplete>
+        <sbb-autocomplete>${createOptions({ negative, ...args })}</sbb-autocomplete>
       </sbb-form-field>
     `,
   }),
 };
 
 export const Select = {
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ negative, ...args }: Args) => ({
+    props: { negative, ...args },
     template: `
-    <sbb-form-field [negative]=${args['negative']}>
-      <label>sbb-select</label>
-      <sbb-select placeholder="Please select.">${createOptions(args)}</sbb-select>
-    </sbb-form-field>
+      <sbb-form-field [negative]='negative'>
+        <label>sbb-select</label>
+        <sbb-select placeholder="Please select.">${createOptions({ negative, ...args })}</sbb-select>
+      </sbb-form-field>
     `,
   }),
 };

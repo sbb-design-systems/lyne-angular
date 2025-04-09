@@ -12,7 +12,7 @@ export class SbbFlipCardSummary {
   #element: ElementRef<SbbFlipCardSummaryElement> = inject(ElementRef<SbbFlipCardSummaryElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'image-alignment' })
+  @Input()
   public set imageAlignment(value: SbbFlipCardImageAlignment) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.imageAlignment = value));
   }

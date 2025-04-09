@@ -22,6 +22,30 @@ const disabledSingle: InputType = {
   },
 };
 
+const value: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Option',
+  },
+};
+
+const iconName: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Option',
+  },
+};
+
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const multiple: InputType = {
   control: {
     type: 'boolean',
@@ -33,21 +57,31 @@ const multiple: InputType = {
 
 const argTypes: ArgTypes = {
   label,
+  value,
+  iconName,
+  negative,
   disabledSingle,
 };
 
 const args: Args = {
   label: 'Option group',
   value: 'Option',
+  negative: false,
   disabledSingle: false,
 };
 
-const createOptions = ({ disabledSingle, value, ...args }: Args, groupId: string): string => {
+const createOptions = (
+  { disabledSingle, value, iconName, ...args }: Args,
+  groupId: string,
+): string => {
   return new Array(3)
     .fill(null)
     .map(
       (_, i) => `
-        <sbb-option [disabled]=${disabledSingle && i === 0} value="${value} ${groupId} - ${i + 1}" ${argsToTemplate(args)}>
+        <sbb-option [disabled]=${disabledSingle && i === 0}
+                    ${iconName ? '[iconName]="iconName"' : ''}
+                    value="${value} ${groupId} - ${i + 1}"
+                    ${argsToTemplate(args)}>
           ${value} ${groupId} - ${i + 1}
         </sbb-option>`,
     )
@@ -79,10 +113,10 @@ export default meta;
 export const Autocomplete = {
   argTypes,
   args,
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ negative, ...args }: Args) => ({
+    props: { negative, ...args },
     template: `
-      <sbb-form-field [negative]=${args['negative']}>
+      <sbb-form-field [negative]='negative'>
         <label>Autocomplete</label>
         <input placeholder="Placeholder" />
         <sbb-autocomplete>${Template(args)}</sbb-autocomplete>
@@ -94,12 +128,12 @@ export const Autocomplete = {
 export const Select = {
   argTypes: { ...argTypes, multiple },
   args: { ...args, multiple: false },
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ negative, multiple, ...args }: Args) => ({
+    props: { negative, multiple, ...args },
     template: `
-      <sbb-form-field [negative]=${args['negative']}>
+      <sbb-form-field [negative]='negative'>
         <label>Select</label>
-        <sbb-select [multiple]=${args['multiple']} placeholder="Select"> ${Template(args)} </sbb-select>
+        <sbb-select [multiple]='multiple' placeholder="Select"> ${Template({ negative, ...args })} </sbb-select>
       </sbb-form-field>
     `,
   }),

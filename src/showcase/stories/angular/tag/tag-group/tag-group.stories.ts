@@ -22,16 +22,25 @@ const size: InputType = {
   options: ['s', 'm'],
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   label,
   value,
   size,
+  ariaLabel,
 };
 
 const args: Args = {
   label: 'Label',
   multiple: true,
   size: size.options![1],
+  disabled: false,
+  listAccessibilityLabel: 'Select your desired filter',
 };
 
 const meta: Meta = {
@@ -50,7 +59,7 @@ const meta: Meta = {
       <sbb-tag-group ${argsToTemplate(args)}>
         ${new Array(8).fill(null).map(
           (_e, i) => `
-          <sbb-tag [checked]=${i === 0} value=${label} amount="123" icon-name="pie-small">
+          <sbb-tag [checked]=${i === 0} value=${label} amount="123" iconName="pie-small">
             ${label} ${i + 1}
           </sbb-tag>
         `,

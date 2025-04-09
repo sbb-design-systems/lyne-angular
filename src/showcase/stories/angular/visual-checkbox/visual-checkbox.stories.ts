@@ -14,6 +14,10 @@ const argTypes: ArgTypes = { size };
 
 const args: Args = {
   size: size.options![0],
+  checked: false,
+  disabled: false,
+  indeterminate: false,
+  negative: false,
 };
 
 const meta: Meta = {

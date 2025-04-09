@@ -11,7 +11,7 @@ export class SbbPopoverTrigger {
   #element: ElementRef<SbbPopoverTriggerElement> = inject(ElementRef<SbbPopoverTriggerElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'disabled-interactive', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set disabledInteractive(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabledInteractive = value));
   }
@@ -35,7 +35,7 @@ export class SbbPopoverTrigger {
     return this.#element.nativeElement.negative;
   }
 
-  @Input({ alias: 'icon-name' })
+  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }

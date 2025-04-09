@@ -11,7 +11,7 @@ export class SbbNavigationSection {
   );
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'title-content' })
+  @Input()
   public set titleContent(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
   }
@@ -27,7 +27,7 @@ export class SbbNavigationSection {
     return this.#element.nativeElement.trigger;
   }
 
-  @Input({ alias: 'accessibility-label' })
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }
@@ -35,7 +35,7 @@ export class SbbNavigationSection {
     return this.#element.nativeElement.accessibilityLabel;
   }
 
-  @Input({ alias: 'accessibility-back-label' })
+  @Input()
   public set accessibilityBackLabel(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityBackLabel = value),

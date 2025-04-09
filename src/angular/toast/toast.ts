@@ -51,7 +51,7 @@ export class SbbToast {
     return this.#element.nativeElement.politeness;
   }
 
-  @Input({ alias: 'icon-name' })
+  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }

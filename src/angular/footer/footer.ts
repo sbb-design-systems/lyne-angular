@@ -27,7 +27,7 @@ export class SbbFooter {
     return this.#element.nativeElement.expanded;
   }
 
-  @Input({ alias: 'accessibility-title' })
+  @Input()
   public set accessibilityTitle(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityTitle = value));
   }
@@ -35,7 +35,7 @@ export class SbbFooter {
     return this.#element.nativeElement.accessibilityTitle;
   }
 
-  @Input({ alias: 'accessibility-title-level' })
+  @Input()
   public set accessibilityTitleLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityTitleLevel = value),

@@ -26,6 +26,8 @@ const args: Args = {
   destination: 'Loèche-les-Bains',
   level: level.options![2],
   size: size.options![1],
+  negative: false,
+  roundTrip: false,
 };
 
 const meta: Meta = {

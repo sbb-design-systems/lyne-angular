@@ -12,7 +12,7 @@ export class SbbIconSidebarLink {
   #element: ElementRef<SbbIconSidebarLinkElement> = inject(ElementRef<SbbIconSidebarLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'icon-name' })
+  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }
@@ -52,7 +52,7 @@ export class SbbIconSidebarLink {
     return this.#element.nativeElement.download;
   }
 
-  @Input({ alias: 'accessibility-label' })
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }
@@ -60,7 +60,7 @@ export class SbbIconSidebarLink {
     return this.#element.nativeElement.accessibilityLabel;
   }
 
-  @Input({ alias: 'accessibility-current' })
+  @Input()
   public set accessibilityCurrent(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityCurrent = value),

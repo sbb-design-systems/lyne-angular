@@ -3,6 +3,11 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
+const accessibilityCurrent: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const text: InputType = {
   control: {
     type: 'text',
@@ -30,6 +35,7 @@ const href: InputType = {
 };
 
 const argTypes: ArgTypes = {
+  accessibilityCurrent,
   text,
   size,
   href,

@@ -24,16 +24,23 @@ const readonly: InputType = {
 };
 
 const type: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['button', 'reset', 'submit'],
+  control: false,
+  table: { disable: true },
 };
 
 const value: InputType = {
-  control: {
-    type: 'text',
-  },
+  control: false,
+  table: { disable: true },
+};
+
+const form: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const name: InputType = {
+  control: false,
+  table: { disable: true },
 };
 
 const argTypes: ArgTypes = {
@@ -41,12 +48,13 @@ const argTypes: ArgTypes = {
   readonly,
   type,
   value,
+  form,
+  name,
 };
 
 const args: Args = {
   disabled: false,
   readonly: false,
-  type: type.options![0],
 };
 
 const meta: Meta = {
@@ -68,11 +76,11 @@ const meta: Meta = {
   render: ({ type, negative, ...args }: Args) => ({
     props: { type, negative, ...args },
     template: `
-      <sbb-form-field [negative]=${negative}>
+      <sbb-form-field [negative]="negative">
         <label>Label</label>
         <sbb-icon slot="prefix" name="pie-small"></sbb-icon>
         <input type="text" placeholder="Input placeholder" value="Input value" ${argsToTemplate(args)} />
-        <sbb-form-field-clear type=${type} [negative]=${negative}></sbb-form-field-clear>
+        <sbb-form-field-clear [type]="type" [negative]="negative"></sbb-form-field-clear>
       </sbb-form-field>
     `,
   }),

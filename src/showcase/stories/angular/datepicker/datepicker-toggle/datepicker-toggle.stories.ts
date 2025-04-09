@@ -15,7 +15,7 @@ const datepicker: InputType = {
 
 const view: InputType = {
   control: {
-    type: 'select',
+    type: 'inline-radio',
   },
   options: ['day', 'month', 'year'],
 };
@@ -25,8 +25,9 @@ const argTypes: ArgTypes = {
   view,
 };
 
-const args: ArgTypes = {
+const args: Args = {
   view: view.options![0],
+  negative: false,
 };
 
 const meta: Meta = {
@@ -45,10 +46,10 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ negative, ...args }: Args) => ({
+    props: { negative, ...args },
     template: `
-      <sbb-form-field [negative]=${args['negative']}>
+      <sbb-form-field [negative]="negative">
         <sbb-date-input value="2023-02-15"></sbb-date-input>
         <sbb-datepicker-toggle ${argsToTemplate(args)}></sbb-datepicker-toggle>
         <sbb-datepicker></sbb-datepicker>

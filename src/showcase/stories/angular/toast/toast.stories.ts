@@ -61,10 +61,12 @@ const argTypes: ArgTypes = {
 };
 
 const args: Args = {
+  iconName: 'circle-tick-small',
   action: action.options![0],
   position: position.options![6],
   timeout: 6000,
   politeness: politeness.options![1],
+  dismissible: false,
 };
 
 const meta: Meta = {
@@ -95,7 +97,7 @@ const meta: Meta = {
         Lorem ipsum dolor amet.
         ${
           action === 'button'
-            ? `<sbb-transparent-button slot="action" icon-name="clock-small" aria-label="Remind me later" sbb-toast-close></sbb-transparent-button>`
+            ? `<sbb-transparent-button slot="action" iconName="clock-small" aria-label="Remind me later" sbb-toast-close></sbb-transparent-button>`
             : ''
         }
         ${

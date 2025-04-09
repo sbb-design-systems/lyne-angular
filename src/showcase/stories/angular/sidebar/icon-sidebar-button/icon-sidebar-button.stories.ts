@@ -9,6 +9,26 @@ import {
 } from '@storybook/angular';
 import { InputType } from '@storybook/types';
 
+const type: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const value: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const form: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const name: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const ariaLabel: InputType = {
   control: {
     type: 'text',
@@ -22,13 +42,17 @@ const currentPage: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'aria-label': ariaLabel,
+  ariaLabel,
   currentPage,
+  type,
+  value,
+  form,
+  name,
 };
 
 const args: Args = {
-  'icon-name': 'glass-cocktail-small',
-  'aria-label': 'Go to the party',
+  iconName: 'glass-cocktail-small',
+  ariaLabel: 'Go to the party',
   currentPage: false,
 };
 
@@ -51,11 +75,13 @@ const meta: Meta = {
   args,
   render: ({ currentPage, ...args }) => ({
     props: { currentPage, ...args },
-    template: `<sbb-icon-sidebar-button
-                 ${argsToTemplate(args)}
-                 [class.sbb-active]=${currentPage}
-                 aria-current=${currentPage ? 'page' : ''}
-               ></sbb-icon-sidebar-button>`,
+    template: `
+      <sbb-icon-sidebar-button
+         ${argsToTemplate(args)}
+         [class.sbb-active]=${currentPage}
+         aria-current=${currentPage ? 'page' : ''}
+       ></sbb-icon-sidebar-button>
+    `,
   }),
 };
 export default meta;

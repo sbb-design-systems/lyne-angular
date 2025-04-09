@@ -11,7 +11,7 @@ export class SbbMenuLink extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbMenuLinkElement> = inject(ElementRef<SbbMenuLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'disabled-interactive', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set disabledInteractive(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabledInteractive = value));
   }
@@ -27,7 +27,7 @@ export class SbbMenuLink extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.amount;
   }
 
-  @Input({ alias: 'icon-name' })
+  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }
@@ -75,7 +75,7 @@ export class SbbMenuLink extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.download;
   }
 
-  @Input({ alias: 'accessibility-label' })
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }
@@ -83,7 +83,7 @@ export class SbbMenuLink extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.accessibilityLabel;
   }
 
-  @Input({ alias: 'accessibility-current' })
+  @Input()
   public set accessibilityCurrent(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityCurrent = value),

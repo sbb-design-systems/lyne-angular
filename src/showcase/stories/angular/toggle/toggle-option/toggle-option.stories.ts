@@ -8,12 +8,22 @@ const label: InputType = {
   },
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   label,
+  ariaLabel,
 };
 
 const args: Args = {
   label: 'Option',
+  value: 'Value',
+  checked: false,
+  disabled: false,
 };
 
 const meta: Meta = {

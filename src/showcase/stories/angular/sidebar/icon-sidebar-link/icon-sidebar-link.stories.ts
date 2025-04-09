@@ -14,13 +14,37 @@ const currentPage: InputType = {
   },
 };
 
+const accessibilityCurrent: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const download: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const rel: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const target: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   currentPage,
+  accessibilityCurrent,
+  download,
+  rel,
+  target,
 };
 
 const args: Args = {
-  'icon-name': 'glass-cocktail-small',
-  'accessibility-label': 'Go to the party',
+  iconName: 'glass-cocktail-small',
+  accessibilityLabel: 'Go to the party',
   href: '#',
   currentPage: false,
 };
@@ -40,11 +64,13 @@ const meta: Meta = {
   args,
   render: ({ currentPage, ...args }) => ({
     props: { currentPage, ...args },
-    template: `<sbb-icon-sidebar-link
-                ${argsToTemplate(args)}
-                 [class.sbb-active]=${currentPage}
-                 accessibility-current=${currentPage ? 'page' : ''}
-               ></sbb-icon-sidebar-link>`,
+    template: `
+      <sbb-icon-sidebar-link
+        ${argsToTemplate(args)}
+         [class.sbb-active]=${currentPage}
+         accessibility-current=${currentPage ? 'page' : ''}
+       ></sbb-icon-sidebar-link>
+    `,
   }),
 };
 export default meta;

@@ -41,21 +41,21 @@ const meta: Meta = {
         }
       </style>
       <sbb-alert-group class="sbb-lead-container-spacing">
-        <sbb-alert title-content="Interruption between Genève and Lausanne" size="m">
+        <sbb-alert titleContent="Interruption between Genève and Lausanne" size="m">
           The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
           <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
         </sbb-alert>
       </sbb-alert-group>
       <sbb-breadcrumb-group class="sbb-lead-container-spacing">
-        <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
+        <sbb-breadcrumb href="#" iconName="house-small" id="breadcrumb-0"></sbb-breadcrumb>
         <sbb-breadcrumb href="#" id="breadcrumb-1">Level 1</sbb-breadcrumb>
         <sbb-breadcrumb href="#" id="breadcrumb-1">Level 2</sbb-breadcrumb>
         <sbb-breadcrumb href="#" id="breadcrumb-1">Level 3</sbb-breadcrumb>
         <sbb-breadcrumb href="#" id="breadcrumb-1">Level 4</sbb-breadcrumb>
       </sbb-breadcrumb-group>
       <sbb-block-link
-        icon-placement="start"
-        icon-name="chevron-small-left-small"
+        iconPlacement="start"
+        iconName="chevron-small-left-small"
         size="xs"
         href="https://www.sbb.ch"
         class="sbb-lead-container-spacing"
@@ -80,7 +80,7 @@ const meta: Meta = {
       </p>
       <sbb-image
         slot="image"
-        image-src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Einheitswagen-IV-EuroCity.jpg'
+        imageSrc='https://cdn.img.sbb.ch/content/dam/internet/lyne/Einheitswagen-IV-EuroCity.jpg'
         alt="Station of Lucerne from outside"
       ></sbb-image>
     </sbb-lead-container>

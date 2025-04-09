@@ -9,21 +9,25 @@ const text: InputType = {
   },
 };
 
+const disabled: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const size: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['xs', 's', 'm'],
+  control: false,
+  table: { disable: true },
 };
 
 const argTypes: ArgTypes = {
   text,
+  disabled,
   size,
 };
 
 const args: Args = {
   text: 'Travelcards & tickets',
-  size: size.options![1],
+  negative: false,
 };
 
 const meta: Meta = {

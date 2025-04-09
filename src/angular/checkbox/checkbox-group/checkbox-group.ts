@@ -31,7 +31,7 @@ export class SbbCheckboxGroup {
     return this.#element.nativeElement.size;
   }
 
-  @Input({ alias: 'horizontal-from' })
+  @Input()
   public set horizontalFrom(value: SbbHorizontalFrom | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.horizontalFrom = value));
   }

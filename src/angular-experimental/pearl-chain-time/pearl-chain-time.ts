@@ -19,7 +19,7 @@ export class SbbPearlChainTime {
     return this.#element.nativeElement.legs;
   }
 
-  @Input({ alias: 'departure-time' })
+  @Input()
   public set departureTime(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.departureTime = value));
   }
@@ -27,7 +27,7 @@ export class SbbPearlChainTime {
     return this.#element.nativeElement.departureTime;
   }
 
-  @Input({ alias: 'arrival-time' })
+  @Input()
   public set arrivalTime(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.arrivalTime = value));
   }
@@ -35,7 +35,7 @@ export class SbbPearlChainTime {
     return this.#element.nativeElement.arrivalTime;
   }
 
-  @Input({ alias: 'departure-walk', transform: numberAttribute })
+  @Input({ transform: numberAttribute })
   public set departureWalk(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.departureWalk = value));
   }
@@ -43,7 +43,7 @@ export class SbbPearlChainTime {
     return this.#element.nativeElement.departureWalk;
   }
 
-  @Input({ alias: 'arrival-walk', transform: numberAttribute })
+  @Input({ transform: numberAttribute })
   public set arrivalWalk(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.arrivalWalk = value));
   }
@@ -51,7 +51,7 @@ export class SbbPearlChainTime {
     return this.#element.nativeElement.arrivalWalk;
   }
 
-  @Input({ alias: 'disable-animation', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set disableAnimation(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disableAnimation = value));
   }
@@ -59,7 +59,7 @@ export class SbbPearlChainTime {
     return this.#element.nativeElement.disableAnimation;
   }
 
-  @Input({ alias: 'a11y-footpath', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set a11yFootpath(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.a11yFootpath = value));
   }

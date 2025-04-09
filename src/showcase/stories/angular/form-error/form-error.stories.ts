@@ -17,10 +17,11 @@ const argTypes: ArgTypes = {
 
 const args: Args = {
   errorText: longText,
+  negative: false,
 };
 
 const meta: Meta = {
-  title: 'elements/sbb-form-error',
+  title: 'elements/sbb-form-field/sbb-form-error',
   component: SbbFormError,
   argTypes,
   args,

@@ -45,7 +45,7 @@ const meta: Meta = {
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <sbb-secondary-button id="navigation-trigger" size="l" icon-name="hamburger-menu-small"></sbb-secondary-button>
+      <sbb-secondary-button id="navigation-trigger" size="l" iconName="hamburger-menu-small"></sbb-secondary-button>
       <sbb-navigation id="navigation" trigger="navigation-trigger">
         <sbb-navigation-marker id="nav-marker">
           <sbb-navigation-button id="nav-1">Label 1</sbb-navigation-button>
@@ -53,12 +53,12 @@ const meta: Meta = {
           <sbb-navigation-button id="nav-3">Label 3</sbb-navigation-button>
         </sbb-navigation-marker>
 
-        <sbb-navigation-section title-content="Title one" id="navigation-section" trigger="nav-1" ${argsToTemplate(args)}>
+        <sbb-navigation-section titleContent="Title one" id="navigation-section" trigger="nav-1" ${argsToTemplate(args)}>
           ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
           <sbb-button size="m" style="width: fit-content;"> Button </sbb-button>
         </sbb-navigation-section>
 
-        <sbb-navigation-section title-content="Title two" id="navigation-section" trigger="nav-2" ${argsToTemplate(args)}>
+        <sbb-navigation-section titleContent="Title two" id="navigation-section" trigger="nav-2" ${argsToTemplate(args)}>
           ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
           ${navigationList('Label')} ${navigationList('Label')} ${navigationList('Label')}
           ${navigationList('Label')} ${navigationList('Label')}

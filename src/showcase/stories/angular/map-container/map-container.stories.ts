@@ -27,15 +27,18 @@ const meta: Meta = {
   parameters: {
     layout: 'fullscreen',
   },
+  args: {
+    hideScrollUpButton: false,
+  },
   render: (args: Args) => ({
     props: { ...args },
     template: `
       <sbb-header expanded>
-        <sbb-header-button icon-name="hamburger-menu-small" expand-from="small">
+        <sbb-header-button iconName="hamburger-menu-small" expandFrom="small">
           Menu
         </sbb-header-button>
         <div class="sbb-header-spacer"></div>
-        <sbb-logo protective-room="none" class="sbb-header-logo"></sbb-logo>
+        <sbb-logo protectiveRoom="none" class="sbb-header-logo"></sbb-logo>
       </sbb-header>
       <sbb-map-container ${argsToTemplate(args)}>
         <div style="padding: var(--sbb-spacing-fixed-4x)">

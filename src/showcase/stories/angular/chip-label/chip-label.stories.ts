@@ -3,15 +3,37 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['xxs', 'xs', 's'],
+};
+
+const color: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['milk', 'charcoal', 'white', 'granite'],
+};
+
 const label: InputType = {
   control: {
     type: 'text',
   },
 };
 
-const argTypes: ArgTypes = { label };
+const argTypes: ArgTypes = {
+  color,
+  size,
+  label,
+};
 
-const args: Args = { label: 'Label' };
+const args: Args = {
+  size: size.options![0],
+  color: color.options![0],
+  label: 'Label',
+};
 
 const meta: Meta = {
   decorators: [withActions],

@@ -1,7 +1,7 @@
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta } from '@storybook/angular';
-import { InputType, StoryContext } from '@storybook/types';
+import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 const text: InputType = {
   control: {
@@ -36,18 +36,28 @@ const href: InputType = {
   },
 };
 
-const argTypes = {
-  text,
-  size,
-  'icon-placement': iconPlacement,
-  href,
+const accessibilityCurrent: InputType = {
+  control: false,
+  table: { disable: true },
 };
 
-const args = {
+const argTypes: ArgTypes = {
+  text,
+  size,
+  iconPlacement,
+  href,
+  accessibilityCurrent,
+};
+
+const args: Args = {
   text: 'Travelcards & tickets',
   size: size.options![1],
   href: href.options![1],
   target: '_blank',
+  negative: false,
+  iconPlacement: iconPlacement.options![0],
+  download: false,
+  disabled: false,
 };
 
 const meta: Meta = {

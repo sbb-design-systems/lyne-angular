@@ -9,9 +9,20 @@ const occupancy: InputType = {
   options: ['high', 'medium', 'low', 'none'],
 };
 
-const argTypes: ArgTypes = { occupancy };
+const noSanitize: InputType = {
+  control: false,
+  table: { disable: true },
+};
 
-const args: Args = { occupancy: occupancy.options![0] };
+const argTypes: ArgTypes = {
+  occupancy,
+  noSanitize,
+};
+
+const args: Args = {
+  occupancy: occupancy.options![0],
+  negative: false,
+};
 
 const meta: Meta = {
   title: 'elements/timetable/sbb-timetable-occupancy-icon',

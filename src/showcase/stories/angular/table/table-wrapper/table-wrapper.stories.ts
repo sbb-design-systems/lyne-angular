@@ -79,10 +79,11 @@ const meta: Meta = {
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   },
   argTypes,
+  args: { negative: false },
   render: ({ negative }: Args) => ({
     props: { negative },
     template: `
-      <sbb-table-wrapper [negative]=${negative}>
+      <sbb-table-wrapper [negative]="negative">
         <table
           aria-label="Train lines 2024"
           class="sbb-table ${negative ? 'sbb-table--negative' : ''}"

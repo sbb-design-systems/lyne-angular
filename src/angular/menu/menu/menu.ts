@@ -18,7 +18,7 @@ export class SbbMenu {
     return this.#element.nativeElement.trigger;
   }
 
-  @Input({ alias: 'list-accessibility-label' })
+  @Input()
   public set listAccessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.listAccessibilityLabel = value),

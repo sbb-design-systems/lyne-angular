@@ -22,13 +22,14 @@ const titleLevel: InputType = {
 
 const argTypes: ArgTypes = {
   size,
-  'title-level': titleLevel,
+  titleLevel,
 };
 
 const args: Args = {
   size: size.options![1],
-  'title-level': titleLevel.options![0],
-  'title-content': 'Help & Contact',
+  titleLevel: titleLevel.options![0],
+  titleContent: 'Help & Contact',
+  negative: false,
 };
 
 const meta: Meta = {

@@ -2,7 +2,7 @@ import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { SbbTimetableOccupancy } from '@sbb-esta/lyne-angular/timetable-occupancy';
 import { SbbPearlChainVertical } from '@sbb-esta/lyne-angular-experimental/pearl-chain-vertical';
 import { SbbPearlChainVerticalItem } from '@sbb-esta/lyne-angular-experimental/pearl-chain-vertical-item';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
 const lineType: InputType = {
@@ -61,7 +61,7 @@ const argTypes: ArgTypes = {
 };
 
 const args: Args = {
-  'pearl-chain-vertical-item-attributes': {
+  pearlChainVerticalItemAttributes: {
     lineType: lineType.options![1],
     lineColor: lineColor.options![0],
     bulletType: bulletType.options![0],
@@ -83,11 +83,11 @@ const meta: Meta = {
   component: SbbPearlChainVertical,
   argTypes,
   args,
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ pearlChainVerticalItemAttributes }: Args) => ({
+    props: { pearlChainVerticalItemAttributes },
     template: `
       <sbb-pearl-chain-vertical>
-        <sbb-pearl-chain-vertical-item ${argsToTemplate(args)}>
+        <sbb-pearl-chain-vertical-item [pearlChainVerticalItemAttributes]="pearlChainVerticalItemAttributes">
           <div
             slot="right"
             style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"

@@ -20,7 +20,7 @@ export class SbbAccordion {
     return this.#element.nativeElement.size;
   }
 
-  @Input({ alias: 'title-level' })
+  @Input()
   public set titleLevel(value: SbbTitleLevel | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
   }

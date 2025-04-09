@@ -12,7 +12,7 @@ export class SbbHeaderLink extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbHeaderLinkElement> = inject(ElementRef<SbbHeaderLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'expand-from' })
+  @Input()
   public set expandFrom(value: SbbHorizontalFrom) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.expandFrom = value));
   }
@@ -20,7 +20,7 @@ export class SbbHeaderLink extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.expandFrom;
   }
 
-  @Input({ alias: 'icon-name' })
+  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }
@@ -60,7 +60,7 @@ export class SbbHeaderLink extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.download;
   }
 
-  @Input({ alias: 'accessibility-label' })
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }
@@ -68,7 +68,7 @@ export class SbbHeaderLink extends SbbRouterLinkSupportMixin(class {}) {
     return this.#element.nativeElement.accessibilityLabel;
   }
 
-  @Input({ alias: 'accessibility-current' })
+  @Input()
   public set accessibilityCurrent(value: string) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityCurrent = value),

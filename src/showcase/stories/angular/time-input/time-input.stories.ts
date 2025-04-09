@@ -107,16 +107,12 @@ const iconEnd: InputType = {
 
 const input: InputType = {
   control: false,
-  table: {
-    disable: true,
-  },
+  table: { disable: true },
 };
 
 const valueAsDate: InputType = {
   control: false,
-  table: {
-    disable: true,
-  },
+  table: { disable: true },
 };
 
 const argTypes: ArgTypes = {
@@ -141,6 +137,12 @@ const args: Args = {
   size: size.options![1],
   iconStart: 'clock-small',
   iconEnd: 'circle-information-small',
+  disabled: false,
+  readonly: false,
+  required: false,
+  negative: false,
+  optional: false,
+  borderless: false,
 };
 
 const meta: Meta = {
@@ -158,13 +160,12 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  // FIXME https://github.com/sbb-design-systems/lyne-components/issues/3415
   render: ({ size, optional, borderless, negative, label, iconStart, iconEnd, ...args }: Args) => ({
     props: { size, optional, borderless, negative, label, iconStart, iconEnd, ...args },
     template: `
-      <sbb-form-field size=${size} [optional]=${optional} [borderless]=${borderless} [negative]=${negative} width="collapse">
+      <sbb-form-field [size]="size" [optional]="optional" [borderless]="borderless" [negative]="negative" width="collapse">
         ${label ? `<label>${label}</label>` : ''}
-        ${iconStart ? `<sbb-icon slot="prefix" name=${iconStart}></sbb-icon>` : ''}
+        ${iconStart ? `<sbb-icon slot="prefix" [name]="iconStart"></sbb-icon>` : ''}
         <input ${argsToTemplate(args)}>
         <sbb-time-input></sbb-time-input>
         ${iconEnd ? `<sbb-icon slot="suffix" name=${iconEnd}></sbb-icon>` : ''}

@@ -10,13 +10,6 @@ const level: InputType = {
   options: [1, 2, 3, 4, 5, 6],
 };
 
-const visualLevel: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: [1, 2, 3, 4, 5, 6],
-};
-
 const hideOnScroll: InputType = {
   control: {
     type: 'select',
@@ -24,15 +17,28 @@ const hideOnScroll: InputType = {
   options: [...breakpoints],
 };
 
+const visualLevel: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const visuallyHidden: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   level,
-  'visual-level': visualLevel,
-  'hide-on-scroll': hideOnScroll,
+  hideOnScroll,
+  visualLevel,
+  visuallyHidden,
 };
 
 const args: Args = {
-  'hide-on-scroll': hideOnScroll.options![0],
-  'back-button': true,
+  hideOnScroll: hideOnScroll.options![0],
+  backButton: true,
+  accessibilityCloseLabel: 'Close dialog',
+  accessibilityBackLabel: 'Go back',
 };
 
 const meta: Meta = {

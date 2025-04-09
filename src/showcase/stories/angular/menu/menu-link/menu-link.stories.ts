@@ -9,6 +9,12 @@ const text: InputType = {
   },
 };
 
+const badge: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const hrefs = ['https://www.sbb.ch', 'https://github.com/sbb-design-systems/lyne-components'];
 const href: InputType = {
   options: Object.keys(hrefs),
@@ -22,15 +28,28 @@ const href: InputType = {
   },
 };
 
+const amount: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const accessibilityCurrent: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   text,
+  badge,
   href,
+  amount,
+  accessibilityCurrent,
 };
 
 const args: Args = {
   text: 'Details',
-  amount: '99',
-  'icon-name': 'tick-small',
+  badge: '9',
+  iconName: 'tick-small',
   href: href.options![0],
   target: '_blank',
 };
@@ -45,13 +64,19 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ text, ...args }: Args) => ({
-    props: { text, ...args },
+  render: ({ text, badge, ...args }: Args) => ({
+    props: { text, badge, ...args },
     template: `
       <div style="width: 256px;">
-       <sbb-menu-link ${argsToTemplate(args)}>${text} 1</sbb-menu-link>
-       <sbb-menu-link ${argsToTemplate(args)}>${text} 2</sbb-menu-link>
-       <sbb-menu-link ${argsToTemplate(args)}>${text} 3</sbb-menu-link>
+       <sbb-menu-link ${argsToTemplate(args)} ${!args['disabled'] && badge ? `sbb-badge="${badge}"` : ''}>
+          ${text} 1
+        </sbb-menu-link>
+        <sbb-menu-link ${argsToTemplate(args)} ${!args['disabled'] && badge ? `sbb-badge="${badge}"` : ''}>
+          ${text} 2
+        </sbb-menu-link>
+        <sbb-menu-link ${argsToTemplate(args)} ${!args['disabled'] && badge ? `sbb-badge="${badge}"` : ''}>
+          ${text} 3
+        </sbb-menu-link>
       </div>
     `,
   }),

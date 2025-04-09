@@ -12,11 +12,11 @@ const imageAlignment: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'image-alignment': imageAlignment,
+  imageAlignment,
 };
 
 const args: Args = {
-  'image-alignment': imageAlignment.options![0],
+  imageAlignment: imageAlignment.options![0],
 };
 
 const meta: Meta = {
@@ -38,7 +38,7 @@ const meta: Meta = {
           <sbb-title level="4">Summary</sbb-title>
           <sbb-image
             slot="image"
-            image-src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg'
+            imageSrc='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg'
             alt="Conductor controlling a ticket"
           ></sbb-image>
         </sbb-flip-card-summary>
