@@ -66,7 +66,7 @@ const hrefSecondLink: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'title-level': titleLevel,
+  titleLevel,
   labelFirstLink,
   hrefFirstLink,
   labelSecondLink,
@@ -74,8 +74,8 @@ const argTypes: ArgTypes = {
 };
 
 const args: Args = {
-  'title-level': undefined,
-  'title-content': undefined,
+  titleLevel: undefined,
+  titleContent: undefined,
   labelFirstLink: 'To content',
   hrefFirstLink: hrefFirstLink.options![0],
   labelSecondLink: 'To help',

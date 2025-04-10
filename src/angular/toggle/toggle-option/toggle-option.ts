@@ -34,7 +34,7 @@ export class SbbToggleOption {
     return this.#element.nativeElement.value;
   }
 
-  @Input({ alias: 'icon-name' })
+  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }

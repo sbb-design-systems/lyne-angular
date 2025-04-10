@@ -28,6 +28,12 @@ const value: InputType = {
   },
 };
 
+const negative: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const filterFunctions = [
   undefined,
   (d: Date): boolean => d.getDay() !== 6 && d.getDay() !== 0,
@@ -58,18 +64,21 @@ const valueAsDate: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'weekday-style': weekdayStyle,
+  weekdayStyle,
   dateFilter,
-  'date-filter': { table: { disable: true } },
   min,
   max,
   value,
   valueAsDate,
+  negative,
 };
 
 const args: Args = {
+  disabled: false,
+  readOnly: false,
+  negative: false,
   value: '2024-01-01',
-  'weekday-style': weekdayStyle.options![0],
+  weekdayStyle: weekdayStyle.options![0],
   dateFilter: dateFilter.options![0],
 };
 
@@ -87,12 +96,12 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ value, ...args }) => ({
-    props: { value, ...args },
+  render: ({ value, negative, dateFilter, ...args }) => ({
+    props: { value, negative, dateFilter, ...args },
     template: `
-      <sbb-form-field [negative]=${args['negative']}>
+      <sbb-form-field [negative]='negative'>
         <label>Label</label>
-        <sbb-date-input ${argsToTemplate(args)} value="${value}"></sbb-date-input>
+        <sbb-date-input ${argsToTemplate(args)} value=${value} [dateFilter]="dateFilter"></sbb-date-input>
       </sbb-form-field>
     `,
   }),

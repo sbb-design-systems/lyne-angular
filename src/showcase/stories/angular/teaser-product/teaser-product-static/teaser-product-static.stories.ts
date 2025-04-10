@@ -25,15 +25,16 @@ const withFooter: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'image-alignment': imageAlignment,
+  imageAlignment,
   withChip,
   withFooter,
 };
 
 const args: Args = {
-  'image-alignment': imageAlignment.options![0],
+  imageAlignment: imageAlignment.options![0],
   withChip: true,
   withFooter: true,
+  negative: false,
 };
 
 const meta: Meta = {

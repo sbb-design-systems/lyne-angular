@@ -15,17 +15,31 @@ const size: InputType = {
   options: ['s', 'm'],
 };
 
-const type: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['button', 'reset', 'submit'],
-};
-
 const value: InputType = {
   control: {
     type: 'text',
   },
+};
+
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const type: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const form: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const name: InputType = {
+  control: false,
+  table: { disable: true },
 };
 
 const argTypes: ArgTypes = {
@@ -33,11 +47,18 @@ const argTypes: ArgTypes = {
   size,
   type,
   value,
+  form,
+  name,
+  ariaLabel,
 };
 
 const args: Args = {
   label: 'Label',
+  value: 'Value',
   size: size.options![1],
+  checked: false,
+  disabled: false,
+  disabledInteractive: false,
 };
 
 const meta: Meta = {

@@ -19,7 +19,7 @@ export class SbbOption {
     return this.#element.nativeElement.disabled;
   }
 
-  @Input({ alias: 'icon-name' })
+  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }

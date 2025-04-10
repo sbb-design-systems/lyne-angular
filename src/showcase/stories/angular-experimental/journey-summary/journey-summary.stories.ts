@@ -28,13 +28,13 @@ const tripBack: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'header-level': headerLevel,
+  headerLevel,
   trip,
-  'trip-back': tripBack,
+  tripBack,
 };
 
 const args: Args = {
-  'header-level': headerLevel.options![2],
+  headerLevel: headerLevel.options![2],
   now: new Date('2022-12-05T12:11:00').valueOf(),
   trip: {
     vias: ['via1', 'via2', 'via3', 'via4'],
@@ -45,7 +45,7 @@ const args: Args = {
     arrival: '2022-09-19T22:30:00+02:00',
     duration: 120,
   },
-  'trip-back': {
+  tripBack: {
     vias: ['via5', 'via6', 'via7', 'via8'],
     legs: [pastLeg, progressLeg, futureLeg],
     origin: 'Basel',
@@ -54,7 +54,9 @@ const args: Args = {
     arrival: '2022-09-20T00:30:00+02:00',
     duration: 120,
   },
-  'round-trip': true,
+  roundTrip: true,
+  a11yFootpath: false,
+  disableAnimation: false,
 };
 
 const meta: Meta = {
@@ -66,14 +68,20 @@ const meta: Meta = {
   ],
   title: 'experimental/sbb-journey-summary',
   component: SbbJourneySummary,
-  argTypes,
-  args,
+  argTypes: {
+    ...argTypes,
+    convertMillisecondsToSeconds: { type: 'function', control: false, table: { disable: true } },
+  },
+  args: {
+    ...args,
+    convertMillisecondsToSeconds: (e: number): number => convertMillisecondsToSeconds(e),
+  },
   render: ({ now, ...args }: Args) => ({
     props: { now, ...args },
     template: `
-      <sbb-journey-summary ${argsToTemplate(args)} ${now ? `now=${convertMillisecondsToSeconds(now)}` : ''}>
+      <sbb-journey-summary ${argsToTemplate(args)} [now]="convertMillisecondsToSeconds(now)">
         <div style="display: flex; padding-top: 24px; justify-content: space-between;" slot="content">
-          <sbb-secondary-button icon-name="context-menu-small"></sbb-secondary-button>
+          <sbb-secondary-button iconName="context-menu-small"></sbb-secondary-button>
           <sbb-button>Button label</sbb-button>
         </div>
       </sbb-journey-summary>

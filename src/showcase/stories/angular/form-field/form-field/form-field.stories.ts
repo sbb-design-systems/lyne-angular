@@ -100,6 +100,27 @@ const label: InputType = {
   },
 };
 
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['s', 'm', 'l'],
+};
+
+const width: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['default', 'collapse'],
+};
+
+const errorSpace: InputType = {
+  control: {
+    type: 'select',
+  },
+  options: ['none', 'reserve'],
+};
+
 const meta: Meta = {
   decorators: [
     withActions,
@@ -113,6 +134,21 @@ const meta: Meta = {
     actions: { handles: ['change', 'input'] },
     backgroundColor: (context: StoryContext) =>
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+  },
+  argTypes: {
+    size,
+    errorSpace,
+    width,
+  },
+  args: {
+    size: size.options![1],
+    errorSpace: errorSpace.options![0],
+    width: width.options![0],
+    borderless: false,
+    floatingLabel: false,
+    hiddenLabel: false,
+    negative: false,
+    optional: false,
   },
 };
 export default meta;

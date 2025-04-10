@@ -36,17 +36,18 @@ const titleLevel: InputType = {
 
 const argTypes: ArgTypes = {
   orientation,
-  'horizontal-from': horizontalFrom,
+  horizontalFrom,
   size,
-  'title-level': titleLevel,
+  titleLevel,
 };
 
 const args: Args = {
   orientation: orientation.options![0],
-  'horizontal-from': undefined,
+  horizontalFrom: undefined,
   size: size.options![1],
-  'title-level': titleLevel.options![0],
-  'title-content': 'Help & Contact',
+  titleLevel: titleLevel.options![0],
+  titleContent: 'Help & Contact',
+  negative: false,
 };
 
 const meta: Meta = {

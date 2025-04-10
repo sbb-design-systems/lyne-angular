@@ -10,11 +10,11 @@ const protectiveRoom: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'protective-room': protectiveRoom,
+  protectiveRoom,
 };
 
 const args: Args = {
-  'protective-room': protectiveRoom.options![0],
+  protectiveRoom: protectiveRoom.options![0],
 };
 
 const meta: Meta = {

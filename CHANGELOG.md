@@ -1,5 +1,26 @@
 # Changelog
 
+## [19.0.0-beta.4](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-beta.3...v19.0.0-beta.4) (2025-04-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* inputs have no alias anymore: migrate to the corresponding property.
+
+### Features
+
+* update to lyne-elements 2.6.0 ([#53](https://github.com/sbb-design-systems/lyne-angular/issues/53)) ([8d4e72c](https://github.com/sbb-design-systems/lyne-angular/commit/8d4e72c3e0ce2120a27e1ac3be8bc00e0aa263e5))
+
+
+### Documentation
+
+* include angular/cdk in installation steps ([#50](https://github.com/sbb-design-systems/lyne-angular/issues/50)) ([3de1030](https://github.com/sbb-design-systems/lyne-angular/commit/3de103067284397e1dcbe2745651ec67c2e86c58)), closes [#49](https://github.com/sbb-design-systems/lyne-angular/issues/49)
+
+
+### Code Refactoring
+
+* remove alias usage for inputs ([#48](https://github.com/sbb-design-systems/lyne-angular/issues/48)) ([3ef9451](https://github.com/sbb-design-systems/lyne-angular/commit/3ef94511d1bd9422807a70295505a5d6a3a258f3))
+
 ## [19.0.0-beta.3](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-beta.2...v19.0.0-beta.3) (2025-03-25)
 
 

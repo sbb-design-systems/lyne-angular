@@ -29,7 +29,7 @@ export class SbbLinkButton {
     return this.#element.nativeElement.negative;
   }
 
-  @Input({ alias: 'disabled-interactive', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set disabledInteractive(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabledInteractive = value));
   }

@@ -6,6 +6,8 @@ import { ArgTypes, InputType } from '@storybook/types';
 
 const numberOfBreadcrumbs: InputType = { control: { type: 'number' } };
 
+const text: InputType = { control: { type: 'text' } };
+
 const hrefs = ['https://www.sbb.ch', 'https://github.com/sbb-design-systems/lyne-components'];
 const href: InputType = {
   options: Object.keys(hrefs),
@@ -60,17 +62,18 @@ const iconName: InputType = {
 
 const argTypes: ArgTypes = {
   numberOfBreadcrumbs,
+  text,
   href,
   target,
   rel,
   download,
-  'icon-name': iconName,
+  iconName,
 };
 
 const args: Args = {
   numberOfBreadcrumbs: 3,
+  text: 'Breadcrumb',
   href: href.options![0],
-  target: '_blank',
 };
 
 const meta: Meta = {
@@ -82,16 +85,15 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ numberOfBreadcrumbs, ...args }: Args) => ({
-    props: { ...args },
+  render: ({ numberOfBreadcrumbs, text, ...args }: Args) => ({
+    props: { numberOfBreadcrumbs, text, ...args },
     template: `
       <sbb-breadcrumb-group>
         <sbb-breadcrumb href="/" icon-name="house-small"></sbb-breadcrumb>
         ${new Array(numberOfBreadcrumbs - 1)
           .fill(undefined)
           .map(
-            (_, i) =>
-              `<sbb-breadcrumb ${argsToTemplate(args)}>Breadcrumb ${i + 1}</sbb-breadcrumb>`,
+            (_, i) => `<sbb-breadcrumb ${argsToTemplate(args)}>${text} ${i + 1}</sbb-breadcrumb>`,
           )}
       </sbb-breadcrumb-group>
     `,

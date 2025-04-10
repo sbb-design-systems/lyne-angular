@@ -8,20 +8,37 @@ const label: InputType = {
   },
 };
 
+const type: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const value: InputType = {
-  control: {
-    type: 'text',
-  },
+  control: false,
+  table: { disable: true },
+};
+
+const form: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const name: InputType = {
+  control: false,
+  table: { disable: true },
 };
 
 const argTypes: ArgTypes = {
   label,
+  type,
   value,
+  form,
+  name,
 };
 
 const args: Args = {
   label: 'Label',
-  'icon-name': 'tick-small',
+  iconName: 'tick-small',
 };
 
 const meta: Meta = {

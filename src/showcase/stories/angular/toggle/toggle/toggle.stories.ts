@@ -39,11 +39,24 @@ const iconName: InputType = {
   },
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const name: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   size,
   label,
   labelTwo,
   iconName,
+  ariaLabel,
+  name,
 };
 
 const args: Args = {
@@ -51,6 +64,9 @@ const args: Args = {
   label: 'Bern',
   labelTwo: 'Zürich',
   iconName: iconName.options![0],
+  value: 'Value 1',
+  disabled: false,
+  even: false,
 };
 
 const meta: Meta = {
@@ -71,10 +87,10 @@ const meta: Meta = {
     props: { iconName, label, labelTwo, ...args },
     template: `
     <sbb-toggle ${argsToTemplate(args)}>
-      <sbb-toggle-option ${iconName ? `icon-name="${iconName}"` : ''} value="Value 1">
+      <sbb-toggle-option ${iconName ? `[iconName]="iconName"` : ''} value="Value 1">
         ${label}
       </sbb-toggle-option>
-      <sbb-toggle-option ${iconName ? `icon-name="arrows-right-left-small"` : ''} value="Value 2">
+      <sbb-toggle-option ${iconName ? `iconName="arrows-right-left-small"` : ''} value="Value 2">
         ${labelTwo}
       </sbb-toggle-option>
     </sbb-toggle>

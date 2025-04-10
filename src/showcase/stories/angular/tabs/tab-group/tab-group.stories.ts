@@ -48,10 +48,9 @@ const negative: InputType = {
   },
 };
 
-const selectedIndex: InputType = {
-  control: false,
-  table: {
-    disable: true,
+const initialSelectedIndex: InputType = {
+  control: {
+    type: 'number',
   },
 };
 
@@ -61,7 +60,7 @@ const argTypes: ArgTypes = {
   amount,
   size,
   negative,
-  'initial-selected-index': selectedIndex,
+  initialSelectedIndex,
 };
 
 const args: Args = {
@@ -86,11 +85,11 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ label, iconName, amount, size, ...args }: Args) => ({
-    props: { label, iconName, amount, size, ...args },
+  render: ({ label, iconName, amount, size, initialSelectedIndex, ...args }: Args) => ({
+    props: { label, iconName, amount, size, initialSelectedIndex, ...args },
     template: `
-      <sbb-tab-group size=${size} initial-selected-index="0">
-        <sbb-tab-label amount=${amount} icon-name=${iconName}>${label}</sbb-tab-label>
+      <sbb-tab-group [size]="size" [initialSelectedIndex]="initialSelectedIndex">
+        <sbb-tab-label [amount]="amount" [iconName]="iconName">{{label}}</sbb-tab-label>
         <sbb-tab>
           <article>
             Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod

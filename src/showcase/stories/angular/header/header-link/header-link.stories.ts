@@ -4,6 +4,11 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
+const accessibilityCurrent: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const text: InputType = {
   control: {
     type: 'text',
@@ -39,15 +44,16 @@ const active: InputType = {
 const argTypes: ArgTypes = {
   text,
   href,
-  'expand-from': expandFrom,
+  expandFrom,
   active,
+  accessibilityCurrent,
 };
 
 const args: Args = {
   text: 'Menu',
   href: href.options![0],
-  'expand-from': expandFrom.options![0],
-  'icon-name': 'hamburger-menu-small',
+  expandFrom: expandFrom.options![0],
+  iconName: 'hamburger-menu-small',
   target: '_blank',
 };
 
@@ -63,7 +69,7 @@ const meta: Meta = {
   render: ({ active, text, ...args }: Args) => ({
     props: { active, text, ...args },
     template: `
-      <sbb-header-link ${argsToTemplate(args)} class=${active ? 'sbb-active' : ''}>
+      <sbb-header-link ${argsToTemplate(args)} ${active ? 'class="sbb-active"' : ''}>
         ${text}
       </sbb-header-link>
     `,

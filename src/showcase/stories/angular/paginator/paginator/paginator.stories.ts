@@ -31,18 +31,20 @@ const size: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'page-size-options': pageSizeOptions,
-  'pager-position': pagerPosition,
+  pageSizeOptions,
+  pagerPosition,
   size,
 };
 
 const args: Args = {
   length: 100,
-  'page-size': 10,
-  'page-index': 0,
-  'page-size-options': pageSizeOptions.options![0],
-  'pager-position': pagerPosition.options![0],
+  pageSize: 10,
+  pageIndex: 0,
+  pageSizeOptions: pageSizeOptions.options![0],
+  pagerPosition: pagerPosition.options![0],
   size: size.options![0],
+  negative: false,
+  disabled: false,
 };
 
 const meta: Meta = {

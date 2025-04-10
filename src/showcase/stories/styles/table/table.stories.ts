@@ -31,14 +31,14 @@ const argTypes: ArgTypes = {
   size,
   negative,
   striped,
-  'color-theme': colorTheme,
+  colorTheme,
 };
 
 const args: Args = {
   size: size.options![2],
   negative: false,
   striped: true,
-  'color-theme': colorTheme.options![0],
+  colorTheme: colorTheme.options![0],
 };
 
 const caption: () => string = () => `
@@ -103,7 +103,7 @@ const Template = (args: Args): string => {
   if (!args['striped']) {
     cssClass += 'sbb-table--unstriped ';
   }
-  if (args['color-theme'] === 'iron') {
+  if (args['colorTheme'] === 'iron') {
     cssClass += 'sbb-table--theme-iron';
   }
 
@@ -136,7 +136,7 @@ export const Negative = {
 
 export const IronTheme = {
   argTypes: argTypes,
-  args: { ...args, 'color-theme': 'iron' },
+  args: { ...args, colorTheme: 'iron' },
 };
 
 const meta: Meta = {

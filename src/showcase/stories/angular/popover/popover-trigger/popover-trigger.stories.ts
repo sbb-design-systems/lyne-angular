@@ -1,38 +1,58 @@
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
+import { SbbPopover } from '@sbb-esta/lyne-angular/popover/popover';
 import { SbbPopoverTrigger } from '@sbb-esta/lyne-angular/popover/popover-trigger';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
-const type: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['button', 'reset', 'submit'],
+const form: InputType = {
+  control: false,
+  table: { disable: true },
 };
 
 const value: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const type: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const name: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const ariaLabel: InputType = {
   control: {
     type: 'text',
   },
 };
 
 const argTypes: ArgTypes = {
-  type,
+  form,
   value,
+  type,
+  name,
+  ariaLabel,
 };
 
 const args: Args = {
-  'aria-label': 'Click to open the popover',
-  'icon-name': 'circle-information-small',
+  ariaLabel: 'Click to open the popover',
+  iconName: 'circle-information-small',
+  disabled: false,
+  disabledInteractive: false,
+  negative: false,
 };
 
 const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [SbbTitle, SbbBlockLink],
+      imports: [SbbTitle, SbbBlockLink, SbbPopover],
     }),
   ],
   title: 'elements/sbb-popover/sbb-popover-trigger',
@@ -53,15 +73,15 @@ const meta: Meta = {
           <sbb-popover-trigger id="popover-trigger" ${argsToTemplate(args)}></sbb-popover-trigger>
         </span>
         <sbb-popover trigger="popover-trigger">
-          <sbb-title level="2" visual-level="6" style="margin-block-start: 0">
+          <sbb-title level="2" visualLevel="6" style="margin-block-start: 0">
             Simple popover with link.
           </sbb-title>
           <p class="sbb-text-s" style="margin: 0;">
             Some content.
             <sbb-block-link
               size="s"
-              icon-name="chevron-small-right-small"
-              icon-placement="end"
+              iconName="chevron-small-right-small"
+              iconPlacement="end"
               sbb-popover-close
             >
               Learn More

@@ -166,17 +166,17 @@ const meta: Meta = {
       ...args,
     },
     template: `
-      <sbb-form-field [negative]=${negative} [borderless]=${borderless} [floating-label]=${floatingLabel} size=${size}>
+      <sbb-form-field [negative]="negative" [borderless]="borderless" [floatingLabel]="floatingLabel" size="size">
         <label>Label</label>
-        <input [disabled]=${disabled} [readonly]=${readonly} />
+        <input [disabled]="disabled" [readonly]="readonly" placeholder="Please select."/>
         <sbb-autocomplete ${argsToTemplate(args)}>
-          <sbb-optgroup disabled=${disableGroup} label="Group 1">
-            <sbb-option icon-name=${iconName} disabled=${disableOption} value="1">Value 1</sbb-option>
-            <sbb-option icon-name=${iconName} value="2">Value 2</sbb-option>
+          <sbb-optgroup [disabled]="disableGroup" label="Group 1">
+            <sbb-option [iconName]="iconName" [disabled]="disableOption" value="1">Value 1</sbb-option>
+            <sbb-option [iconName]="iconName" value="2">Value 2</sbb-option>
           </sbb-optgroup>
           <sbb-optgroup label="Group 2">
-            <sbb-option icon-name=${iconName} value="3">Value 3</sbb-option>
-            <sbb-option icon-name=${iconName} value="4">Value 4</sbb-option>
+            <sbb-option [iconName]="iconName" value="3">Value 3</sbb-option>
+            <sbb-option [iconName]="iconName" value="4">Value 4</sbb-option>
           </sbb-optgroup>
         </sbb-autocomplete>
       </sbb-form-field>

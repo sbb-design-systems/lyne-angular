@@ -1,6 +1,6 @@
 import { SbbPearlChainVertical } from '@sbb-esta/lyne-angular-experimental/pearl-chain-vertical';
 import { SbbPearlChainVerticalItem } from '@sbb-esta/lyne-angular-experimental/pearl-chain-vertical-item';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
+import { Args, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
 const lineType: InputType = {
@@ -35,7 +35,7 @@ const argTypes: ArgTypes = {
 };
 
 const args: Args = {
-  'pearl-chain-vertical-item-attributes': {
+  pearlChainVerticalItemAttributes: {
     minHeight: '100',
     hideLine: false,
     lineType: lineType.options![0],
@@ -55,11 +55,11 @@ const meta: Meta = {
   component: SbbPearlChainVerticalItem,
   argTypes,
   args,
-  render: (args: Args) => ({
-    props: { ...args },
+  render: ({ pearlChainVerticalItemAttributes }: Args) => ({
+    props: { pearlChainVerticalItemAttributes },
     template: `
       <sbb-pearl-chain-vertical>
-        <sbb-pearl-chain-vertical-item ${argsToTemplate(args)}>
+        <sbb-pearl-chain-vertical-item [pearlChainVerticalItemAttributes]="pearlChainVerticalItemAttributes">
         <div
             slot="right"
             style="--sbb-pearl-chain-vertical-right-item-block-start: -10px; --sbb-pearl-chain-vertical-right-item-inline-start: 10px;"

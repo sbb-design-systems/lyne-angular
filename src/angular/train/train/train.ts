@@ -10,7 +10,7 @@ export class SbbTrain {
   #element: ElementRef<SbbTrainElement> = inject(ElementRef<SbbTrainElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'direction-label' })
+  @Input()
   public set directionLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.directionLabel = value));
   }
@@ -18,7 +18,7 @@ export class SbbTrain {
     return this.#element.nativeElement.directionLabel;
   }
 
-  @Input({ alias: 'direction-label-level' })
+  @Input()
   public set directionLabelLevel(value: SbbTitleLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.directionLabelLevel = value));
   }
@@ -34,7 +34,7 @@ export class SbbTrain {
     return this.#element.nativeElement.station;
   }
 
-  @Input({ alias: 'accessibility-label' })
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }

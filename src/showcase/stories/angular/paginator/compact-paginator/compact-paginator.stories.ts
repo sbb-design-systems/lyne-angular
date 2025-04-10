@@ -17,16 +17,18 @@ const size: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  'pager-position': pagerPosition,
+  pagerPosition,
   size,
 };
 
 const args: Args = {
   length: 100,
-  'page-size': 10,
-  'page-index': 0,
-  'pager-position': pagerPosition.options![0],
+  pageSize: 10,
+  pageIndex: 0,
+  pagerPosition: pagerPosition.options![0],
   size: size.options![0],
+  negative: false,
+  disabled: false,
 };
 
 const meta: Meta = {

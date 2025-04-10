@@ -1,6 +1,6 @@
 import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
 import { Args, argsToTemplate, Meta } from '@storybook/angular';
-import { InputType, StoryContext } from '@storybook/types';
+import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 const orientation: InputType = {
   control: {
@@ -9,12 +9,13 @@ const orientation: InputType = {
   options: ['horizontal', 'vertical'],
 };
 
-const argTypes = {
+const argTypes: ArgTypes = {
   orientation,
 };
 
-const args = {
+const args: Args = {
   orientation: orientation.options![0],
+  negative: false,
 };
 
 const meta: Meta = {

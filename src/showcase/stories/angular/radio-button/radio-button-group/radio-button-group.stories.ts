@@ -59,17 +59,27 @@ const size: InputType = {
   options: ['m', 's', 'xs'],
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const argTypes: ArgTypes = {
   orientation,
-  'horizontal-from': horizontalFrom,
+  horizontalFrom,
   size,
+  ariaLabel,
 };
 
 const args: Args = {
   value: 'Value two',
   orientation: orientation.options![0],
-  'horizontal-from': undefined,
+  horizontalFrom: undefined,
   size: size.options![0],
+  allowEmptySelection: false,
+  required: false,
+  disabled: false,
 };
 
 const meta: Meta = {

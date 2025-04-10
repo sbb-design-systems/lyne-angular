@@ -44,3 +44,7 @@ const meta: Meta = {
 export default meta;
 
 export const Default = {};
+
+export const Paused = {
+  args: { ...args, hours: 9, minutes: 10, seconds: 30 },
+};

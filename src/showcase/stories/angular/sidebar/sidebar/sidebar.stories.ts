@@ -13,8 +13,8 @@ import type { SbbSidebarElement } from '@sbb-esta/lyne-elements/sidebar/sidebar.
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
-const sidebar = ({ showTitle, showCloseButton, ...args }: Args) =>
-  `<sbb-sidebar
+const sidebar = ({ showTitle, showCloseButton, ...args }: Args) => `
+  <sbb-sidebar
     ${argsToTemplate(args)}
     id="sidebar-1"
     role="navigation"
@@ -30,7 +30,7 @@ const sidebar = ({ showTitle, showCloseButton, ...args }: Args) =>
         Unicorn Mindset: How to Stand Out in a Crowded Market
       </sbb-block-link>
       <sbb-block-link href="#">Be Unique, Be a Unicorn</sbb-block-link>
-      <sbb-block-link href="#" class="sbb-active" accessibility-current="page">
+      <sbb-block-link href="#" class="sbb-active" accessibilityCurrent="page">
         Unicorn Success Stories
       </sbb-block-link>
       <sbb-block-link href="#">The Unicorn's Guide to Creativity</sbb-block-link>
@@ -60,10 +60,18 @@ const showCloseButton: InputType = {
   },
 };
 
+const isAnimating: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   showTitle,
   showCloseButton,
-  toggleClick: { type: 'function', control: false },
+  isAnimating,
+  toggleClick: { type: 'function', control: false, table: { disable: true } },
+  didOpen: { type: 'function', control: false, table: { disable: true } },
+  didClose: { type: 'function', control: false, table: { disable: true } },
 };
 
 const args: Args = {
@@ -121,10 +129,10 @@ const meta: Meta = {
   render: (args) => ({
     props: args,
     template: `
-    <sbb-header expanded scroll-origin="content" size="s">
+      <sbb-header expanded scroll-origin="content" size="s">
         <sbb-header-button
           id="toggle-button-1"
-          icon-name="arrows-right-left-small"
+          iconName="arrows-right-left-small"
           (click)="toggleClick($event)"
           aria-controls="sidebar-1"
           aria-expanded="true"
@@ -133,14 +141,14 @@ const meta: Meta = {
         </sbb-header-button>
         <div style="flex-grow: 1"></div>
         <a aria-label="Homepage" href="/" class="sbb-header-logo">
-          <sbb-logo protective-room="none"></sbb-logo>
+          <sbb-logo protectiveRoom="none"></sbb-logo>
         </a>
       </sbb-header>
       <sbb-sidebar-container>
         ${args['position'] === 'start' ? sidebar(args) : ''}
         <sbb-sidebar-content id="content" role="main" style="padding: var(--sbb-spacing-fixed-4x)">
 
-          <sbb-title level="1" visual-level="2">Unicorn Success Stories</sbb-title>
+          <sbb-title level="1" visualLevel="2">Unicorn Success Stories</sbb-title>
 
           <sbb-chip-label color="charcoal">AI generated</sbb-chip-label>
           <p>
@@ -150,7 +158,7 @@ const meta: Meta = {
             enchant and inspire, each with a touch of public transport magic.
           </p>
 
-          <sbb-title level="2" visual-level="3">Luna, the Moonlight Unicorn</sbb-title>
+          <sbb-title level="2" visualLevel="3">Luna, the Moonlight Unicorn</sbb-title>
           <p>
             One of the most famous unicorns is <strong>Luna</strong>, the Moonlight Unicorn. Born under a
             rare celestial event in the serene forests near <strong>Zurich</strong>, Luna harnessed the
@@ -160,7 +168,7 @@ const meta: Meta = {
             for all passengers traveling through the region.
           </p>
 
-          <sbb-title level="2" visual-level="3">
+          <sbb-title level="2" visualLevel="3">
             Aurelius, the Golden Unicorn of the Bernese Alps
           </sbb-title>
           <p>
@@ -172,7 +180,7 @@ const meta: Meta = {
             their destinations safely and efficiently.
           </p>
 
-          <sbb-title level="2" visual-level="3">
+          <sbb-title level="2" visualLevel="3">
             Seraphina, the Unicorn of the Lucerne Enchanted Glade
           </sbb-title>
           <p>
@@ -184,7 +192,7 @@ const meta: Meta = {
             navigating the picturesque city of Lucerne.
           </p>
 
-          <sbb-title level="2" visual-level="3">Nerida, the Sea Unicorn</sbb-title>
+          <sbb-title level="2" visualLevel="3">Nerida, the Sea Unicorn</sbb-title>
           <p>
             In the waters of <strong>Lake Geneva</strong>, <strong>Nerida</strong>, the Sea Unicorn, used
             her magic to calm raging storms and protect the coastal villages from devastation. Her deep
@@ -193,7 +201,7 @@ const meta: Meta = {
             ensuring safe and pleasant voyages for all passengers traveling between the lakeside towns.
           </p>
 
-          <sbb-title level="2" visual-level="3">Orion, the Railway Unicorn</sbb-title>
+          <sbb-title level="2" visualLevel="3">Orion, the Railway Unicorn</sbb-title>
           <p>
             Lastly, in the bustling city of <strong>Geneva</strong>, <strong>Orion</strong>, the Railway
             Unicorn, played a pivotal role in connecting distant Swiss cities. With his magical horn, Orion

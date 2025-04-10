@@ -84,7 +84,7 @@ const argTypes: ArgTypes = {
   accessibilityCloseLabel,
   accessibilityBackLabel,
   backdrop,
-  'backdrop-action': backdropAction,
+  backdropAction,
 };
 
 const args: Args = {
@@ -94,7 +94,7 @@ const args: Args = {
   accessibilityCloseLabel: 'Close dialog',
   accessibilityBackLabel: 'Go back',
   backdrop: 'opaque',
-  'backdrop-action': backdropAction.options![0],
+  backdropAction: backdropAction.options![0],
 };
 
 const meta: Meta = {
@@ -130,6 +130,7 @@ const meta: Meta = {
     hideOnScroll,
     accessibilityCloseLabel,
     accessibilityBackLabel,
+    negative,
     ...args
   }: Args) => ({
     props: {
@@ -138,6 +139,7 @@ const meta: Meta = {
       hideOnScroll,
       accessibilityCloseLabel,
       accessibilityBackLabel,
+      negative,
       ...args,
     },
     template: `
@@ -150,13 +152,13 @@ const meta: Meta = {
       >
         Open dialog
       </sbb-button>
-      <sbb-dialog id="my-dialog-1" ${argsToTemplate(args)}>
+      <sbb-dialog id="my-dialog-1" ${argsToTemplate(args)} [negative]='negative'>
         <sbb-dialog-title
           level=${level}
-          ${backButton ? 'back-button' : ''}
-          ${hideOnScroll === 'Deactivate hide on scroll' ? '' : `hide-on-scroll=${hideOnScroll}`}
-          accessibility-close-label=${accessibilityCloseLabel}
-          accessibility-back-label=${accessibilityBackLabel}
+          ${backButton ? '[backButton]="backButton"' : ''}
+          ${hideOnScroll === 'Deactivate hide on scroll' ? '' : `[hideOnScroll]="hideOnScroll"`}
+          [accessibilityCloseLabel]="accessibilityCloseLabel"
+          [accessibilityBackLabel]="accessibilityBackLabel"
           >A describing title of the dialog</sbb-dialog-title
         >
         <sbb-dialog-content>
@@ -167,12 +169,12 @@ const meta: Meta = {
             Dialog content
           </p>
         </sbb-dialog-content>
-        <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontal-from="medium">
+        <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontalFrom="medium">
           <sbb-block-link
             align-self="start"
             icon-name="chevron-small-left-small"
             href="https://www.sbb.ch/en/"
-            [negative]=${args['negative']}
+            [negative]='negative'
             sbb-dialog-close
           >
             Link

@@ -8,7 +8,10 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
-import { convertMillisecondsToSeconds } from '../../../../helpers/converter';
+import {
+  convertMillisecondsToDate,
+  convertMillisecondsToSeconds,
+} from '../../../../helpers/converter';
 
 const value: InputType = {
   control: {
@@ -187,7 +190,7 @@ const argTypes: ArgTypes = {
   wide,
   dateFilter,
   now,
-  'aria-label': ariaLabel,
+  ariaLabel,
   label,
   size,
   negative,
@@ -209,7 +212,7 @@ const args: Args = {
   wide: false,
   dateFilter: dateFilter.options![0],
   now: undefined,
-  'aria-label': undefined,
+  ariaLabel: undefined,
   label: 'Label',
   size: size.options![1],
   negative: false,
@@ -237,8 +240,16 @@ const meta: Meta = {
     backgroundColor: (context: StoryContext) =>
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
   },
-  argTypes,
-  args,
+  argTypes: {
+    ...argTypes,
+    convertMillisecondsToDate: { type: 'function', control: false, table: { disable: true } },
+    convertMillisecondsToSeconds: { type: 'function', control: false, table: { disable: true } },
+  },
+  args: {
+    ...args,
+    convertMillisecondsToDate: (e: number): Date => convertMillisecondsToDate(e),
+    convertMillisecondsToSeconds: (e: number): number => convertMillisecondsToSeconds(e),
+  },
   render: ({
     size,
     negative,
@@ -254,6 +265,7 @@ const meta: Meta = {
     disabled,
     readonly,
     required,
+    dateFilter,
     ...args
   }: Args) => ({
     props: {
@@ -271,27 +283,28 @@ const meta: Meta = {
       disabled,
       readonly,
       required,
+      dateFilter,
       ...args,
     },
     template: `
-      <sbb-form-field size=${size} negative=${negative} optional=${optional} borderless=${borderless} width="collapse">
+      <sbb-form-field [size]="size" [negative]="negative" [optional]="optional" [borderless]="borderless" width="collapse">
         ${label ? `<label>${label}</label>` : ''}
         <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
         <sbb-datepicker-next-day></sbb-datepicker-next-day>
         <sbb-datepicker-toggle></sbb-datepicker-toggle>
         <sbb-date-input
           value=${value}
-          [disabled]=${disabled}
-          [readOnly]=${readonly}
-          [required]=${required}
-          ${form ? `form=${form}` : ''}
-          ${min ? `min=${convertMillisecondsToSeconds(min)}` : ''}
-          ${max ? `max=${convertMillisecondsToSeconds(max)}` : ''}
+          [disabled]="disabled"
+          [readOnly]="readonly"
+          [required]="required"
+          [min]="convertMillisecondsToDate(min)"
+          [max]="convertMillisecondsToDate(max)"
+          [dateFilter]="dateFilter"
         ></sbb-date-input>
         <sbb-datepicker
           ${argsToTemplate(args)}
-          wide=${wide}
-          ${now ? `now=${convertMillisecondsToSeconds(now)}` : ''}
+          [wide]="wide"
+          [now]="convertMillisecondsToSeconds(now)"
         ></sbb-datepicker>
       </sbb-form-field>
     `,

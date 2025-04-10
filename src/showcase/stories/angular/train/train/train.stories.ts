@@ -18,16 +18,16 @@ const directionLabelLevel: InputType = {
 
 const argTypes: ArgTypes = {
   direction,
-  'direction-label-level': directionLabelLevel,
+  directionLabelLevel,
 };
 
 const args: Args = {
-  'direction-label': 'Direction of travel',
-  'accessibility-label':
+  directionLabel: 'Direction of travel',
+  accessibilityLabel:
     'The top of the train is in Sector A. The train leaves the station in this direction',
   station: 'Bern',
   direction: direction.options![0],
-  'direction-label-level': directionLabelLevel.options![4],
+  directionLabelLevel: directionLabelLevel.options![4],
 };
 
 const meta: Meta = {

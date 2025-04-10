@@ -19,7 +19,7 @@ export class SbbContainer {
     return this.#element.nativeElement.expanded;
   }
 
-  @Input({ alias: 'background-expanded', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set backgroundExpanded(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backgroundExpanded = value));
   }

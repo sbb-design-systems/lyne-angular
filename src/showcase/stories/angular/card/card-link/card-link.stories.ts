@@ -8,6 +8,11 @@ const label: InputType = {
   control: { type: 'text' },
 };
 
+const accessibilityCurrent: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const hrefs = ['https://www.sbb.ch', 'https://github.com/sbb-design-systems/lyne-components'];
 const href: InputType = {
   options: Object.keys(hrefs),
@@ -24,6 +29,7 @@ const href: InputType = {
 const argTypes: ArgTypes = {
   label,
   href,
+  accessibilityCurrent,
 };
 
 const args = {

@@ -22,6 +22,9 @@ const meta: Meta = {
     openOverlay: { type: 'function', control: false, table: { disable: true } },
   },
   args: {
+    backButton: false,
+    expanded: false,
+    negative: false,
     openOverlay: (e: PointerEvent, id: string) => openOverlay(e, id),
   },
   render: ({ openOverlay, ...args }: Args) => ({
@@ -38,7 +41,7 @@ const meta: Meta = {
       </sbb-button>
       <sbb-overlay id="my-overlay" ${argsToTemplate(args)}>
         <div class="overlay-content">
-          <sbb-title visual-level="2" negative=${args['negative'] === true} style="margin-block-start: 0">
+          <sbb-title visualLevel="2" negative=${args['negative'] === true} style="margin-block-start: 0">
             Many Meetings
           </sbb-title>
           Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
@@ -49,7 +52,7 @@ const meta: Meta = {
           pierced his heart.
           <sbb-image
             style="margin-block: 1rem"
-            image-src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg'
+            imageSrc='https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg'
             alt="Natural landscape"
           ></sbb-image>
           He stood still enchanted, while the sweet syllables of the elvish song fell like clear jewels

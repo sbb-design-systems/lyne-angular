@@ -36,7 +36,7 @@ export class SbbAutocomplete {
     return this.#element.nativeElement.trigger;
   }
 
-  @Input({ alias: 'preserve-icon-space', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set preserveIconSpace(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.preserveIconSpace = value));
   }

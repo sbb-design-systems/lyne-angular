@@ -21,7 +21,7 @@ export class SbbSelectionExpansionPanel {
     return this.#element.nativeElement.color;
   }
 
-  @Input({ alias: 'force-open', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set forceOpen(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.forceOpen = value));
   }

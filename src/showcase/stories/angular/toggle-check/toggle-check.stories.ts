@@ -23,23 +23,40 @@ const labelPosition: InputType = {
   options: ['before', 'after'],
 };
 
-const argTypes: ArgTypes = {
-  size,
-  label,
-  'label-position': labelPosition,
-};
-
 const value: InputType = {
   control: {
     type: 'text',
   },
 };
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
+const required: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const argTypes: ArgTypes = {
+  size,
+  label,
+  labelPosition,
+  value,
+  ariaLabel,
+  required,
+};
+
 const args: Args = {
   size: size.options![1],
   label: 'Label',
-  'label-position': labelPosition.options![1],
-  value,
+  labelPosition: labelPosition.options![1],
+  checked: false,
+  disabled: false,
+  name: 'name',
+  value: 'Value',
 };
 
 const meta: Meta = {

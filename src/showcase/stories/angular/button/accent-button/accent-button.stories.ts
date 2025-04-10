@@ -3,6 +3,12 @@ import { withActions } from '@storybook/addon-actions/decorator';
 import { Args, argsToTemplate, Meta } from '@storybook/angular';
 import { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
+const ariaLabel: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const text: InputType = {
   control: {
     type: 'text',
@@ -34,6 +40,7 @@ const argTypes: ArgTypes = {
   size,
   type,
   value,
+  ariaLabel,
 };
 
 const args: Args = {
@@ -55,7 +62,11 @@ const meta: Meta = {
   args,
   render: ({ text, ...args }: Args) => ({
     props: { text, ...args },
-    template: `<sbb-accent-button ${argsToTemplate(args)}>${text}</sbb-accent-button>`,
+    template: `
+      <sbb-accent-button ${argsToTemplate(args)}>
+        ${text}
+      </sbb-accent-button>
+    `,
   }),
 };
 export default meta;

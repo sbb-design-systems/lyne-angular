@@ -32,7 +32,7 @@ const argTypes = {
 
 const args = {
   slot: slot.options![0],
-  'icon-name': 'pen-small',
+  iconName: 'pen-small',
   type: type.options![0],
 };
 

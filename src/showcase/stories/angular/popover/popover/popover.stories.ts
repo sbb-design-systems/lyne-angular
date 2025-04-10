@@ -7,9 +7,7 @@ import { ArgTypes, InputType } from '@storybook/types';
 
 const trigger: InputType = {
   control: false,
-  table: {
-    disable: true,
-  },
+  table: { disable: true },
 };
 
 const positions = [
@@ -43,6 +41,8 @@ const argTypes: ArgTypes = {
 
 const args: Args = {
   triggerPosition: triggerPosition.options![0],
+  hoverTrigger: false,
+  hideCloseButton: false,
 };
 
 const meta: Meta = {
@@ -67,13 +67,13 @@ const meta: Meta = {
         id="popover-trigger"
       ></sbb-popover-trigger>
       <sbb-popover trigger="popover-trigger" ${argsToTemplate(args)}>
-        <sbb-title level="2" visual-level="6" style="margin-block-start: 0"> Title. </sbb-title>
+        <sbb-title level="2" visualLevel="6" style="margin-block-start: 0"> Title. </sbb-title>
         <p style="margin: 0" class="sbb-text-s">
           Some content.
           <sbb-block-link
             size="s"
-            icon-name="chevron-small-right-small"
-            icon-placement="end"
+            iconName="chevron-small-right-small"
+            iconPlacement="end"
             href="https://www.sbb.ch"
             sbb-popover-close
           >

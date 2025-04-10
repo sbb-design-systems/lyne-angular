@@ -1,7 +1,21 @@
 import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { StoryContext } from '@storybook/types';
+import { InputType, StoryContext } from '@storybook/types';
+
+const size: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'],
+};
+
+const color: InputType = {
+  control: {
+    type: 'inline-radio',
+  },
+  options: ['white', 'milk', 'transparent-bordered', 'transparent-bordered-dashed'],
+};
 
 const meta: Meta = {
   decorators: [
@@ -14,6 +28,11 @@ const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args['color'] === 'milk' ? 'var(--sbb-color-white)' : 'var(--sbb-color-milk)',
+  },
+  argTypes: { size, color },
+  args: {
+    size: size.options![2],
+    color: color.options![0],
   },
   render: (args: Args) => ({
     props: { ...args },

@@ -12,7 +12,7 @@ export class SbbHeaderButton {
   #element: ElementRef<SbbHeaderButtonElement> = inject(ElementRef<SbbHeaderButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
-  @Input({ alias: 'expand-from' })
+  @Input()
   public set expandFrom(value: SbbHorizontalFrom) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.expandFrom = value));
   }
@@ -20,7 +20,7 @@ export class SbbHeaderButton {
     return this.#element.nativeElement.expandFrom;
   }
 
-  @Input({ alias: 'icon-name' })
+  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }

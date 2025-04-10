@@ -3,6 +3,21 @@ import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 import { ArgTypes, InputType } from '@storybook/types';
 
+const importance: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const decoding: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const pictureSizesConfig: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const imageSrc: InputType = {
   control: {
     type: 'select',
@@ -43,13 +58,16 @@ const chipPosition: InputType = {
 const argTypes: ArgTypes = {
   borderRadius,
   aspectRatio,
-  'image-src': imageSrc,
+  imageSrc,
+  importance,
+  decoding,
+  pictureSizesConfig,
 };
 
 const args: Args = {
   borderRadius: borderRadius.options![0],
   aspectRatio: aspectRatio.options![0],
-  'image-src': imageSrc.options![0],
+  imageSrc: imageSrc.options![0],
 };
 
 const meta: Meta = {

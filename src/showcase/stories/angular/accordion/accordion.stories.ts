@@ -59,22 +59,43 @@ const iconName: InputType = {
   },
 };
 
+const headerText: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Header',
+  },
+};
+
+const contentText: InputType = {
+  control: {
+    type: 'text',
+  },
+  table: {
+    category: 'Content',
+  },
+};
 const argTypes = {
-  'title-level': titleLevel,
+  titleLevel,
   color,
   expanded,
   borderless,
   disabled,
   iconName,
+  headerText,
+  contentText,
 };
 
 const args = {
-  'title-level': titleLevel.options![2],
+  titleLevel: titleLevel.options![2],
   color: color.options![0],
   expanded: false,
   borderless: false,
   disabled: false,
   iconName: 'pie-small',
+  headerText: 'Header',
+  contentText: 'Content',
 };
 
 const meta: Meta = {
@@ -93,25 +114,34 @@ const meta: Meta = {
   },
   argTypes,
   args,
-  render: ({ color, expanded, borderless, disabled, iconName, ...args }: Args) => ({
-    props: { color, expanded, borderless, disabled, iconName, ...args },
+  render: ({
+    color,
+    expanded,
+    borderless,
+    disabled,
+    iconName,
+    headerText,
+    contentText,
+    ...args
+  }: Args) => ({
+    props: { color, expanded, borderless, disabled, iconName, headerText, contentText, ...args },
     template: `
       <sbb-accordion ${argsToTemplate(args)}>
         <sbb-expansion-panel
-          color=${color}
-          expanded=${expanded}
-          borderless=${borderless}
-          disabled=${disabled}>
-          <sbb-expansion-panel-header icon-name=${iconName}>Header</sbb-expansion-panel-header>
-          <sbb-expansion-panel-content>Content</sbb-expansion-panel-content>
+          [color]="color"
+          [expanded]="expanded"
+          [borderless]="borderless"
+          [disabled]="disabled">
+          <sbb-expansion-panel-header [iconName]="iconName">${headerText} 1</sbb-expansion-panel-header>
+          <sbb-expansion-panel-content>${contentText} 1</sbb-expansion-panel-content>
         </sbb-expansion-panel>
         <sbb-expansion-panel
-          color=${color}
-          expanded=${expanded}
-          borderless=${borderless}
-          disabled=${disabled}>
-          <sbb-expansion-panel-header icon-name=${iconName}>Header 2</sbb-expansion-panel-header>
-          <sbb-expansion-panel-content>Content 2</sbb-expansion-panel-content>
+          [color]="color"
+          [expanded]="expanded"
+          [borderless]="borderless"
+          [disabled]="disabled">
+          <sbb-expansion-panel-header [iconName]="iconName">${headerText} 2</sbb-expansion-panel-header>
+          <sbb-expansion-panel-content>${contentText} 2</sbb-expansion-panel-content>
         </sbb-expansion-panel>
       </sbb-accordion>
     `,

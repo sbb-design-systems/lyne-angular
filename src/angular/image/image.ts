@@ -27,7 +27,7 @@ export class SbbImage {
     return this.#element.nativeElement.alt;
   }
 
-  @Input({ alias: 'skip-lqip', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set skipLqip(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.skipLqip = value));
   }
@@ -35,7 +35,7 @@ export class SbbImage {
     return this.#element.nativeElement.skipLqip;
   }
 
-  @Input({ alias: 'custom-focal-point', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set customFocalPoint(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.customFocalPoint = value));
   }
@@ -51,7 +51,7 @@ export class SbbImage {
     return this.#element.nativeElement.decoding;
   }
 
-  @Input({ alias: 'focal-point-debug', transform: booleanAttribute })
+  @Input({ transform: booleanAttribute })
   public set focalPointDebug(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.focalPointDebug = value));
   }
@@ -59,7 +59,7 @@ export class SbbImage {
     return this.#element.nativeElement.focalPointDebug;
   }
 
-  @Input({ alias: 'focal-point-x', transform: numberAttribute })
+  @Input({ transform: numberAttribute })
   public set focalPointX(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.focalPointX = value));
   }
@@ -67,7 +67,7 @@ export class SbbImage {
     return this.#element.nativeElement.focalPointX;
   }
 
-  @Input({ alias: 'focal-point-y', transform: numberAttribute })
+  @Input({ transform: numberAttribute })
   public set focalPointY(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.focalPointY = value));
   }
@@ -75,7 +75,7 @@ export class SbbImage {
     return this.#element.nativeElement.focalPointY;
   }
 
-  @Input({ alias: 'image-src' })
+  @Input()
   public set imageSrc(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.imageSrc = value));
   }
@@ -99,7 +99,7 @@ export class SbbImage {
     return this.#element.nativeElement.loading;
   }
 
-  @Input({ alias: 'performance-mark' })
+  @Input()
   public set performanceMark(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.performanceMark = value));
   }
@@ -107,7 +107,7 @@ export class SbbImage {
     return this.#element.nativeElement.performanceMark;
   }
 
-  @Input({ alias: 'picture-sizes-config' })
+  @Input()
   public set pictureSizesConfig(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pictureSizesConfig = value));
   }

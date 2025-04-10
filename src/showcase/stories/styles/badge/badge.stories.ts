@@ -1,5 +1,6 @@
+import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header/header-button';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
-import { Args, Meta, StoryObj } from '@storybook/angular';
+import { Args, Meta, moduleMetadata, StoryObj } from '@storybook/angular';
 import type { ArgTypes, InputType } from '@storybook/types';
 
 const badgeContent: InputType = {
@@ -15,9 +16,21 @@ const badgePosition: InputType = {
   options: ['before', 'after'],
 };
 
+const name: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
+const noSanitize: InputType = {
+  control: false,
+  table: { disable: true },
+};
+
 const argTypes: ArgTypes = {
   badgeContent,
   badgePosition,
+  name,
+  noSanitize,
 };
 
 const args: Args = {
@@ -68,6 +81,11 @@ export const BadgeOnHeaderButton: StoryObj = {
 };
 
 const meta: Meta = {
+  decorators: [
+    moduleMetadata({
+      imports: [SbbHeaderButton],
+    }),
+  ],
   title: 'styles/badge',
   component: SbbIcon,
   argTypes,
