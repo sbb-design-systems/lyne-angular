@@ -22,7 +22,7 @@ import { SbbCell, SbbCellDef, SbbColumnDef, SbbHeaderCell, SbbHeaderCellDef } fr
 @Component({
   selector: 'sbb-text-column',
   template: `
-    <ng-container sbbColumnDef>
+    <ng-container sbbColumnDef [sticky]="sticky" [stickyEnd]="stickyEnd">
       <th sbb-header-cell *sbbHeaderCellDef [style.text-align]="justify">
         {{ headerText }}
       </th>
@@ -57,6 +57,12 @@ export class SbbTextColumn<T> extends CdkTextColumn<T> implements OnInit {
     this._syncColumnDefGroupWithNext();
   }
   private _groupWithNext: boolean = false;
+
+  @Input()
+  sticky: boolean = false;
+
+  @Input()
+  stickyEnd: boolean = false;
 
   override ngOnInit() {
     super.ngOnInit();
