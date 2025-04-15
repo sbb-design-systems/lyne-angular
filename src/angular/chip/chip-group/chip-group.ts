@@ -84,7 +84,6 @@ export class SbbChipGroup extends SbbControlValueAccessorMixin(class {}) {
   @Output('input') protected _input: (typeof this)['input'] = NEVER;
   public input: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
 
-   
   @Output('chipInputTokenEnd') protected _chipInputTokenEnd: (typeof this)['chipInputTokenEnd'] =
     NEVER;
   public chipInputTokenEnd: Observable<SbbChipInputTokenEndEventDetails> =
