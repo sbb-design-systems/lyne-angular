@@ -19,7 +19,7 @@
   "packages": {
     ".": {
       "versioning": "prerelease",
-      "prerelease-type": "beta"
+      "prerelease-type": "rc"
     }
   }
 }
