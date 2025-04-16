@@ -1,5 +1,18 @@
 # Changelog
 
+## [19.0.0-rc.0](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-beta.4...v19.0.0-rc.0) (2025-04-16)
+
+
+### Features
+
+* **sbb-table-wrapper:** add support to filtering, pagination and sticky use cases ([#60](https://github.com/sbb-design-systems/lyne-angular/issues/60)) ([0e02081](https://github.com/sbb-design-systems/lyne-angular/commit/0e0208111aeb069e0fd4998ebac612f66bbc2794))
+* update to lyne-elements 2.7.0 ([#70](https://github.com/sbb-design-systems/lyne-angular/issues/70)) ([2b82797](https://github.com/sbb-design-systems/lyne-angular/commit/2b8279799c6f5a30c49b2f23771e14813b552951))
+
+
+### Miscellaneous Chores
+
+* configure release version 19.0.0-rc.0 ([c916d30](https://github.com/sbb-design-systems/lyne-angular/commit/c916d3057e5f762c5a16c1e16862c7cc77dc5b46))
+
 ## [19.0.0-beta.4](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-beta.3...v19.0.0-beta.4) (2025-04-09)
 
 
