@@ -10,7 +10,8 @@ import {
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbPaginatorElement } from '@sbb-esta/lyne-elements/paginator/paginator.js';
-import { fromEvent, type Observable, NEVER } from 'rxjs';
+import { from, fromEvent, map, type Observable, NEVER } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/paginator/paginator.js';
 
 @Directive({
@@ -89,4 +90,55 @@ export class SbbPaginator {
     this.#element.nativeElement,
     'page',
   );
+
+  // TODO: move following methods into lyne-elements
+
+  readonly initialized: Observable<void> = from(this.#element.nativeElement.updateComplete).pipe(
+    map(() => undefined),
+  );
+
+  /** Advances to the next page if it exists. */
+  nextPage(): void {
+    this.pageIndex = this.pageIndex + 1;
+  }
+
+  /** Move back to the previous page if it exists. */
+  previousPage(): void {
+    this.pageIndex = this.pageIndex - 1;
+  }
+
+  /** Move to the first page if not already there. */
+  firstPage(): void {
+    this.pageIndex = 0;
+  }
+
+  /** Move to the last page if not already there. */
+  lastPage(): void {
+    this.pageIndex = this.numberOfPages() - 1;
+  }
+
+  /** Move to a specific page index. */
+  selectPage(index: number): void {
+    this.pageIndex = index;
+  }
+
+  /** Whether there is a previous page. */
+  hasPreviousPage(): boolean {
+    return this.pageIndex >= 1 && this.pageSize !== 0;
+  }
+
+  /** Whether there is a next page. */
+  hasNextPage(): boolean {
+    const maxPageIndex = this.numberOfPages() - 1;
+    return this.pageIndex < maxPageIndex && this.pageSize !== 0;
+  }
+
+  /** Calculate the number of pages */
+  numberOfPages(): number {
+    if (!this.pageSize) {
+      return 0;
+    }
+
+    return Math.ceil(this.length / this.pageSize);
+  }
 }
