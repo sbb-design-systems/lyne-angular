@@ -765,39 +765,39 @@ class FakeDataSource extends DataSource<TestData> {
 
 @Component({
   template: `
-    <sbb-table [dataSource]="dataSource">
+    <table sbb-table [dataSource]="dataSource">
       <ng-container sbbColumnDef="column_a">
-        <sbb-header-cell *sbbHeaderCellDef> Column A</sbb-header-cell>
-        <sbb-cell *sbbCellDef="let row"> {{ row.a }}</sbb-cell>
-        <sbb-footer-cell *sbbFooterCellDef> Footer A</sbb-footer-cell>
+        <th sbb-header-cell *sbbHeaderCellDef>Column A</th>
+        <td sbb-cell *sbbCellDef="let row">{{ row.a }}</td>
+        <td sbb-footer-cell *sbbFooterCellDef>Footer A</td>
       </ng-container>
 
       <ng-container sbbColumnDef="column_b">
-        <sbb-header-cell *sbbHeaderCellDef> Column B</sbb-header-cell>
-        <sbb-cell *sbbCellDef="let row"> {{ row.b }}</sbb-cell>
-        <sbb-footer-cell *sbbFooterCellDef> Footer B</sbb-footer-cell>
+        <th sbb-header-cell *sbbHeaderCellDef>Column B</th>
+        <td sbb-cell *sbbCellDef="let row">{{ row.b }}</td>
+        <td sbb-footer-cell *sbbFooterCellDef>Footer B</td>
       </ng-container>
 
       <ng-container sbbColumnDef="column_c">
-        <sbb-header-cell *sbbHeaderCellDef> Column C</sbb-header-cell>
-        <sbb-cell *sbbCellDef="let row"> {{ row.c }}</sbb-cell>
-        <sbb-footer-cell *sbbFooterCellDef> Footer C</sbb-footer-cell>
+        <th sbb-header-cell *sbbHeaderCellDef>Column C</th>
+        <td sbb-cell *sbbCellDef="let row">{{ row.c }}</td>
+        <td sbb-footer-cell *sbbFooterCellDef>Footer C</td>
       </ng-container>
 
       <ng-container sbbColumnDef="special_column">
-        <sbb-cell *sbbCellDef="let row"> fourth_row </sbb-cell>
+        <td sbb-cell *sbbCellDef="let row">fourth_row</td>
       </ng-container>
 
-      <sbb-header-row *sbbHeaderRowDef="columnsToRender"></sbb-header-row>
-      <sbb-row *sbbRowDef="let row; columns: columnsToRender"></sbb-row>
-      <sbb-row *sbbRowDef="let row; columns: ['special_column']; when: isFourthRow"></sbb-row>
-      <sbb-footer-row *sbbFooterRowDef="columnsToRender"></sbb-footer-row>
-    </sbb-table>
+      <tr sbb-header-row *sbbHeaderRowDef="columnsToRender"></tr>
+      <tr sbb-row *sbbRowDef="let row; columns: columnsToRender"></tr>
+      <tr sbb-row *sbbRowDef="let row; columns: ['special_column']; when: isFourthRow"></tr>
+      <tr sbb-footer-row *sbbFooterRowDef="columnsToRender"></tr>
+    </table>
   `,
   imports: [SbbTableModule],
 })
 class SbbTableTestComponent {
-  dataSource: FakeDataSource | null = new FakeDataSource();
+  dataSource: FakeDataSource = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isFourthRow = (i: number, _rowData: TestData) => i === 3;
@@ -830,7 +830,7 @@ class SbbTableTestComponent {
   imports: [SbbTableModule],
 })
 class NativeHtmlTableTestComponent {
-  dataSource: FakeDataSource | null = new FakeDataSource();
+  dataSource: FakeDataSource = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 
   @ViewChild(SbbTable) table!: SbbTable<TestData>;
@@ -881,7 +881,7 @@ class NativeHtmlTableTestComponent {
   imports: [SbbTableModule],
 })
 class NestedHtmlTableTestComponent {
-  dataSource: FakeDataSource | null = new FakeDataSource();
+  dataSource: FakeDataSource = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 }
 
@@ -908,28 +908,28 @@ class StickyTableTestComponent {
 
 @Component({
   template: `
-    <sbb-table [dataSource]="dataSource" [multiTemplateDataRows]="multiTemplateDataRows">
+    <table sbb-table [dataSource]="dataSource" [multiTemplateDataRows]="multiTemplateDataRows">
       <ng-container sbbColumnDef="column_a">
-        <sbb-header-cell *sbbHeaderCellDef> Column A</sbb-header-cell>
-        <sbb-cell *sbbCellDef="let row"> {{ row.a }}</sbb-cell>
-        <sbb-footer-cell *sbbFooterCellDef> Footer A</sbb-footer-cell>
+        <th sbb-header-cell *sbbHeaderCellDef>Column A</th>
+        <td sbb-cell *sbbCellDef="let row">{{ row.a }}</td>
+        <td sbb-footer-cell *sbbFooterCellDef>Footer A</td>
       </ng-container>
 
       <ng-container sbbColumnDef="special_column">
-        <sbb-cell *sbbCellDef="let row"> fourth_row</sbb-cell>
+        <td sbb-cell *sbbCellDef="let row">fourth_row</td>
       </ng-container>
 
-      <sbb-header-row *sbbHeaderRowDef="['column_a']"></sbb-header-row>
-      <sbb-row *sbbRowDef="let row; columns: ['column_a']"></sbb-row>
-      <sbb-row *sbbRowDef="let row; columns: ['special_column']; when: isFourthRow"></sbb-row>
-      <sbb-footer-row *sbbFooterRowDef="['column_a']"></sbb-footer-row>
-    </sbb-table>
+      <tr sbb-header-row *sbbHeaderRowDef="['column_a']"></tr>
+      <tr sbb-row *sbbRowDef="let row; columns: ['column_a']"></tr>
+      <tr sbb-row *sbbRowDef="let row; columns: ['special_column']; when: isFourthRow"></tr>
+      <tr sbb-footer-row *sbbFooterRowDef="['column_a']"></tr>
+    </table>
   `,
   imports: [SbbTableModule],
 })
 class SbbTableWithWhenRowTestComponent {
   multiTemplateDataRows = false;
-  dataSource: FakeDataSource | null = new FakeDataSource();
+  dataSource: FakeDataSource = new FakeDataSource();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isFourthRow = (i: number, _rowData: TestData) => i === 3;
 
@@ -938,29 +938,29 @@ class SbbTableWithWhenRowTestComponent {
 
 @Component({
   template: `
-    <sbb-table [dataSource]="dataSource" sbbSort>
+    <table sbb-table [dataSource]="dataSource" sbbSort>
       <ng-container sbbColumnDef="column_a">
-        <sbb-header-cell *sbbHeaderCellDef sbb-sort-header="a"> Column A</sbb-header-cell>
-        <sbb-cell *sbbCellDef="let row"> {{ row.a }}</sbb-cell>
-        <sbb-footer-cell *sbbFooterCellDef> Footer A</sbb-footer-cell>
+        <th sbb-header-cell *sbbHeaderCellDef sbb-sort-header="a">Column A</th>
+        <td sbb-cell *sbbCellDef="let row">{{ row.a }}</td>
+        <td sbb-footer-cell *sbbFooterCellDef>Footer A</td>
       </ng-container>
 
       <ng-container sbbColumnDef="column_b">
-        <sbb-header-cell *sbbHeaderCellDef> Column B</sbb-header-cell>
-        <sbb-cell *sbbCellDef="let row"> {{ row.b }}</sbb-cell>
-        <sbb-footer-cell *sbbFooterCellDef> Footer B</sbb-footer-cell>
+        <th sbb-header-cell *sbbHeaderCellDef>Column B</th>
+        <td sbb-cell *sbbCellDef="let row">{{ row.b }}</td>
+        <td sbb-footer-cell *sbbFooterCellDef>Footer B</td>
       </ng-container>
 
       <ng-container sbbColumnDef="column_c">
-        <sbb-header-cell *sbbHeaderCellDef> Column C</sbb-header-cell>
-        <sbb-cell *sbbCellDef="let row"> {{ row.c }}</sbb-cell>
-        <sbb-footer-cell *sbbFooterCellDef> Footer C</sbb-footer-cell>
+        <th sbb-header-cell *sbbHeaderCellDef>Column C</th>
+        <td sbb-cell *sbbCellDef="let row">{{ row.c }}</td>
+        <td sbb-footer-cell *sbbFooterCellDef>Footer C</td>
       </ng-container>
 
-      <sbb-header-row *sbbHeaderRowDef="columnsToRender"></sbb-header-row>
-      <sbb-row *sbbRowDef="let row; columns: columnsToRender"></sbb-row>
-      <sbb-footer-row *sbbFooterRowDef="columnsToRender"></sbb-footer-row>
-    </sbb-table>
+      <tr sbb-header-row *sbbHeaderRowDef="columnsToRender"></tr>
+      <tr sbb-row *sbbRowDef="let row; columns: columnsToRender"></tr>
+      <tr sbb-footer-row *sbbFooterRowDef="columnsToRender"></tr>
+    </table>
 
     <sbb-paginator [pageSize]="5"></sbb-paginator>
   `,
@@ -997,25 +997,25 @@ class ArrayDataSourceSbbTableTestComponent implements AfterViewInit {
 
 @Component({
   template: `
-    <sbb-table [dataSource]="dataSource" sbbSort>
+    <table sbb-table [dataSource]="dataSource" sbbSort>
       <ng-container sbbColumnDef="column_a">
-        <sbb-header-cell *sbbHeaderCellDef sbb-sort-header="a"> Column A</sbb-header-cell>
-        <sbb-cell *sbbCellDef="let row"> {{ row.a }}</sbb-cell>
+        <th sbb-header-cell *sbbHeaderCellDef sbb-sort-header="a">Column A</th>
+        <td sbb-cell *sbbCellDef="let row">{{ row.a }}</td>
       </ng-container>
 
       <ng-container sbbColumnDef="column_b">
-        <sbb-header-cell *sbbHeaderCellDef> Column B</sbb-header-cell>
-        <sbb-cell *sbbCellDef="let row"> {{ row.b }}</sbb-cell>
+        <th sbb-header-cell *sbbHeaderCellDef>Column B</th>
+        <td sbb-cell *sbbCellDef="let row">{{ row.b }}</td>
       </ng-container>
 
       <ng-container sbbColumnDef="column_c">
-        <sbb-header-cell *sbbHeaderCellDef> Column C</sbb-header-cell>
-        <sbb-cell *sbbCellDef="let row"> {{ row.c }}</sbb-cell>
+        <th sbb-header-cell *sbbHeaderCellDef>Column C</th>
+        <td sbb-cell *sbbCellDef="let row">{{ row.c }}</td>
       </ng-container>
 
-      <sbb-header-row *sbbHeaderRowDef="columnsToRender"></sbb-header-row>
-      <sbb-row *sbbRowDef="let row; columns: columnsToRender"></sbb-row>
-    </sbb-table>
+      <tr sbb-header-row *sbbHeaderRowDef="columnsToRender"></tr>
+      <tr sbb-row *sbbRowDef="let row; columns: columnsToRender"></tr>
+    </table>
   `,
   imports: [SbbTableModule],
 })
@@ -1047,25 +1047,25 @@ class SbbTableWithSortTestComponent implements OnInit {
 
 @Component({
   template: `
-    <sbb-table [dataSource]="dataSource">
+    <table sbb-table [dataSource]="dataSource">
       <ng-container sbbColumnDef="column_a">
-        <sbb-header-cell *sbbHeaderCellDef> Column A</sbb-header-cell>
-        <sbb-cell *sbbCellDef="let row"> {{ row.a }}</sbb-cell>
+        <th sbb-header-cell *sbbHeaderCellDef>Column A</th>
+        <td sbb-cell *sbbCellDef="let row">{{ row.a }}</td>
       </ng-container>
 
       <ng-container sbbColumnDef="column_b">
-        <sbb-header-cell *sbbHeaderCellDef> Column B</sbb-header-cell>
-        <sbb-cell *sbbCellDef="let row"> {{ row.b }}</sbb-cell>
+        <th sbb-header-cell *sbbHeaderCellDef>Column B</th>
+        <td sbb-cell *sbbCellDef="let row">{{ row.b }}</td>
       </ng-container>
 
       <ng-container sbbColumnDef="column_c">
-        <sbb-header-cell *sbbHeaderCellDef> Column C</sbb-header-cell>
-        <sbb-cell *sbbCellDef="let row"> {{ row.c }}</sbb-cell>
+        <th sbb-header-cell *sbbHeaderCellDef>Column C</th>
+        <td sbb-cell *sbbCellDef="let row">{{ row.c }}</td>
       </ng-container>
 
-      <sbb-header-row *sbbHeaderRowDef="columnsToRender"></sbb-header-row>
-      <sbb-row *sbbRowDef="let row; columns: columnsToRender"></sbb-row>
-    </sbb-table>
+      <tr sbb-header-row *sbbHeaderRowDef="columnsToRender"></tr>
+      <tr sbb-row *sbbRowDef="let row; columns: columnsToRender"></tr>
+    </table>
 
     <sbb-paginator [pageSize]="5"></sbb-paginator>
   `,
@@ -1099,22 +1099,22 @@ class SbbTableWithPaginatorTestComponent implements OnInit {
 
 @Component({
   template: `
-    <sbb-table [dataSource]="dataSource">
+    <table sbb-table [dataSource]="dataSource">
       <ng-container sbbColumnDef="column_a">
-        <sbb-header-cell *sbbHeaderCellDef>Column A</sbb-header-cell>
-        <sbb-cell *sbbCellDef="let row">{{ row.a }}</sbb-cell>
+        <th sbb-header-cell *sbbHeaderCellDef>Column A</th>
+        <td sbb-cell *sbbCellDef="let row">{{ row.a }}</td>
       </ng-container>
 
-      <sbb-header-row *sbbHeaderRowDef="columnsToRender"></sbb-header-row>
+      <tr sbb-header-row *sbbHeaderRowDef="columnsToRender"></tr>
       <ng-container *sbbRowDef="let row; columns: columnsToRender">
-        <sbb-row></sbb-row>
+        <tr sbb-row></tr>
       </ng-container>
-    </sbb-table>
+    </table>
   `,
   imports: [SbbTableModule],
 })
 class TableWithNgContainerRowTestComponent {
-  dataSource: FakeDataSource | null = new FakeDataSource();
+  dataSource: FakeDataSource = new FakeDataSource();
   columnsToRender = ['column_a'];
 }
 
@@ -1135,7 +1135,7 @@ class TableWithNgContainerRowTestComponent {
   imports: [SbbTableModule],
 })
 class TableWithColumnGroupingTestComponent {
-  dataSource: FakeDataSource | null = new FakeDataSource();
+  dataSource: FakeDataSource = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b'];
 }
 
@@ -1179,7 +1179,7 @@ class TableWithWrapper {
   imports: [SbbTableModule],
 })
 class TableWithWrapperAndStickyColumnsTestComponent {
-  dataSource: FakeDataSource | null = new FakeDataSource();
+  dataSource: FakeDataSource = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
   wrapperWidth = 200;
 }
@@ -1207,7 +1207,7 @@ class TableWithWrapperAndStickyColumnsTestComponent {
   imports: [SbbTableModule],
 })
 class TableWithTwoStickyColumnsTestComponent {
-  dataSource: FakeDataSource | null = new FakeDataSource();
+  dataSource: FakeDataSource = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 }
 

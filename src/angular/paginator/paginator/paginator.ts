@@ -91,6 +91,8 @@ export class SbbPaginator {
     'page',
   );
 
+  // TODO: move following methods into lyne-elements
+
   readonly initialized: Observable<void> = from(this.#element.nativeElement.updateComplete).pipe(
     map(() => undefined),
   );
