@@ -43,7 +43,6 @@ export class SbbOption {
     return this.#element.nativeElement.selected;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('optionSelectionChange')
   protected _optionSelectionChange: (typeof this)['optionSelectionChange'] = NEVER;
   public optionSelectionChange: Observable<void> = fromEvent<void>(
@@ -51,7 +50,6 @@ export class SbbOption {
     'optionSelectionChange',
   );
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('optionSelected') protected _optionSelected: (typeof this)['optionSelected'] = NEVER;
   public optionSelected: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,

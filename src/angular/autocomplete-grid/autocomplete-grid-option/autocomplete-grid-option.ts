@@ -46,7 +46,6 @@ export class SbbAutocompleteGridOption {
     return this.#element.nativeElement.selected;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('autocompleteOptionSelectionChange')
   protected _autocompleteOptionSelectionChange: (typeof this)['autocompleteOptionSelectionChange'] =
     NEVER;
@@ -55,7 +54,6 @@ export class SbbAutocompleteGridOption {
     'autocompleteOptionSelectionChange',
   );
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('autocompleteOptionSelected')
   protected _autocompleteOptionSelected: (typeof this)['autocompleteOptionSelected'] = NEVER;
   public autocompleteOptionSelected: Observable<void> = fromEvent<void>(

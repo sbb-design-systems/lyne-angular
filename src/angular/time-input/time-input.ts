@@ -27,11 +27,9 @@ export class SbbTimeInput {
     return this.#element.nativeElement.valueAsDate;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
   public didChange: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didChange');
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('validationChange') protected _validationChange: (typeof this)['validationChange'] =
     NEVER;
   public validationChange: Observable<SbbValidationChangeEvent> =

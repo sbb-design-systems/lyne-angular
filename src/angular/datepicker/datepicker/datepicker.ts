@@ -57,22 +57,20 @@ export class SbbDatepicker<T = Date> {
     return this.#element.nativeElement.valueAsDate;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('change') protected _change: (typeof this)['change'] = NEVER;
   public change: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'change');
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('input') protected _input: (typeof this)['inputEvent'] = NEVER;
   public inputEvent: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('inputUpdated') protected _inputUpdated: (typeof this)['inputUpdated'] = NEVER;
   public inputUpdated: Observable<SbbInputUpdateEvent> = fromEvent<SbbInputUpdateEvent>(
     this.#element.nativeElement,
     'inputUpdated',
   );
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('datePickerUpdated') protected _datePickerUpdated: (typeof this)['datePickerUpdated'] =
     NEVER;
   public datePickerUpdated: Observable<void> = fromEvent<void>(
@@ -80,7 +78,6 @@ export class SbbDatepicker<T = Date> {
     'datePickerUpdated',
   );
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('validationChange') protected _validationChange: (typeof this)['validationChange'] =
     NEVER;
   public validationChange: Observable<SbbValidationChangeEvent> =

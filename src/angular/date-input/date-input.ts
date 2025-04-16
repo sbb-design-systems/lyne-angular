@@ -129,14 +129,14 @@ export class SbbDateInput<T = Date>
     return this.#element.nativeElement.name;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('input') protected _input: (typeof this)['input'] = NEVER;
   public input: Observable<InputEvent> = fromEvent<InputEvent>(
     this.#element.nativeElement,
     'input',
   );
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('change') protected _change: (typeof this)['change'] = NEVER;
   public change: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'change');
 

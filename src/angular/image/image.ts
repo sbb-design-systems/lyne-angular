@@ -115,11 +115,11 @@ export class SbbImage {
     return this.#element.nativeElement.pictureSizesConfig;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('load') protected _load: (typeof this)['load'] = NEVER;
   public load: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'load');
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('error') protected _error: (typeof this)['error'] = NEVER;
   public error: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'error');
 

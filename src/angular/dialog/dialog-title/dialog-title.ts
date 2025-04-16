@@ -81,7 +81,6 @@ export class SbbDialogTitle {
     return this.#element.nativeElement.visuallyHidden;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('requestBackAction') protected _requestBackAction: (typeof this)['requestBackAction'] =
     NEVER;
   public requestBackAction: Observable<void> = fromEvent<void>(

@@ -84,7 +84,6 @@ export class SbbPaginator {
     return this.#element.nativeElement.disabled;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('page') protected _page: (typeof this)['page'] = NEVER;
   public page: Observable<SbbPaginatorPageEventDetails> = fromEvent<SbbPaginatorPageEventDetails>(
     this.#element.nativeElement,

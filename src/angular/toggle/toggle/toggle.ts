@@ -58,7 +58,7 @@ export class SbbToggle extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.value;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('change') protected _change: (typeof this)['change'] = NEVER;
   public change: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'change');
 
