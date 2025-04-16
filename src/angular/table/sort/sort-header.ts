@@ -166,7 +166,7 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
     defaultOptions?: SbbSortDefaultOptions,
   ) {
     // Note that we use a string token for the `_columnDef`, because the value is provided both by
-    // `angular/table` and `cdk/table` and we can't have the CDK depending on SBB Angular,
+    // `angular/table` and `cdk/table` and we can't have the CDK depending on Lyne Angular,
     // and we want to avoid having the sort header depending on the CDK table because
     // of this single reference.
     if (!_sort && (typeof ngDevMode === 'undefined' || ngDevMode)) {

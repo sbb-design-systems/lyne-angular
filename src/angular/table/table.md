@@ -142,7 +142,7 @@ the data array that should be rendered. The table will call `disconnect` when th
 which may be the right time to clean up any subscriptions that may have been registered in the
 `connect` method.
 
-Although SBB Angular provides a ready-made table `DataSource` class, `SbbTableDataSource`, you may
+Although Lyne Angular provides a ready-made table `DataSource` class, `SbbTableDataSource`, you may
 want to create your own custom `DataSource` class for more complex use cases. This can be done by
 extending the abstract `DataSource` class with a custom `DataSource` class that then implements the
 `connect` and `disconnect` methods. For use cases where the custom `DataSource` must also inherit
@@ -173,7 +173,7 @@ For example, you can add sorting and pagination to the table by using SbbSort an
 mutating the data provided to the table according to their outputs.
 
 To simplify the use case of having a table that can sort, paginate, and filter an array of data,
-the SBB Angular library comes with a `SbbTableDataSource` that has already implemented
+the Lyne Angular library comes with a `SbbTableDataSource` that has already implemented
 the logic of determining what rows should be rendered according to the current table state. To add
 these feature to the table, check out their respective sections below.
 
@@ -302,7 +302,7 @@ directives to consistently apply `sortActionDescription` and announce sort state
 
 #### Filtering
 
-SBB Angular does not provide a specific component to be used for filtering the `SbbTable`
+Lyne Angular does not provide a specific component to be used for filtering the `SbbTable`
 since there is no single common approach to adding a filter UI to table data.
 
 A general strategy is to add an input where users can type in a filter string and listen to this
@@ -325,7 +325,7 @@ directive.
 
 #### Selection
 
-Right now there is no formal support for adding a selection UI to the table, but SBB Angular
+Right now there is no formal support for adding a selection UI to the table, but Lyne Angular
 does offer the right components and pieces to set this up. The following steps are one solution but
 it is not the only way to incorporate row selection in your table.
 
