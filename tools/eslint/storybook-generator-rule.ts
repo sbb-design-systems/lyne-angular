@@ -13,7 +13,8 @@ function getPairedModuleFromManifest(fileName: string): JavaScriptModule | undef
     : elementsManifest;
   const name = fileName
     .split('/')
-    .at(-1)!
+    .slice(-2)
+    .join('/')
     .replace(/.stories.ts$/, '.js');
   return manifest.modules.find(
     (module) =>
@@ -43,7 +44,7 @@ const generateStructure = (pkg: Package, projectPath: string) => {
         (d) => d.kind === 'class' && 'customElement' in d && d.customElement,
       )
     ) {
-      const directoryPath = join(projectPath, module.path.replace(/.js$/, ''));
+      const directoryPath = dirname(join(projectPath, module.path));
       const moduleName = basename(directoryPath);
       const modulePath = join(directoryPath, `${moduleName}.stories.ts`);
       if (!existsSync(directoryPath)) {

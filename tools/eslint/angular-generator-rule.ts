@@ -27,7 +27,7 @@ function getPairedModuleFromManifest(fileName: string): JavaScriptModule | undef
   const manifest = fileName.includes('angular-experimental')
     ? elementsExperimentalManifest
     : elementsManifest;
-  const name = fileName.split('/').at(-1)!.replace(/.ts$/, '.js');
+  const name = fileName.split('/').slice(-2).join('/').replace(/.ts$/, '.js');
   return manifest.modules.find(
     (module) =>
       module.declarations &&
@@ -65,7 +65,7 @@ const generateStructure = (pkg: Package, projectPath: string) => {
         (d) => d.kind === 'class' && 'customElement' in d && d.customElement,
       )
     ) {
-      const directoryPath = join(projectPath, module.path.replace(/.js$/, ''));
+      const directoryPath = dirname(join(projectPath, module.path));
       const moduleName = basename(directoryPath);
       const modulePath = join(directoryPath, `${moduleName}.ts`);
       if (!existsSync(directoryPath)) {
