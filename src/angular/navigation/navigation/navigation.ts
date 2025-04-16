@@ -55,4 +55,12 @@ export class SbbNavigation {
   public close(): void {
     return this.#element.nativeElement.close();
   }
+
+  public get closeButton(): HTMLElement | null {
+    return this.#element.nativeElement.closeButton;
+  }
+
+  public get navigationContent(): HTMLElement | null {
+    return this.#element.nativeElement.navigationContent;
+  }
 }
