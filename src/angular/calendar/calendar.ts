@@ -77,7 +77,6 @@ export class SbbCalendar<T = Date> {
     return this.#element.nativeElement.orientation;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('dateSelected') protected _dateSelected: (typeof this)['dateSelected'] = NEVER;
   public dateSelected: Observable<T> = fromEvent<T>(this.#element.nativeElement, 'dateSelected');
 

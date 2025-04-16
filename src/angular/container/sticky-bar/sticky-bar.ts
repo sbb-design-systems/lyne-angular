@@ -19,22 +19,18 @@ export class SbbStickyBar {
     return this.#element.nativeElement.color;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('willStick') protected _willStick: (typeof this)['willStick'] = NEVER;
   public willStick: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willStick');
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('didStick') protected _didStick: (typeof this)['didStick'] = NEVER;
   public didStick: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didStick');
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('willUnstick') protected _willUnstick: (typeof this)['willUnstick'] = NEVER;
   public willUnstick: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,
     'willUnstick',
   );
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('didUnstick') protected _didUnstick: (typeof this)['didUnstick'] = NEVER;
   public didUnstick: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didUnstick');
 

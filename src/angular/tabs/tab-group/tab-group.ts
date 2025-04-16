@@ -40,7 +40,6 @@ export class SbbTabGroup {
     return this.#element.nativeElement.initialSelectedIndex;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
   public didChange: Observable<SbbTabChangedEventDetails> = fromEvent<SbbTabChangedEventDetails>(
     this.#element.nativeElement,

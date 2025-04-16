@@ -70,7 +70,6 @@ export class SbbExpansionPanelHeader {
     return this.#element.nativeElement.type;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('toggleExpanded') protected _toggleExpanded: (typeof this)['toggleExpanded'] = NEVER;
   public toggleExpanded: Observable<void> = fromEvent<void>(
     this.#element.nativeElement,

@@ -97,18 +97,17 @@ export class SbbFileSelector extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.name;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('fileChanged') protected _fileChanged: (typeof this)['fileChanged'] = NEVER;
   public fileChanged: Observable<readonly File[]> = fromEvent<readonly File[]>(
     this.#element.nativeElement,
     'fileChanged',
   );
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('change') protected _change: (typeof this)['change'] = NEVER;
   public change: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'change');
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('input') protected _input: (typeof this)['input'] = NEVER;
   public input: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'input');
 

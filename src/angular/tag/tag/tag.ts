@@ -105,15 +105,14 @@ export class SbbTag extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.type;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('input') protected _input: (typeof this)['input'] = NEVER;
   public input: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
   public didChange: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didChange');
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename, @angular-eslint/no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('change') protected _change: (typeof this)['change'] = NEVER;
   public change: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'change');
 

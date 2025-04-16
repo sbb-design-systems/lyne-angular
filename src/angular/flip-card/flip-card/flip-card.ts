@@ -20,7 +20,6 @@ export class SbbFlipCard {
     return this.#element.nativeElement.accessibilityLabel;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('flip') protected _flip: (typeof this)['flip'] = NEVER;
   public flip: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'flip');
 

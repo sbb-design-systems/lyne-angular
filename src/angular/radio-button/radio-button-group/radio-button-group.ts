@@ -95,7 +95,6 @@ export class SbbRadioButtonGroup extends SbbControlValueAccessorMixin(class {}) 
     return this.#element.nativeElement.disabled;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
   public didChange: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didChange');
 
