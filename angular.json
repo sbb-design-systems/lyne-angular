@@ -84,11 +84,12 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:web-test-runner",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "src/angular/tsconfig.spec.json",
             "include": ["src/angular/**/*.spec.ts", "src/angular/**/*.d.ts"],
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "styles": ["node_modules/@sbb-esta/lyne-elements/standard-theme.css"]
           }
         },
         "lint": {
@@ -122,14 +123,15 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:web-test-runner",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "src/angular-experimental/tsconfig.spec.json",
             "include": [
               "src/angular-experimental/**/*.spec.ts",
               "src/angular-experimental/**/*.d.ts"
             ],
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "styles": ["node_modules/@sbb-esta/lyne-elements/standard-theme.css"]
           }
         },
         "lint": {
