@@ -195,7 +195,7 @@ const withPaginatorTemplate = ({ columns, datasource, size, negative }: Args) =>
     </table>
   </sbb-table-wrapper>
   <div style="padding-block-start: var(--sbb-spacing-fixed-2x)">
-    <sbb-paginator [length]=datasource.data.length [pageSize]=5 [page-size-options]="[5,10,20]"></sbb-paginator>
+    <sbb-paginator [length]=datasource.data.length [pageSize]=5 [pageSizeOptions]="[5,10,20]"></sbb-paginator>
   </div>
 `;
 
