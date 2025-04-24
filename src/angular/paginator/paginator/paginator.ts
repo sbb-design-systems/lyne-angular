@@ -5,19 +5,22 @@ import {
   Input,
   NgZone,
   numberAttribute,
+  OnInit,
   Output,
+  signal,
 } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbPaginatorElement } from '@sbb-esta/lyne-elements/paginator/paginator.js';
-import { from, fromEvent, map, type Observable, NEVER } from 'rxjs';
+import { combineLatestWith, from, fromEvent, map, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/paginator/paginator.js';
 
 @Directive({
   selector: 'sbb-paginator',
 })
-export class SbbPaginator {
+export class SbbPaginator implements OnInit {
   #element: ElementRef<SbbPaginatorElement> = inject(ElementRef<SbbPaginatorElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -86,59 +89,57 @@ export class SbbPaginator {
   }
 
   @Output('page') protected _page: (typeof this)['page'] = NEVER;
-  public page: Observable<SbbPaginatorPageEventDetails> = fromEvent<SbbPaginatorPageEventDetails>(
-    this.#element.nativeElement,
-    'page',
-  );
+  public page: Observable<CustomEvent<SbbPaginatorPageEventDetails>> = fromEvent<
+    CustomEvent<SbbPaginatorPageEventDetails>
+  >(this.#element.nativeElement, 'page');
 
-  // TODO: move following methods into lyne-elements
+  ngOnInit(): void {
+    this.#initialized.set(true);
+  }
 
-  readonly initialized: Observable<void> = from(this.#element.nativeElement.updateComplete).pipe(
-    map(() => undefined),
-  );
+  #initialized = signal(false);
+
+  readonly initialized: Observable<void> = from(this.#element.nativeElement.updateComplete)
+    .pipe(combineLatestWith(toObservable(this.#initialized)))
+    .pipe(map(() => undefined));
 
   /** Advances to the next page if it exists. */
   nextPage(): void {
-    this.pageIndex = this.pageIndex + 1;
+    this.#element.nativeElement.nextPage();
   }
 
   /** Move back to the previous page if it exists. */
   previousPage(): void {
-    this.pageIndex = this.pageIndex - 1;
+    this.#element.nativeElement.previousPage();
   }
 
   /** Move to the first page if not already there. */
   firstPage(): void {
-    this.pageIndex = 0;
+    this.#element.nativeElement.firstPage();
   }
 
   /** Move to the last page if not already there. */
   lastPage(): void {
-    this.pageIndex = this.numberOfPages() - 1;
+    this.#element.nativeElement.lastPage();
   }
 
   /** Move to a specific page index. */
   selectPage(index: number): void {
-    this.pageIndex = index;
+    this.#element.nativeElement.selectPage(index);
   }
 
   /** Whether there is a previous page. */
   hasPreviousPage(): boolean {
-    return this.pageIndex >= 1 && this.pageSize !== 0;
+    return this.#element.nativeElement.hasPreviousPage();
   }
 
   /** Whether there is a next page. */
   hasNextPage(): boolean {
-    const maxPageIndex = this.numberOfPages() - 1;
-    return this.pageIndex < maxPageIndex && this.pageSize !== 0;
+    return this.#element.nativeElement.hasNextPage();
   }
 
   /** Calculate the number of pages */
   numberOfPages(): number {
-    if (!this.pageSize) {
-      return 0;
-    }
-
-    return Math.ceil(this.length / this.pageSize);
+    return this.#element.nativeElement.numberOfPages();
   }
 }
