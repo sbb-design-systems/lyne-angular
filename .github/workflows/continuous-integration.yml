@@ -50,10 +50,10 @@ jobs:
       - name: Install browser dependencies
         run: yarn playwright install-deps
       - name: Run tests
-        run: yarn test
+        run: yarn test-ci
         env:
           NODE_ENV: production
-      - name: Assert no new snapshots (run `yarn test --ci` if this fails)
+      - name: Assert no new snapshots (run `yarn test-ci` if this fails)
         run: git diff --exit-code
       - name: Store coverage
         if: github.event_name == 'pull_request'
