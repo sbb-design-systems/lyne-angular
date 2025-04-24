@@ -4,24 +4,28 @@ import {
   _VIEW_REPEATER_STRATEGY,
 } from '@angular/cdk/collections';
 import {
-  CdkTable,
+  _COALESCED_STYLE_SCHEDULER,
+  _CoalescedStyleScheduler,
   CDK_TABLE,
+  CdkTable,
   DataRowOutlet,
   FooterRowOutlet,
   HeaderRowOutlet,
   NoDataRowOutlet,
   STICKY_POSITIONING_LISTENER,
-  _CoalescedStyleScheduler,
-  _COALESCED_STYLE_SCHEDULER,
 } from '@angular/cdk/table';
 import {
   ChangeDetectionStrategy,
   Component,
   Directive,
+  ElementRef,
+  inject,
   OnDestroy,
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { debounceTime, Subject } from 'rxjs';
 
 /**
  * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with
@@ -95,4 +99,30 @@ export class SbbTable<T> extends CdkTable<T> implements OnInit, OnDestroy {
 
   /** Overrides the need to add position: sticky on every sticky cell element in `CdkTable`. */
   protected override needsPositionStickyOnElement: boolean = false;
+
+  #host = inject(ElementRef);
+  #observer = new ResizeObserver(() => this.#sizeChange.next());
+  #sizeChange = new Subject<void>();
+
+  constructor() {
+    super();
+
+    // If more than one column is sticky, the left offset is calculated at a wrong
+    // time by cdk and sticky columns can get overlapped.
+    // This workaround calculates sticky styles whenever the size of the table changes.
+    // See also https://github.com/angular/components/issues/15885.
+    this.#sizeChange
+      .pipe(debounceTime(150), takeUntilDestroyed())
+      .subscribe(() => this.updateStickyColumnStyles());
+  }
+
+  override ngOnInit() {
+    super.ngOnInit();
+    this.#observer.observe(this.#host.nativeElement);
+  }
+
+  override ngOnDestroy() {
+    super.ngOnDestroy();
+    this.#observer.unobserve(this.#host.nativeElement);
+  }
 }
