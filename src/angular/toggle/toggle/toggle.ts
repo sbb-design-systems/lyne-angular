@@ -60,7 +60,10 @@ export class SbbToggle extends SbbControlValueAccessorMixin(class {}) {
 
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('change') protected _change: (typeof this)['change'] = NEVER;
-  public change: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'change');
+  public change: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'change',
+  );
 
   public get options(): SbbToggleOptionElement[] {
     return this.#element.nativeElement.options;

@@ -39,5 +39,8 @@ export class SbbAlertGroup {
   }
 
   @Output('empty') protected _empty: (typeof this)['empty'] = NEVER;
-  public empty: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'empty');
+  public empty: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'empty',
+  );
 }

@@ -71,7 +71,7 @@ export class SbbExpansionPanelHeader {
   }
 
   @Output('toggleExpanded') protected _toggleExpanded: (typeof this)['toggleExpanded'] = NEVER;
-  public toggleExpanded: Observable<void> = fromEvent<void>(
+  public toggleExpanded: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
     this.#element.nativeElement,
     'toggleExpanded',
   );

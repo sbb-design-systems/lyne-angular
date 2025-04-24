@@ -14,10 +14,9 @@ export class SbbStep {
   #element: ElementRef<SbbStepElement> = inject(ElementRef<SbbStepElement>);
 
   @Output('validate') protected _validate: (typeof this)['validate'] = NEVER;
-  public validate: Observable<SbbStepValidateEventDetails> = fromEvent<SbbStepValidateEventDetails>(
-    this.#element.nativeElement,
-    'validate',
-  );
+  public validate: Observable<CustomEvent<SbbStepValidateEventDetails>> = fromEvent<
+    CustomEvent<SbbStepValidateEventDetails>
+  >(this.#element.nativeElement, 'validate');
 
   public get label(): SbbStepLabelElement | null {
     return this.#element.nativeElement.label;

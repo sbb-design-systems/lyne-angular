@@ -98,7 +98,10 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
   }
 
   @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
-  public didChange: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didChange');
+  public didChange: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'didChange',
+  );
 
   public get type(): string {
     return this.#element.nativeElement.type;
