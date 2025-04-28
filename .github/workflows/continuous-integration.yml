@@ -39,7 +39,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    needs: lint
+    needs: build
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -50,10 +50,10 @@ jobs:
       - name: Install browser dependencies
         run: yarn playwright install-deps
       - name: Run tests
-        run: yarn test-ci
+        run: ng test --no-watch --no-progress --code-coverage --browsers=ChromeHeadlessCI
         env:
           NODE_ENV: production
-      - name: Assert no new snapshots (run `yarn test-ci` if this fails)
+      - name: Assert no new snapshots (run `yarn build && ng test --no-watch --no-progress --code-coverage --browsers=ChromeHeadlessCI` if this fails)
         run: git diff --exit-code
       - name: Store coverage
         if: github.event_name == 'pull_request'
