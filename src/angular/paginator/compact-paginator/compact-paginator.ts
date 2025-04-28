@@ -5,15 +5,14 @@ import {
   Input,
   NgZone,
   numberAttribute,
-  OnInit,
+  type OnInit,
   Output,
-  signal,
 } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbCompactPaginatorElement } from '@sbb-esta/lyne-elements/paginator/compact-paginator.js';
-import { combineLatestWith, from, fromEvent, map, NEVER, type Observable } from 'rxjs';
+import { AsyncSubject, forkJoin, fromEvent, map, NEVER, type Observable } from 'rxjs';
+
+import { booleanAttribute } from '../../core';
 
 import '@sbb-esta/lyne-elements/paginator/compact-paginator.js';
 
@@ -23,6 +22,12 @@ import '@sbb-esta/lyne-elements/paginator/compact-paginator.js';
 export class SbbCompactPaginator implements OnInit {
   #element: ElementRef<SbbCompactPaginatorElement> = inject(ElementRef<SbbCompactPaginatorElement>);
   #ngZone: NgZone = inject(NgZone);
+  #initialized = new AsyncSubject<void>();
+
+  readonly initialized: Observable<void> = forkJoin([
+    this.#element.nativeElement.updateComplete,
+    this.#initialized,
+  ]).pipe(map(() => undefined));
 
   @Input({ transform: numberAttribute })
   public set length(value: number) {
@@ -85,16 +90,6 @@ export class SbbCompactPaginator implements OnInit {
     CustomEvent<SbbPaginatorPageEventDetails>
   >(this.#element.nativeElement, 'page');
 
-  ngOnInit(): void {
-    this.#initialized.set(true);
-  }
-
-  #initialized = signal(false);
-
-  readonly initialized: Observable<void> = from(this.#element.nativeElement.updateComplete)
-    .pipe(combineLatestWith(toObservable(this.#initialized)))
-    .pipe(map(() => undefined));
-
   /** Advances to the next page if it exists. */
   nextPage(): void {
     this.#element.nativeElement.nextPage();
@@ -133,5 +128,10 @@ export class SbbCompactPaginator implements OnInit {
   /** Calculate the number of pages */
   numberOfPages(): number {
     return this.#element.nativeElement.numberOfPages();
+  }
+
+  ngOnInit(): void {
+    this.#initialized.next();
+    this.#initialized.complete();
   }
 }
