@@ -16,10 +16,10 @@ This is the repository for the Angular wrapper for the Lyne Web Components at
 
 ## 🔗 Packages
 
-| Package                               | Description                                             |
-| ------------------------------------- | ------------------------------------------------------- |
-| `@sbb-esta/lyne-angular`              | Angular wrappers for `@lyne-esta/elements`              |
-| `@sbb-esta/lyne-angular-experimental` | Angular wrappers for `@lyne-esta/elements-experimental` |
+| Package                               | Description                                                 |
+| ------------------------------------- | ----------------------------------------------------------- |
+| `@sbb-esta/lyne-angular`              | Angular wrappers for `@sbb-esta/lyne-elements`              |
+| `@sbb-esta/lyne-angular-experimental` | Angular wrappers for `@sbb-esta/lyne-elements-experimental` |
 
 - [NPM Packages](https://www.npmjs.com/search?q=%40sbb-esta%2Flyne-)
 
