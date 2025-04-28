@@ -1,8 +1,7 @@
 import type { CollectionViewer } from '@angular/cdk/collections';
 import { DataSource } from '@angular/cdk/collections';
 import { CdkTableModule } from '@angular/cdk/table';
-import type { ElementRef } from '@angular/core';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,7 +17,7 @@ import { map } from 'rxjs/operators';
 import { SbbTableModule } from '../table.module';
 
 import type { SbbSortState } from './sort';
-import { SbbSort, SBB_SORT_DEFAULT_OPTIONS } from './sort';
+import { SBB_SORT_DEFAULT_OPTIONS, SbbSort } from './sort';
 import type { SbbSortDirection } from './sort-direction';
 import {
   getSortDuplicateSortableIdError,
@@ -662,14 +661,13 @@ class SimpleSbbSortApp {
   disabledColumnSort = false;
   disableAllSort = false;
   secondColumnDescription = 'Sort second column';
+  elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
   @ViewChild(SbbSort) sbbSort!: SbbSort;
   @ViewChild('defaultA') defaultA!: SbbSortHeader;
   @ViewChild('defaultB') defaultB!: SbbSortHeader;
   @ViewChild('overrideStart') overrideStart!: SbbSortHeader;
   @ViewChild('overrideDisableClear') overrideDisableClear!: SbbSortHeader;
-
-  constructor(public elementRef: ElementRef<HTMLElement>) {}
 
   sort(id: SimpleSbbSortAppColumnIds) {
     this.dispatchMouseEvent(id, 'click');
@@ -831,11 +829,10 @@ class SbbSortWithoutExplicitInputs {
 
   active!: string;
   start: SbbSortDirection = 'asc';
+  elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
   @ViewChild(SbbSort) sbbSort!: SbbSort;
   @ViewChild('defaultA') defaultA!: SbbSortHeader;
-
-  constructor(public elementRef: ElementRef<HTMLElement>) {}
 
   sort(id: SimpleSbbSortAppColumnIds) {
     this.dispatchMouseEvent(id, 'click');
