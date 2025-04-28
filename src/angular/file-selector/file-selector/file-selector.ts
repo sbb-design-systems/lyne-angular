@@ -98,10 +98,9 @@ export class SbbFileSelector extends SbbControlValueAccessorMixin(class {}) {
   }
 
   @Output('fileChanged') protected _fileChanged: (typeof this)['fileChanged'] = NEVER;
-  public fileChanged: Observable<readonly File[]> = fromEvent<readonly File[]>(
-    this.#element.nativeElement,
-    'fileChanged',
-  );
+  public fileChanged: Observable<CustomEvent<Readonly<File>[]>> = fromEvent<
+    CustomEvent<Readonly<File>[]>
+  >(this.#element.nativeElement, 'fileChanged');
 
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('change') protected _change: (typeof this)['change'] = NEVER;

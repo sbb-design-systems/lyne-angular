@@ -45,13 +45,13 @@ export class SbbOption {
 
   @Output('optionSelectionChange')
   protected _optionSelectionChange: (typeof this)['optionSelectionChange'] = NEVER;
-  public optionSelectionChange: Observable<void> = fromEvent<void>(
+  public optionSelectionChange: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
     this.#element.nativeElement,
     'optionSelectionChange',
   );
 
   @Output('optionSelected') protected _optionSelected: (typeof this)['optionSelected'] = NEVER;
-  public optionSelected: Observable<void> = fromEvent<void>(
+  public optionSelected: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
     this.#element.nativeElement,
     'optionSelected',
   );

@@ -49,14 +49,13 @@ export class SbbAutocompleteGridOption {
   @Output('autocompleteOptionSelectionChange')
   protected _autocompleteOptionSelectionChange: (typeof this)['autocompleteOptionSelectionChange'] =
     NEVER;
-  public autocompleteOptionSelectionChange: Observable<void> = fromEvent<void>(
-    this.#element.nativeElement,
-    'autocompleteOptionSelectionChange',
-  );
+  public autocompleteOptionSelectionChange: Observable<CustomEvent<void>> = fromEvent<
+    CustomEvent<void>
+  >(this.#element.nativeElement, 'autocompleteOptionSelectionChange');
 
   @Output('autocompleteOptionSelected')
   protected _autocompleteOptionSelected: (typeof this)['autocompleteOptionSelected'] = NEVER;
-  public autocompleteOptionSelected: Observable<void> = fromEvent<void>(
+  public autocompleteOptionSelected: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
     this.#element.nativeElement,
     'autocompleteOptionSelected',
   );

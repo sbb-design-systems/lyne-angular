@@ -78,16 +78,23 @@ export class SbbChipGroup extends SbbControlValueAccessorMixin(class {}) {
 
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('change') protected _change: (typeof this)['change'] = NEVER;
-  public change: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'change');
+  public change: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'change',
+  );
 
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('input') protected _input: (typeof this)['input'] = NEVER;
-  public input: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
+  public input: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'input',
+  );
 
   @Output('chipInputTokenEnd') protected _chipInputTokenEnd: (typeof this)['chipInputTokenEnd'] =
     NEVER;
-  public chipInputTokenEnd: Observable<SbbChipInputTokenEndEventDetails> =
-    fromEvent<SbbChipInputTokenEndEventDetails>(this.#element.nativeElement, 'chipInputTokenEnd');
+  public chipInputTokenEnd: Observable<CustomEvent<SbbChipInputTokenEndEventDetails>> = fromEvent<
+    CustomEvent<SbbChipInputTokenEndEventDetails>
+  >(this.#element.nativeElement, 'chipInputTokenEnd');
 
   public get form(): HTMLFormElement | null {
     return this.#element.nativeElement.form;

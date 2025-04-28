@@ -70,20 +70,26 @@ export class SbbPopover {
   }
 
   @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;
-  public willOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willOpen');
+  public willOpen: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'willOpen',
+  );
 
   @Output('didOpen') protected _didOpen: (typeof this)['didOpen'] = NEVER;
-  public didOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didOpen');
+  public didOpen: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'didOpen',
+  );
 
   @Output('willClose') protected _willClose: (typeof this)['willClose'] = NEVER;
-  public willClose: Observable<{ closeTarget: HTMLElement }> = fromEvent<{
-    closeTarget: HTMLElement;
-  }>(this.#element.nativeElement, 'willClose');
+  public willClose: Observable<CustomEvent<{ closeTarget: HTMLElement }>> = fromEvent<
+    CustomEvent<{ closeTarget: HTMLElement }>
+  >(this.#element.nativeElement, 'willClose');
 
   @Output('didClose') protected _didClose: (typeof this)['didClose'] = NEVER;
-  public didClose: Observable<{ closeTarget: HTMLElement }> = fromEvent<{
-    closeTarget: HTMLElement;
-  }>(this.#element.nativeElement, 'didClose');
+  public didClose: Observable<CustomEvent<{ closeTarget: HTMLElement }>> = fromEvent<
+    CustomEvent<{ closeTarget: HTMLElement }>
+  >(this.#element.nativeElement, 'didClose');
 
   public get isOpen(): boolean {
     return this.#element.nativeElement.isOpen;

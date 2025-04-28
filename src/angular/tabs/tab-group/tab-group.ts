@@ -41,10 +41,9 @@ export class SbbTabGroup {
   }
 
   @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
-  public didChange: Observable<SbbTabChangedEventDetails> = fromEvent<SbbTabChangedEventDetails>(
-    this.#element.nativeElement,
-    'didChange',
-  );
+  public didChange: Observable<CustomEvent<SbbTabChangedEventDetails>> = fromEvent<
+    CustomEvent<SbbTabChangedEventDetails>
+  >(this.#element.nativeElement, 'didChange');
 
   public disableTab(tabIndex: number): void {
     return this.#element.nativeElement.disableTab(tabIndex);

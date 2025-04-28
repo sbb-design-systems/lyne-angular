@@ -20,19 +20,28 @@ export class SbbStickyBar {
   }
 
   @Output('willStick') protected _willStick: (typeof this)['willStick'] = NEVER;
-  public willStick: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willStick');
+  public willStick: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'willStick',
+  );
 
   @Output('didStick') protected _didStick: (typeof this)['didStick'] = NEVER;
-  public didStick: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didStick');
+  public didStick: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'didStick',
+  );
 
   @Output('willUnstick') protected _willUnstick: (typeof this)['willUnstick'] = NEVER;
-  public willUnstick: Observable<void> = fromEvent<void>(
+  public willUnstick: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
     this.#element.nativeElement,
     'willUnstick',
   );
 
   @Output('didUnstick') protected _didUnstick: (typeof this)['didUnstick'] = NEVER;
-  public didUnstick: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didUnstick');
+  public didUnstick: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'didUnstick',
+  );
 
   public stick(): void {
     return this.#element.nativeElement.stick();
