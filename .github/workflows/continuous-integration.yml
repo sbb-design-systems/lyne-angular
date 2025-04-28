@@ -50,7 +50,7 @@ jobs:
       - name: Install browser dependencies
         run: yarn playwright install-deps
       - name: Run tests
-        run: ng test --no-watch --no-progress --code-coverage --browsers=ChromeHeadlessCI
+        run: yarn ng test --no-watch --no-progress --code-coverage --browsers=ChromeHeadlessCI
         env:
           NODE_ENV: production
       - name: Assert no new snapshots (run `yarn build && ng test --no-watch --no-progress --code-coverage --browsers=ChromeHeadlessCI` if this fails)
