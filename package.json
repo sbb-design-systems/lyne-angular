@@ -34,8 +34,8 @@
     "@angular/platform-browser-dynamic": "19.2.6",
     "@angular/router": "19.2.6",
     "@sbb-esta/lyne-design-tokens": "1.4.0",
-    "@sbb-esta/lyne-elements": "2.7.0",
-    "@sbb-esta/lyne-elements-experimental": "2.7.0",
+    "@sbb-esta/lyne-elements": "2.8.0",
+    "@sbb-esta/lyne-elements-experimental": "2.8.0",
     "rxjs": "7.8.2",
     "tslib": "2.8.1",
     "zone.js": "0.15.0"
