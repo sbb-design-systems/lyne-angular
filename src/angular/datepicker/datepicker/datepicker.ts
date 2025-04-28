@@ -59,29 +59,35 @@ export class SbbDatepicker<T = Date> {
 
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('change') protected _change: (typeof this)['change'] = NEVER;
-  public change: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'change');
+  public change: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'change',
+  );
 
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('input') protected _input: (typeof this)['inputEvent'] = NEVER;
-  public inputEvent: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
+  public inputEvent: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'input',
+  );
 
   @Output('inputUpdated') protected _inputUpdated: (typeof this)['inputUpdated'] = NEVER;
-  public inputUpdated: Observable<SbbInputUpdateEvent> = fromEvent<SbbInputUpdateEvent>(
-    this.#element.nativeElement,
-    'inputUpdated',
-  );
+  public inputUpdated: Observable<CustomEvent<SbbInputUpdateEvent>> = fromEvent<
+    CustomEvent<SbbInputUpdateEvent>
+  >(this.#element.nativeElement, 'inputUpdated');
 
   @Output('datePickerUpdated') protected _datePickerUpdated: (typeof this)['datePickerUpdated'] =
     NEVER;
-  public datePickerUpdated: Observable<void> = fromEvent<void>(
+  public datePickerUpdated: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
     this.#element.nativeElement,
     'datePickerUpdated',
   );
 
   @Output('validationChange') protected _validationChange: (typeof this)['validationChange'] =
     NEVER;
-  public validationChange: Observable<SbbValidationChangeEvent> =
-    fromEvent<SbbValidationChangeEvent>(this.#element.nativeElement, 'validationChange');
+  public validationChange: Observable<CustomEvent<SbbValidationChangeEvent>> = fromEvent<
+    CustomEvent<SbbValidationChangeEvent>
+  >(this.#element.nativeElement, 'validationChange');
 
   public get inputElement(): HTMLInputElement | SbbDateInputElement<T> | null {
     return this.#element.nativeElement.inputElement;

@@ -86,10 +86,9 @@ export class SbbPaginator {
   }
 
   @Output('page') protected _page: (typeof this)['page'] = NEVER;
-  public page: Observable<SbbPaginatorPageEventDetails> = fromEvent<SbbPaginatorPageEventDetails>(
-    this.#element.nativeElement,
-    'page',
-  );
+  public page: Observable<CustomEvent<SbbPaginatorPageEventDetails>> = fromEvent<
+    CustomEvent<SbbPaginatorPageEventDetails>
+  >(this.#element.nativeElement, 'page');
 
   // TODO: move following methods into lyne-elements
 

@@ -287,7 +287,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         for (const member of publicEvents) {
           const hasPropWithSameName = publicProperties.find((prop) => prop.name === member.name);
           const memberNameVariable = hasPropWithSameName ? `${member.name}Event` : member.name;
-          const type = member.type?.text.replace(/CustomEvent<([^>]+)>/g, '$1') ?? 'void';
+          const type = member.type?.text ?? 'Event';
           if (
             classDeclaration.body.body.every(
               (n) =>
@@ -302,11 +302,10 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               data: { property: member.name },
               fix: (fixer) => {
                 const endOfBody = classDeclaration.body.range[1] - 1;
-                let eslintDisableRule =
-                  '// eslint-disable-next-line @angular-eslint/no-output-rename';
-                if (NATIVE_EVENTS_NAME.includes(member.name)) {
-                  eslintDisableRule += `, @angular-eslint/no-output-native`;
-                }
+                const eslintDisableRule = NATIVE_EVENTS_NAME.includes(member.name)
+                  ? `// eslint-disable-next-line @angular-eslint/no-output-native`
+                  : '';
+
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
@@ -335,6 +334,29 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
   public ${memberNameVariable}: Observable<${type}> = fromEvent<${type}>(this.#element.nativeElement, '${member.name}');\n`,
                 );
               },
+            });
+          }
+
+          // Check if output types are corresponding to manifest
+          if (
+            classDeclaration.body.body.every(
+              (n) =>
+                n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                context.sourceCode.getText(n.key) !== memberNameVariable ||
+                !context.sourceCode
+                  .getText(n)
+                  .replace(/\s+/g, '')
+                  .includes(`Observable<${type}>`.replace(/\s+/g, '')) ||
+                !context.sourceCode
+                  .getText(n)
+                  .replace(/\s+/g, '')
+                  .includes(`fromEvent<${type}>`.replace(/\s+/g, '')),
+            )
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularWrongOutputType',
+              data: { property: member.name },
             });
           }
         }
@@ -568,6 +590,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
       angularMissingInput: 'Missing input for property {{ property }}',
       angularMissingOutput: 'Missing output for property {{ property }}',
       angularMissingMethod: 'Missing output for method {{ method }}',
+      angularWrongOutputType: 'Output type differy from manifest for property {{ property }}',
     },
     fixable: 'code',
     type: 'problem',
