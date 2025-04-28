@@ -21,7 +21,10 @@ export class SbbFlipCard {
   }
 
   @Output('flip') protected _flip: (typeof this)['flip'] = NEVER;
-  public flip: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'flip');
+  public flip: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'flip',
+  );
 
   public get summary(): SbbFlipCardSummaryElement | null {
     return this.#element.nativeElement.summary;

@@ -28,10 +28,14 @@ export class SbbTimeInput {
   }
 
   @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
-  public didChange: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didChange');
+  public didChange: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'didChange',
+  );
 
   @Output('validationChange') protected _validationChange: (typeof this)['validationChange'] =
     NEVER;
-  public validationChange: Observable<SbbValidationChangeEvent> =
-    fromEvent<SbbValidationChangeEvent>(this.#element.nativeElement, 'validationChange');
+  public validationChange: Observable<CustomEvent<SbbValidationChangeEvent>> = fromEvent<
+    CustomEvent<SbbValidationChangeEvent>
+  >(this.#element.nativeElement, 'validationChange');
 }

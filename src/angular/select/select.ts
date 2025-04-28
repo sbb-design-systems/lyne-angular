@@ -92,23 +92,41 @@ export class SbbSelect extends SbbControlValueAccessorMixin(class {}) {
 
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('change') protected _change: (typeof this)['change'] = NEVER;
-  public change: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'change');
+  public change: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'change',
+  );
 
   // eslint-disable-next-line @angular-eslint/no-output-native
   @Output('input') protected _input: (typeof this)['input'] = NEVER;
-  public input: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'input');
+  public input: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'input',
+  );
 
   @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;
-  public willOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willOpen');
+  public willOpen: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'willOpen',
+  );
 
   @Output('didOpen') protected _didOpen: (typeof this)['didOpen'] = NEVER;
-  public didOpen: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didOpen');
+  public didOpen: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'didOpen',
+  );
 
   @Output('willClose') protected _willClose: (typeof this)['willClose'] = NEVER;
-  public willClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'willClose');
+  public willClose: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'willClose',
+  );
 
   @Output('didClose') protected _didClose: (typeof this)['didClose'] = NEVER;
-  public didClose: Observable<void> = fromEvent<void>(this.#element.nativeElement, 'didClose');
+  public didClose: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+    this.#element.nativeElement,
+    'didClose',
+  );
 
   public get type(): string {
     return this.#element.nativeElement.type;

@@ -83,7 +83,7 @@ export class SbbDialogTitle {
 
   @Output('requestBackAction') protected _requestBackAction: (typeof this)['requestBackAction'] =
     NEVER;
-  public requestBackAction: Observable<void> = fromEvent<void>(
+  public requestBackAction: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
     this.#element.nativeElement,
     'requestBackAction',
   );

@@ -15,13 +15,13 @@ import {
 } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SbbSort, SbbSortState } from '../sort/sort';
+import type { SbbSort } from '../sort/sort';
 
 /**
  * Interface that matches the required API parts of the SbbPaginator.
  */
 export interface SbbTableDataSourcePaginator {
-  page: Observable<SbbPaginatorPageEventDetails>;
+  page: Observable<CustomEvent<SbbPaginatorPageEventDetails>>;
   pageIndex: number;
   initialized: Observable<void>;
   pageSize: number;
@@ -277,15 +277,11 @@ export class _SbbTableDataSource<
     // The `sortChange` and `pageChange` acts as a signal to the combineLatests below so that the
     // pipeline can progress to the next step. Note that the value from these streams are not used,
     // they purely act as a signal to progress in the pipeline.
-    const sortChange: Observable<SbbSortState | null | void> = this._sort
-      ? (merge(this._sort.sortChange, this._sort.initialized) as Observable<SbbSortState | void>)
+    const sortChange = this._sort
+      ? merge(this._sort.sortChange, this._sort.initialized)
       : observableOf(null);
-    const pageChange: Observable<SbbPaginatorPageEventDetails | null | void> = this._paginator
-      ? (merge(
-          this._paginator.page,
-          this._internalPageChanges,
-          this._paginator.initialized,
-        ) as Observable<SbbPaginatorPageEventDetails | void>)
+    const pageChange = this._paginator
+      ? merge(this._paginator.page, this._internalPageChanges, this._paginator.initialized)
       : observableOf(null);
     const dataStream = this._data;
     // Watch for base data or filter changes to provide a filtered set of data.
