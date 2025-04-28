@@ -1,19 +1,15 @@
 import { DataSource } from '@angular/cdk/collections';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  flushMicrotasks,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
+import type { AfterViewInit, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import type { ComponentFixture } from '@angular/core/testing';
+import { fakeAsync, flushMicrotasks, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SbbPaginator } from '@sbb-esta/lyne-angular/paginator/paginator';
 import { SbbTableWrapper } from '@sbb-esta/lyne-angular/table/table-wrapper';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import type { Observable } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 import { SbbSort } from './sort/sort';
 import { SbbSortHeader } from './sort/sort-header';

@@ -1,31 +1,24 @@
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
-import { CdkColumnDef } from '@angular/cdk/table';
+import type { CdkColumnDef } from '@angular/cdk/table';
+import type { AfterViewInit, InjectionToken, OnDestroy, OnInit } from '@angular/core';
 import {
-  AfterViewInit,
   booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
-  Inject,
+  inject,
   Input,
-  OnDestroy,
-  OnInit,
-  Optional,
   ViewEncapsulation,
 } from '@angular/core';
-import { merge, Subscription } from 'rxjs';
+import type { Subscription } from 'rxjs';
+import { merge } from 'rxjs';
 
-import {
-  SbbSort,
-  SbbSortable,
-  SbbSortDefaultOptions,
-  SbbSortHeaderArrowPosition,
-  SBB_SORT_DEFAULT_OPTIONS,
-} from './sort';
+import type { SbbSortable, SbbSortHeaderArrowPosition } from './sort';
+import { SBB_SORT_DEFAULT_OPTIONS, SbbSort } from './sort';
 import { sbbSortAnimations } from './sort-animations';
-import { SbbSortDirection } from './sort-direction';
+import type { SbbSortDirection } from './sort-direction';
 import { getSortHeaderNotContainedWithinSortError } from './sort-errors';
 
 /** Variable replaced at build time that indicates whether the app is in development mode. */
@@ -90,13 +83,13 @@ interface SbbSortHeaderColumnDef {
   ],
 })
 export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewInit {
-  private _rerenderSubscription!: Subscription;
+  #rerenderSubscription!: Subscription;
 
   /**
    * The element with role="button" inside this component's view. We need this
    * in order to apply a description with AriaDescriber.
    */
-  private _sortButton!: HTMLElement;
+  #sortButton!: HTMLElement;
 
   /**
    * Flag set to true when the indicator should be displayed while the sort is not active. Used to
@@ -137,54 +130,58 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
    */
   @Input()
   get sortActionDescription(): string {
-    return this._sortActionDescription;
+    return this.#sortActionDescription;
   }
   set sortActionDescription(value: string) {
-    this._updateSortActionDescription(value);
+    this.#updateSortActionDescription(value);
   }
   // Default the action description to "Sort" because it's better than nothing.
   // Without a description, the button's label comes from the sort header text content,
   // which doesn't give any indication that it performs a sorting operation.
-  private _sortActionDescription: string = 'Sort';
+  #sortActionDescription: string = 'Sort';
 
   /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
   @Input({ transform: booleanAttribute })
   disableClear!: boolean;
 
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    // `SbbSort` is not optionally injected, but just asserted manually w/ better error.
-    @Optional() public _sort: SbbSort,
-    @Inject('SBB_SORT_HEADER_COLUMN_DEF') @Optional() private _columnDef: SbbSortHeaderColumnDef,
-    // Also Inject MAT_SORT_HEADER_COLUMN_DEF to provide full cdkTable support
-    @Inject('MAT_SORT_HEADER_COLUMN_DEF') @Optional() private _columnDefCdk: CdkColumnDef,
-    private _focusMonitor: FocusMonitor,
-    private _elementRef: ElementRef<HTMLElement>,
-    private _ariaDescriber: AriaDescriber,
-    @Optional()
-    @Inject(SBB_SORT_DEFAULT_OPTIONS)
-    defaultOptions?: SbbSortDefaultOptions,
-  ) {
-    // Note that we use a string token for the `_columnDef`, because the value is provided both by
-    // `angular/table` and `cdk/table` and we can't have the CDK depending on Lyne Angular,
-    // and we want to avoid having the sort header depending on the CDK table because
-    // of this single reference.
-    if (!_sort && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+  #changeDetectorRef = inject(ChangeDetectorRef);
+  #sort = inject(SbbSort, { optional: true });
+
+  // Note that we use a string token for the `_columnDef`, because the value is provided both by
+  // `angular/table` and `cdk/table` and we can't have the CDK depending on Lyne Angular,
+  // and we want to avoid having the sort header depending on the CDK table because
+  // of this single reference.
+  #columnDef = inject(
+    'SBB_SORT_HEADER_COLUMN_DEF' as unknown as InjectionToken<SbbSortHeaderColumnDef>,
+    {
+      optional: true,
+    },
+  );
+  #columnDefCdk = inject('MAT_SORT_HEADER_COLUMN_DEF' as unknown as InjectionToken<CdkColumnDef>, {
+    optional: true,
+  });
+  #focusMonitor = inject(FocusMonitor);
+  #elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  #ariaDescriber = inject(AriaDescriber);
+  #sortOptions = inject(SBB_SORT_DEFAULT_OPTIONS, { optional: true });
+
+  constructor() {
+    if (!this.#sort && (typeof ngDevMode === 'undefined' || ngDevMode)) {
       throw getSortHeaderNotContainedWithinSortError();
     }
 
-    if (defaultOptions?.arrowPosition) {
-      this.arrowPosition = defaultOptions?.arrowPosition;
+    if (this.#sortOptions?.arrowPosition) {
+      this.arrowPosition = this.#sortOptions?.arrowPosition;
     }
 
-    this._handleStateChanges();
+    this.#handleStateChanges();
   }
 
   ngOnInit() {
-    if (!this.id && this._columnDef) {
-      this.id = this._columnDef.name;
-    } else if (!this.id && this._columnDefCdk) {
-      this.id = this._columnDefCdk.name;
+    if (!this.id && this.#columnDef) {
+      this.id = this.#columnDef.name;
+    } else if (!this.id && this.#columnDefCdk) {
+      this.id = this.#columnDefCdk.name;
     }
 
     // Initialize the direction of the arrow and set the view state to be immediately that state.
@@ -193,28 +190,28 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
       toState: this._isSorted() ? 'active' : this._arrowDirection,
     });
 
-    this._sort.register(this);
+    this.#sort?.register(this);
 
-    this._sortButton = this._elementRef.nativeElement.querySelector('.sbb-sort-header-container')!;
-    this._updateSortActionDescription(this._sortActionDescription);
+    this.#sortButton = this.#elementRef.nativeElement.querySelector('.sbb-sort-header-container')!;
+    this.#updateSortActionDescription(this.#sortActionDescription);
   }
 
   ngAfterViewInit() {
     // We use the focus monitor because we also want to style
     // things differently based on the focus origin.
-    this._focusMonitor.monitor(this._elementRef, true).subscribe((origin) => {
+    this.#focusMonitor.monitor(this.#elementRef, true).subscribe((origin) => {
       const newState = !!origin;
       if (newState !== this._showIndicatorHint) {
         this._setIndicatorHintVisible(newState);
-        this._changeDetectorRef.markForCheck();
+        this.#changeDetectorRef.markForCheck();
       }
     });
   }
 
   ngOnDestroy() {
-    this._focusMonitor.stopMonitoring(this._elementRef);
-    this._sort.deregister(this);
-    this._rerenderSubscription.unsubscribe();
+    this.#focusMonitor.stopMonitoring(this.#elementRef);
+    this.#sort?.deregister(this);
+    this.#rerenderSubscription.unsubscribe();
   }
 
   /**
@@ -256,7 +253,7 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
 
   /** Triggers the sort on this sort header and removes the indicator hint. */
   _toggleOnInteraction() {
-    this._sort.sort(this);
+    this.#sort?.sort(this);
 
     // Do not show the animation if the header was already shown in the right position.
     if (this._viewState.toState === 'hint' || this._viewState.toState === 'active') {
@@ -266,7 +263,7 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
 
   _handleClick() {
     if (!this._isDisabled()) {
-      this._sort.sort(this);
+      this.#sort?.sort(this);
     }
   }
 
@@ -280,8 +277,8 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
   /** Whether this SbbSortHeader is currently sorted in either ascending or descending order. */
   _isSorted() {
     return (
-      this._sort.active === this.id &&
-      (this._sort.direction === 'asc' || this._sort.direction === 'desc')
+      this.#sort?.active === this.id &&
+      (this.#sort.direction === 'asc' || this.#sort.direction === 'desc')
     );
   }
 
@@ -307,11 +304,12 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
    * only be changed once the arrow displays again (hint or activation).
    */
   _updateArrowDirection() {
-    this._arrowDirection = this._isSorted() ? this._sort.direction : this.start || this._sort.start;
+    this._arrowDirection =
+      (this._isSorted() ? this.#sort?.direction : this.start || this.#sort?.start) ?? 'asc';
   }
 
   _isDisabled() {
-    return this._sort.disabled || this.disabled;
+    return this.#sort?.disabled || this.disabled;
   }
 
   /**
@@ -325,7 +323,7 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
       return 'none';
     }
 
-    return this._sort.direction === 'asc' ? 'ascending' : 'descending';
+    return this.#sort?.direction === 'asc' ? 'ascending' : 'descending';
   }
 
   /** Whether the arrow inside the sort header should be rendered. */
@@ -333,25 +331,28 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
     return !this._isDisabled() || this._isSorted();
   }
 
-  private _updateSortActionDescription(newDescription: string) {
+  #updateSortActionDescription(newDescription: string) {
     // We use AriaDescriber for the sort button instead of setting an `aria-label` because some
     // screen readers (notably VoiceOver) will read both the column header *and* the button's label
     // for every *cell* in the table, creating a lot of unnecessary noise.
 
     // If _sortButton is undefined, the component hasn't been initialized yet so there's
     // nothing to update in the DOM.
-    if (this._sortButton) {
+    if (this.#sortButton) {
       // removeDescription will no-op if there is no existing message.
-      this._ariaDescriber.removeDescription(this._sortButton, this._sortActionDescription);
-      this._ariaDescriber.describe(this._sortButton, newDescription);
+      this.#ariaDescriber.removeDescription(this.#sortButton, this.#sortActionDescription);
+      this.#ariaDescriber.describe(this.#sortButton, newDescription);
     }
 
-    this._sortActionDescription = newDescription;
+    this.#sortActionDescription = newDescription;
   }
 
   /** Handles changes in the sorting state. */
-  private _handleStateChanges() {
-    this._rerenderSubscription = merge(this._sort.sortChange, this._sort._stateChanges).subscribe(
+  #handleStateChanges() {
+    if (!this.#sort) {
+      return;
+    }
+    this.#rerenderSubscription = merge(this.#sort.sortChange, this.#sort._stateChanges).subscribe(
       () => {
         if (this._isSorted()) {
           this._updateArrowDirection();
@@ -371,7 +372,7 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
           this._setAnimationTransitionState({ fromState: 'active', toState: this._arrowDirection });
         }
 
-        this._changeDetectorRef.markForCheck();
+        this.#changeDetectorRef.markForCheck();
       },
     );
   }

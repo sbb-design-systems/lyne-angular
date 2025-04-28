@@ -3,16 +3,9 @@ import { _isNumberValue } from '@angular/cdk/coercion';
 import { DataSource } from '@angular/cdk/table';
 import type { SbbCompactPaginator } from '@sbb-esta/lyne-angular/paginator/compact-paginator';
 import type { SbbPaginator } from '@sbb-esta/lyne-angular/paginator/paginator';
-import { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import {
-  BehaviorSubject,
-  combineLatest,
-  merge,
-  Observable,
-  of as observableOf,
-  Subject,
-  Subscription,
-} from 'rxjs';
+import type { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, merge, of as observableOf, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import type { SbbSort } from '../sort/sort';
@@ -52,16 +45,16 @@ export class _SbbTableDataSource<
   P extends SbbTableDataSourcePaginator = SbbTableDataSourcePaginator,
 > extends DataSource<T> {
   /** Stream that emits when a new data array is set on the data source. */
-  private readonly _data: BehaviorSubject<T[]>;
+  readonly #data: BehaviorSubject<T[]>;
 
   /** Stream emitting render data to the table (depends on ordered data changes). */
-  private readonly _renderData = new BehaviorSubject<T[]>([]);
+  readonly #renderData = new BehaviorSubject<T[]>([]);
 
   /** Stream that emits when a new filter string is set on the data source. */
-  private readonly _filter = new BehaviorSubject<TFilter>(null!);
+  readonly #filter = new BehaviorSubject<TFilter>(null!);
 
   /** Used to react to internal changes of the paginator that are made by the data source itself. */
-  private readonly _internalPageChanges = new Subject<void>();
+  readonly #internalPageChanges = new Subject<void>();
 
   /**
    * Subscription to the changes that should trigger an update to the table's rendered rows, such
@@ -79,11 +72,11 @@ export class _SbbTableDataSource<
 
   /** Array of data that should be rendered by the table, where each object represents one row. */
   get data(): T[] {
-    return this._data.value;
+    return this.#data.value;
   }
   set data(data: T[]) {
     data = Array.isArray(data) ? data : [];
-    this._data.next(data);
+    this.#data.next(data);
     // Normally the `filteredData` is updated by the re-render
     // subscription, but that won't happen if it's inactive.
     if (!this._renderChangesSubscription) {
@@ -96,10 +89,10 @@ export class _SbbTableDataSource<
    * data objects match to this filter string, provide a custom function for filterPredicate.
    */
   get filter(): TFilter {
-    return this._filter.value;
+    return this.#filter.value;
   }
   set filter(filter: TFilter) {
-    this._filter.next(filter);
+    this.#filter.next(filter);
     // Normally the `filteredData` is updated by the re-render
     // subscription, but that won't happen if it's inactive.
     if (!this._renderChangesSubscription) {
@@ -112,13 +105,13 @@ export class _SbbTableDataSource<
    * emitted by the SbbSort will trigger an update to the table's rendered data.
    */
   get sort(): SbbSort | null {
-    return this._sort ?? null;
+    return this.#sort ?? null;
   }
   set sort(sort: SbbSort | null) {
-    this._sort = sort;
+    this.#sort = sort;
     this._updateChangeSubscription();
   }
-  private _sort?: SbbSort | null;
+  #sort?: SbbSort | null;
 
   /**
    * Instance of the SbbPaginator component used by the table to control what page of the data is
@@ -131,13 +124,13 @@ export class _SbbTableDataSource<
    * initialized before assigning it to this data source.
    */
   get paginator(): P | null {
-    return this._paginator ?? null;
+    return this.#paginator ?? null;
   }
   set paginator(paginator: P | null) {
-    this._paginator = paginator;
+    this.#paginator = paginator;
     this._updateChangeSubscription();
   }
-  private _paginator?: P | null;
+  #paginator?: P | null;
 
   /**
    * Data accessor function that is used for accessing data properties for sorting through
@@ -261,7 +254,7 @@ export class _SbbTableDataSource<
 
   constructor(initialData: T[] = []) {
     super();
-    this._data = new BehaviorSubject<T[]>(initialData);
+    this.#data = new BehaviorSubject<T[]>(initialData);
     this._updateChangeSubscription();
   }
 
@@ -277,15 +270,15 @@ export class _SbbTableDataSource<
     // The `sortChange` and `pageChange` acts as a signal to the combineLatests below so that the
     // pipeline can progress to the next step. Note that the value from these streams are not used,
     // they purely act as a signal to progress in the pipeline.
-    const sortChange = this._sort
-      ? merge(this._sort.sortChange, this._sort.initialized)
+    const sortChange = this.#sort
+      ? merge(this.#sort.sortChange, this.#sort.initialized)
       : observableOf(null);
-    const pageChange = this._paginator
-      ? merge(this._paginator.page, this._internalPageChanges, this._paginator.initialized)
+    const pageChange = this.#paginator
+      ? merge(this.#paginator.page, this.#internalPageChanges, this.#paginator.initialized)
       : observableOf(null);
-    const dataStream = this._data;
+    const dataStream = this.#data;
     // Watch for base data or filter changes to provide a filtered set of data.
-    const filteredData = combineLatest([dataStream, this._filter]).pipe(
+    const filteredData = combineLatest([dataStream, this.#filter]).pipe(
       map(([data]) => this._filterData(data)),
     );
     // Watch for filtered data or sort changes to provide an ordered set of data.
@@ -299,7 +292,7 @@ export class _SbbTableDataSource<
     // Watched for paged data changes and send the result to the table to render.
     this._renderChangesSubscription?.unsubscribe();
     this._renderChangesSubscription = paginatedData.subscribe((data) =>
-      this._renderData.next(data),
+      this.#renderData.next(data),
     );
   }
 
@@ -376,7 +369,7 @@ export class _SbbTableDataSource<
 
           // Since the paginator only emits after user-generated changes,
           // we need our own stream so we know to should re-render the data.
-          this._internalPageChanges.next();
+          this.#internalPageChanges.next();
         }
       }
     });
@@ -391,7 +384,7 @@ export class _SbbTableDataSource<
       this._updateChangeSubscription();
     }
 
-    return this._renderData;
+    return this.#renderData;
   }
 
   /**

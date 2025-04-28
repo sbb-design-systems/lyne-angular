@@ -1,5 +1,5 @@
 import { SbbStep } from '@sbb-esta/lyne-angular/stepper/step';
-import { Meta } from '@storybook/angular';
+import type { Meta } from '@storybook/angular';
 
 const meta: Meta = {
   title: 'elements/sbb-step/sbb-step',

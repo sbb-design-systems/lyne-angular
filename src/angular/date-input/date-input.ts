@@ -1,18 +1,11 @@
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
-import {
-  AbstractControl,
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
-  ValidationErrors,
-  Validator,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import type { AbstractControl, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { readConfig } from '@sbb-esta/lyne-elements/core/config.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
-import { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
+import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 import { fromEvent, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/date-input.js';
@@ -161,31 +154,31 @@ export class SbbDateInput<T = Date>
   }
 
   /** The form control validator for whether the input parses. */
-  private _parseValidator: ValidatorFn = (): ValidationErrors | null =>
+  #parseValidator: ValidatorFn = (): ValidationErrors | null =>
     this.validity.badInput ? { sbbDateParse: { text: this.#element.nativeElement.value } } : null;
 
   /** The form control validator for the min date. */
-  private _minValidator: ValidatorFn = (): ValidationErrors | null =>
+  #minValidator: ValidatorFn = (): ValidationErrors | null =>
     this.validity.rangeUnderflow
       ? { sbbDateMin: { min: this.min, actual: this.valueAsDate } }
       : null;
 
   /** The form control validator for the max date. */
-  private _maxValidator: ValidatorFn = (): ValidationErrors | null =>
+  #maxValidator: ValidatorFn = (): ValidationErrors | null =>
     this.validity.rangeOverflow
       ? { sbbDateMax: { max: this.max, actual: this.valueAsDate } }
       : null;
 
   /** The form control validator for the date filter. */
-  private _filterValidator: ValidatorFn = (): ValidationErrors | null =>
+  #filterValidator: ValidatorFn = (): ValidationErrors | null =>
     this.validity.sbbDateFilter ? { sbbDateFilter: true } : null;
 
   /** The combined form control validator for this input. */
-  private _validator: ValidatorFn | null = Validators.compose([
-    this._parseValidator,
-    this._minValidator,
-    this._maxValidator,
-    this._filterValidator,
+  #validator: ValidatorFn | null = Validators.compose([
+    this.#parseValidator,
+    this.#minValidator,
+    this.#maxValidator,
+    this.#filterValidator,
   ]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -205,7 +198,7 @@ export class SbbDateInput<T = Date>
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    return this._validator?.(control) ?? null;
+    return this.#validator?.(control) ?? null;
   }
 
   public focus(options: FocusOptions): void {

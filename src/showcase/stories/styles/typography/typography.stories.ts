@@ -1,5 +1,6 @@
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import type { Meta } from '@storybook/angular';
+import { moduleMetadata } from '@storybook/angular';
 
 const text = `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
   labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.

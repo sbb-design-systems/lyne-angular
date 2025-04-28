@@ -1,6 +1,6 @@
 import { SbbTab } from '@sbb-esta/lyne-angular/tabs/tab';
-import { Args, Meta } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const text: InputType = {
   control: {

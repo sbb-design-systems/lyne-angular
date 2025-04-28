@@ -3,8 +3,9 @@ import { SbbPopover } from '@sbb-esta/lyne-angular/popover/popover';
 import { SbbPopoverTrigger } from '@sbb-esta/lyne-angular/popover/popover-trigger';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 const form: InputType = {
   control: false,

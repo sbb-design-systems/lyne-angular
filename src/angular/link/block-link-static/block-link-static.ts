@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbBlockLinkStaticElement } from '@sbb-esta/lyne-elements/link/block-link-static.js';
-import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
+import type { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 import '@sbb-esta/lyne-elements/link/block-link-static.js';
 
 @Directive({

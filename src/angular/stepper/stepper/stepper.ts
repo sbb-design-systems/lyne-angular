@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
+import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
 import type { SbbStepperElement } from '@sbb-esta/lyne-elements/stepper/stepper.js';
 import '@sbb-esta/lyne-elements/stepper/stepper.js';
 

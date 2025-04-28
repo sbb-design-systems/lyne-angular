@@ -1,7 +1,10 @@
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import type { CollectionViewer } from '@angular/cdk/collections';
+import { DataSource } from '@angular/cdk/collections';
 import { CdkTableModule } from '@angular/cdk/table';
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import type { ElementRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import type { ComponentFixture } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   createFakeEvent,
@@ -9,20 +12,21 @@ import {
   dispatchMouseEvent,
   wrappedErrorMessage,
 } from '@sbb-esta/lyne-angular/core/testing';
-import { Observable } from 'rxjs';
+import type { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { SbbTableModule } from '../table.module';
 
-import { SbbSort, SbbSortState, SBB_SORT_DEFAULT_OPTIONS } from './sort';
-import { SbbSortDirection } from './sort-direction';
+import type { SbbSortState } from './sort';
+import { SbbSort, SBB_SORT_DEFAULT_OPTIONS } from './sort';
+import type { SbbSortDirection } from './sort-direction';
 import {
   getSortDuplicateSortableIdError,
   getSortHeaderMissingIdError,
   getSortHeaderNotContainedWithinSortError,
   getSortInvalidDirectionError,
 } from './sort-errors';
-import { SbbSortHeader } from './sort-header';
+import type { SbbSortHeader } from './sort-header';
 
 describe('SbbSort', () => {
   describe('without default options', () => {

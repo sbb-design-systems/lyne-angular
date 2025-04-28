@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { SbbPanelSize } from '@sbb-esta/lyne-elements/core/mixins.js';
+import type { SbbPanelSize } from '@sbb-esta/lyne-elements/core/mixins.js';
 import type { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-panel.js';
-import { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button.js';
+import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button.js';
 import { fromEvent, type Observable, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/radio-button/radio-button-panel.js';

@@ -1,19 +1,17 @@
+import type { OnChanges, OnDestroy, OnInit } from '@angular/core';
 import {
   booleanAttribute,
   Directive,
   EventEmitter,
-  Inject,
+  inject,
   InjectionToken,
   Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Optional,
   Output,
 } from '@angular/core';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
+import type { Observable } from 'rxjs';
+import { ReplaySubject, Subject } from 'rxjs';
 
-import { SbbSortDirection } from './sort-direction';
+import type { SbbSortDirection } from './sort-direction';
 import {
   getSortDuplicateSortableIdError,
   getSortHeaderMissingIdError,
@@ -67,7 +65,7 @@ export const SBB_SORT_DEFAULT_OPTIONS = new InjectionToken<SbbSortDefaultOptions
   host: { class: 'sbb-sort' },
 })
 export class SbbSort implements OnInit, OnChanges, OnDestroy {
-  private _initializedStream = new ReplaySubject<void>(1);
+  #initializedStream = new ReplaySubject<void>(1);
 
   /** Collection of all registered sortables that this directive manages. */
   sortables: Map<string, SbbSortable> = new Map<string, SbbSortable>();
@@ -90,7 +88,7 @@ export class SbbSort implements OnInit, OnChanges, OnDestroy {
   /** The sort direction of the currently active SbbSortable. */
   @Input('sbbSortDirection')
   get direction(): SbbSortDirection {
-    return this._direction;
+    return this.#direction;
   }
   set direction(direction: SbbSortDirection) {
     if (
@@ -101,9 +99,9 @@ export class SbbSort implements OnInit, OnChanges, OnDestroy {
     ) {
       throw getSortInvalidDirectionError(direction);
     }
-    this._direction = direction;
+    this.#direction = direction;
   }
-  private _direction: SbbSortDirection = '';
+  #direction: SbbSortDirection = '';
 
   /**
    * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
@@ -117,13 +115,9 @@ export class SbbSort implements OnInit, OnChanges, OnDestroy {
     new EventEmitter<SbbSortState>();
 
   /** Emits when the paginator is initialized. */
-  initialized: Observable<void> = this._initializedStream;
+  initialized: Observable<void> = this.#initializedStream;
 
-  constructor(
-    @Optional()
-    @Inject(SBB_SORT_DEFAULT_OPTIONS)
-    private _defaultOptions?: SbbSortDefaultOptions,
-  ) {}
+  #defaultOptions = inject(SBB_SORT_DEFAULT_OPTIONS, { optional: true });
 
   /**
    * Register function to be used by the contained SbbSortables. Adds the SbbSortable to the
@@ -171,7 +165,7 @@ export class SbbSort implements OnInit, OnChanges, OnDestroy {
 
     // Get the sort direction cycle with the potential sortable overrides.
     const disableClear =
-      sortable?.disableClear ?? this.disableClear ?? !!this._defaultOptions?.disableClear;
+      sortable?.disableClear ?? this.disableClear ?? !!this.#defaultOptions?.disableClear;
     const sortDirectionCycle = getSortDirectionCycle(sortable.start || this.start, disableClear);
 
     // Get and return the next direction in the cycle
@@ -183,7 +177,7 @@ export class SbbSort implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-    this._initializedStream.next();
+    this.#initializedStream.next();
   }
 
   ngOnChanges() {
@@ -192,7 +186,7 @@ export class SbbSort implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy() {
     this._stateChanges.complete();
-    this._initializedStream.complete();
+    this.#initializedStream.complete();
   }
 }
 

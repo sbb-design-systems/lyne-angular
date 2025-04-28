@@ -1,4 +1,4 @@
-import { ModifierKeys } from '@angular/cdk/testing';
+import type { ModifierKeys } from '@angular/cdk/testing';
 
 import {
   createFakeEvent,

@@ -4,8 +4,9 @@ import { SbbTabGroup } from '@sbb-esta/lyne-angular/tabs/tab-group';
 import { SbbTabLabel } from '@sbb-esta/lyne-angular/tabs/tab-label';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 const label: InputType = {
   control: {

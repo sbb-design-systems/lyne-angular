@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
-import { AbstractConstructor } from '@sbb-esta/lyne-elements/core/mixins.js';
+import type { AbstractConstructor } from '@sbb-esta/lyne-elements/core/mixins.js';
 
 /**
  * Patches the behavior of the Angular RouterLink.

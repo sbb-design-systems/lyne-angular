@@ -1,12 +1,8 @@
-import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CdkTextColumn } from '@angular/cdk/table';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 
 import { SbbCell, SbbCellDef, SbbColumnDef, SbbHeaderCell, SbbHeaderCellDef } from './cell';
 
@@ -47,16 +43,16 @@ export class SbbTextColumn<T> extends CdkTextColumn<T> implements OnInit {
    */
   @Input()
   get groupWithNext(): boolean {
-    return this._groupWithNext;
+    return this.#groupWithNext;
   }
   set groupWithNext(value: BooleanInput) {
-    this._groupWithNext = coerceBooleanProperty(value);
+    this.#groupWithNext = coerceBooleanProperty(value);
 
     // With Ivy, inputs can be initialized before static query results are
     // available. In that case, we defer the synchronization until "ngOnInit" fires.
-    this._syncColumnDefGroupWithNext();
+    this.#syncColumnDefGroupWithNext();
   }
-  private _groupWithNext: boolean = false;
+  #groupWithNext: boolean = false;
 
   @Input()
   sticky: boolean = false;
@@ -66,13 +62,13 @@ export class SbbTextColumn<T> extends CdkTextColumn<T> implements OnInit {
 
   override ngOnInit() {
     super.ngOnInit();
-    this._syncColumnDefGroupWithNext();
+    this.#syncColumnDefGroupWithNext();
   }
 
   /** Synchronizes the column definition groupWithNext with the text column groupWithNext. */
-  private _syncColumnDefGroupWithNext() {
+  #syncColumnDefGroupWithNext() {
     if (this.columnDef) {
-      (this.columnDef as SbbColumnDef).groupWithNext = this._groupWithNext;
+      (this.columnDef as SbbColumnDef).groupWithNext = this.#groupWithNext;
     }
   }
 }

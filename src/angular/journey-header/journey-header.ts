@@ -5,7 +5,7 @@ import type {
   SbbJourneyHeaderElement,
 } from '@sbb-esta/lyne-elements/journey-header.js';
 import '@sbb-esta/lyne-elements/journey-header.js';
-import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 @Directive({
   selector: 'sbb-journey-header',

@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
+import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
 import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';

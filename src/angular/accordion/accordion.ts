@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAccordionElement } from '@sbb-esta/lyne-elements/accordion.js';
-import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 import '@sbb-esta/lyne-elements/accordion.js';
 

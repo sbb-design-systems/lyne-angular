@@ -1,7 +1,7 @@
+import type { AnimationTriggerMetadata } from '@angular/animations';
 import {
   animate,
   animateChild,
-  AnimationTriggerMetadata,
   keyframes,
   query,
   state,

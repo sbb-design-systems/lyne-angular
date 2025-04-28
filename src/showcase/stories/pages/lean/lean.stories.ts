@@ -18,7 +18,8 @@ import { SbbRadioButtonGroup } from '@sbb-esta/lyne-angular/radio-button/radio-b
 import { SbbSelect } from '@sbb-esta/lyne-angular/select';
 import { SbbSignet } from '@sbb-esta/lyne-angular/signet';
 import { SbbTableWrapper } from '@sbb-esta/lyne-angular/table/table-wrapper';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import type { Meta } from '@storybook/angular';
+import { moduleMetadata } from '@storybook/angular';
 
 export const leanExample = {};
 

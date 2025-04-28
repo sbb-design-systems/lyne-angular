@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
+import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbLinkButtonElement } from '@sbb-esta/lyne-elements/link/link-button.js';
-import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
+import type { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 
 import '@sbb-esta/lyne-elements/link/link-button.js';
 

@@ -1,5 +1,5 @@
 import { SbbExpansionPanelContent } from '@sbb-esta/lyne-angular/expansion-panel/expansion-panel-content';
-import { Meta } from '@storybook/angular';
+import type { Meta } from '@storybook/angular';
 
 const meta: Meta = {
   title: 'elements/sbb-accordion/sbb-expansion-panel-content',

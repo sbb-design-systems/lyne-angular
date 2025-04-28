@@ -2,8 +2,9 @@ import { SbbAutocompleteGridButton } from '@sbb-esta/lyne-angular/autocomplete-g
 import { SbbAutocompleteGridCell } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-cell';
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 const negative: InputType = {
   control: {

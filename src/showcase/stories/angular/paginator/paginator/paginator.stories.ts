@@ -1,6 +1,7 @@
 import { SbbPaginator } from '@sbb-esta/lyne-angular/paginator/paginator';
-import { Args, argsToTemplate, Meta } from '@storybook/angular';
-import { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate } from '@storybook/angular';
+import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 const pageSizeOptionsValues = [[], [10, 20, 50, 100], [10, 50, 100, 500]];
 const pageSizeOptions: InputType = {

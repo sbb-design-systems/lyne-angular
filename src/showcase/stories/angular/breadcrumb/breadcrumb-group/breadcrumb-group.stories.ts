@@ -1,8 +1,9 @@
 import { SbbBreadcrumb } from '@sbb-esta/lyne-angular/breadcrumb/breadcrumb';
 import { SbbBreadcrumbGroup } from '@sbb-esta/lyne-angular/breadcrumb/breadcrumb-group';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const numberOfBreadcrumbs: InputType = { control: { type: 'number' } };
 

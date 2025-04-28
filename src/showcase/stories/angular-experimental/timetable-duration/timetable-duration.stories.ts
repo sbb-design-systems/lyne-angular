@@ -1,6 +1,7 @@
 import { SbbTimetableDuration } from '@sbb-esta/lyne-angular-experimental/timetable-duration';
-import { Args, argsToTemplate, Meta } from '@storybook/angular';
-import { ArgTypes } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate } from '@storybook/angular';
+import type { ArgTypes } from '@storybook/types';
 
 const argTypes: ArgTypes = {
   config: { control: 'object' },

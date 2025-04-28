@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
+import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
-import { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
+import type { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
 import '@sbb-esta/lyne-elements/stepper/step-label.js';
 
 @Directive({

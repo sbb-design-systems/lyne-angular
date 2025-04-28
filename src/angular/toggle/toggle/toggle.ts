@@ -1,7 +1,7 @@
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle/toggle-option.js';
+import type { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle/toggle-option.js';
 import type { SbbToggleElement } from '@sbb-esta/lyne-elements/toggle/toggle.js';
 import { fromEvent, type Observable, NEVER } from 'rxjs';
 

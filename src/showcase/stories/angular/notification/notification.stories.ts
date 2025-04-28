@@ -2,8 +2,9 @@ import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-butt
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { SbbNotification } from '@sbb-esta/lyne-angular/notification';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const type: InputType = {
   control: {

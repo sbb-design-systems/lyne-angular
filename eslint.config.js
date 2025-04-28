@@ -56,6 +56,7 @@ export default config(
       ],
       '@angular-eslint/no-inputs-metadata-property': 'off',
       '@angular-eslint/no-output-rename': 'off',
+      '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-inferrable-types': 'off',
       'import-x/first': 'error',
       'import-x/named': 'off',

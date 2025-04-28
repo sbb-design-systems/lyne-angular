@@ -1,6 +1,7 @@
 import { SbbSidebarTitle } from '@sbb-esta/lyne-angular/sidebar/sidebar-title';
-import { Args, argsToTemplate, Meta } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const level: InputType = {
   control: {

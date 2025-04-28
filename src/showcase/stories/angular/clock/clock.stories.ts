@@ -1,7 +1,8 @@
 import { SbbClock } from '@sbb-esta/lyne-angular/clock';
 import type { SbbTime } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import { Args, argsToTemplate, Meta } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const hours: InputType = { control: { type: 'number', min: 0, max: 23 } };
 const minutes: InputType = { control: { type: 'number', min: 0, max: 59 } };

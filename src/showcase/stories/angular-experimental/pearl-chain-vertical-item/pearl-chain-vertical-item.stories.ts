@@ -1,7 +1,8 @@
 import { SbbPearlChainVertical } from '@sbb-esta/lyne-angular-experimental/pearl-chain-vertical';
 import { SbbPearlChainVerticalItem } from '@sbb-esta/lyne-angular-experimental/pearl-chain-vertical-item';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const lineType: InputType = {
   control: { type: 'inline-radio' },

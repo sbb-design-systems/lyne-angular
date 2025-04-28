@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { SbbValidationChangeEvent } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
+import type { SbbValidationChangeEvent } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
 import type {
   SbbDatepickerElement,
   SbbInputUpdateEvent,

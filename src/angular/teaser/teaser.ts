@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute, SbbRouterLinkSupportMixin } from '@sbb-esta/lyne-angular/core';
-import { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
+import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTeaserElement } from '@sbb-esta/lyne-elements/teaser.js';
-import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import '@sbb-esta/lyne-elements/teaser.js';
 
 @Directive({

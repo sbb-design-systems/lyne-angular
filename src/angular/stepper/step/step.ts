@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Output } from '@angular/core';
-import { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
+import type { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
 import type {
   SbbStepElement,
   SbbStepValidateEventDetails,

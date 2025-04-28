@@ -1,6 +1,7 @@
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
-import { Args, argsToTemplate, Meta } from '@storybook/angular';
-import { InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate } from '@storybook/angular';
+import type { InputType } from '@storybook/types';
 
 const noSanitize: InputType = {
   control: false,

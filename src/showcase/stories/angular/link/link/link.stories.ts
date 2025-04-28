@@ -1,7 +1,8 @@
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta } from '@storybook/angular';
-import { InputType, StoryContext } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate } from '@storybook/angular';
+import type { InputType, StoryContext } from '@storybook/types';
 
 const text: InputType = {
   control: {

@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
+import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbPopoverTriggerElement } from '@sbb-esta/lyne-elements/popover/popover-trigger.js';
 import '@sbb-esta/lyne-elements/popover/popover-trigger.js';
 

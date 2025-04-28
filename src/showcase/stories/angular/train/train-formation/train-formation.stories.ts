@@ -4,8 +4,9 @@ import { SbbTrainBlockedPassage } from '@sbb-esta/lyne-angular/train/train-block
 import { SbbTrainFormation } from '@sbb-esta/lyne-angular/train/train-formation';
 import { SbbTrainWagon } from '@sbb-esta/lyne-angular/train/train-wagon';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const view: InputType = {
   control: {

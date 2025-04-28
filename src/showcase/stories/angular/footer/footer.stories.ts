@@ -6,8 +6,9 @@ import { SbbFooter } from '@sbb-esta/lyne-angular/footer';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbLinkList } from '@sbb-esta/lyne-angular/link-list/link-list';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const variant: InputType = {
   control: false,

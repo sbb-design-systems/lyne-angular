@@ -4,8 +4,9 @@ import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { SbbPaginator } from '@sbb-esta/lyne-angular/paginator/paginator';
 import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
 import { SbbTableWrapper } from '@sbb-esta/lyne-angular/table/table-wrapper';
-import { applicationConfig, Args, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { applicationConfig, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 import { SbbTableExampleComponent } from './table-example.component';
 

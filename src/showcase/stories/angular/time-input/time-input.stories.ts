@@ -2,8 +2,9 @@ import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { SbbTimeInput } from '@sbb-esta/lyne-angular/time-input';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 const value: InputType = {
   control: {

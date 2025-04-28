@@ -1,4 +1,5 @@
-import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
+import type { BooleanInput } from '@angular/cdk/coercion';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   CdkCell,
   CdkCellDef,
@@ -8,7 +9,7 @@ import {
   CdkHeaderCell,
   CdkHeaderCellDef,
 } from '@angular/cdk/table';
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, inject, Input } from '@angular/core';
 
 /**
  * Cell definition for the sbb-table.
@@ -67,12 +68,12 @@ export class SbbColumnDef extends CdkColumnDef {
    */
   @Input()
   get groupWithNext(): boolean {
-    return this._groupWithNext;
+    return this.#groupWithNext;
   }
   set groupWithNext(value: BooleanInput) {
-    this._groupWithNext = coerceBooleanProperty(value);
+    this.#groupWithNext = coerceBooleanProperty(value);
   }
-  private _groupWithNext: boolean = false;
+  #groupWithNext: boolean = false;
 
   /**
    * Add "sbb-column-" prefix in addition to "cdk-column-" prefix.
@@ -96,12 +97,7 @@ export class SbbColumnDef extends CdkColumnDef {
   },
 })
 export class SbbHeaderCell extends CdkHeaderCell {
-  constructor(
-    public readonly _columnDef: SbbColumnDef,
-    elementRef: ElementRef,
-  ) {
-    super(_columnDef, elementRef);
-  }
+  public readonly _columnDef = inject(SbbColumnDef);
 }
 
 /** Footer cell template container that adds the right classes and role. */
@@ -114,12 +110,7 @@ export class SbbHeaderCell extends CdkHeaderCell {
   },
 })
 export class SbbFooterCell extends CdkFooterCell {
-  constructor(
-    public readonly _columnDef: SbbColumnDef,
-    elementRef: ElementRef,
-  ) {
-    super(_columnDef, elementRef);
-  }
+  public readonly _columnDef = inject(SbbColumnDef);
 }
 
 /** Cell template container that adds the right classes and role. */
@@ -132,10 +123,5 @@ export class SbbFooterCell extends CdkFooterCell {
   },
 })
 export class SbbCell extends CdkCell {
-  constructor(
-    public readonly _columnDef: SbbColumnDef,
-    elementRef: ElementRef,
-  ) {
-    super(_columnDef, elementRef);
-  }
+  public readonly _columnDef = inject(SbbColumnDef);
 }

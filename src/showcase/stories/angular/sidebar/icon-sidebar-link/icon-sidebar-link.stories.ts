@@ -1,12 +1,7 @@
 import { SbbIconSidebarLink } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-link';
-import {
-  Args,
-  argsToTemplate,
-  ArgTypes,
-  componentWrapperDecorator,
-  Meta,
-} from '@storybook/angular';
-import { InputType } from '@storybook/types';
+import type { Args, ArgTypes, Meta } from '@storybook/angular';
+import { argsToTemplate, componentWrapperDecorator } from '@storybook/angular';
+import type { InputType } from '@storybook/types';
 
 const currentPage: InputType = {
   control: {

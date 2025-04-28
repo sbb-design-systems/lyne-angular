@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { SbbOverlayCloseEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbOverlayCloseEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay.js';
 import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/overlay.js';

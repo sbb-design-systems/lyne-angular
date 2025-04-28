@@ -1,5 +1,5 @@
 import { SbbIconSidebarContent } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-content';
-import { Meta } from '@storybook/angular';
+import type { Meta } from '@storybook/angular';
 
 const meta: Meta = {
   title: 'elements/sbb-sidebar/sbb-icon-sidebar-content',

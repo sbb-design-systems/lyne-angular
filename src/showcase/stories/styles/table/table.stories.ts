@@ -1,4 +1,4 @@
-import { Args, Meta } from '@storybook/angular';
+import type { Args, Meta } from '@storybook/angular';
 import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 const size: InputType = {

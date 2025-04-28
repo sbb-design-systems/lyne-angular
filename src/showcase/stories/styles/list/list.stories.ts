@@ -1,5 +1,6 @@
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Meta, moduleMetadata } from '@storybook/angular';
+import type { Meta } from '@storybook/angular';
+import { moduleMetadata } from '@storybook/angular';
 
 const ListContent = (): string => `
   <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor</li>

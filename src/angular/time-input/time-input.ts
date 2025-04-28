@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
-import { SbbValidationChangeEvent } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbValidationChangeEvent } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.js';
 import { fromEvent, type Observable, NEVER } from 'rxjs';
 import '@sbb-esta/lyne-elements/time-input.js';
