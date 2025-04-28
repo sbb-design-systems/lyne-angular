@@ -1,4 +1,3 @@
-import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTableWrapperElement } from '@sbb-esta/lyne-elements/table/table-wrapper.js';
@@ -7,10 +6,6 @@ import '@sbb-esta/lyne-elements/table/table-wrapper.js';
 
 @Directive({
   selector: 'sbb-table-wrapper',
-  host: {
-    '[attr.tabindex]': 'focusable ? 0 : null',
-    role: 'section',
-  },
 })
 export class SbbTableWrapper {
   #element: ElementRef<SbbTableWrapperElement> = inject(ElementRef<SbbTableWrapperElement>);
@@ -24,13 +19,11 @@ export class SbbTableWrapper {
     return this.#element.nativeElement.negative;
   }
 
-  /** Whether the table wrapper is focusable. */
-  @Input()
-  get focusable(): boolean {
-    return this._focusable;
+  @Input({ transform: booleanAttribute })
+  public set focusable(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.focusable = value));
   }
-  set focusable(value: BooleanInput) {
-    this._focusable = coerceBooleanProperty(value);
+  public get focusable(): boolean {
+    return this.#element.nativeElement.focusable;
   }
-  private _focusable: boolean = true;
 }
