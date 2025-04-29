@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
-import { dirname, relative } from 'node:path';
+import { dirname, relative, resolve } from 'node:path';
 import { basename, join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -36,6 +36,15 @@ function getPairedModuleFromManifest(fileName: string): JavaScriptModule | undef
   );
 }
 
+function getClassManifestDeclaration(
+  module: JavaScriptModule,
+): CustomElementDeclaration & { classGenerics: string } {
+  return module.declarations!.find(
+    (declaration: Declaration): declaration is CustomElementDeclaration =>
+      declaration.kind === 'class' && /^(?!.*Base).*Element/.test(declaration.name),
+  )! as CustomElementDeclaration & { classGenerics: string };
+}
+
 // Finds the public properties
 const isPublicProperties: (e: ClassMember) => e is CustomElementField = (
   e: ClassMember,
@@ -68,6 +77,7 @@ const generateStructure = (pkg: Package, projectPath: string) => {
       const directoryPath = dirname(join(projectPath, module.path));
       const moduleName = basename(directoryPath);
       const modulePath = join(directoryPath, `${moduleName}.ts`);
+      const testPath = join(directoryPath, `${moduleName}.spec.ts`);
       if (!existsSync(directoryPath)) {
         mkdirSync(directoryPath, { recursive: true });
       }
@@ -82,6 +92,28 @@ const generateStructure = (pkg: Package, projectPath: string) => {
       }
       if (!existsSync(modulePath)) {
         writeFileSync(modulePath, '', 'utf8');
+      }
+      if (!existsSync(testPath)) {
+        const testTemplate = readFileSync(
+          resolve(process.cwd(), './tools/eslint/test-template.ts'),
+          'utf-8',
+        );
+
+        writeFileSync(
+          testPath,
+          testTemplate
+            .replaceAll('__name__', `sbb-${moduleName}`)
+            .replaceAll(
+              '__className__',
+              getClassManifestDeclaration(module).name.replace('Element', ''),
+            )
+            .replaceAll('__angularPath__', `./${moduleName}`)
+            .replaceAll(
+              '__elementsPath__',
+              `@sbb-esta/lyne-${projectPath.match(/lyne-(.*)\/(.*)/)![2].replace('angular', 'elements')}/${module.path.replace(`/${moduleName}.js`, '')}.js`,
+            ),
+          'utf8',
+        );
       }
     }
   }
@@ -98,10 +130,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
         if (!module) {
           return;
         }
-        const classDeclaration = module.declarations!.find(
-          (declaration) =>
-            declaration.kind === 'class' && /^(?!.*Base).*Element/.test(declaration.name),
-        )! as CustomElementDeclaration & { classGenerics: string };
+        const classDeclaration = getClassManifestDeclaration(module);
 
         if (node.body.every((n) => n.type !== AST_NODE_TYPES.ImportDeclaration)) {
           context.report({
@@ -156,10 +185,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         const expectedRxJsImports = new Set<string>();
 
         // The class and its public data that must be created in the Angular file
-        const classManifestDeclaration = module.declarations!.find(
-          (declaration: Declaration): declaration is CustomElementDeclaration =>
-            declaration.kind === 'class' && /^(?!.*Base).*Element/.test(declaration.name),
-        )! as CustomElementDeclaration & { classGenerics: string };
+        const classManifestDeclaration = getClassManifestDeclaration(module);
         const elementClassName = classManifestDeclaration.name;
         const publicProperties = classManifestDeclaration.members?.filter(isPublicProperties) ?? [];
         const publicEvents = classManifestDeclaration.events ?? [];
