@@ -5,7 +5,7 @@ import type {
   SbbRadioButtonGroupElement,
   SbbRadioButtonSize,
 } from '@sbb-esta/lyne-elements/radio-button.js';
-import { fromEvent, type Observable, NEVER } from 'rxjs';
+import { fromEvent, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/radio-button/radio-button.js';
 

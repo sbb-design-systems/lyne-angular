@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbIconSidebarButtonElement } from '@sbb-esta/lyne-elements/sidebar/icon-sidebar-button.js';
 
