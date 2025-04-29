@@ -4,7 +4,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { __className__ } from '__angularPath__';
 import type { __className__Element } from '__elementsPath__';
 
-
 describe('__name__', () => {
   let fixture: ComponentFixture<TestComponent>,
     component: TestComponent,
