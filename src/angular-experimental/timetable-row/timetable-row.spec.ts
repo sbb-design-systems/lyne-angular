@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SbbTimetableRow } from '@sbb-esta/lyne-angular-experimental/timetable-row';
 import type { SbbTimetableRowElement } from '@sbb-esta/lyne-elements-experimental/timetable-row.js';
+
+import { SbbTimetableRow } from './timetable-row';
 
 describe('sbb-timetable-row', () => {
   let fixture: ComponentFixture<TestComponent>,
