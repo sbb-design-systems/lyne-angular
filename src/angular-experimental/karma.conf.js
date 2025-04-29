@@ -1,13 +1,8 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
-if (process.env.CI && !process.env.CHROME_BIN) {
-  process.env.CHROME_BIN = require('@playwright/test').chromium.executablePath();
-}
-
-if (process.env.CI && !process.env.FIREFOX_BIN) {
-  process.env.FIREFOX_BIN = require('@playwright/test').firefox.executablePath();
-}
+process.env.CHROME_BIN ??= require('playwright').chromium.executablePath();
+process.env.FIREFOX_BIN ??= require('playwright').firefox.executablePath();
 
 module.exports = function (config) {
   config.set({
