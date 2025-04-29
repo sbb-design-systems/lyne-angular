@@ -128,7 +128,6 @@ export class SbbToggleCheck
 
   ngAfterViewInit() {
     this.#focusMonitor.monitor(this.#element, true).subscribe((focusOrigin) => {
-      console.error(focusOrigin);
       if (!focusOrigin) {
         // When a focused element becomes disabled, the browser *immediately* fires a blur event.
         // Angular does not expect events to be raised during change detection, so any state change
