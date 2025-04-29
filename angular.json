@@ -89,8 +89,21 @@
             "tsConfig": "src/angular/tsconfig.spec.json",
             "include": ["src/angular/**/*.spec.ts", "src/angular/**/*.d.ts"],
             "polyfills": ["zone.js", "zone.js/testing"],
-            "styles": ["node_modules/@sbb-esta/lyne-elements/standard-theme.css"],
+            "styles": [
+              "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
+              "test/disable-animation.scss"
+            ],
             "karmaConfig": "src/angular/karma.conf.js"
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromiumHeadlessCI,FirefoxHeadless",
+              "codeCoverage": true,
+              "sourceMap": true,
+              "progress": false,
+              "watch": false,
+              "reporters": ["dots"]
+            }
           }
         },
         "lint": {
@@ -132,8 +145,21 @@
               "src/angular-experimental/**/*.d.ts"
             ],
             "polyfills": ["zone.js", "zone.js/testing"],
-            "styles": ["node_modules/@sbb-esta/lyne-elements/standard-theme.css"],
+            "styles": [
+              "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
+              "test/disable-animation.scss"
+            ],
             "karmaConfig": "src/angular-experimental/karma.conf.js"
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromiumHeadlessCI,FirefoxHeadless",
+              "codeCoverage": true,
+              "sourceMap": true,
+              "progress": false,
+              "watch": false,
+              "reporters": ["dots"]
+            }
           }
         },
         "lint": {

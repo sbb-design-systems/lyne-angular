@@ -38,7 +38,7 @@ export class SbbCheckboxPanel
 {
   #element: ElementRef<SbbCheckboxPanelElement> = inject(ElementRef<SbbCheckboxPanelElement>);
   #ngZone: NgZone = inject(NgZone);
-  #focusMonitor: FocusMonitor = inject(FocusMonitor);
+  #focusMonitor = inject(FocusMonitor);
 
   @Input()
   public set size(value: SbbPanelSize) {

@@ -2,7 +2,7 @@ import type { ESLintUtils, TSESLint } from '@typescript-eslint/utils';
 
 const rules = (
   await Promise.all(
-    ['angular-generator-rule', 'storybook-generator-rule'].map((name) =>
+    ['angular-generator-rule', 'storybook-generator-rule', 'test-describe-title-rule'].map((name) =>
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       import(`./${name}.js`).then((m) => ({ [name]: m.default as ESLintUtils.RuleModule<any> })),
     ),

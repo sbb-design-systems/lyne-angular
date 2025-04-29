@@ -9,7 +9,7 @@ import { SbbTableModule } from '../table.module';
 import type { SbbTableFilter } from './table-data-source';
 import { SbbTableDataSource } from './table-data-source';
 
-describe('SbbTableDataSource', () => {
+describe('sbb-table-data-source', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, SbbSortApp],

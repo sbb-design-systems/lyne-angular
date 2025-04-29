@@ -1,6 +1,9 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
+process.env.CHROMIUM_BIN ??= require('playwright').chromium.executablePath();
+process.env.FIREFOX_BIN ??= require('playwright').firefox.executablePath();
+
 module.exports = function (config) {
   config.set({
     basePath: '',
@@ -8,6 +11,7 @@ module.exports = function (config) {
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
+      require('karma-firefox-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma'),
@@ -29,11 +33,11 @@ module.exports = function (config) {
       reporters: [{ type: 'html' }, { type: 'text-summary' }],
     },
     reporters: ['progress', 'kjhtml'],
-    browsers: ['Chrome', 'ChromeHeadlessCI'],
+    browsers: ['Chromium'],
     restartOnFileChange: true,
     customLaunchers: {
-      ChromeHeadlessCI: {
-        base: 'ChromeHeadless',
+      ChromiumHeadlessCI: {
+        base: 'ChromiumHeadless',
         flags: ['--no-sandbox'],
       },
     },

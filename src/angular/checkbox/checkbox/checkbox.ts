@@ -36,7 +36,7 @@ import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
 export class SbbCheckbox extends SbbControlValueAccessorMixin(class {}) implements AfterViewInit {
   #element: ElementRef<SbbCheckboxElement> = inject(ElementRef<SbbCheckboxElement>);
   #ngZone: NgZone = inject(NgZone);
-  #focusMonitor: FocusMonitor = inject(FocusMonitor);
+  #focusMonitor = inject(FocusMonitor);
 
   @Input()
   public set size(value: SbbCheckboxSize) {

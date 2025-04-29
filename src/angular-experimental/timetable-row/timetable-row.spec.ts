@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { SbbTimetableRow } from '@sbb-esta/lyne-angular-experimental/timetable-row';
+import { type ComponentFixture, TestBed } from '@angular/core/testing';
 
-describe('timetable-row', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-    });
-  }));
+import { SbbTimetableRow } from './timetable-row';
 
-  it('should load', async () => {
-    await customElements.whenDefined('sbb-timetable-row');
-    const fixture = TestBed.createComponent(TimetableRowTest);
+describe('sbb-timetable-row', () => {
+  let fixture: ComponentFixture<TestComponent>, component: TestComponent;
+
+  beforeEach(async () => {
+    fixture = TestBed.createComponent(TestComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  it('should create', async () => {
+    expect(component).toBeDefined();
   });
 });
 
@@ -21,4 +21,4 @@ describe('timetable-row', () => {
   template: `<sbb-timetable-row></sbb-timetable-row>`,
   imports: [SbbTimetableRow],
 })
-class TimetableRowTest {}
+class TestComponent {}

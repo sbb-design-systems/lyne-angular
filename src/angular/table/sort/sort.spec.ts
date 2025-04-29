@@ -27,7 +27,7 @@ import {
 } from './sort-errors';
 import type { SbbSortHeader } from './sort-header';
 
-describe('SbbSort', () => {
+describe('sbb-sort', () => {
   describe('without default options', () => {
     let fixture: ComponentFixture<SimpleSbbSortApp>;
     let component: SimpleSbbSortApp;

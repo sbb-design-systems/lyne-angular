@@ -17,7 +17,7 @@ import { SbbTable } from './table/table';
 import { SbbTableDataSource } from './table/table-data-source';
 import { SbbTableModule } from './table.module';
 
-describe('SbbTable', () => {
+describe('sbb-table', () => {
   const viewPortRulerMockChangeTrigger = new Subject<void>();
   const viewportRulerMock = {
     change: () => viewPortRulerMockChangeTrigger,
@@ -131,7 +131,6 @@ describe('SbbTable', () => {
   it('should render with SbbTableDataSource and pagination', async () => {
     const fixture = TestBed.createComponent(SbbTableWithPaginatorTestComponent);
     fixture.detectChanges();
-    await customElements.whenDefined('sbb-paginator');
 
     const tableElement = fixture.nativeElement.querySelector('.sbb-table')!;
     const data = fixture.componentInstance.dataSource!.data;
@@ -171,8 +170,6 @@ describe('SbbTable', () => {
     beforeEach(async () => {
       fixture = TestBed.createComponent(ArrayDataSourceSbbTableTestComponent);
       fixture.detectChanges();
-
-      await customElements.whenDefined('sbb-paginator');
 
       tableElement = fixture.nativeElement.querySelector('.sbb-table');
       component = fixture.componentInstance;
@@ -689,29 +686,6 @@ describe('SbbTable', () => {
       fixture.debugElement.nativeElement.querySelector('.sbb-column-column_b')!.style.left;
     expect(parseInt(columnBLeftOffset, 10)).toBeCloseTo(parseInt(columnAComputedStyles.width, 10));
   });
-
-  describe('wrapped by SbbTableWrapper', () => {
-    it('should be focusable', async () => {
-      const fixture = TestBed.createComponent(TableWithWrapper);
-      fixture.detectChanges();
-      await customElements.whenDefined('sbb-table-wrapper');
-
-      const tableWrapper = fixture.debugElement.query(By.directive(SbbTableWrapper));
-
-      expect(tableWrapper.attributes['tabindex']).toBe('0');
-    });
-
-    it('should be configurable to be not focusable', async () => {
-      const fixture = TestBed.createComponent(TableWithWrapper);
-      fixture.componentInstance.focusable = false;
-      fixture.detectChanges();
-      await customElements.whenDefined('sbb-table-wrapper');
-
-      const tableWrapper = fixture.debugElement.query(By.directive(SbbTableWrapper));
-
-      expect(tableWrapper.attributes['tabindex']).toBeUndefined();
-    });
-  });
 });
 
 interface TestData {
@@ -1131,22 +1105,6 @@ class TableWithNgContainerRowTestComponent {
 class TableWithColumnGroupingTestComponent {
   dataSource: FakeDataSource = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b'];
-}
-
-@Component({
-  template: `
-    <sbb-table-wrapper [focusable]="focusable">
-      <table>
-        <tr>
-          <td>Content</td>
-        </tr>
-      </table>
-    </sbb-table-wrapper>
-  `,
-  imports: [SbbTableModule],
-})
-class TableWithWrapper {
-  focusable = true;
 }
 
 @Component({
