@@ -94,6 +94,16 @@
               "test/disable-animation.scss"
             ],
             "karmaConfig": "src/angular/karma.conf.js"
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromiumHeadlessCI, FirefoxHeadless",
+              "codeCoverage": true,
+              "sourceMap": true,
+              "progress": false,
+              "watch": false,
+              "reporters": ["dots", "sonarqube"]
+            }
           }
         },
         "lint": {
@@ -140,6 +150,16 @@
               "test/disable-animation.scss"
             ],
             "karmaConfig": "src/angular-experimental/karma.conf.js"
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromiumHeadlessCI, FirefoxHeadless",
+              "codeCoverage": true,
+              "sourceMap": true,
+              "progress": false,
+              "watch": false,
+              "reporters": ["dots", "sonarqube"]
+            }
           }
         },
         "lint": {
