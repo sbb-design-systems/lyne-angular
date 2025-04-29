@@ -1,6 +1,6 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import {
-  AfterViewInit,
+  type AfterViewInit,
   Directive,
   ElementRef,
   forwardRef,
@@ -11,11 +11,11 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
+import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
 import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkbox.js';
-import { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
-import { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import { fromEvent, type Observable, NEVER } from 'rxjs';
+import type { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
+import type { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import { fromEvent, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
 

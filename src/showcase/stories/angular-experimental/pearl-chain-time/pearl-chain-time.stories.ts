@@ -1,6 +1,7 @@
 import { SbbPearlChainTime } from '@sbb-esta/lyne-angular-experimental/pearl-chain-time';
-import { Args, argsToTemplate, Meta } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 import { convertMillisecondsToSeconds } from '../../../helpers/converter';
 import { progressLeg } from '../../../helpers/pearl-chain.sample-data';

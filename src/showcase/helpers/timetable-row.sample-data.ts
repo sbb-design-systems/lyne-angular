@@ -1,4 +1,4 @@
-import { ITripItem } from '@sbb-esta/lyne-elements-experimental/core/timetable.js';
+import type { ITripItem } from '@sbb-esta/lyne-elements-experimental/core/timetable.js';
 
 import {
   cancelledLeg,

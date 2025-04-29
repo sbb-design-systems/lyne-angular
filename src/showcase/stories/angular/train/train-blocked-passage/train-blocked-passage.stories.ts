@@ -1,5 +1,6 @@
 import { SbbTrainBlockedPassage } from '@sbb-esta/lyne-angular/train/train-blocked-passage';
-import { Args, argsToTemplate, Meta } from '@storybook/angular';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate } from '@storybook/angular';
 
 const meta: Meta = {
   title: 'elements/timetable/sbb-train-blocked-passage',

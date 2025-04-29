@@ -8,8 +8,9 @@ import { SbbIconSidebarContainer } from '@sbb-esta/lyne-angular/sidebar/icon-sid
 import { SbbIconSidebarContent } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-content';
 import { SbbIconSidebarLink } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-link';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, argsToTemplate, ArgTypes, Meta, moduleMetadata } from '@storybook/angular';
-import { InputType } from '@storybook/types';
+import type { Args, ArgTypes, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { InputType } from '@storybook/types';
 
 const position: InputType = {
   control: {

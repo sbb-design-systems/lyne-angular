@@ -1,8 +1,9 @@
 import { SbbFlipCardSummary } from '@sbb-esta/lyne-angular/flip-card/flip-card-summary';
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const imageAlignment: InputType = {
   control: {

@@ -1,8 +1,9 @@
 import { SbbNavigationButton } from '@sbb-esta/lyne-angular/navigation/navigation-button';
 import { SbbNavigationMarker } from '@sbb-esta/lyne-angular/navigation/navigation-marker';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const size: InputType = {
   control: {

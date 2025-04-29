@@ -1,4 +1,4 @@
-import { Args } from '@storybook/angular';
+import type { Args } from '@storybook/angular';
 
 export const skiplinkList = (): string => `
   <sbb-skiplink-list titleLevel="2" titleContent="Skip to">

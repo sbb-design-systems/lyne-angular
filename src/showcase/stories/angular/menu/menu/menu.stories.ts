@@ -5,8 +5,9 @@ import { SbbMenu } from '@sbb-esta/lyne-angular/menu/menu';
 import { SbbMenuButton } from '@sbb-esta/lyne-angular/menu/menu-button';
 import { SbbMenuLink } from '@sbb-esta/lyne-angular/menu/menu-link';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const userNameStyle =
   'fontWeight: bold; fontSize: var(--sbb-font-size-text-xs); marginTop: var(--sbb-spacing-fixed-1x)';

@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.js';
 import '@sbb-esta/lyne-elements/divider.js';
 

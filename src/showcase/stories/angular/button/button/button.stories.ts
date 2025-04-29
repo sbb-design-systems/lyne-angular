@@ -1,7 +1,8 @@
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta } from '@storybook/angular';
-import { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate } from '@storybook/angular';
+import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 const ariaLabel: InputType = {
   control: {

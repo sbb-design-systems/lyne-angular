@@ -1,9 +1,9 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { Breakpoint } from '@sbb-esta/lyne-elements/core/dom.js';
+import type { Breakpoint } from '@sbb-esta/lyne-elements/core/dom.js';
 import type { SbbDialogTitleElement } from '@sbb-esta/lyne-elements/dialog/dialog-title.js';
-import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
-import { fromEvent, type Observable, NEVER } from 'rxjs';
+import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+import { fromEvent, NEVER, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/dialog/dialog-title.js';
 
 @Directive({

@@ -6,8 +6,9 @@ import { SbbMenu } from '@sbb-esta/lyne-angular/menu/menu';
 import { SbbMenuButton } from '@sbb-esta/lyne-angular/menu/menu-button';
 import { SbbSignet } from '@sbb-esta/lyne-angular/signet';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { InputType } from '@storybook/types';
 
 const LoremIpsumTemplate = `
   <div>

@@ -1,9 +1,9 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbLinkListElement } from '@sbb-esta/lyne-elements/link-list/link-list.js';
-import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
-import { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+import type { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
+import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import '@sbb-esta/lyne-elements/link-list/link-list.js';
 
 @Directive({

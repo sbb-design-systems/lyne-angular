@@ -14,14 +14,13 @@ import {
   NoDataRowOutlet,
   STICKY_POSITIONING_LISTENER,
 } from '@angular/cdk/table';
+import type { OnDestroy, OnInit } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
   Directive,
   ElementRef,
   inject,
-  OnDestroy,
-  OnInit,
   ViewEncapsulation,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

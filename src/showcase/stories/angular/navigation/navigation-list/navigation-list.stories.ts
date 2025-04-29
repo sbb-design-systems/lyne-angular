@@ -1,7 +1,8 @@
 import { SbbNavigationButton } from '@sbb-esta/lyne-angular/navigation/navigation-button';
 import { SbbNavigationList } from '@sbb-esta/lyne-angular/navigation/navigation-list';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const label: InputType = {
   control: {

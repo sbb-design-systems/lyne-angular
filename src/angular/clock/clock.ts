@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbClockElement } from '@sbb-esta/lyne-elements/clock.js';
-import { SbbTime } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbTime } from '@sbb-esta/lyne-elements/core/interfaces.js';
 
 import '@sbb-esta/lyne-elements/clock.js';
 

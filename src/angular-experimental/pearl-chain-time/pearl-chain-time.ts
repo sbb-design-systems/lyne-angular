@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { Leg, PtRideLeg } from '@sbb-esta/lyne-elements-experimental/core/timetable.js';
+import type { Leg, PtRideLeg } from '@sbb-esta/lyne-elements-experimental/core/timetable.js';
 import type { SbbPearlChainTimeElement } from '@sbb-esta/lyne-elements-experimental/pearl-chain-time.js';
 import '@sbb-esta/lyne-elements-experimental/pearl-chain-time.js';
 

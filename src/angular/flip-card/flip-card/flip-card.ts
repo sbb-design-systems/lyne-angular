@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
-import { SbbFlipCardSummaryElement } from '@sbb-esta/lyne-elements/flip-card/flip-card-summary.js';
+import type { SbbFlipCardSummaryElement } from '@sbb-esta/lyne-elements/flip-card/flip-card-summary.js';
 import type { SbbFlipCardElement } from '@sbb-esta/lyne-elements/flip-card/flip-card.js';
-import { SbbFlipCardDetailsElement } from '@sbb-esta/lyne-elements/flip-card.js';
-import { fromEvent, type Observable, NEVER } from 'rxjs';
+import type { SbbFlipCardDetailsElement } from '@sbb-esta/lyne-elements/flip-card.js';
+import { fromEvent, NEVER, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/flip-card/flip-card.js';
 
 @Directive({

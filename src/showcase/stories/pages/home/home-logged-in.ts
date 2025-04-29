@@ -1,4 +1,5 @@
-import { Args, argsToTemplate } from '@storybook/angular';
+import type { Args } from '@storybook/angular';
+import { argsToTemplate } from '@storybook/angular';
 
 import {
   bikeProduct,

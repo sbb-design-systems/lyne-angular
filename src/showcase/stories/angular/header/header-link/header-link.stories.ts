@@ -1,8 +1,9 @@
 import { SbbHeaderLink } from '@sbb-esta/lyne-angular/header/header-link';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const accessibilityCurrent: InputType = {
   control: false,

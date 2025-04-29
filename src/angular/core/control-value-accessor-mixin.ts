@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-empty-function */
-import { ControlValueAccessor } from '@angular/forms';
-import { AbstractConstructor } from '@sbb-esta/lyne-elements/core/mixins.js';
+import type { ControlValueAccessor } from '@angular/forms';
+import type { AbstractConstructor } from '@sbb-esta/lyne-elements/core/mixins.js';
 
 export declare class SbbControlValueAccessorMixinType implements ControlValueAccessor {
   writeValue(obj: any): void;

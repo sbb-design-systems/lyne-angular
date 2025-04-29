@@ -1,7 +1,9 @@
-import { AfterContentInit, Component, ContentChild, Input } from '@angular/core';
+import type { AfterContentInit } from '@angular/core';
+import { Component, ContentChild, Input } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 import { SbbPaginator } from '@sbb-esta/lyne-angular/paginator/paginator';
-import { SbbSort, SbbTableDataSource, SbbTableFilter } from '@sbb-esta/lyne-angular/table';
+import type { SbbTableDataSource, SbbTableFilter } from '@sbb-esta/lyne-angular/table';
+import { SbbSort } from '@sbb-esta/lyne-angular/table';
 
 interface FilterType extends SbbTableFilter {
   line?: string | null;

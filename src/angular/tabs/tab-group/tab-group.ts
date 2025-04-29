@@ -12,7 +12,7 @@ import type {
   SbbTabChangedEventDetails,
   SbbTabGroupElement,
 } from '@sbb-esta/lyne-elements/tabs/tab-group.js';
-import { fromEvent, type Observable, NEVER } from 'rxjs';
+import { fromEvent, NEVER, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/tabs/tab-group.js';
 
 @Directive({

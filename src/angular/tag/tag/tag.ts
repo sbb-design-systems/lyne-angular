@@ -1,9 +1,9 @@
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
+import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
-import { fromEvent, type Observable, NEVER } from 'rxjs';
+import { fromEvent, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/tag/tag.js';
 

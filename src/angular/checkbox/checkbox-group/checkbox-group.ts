@@ -1,10 +1,10 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
-import { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
-import { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkbox.js';
-import { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
-import { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
+import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkbox.js';
+import type { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
+import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
 
 import '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
 

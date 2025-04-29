@@ -3,8 +3,9 @@ import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
 import { SbbSelect } from '@sbb-esta/lyne-angular/select';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 const createOptions = ({ disabled, value, preserveIconSpace, ...args }: Args): string => {
   const style = preserveIconSpace ? '--sbb-option-icon-container-display: block' : '';

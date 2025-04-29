@@ -4,8 +4,9 @@ import { SbbCheckboxGroup } from '@sbb-esta/lyne-angular/checkbox/checkbox-group
 import { SbbCheckboxPanel } from '@sbb-esta/lyne-angular/checkbox/checkbox-panel';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const suffixAndSubtext = (): string => `
   <span slot="subtext">Subtext</span>

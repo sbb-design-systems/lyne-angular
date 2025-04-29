@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAutocompleteGridElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid.js';
-import { fromEvent, type Observable, NEVER } from 'rxjs';
+import { fromEvent, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid.js';
 

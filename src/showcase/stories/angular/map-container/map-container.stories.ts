@@ -6,7 +6,8 @@ import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
 import { SbbMapContainer } from '@sbb-esta/lyne-angular/map-container';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 
 const meta: Meta = {
   decorators: [

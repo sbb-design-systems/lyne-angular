@@ -10,8 +10,9 @@ import { SbbSidebarContainer } from '@sbb-esta/lyne-angular/sidebar/sidebar-cont
 import { SbbSidebarContent } from '@sbb-esta/lyne-angular/sidebar/sidebar-content';
 import { SbbSidebarTitle } from '@sbb-esta/lyne-angular/sidebar/sidebar-title';
 import type { SbbSidebarElement } from '@sbb-esta/lyne-elements/sidebar/sidebar.js';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const sidebar = ({ showTitle, showCloseButton, ...args }: Args) => `
   <sbb-sidebar

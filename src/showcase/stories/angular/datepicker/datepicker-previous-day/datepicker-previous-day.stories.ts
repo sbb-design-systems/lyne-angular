@@ -3,8 +3,9 @@ import { SbbDatepicker } from '@sbb-esta/lyne-angular/datepicker/datepicker';
 import { SbbDatepickerPreviousDay } from '@sbb-esta/lyne-angular/datepicker/datepicker-previous-day';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 const type: InputType = {
   control: false,

@@ -8,8 +8,9 @@ import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import type { SbbDialogElement } from '@sbb-esta/lyne-elements/dialog/dialog.js';
 import { withActions } from '@storybook/addon-actions/decorator';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const openDialog = (_event: PointerEvent, id: string): void => {
   const dialog = document.getElementById(id) as SbbDialogElement;

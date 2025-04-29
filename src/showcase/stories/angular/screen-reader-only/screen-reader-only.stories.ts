@@ -1,5 +1,5 @@
 import { SbbScreenReaderOnly } from '@sbb-esta/lyne-angular/screen-reader-only';
-import { Args, Meta } from '@storybook/angular';
+import type { Args, Meta } from '@storybook/angular';
 
 const meta: Meta = {
   title: 'internals/sbb-screen-reader-only',

@@ -1,5 +1,6 @@
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
-import { componentWrapperDecorator, Meta, moduleMetadata } from '@storybook/angular';
+import type { Meta } from '@storybook/angular';
+import { componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
 
 const PageSpacingTemplate = (): string => `
   <section class="sbb-page-spacing visualized-page-spacing">

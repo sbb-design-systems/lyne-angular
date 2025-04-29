@@ -1,11 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SbbSort } from '../sort/sort';
 import { SbbTableModule } from '../table.module';
 
-import { SbbTableDataSource, SbbTableFilter } from './table-data-source';
+import type { SbbTableFilter } from './table-data-source';
+import { SbbTableDataSource } from './table-data-source';
 
 describe('SbbTableDataSource', () => {
   beforeEach(waitForAsync(() => {

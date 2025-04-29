@@ -1,6 +1,7 @@
 import { SbbChip } from '@sbb-esta/lyne-angular/chip/chip';
-import { Args, argsToTemplate, Meta } from '@storybook/angular';
-import { StoryContext } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate } from '@storybook/angular';
+import type { StoryContext } from '@storybook/types';
 
 const meta: Meta = {
   title: 'elements/sbb-chip/sbb-chip',

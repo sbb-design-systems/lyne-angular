@@ -1,10 +1,10 @@
 import { Directive, ElementRef, inject, Output } from '@angular/core';
-import { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
+import type { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
 import type {
   SbbStepElement,
   SbbStepValidateEventDetails,
 } from '@sbb-esta/lyne-elements/stepper/step.js';
-import { fromEvent, type Observable, NEVER } from 'rxjs';
+import { fromEvent, NEVER, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/stepper/step.js';
 
 @Directive({

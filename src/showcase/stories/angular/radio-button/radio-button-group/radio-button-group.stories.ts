@@ -3,8 +3,9 @@ import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { SbbRadioButton } from '@sbb-esta/lyne-angular/radio-button/radio-button';
 import { SbbRadioButtonGroup } from '@sbb-esta/lyne-angular/radio-button/radio-button-group';
 import { SbbRadioButtonPanel } from '@sbb-esta/lyne-angular/radio-button/radio-button-panel';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const suffixAndSubtext = (): string => `
   <span slot="subtext">Subtext</span>

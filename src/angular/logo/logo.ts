@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import { SbbProtectiveRoom } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbProtectiveRoom } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbLogoElement } from '@sbb-esta/lyne-elements/logo.js';
 import '@sbb-esta/lyne-elements/logo.js';
 

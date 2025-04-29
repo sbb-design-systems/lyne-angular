@@ -8,7 +8,8 @@ import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { SbbNotification } from '@sbb-esta/lyne-angular/notification';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, Meta, moduleMetadata } from '@storybook/angular';
+import type { Args, Meta } from '@storybook/angular';
+import { moduleMetadata } from '@storybook/angular';
 
 const meta: Meta = {
   decorators: [

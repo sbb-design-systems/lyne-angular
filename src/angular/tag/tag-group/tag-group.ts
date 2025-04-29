@@ -2,7 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTagGroupElement } from '@sbb-esta/lyne-elements/tag/tag-group.js';
 import '@sbb-esta/lyne-elements/tag/tag-group.js';
-import { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
+import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
 
 @Directive({
   selector: 'sbb-tag-group',

@@ -1,8 +1,9 @@
 import { SbbCardBadge } from '@sbb-esta/lyne-angular/card/card-badge';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { SbbRadioButtonPanel } from '@sbb-esta/lyne-angular/radio-button/radio-button-panel';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType } from '@storybook/types';
 
 const label: InputType = {
   control: {

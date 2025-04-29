@@ -3,7 +3,8 @@ import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { SbbOverlay } from '@sbb-esta/lyne-angular/overlay';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay.js';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 
 const openOverlay = (_event: PointerEvent, id: string): void => {
   const overlay = document.getElementById(id) as SbbOverlayElement;

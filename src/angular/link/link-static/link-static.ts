@@ -2,7 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbLinkStaticElement } from '@sbb-esta/lyne-elements/link/link-static.js';
 import '@sbb-esta/lyne-elements/link/link-static.js';
-import { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
+import type { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 
 @Directive({
   selector: 'sbb-link-static',

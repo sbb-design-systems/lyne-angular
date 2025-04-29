@@ -2,8 +2,9 @@ import { SbbButtonStatic } from '@sbb-esta/lyne-angular/button/button-static';
 import { SbbChipLabel } from '@sbb-esta/lyne-angular/chip-label';
 import { SbbTeaserProduct } from '@sbb-esta/lyne-angular/teaser-product/teaser-product';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
-import { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { Args, Meta } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
 const imageAlignment: InputType = {
   control: {
