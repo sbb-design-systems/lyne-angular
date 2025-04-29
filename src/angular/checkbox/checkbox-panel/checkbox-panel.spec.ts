@@ -1,43 +1,52 @@
-import type { ElementRef } from '@angular/core';
-import { Component, viewChild } from '@angular/core';
-import type { ComponentFixture } from '@angular/core/testing';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { Component, type ElementRef, viewChild } from '@angular/core';
+import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
 
 import { SbbCheckboxPanel } from './checkbox-panel';
 
-describe('checkbox-panel', () => {
-  let fixture: ComponentFixture<TestComponent>, lyneElement: SbbCheckboxPanelElement;
+describe('sbb-checkbox-panel', () => {
+  let fixture: ComponentFixture<TestComponent>,
+    component: TestComponent,
+    lyneElement: SbbCheckboxPanelElement;
 
-  beforeEach(waitForAsync(async () => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule],
     });
+  }));
 
+  beforeEach(async () => {
     await customElements.whenDefined('sbb-checkbox-panel');
     fixture = TestBed.createComponent(TestComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
+    lyneElement = (fixture.debugElement.nativeElement as HTMLElement).querySelector(
+      'sbb-checkbox-panel',
+    )!;
+  });
 
-    lyneElement = fixture.debugElement.nativeElement.querySelector('sbb-checkbox-panel')!;
-  }));
+  it('should create', async () => {
+    expect(lyneElement.matches(':defined')).toBeTrue();
+    expect(component).toBeDefined();
+  });
 
   it('should not be checked', async () => {
     expect(lyneElement.checked).toBeFalse();
   });
 
   it('should be checked', async () => {
-    fixture.componentInstance.control.setValue(true);
+    component.control.setValue(true);
 
     expect(lyneElement.checked).toBeTrue();
   });
 
   it('should uncheck', async () => {
-    fixture.componentInstance.control.setValue(true);
+    component.control.setValue(true);
     expect(lyneElement.checked).toBeTrue();
 
-    fixture.componentInstance.control.setValue(false);
+    component.control.setValue(false);
     expect(lyneElement.checked).toBeFalse();
   });
 
@@ -52,9 +61,9 @@ describe('checkbox-panel', () => {
     await fixture.whenStable();
 
     expect(lyneElement.checked).toBeTrue();
-    expect(fixture.componentInstance.control.value).toBeTrue();
+    expect(component.control.value).toBeTrue();
 
-    fixture.componentInstance.button()!.nativeElement!.focus();
+    component.button()!.nativeElement!.focus();
     lyneElement.dispatchEvent(new FocusEvent('blur'));
 
     // We need to wait two cycles until touched is set on host
@@ -68,27 +77,27 @@ describe('checkbox-panel', () => {
   });
 
   it('should be unchecked by click', async () => {
-    fixture.componentInstance.control.setValue(true);
+    component.control.setValue(true);
 
     lyneElement.click();
     fixture.detectChanges();
     await fixture.whenStable();
 
     expect(lyneElement.checked).toBeFalse();
-    expect(fixture.componentInstance.control.value).toBeFalse();
+    expect(component.control.value).toBeFalse();
   });
 
   it('should handle disabled', async () => {
-    fixture.componentInstance.control.disable();
+    component.control.disable();
     expect(lyneElement.disabled).toBeTrue();
 
-    fixture.componentInstance.control.enable();
+    component.control.enable();
     expect(lyneElement.disabled).toBeFalse();
   });
 
   it('should handle validation', async () => {
-    fixture.componentInstance.control.addValidators(Validators.requiredTrue);
-    fixture.componentInstance.control.setValue(false);
+    component.control.addValidators(Validators.requiredTrue);
+    component.control.setValue(false);
     fixture.detectChanges();
     await fixture.whenStable();
     expect(lyneElement).toHaveClass('ng-invalid');
