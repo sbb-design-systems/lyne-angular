@@ -1,17 +1,10 @@
 import { Component } from '@angular/core';
-import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { type ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SbbTagGroup } from './tag-group';
 
 describe('sbb-tag-group', () => {
   let fixture: ComponentFixture<TestComponent>, component: TestComponent;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-    });
-  }));
 
   beforeEach(async () => {
     fixture = TestBed.createComponent(TestComponent);

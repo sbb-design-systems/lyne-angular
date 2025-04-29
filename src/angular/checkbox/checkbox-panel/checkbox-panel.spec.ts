@@ -1,7 +1,6 @@
 import { Component, type ElementRef, viewChild } from '@angular/core';
-import { type ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
 
 import { SbbCheckboxPanel } from './checkbox-panel';
@@ -10,12 +9,6 @@ describe('sbb-checkbox-panel', () => {
   let fixture: ComponentFixture<TestComponent>,
     component: TestComponent,
     lyneElement: SbbCheckboxPanelElement;
-
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-    });
-  }));
 
   beforeEach(async () => {
     fixture = TestBed.createComponent(TestComponent);
