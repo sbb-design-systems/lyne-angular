@@ -18,7 +18,6 @@ describe(`sbb-checkbox`, () => {
   }));
 
   beforeEach(async () => {
-    await customElements.whenDefined('sbb-checkbox');
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

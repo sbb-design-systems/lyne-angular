@@ -18,7 +18,6 @@ describe(`sbb-toggle-check`, () => {
   }));
 
   beforeEach(async () => {
-    await customElements.whenDefined('sbb-toggle-check');
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

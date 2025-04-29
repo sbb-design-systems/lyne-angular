@@ -107,11 +107,7 @@ const generateStructure = (pkg: Package, projectPath: string) => {
               '__className__',
               getClassManifestDeclaration(module).name.replace('Element', ''),
             )
-            .replaceAll('__angularPath__', `./${moduleName}`)
-            .replaceAll(
-              '__elementsPath__',
-              `@sbb-esta/lyne-${projectPath.match(/lyne-(.*)\/(.*)/)![2].replace('angular', 'elements')}/${module.path.replace(`/${moduleName}.js`, '')}.js`,
-            ),
+            .replaceAll('__angularPath__', `./${moduleName}`),
           'utf8',
         );
       }
