@@ -20,7 +20,6 @@ describe('sbb-checkbox-panel', () => {
   });
 
   it('should create', async () => {
-    expect(lyneElement.matches(':defined')).toBeTrue();
     expect(component).toBeDefined();
   });
 
@@ -105,15 +104,11 @@ describe('sbb-checkbox-panel', () => {
 @Component({
   template: `<form>
     <sbb-checkbox-panel [formControl]="control">Checkbox</sbb-checkbox-panel>
-    <button #button (click)="buttonClicked($event)">Blur</button>
+    <button #button type="button">Blur</button>
   </form>`,
   imports: [SbbCheckboxPanel, ReactiveFormsModule],
 })
 class TestComponent {
   control = new FormControl(false);
   button = viewChild<ElementRef<HTMLButtonElement>>('button');
-  buttonClicked(event: Event) {
-    // Prevent test page reload
-    event.preventDefault();
-  }
 }

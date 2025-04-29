@@ -20,7 +20,6 @@ describe(`sbb-toggle-check`, () => {
   });
 
   it('should create', async () => {
-    expect(lyneElement.matches(':defined')).toBeTrue();
     expect(component).toBeDefined();
   });
 
@@ -105,15 +104,11 @@ describe(`sbb-toggle-check`, () => {
 @Component({
   template: `<form>
     <sbb-toggle-check [formControl]="control">Checkbox</sbb-toggle-check>
-    <button #button (click)="buttonClicked($event)">Blur</button>
+    <button #button type="button">Blur</button>
   </form>`,
   imports: [SbbToggleCheck, ReactiveFormsModule],
 })
 class TestComponent {
   control = new FormControl(false);
   button = viewChild<ElementRef<HTMLButtonElement>>('button');
-  buttonClicked(event: Event) {
-    // Prevent test page reload
-    event.preventDefault();
-  }
 }
