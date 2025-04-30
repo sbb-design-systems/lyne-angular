@@ -20,18 +20,19 @@ describe('sbb-chip-group', () => {
     const nativeElement = fixture.debugElement.nativeElement as HTMLElement;
     const input = nativeElement.querySelector('input')!;
 
-    // Simulate input enter
+    // Simulate user typing in the input
     input.value = 'Option';
     input.dispatchEvent(new InputEvent('input'));
     fixture.detectChanges();
     await fixture.whenStable();
     await new Promise((resolve) => setTimeout(resolve, 0));
 
+    // Select an option from the autocomplete
     nativeElement.querySelector('sbb-option')!.click();
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(component.control.value).toEqual(['chip1', 'Option A']);
+    expect(component.control.value).toEqual(['chip 1', 'Option A']);
   });
 });
 
