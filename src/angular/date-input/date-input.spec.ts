@@ -1,6 +1,7 @@
 import { Component, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
 
 import { SbbDateInput } from './date-input';
@@ -30,7 +31,7 @@ describe('sbb-date-input', () => {
     component.dateInput()!.value = '2025-05-01';
     lyneElement.dispatchEvent(new Event('change'));
 
-    expect(component.control.value).not.toEqual(oldValue);
+    expect(component.control.value).not.toBe(oldValue);
   });
 
   it('should handle parseValidator', async () => {
@@ -71,6 +72,34 @@ describe('sbb-date-input', () => {
 
     const errors = component.control.errors!;
     expect(Object.keys(errors)).toEqual(['sbbDateFilter']);
+  });
+
+  it('should handle writeValue via FormControl', async () => {
+    const dateInput = component.dateInput()!;
+    const control = component.control;
+
+    // Test with a valid date instance
+    const validDate = new Date('2025-06-01');
+    control.setValue(validDate);
+    expect(defaultDateAdapter.toIso8601(dateInput.valueAsDate!)).toEqual(
+      defaultDateAdapter.toIso8601(validDate),
+    );
+
+    // Test with an invalid date string
+    const invalidDateString = 'invalid-date';
+    control.setValue(invalidDateString as unknown as Date);
+    expect(dateInput.value).toEqual(invalidDateString);
+    expect(dateInput.valueAsDate).toBeNull();
+
+    // Test with null
+    control.setValue(null);
+    expect(dateInput.valueAsDate).toBeNull();
+    expect(dateInput.value).toEqual('');
+
+    // Test with undefined
+    control.setValue(undefined as unknown as Date);
+    expect(dateInput.valueAsDate).toBeNull();
+    expect(dateInput.value).toEqual('undefined');
   });
 });
 
