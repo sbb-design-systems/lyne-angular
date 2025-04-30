@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
-import { SbbIcon } from '../icon';
-
 import { SbbSlider } from './slider';
 
 describe('sbb-slider', () => {
@@ -29,7 +27,7 @@ describe('sbb-slider', () => {
 
 @Component({
   template: `<sbb-slider [formControl]="control" min="0" max="100" />`,
-  imports: [SbbSlider, SbbIcon, ReactiveFormsModule],
+  imports: [SbbSlider, ReactiveFormsModule],
 })
 class TestComponent {
   @ViewChild(SbbSlider, { static: true }) slider!: SbbSlider;
