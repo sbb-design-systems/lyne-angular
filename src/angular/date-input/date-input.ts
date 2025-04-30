@@ -37,6 +37,7 @@ export class SbbDateInput<T = Date>
   @Input()
   public set value(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
+    this.validatorOnChange?.();
   }
   public get value(): string {
     return this.#element.nativeElement.value;
@@ -45,6 +46,7 @@ export class SbbDateInput<T = Date>
   @Input()
   public set valueAsDate(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.valueAsDate = value));
+    this.validatorOnChange?.();
   }
   public get valueAsDate(): T | null {
     return this.#element.nativeElement.valueAsDate;
@@ -53,6 +55,7 @@ export class SbbDateInput<T = Date>
   @Input()
   public set min(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.min = value));
+    this.validatorOnChange?.();
   }
   public get min(): T | null {
     return this.#element.nativeElement.min;
@@ -61,6 +64,7 @@ export class SbbDateInput<T = Date>
   @Input()
   public set max(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.max = value));
+    this.validatorOnChange?.();
   }
   public get max(): T | null {
     return this.#element.nativeElement.max;
@@ -69,6 +73,7 @@ export class SbbDateInput<T = Date>
   @Input()
   public set dateFilter(value: (date: T | null) => boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.dateFilter = value));
+    this.validatorOnChange?.();
   }
   public get dateFilter(): (date: T | null) => boolean {
     return this.#element.nativeElement.dateFilter;
