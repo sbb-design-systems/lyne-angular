@@ -26,6 +26,13 @@ describe('sbb-slider', () => {
     expect(component.slider().value).toBe('0');
   });
 
+  it('should update form control', async () => {
+    const slider = (fixture.nativeElement as HTMLElement).querySelector('sbb-slider')!;
+    slider.valueAsNumber = 30;
+    slider.dispatchEvent(new Event('change'));
+    expect(component.slider().value).toBe('30');
+  });
+
   it('should be touched on blur', async () => {
     expect(component.control.touched).toBeFalse();
 
