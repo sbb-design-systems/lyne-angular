@@ -25,6 +25,10 @@ describe('sbb-form-field', () => {
 
     expect(component.control.invalid).toBe(true);
     expect(component.control.touched).toBe(true);
+
+    // Wait for attribute observer to run
+    await new Promise((resolve) => setTimeout(resolve, 10));
+
     expect(
       (fixture.nativeElement as HTMLElement)
         .querySelector('sbb-form-field')!
