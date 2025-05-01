@@ -12,7 +12,7 @@ import '@sbb-esta/lyne-elements/toggle/toggle.js';
   exportAs: 'sbbToggle',
   host: {
     '(change)': 'this.onChangeFn(this.value)',
-    '(blur)': 'this.onTouchedFn()',
+    '(focusout)': 'this.onTouchedFn()',
   },
   providers: [
     {

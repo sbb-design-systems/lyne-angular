@@ -36,6 +36,16 @@ describe('sbb-toggle', () => {
 
     expect(component.control.value).toBe('1');
   });
+
+  it('should be touched on blur', async () => {
+    expect(component.control.touched).toBeFalse();
+
+    (fixture.nativeElement as HTMLElement)
+      .querySelector('sbb-toggle')!
+      .dispatchEvent(new FocusEvent('focusout'));
+
+    expect(component.control.touched).toBeTrue();
+  });
 });
 
 @Component({

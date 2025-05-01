@@ -32,6 +32,24 @@ describe('sbb-date-input', () => {
     expect(component.control.value).not.toBe(oldValue);
   });
 
+  it('should validate on user input', async () => {
+    expect(component.control.valid).toBeTrue();
+
+    lyneElement.textContent = 'invalid';
+    lyneElement.dispatchEvent(new Event('input'));
+
+    expect(component.control.valid).toBeFalse();
+  });
+
+  it('should validate on invalid event', async () => {
+    expect(component.control.valid).toBeTrue();
+
+    lyneElement.value = 'invalid';
+    lyneElement.dispatchEvent(new Event('invalid'));
+
+    expect(component.control.valid).toBeFalse();
+  });
+
   it('should handle parseValidator', async () => {
     component.dateInput().value = 'invalid';
 
