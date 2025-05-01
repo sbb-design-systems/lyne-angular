@@ -99,6 +99,16 @@ describe('sbb-date-input', () => {
     expect(dateInput.valueAsDate).toBeNull();
     expect(dateInput.value).toEqual('undefined');
   });
+
+  it('should be touched on blur', async () => {
+    expect(component.control.touched).toBeFalse();
+
+    (fixture.nativeElement as HTMLElement)
+      .querySelector('sbb-date-input')!
+      .dispatchEvent(new FocusEvent('blur'));
+
+    expect(component.control.touched).toBeTrue();
+  });
 });
 
 @Component({

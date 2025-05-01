@@ -51,6 +51,34 @@ describe('sbb-select', () => {
       expect(component.options().find((o) => o.value === '1')!.selected).toBeTrue();
       expect(component.control.value).toEqual('1');
     });
+
+    it('should be touched on close', async () => {
+      component.select().open();
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      expect(component.control.touched).toBeFalse();
+
+      component.select().close();
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      expect(component.control.touched).toBeTrue();
+    });
+
+    it('should be touched on blur', async () => {
+      component.select().open();
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      expect(component.control.touched).toBeFalse();
+
+      (fixture.nativeElement as HTMLElement)
+        .querySelector('sbb-select')!
+        .dispatchEvent(new FocusEvent('blur'));
+
+      expect(component.control.touched).toBeTrue();
+    });
   });
 
   describe('multiple', () => {

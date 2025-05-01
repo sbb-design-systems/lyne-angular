@@ -34,6 +34,16 @@ describe('sbb-chip-group', () => {
 
     expect(component.control.value).toEqual(['chip 1', 'Option A']);
   });
+
+  it('should be touched on blur', async () => {
+    expect(component.control.touched).toBeFalse();
+
+    (fixture.nativeElement as HTMLElement)
+      .querySelector('sbb-chip-group')!
+      .dispatchEvent(new FocusEvent('focusout'));
+
+    expect(component.control.touched).toBeTrue();
+  });
 });
 
 @Component({

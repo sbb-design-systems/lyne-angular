@@ -25,6 +25,16 @@ describe('sbb-slider', () => {
     component.control.setValue('-20');
     expect(component.slider().value).toBe('0');
   });
+
+  it('should be touched on blur', async () => {
+    expect(component.control.touched).toBeFalse();
+
+    (fixture.nativeElement as HTMLElement)
+      .querySelector('sbb-slider')!
+      .dispatchEvent(new FocusEvent('blur'));
+
+    expect(component.control.touched).toBeTrue();
+  });
 });
 
 @Component({

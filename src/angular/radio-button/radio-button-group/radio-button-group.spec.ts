@@ -44,7 +44,7 @@ describe('sbb-radio-button-group', () => {
     radioButtonGroupElement.dispatchEvent(new FocusEvent('focusout'));
     fixture.detectChanges();
 
-    expect(radioButtonGroupElement.classList).toContain('ng-touched');
+    expect(component.control.touched).toBeTrue();
   });
 });
 

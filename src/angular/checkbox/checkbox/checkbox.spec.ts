@@ -39,9 +39,9 @@ describe(`sbb-checkbox`, () => {
     expect(component.checkbox().checked).toBeFalse();
   });
 
-  it('should check by click and update ng-touched and ng-pristine', async () => {
-    expect(lyneElement).toHaveClass('ng-untouched');
-    expect(lyneElement).toHaveClass('ng-pristine');
+  it('should check by click and update touched and dirty', async () => {
+    expect(component.control.touched).toBeFalse();
+    expect(component.control.dirty).toBeFalse();
 
     lyneElement.focus();
     lyneElement.click();
@@ -55,14 +55,11 @@ describe(`sbb-checkbox`, () => {
     // Simulate click away from checkbox
     lyneElement.dispatchEvent(new FocusEvent('blur'));
 
-    // We need to wait two cycles until touched is set on host
-    fixture.detectChanges();
-    await fixture.whenStable();
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(lyneElement).toHaveClass('ng-dirty');
-    expect(lyneElement).toHaveClass('ng-touched');
+    expect(component.control.dirty).toBeTrue();
+    expect(component.control.touched).toBeTrue();
   });
 
   it('should be unchecked by click', async () => {
