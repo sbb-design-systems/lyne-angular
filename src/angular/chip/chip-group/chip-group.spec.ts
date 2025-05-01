@@ -17,7 +17,7 @@ describe('sbb-chip-group', () => {
   it('should create', async () => {
     expect(component).toBeDefined();
 
-    const nativeElement = fixture.debugElement.nativeElement as HTMLElement;
+    const nativeElement = fixture.nativeElement as HTMLElement;
     const input = nativeElement.querySelector('input')!;
 
     // Simulate user typing in the input

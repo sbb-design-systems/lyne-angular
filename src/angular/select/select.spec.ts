@@ -28,7 +28,7 @@ describe('sbb-select', () => {
       component.select()!.open();
       fixture.detectChanges();
 
-      (fixture.debugElement.nativeElement as HTMLElement)
+      (fixture.nativeElement as HTMLElement)
         .querySelector<SbbOptionElement>('sbb-option[value="1"]')!
         .click();
       fixture.detectChanges();
@@ -71,7 +71,7 @@ describe('sbb-select', () => {
       component.select().open();
       fixture.detectChanges();
 
-      (fixture.debugElement.nativeElement as HTMLElement)
+      (fixture.nativeElement as HTMLElement)
         .querySelector<SbbOptionElement>('sbb-option[value="1"]')!
         .click();
       fixture.detectChanges();

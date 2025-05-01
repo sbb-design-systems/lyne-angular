@@ -25,7 +25,7 @@ describe('sbb-autocomplete', () => {
 
     expect(autocomplete.isOpen).toBeTrue();
 
-    const option1 = fixture.debugElement.nativeElement.querySelector('sbb-option');
+    const option1 = (fixture.nativeElement as HTMLElement).querySelector('sbb-option')!;
     option1.click();
 
     expect(component.control.value).toEqual('option1');

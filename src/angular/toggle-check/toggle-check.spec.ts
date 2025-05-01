@@ -14,9 +14,7 @@ describe(`sbb-toggle-check`, () => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    lyneElement = (fixture.debugElement.nativeElement as HTMLElement).querySelector(
-      'sbb-toggle-check',
-    )!;
+    lyneElement = (fixture.nativeElement as HTMLElement).querySelector('sbb-toggle-check')!;
   });
 
   it('should create', async () => {

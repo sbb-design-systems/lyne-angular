@@ -30,7 +30,7 @@ describe('sbb-toggle', () => {
   });
 
   it('should update form control when toggling', async () => {
-    (fixture.debugElement.nativeElement as HTMLElement)
+    (fixture.nativeElement as HTMLElement)
       .querySelector<SbbToggleOptionElement>('sbb-toggle-option[value="1"]')!
       .click();
 

@@ -28,9 +28,9 @@ describe('sbb-autocomplete-grid', () => {
 
     expect(autocompleteGrid.isOpen).toBeTrue();
 
-    const option1 = fixture.debugElement.nativeElement.querySelector(
+    const option1 = (fixture.nativeElement as HTMLElement).querySelector(
       'sbb-autocomplete-grid-option',
-    );
+    )!;
     option1.click();
 
     expect(component.control.value).toEqual('option1');

@@ -14,9 +14,7 @@ describe(`sbb-checkbox`, () => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    lyneElement = (fixture.debugElement.nativeElement as HTMLElement).querySelector(
-      'sbb-checkbox',
-    )!;
+    lyneElement = (fixture.nativeElement as HTMLElement).querySelector('sbb-checkbox')!;
   });
 
   it('should create', async () => {

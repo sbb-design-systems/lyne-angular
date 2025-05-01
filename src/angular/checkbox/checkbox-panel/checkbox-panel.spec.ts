@@ -14,9 +14,7 @@ describe('sbb-checkbox-panel', () => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    lyneElement = (fixture.debugElement.nativeElement as HTMLElement).querySelector(
-      'sbb-checkbox-panel',
-    )!;
+    lyneElement = (fixture.nativeElement as HTMLElement).querySelector('sbb-checkbox-panel')!;
   });
 
   it('should create', async () => {

@@ -15,9 +15,7 @@ describe('sbb-date-input', () => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    lyneElement = (fixture.debugElement.nativeElement as HTMLElement).querySelector(
-      'sbb-date-input',
-    )!;
+    lyneElement = (fixture.nativeElement as HTMLElement).querySelector('sbb-date-input')!;
   });
 
   it('should create', async () => {
