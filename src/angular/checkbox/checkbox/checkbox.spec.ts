@@ -100,9 +100,7 @@ describe(`sbb-checkbox`, () => {
 });
 
 @Component({
-  template: `<form>
-    <sbb-checkbox [formControl]="control">Checkbox</sbb-checkbox>
-  </form>`,
+  template: `<sbb-checkbox [formControl]="control">Checkbox</sbb-checkbox>`,
   imports: [SbbCheckbox, ReactiveFormsModule],
 })
 class TestComponent {

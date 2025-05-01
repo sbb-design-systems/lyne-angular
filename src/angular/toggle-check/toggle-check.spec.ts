@@ -100,9 +100,7 @@ describe(`sbb-toggle-check`, () => {
 });
 
 @Component({
-  template: `<form>
-    <sbb-toggle-check [formControl]="control">Checkbox</sbb-toggle-check>
-  </form>`,
+  template: `<sbb-toggle-check [formControl]="control">Checkbox</sbb-toggle-check>`,
   imports: [SbbToggleCheck, ReactiveFormsModule],
 })
 class TestComponent {
