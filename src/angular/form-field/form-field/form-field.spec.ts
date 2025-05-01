@@ -44,5 +44,4 @@ describe('sbb-form-field', () => {
 class TestComponent {
   control = new FormControl('', Validators.required);
   input = viewChild<ElementRef<HTMLInputElement>>(ElementRef<HTMLInputElement>);
-  formField = viewChild<ElementRef<SbbFormField>>(ElementRef<SbbFormField>);
 }
