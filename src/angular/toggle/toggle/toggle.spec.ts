@@ -1,7 +1,7 @@
-import type { QueryList } from '@angular/core';
-import { Component, ViewChild, ViewChildren } from '@angular/core';
+import { Component, viewChild, viewChildren } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import type { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle/toggle-option.js';
 
 import { SbbToggleOption } from '../toggle-option';
 
@@ -19,12 +19,22 @@ describe('sbb-toggle', () => {
   it('should create', async () => {
     expect(component).toBeDefined();
 
-    expect(component.toggle.value).toBe('2');
-    expect(component.options.find((o) => o.value === '2')!.checked).toBeTrue();
+    expect(component.toggle()!.value).toBe('2');
+    expect(component.options()!.find((o) => o.value === '2')!.checked).toBeTrue();
+  });
 
+  it('should update state of component on form value change', async () => {
     component.control.setValue('1');
-    expect(component.toggle.value).toBe('1');
-    expect(component.options.find((o) => o.value === '1')!.checked).toBeTrue();
+    expect(component.toggle()!.value).toBe('1');
+    expect(component.options()!.find((o) => o.value === '1')!.checked).toBeTrue();
+  });
+
+  it('should update form control when toggling', async () => {
+    (fixture.debugElement.nativeElement as HTMLElement)
+      .querySelector<SbbToggleOptionElement>('sbb-toggle-option[value="1"]')!
+      .click();
+
+    expect(component.control.value).toBe('1');
   });
 });
 
@@ -36,7 +46,7 @@ describe('sbb-toggle', () => {
   imports: [SbbToggle, SbbToggleOption, ReactiveFormsModule],
 })
 class TestComponent {
-  @ViewChild(SbbToggle, { static: true }) toggle!: SbbToggle;
-  @ViewChildren(SbbToggleOption) options!: QueryList<SbbToggleOption>;
+  toggle = viewChild(SbbToggle);
+  options = viewChildren(SbbToggleOption);
   control = new FormControl('2');
 }

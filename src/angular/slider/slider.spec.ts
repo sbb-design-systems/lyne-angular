@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
@@ -15,13 +15,15 @@ describe('sbb-slider', () => {
 
   it('should create', async () => {
     expect(component).toBeDefined();
-    expect(component.slider.value).toBe('10');
+    expect(component.slider()!.value).toBe('10');
+  });
 
+  it('should update state of component on form value change', async () => {
     component.control.setValue('120');
-    expect(component.slider.value).toBe('100');
+    expect(component.slider()!.value).toBe('100');
 
     component.control.setValue('-20');
-    expect(component.slider.value).toBe('0');
+    expect(component.slider()!.value).toBe('0');
   });
 });
 
@@ -30,6 +32,6 @@ describe('sbb-slider', () => {
   imports: [SbbSlider, ReactiveFormsModule],
 })
 class TestComponent {
-  @ViewChild(SbbSlider, { static: true }) slider!: SbbSlider;
+  slider = viewChild(SbbSlider);
   control = new FormControl('10');
 }
