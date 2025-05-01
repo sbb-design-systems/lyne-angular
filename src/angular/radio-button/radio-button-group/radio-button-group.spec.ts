@@ -31,6 +31,21 @@ describe('sbb-radio-button-group', () => {
       .click();
     expect(component.control.value).toBe('opt1');
   });
+
+  it('should be touched', async () => {
+    const radioButtonElement = (
+      fixture.nativeElement as HTMLElement
+    ).querySelector<SbbRadioButtonElement>('sbb-radio-button[value="opt1"]')!;
+    const radioButtonGroupElement = (fixture.nativeElement as HTMLElement).querySelector(
+      'sbb-radio-button-group',
+    )!;
+
+    radioButtonElement.focus();
+    radioButtonGroupElement.dispatchEvent(new FocusEvent('focusout'));
+    fixture.detectChanges();
+
+    expect(radioButtonGroupElement.classList).toContain('ng-touched');
+  });
 });
 
 @Component({
