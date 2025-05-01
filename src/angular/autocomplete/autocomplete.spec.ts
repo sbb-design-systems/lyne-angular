@@ -20,7 +20,7 @@ describe('sbb-autocomplete', () => {
   });
 
   it('should open and close', async () => {
-    const autocomplete = component.autocomplete()!;
+    const autocomplete = component.autocomplete();
     autocomplete.open();
 
     expect(autocomplete.isOpen).toBeTrue();
@@ -45,6 +45,6 @@ describe('sbb-autocomplete', () => {
   imports: [SbbFormField, SbbAutocomplete, SbbOption, ReactiveFormsModule],
 })
 class TestComponent {
-  autocomplete = viewChild(SbbAutocomplete);
+  autocomplete = viewChild.required(SbbAutocomplete);
   control = new FormControl('');
 }

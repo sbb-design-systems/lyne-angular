@@ -28,20 +28,20 @@ describe('sbb-date-input', () => {
     expect(lyneElement.textContent).toEqual('We, 30.04.2025');
     const oldValue = component.control.value;
 
-    component.dateInput()!.value = '2025-05-01';
+    component.dateInput().value = '2025-05-01';
     lyneElement.dispatchEvent(new Event('change'));
 
     expect(component.control.value).not.toBe(oldValue);
   });
 
   it('should handle parseValidator', async () => {
-    component.dateInput()!.value = 'invalid';
+    component.dateInput().value = 'invalid';
 
     expect(component.control.errors).toEqual({ sbbDateParse: { text: 'invalid' } });
   });
 
   it('should handle minValidator', async () => {
-    const dateInput = component.dateInput()!;
+    const dateInput = component.dateInput();
     dateInput.min = new Date('2026-01-01');
 
     expect(dateInput.valueAsDate?.toJSON()).toEqual('2025-04-29T22:00:00.000Z');
@@ -53,7 +53,7 @@ describe('sbb-date-input', () => {
   });
 
   it('should handle maxValidator', async () => {
-    const dateInput = component.dateInput()!;
+    const dateInput = component.dateInput();
     dateInput.max = new Date('2024-01-01');
 
     expect(dateInput.valueAsDate?.toJSON()).toEqual('2025-04-29T22:00:00.000Z');
@@ -65,7 +65,7 @@ describe('sbb-date-input', () => {
   });
 
   it('should handle dateFilter', async () => {
-    const dateInput = component.dateInput()!;
+    const dateInput = component.dateInput();
     dateInput.dateFilter = () => false;
 
     expect(dateInput.valueAsDate?.toJSON()).toEqual('2025-04-29T22:00:00.000Z');
@@ -75,7 +75,7 @@ describe('sbb-date-input', () => {
   });
 
   it('should handle writeValue via FormControl', async () => {
-    const dateInput = component.dateInput()!;
+    const dateInput = component.dateInput();
     const control = component.control;
 
     // Test with a valid date instance
@@ -108,6 +108,6 @@ describe('sbb-date-input', () => {
   imports: [SbbDateInput, ReactiveFormsModule],
 })
 class TestComponent {
-  dateInput = viewChild(SbbDateInput<Date>);
+  dateInput = viewChild.required(SbbDateInput<Date>);
   control = new FormControl(new Date('2025-04-30'));
 }

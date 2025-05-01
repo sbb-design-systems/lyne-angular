@@ -23,7 +23,7 @@ describe('sbb-autocomplete-grid', () => {
   });
 
   it('should open and close', async () => {
-    const autocompleteGrid = component.autocomplete()!;
+    const autocompleteGrid = component.autocomplete();
     autocompleteGrid.open();
 
     expect(autocompleteGrid.isOpen).toBeTrue();
@@ -68,6 +68,6 @@ describe('sbb-autocomplete-grid', () => {
   ],
 })
 class TestComponent {
-  autocomplete = viewChild(SbbAutocompleteGrid);
+  autocomplete = viewChild.required(SbbAutocompleteGrid);
   control = new FormControl('');
 }

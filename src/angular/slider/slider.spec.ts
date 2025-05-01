@@ -15,15 +15,15 @@ describe('sbb-slider', () => {
 
   it('should create', async () => {
     expect(component).toBeDefined();
-    expect(component.slider()!.value).toBe('10');
+    expect(component.slider().value).toBe('10');
   });
 
   it('should update state of component on form value change', async () => {
     component.control.setValue('120');
-    expect(component.slider()!.value).toBe('100');
+    expect(component.slider().value).toBe('100');
 
     component.control.setValue('-20');
-    expect(component.slider()!.value).toBe('0');
+    expect(component.slider().value).toBe('0');
   });
 });
 
@@ -32,6 +32,6 @@ describe('sbb-slider', () => {
   imports: [SbbSlider, ReactiveFormsModule],
 })
 class TestComponent {
-  slider = viewChild(SbbSlider);
+  slider = viewChild.required(SbbSlider);
   control = new FormControl('10');
 }

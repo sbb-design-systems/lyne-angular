@@ -60,7 +60,7 @@ describe('sbb-datepicker', () => {
   });
 
   it('next day button should be disabled', async () => {
-    component.dateInput()!.max = new Date('2025-04-30');
+    component.dateInput().max = new Date('2025-04-30');
     fixture.detectChanges();
     await Promise.resolve();
 
@@ -97,5 +97,5 @@ describe('sbb-datepicker', () => {
 })
 class TestComponent {
   control = new FormControl(new Date('2025-04-30'));
-  dateInput = viewChild(SbbDateInput<Date>);
+  dateInput = viewChild.required(SbbDateInput<Date>);
 }

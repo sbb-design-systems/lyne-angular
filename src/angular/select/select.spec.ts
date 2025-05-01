@@ -19,8 +19,8 @@ describe('sbb-select', () => {
 
     it('should create', async () => {
       expect(component).toBeDefined();
-      expect(component.select()!.value).toEqual('2');
-      expect(component.select()!.getDisplayValue()).toEqual('Option 2');
+      expect(component.select().value).toEqual('2');
+      expect(component.select().getDisplayValue()).toEqual('Option 2');
       expect(component.options().find((o) => o.value === '2')!.selected).toBeTrue();
     });
 
@@ -33,13 +33,13 @@ describe('sbb-select', () => {
         .click();
       fixture.detectChanges();
 
-      expect(component.select()!.value).toEqual('1');
-      expect(component.options()!.find((o) => o.value === '1')!.selected).toBeTrue();
+      expect(component.select().value).toEqual('1');
+      expect(component.options().find((o) => o.value === '1')!.selected).toBeTrue();
       expect(component.control.value).toEqual('1');
     });
 
     it('should react to form control change', async () => {
-      component.select()!.open();
+      component.select().open();
       fixture.detectChanges();
       await fixture.whenStable();
 
@@ -47,8 +47,8 @@ describe('sbb-select', () => {
       fixture.detectChanges();
       await fixture.whenStable();
 
-      expect(component.select()!.value).toEqual('1');
-      expect(component.options()!.find((o) => o.value === '1')!.selected).toBeTrue();
+      expect(component.select().value).toEqual('1');
+      expect(component.options().find((o) => o.value === '1')!.selected).toBeTrue();
       expect(component.control.value).toEqual('1');
     });
   });
@@ -65,10 +65,10 @@ describe('sbb-select', () => {
     it('should handle multiple initialization', async () => {
       fixture.detectChanges();
       await fixture.whenStable();
-      expect(component.select()!.value).toEqual(['1', '2']);
-      expect(component.options()!.filter((o) => o.selected).length).toBe(2);
+      expect(component.select().value).toEqual(['1', '2']);
+      expect(component.options().filter((o) => o.selected).length).toBe(2);
 
-      component.select()!.open();
+      component.select().open();
       fixture.detectChanges();
 
       (fixture.debugElement.nativeElement as HTMLElement)
@@ -76,7 +76,7 @@ describe('sbb-select', () => {
         .click();
       fixture.detectChanges();
 
-      expect(component.select()!.value).toEqual(['2']);
+      expect(component.select().value).toEqual(['2']);
       expect(component.control.value).toEqual(['2']);
     });
   });
@@ -91,7 +91,7 @@ describe('sbb-select', () => {
   imports: [SbbSelect, SbbOption, ReactiveFormsModule],
 })
 class TestComponent {
-  select = viewChild(SbbSelect);
+  select = viewChild.required(SbbSelect);
   options = viewChildren(SbbOption);
   control = new FormControl('2');
 }
@@ -105,7 +105,7 @@ class TestComponent {
   imports: [SbbSelect, SbbOption, ReactiveFormsModule],
 })
 class TestComponentMultiple {
-  select = viewChild(SbbSelect);
+  select = viewChild.required(SbbSelect);
   options = viewChildren(SbbOption);
   control = new FormControl(['1', '2']);
 }

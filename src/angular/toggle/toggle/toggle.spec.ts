@@ -19,14 +19,14 @@ describe('sbb-toggle', () => {
   it('should create', async () => {
     expect(component).toBeDefined();
 
-    expect(component.toggle()!.value).toBe('2');
-    expect(component.options()!.find((o) => o.value === '2')!.checked).toBeTrue();
+    expect(component.toggle().value).toBe('2');
+    expect(component.options().find((o) => o.value === '2')!.checked).toBeTrue();
   });
 
   it('should update state of component on form value change', async () => {
     component.control.setValue('1');
-    expect(component.toggle()!.value).toBe('1');
-    expect(component.options()!.find((o) => o.value === '1')!.checked).toBeTrue();
+    expect(component.toggle().value).toBe('1');
+    expect(component.options().find((o) => o.value === '1')!.checked).toBeTrue();
   });
 
   it('should update form control when toggling', async () => {
@@ -46,7 +46,7 @@ describe('sbb-toggle', () => {
   imports: [SbbToggle, SbbToggleOption, ReactiveFormsModule],
 })
 class TestComponent {
-  toggle = viewChild(SbbToggle);
+  toggle = viewChild.required(SbbToggle);
   options = viewChildren(SbbToggleOption);
   control = new FormControl('2');
 }
