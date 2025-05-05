@@ -38,8 +38,9 @@ describe('sbb-autocomplete', () => {
     <label for="input">Autocomplete</label>
     <input id="input" [formControl]="control" />
     <sbb-autocomplete>
-      <sbb-option value="option1">Option 1</sbb-option>
-      <sbb-option value="option2">Option 2</sbb-option>
+      @for (opt of [1, 2, 3]; track opt) {
+        <sbb-option value="option{{ opt }}">Option {{ opt }}</sbb-option>
+      }
     </sbb-autocomplete>
   </sbb-form-field>`,
   imports: [SbbFormField, SbbAutocomplete, SbbOption, ReactiveFormsModule],

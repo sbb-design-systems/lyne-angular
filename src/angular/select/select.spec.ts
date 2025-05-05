@@ -112,9 +112,9 @@ describe('sbb-select', () => {
 
 @Component({
   template: `<sbb-select [formControl]="control">
-    <sbb-option value="1">Option 1</sbb-option>
-    <sbb-option value="2">Option 2</sbb-option>
-    <sbb-option value="3">Option 3</sbb-option>
+    @for (opt of [1, 2, 3]; track opt) {
+      <sbb-option value="{{ opt }}">Option {{ opt }}</sbb-option>
+    }
   </sbb-select>`,
   imports: [SbbSelect, SbbOption, ReactiveFormsModule],
 })
@@ -126,9 +126,9 @@ class TestComponent {
 
 @Component({
   template: `<sbb-select [formControl]="control" multiple>
-    <sbb-option value="1">Option 1</sbb-option>
-    <sbb-option value="2">Option 2</sbb-option>
-    <sbb-option value="3">Option 3</sbb-option>
+    @for (opt of [1, 2, 3]; track opt) {
+      <sbb-option value="{{ opt }}">Option {{ opt }}</sbb-option>
+    }
   </sbb-select>`,
   imports: [SbbSelect, SbbOption, ReactiveFormsModule],
 })
