@@ -15,7 +15,7 @@ function getPairedModuleFromManifest(fileName: string): JavaScriptModule | undef
     .split('/')
     .slice(-2)
     .join('/')
-    .replace(/.stories.ts$/, '.js');
+    .replace(/.stories.ts$/, '.component.js');
   return manifest.modules.find(
     (module) =>
       module.declarations &&
