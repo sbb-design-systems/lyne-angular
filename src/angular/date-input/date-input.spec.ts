@@ -60,7 +60,7 @@ describe('sbb-date-input', () => {
     const dateInput = component.dateInput();
     dateInput.min = new Date('2026-01-01');
 
-    expect(dateInput.valueAsDate?.toJSON()).toEqual('2025-04-29T22:00:00.000Z');
+    expect(defaultDateAdapter.toIso8601(dateInput.valueAsDate!)).toEqual('2025-04-30');
 
     const errors = component.control.errors!;
     expect(Object.keys(errors)).toEqual(['sbbDateMin']);
@@ -72,7 +72,7 @@ describe('sbb-date-input', () => {
     const dateInput = component.dateInput();
     dateInput.max = new Date('2024-01-01');
 
-    expect(dateInput.valueAsDate?.toJSON()).toEqual('2025-04-29T22:00:00.000Z');
+    expect(defaultDateAdapter.toIso8601(dateInput.valueAsDate!)).toEqual('2025-04-30');
 
     const errors = component.control.errors!;
     expect(Object.keys(errors)).toEqual(['sbbDateMax']);
@@ -84,7 +84,7 @@ describe('sbb-date-input', () => {
     const dateInput = component.dateInput();
     dateInput.dateFilter = () => false;
 
-    expect(dateInput.valueAsDate?.toJSON()).toEqual('2025-04-29T22:00:00.000Z');
+    expect(defaultDateAdapter.toIso8601(dateInput.valueAsDate!)).toEqual('2025-04-30');
 
     const errors = component.control.errors!;
     expect(Object.keys(errors)).toEqual(['sbbDateFilter']);
