@@ -27,7 +27,7 @@ function getPairedModuleFromManifest(fileName: string): JavaScriptModule | undef
   const manifest = fileName.includes('angular-experimental')
     ? elementsExperimentalManifest
     : elementsManifest;
-  const name = fileName.split('/').slice(-2).join('/').replace(/.ts$/, '.js');
+  const name = fileName.split('/').slice(-2).join('/').replace(/.ts$/, '.component.js');
   return manifest.modules.find(
     (module) =>
       module.declarations &&
