@@ -14,7 +14,7 @@
     "watch:angular": "ng build angular --watch --configuration development",
     "watch:angular-experimental": "ng build angular-experimental --watch --configuration development",
     "watch:showcase": "ng run showcase:storybook",
-    "test": "npm-run-all --sequential build test:*",
+    "test": "npm-run-all --sequential test:*",
     "test:angular": "ng test angular",
     "test:angular-experimental": "ng test angular-experimental",
     "format": "prettier \"**/*\" --write --ignore-unknown",

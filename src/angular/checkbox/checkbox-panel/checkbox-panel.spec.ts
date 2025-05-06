@@ -1,4 +1,4 @@
-import { Component, type ElementRef, viewChild } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
@@ -14,9 +14,7 @@ describe('sbb-checkbox-panel', () => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    lyneElement = (fixture.debugElement.nativeElement as HTMLElement).querySelector(
-      'sbb-checkbox-panel',
-    )!;
+    lyneElement = (fixture.nativeElement as HTMLElement).querySelector('sbb-checkbox-panel')!;
   });
 
   it('should create', async () => {
@@ -24,26 +22,26 @@ describe('sbb-checkbox-panel', () => {
   });
 
   it('should not be checked', async () => {
-    expect(lyneElement.checked).toBeFalse();
+    expect(component.checkbox().checked).toBeFalse();
   });
 
   it('should be checked', async () => {
     component.control.setValue(true);
 
-    expect(lyneElement.checked).toBeTrue();
+    expect(component.checkbox().checked).toBeTrue();
   });
 
   it('should uncheck', async () => {
     component.control.setValue(true);
-    expect(lyneElement.checked).toBeTrue();
+    expect(component.checkbox().checked).toBeTrue();
 
     component.control.setValue(false);
-    expect(lyneElement.checked).toBeFalse();
+    expect(component.checkbox().checked).toBeFalse();
   });
 
-  it('should check by click and update ng-touched and ng-pristine', async () => {
-    expect(lyneElement).toHaveClass('ng-untouched');
-    expect(lyneElement).toHaveClass('ng-pristine');
+  it('should check by click and update touched and dirty', async () => {
+    expect(component.control.touched).toBeFalse();
+    expect(component.control.dirty).toBeFalse();
 
     lyneElement.focus();
     lyneElement.click();
@@ -51,20 +49,17 @@ describe('sbb-checkbox-panel', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(lyneElement.checked).toBeTrue();
+    expect(component.checkbox().checked).toBeTrue();
     expect(component.control.value).toBeTrue();
 
-    component.button()!.nativeElement!.focus();
+    // Simulate click away from checkbox
     lyneElement.dispatchEvent(new FocusEvent('blur'));
 
-    // We need to wait two cycles until touched is set on host
-    fixture.detectChanges();
-    await fixture.whenStable();
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(lyneElement).toHaveClass('ng-dirty');
-    expect(lyneElement).toHaveClass('ng-touched');
+    expect(component.control.dirty).toBeTrue();
+    expect(component.control.touched).toBeTrue();
   });
 
   it('should be unchecked by click', async () => {
@@ -74,16 +69,16 @@ describe('sbb-checkbox-panel', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(lyneElement.checked).toBeFalse();
+    expect(component.checkbox().checked).toBeFalse();
     expect(component.control.value).toBeFalse();
   });
 
   it('should handle disabled', async () => {
     component.control.disable();
-    expect(lyneElement.disabled).toBeTrue();
+    expect(component.checkbox().disabled).toBeTrue();
 
     component.control.enable();
-    expect(lyneElement.disabled).toBeFalse();
+    expect(component.checkbox().disabled).toBeFalse();
   });
 
   it('should handle validation', async () => {
@@ -102,13 +97,10 @@ describe('sbb-checkbox-panel', () => {
 });
 
 @Component({
-  template: `<form>
-    <sbb-checkbox-panel [formControl]="control">Checkbox</sbb-checkbox-panel>
-    <button #button type="button">Blur</button>
-  </form>`,
+  template: `<sbb-checkbox-panel [formControl]="control">Checkbox</sbb-checkbox-panel>`,
   imports: [SbbCheckboxPanel, ReactiveFormsModule],
 })
 class TestComponent {
   control = new FormControl(false);
-  button = viewChild<ElementRef<HTMLButtonElement>>('button');
+  checkbox = viewChild.required(SbbCheckboxPanel);
 }

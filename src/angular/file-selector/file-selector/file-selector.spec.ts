@@ -15,6 +15,8 @@ describe('sbb-file-selector', () => {
   it('should create', async () => {
     expect(component).toBeDefined();
   });
+
+  // TODO: Add tests for formControl.
 });
 
 @Component({

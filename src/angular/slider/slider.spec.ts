@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { SbbSlider } from './slider';
 
@@ -14,11 +15,40 @@ describe('sbb-slider', () => {
 
   it('should create', async () => {
     expect(component).toBeDefined();
+    expect(component.slider().value).toBe('10');
+  });
+
+  it('should update state of component on form value change', async () => {
+    component.control.setValue('120');
+    expect(component.slider().value).toBe('100');
+
+    component.control.setValue('-20');
+    expect(component.slider().value).toBe('0');
+  });
+
+  it('should update form control', async () => {
+    const slider = (fixture.nativeElement as HTMLElement).querySelector('sbb-slider')!;
+    slider.valueAsNumber = 30;
+    slider.dispatchEvent(new Event('change'));
+    expect(component.slider().value).toBe('30');
+  });
+
+  it('should be touched on blur', async () => {
+    expect(component.control.touched).toBeFalse();
+
+    (fixture.nativeElement as HTMLElement)
+      .querySelector('sbb-slider')!
+      .dispatchEvent(new FocusEvent('blur'));
+
+    expect(component.control.touched).toBeTrue();
   });
 });
 
 @Component({
-  template: `<sbb-slider></sbb-slider>`,
-  imports: [SbbSlider],
+  template: `<sbb-slider [formControl]="control" min="0" max="100" />`,
+  imports: [SbbSlider, ReactiveFormsModule],
 })
-class TestComponent {}
+class TestComponent {
+  slider = viewChild.required(SbbSlider);
+  control = new FormControl('10');
+}

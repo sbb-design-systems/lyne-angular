@@ -575,7 +575,7 @@ describe('sbb-table', () => {
     const fixture = TestBed.createComponent(TableWithColumnGroupingTestComponent);
     fixture.detectChanges();
 
-    const allHtml = fixture.debugElement.nativeElement;
+    const allHtml = fixture.nativeElement as HTMLElement;
 
     expect(allHtml.querySelector('th.sbb-column-column_a.sbb-table-group-with-next')).toBeTruthy();
     expect(allHtml.querySelector('th.sbb-column-column_b.sbb-table-group-with-next')).toBeTruthy();
@@ -592,7 +592,7 @@ describe('sbb-table', () => {
     fixture.detectChanges();
     flushMicrotasks(); // Set css sticky classes
     const tableWrapper = fixture.debugElement.query(By.directive(SbbTableWrapper));
-    const allHtml = fixture.debugElement.nativeElement;
+    const allHtml = fixture.nativeElement as HTMLElement;
 
     // We trigger the class update
     tableWrapper.nativeElement.dispatchEvent(new CustomEvent('scroll'));
@@ -651,7 +651,7 @@ describe('sbb-table', () => {
       fixture.nativeElement.querySelector('.sbb-column-column_a'),
     );
     const columnBLeftOffset =
-      fixture.debugElement.nativeElement.querySelector('.sbb-column-column_b')!.style.left;
+      fixture.nativeElement.querySelector('.sbb-column-column_b')!.style.left;
 
     expect(parseInt(columnBLeftOffset, 10)).toBeCloseTo(parseInt(columnAComputedStyles.width, 10));
   }));
@@ -668,8 +668,7 @@ describe('sbb-table', () => {
     let columnAComputedStyles = getComputedStyle(
       fixture.nativeElement.querySelector('.sbb-column-column_a'),
     );
-    let columnBLeftOffset =
-      fixture.debugElement.nativeElement.querySelector('.sbb-column-column_b')!.style.left;
+    let columnBLeftOffset = fixture.nativeElement.querySelector('.sbb-column-column_b')!.style.left;
     expect(parseInt(columnBLeftOffset, 10)).toBeCloseTo(parseInt(columnAComputedStyles.width, 10));
 
     // When changing size of table
@@ -682,8 +681,7 @@ describe('sbb-table', () => {
     columnAComputedStyles = getComputedStyle(
       fixture.nativeElement.querySelector('.sbb-column-column_a'),
     );
-    columnBLeftOffset =
-      fixture.debugElement.nativeElement.querySelector('.sbb-column-column_b')!.style.left;
+    columnBLeftOffset = fixture.nativeElement.querySelector('.sbb-column-column_b')!.style.left;
     expect(parseInt(columnBLeftOffset, 10)).toBeCloseTo(parseInt(columnAComputedStyles.width, 10));
   });
 });

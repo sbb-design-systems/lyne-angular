@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
+import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
 
 import { SbbAutocomplete } from './autocomplete';
 
@@ -15,10 +18,34 @@ describe('sbb-autocomplete', () => {
   it('should create', async () => {
     expect(component).toBeDefined();
   });
+
+  it('should open and close', async () => {
+    const autocomplete = component.autocomplete();
+    autocomplete.open();
+
+    expect(autocomplete.isOpen).toBeTrue();
+
+    const option1 = (fixture.nativeElement as HTMLElement).querySelector('sbb-option')!;
+    option1.click();
+
+    expect(component.control.value).toEqual('option1');
+    expect(autocomplete.isOpen).toBeFalse();
+  });
 });
 
 @Component({
-  template: `<sbb-autocomplete></sbb-autocomplete>`,
-  imports: [SbbAutocomplete],
+  template: `<sbb-form-field>
+    <label for="input">Autocomplete</label>
+    <input id="input" [formControl]="control" />
+    <sbb-autocomplete>
+      @for (opt of [1, 2, 3]; track opt) {
+        <sbb-option value="option{{ opt }}">Option {{ opt }}</sbb-option>
+      }
+    </sbb-autocomplete>
+  </sbb-form-field>`,
+  imports: [SbbFormField, SbbAutocomplete, SbbOption, ReactiveFormsModule],
 })
-class TestComponent {}
+class TestComponent {
+  autocomplete = viewChild.required(SbbAutocomplete);
+  control = new FormControl('');
+}

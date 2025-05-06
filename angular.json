@@ -56,7 +56,7 @@
             ],
             "compodoc": true,
             "compodocArgs": ["-e", "json", "-d", "src/showcase/.storybook", "--disablePrivate"],
-            "port": 6006,
+            "port": 6007,
             "experimentalZoneless": true
           }
         }
