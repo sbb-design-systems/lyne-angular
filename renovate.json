@@ -13,8 +13,6 @@
     "schedule": ["before 7am on monday"],
     "enabled": true
   },
-  "allowPostUpgradeCommandTemplating": true,
-  "allowedPostUpgradeCommands": ["^yarn"],
   "ignoreDeps": ["typescript", "zone.js"],
   "packageRules": [
     {
@@ -54,17 +52,6 @@
     {
       "groupName": "commitlint",
       "matchPackagePrefixes": ["@commitlint/"]
-    },
-    {
-      "matchPackageNames": ["@angular/cli", "@angular/cdk", "angular-server-side-configuration"],
-      "postUpgradeTasks": {
-        "commands": [
-          "yarn install --ignore-scripts --frozen-lockfile --non-interactive",
-          "yarn ng update {{{depName}}} --from={{{currentVersion}}} --to={{{newVersion}}} --migrate-only --allow-dirty --force",
-          "yarn format"
-        ],
-        "fileFilters": ["**/**"]
-      }
     }
   ]
 }
