@@ -21,7 +21,6 @@
       "automergeType": "branch",
       "automergeStrategy": "squash"
     },
-
     {
       "matchPackageNames": ["@types/node", "jasmine-core"],
       "matchUpdateTypes": ["major"],
@@ -29,29 +28,34 @@
     },
     {
       "groupName": "esta",
-      "matchPackagePrefixes": ["@sbb-esta/"],
       "prPriority": 10,
-      "automerge": false
+      "automerge": false,
+      "matchPackageNames": ["@sbb-esta/{/,}**"]
     },
     {
       "groupName": "angular",
-      "matchPackagePrefixes": ["@angular/", "@angular-devkit/", "@schematics/angular", "typescript"]
+      "matchPackageNames": [
+        "@angular/{/,}**",
+        "@angular-devkit/{/,}**",
+        "@schematics/angular{/,}**",
+        "typescript{/,}**"
+      ]
     },
     {
       "groupName": "karma",
-      "matchPackagePrefixes": ["karma"]
+      "matchPackageNames": ["karma{/,}**"]
     },
     {
       "groupName": "jasmine",
-      "matchPackagePrefixes": ["jasmine", "@types/jasmine"]
+      "matchPackageNames": ["jasmine{/,}**", "@types/jasmine{/,}**"]
     },
     {
       "groupName": "eslint",
-      "matchPackagePrefixes": ["typescript-eslint", "eslint", "angular-eslint"]
+      "matchPackageNames": ["typescript-eslint{/,}**", "eslint{/,}**", "angular-eslint{/,}**"]
     },
     {
       "groupName": "commitlint",
-      "matchPackagePrefixes": ["@commitlint/"]
+      "matchPackageNames": ["@commitlint/{/,}**"]
     }
   ]
 }
