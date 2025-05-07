@@ -1,5 +1,14 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import {
+  contentChildren,
+  Directive,
+  ElementRef,
+  inject,
+  Input,
+  NgZone,
+  Output,
+} from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
 import type { SbbAutocompleteElement } from '@sbb-esta/lyne-elements/autocomplete.js';
 import { fromEvent, NEVER, type Observable } from 'rxjs';
 
@@ -7,6 +16,7 @@ import '@sbb-esta/lyne-elements/autocomplete.js';
 
 @Directive({
   selector: 'sbb-autocomplete',
+  exportAs: 'SbbAutocomplete',
 })
 export class SbbAutocomplete {
   #element: ElementRef<SbbAutocompleteElement> = inject(ElementRef<SbbAutocompleteElement>);
@@ -87,4 +97,11 @@ export class SbbAutocomplete {
   public close(): void {
     return this.#element.nativeElement.close();
   }
+
+  /** Function that maps an option's control value to its display value in the trigger. */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Input() displayWith: ((value: any) => string) | null = null;
+
+  /** Options that are used to populate the autocomplete. */
+  public options = contentChildren(SbbOption, { descendants: true });
 }
