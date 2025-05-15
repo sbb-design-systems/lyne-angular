@@ -87,4 +87,14 @@ export class SbbAutocomplete {
   public close(): void {
     return this.#element.nativeElement.close();
   }
+
+  @Input({ transform: booleanAttribute })
+  public set autoActiveFirstOption(value: boolean) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.autoActiveFirstOption = value),
+    );
+  }
+  public get autoActiveFirstOption(): boolean {
+    return this.#element.nativeElement.autoActiveFirstOption;
+  }
 }
