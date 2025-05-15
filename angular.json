@@ -91,7 +91,7 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "styles": [
               "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
-              "test/disable-animation.scss"
+              "node_modules/@sbb-esta/lyne-elements/disable-animation.css"
             ],
             "karmaConfig": "src/angular/karma.conf.js"
           },
@@ -147,7 +147,7 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "styles": [
               "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
-              "test/disable-animation.scss"
+              "node_modules/@sbb-esta/lyne-elements/disable-animation.css"
             ],
             "karmaConfig": "src/angular-experimental/karma.conf.js"
           },
