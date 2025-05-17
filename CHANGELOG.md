@@ -1,5 +1,12 @@
 # Changelog
 
+## [19.0.0-rc.2](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-rc.1...v19.0.0-rc.2) (2025-05-17)
+
+
+### Bug Fixes
+
+* **deps:** update angular to v19.2.11 ([9451f6c](https://github.com/sbb-design-systems/lyne-angular/commit/9451f6c8e379958ab7d689c073477d7c15cf10d3))
+
 ## [19.0.0-rc.1](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-rc.0...v19.0.0-rc.1) (2025-05-15)
 
 
