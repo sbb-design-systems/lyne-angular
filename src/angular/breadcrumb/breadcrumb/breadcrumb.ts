@@ -7,6 +7,7 @@ import '@sbb-esta/lyne-elements/breadcrumb/breadcrumb.js';
 
 @Directive({
   selector: 'sbb-breadcrumb',
+  exportAs: 'sbbBreadcrumb',
 })
 export class SbbBreadcrumb extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbBreadcrumbElement> = inject(ElementRef<SbbBreadcrumbElement>);

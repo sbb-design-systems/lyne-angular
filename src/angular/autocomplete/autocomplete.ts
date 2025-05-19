@@ -7,6 +7,7 @@ import '@sbb-esta/lyne-elements/autocomplete.js';
 
 @Directive({
   selector: 'sbb-autocomplete',
+  exportAs: 'sbbAutocomplete',
 })
 export class SbbAutocomplete {
   #element: ElementRef<SbbAutocompleteElement> = inject(ElementRef<SbbAutocompleteElement>);

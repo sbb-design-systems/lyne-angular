@@ -8,6 +8,7 @@ import '@sbb-esta/lyne-elements-experimental/pearl-chain-vertical-item.js';
 
 @Directive({
   selector: 'sbb-pearl-chain-vertical-item',
+  exportAs: 'sbbPearlChainVerticalItem',
 })
 export class SbbPearlChainVerticalItem {
   #element: ElementRef<SbbPearlChainVerticalItemElement> = inject(

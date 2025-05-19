@@ -7,6 +7,7 @@ import '@sbb-esta/lyne-elements/card/card-link.js';
 
 @Directive({
   selector: 'sbb-card-link',
+  exportAs: 'sbbCardLink',
 })
 export class SbbCardLink extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbCardLinkElement> = inject(ElementRef<SbbCardLinkElement>);

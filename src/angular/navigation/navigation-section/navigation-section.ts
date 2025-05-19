@@ -4,6 +4,7 @@ import '@sbb-esta/lyne-elements/navigation/navigation-section.js';
 
 @Directive({
   selector: 'sbb-navigation-section',
+  exportAs: 'sbbNavigationSection',
 })
 export class SbbNavigationSection {
   #element: ElementRef<SbbNavigationSectionElement> = inject(

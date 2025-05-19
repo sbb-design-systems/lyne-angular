@@ -5,6 +5,7 @@ import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 @Directive({
   selector: 'sbb-status',
+  exportAs: 'sbbStatus',
 })
 export class SbbStatus {
   #element: ElementRef<SbbStatusElement> = inject(ElementRef<SbbStatusElement>);

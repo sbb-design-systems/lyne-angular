@@ -7,6 +7,7 @@ import '@sbb-esta/lyne-elements/button/secondary-button-static.js';
 
 @Directive({
   selector: 'sbb-secondary-button-static',
+  exportAs: 'sbbSecondaryButtonStatic',
 })
 export class SbbSecondaryButtonStatic {
   #element: ElementRef<SbbSecondaryButtonStaticElement> = inject(

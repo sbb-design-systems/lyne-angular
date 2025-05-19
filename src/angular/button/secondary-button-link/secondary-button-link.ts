@@ -8,6 +8,7 @@ import '@sbb-esta/lyne-elements/button/secondary-button-link.js';
 
 @Directive({
   selector: 'sbb-secondary-button-link',
+  exportAs: 'sbbSecondaryButtonLink',
 })
 export class SbbSecondaryButtonLink extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbSecondaryButtonLinkElement> = inject(

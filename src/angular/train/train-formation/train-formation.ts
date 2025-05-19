@@ -4,6 +4,7 @@ import '@sbb-esta/lyne-elements/train/train-formation.js';
 
 @Directive({
   selector: 'sbb-train-formation',
+  exportAs: 'sbbTrainFormation',
 })
 export class SbbTrainFormation {
   #element: ElementRef<SbbTrainFormationElement> = inject(ElementRef<SbbTrainFormationElement>);

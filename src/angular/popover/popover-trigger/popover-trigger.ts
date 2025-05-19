@@ -6,6 +6,7 @@ import '@sbb-esta/lyne-elements/popover/popover-trigger.js';
 
 @Directive({
   selector: 'sbb-popover-trigger',
+  exportAs: 'sbbPopoverTrigger',
 })
 export class SbbPopoverTrigger {
   #element: ElementRef<SbbPopoverTriggerElement> = inject(ElementRef<SbbPopoverTriggerElement>);

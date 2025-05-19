@@ -14,6 +14,7 @@ import '@sbb-esta/lyne-elements/toast.js';
 
 @Directive({
   selector: 'sbb-toast',
+  exportAs: 'sbbToast',
 })
 export class SbbToast {
   #element: ElementRef<SbbToastElement> = inject(ElementRef<SbbToastElement>);

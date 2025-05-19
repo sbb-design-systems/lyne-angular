@@ -7,6 +7,7 @@ import '@sbb-esta/lyne-elements/datepicker/datepicker-toggle.js';
 
 @Directive({
   selector: 'sbb-datepicker-toggle',
+  exportAs: 'sbbDatepickerToggle',
 })
 export class SbbDatepickerToggle<T = Date> {
   #element: ElementRef<SbbDatepickerToggleElement<T>> = inject(

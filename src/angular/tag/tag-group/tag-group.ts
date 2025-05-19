@@ -6,6 +6,7 @@ import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.
 
 @Directive({
   selector: 'sbb-tag-group',
+  exportAs: 'sbbTagGroup',
 })
 export class SbbTagGroup {
   #element: ElementRef<SbbTagGroupElement> = inject(ElementRef<SbbTagGroupElement>);

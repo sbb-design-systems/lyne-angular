@@ -6,6 +6,7 @@ import '@sbb-esta/lyne-elements/timetable-occupancy.js';
 
 @Directive({
   selector: 'sbb-timetable-occupancy',
+  exportAs: 'sbbTimetableOccupancy',
 })
 export class SbbTimetableOccupancy {
   #element: ElementRef<SbbTimetableOccupancyElement> = inject(

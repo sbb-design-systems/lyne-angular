@@ -6,6 +6,7 @@ import '@sbb-esta/lyne-elements/teaser-product/teaser-product.js';
 
 @Directive({
   selector: 'sbb-teaser-product',
+  exportAs: 'sbbTeaserProduct',
 })
 export class SbbTeaserProduct extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbTeaserProductElement> = inject(ElementRef<SbbTeaserProductElement>);

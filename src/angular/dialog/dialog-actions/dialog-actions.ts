@@ -7,6 +7,7 @@ import '@sbb-esta/lyne-elements/dialog/dialog-actions.js';
 
 @Directive({
   selector: 'sbb-dialog-actions',
+  exportAs: 'sbbDialogActions',
 })
 export class SbbDialogActions {
   #element: ElementRef<SbbDialogActionsElement> = inject(ElementRef<SbbDialogActionsElement>);

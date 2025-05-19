@@ -6,6 +6,7 @@ import '@sbb-esta/lyne-elements/menu/menu-link.js';
 
 @Directive({
   selector: 'sbb-menu-link',
+  exportAs: 'sbbMenuLink',
 })
 export class SbbMenuLink extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbMenuLinkElement> = inject(ElementRef<SbbMenuLinkElement>);
