@@ -8,6 +8,7 @@ import '@sbb-esta/lyne-elements/datepicker/datepicker-previous-day.js';
 
 @Directive({
   selector: 'sbb-datepicker-previous-day',
+  exportAs: 'sbbDatepickerPreviousDay',
 })
 export class SbbDatepickerPreviousDay<T = Date> {
   #element: ElementRef<SbbDatepickerPreviousDayElement<T>> = inject(

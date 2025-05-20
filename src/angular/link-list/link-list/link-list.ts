@@ -8,6 +8,7 @@ import '@sbb-esta/lyne-elements/link-list/link-list.js';
 
 @Directive({
   selector: 'sbb-link-list',
+  exportAs: 'sbbLinkList',
 })
 export class SbbLinkList {
   #element: ElementRef<SbbLinkListElement> = inject(ElementRef<SbbLinkListElement>);

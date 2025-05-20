@@ -8,6 +8,7 @@ import '@sbb-esta/lyne-elements/sidebar/sidebar-close-button.js';
 
 @Directive({
   selector: 'sbb-sidebar-close-button',
+  exportAs: 'sbbSidebarCloseButton',
 })
 export class SbbSidebarCloseButton {
   #element: ElementRef<SbbSidebarCloseButtonElement> = inject(

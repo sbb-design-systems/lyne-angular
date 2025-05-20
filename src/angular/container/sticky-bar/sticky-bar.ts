@@ -6,6 +6,7 @@ import '@sbb-esta/lyne-elements/container/sticky-bar.js';
 
 @Directive({
   selector: 'sbb-sticky-bar',
+  exportAs: 'sbbStickyBar',
 })
 export class SbbStickyBar {
   #element: ElementRef<SbbStickyBarElement> = inject(ElementRef<SbbStickyBarElement>);

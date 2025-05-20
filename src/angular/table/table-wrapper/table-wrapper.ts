@@ -6,6 +6,7 @@ import '@sbb-esta/lyne-elements/table/table-wrapper.js';
 
 @Directive({
   selector: 'sbb-table-wrapper',
+  exportAs: 'sbbTableWrapper',
 })
 export class SbbTableWrapper {
   #element: ElementRef<SbbTableWrapperElement> = inject(ElementRef<SbbTableWrapperElement>);

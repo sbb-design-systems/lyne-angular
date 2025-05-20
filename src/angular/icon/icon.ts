@@ -5,6 +5,7 @@ import '@sbb-esta/lyne-elements/icon.js';
 
 @Directive({
   selector: 'sbb-icon',
+  exportAs: 'sbbIcon',
 })
 export class SbbIcon {
   #element: ElementRef<SbbIconElement> = inject(ElementRef<SbbIconElement>);

@@ -5,6 +5,7 @@ import '@sbb-esta/lyne-elements/title.js';
 
 @Directive({
   selector: 'sbb-title',
+  exportAs: 'sbbTitle',
 })
 export class SbbTitle {
   #element: ElementRef<SbbTitleElement> = inject(ElementRef<SbbTitleElement>);

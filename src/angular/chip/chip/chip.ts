@@ -6,6 +6,7 @@ import '@sbb-esta/lyne-elements/chip/chip.js';
 
 @Directive({
   selector: 'sbb-chip',
+  exportAs: 'sbbChip',
 })
 export class SbbChip {
   #element: ElementRef<SbbChipElement> = inject(ElementRef<SbbChipElement>);

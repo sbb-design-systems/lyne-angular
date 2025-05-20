@@ -162,6 +162,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
                 node,
                 `@Directive({
   selector: '${classSelector}',
+  exportAs: '${className}',
 })
 export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration.classGenerics}>` : ''} {
 }`,

@@ -7,6 +7,7 @@ import '@sbb-esta/lyne-elements/header/header-link.js';
 
 @Directive({
   selector: 'sbb-header-link',
+  exportAs: 'sbbHeaderLink',
 })
 export class SbbHeaderLink extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbHeaderLinkElement> = inject(ElementRef<SbbHeaderLinkElement>);

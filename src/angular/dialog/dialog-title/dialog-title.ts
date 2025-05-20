@@ -8,6 +8,7 @@ import '@sbb-esta/lyne-elements/dialog/dialog-title.js';
 
 @Directive({
   selector: 'sbb-dialog-title',
+  exportAs: 'sbbDialogTitle',
 })
 export class SbbDialogTitle {
   #element: ElementRef<SbbDialogTitleElement> = inject(ElementRef<SbbDialogTitleElement>);

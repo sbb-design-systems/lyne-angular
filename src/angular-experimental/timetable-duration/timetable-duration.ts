@@ -4,6 +4,7 @@ import '@sbb-esta/lyne-elements-experimental/timetable-duration.js';
 
 @Directive({
   selector: 'sbb-timetable-duration',
+  exportAs: 'sbbTimetableDuration',
 })
 export class SbbTimetableDuration {
   #element: ElementRef<SbbTimetableDurationElement> = inject(

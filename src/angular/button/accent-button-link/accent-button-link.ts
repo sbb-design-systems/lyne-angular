@@ -8,6 +8,7 @@ import '@sbb-esta/lyne-elements/button/accent-button-link.js';
 
 @Directive({
   selector: 'sbb-accent-button-link',
+  exportAs: 'sbbAccentButtonLink',
 })
 export class SbbAccentButtonLink extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbAccentButtonLinkElement> = inject(ElementRef<SbbAccentButtonLinkElement>);

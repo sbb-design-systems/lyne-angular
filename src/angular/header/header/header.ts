@@ -5,6 +5,7 @@ import '@sbb-esta/lyne-elements/header/header.js';
 
 @Directive({
   selector: 'sbb-header',
+  exportAs: 'sbbHeader',
 })
 export class SbbHeader {
   #element: ElementRef<SbbHeaderElement> = inject(ElementRef<SbbHeaderElement>);

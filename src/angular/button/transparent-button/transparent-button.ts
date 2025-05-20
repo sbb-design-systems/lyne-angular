@@ -8,6 +8,7 @@ import '@sbb-esta/lyne-elements/button/transparent-button.js';
 
 @Directive({
   selector: 'sbb-transparent-button',
+  exportAs: 'sbbTransparentButton',
 })
 export class SbbTransparentButton {
   #element: ElementRef<SbbTransparentButtonElement> = inject(

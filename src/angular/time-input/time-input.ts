@@ -6,6 +6,7 @@ import '@sbb-esta/lyne-elements/time-input.js';
 
 @Directive({
   selector: 'sbb-time-input',
+  exportAs: 'sbbTimeInput',
 })
 export class SbbTimeInput {
   #element: ElementRef<SbbTimeInputElement> = inject(ElementRef<SbbTimeInputElement>);

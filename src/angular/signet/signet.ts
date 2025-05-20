@@ -4,6 +4,7 @@ import '@sbb-esta/lyne-elements/signet.js';
 
 @Directive({
   selector: 'sbb-signet',
+  exportAs: 'sbbSignet',
 })
 export class SbbSignet {
   #element: ElementRef<SbbSignetElement> = inject(ElementRef<SbbSignetElement>);

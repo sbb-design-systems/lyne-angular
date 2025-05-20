@@ -6,6 +6,7 @@ import '@sbb-esta/lyne-elements/option/option.js';
 
 @Directive({
   selector: 'sbb-option',
+  exportAs: 'sbbOption',
 })
 export class SbbOption {
   #element: ElementRef<SbbOptionElement> = inject(ElementRef<SbbOptionElement>);

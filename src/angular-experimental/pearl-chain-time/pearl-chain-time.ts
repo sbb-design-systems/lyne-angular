@@ -6,6 +6,7 @@ import '@sbb-esta/lyne-elements-experimental/pearl-chain-time.js';
 
 @Directive({
   selector: 'sbb-pearl-chain-time',
+  exportAs: 'sbbPearlChainTime',
 })
 export class SbbPearlChainTime {
   #element: ElementRef<SbbPearlChainTimeElement> = inject(ElementRef<SbbPearlChainTimeElement>);

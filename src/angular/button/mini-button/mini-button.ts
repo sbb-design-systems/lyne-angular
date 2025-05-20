@@ -7,6 +7,7 @@ import '@sbb-esta/lyne-elements/button/mini-button.js';
 
 @Directive({
   selector: 'sbb-mini-button',
+  exportAs: 'sbbMiniButton',
 })
 export class SbbMiniButton {
   #element: ElementRef<SbbMiniButtonElement> = inject(ElementRef<SbbMiniButtonElement>);
