@@ -7,6 +7,7 @@ import '@sbb-esta/lyne-elements/form-field/form-field-clear.js';
 
 @Directive({
   selector: 'sbb-form-field-clear',
+  exportAs: 'sbbFormFieldClear',
 })
 export class SbbFormFieldClear {
   #element: ElementRef<SbbFormFieldClearElement> = inject(ElementRef<SbbFormFieldClearElement>);

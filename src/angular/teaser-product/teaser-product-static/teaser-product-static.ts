@@ -5,6 +5,7 @@ import '@sbb-esta/lyne-elements/teaser-product/teaser-product-static.js';
 
 @Directive({
   selector: 'sbb-teaser-product-static',
+  exportAs: 'sbbTeaserProductStatic',
 })
 export class SbbTeaserProductStatic {
   #element: ElementRef<SbbTeaserProductStaticElement> = inject(

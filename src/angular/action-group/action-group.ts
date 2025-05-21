@@ -8,6 +8,7 @@ import '@sbb-esta/lyne-elements/action-group.js';
 
 @Directive({
   selector: 'sbb-action-group',
+  exportAs: 'sbbActionGroup',
 })
 export class SbbActionGroup {
   #element: ElementRef<SbbActionGroupElement> = inject(ElementRef<SbbActionGroupElement>);

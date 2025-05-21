@@ -8,6 +8,7 @@ import '@sbb-esta/lyne-elements/sidebar/sidebar.js';
 
 @Directive({
   selector: 'sbb-sidebar',
+  exportAs: 'sbbSidebar',
 })
 export class SbbSidebar {
   #element: ElementRef<SbbSidebarElement> = inject(ElementRef<SbbSidebarElement>);

@@ -6,6 +6,7 @@ import '@sbb-esta/lyne-elements/timetable-occupancy-icon.js';
 
 @Directive({
   selector: 'sbb-timetable-occupancy-icon',
+  exportAs: 'sbbTimetableOccupancyIcon',
 })
 export class SbbTimetableOccupancyIcon {
   #element: ElementRef<SbbTimetableOccupancyIconElement> = inject(

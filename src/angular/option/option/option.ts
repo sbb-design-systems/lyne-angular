@@ -9,6 +9,7 @@ let nextId = 0;
 
 @Directive({
   selector: 'sbb-option',
+  exportAs: 'sbbOption',
 })
 export class SbbOption<T = string> {
   #element: ElementRef<SbbOptionElement> = inject(ElementRef<SbbOptionElement>);

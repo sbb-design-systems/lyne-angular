@@ -16,7 +16,7 @@ import '@sbb-esta/lyne-elements/autocomplete.js';
 
 @Directive({
   selector: 'sbb-autocomplete',
-  exportAs: 'SbbAutocomplete',
+  exportAs: 'sbbAutocomplete',
 })
 export class SbbAutocomplete {
   #element: ElementRef<SbbAutocompleteElement> = inject(ElementRef<SbbAutocompleteElement>);
@@ -96,6 +96,16 @@ export class SbbAutocomplete {
 
   public close(): void {
     return this.#element.nativeElement.close();
+  }
+
+  @Input({ transform: booleanAttribute })
+  public set autoActiveFirstOption(value: boolean) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.autoActiveFirstOption = value),
+    );
+  }
+  public get autoActiveFirstOption(): boolean {
+    return this.#element.nativeElement.autoActiveFirstOption;
   }
 
   /** Function that maps an option's control value to its display value in the trigger. */

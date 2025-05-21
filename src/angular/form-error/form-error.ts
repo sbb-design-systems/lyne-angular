@@ -5,6 +5,7 @@ import '@sbb-esta/lyne-elements/form-error.js';
 
 @Directive({
   selector: 'sbb-form-error',
+  exportAs: 'sbbFormError',
 })
 export class SbbFormError {
   #element: ElementRef<SbbFormErrorElement> = inject(ElementRef<SbbFormErrorElement>);

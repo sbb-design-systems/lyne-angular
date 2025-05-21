@@ -7,6 +7,7 @@ import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
 
 @Directive({
   selector: 'sbb-expansion-panel',
+  exportAs: 'sbbExpansionPanel',
 })
 export class SbbExpansionPanel {
   #element: ElementRef<SbbExpansionPanelElement> = inject(ElementRef<SbbExpansionPanelElement>);

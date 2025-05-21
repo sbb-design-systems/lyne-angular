@@ -10,6 +10,7 @@ import '@sbb-esta/lyne-elements-experimental/timetable-row.js';
 
 @Directive({
   selector: 'sbb-timetable-row',
+  exportAs: 'sbbTimetableRow',
 })
 export class SbbTimetableRow {
   #element: ElementRef<SbbTimetableRowElement> = inject(ElementRef<SbbTimetableRowElement>);

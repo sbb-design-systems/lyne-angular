@@ -7,7 +7,7 @@ with `sbb-` instead of `cdk-`. For more information on the interface and a detai
 the table is implemented, see the
 [guide covering the CDK data-table](https://material.angular.io/guide/cdk-table).
 
-### Getting Started
+## Getting Started
 
 ```html
 <table sbb-table [dataSource]="dataSource">
@@ -118,7 +118,7 @@ that was defined in your template.
 This means that by changing your column list provided to the rows, you can easily re-order and
 include/exclude columns dynamically.
 
-### Advanced data sources
+## Advanced data sources
 
 The simplest way to provide data to your table is by passing a data array. More complex use-cases
 may benefit from a more flexible approach involving an Observable stream or by encapsulating your
@@ -150,13 +150,13 @@ functionality by extending a different base class, the `DataSource` base class c
 implemented instead (`MyCustomDataSource extends SomeOtherBaseClass implements DataSource`) to
 respect Typescript's restriction to only implement one base class.
 
-### Styling Columns
+## Styling Columns
 
 Each table cell has an automatically generated class based on which column it appears in. The format for this
 generated class is `sbb-column-NAME`. For example, cells in a column named "symbol" can be targeted with the
 selector `.sbb-column-symbol`.
 
-### Row Templates
+## Row Templates
 
 Event handlers and property binding on the row templates will be applied to each row rendered by the table. For example,
 adding a `(click)` handler to the row template will cause each individual row to call the handler when clicked.
@@ -177,7 +177,7 @@ the Lyne Angular library comes with a `SbbTableDataSource` that has already impl
 the logic of determining what rows should be rendered according to the current table state. To add
 these feature to the table, check out their respective sections below.
 
-### Pagination
+## Pagination
 
 To paginate the table's data, add a `<sbb-paginator>` after the table.
 
@@ -213,7 +213,7 @@ export class TablePaginatorExampleComponent implements OnInit {
 }
 ```
 
-### Sorting
+## Sorting
 
 To add sorting behavior to the table, add the `sbbSort` directive to the table and add
 `sbb-sort-header` to each column header cell that should trigger sorting. Note that you have to import `SbbSortModule` in order to initialize the `sbbSort` directive.
@@ -388,7 +388,7 @@ parentToggle() {
 }
 ```
 
-### Sticky Rows and Columns
+## Sticky Rows and Columns
 
 By using `position: sticky` styling, the table's rows and columns can be fixed so that they do not
 leave the viewport even when scrolled. The table provides inputs that will automatically apply the
@@ -454,7 +454,7 @@ will struggle to stay in the correct position as you scroll. For example, if a h
 to the top and the first column is stuck, then the top-left-most cell will appear jittery as you
 scroll.
 
-### Accessibility
+## Accessibility
 
 By default, `SbbTable` applies `role="table"`, assuming the table's contains primarily static
 content. You can change the role by explicitly setting `role="grid"` or `role="treegrid"` on the
@@ -465,7 +465,7 @@ focus management to the table.
 Always provide an accessible label for your tables via `aria-label` or `aria-labelledby` on the
 table element.
 
-### Column Grouping
+## Column Grouping
 
 To visually group columns you can use the `groupWithNext` flag of `sbbColumnDef` or `sbb-text-column`.
 The flag affects the sequence at runtime, not at definition time.
@@ -477,7 +477,7 @@ The flag affects the sequence at runtime, not at definition time.
 </ng-container>
 ```
 
-### Table Cell Actions
+## Table Cell Actions
 
 It is possible to define up to three (recommended, more are possible) action buttons (or links) for one row.
 The buttons are displayed either when hovering or when navigating with the keyboard.
@@ -511,7 +511,7 @@ so that screen readers can output a meaningful text.
 </td>
 ```
 
-### Table Wrapper
+## Table Wrapper
 
 The `<sbb-table-wrapper>` tag can be used to make a table horizontally scrollable
 or vertically scrollable if a fix height is provided.

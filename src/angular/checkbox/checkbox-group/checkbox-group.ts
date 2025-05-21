@@ -10,6 +10,7 @@ import '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
 
 @Directive({
   selector: 'sbb-checkbox-group',
+  exportAs: 'sbbCheckboxGroup',
 })
 export class SbbCheckboxGroup {
   #element: ElementRef<SbbCheckboxGroupElement> = inject(ElementRef<SbbCheckboxGroupElement>);

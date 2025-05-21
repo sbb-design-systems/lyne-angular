@@ -5,6 +5,7 @@ import '@sbb-esta/lyne-elements/toggle/toggle-option.js';
 
 @Directive({
   selector: 'sbb-toggle-option',
+  exportAs: 'sbbToggleOption',
 })
 export class SbbToggleOption {
   #element: ElementRef<SbbToggleOptionElement> = inject(ElementRef<SbbToggleOptionElement>);

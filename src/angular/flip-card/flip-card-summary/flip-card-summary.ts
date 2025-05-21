@@ -7,6 +7,7 @@ import '@sbb-esta/lyne-elements/flip-card/flip-card-summary.js';
 
 @Directive({
   selector: 'sbb-flip-card-summary',
+  exportAs: 'sbbFlipCardSummary',
 })
 export class SbbFlipCardSummary {
   #element: ElementRef<SbbFlipCardSummaryElement> = inject(ElementRef<SbbFlipCardSummaryElement>);

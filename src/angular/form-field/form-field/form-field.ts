@@ -5,6 +5,7 @@ import '@sbb-esta/lyne-elements/form-field/form-field.js';
 
 @Directive({
   selector: 'sbb-form-field',
+  exportAs: 'sbbFormField',
 })
 export class SbbFormField {
   #element: ElementRef<SbbFormFieldElement> = inject(ElementRef<SbbFormFieldElement>);

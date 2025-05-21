@@ -6,6 +6,7 @@ import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 @Directive({
   selector: 'sbb-tab-label',
+  exportAs: 'sbbTabLabel',
 })
 export class SbbTabLabel {
   #element: ElementRef<SbbTabLabelElement> = inject(ElementRef<SbbTabLabelElement>);

@@ -17,6 +17,7 @@ import '@sbb-esta/lyne-elements/tabs/tab-group.js';
 
 @Directive({
   selector: 'sbb-tab-group',
+  exportAs: 'sbbTabGroup',
 })
 export class SbbTabGroup {
   #element: ElementRef<SbbTabGroupElement> = inject(ElementRef<SbbTabGroupElement>);

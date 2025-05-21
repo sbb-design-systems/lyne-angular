@@ -8,6 +8,7 @@ import '@sbb-esta/lyne-elements/notification.js';
 
 @Directive({
   selector: 'sbb-notification',
+  exportAs: 'sbbNotification',
 })
 export class SbbNotification {
   #element: ElementRef<SbbNotificationElement> = inject(ElementRef<SbbNotificationElement>);

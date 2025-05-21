@@ -7,6 +7,7 @@ import '@sbb-esta/lyne-elements/accordion.js';
 
 @Directive({
   selector: 'sbb-accordion',
+  exportAs: 'sbbAccordion',
 })
 export class SbbAccordion {
   #element: ElementRef<SbbAccordionElement> = inject(ElementRef<SbbAccordionElement>);

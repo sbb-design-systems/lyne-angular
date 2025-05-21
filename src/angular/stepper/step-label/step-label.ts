@@ -7,6 +7,7 @@ import '@sbb-esta/lyne-elements/stepper/step-label.js';
 
 @Directive({
   selector: 'sbb-step-label',
+  exportAs: 'sbbStepLabel',
 })
 export class SbbStepLabel {
   #element: ElementRef<SbbStepLabelElement> = inject(ElementRef<SbbStepLabelElement>);

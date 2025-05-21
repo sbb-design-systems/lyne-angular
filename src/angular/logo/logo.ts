@@ -6,6 +6,7 @@ import '@sbb-esta/lyne-elements/logo.js';
 
 @Directive({
   selector: 'sbb-logo',
+  exportAs: 'sbbLogo',
 })
 export class SbbLogo {
   #element: ElementRef<SbbLogoElement> = inject(ElementRef<SbbLogoElement>);

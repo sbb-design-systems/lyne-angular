@@ -8,6 +8,7 @@ import type { Args, Meta } from '@storybook/angular';
 import { applicationConfig, moduleMetadata } from '@storybook/angular';
 import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
 
+import readme from './readme.md';
 import { SbbTableExampleComponent } from './table-example.component';
 
 const DATA_SAMPLE = [
@@ -298,6 +299,11 @@ const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+    docs: {
+      description: {
+        component: readme,
+      },
+    },
   },
   argTypes,
   args,

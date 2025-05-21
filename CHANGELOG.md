@@ -1,5 +1,35 @@
 # Changelog
 
+## [19.0.0-rc.1](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-rc.0...v19.0.0-rc.1) (2025-05-15)
+
+
+### Features
+
+* update @sbb-esta/lyne-elements to 2.8.0 ([#90](https://github.com/sbb-design-systems/lyne-angular/issues/90)) ([426bde8](https://github.com/sbb-design-systems/lyne-angular/commit/426bde80f246a63b332892497c85ae058e2b97d0))
+* update lyne-elements to 2.9.0 ([#95](https://github.com/sbb-design-systems/lyne-angular/issues/95)) ([30b2037](https://github.com/sbb-design-systems/lyne-angular/commit/30b2037d1df84e13fb78202d1f8d633ce34c81d1))
+
+
+### Bug Fixes
+
+* **deps:** update angular ([3d8aa26](https://github.com/sbb-design-systems/lyne-angular/commit/3d8aa262db96e06fadbaa55c90d7ea7e87be1e31))
+* **deps:** update angular ([81b6c8f](https://github.com/sbb-design-systems/lyne-angular/commit/81b6c8f99bc6d14d8c5976fea618dba12a07b3d1))
+* **deps:** update esta to v2.10.0 ([#108](https://github.com/sbb-design-systems/lyne-angular/issues/108)) ([52a9fe2](https://github.com/sbb-design-systems/lyne-angular/commit/52a9fe208ac6fb79a89522ab12cacf40d8f24a71))
+* fix output event types ([#88](https://github.com/sbb-design-systems/lyne-angular/issues/88)) ([cf88bcb](https://github.com/sbb-design-systems/lyne-angular/commit/cf88bcb6c0f3d091377b533a0f5fceacbba26380)), closes [#80](https://github.com/sbb-design-systems/lyne-angular/issues/80)
+* improve Angular Forms integration ([#94](https://github.com/sbb-design-systems/lyne-angular/issues/94)) ([34d2a44](https://github.com/sbb-design-systems/lyne-angular/commit/34d2a443afbac40389fe655c374f012c07501241))
+* **table:** fix sort header offset of focus-outline ([#85](https://github.com/sbb-design-systems/lyne-angular/issues/85)) ([2ee20f9](https://github.com/sbb-design-systems/lyne-angular/commit/2ee20f9f6b6bacf479b9a532cfcb37f26f4a5604))
+
+
+### Documentation
+
+* fix readme reference to 'lyne-elements' ([#91](https://github.com/sbb-design-systems/lyne-angular/issues/91)) ([dd738dd](https://github.com/sbb-design-systems/lyne-angular/commit/dd738ddf03c812152b279bb4a88df46096522173))
+* **sbb-table-wrapper:** add table-usage doc ([#107](https://github.com/sbb-design-systems/lyne-angular/issues/107)) ([76a09d6](https://github.com/sbb-design-systems/lyne-angular/commit/76a09d682101dae7c5f4a2315064314d691c8433))
+* **sbb-table-wrapper:** fix story property name ([b14d705](https://github.com/sbb-design-systems/lyne-angular/commit/b14d7054bc0aa00a0a846292c371964d67e3c28a))
+
+
+### Code Refactoring
+
+* fix type imports and use modern Angular APIs ([#92](https://github.com/sbb-design-systems/lyne-angular/issues/92)) ([8eaeee5](https://github.com/sbb-design-systems/lyne-angular/commit/8eaeee50657a0aef32e34c7df812ab7ddcd39da4))
+
 ## [19.0.0-rc.0](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-beta.4...v19.0.0-rc.0) (2025-04-16)
 
 

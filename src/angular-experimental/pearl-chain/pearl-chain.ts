@@ -6,6 +6,7 @@ import '@sbb-esta/lyne-elements-experimental/pearl-chain.js';
 
 @Directive({
   selector: 'sbb-pearl-chain',
+  exportAs: 'sbbPearlChain',
 })
 export class SbbPearlChain {
   #element: ElementRef<SbbPearlChainElement> = inject(ElementRef<SbbPearlChainElement>);

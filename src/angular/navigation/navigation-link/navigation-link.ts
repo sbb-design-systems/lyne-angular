@@ -9,6 +9,7 @@ import '@sbb-esta/lyne-elements/navigation/navigation-link.js';
 
 @Directive({
   selector: 'sbb-navigation-link',
+  exportAs: 'sbbNavigationLink',
 })
 export class SbbNavigationLink extends SbbRouterLinkSupportMixin(class {}) {
   #element: ElementRef<SbbNavigationLinkElement> = inject(ElementRef<SbbNavigationLinkElement>);

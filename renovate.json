@@ -1,0 +1,61 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "includePaths": ["package.json"],
+  "nodenv": {
+    "enabled": false
+  },
+  "nvm": {
+    "enabled": false
+  },
+  "baseBranches": ["main"],
+  "lockFileMaintenance": {
+    "schedule": ["before 7am on monday"],
+    "enabled": true
+  },
+  "ignoreDeps": ["typescript", "zone.js"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance", "bump"],
+      "automerge": true,
+      "automergeType": "branch",
+      "automergeStrategy": "squash"
+    },
+    {
+      "matchPackageNames": ["@types/node", "jasmine-core"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "groupName": "esta",
+      "prPriority": 10,
+      "automerge": false,
+      "matchPackageNames": ["@sbb-esta/{/,}**"]
+    },
+    {
+      "groupName": "angular",
+      "matchPackageNames": [
+        "@angular/{/,}**",
+        "@angular-devkit/{/,}**",
+        "@schematics/angular{/,}**",
+        "typescript{/,}**"
+      ]
+    },
+    {
+      "groupName": "karma",
+      "matchPackageNames": ["karma{/,}**"]
+    },
+    {
+      "groupName": "jasmine",
+      "matchPackageNames": ["jasmine{/,}**", "@types/jasmine{/,}**"]
+    },
+    {
+      "groupName": "eslint",
+      "matchPackageNames": ["typescript-eslint{/,}**", "eslint{/,}**", "angular-eslint{/,}**"]
+    },
+    {
+      "groupName": "commitlint",
+      "matchPackageNames": ["@commitlint/{/,}**"]
+    }
+  ]
+}

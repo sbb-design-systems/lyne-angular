@@ -9,6 +9,7 @@ import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 @Directive({
   selector: 'sbb-journey-header',
+  exportAs: 'sbbJourneyHeader',
 })
 export class SbbJourneyHeader {
   #element: ElementRef<SbbJourneyHeaderElement> = inject(ElementRef<SbbJourneyHeaderElement>);

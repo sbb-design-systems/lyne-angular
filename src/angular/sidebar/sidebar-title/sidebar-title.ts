@@ -7,6 +7,7 @@ import '@sbb-esta/lyne-elements/sidebar/sidebar-title.js';
 
 @Directive({
   selector: 'sbb-sidebar-title',
+  exportAs: 'sbbSidebarTitle',
 })
 export class SbbSidebarTitle {
   #element: ElementRef<SbbSidebarTitleElement> = inject(ElementRef<SbbSidebarTitleElement>);

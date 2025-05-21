@@ -6,6 +6,7 @@ import '@sbb-esta/lyne-elements/sidebar/icon-sidebar-container.js';
 
 @Directive({
   selector: 'sbb-icon-sidebar-container',
+  exportAs: 'sbbIconSidebarContainer',
 })
 export class SbbIconSidebarContainer {
   #element: ElementRef<SbbIconSidebarContainerElement> = inject(

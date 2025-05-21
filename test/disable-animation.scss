@@ -1,6 +1,0 @@
-// TODO: replace by one from lyne-elements
-@use '@sbb-esta/lyne-elements' as sbb;
-
-:root {
-  @include sbb.disable-animation;
-}

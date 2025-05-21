@@ -5,6 +5,7 @@ import '@sbb-esta/lyne-elements/train/train-wagon.js';
 
 @Directive({
   selector: 'sbb-train-wagon',
+  exportAs: 'sbbTrainWagon',
 })
 export class SbbTrainWagon {
   #element: ElementRef<SbbTrainWagonElement> = inject(ElementRef<SbbTrainWagonElement>);
