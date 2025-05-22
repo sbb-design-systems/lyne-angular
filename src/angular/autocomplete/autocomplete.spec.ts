@@ -204,7 +204,7 @@ class TestComponent {
   template: `<sbb-form-field>
     <label for="input">Autocomplete</label>
     <input id="input" [formControl]="control" [sbbAutocomplete]="auto" />
-    <sbb-autocomplete [displayWith]="displayWith" #auto="SbbAutocomplete">
+    <sbb-autocomplete [displayWith]="displayWith" #auto="sbbAutocomplete">
       @for (value of values; track value) {
         <sbb-option [value]="value">{{ value.property }}</sbb-option>
       }

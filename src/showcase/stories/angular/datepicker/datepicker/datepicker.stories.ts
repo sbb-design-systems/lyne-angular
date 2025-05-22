@@ -32,7 +32,7 @@ const disabled: InputType = {
   },
 };
 
-const readonly: InputType = {
+const readOnly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -184,7 +184,7 @@ const argTypes: ArgTypes = {
   value,
   form,
   disabled,
-  readonly,
+  readOnly,
   required,
   min,
   max,
@@ -206,7 +206,7 @@ const args: Args = {
   value: `15.02.2023`,
   form: undefined,
   disabled: false,
-  readonly: false,
+  readOnly: false,
   required: false,
   min: undefined,
   max: undefined,
@@ -264,7 +264,7 @@ const meta: Meta = {
     value,
     form,
     disabled,
-    readonly,
+    readOnly,
     required,
     dateFilter,
     ...args
@@ -282,7 +282,7 @@ const meta: Meta = {
       value,
       form,
       disabled,
-      readonly,
+      readOnly,
       required,
       dateFilter,
       ...args,
@@ -296,7 +296,7 @@ const meta: Meta = {
         <sbb-date-input
           value=${value}
           [disabled]="disabled"
-          [readOnly]="readonly"
+          [readOnly]="readOnly"
           [required]="required"
           [min]="convertMillisecondsToDate(min)"
           [max]="convertMillisecondsToDate(max)"

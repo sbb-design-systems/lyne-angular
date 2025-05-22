@@ -21,7 +21,7 @@ import type { SbbAutocomplete } from './autocomplete';
     '(inputAutocomplete)': '_handleSelected()',
   },
 })
-export class SbbAutocompleteTrigger implements ControlValueAccessor {
+export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor {
   #element = inject<ElementRef<HTMLInputElement>>(ElementRef);
 
   /** BehaviourSubject holding inputValue. Used for highlighting */
@@ -37,16 +37,16 @@ export class SbbAutocompleteTrigger implements ControlValueAccessor {
 
   /** The autocomplete panel to be attached to this trigger. */
   @Input('sbbAutocomplete')
-  get autocomplete(): SbbAutocomplete | null {
+  get autocomplete(): SbbAutocomplete<T> | null {
     return this.#autocomplete;
   }
-  set autocomplete(autocomplete: SbbAutocomplete) {
+  set autocomplete(autocomplete: SbbAutocomplete<T>) {
     this.#autocomplete = autocomplete;
   }
-  #autocomplete: SbbAutocomplete | null = null;
+  #autocomplete: SbbAutocomplete<T> | null = null;
 
   // Implemented as part of ControlValueAccessor.
-  writeValue(value: unknown): void {
+  writeValue(value: T): void {
     Promise.resolve(null).then(() => this.#assignOptionValue(value));
   }
 
@@ -67,7 +67,7 @@ export class SbbAutocompleteTrigger implements ControlValueAccessor {
     this.#element.nativeElement.disabled = isDisabled;
   }
 
-  #assignOptionValue(value: unknown): void {
+  #assignOptionValue(value: T): void {
     // Given a value, returns the string that should be shown within the input.
     const toDisplay = this.autocomplete?.displayWith?.(value) ?? value;
 

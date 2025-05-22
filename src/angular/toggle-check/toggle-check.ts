@@ -30,11 +30,11 @@ import '@sbb-esta/lyne-elements/toggle-check.js';
     },
   ],
 })
-export class SbbToggleCheck
+export class SbbToggleCheck<T = string>
   extends SbbControlValueAccessorMixin(class {})
   implements AfterViewInit
 {
-  #element: ElementRef<SbbToggleCheckElement> = inject(ElementRef<SbbToggleCheckElement>);
+  #element: ElementRef<SbbToggleCheckElement<T>> = inject(ElementRef<SbbToggleCheckElement<T>>);
   #ngZone: NgZone = inject(NgZone);
   #focusMonitor = inject(FocusMonitor);
 
@@ -95,10 +95,10 @@ export class SbbToggleCheck
   }
 
   @Input()
-  public set value(value: string | null) {
+  public set value(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string | null {
+  public get value(): T | null {
     return this.#element.nativeElement.value;
   }
 

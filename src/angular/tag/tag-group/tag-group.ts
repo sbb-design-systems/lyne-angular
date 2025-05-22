@@ -8,8 +8,8 @@ import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.
   selector: 'sbb-tag-group',
   exportAs: 'sbbTagGroup',
 })
-export class SbbTagGroup {
-  #element: ElementRef<SbbTagGroupElement> = inject(ElementRef<SbbTagGroupElement>);
+export class SbbTagGroup<T = string> {
+  #element: ElementRef<SbbTagGroupElement<T>> = inject(ElementRef<SbbTagGroupElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
   @Input()
@@ -39,10 +39,10 @@ export class SbbTagGroup {
   }
 
   @Input()
-  public set value(value: string | (string | null)[] | null) {
+  public set value(value: T | (T | null)[] | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string | (string | null)[] | null {
+  public get value(): T | (T | null)[] | null {
     return this.#element.nativeElement.value;
   }
 
@@ -54,7 +54,7 @@ export class SbbTagGroup {
     return this.#element.nativeElement.disabled;
   }
 
-  public get tags(): SbbTagElement[] {
+  public get tags(): SbbTagElement<T>[] {
     return this.#element.nativeElement.tags;
   }
 }

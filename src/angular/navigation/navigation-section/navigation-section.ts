@@ -21,10 +21,10 @@ export class SbbNavigationSection {
   }
 
   @Input()
-  public set trigger(value: string | HTMLElement | null) {
+  public set trigger(value: HTMLElement | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.trigger = value));
   }
-  public get trigger(): string | HTMLElement | null {
+  public get trigger(): HTMLElement | null {
     return this.#element.nativeElement.trigger;
   }
 

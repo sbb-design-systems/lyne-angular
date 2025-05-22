@@ -22,8 +22,8 @@ import '@sbb-esta/lyne-elements/toggle/toggle.js';
     },
   ],
 })
-export class SbbToggle extends SbbControlValueAccessorMixin(class {}) {
-  #element: ElementRef<SbbToggleElement> = inject(ElementRef<SbbToggleElement>);
+export class SbbToggle<T = string> extends SbbControlValueAccessorMixin(class {}) {
+  #element: ElementRef<SbbToggleElement<T>> = inject(ElementRef<SbbToggleElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
   @Input({ transform: booleanAttribute })
@@ -51,10 +51,10 @@ export class SbbToggle extends SbbControlValueAccessorMixin(class {}) {
   }
 
   @Input()
-  public set value(value: string) {
+  public set value(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string {
+  public get value(): T | null {
     return this.#element.nativeElement.value;
   }
 
@@ -65,7 +65,7 @@ export class SbbToggle extends SbbControlValueAccessorMixin(class {}) {
     'change',
   );
 
-  public get options(): SbbToggleOptionElement[] {
+  public get options(): SbbToggleOptionElement<T>[] {
     return this.#element.nativeElement.options;
   }
 

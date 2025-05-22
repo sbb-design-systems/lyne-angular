@@ -39,11 +39,11 @@ export class SbbNotification {
   }
 
   @Input({ transform: booleanAttribute })
-  public set readonly(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.readonly = value));
+  public set readOnly(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.readOnly = value));
   }
-  public get readonly(): boolean {
-    return this.#element.nativeElement.readonly;
+  public get readOnly(): boolean {
+    return this.#element.nativeElement.readOnly;
   }
 
   @Input()

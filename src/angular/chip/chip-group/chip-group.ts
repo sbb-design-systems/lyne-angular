@@ -24,15 +24,15 @@ import '@sbb-esta/lyne-elements/chip/chip-group.js';
     },
   ],
 })
-export class SbbChipGroup extends SbbControlValueAccessorMixin(class {}) {
-  #element: ElementRef<SbbChipGroupElement> = inject(ElementRef<SbbChipGroupElement>);
+export class SbbChipGroup<T = string> extends SbbControlValueAccessorMixin(class {}) {
+  #element: ElementRef<SbbChipGroupElement<T>> = inject(ElementRef<SbbChipGroupElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
   @Input()
-  public set value(value: string[] | null) {
+  public set value(value: (T | null)[] | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string[] | null {
+  public get value(): (T | null)[] | null {
     return this.#element.nativeElement.value;
   }
 
@@ -122,5 +122,13 @@ export class SbbChipGroup extends SbbControlValueAccessorMixin(class {}) {
 
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
+  }
+
+  @Input()
+  public set displayWith(value: ((value: T) => string) | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.displayWith = value));
+  }
+  public get displayWith(): ((value: T) => string) | null {
+    return this.#element.nativeElement.displayWith;
   }
 }

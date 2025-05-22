@@ -5,14 +5,12 @@ import { fromEvent, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/option/option.js';
 
-let nextId = 0;
-
 @Directive({
   selector: 'sbb-option',
   exportAs: 'sbbOption',
 })
 export class SbbOption<T = string> {
-  #element: ElementRef<SbbOptionElement> = inject(ElementRef<SbbOptionElement>);
+  #element: ElementRef<SbbOptionElement<T>> = inject(ElementRef<SbbOptionElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
   @Input({ transform: booleanAttribute })
@@ -32,18 +30,12 @@ export class SbbOption<T = string> {
   }
 
   @Input()
-  public set value(value: T | null) {
-    this.#value = value;
-    this.#ngZone.runOutsideAngular(
-      () =>
-        (this.#element.nativeElement.value =
-          typeof value === 'string' ? value : `sbb-option-complex-${++nextId}`),
-    );
+  public set value(value: T) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): T | null {
-    return this.#value;
+  public get value(): T {
+    return this.#element.nativeElement.value;
   }
-  #value: T | null = null;
 
   @Input({ transform: booleanAttribute })
   public set selected(value: boolean) {

@@ -9,8 +9,10 @@ import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid.js';
   selector: 'sbb-autocomplete-grid',
   exportAs: 'sbbAutocompleteGrid',
 })
-export class SbbAutocompleteGrid {
-  #element: ElementRef<SbbAutocompleteGridElement> = inject(ElementRef<SbbAutocompleteGridElement>);
+export class SbbAutocompleteGrid<T = string> {
+  #element: ElementRef<SbbAutocompleteGridElement<T>> = inject(
+    ElementRef<SbbAutocompleteGridElement<T>>,
+  );
   #ngZone: NgZone = inject(NgZone);
 
   @Input({ transform: booleanAttribute })
@@ -22,18 +24,18 @@ export class SbbAutocompleteGrid {
   }
 
   @Input()
-  public set origin(value: string | HTMLElement | null) {
+  public set origin(value: HTMLElement | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.origin = value));
   }
-  public get origin(): string | HTMLElement | null {
+  public get origin(): HTMLElement | null {
     return this.#element.nativeElement.origin;
   }
 
   @Input()
-  public set trigger(value: string | HTMLInputElement | null) {
+  public set trigger(value: HTMLInputElement | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.trigger = value));
   }
-  public get trigger(): string | HTMLInputElement | null {
+  public get trigger(): HTMLInputElement | null {
     return this.#element.nativeElement.trigger;
   }
 
@@ -97,5 +99,13 @@ export class SbbAutocompleteGrid {
   }
   public get autoActiveFirstOption(): boolean {
     return this.#element.nativeElement.autoActiveFirstOption;
+  }
+
+  @Input()
+  public set displayWith(value: ((value: T) => string) | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.displayWith = value));
+  }
+  public get displayWith(): ((value: T) => string) | null {
+    return this.#element.nativeElement.displayWith;
   }
 }

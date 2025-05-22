@@ -18,8 +18,8 @@ import '@sbb-esta/lyne-elements/autocomplete.js';
   selector: 'sbb-autocomplete',
   exportAs: 'sbbAutocomplete',
 })
-export class SbbAutocomplete {
-  #element: ElementRef<SbbAutocompleteElement> = inject(ElementRef<SbbAutocompleteElement>);
+export class SbbAutocomplete<T = string> {
+  #element: ElementRef<SbbAutocompleteElement<T>> = inject(ElementRef<SbbAutocompleteElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
   @Input({ transform: booleanAttribute })
@@ -31,18 +31,18 @@ export class SbbAutocomplete {
   }
 
   @Input()
-  public set origin(value: string | HTMLElement | null) {
+  public set origin(value: HTMLElement | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.origin = value));
   }
-  public get origin(): string | HTMLElement | null {
+  public get origin(): HTMLElement | null {
     return this.#element.nativeElement.origin;
   }
 
   @Input()
-  public set trigger(value: string | HTMLInputElement | null) {
+  public set trigger(value: HTMLInputElement | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.trigger = value));
   }
-  public get trigger(): string | HTMLInputElement | null {
+  public get trigger(): HTMLInputElement | null {
     return this.#element.nativeElement.trigger;
   }
 
@@ -108,9 +108,13 @@ export class SbbAutocomplete {
     return this.#element.nativeElement.autoActiveFirstOption;
   }
 
-  /** Function that maps an option's control value to its display value in the trigger. */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  @Input() displayWith: ((value: any) => string) | null = null;
+  @Input()
+  public set displayWith(value: ((value: T) => string) | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.displayWith = value));
+  }
+  public get displayWith(): ((value: T) => string) | null {
+    return this.#element.nativeElement.displayWith;
+  }
 
   /** Options that are used to populate the autocomplete. */
   public options = contentChildren(SbbOption, { descendants: true });
