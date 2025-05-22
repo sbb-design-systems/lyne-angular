@@ -1,6 +1,7 @@
 import { Directive, ElementRef, forwardRef, inject, Input } from '@angular/core';
 import type { ControlValueAccessor } from '@angular/forms';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option/option.js';
 import { BehaviorSubject } from 'rxjs';
 
 import type { SbbAutocomplete } from './autocomplete';
@@ -18,7 +19,7 @@ import type { SbbAutocomplete } from './autocomplete';
   host: {
     '(blur)': '_onTouched()',
     '(input)': '_handleInput($event)',
-    '(inputAutocomplete)': '_handleSelected()',
+    '(inputAutocomplete)': '_handleSelected($event)',
   },
 })
 export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor {
@@ -47,7 +48,19 @@ export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor 
 
   // Implemented as part of ControlValueAccessor.
   writeValue(value: T): void {
-    Promise.resolve(null).then(() => this.#assignOptionValue(value));
+    Promise.resolve(null).then(() => {
+      // Given a value, returns the string that should be shown within the input.
+      const toDisplay = this.autocomplete?.displayWith?.(value) ?? value;
+
+      // Simply falling back to an empty string if the display value is falsy does not work properly.
+      // The display value can also be the number zero and shouldn't fall back to an empty string.
+      this.#element.nativeElement.value = toDisplay != null ? (toDisplay as string) : '';
+      this.#element.nativeElement.dispatchEvent(
+        new Event('change', { bubbles: true, composed: true }),
+      );
+
+      this.#inputValue.next(this.#element.nativeElement.value);
+    });
   }
 
   // Implemented as part of ControlValueAccessor.
@@ -67,16 +80,7 @@ export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor 
     this.#element.nativeElement.disabled = isDisabled;
   }
 
-  #assignOptionValue(value: T): void {
-    // Given a value, returns the string that should be shown within the input.
-    const toDisplay = this.autocomplete?.displayWith?.(value) ?? value;
-
-    // Simply falling back to an empty string if the display value is falsy does not work properly.
-    // The display value can also be the number zero and shouldn't fall back to an empty string.
-    this.#updateNativeInputValue(toDisplay != null ? (toDisplay as string) : '');
-  }
-
-  _handleInput(event: KeyboardEvent): void {
+  _handleInput(event: InputEvent): void {
     const target = event.target as HTMLInputElement;
     let value: number | string | null = target.value;
 
@@ -85,34 +89,15 @@ export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor 
       value = value === '' ? null : parseFloat(value);
     }
 
-    // If selection is required we don't write to the CVA while the user is typing.
-    // At the end of the selection either the user will have picked something
-    // or we'll reset the value back to null.
     this._onChange(value);
     this.#inputValue.next(target.value);
   }
 
-  _handleSelected(): void {
-    // We have to check if there is a complex object for this value
+  _handleSelected(event: CustomEvent<{ option: SbbOptionBaseElement<T> }>): void {
+    // We have to check if the option is selected
     // and if so, we have to set the input value to the display value.
     // This is needed for the autocomplete to work properly
     // and to show the correct value in the input field.
-
-    const option = this.autocomplete?.options().find((option) => option.selected);
-
-    if (option && typeof option.value !== 'string') {
-      const value = option.value;
-      this.#assignOptionValue(value);
-      this._onChange(value);
-    }
-  }
-
-  #updateNativeInputValue(value: string): void {
-    this.#element.nativeElement.value = value;
-    this.#element.nativeElement.dispatchEvent(
-      new Event('change', { bubbles: true, composed: true }),
-    );
-
-    this.#inputValue.next(value);
+    this._onChange(event.detail.option.value);
   }
 }

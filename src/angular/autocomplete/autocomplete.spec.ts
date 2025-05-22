@@ -16,6 +16,9 @@ describe('sbb-autocomplete', () => {
       fixture = TestBed.createComponent(TestComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
+
+      // Wait for the fixture to stabilize
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
 
     it('should create', async () => {
@@ -44,6 +47,9 @@ describe('sbb-autocomplete', () => {
       fixture = TestBed.createComponent(TestComponentWithComplexValue);
       component = fixture.componentInstance;
       fixture.detectChanges();
+
+      // Wait for the fixture to stabilize
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
 
     it('select value', async () => {
