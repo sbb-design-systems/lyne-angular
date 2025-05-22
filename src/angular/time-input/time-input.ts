@@ -1,5 +1,7 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import type { AbstractControl, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.js';
 import { fromEvent, NEVER, type Observable } from 'rxjs';
 
@@ -7,15 +9,28 @@ import '@sbb-esta/lyne-elements/time-input.js';
 
 @Directive({
   selector: 'sbb-time-input',
-  exportAs: 'SbbTimeInput',
+  exportAs: 'sbbTimeInput',
+  host: {
+    '(change)': 'this.onChangeFn(this.valueAsDate)',
+    '(blur)': 'this.onTouchedFn()',
+    '(input)': 'this.validatorOnChange()',
+    '(invalid)': 'this.validatorOnChange()',
+  },
+  providers: [
+    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SbbTimeInput), multi: true },
+    { provide: NG_VALIDATORS, useExisting: forwardRef(() => SbbTimeInput), multi: true },
+  ],
 })
-export class SbbTimeInput {
+export class SbbTimeInput extends SbbControlValueAccessorMixin(class {}) implements Validator {
   #element: ElementRef<SbbTimeInputElement> = inject(ElementRef<SbbTimeInputElement>);
   #ngZone: NgZone = inject(NgZone);
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  protected validatorOnChange = () => {};
 
   @Input()
   public set value(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
+    this.validatorOnChange?.();
   }
   public get value(): string {
     return this.#element.nativeElement.value;
@@ -24,6 +39,7 @@ export class SbbTimeInput {
   @Input()
   public set valueAsDate(value: Date | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.valueAsDate = value));
+    this.validatorOnChange?.();
   }
   public get valueAsDate(): Date | null {
     return this.#element.nativeElement.valueAsDate;
@@ -100,12 +116,36 @@ export class SbbTimeInput {
     return this.#element.nativeElement.willValidate;
   }
 
-  public focus(options: FocusOptions): void {
-    return this.#element.nativeElement.focus(options);
+  /** The form control validator for whether the input parses. */
+  #parseValidator: ValidatorFn = (): ValidationErrors | null =>
+    this.validity.badInput ? { sbbTimeParse: { text: this.#element.nativeElement.value } } : null;
+
+  /** The form control validator for the max time. */
+  #maxValidator: ValidatorFn = (): ValidationErrors | null =>
+    this.validity.rangeOverflow ? { sbbTimeMax: { actual: this.valueAsDate } } : null;
+
+  /** The combined form control validator for this input. */
+  #validator: ValidatorFn | null = Validators.compose([this.#parseValidator, this.#maxValidator]);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  override writeValue(value: any): void {
+    if (value instanceof Date) {
+      this.valueAsDate = value;
+    } else {
+      this.value = value;
+    }
   }
 
-  public select(): void {
-    return this.#element.nativeElement.select();
+  registerOnValidatorChange?(fn: () => void): void {
+    this.validatorOnChange = fn;
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    return this.#validator?.(control) ?? null;
+  }
+
+  public focus(options: FocusOptions): void {
+    return this.#element.nativeElement.focus(options);
   }
 
   public checkValidity(): boolean {
@@ -118,5 +158,9 @@ export class SbbTimeInput {
 
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
+  }
+
+  public select(): void {
+    return this.#element.nativeElement.select();
   }
 }
