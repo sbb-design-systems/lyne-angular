@@ -1,7 +1,6 @@
 import { Component, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import type { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.js';
 
 import { SbbTimeInput } from './time-input';
@@ -41,47 +40,42 @@ describe('sbb-time-input', () => {
     expect(component.control.valid).toBeFalse();
   });
 
-  // TODO: find way to test it
-  xit('should validate on invalid event', async () => {
+  it('should validate on invalid event', async () => {
     expect(component.control.valid).toBeTrue();
 
-    lyneElement.value = 'invalid';
+    lyneElement.value = '--';
     lyneElement.dispatchEvent(new Event('invalid'));
 
-    expect(lyneElement.value).toBe('invalid');
+    expect(lyneElement.value).toBe('--');
     expect(component.control.valid).toBeFalse();
   });
 
-  // TODO: find way to test it
-  xit('should handle parseValidator', async () => {
-    component.timeInput().value = 'invalid';
+  it('should handle parseValidator', async () => {
+    component.timeInput().value = '--';
 
-    expect(component.control.errors).toEqual({ sbbTimeParse: { text: 'invalid' } });
+    expect(component.control.errors).toEqual({ sbbTimeParse: { text: '--' } });
   });
 
-  // TODO: find way to test it
-  xit('should handle maxValidator', async () => {
+  it('should handle maxValidator', async () => {
     const timeInput = component.timeInput();
+    component.timeInput().value = '99:99';
 
     const errors = component.control.errors!;
     expect(Object.keys(errors)).toEqual(['sbbTimeMax']);
     expect(errors['sbbTimeMax'].actual).toEqual(timeInput.valueAsDate);
   });
 
-  // TODO: find way to test it
-  xit('should handle writeValue via FormControl', async () => {
+  it('should handle writeValue via FormControl', async () => {
     const timeInput = component.timeInput();
     const control = component.control;
 
     // Test with a valid date instance
     const validDate = new Date('1970-01-01T14:20:00');
     control.setValue(validDate);
-    expect(defaultDateAdapter.toIso8601(timeInput.valueAsDate!)).toEqual(
-      defaultDateAdapter.toIso8601(validDate),
-    );
+    expect(timeInput.valueAsDate!.toTimeString()).toEqual(validDate.toTimeString());
 
-    // Test with an invalid date string
-    const invalidDateString = 'invalid-date';
+    // Test with an invalid time string
+    const invalidDateString = '--';
     control.setValue(invalidDateString as unknown as Date);
     expect(timeInput.value).toEqual(invalidDateString);
     expect(timeInput.valueAsDate).toBeNull();
@@ -94,7 +88,7 @@ describe('sbb-time-input', () => {
     // Test with undefined
     control.setValue(undefined as unknown as Date);
     expect(timeInput.valueAsDate).toBeNull();
-    expect(timeInput.value).toEqual('undefined');
+    expect(timeInput.value).toEqual('');
   });
 
   it('should be touched on blur', async () => {
