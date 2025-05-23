@@ -1,0 +1,20 @@
+name: Add Issues to Project
+on:
+  issues:
+    types: [opened, transferred]
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.MAINTENANCE_APP_ID }}
+          private-key: ${{ secrets.MAINTENANCE_APP_PEM }}
+      - name: Add issue
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/orgs/sbb-design-systems/projects/4
+          github-token: ${{ steps.generate_token.outputs.token }}
