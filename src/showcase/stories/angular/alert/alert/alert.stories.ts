@@ -50,7 +50,7 @@ const args: Args = {
   text: "Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock construction work will take place. You have to expect changed travel times and changed connections.",
   titleLevel: titleLevel.options![2],
   size: size.options![0],
-  readonly: false,
+  readOnly: false,
   iconName: 'info',
   animation: animation.options![0],
 };

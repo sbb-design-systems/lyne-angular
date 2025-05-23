@@ -32,7 +32,7 @@ const disabled: InputType = {
   },
 };
 
-const readonly: InputType = {
+const readOnly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -119,7 +119,7 @@ const argTypes: ArgTypes = {
   origin,
   negative,
   disabled,
-  readonly,
+  readOnly,
   borderless,
   size,
   floatingLabel,
@@ -132,7 +132,7 @@ const argTypes: ArgTypes = {
 const args: Args = {
   negative: false,
   disabled: false,
-  readonly: false,
+  readOnly: false,
   borderless: false,
   size: size.options![0],
   floatingLabel: false,
@@ -169,7 +169,7 @@ const meta: Meta = {
     floatingLabel,
     size,
     disabled,
-    readonly,
+    readOnly,
     optionIconName,
     disableOption,
     buttonIconName,
@@ -182,7 +182,7 @@ const meta: Meta = {
       floatingLabel,
       size,
       disabled,
-      readonly,
+      readOnly,
       optionIconName,
       disableOption,
       buttonIconName,
@@ -201,7 +201,7 @@ const meta: Meta = {
           placeholder="Placeholder"
           aria-label="Listed options have extra buttons, use arrow keys to reach them."
           [disabled]="disabled"
-          [readonly]="readonly"
+          [readOnly]="readOnly"
         />
         <sbb-autocomplete-grid ${argsToTemplate(args)}>
           <sbb-autocomplete-grid-row>

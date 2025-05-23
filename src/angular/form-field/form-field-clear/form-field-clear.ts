@@ -38,10 +38,10 @@ export class SbbFormFieldClear {
   }
 
   @Input()
-  public set value(value: string | null) {
+  public set value(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string | null {
+  public get value(): string {
     return this.#element.nativeElement.value;
   }
 
