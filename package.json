@@ -79,7 +79,7 @@
     "karma-jasmine-html-reporter": "2.1.0",
     "lint-staged": "16.0.0",
     "ng-packagr": "19.2.2",
-    "npm-run-all2": "8.0.3",
+    "npm-run-all2": "8.0.4",
     "playwright": "1.52.0",
     "prettier": "3.5.3",
     "storybook": "8.6.14",
