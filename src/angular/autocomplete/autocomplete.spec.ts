@@ -53,7 +53,9 @@ describe('sbb-autocomplete', () => {
     });
 
     it('select value', async () => {
+      const optionSelected = spyOn(component, 'optionSelected');
       const input = component.autocomplete().triggerElement!;
+
       expect(input.value).toEqual('value 1');
       expect(component.control.value).toEqual({ property: 'value 1', otherProp: 'test' });
 
@@ -63,6 +65,7 @@ describe('sbb-autocomplete', () => {
 
       expect(input.value).toEqual('value 2');
       expect(component.control.value).toEqual({ property: 'value 2', otherProp: 'other test' });
+      expect(optionSelected).toHaveBeenCalledTimes(1);
     });
 
     it('should fill the text field correctly if value is set to obj programmatically', async () => {
@@ -210,7 +213,11 @@ class TestComponent {
   template: `<sbb-form-field>
     <label for="input">Autocomplete</label>
     <input id="input" [formControl]="control" [sbbAutocomplete]="auto" />
-    <sbb-autocomplete [displayWith]="displayWith" #auto="sbbAutocomplete">
+    <sbb-autocomplete
+      [displayWith]="displayWith"
+      #auto="sbbAutocomplete"
+      (optionSelected)="optionSelected($event)"
+    >
       @for (value of values; track value) {
         <sbb-option [value]="value">{{ value.property }}</sbb-option>
       }
@@ -228,4 +235,9 @@ class TestComponentWithComplexValue {
   control = new FormControl(this.values[0]);
   displayWith: ((value: { property: string; otherProperty: string }) => string) | null = (value) =>
     value ? value.property : value;
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  optionSelected(_event: CustomEvent<SbbOption<{ property: string; otherProperty: string }>>) {
+    // noop;
+  }
 }
