@@ -15,7 +15,7 @@ const disabled: InputType = {
   },
 };
 
-const readonly: InputType = {
+const readOnly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -46,7 +46,7 @@ const name: InputType = {
 
 const argTypes: ArgTypes = {
   disabled,
-  readonly,
+  readOnly,
   type,
   value,
   form,
@@ -55,7 +55,7 @@ const argTypes: ArgTypes = {
 
 const args: Args = {
   disabled: false,
-  readonly: false,
+  readOnly: false,
 };
 
 const meta: Meta = {

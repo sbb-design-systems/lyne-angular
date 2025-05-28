@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
 import { fromEvent, NEVER, type Observable } from 'rxjs';
 
@@ -31,8 +30,11 @@ import '@sbb-esta/lyne-elements/tag/tag.js';
     },
   ],
 })
-export class SbbTag extends SbbControlValueAccessorMixin(class {}) implements AfterViewInit {
-  #element: ElementRef<SbbTagElement> = inject(ElementRef<SbbTagElement>);
+export class SbbTag<T = string>
+  extends SbbControlValueAccessorMixin(class {})
+  implements AfterViewInit
+{
+  #element: ElementRef<SbbTagElement<T>> = inject(ElementRef<SbbTagElement<T>>);
   #ngZone: NgZone = inject(NgZone);
   #focusMonitor = inject(FocusMonitor);
 
@@ -85,14 +87,6 @@ export class SbbTag extends SbbControlValueAccessorMixin(class {}) implements Af
   }
 
   @Input()
-  public set form(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.form = value));
-  }
-  public get form(): HTMLFormElement | null {
-    return this.#element.nativeElement.form;
-  }
-
-  @Input()
   public set name(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.name = value));
   }
@@ -101,19 +95,15 @@ export class SbbTag extends SbbControlValueAccessorMixin(class {}) implements Af
   }
 
   @Input()
-  public set value(value: string | null) {
+  public set value(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string | null {
+  public get value(): T | null {
     return this.#element.nativeElement.value;
   }
 
-  @Input()
-  public set type(value: SbbButtonType) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
-  }
-  public get type(): SbbButtonType {
-    return this.#element.nativeElement.type;
+  public get form(): HTMLFormElement | null {
+    return this.#element.nativeElement.form;
   }
 
   // eslint-disable-next-line @angular-eslint/no-output-native

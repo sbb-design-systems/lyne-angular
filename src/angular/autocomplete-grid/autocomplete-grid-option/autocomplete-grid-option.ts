@@ -9,9 +9,9 @@ import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-option.js';
   selector: 'sbb-autocomplete-grid-option',
   exportAs: 'sbbAutocompleteGridOption',
 })
-export class SbbAutocompleteGridOption {
-  #element: ElementRef<SbbAutocompleteGridOptionElement> = inject(
-    ElementRef<SbbAutocompleteGridOptionElement>,
+export class SbbAutocompleteGridOption<T = string> {
+  #element: ElementRef<SbbAutocompleteGridOptionElement<T>> = inject(
+    ElementRef<SbbAutocompleteGridOptionElement<T>>,
   );
   #ngZone: NgZone = inject(NgZone);
 
@@ -32,10 +32,10 @@ export class SbbAutocompleteGridOption {
   }
 
   @Input()
-  public set value(value: string) {
+  public set value(value: T) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string {
+  public get value(): T {
     return this.#element.nativeElement.value;
   }
 

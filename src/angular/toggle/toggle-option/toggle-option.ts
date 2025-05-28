@@ -7,8 +7,8 @@ import '@sbb-esta/lyne-elements/toggle/toggle-option.js';
   selector: 'sbb-toggle-option',
   exportAs: 'sbbToggleOption',
 })
-export class SbbToggleOption {
-  #element: ElementRef<SbbToggleOptionElement> = inject(ElementRef<SbbToggleOptionElement>);
+export class SbbToggleOption<T = string> {
+  #element: ElementRef<SbbToggleOptionElement<T>> = inject(ElementRef<SbbToggleOptionElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
   @Input({ transform: booleanAttribute })
@@ -28,10 +28,10 @@ export class SbbToggleOption {
   }
 
   @Input()
-  public set value(value: string) {
+  public set value(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string {
+  public get value(): T | null {
     return this.#element.nativeElement.value;
   }
 
