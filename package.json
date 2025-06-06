@@ -62,7 +62,7 @@
     "@storybook/theming": "8.6.14",
     "@storybook/types": "8.6.14",
     "@types/jasmine": "5.1.8",
-    "@types/node": "22.15.29",
+    "@types/node": "22.15.30",
     "angular-eslint": "19.7.1",
     "custom-elements-manifest": "2.1.0",
     "eslint": "9.28.0",
