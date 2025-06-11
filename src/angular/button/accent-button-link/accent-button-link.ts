@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute, SbbRouterLinkSupportMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAccentButtonLinkElement } from '@sbb-esta/lyne-elements/button/accent-button-link.js';
 import type { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -10,7 +10,7 @@ import '@sbb-esta/lyne-elements/button/accent-button-link.js';
   selector: 'sbb-accent-button-link',
   exportAs: 'sbbAccentButtonLink',
 })
-export class SbbAccentButtonLink extends SbbRouterLinkSupportMixin(class {}) {
+export class SbbAccentButtonLink {
   #element: ElementRef<SbbAccentButtonLinkElement> = inject(ElementRef<SbbAccentButtonLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
