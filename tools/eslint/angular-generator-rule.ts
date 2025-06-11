@@ -613,7 +613,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
       angularMissingInput: 'Missing input for property {{ property }}',
       angularMissingOutput: 'Missing output for property {{ property }}',
       angularMissingMethod: 'Missing output for method {{ method }}',
-      angularWrongOutputType: 'Output type differy from manifest for property {{ property }}',
+      angularWrongOutputType: 'Output type differs from manifest for property {{ property }}',
     },
     fixable: 'code',
     type: 'problem',

@@ -82,8 +82,19 @@ const color: InputType = {
   options: ['unset', 'white', 'milk', 'midnight', 'charcoal'],
 };
 
+const size: InputType = {
+  control: {
+    type: 'select',
+  },
+  table: {
+    category: 'Sticky Bar',
+  },
+  options: ['m', 's'],
+};
+
 const argTypes: ArgTypes = {
   color,
+  size,
   containerColor,
   containerExpanded,
   containerBackgroundExpanded,
@@ -91,6 +102,7 @@ const argTypes: ArgTypes = {
 
 const args: Args = {
   color: color.options![0],
+  size: size.options![0],
   containerColor: containerColor.options![0],
   containerExpanded: false,
   containerBackgroundExpanded: false,
