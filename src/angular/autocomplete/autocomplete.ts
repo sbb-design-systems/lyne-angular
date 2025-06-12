@@ -14,6 +14,14 @@ export class SbbAutocomplete<T = string> {
   #element: ElementRef<SbbAutocompleteElement<T>> = inject(ElementRef<SbbAutocompleteElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
+  @Input()
+  public set size(value: 'm' | 's') {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
+  }
+  public get size(): 'm' | 's' {
+    return this.#element.nativeElement.size;
+  }
+
   @Input({ transform: booleanAttribute })
   public set negative(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.negative = value));

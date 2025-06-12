@@ -29,11 +29,6 @@ const href: InputType = {
   },
 };
 
-const amount: InputType = {
-  control: false,
-  table: { disable: true },
-};
-
 const accessibilityCurrent: InputType = {
   control: false,
   table: { disable: true },
@@ -43,7 +38,6 @@ const argTypes: ArgTypes = {
   text,
   badge,
   href,
-  amount,
   accessibilityCurrent,
 };
 

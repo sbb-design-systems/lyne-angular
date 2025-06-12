@@ -27,6 +27,14 @@ export class SbbSelect<T = string> extends SbbControlValueAccessorMixin(class {}
   #ngZone: NgZone = inject(NgZone);
 
   @Input()
+  public set size(value: 'm' | 's') {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
+  }
+  public get size(): 'm' | 's' {
+    return this.#element.nativeElement.size;
+  }
+
+  @Input()
   public set placeholder(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.placeholder = value));
   }

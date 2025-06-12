@@ -67,7 +67,7 @@ const args: Args = {
   position: position.options![6],
   timeout: 6000,
   politeness: politeness.options![1],
-  dismissible: false,
+  readOnly: false,
 };
 
 const meta: Meta = {

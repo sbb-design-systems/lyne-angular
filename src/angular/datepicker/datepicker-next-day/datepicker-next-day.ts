@@ -64,14 +64,6 @@ export class SbbDatepickerNextDay<T = Date> {
     return this.#element.nativeElement.type;
   }
 
-  @Input()
-  public set datePicker(value: string | SbbDatepickerElement<T> | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datePicker = value));
-  }
-  public get datePicker(): string | SbbDatepickerElement<T> | null {
-    return this.#element.nativeElement.datePicker;
-  }
-
   public get validity(): ValidityState {
     return this.#element.nativeElement.validity;
   }

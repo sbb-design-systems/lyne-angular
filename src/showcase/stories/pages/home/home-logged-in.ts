@@ -33,7 +33,7 @@ export const homeLoggedInTemplate = ({ legs, ...args }: Args): string => `
       <sbb-menu trigger="user-menu-trigger">
         <sbb-menu-link iconName="user-small" href="/"> Account </sbb-menu-link>
         <sbb-menu-button iconName="tickets-class-small">Tickets</sbb-menu-button>
-        <sbb-menu-button iconName="shopping-cart-small" amount="1">
+        <sbb-menu-button iconName="shopping-cart-small" sbb-badge="1">
           Shopping cart
         </sbb-menu-button>
         <sbb-divider></sbb-divider>
