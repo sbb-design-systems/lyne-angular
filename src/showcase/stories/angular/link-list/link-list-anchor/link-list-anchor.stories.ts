@@ -1,9 +1,9 @@
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbLinkListAnchor } from '@sbb-esta/lyne-angular/link-list/link-list-anchor';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
 
 const links = ['Refunds', 'Lost property office', 'Complaints', 'Praise', 'Report property damage'];
 

@@ -1,10 +1,10 @@
 import { SbbMiniButton } from '@sbb-esta/lyne-angular/button/mini-button';
 import { SbbMiniButtonGroup } from '@sbb-esta/lyne-angular/button/mini-button-group';
 import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { InputType, StoryContext } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType, StoryContext } from 'storybook/internal/types';
 
 const disabled: InputType = {
   control: {

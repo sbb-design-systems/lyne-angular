@@ -1,8 +1,8 @@
 import { SbbAccentButtonStatic } from '@sbb-esta/lyne-angular/button/accent-button-static';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
-import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
 
 const text: InputType = {
   control: {

@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute, SbbRouterLinkSupportMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbMenuLinkElement } from '@sbb-esta/lyne-elements/menu/menu-link.js';
 import '@sbb-esta/lyne-elements/menu/menu-link.js';
@@ -8,7 +8,7 @@ import '@sbb-esta/lyne-elements/menu/menu-link.js';
   selector: 'sbb-menu-link',
   exportAs: 'sbbMenuLink',
 })
-export class SbbMenuLink extends SbbRouterLinkSupportMixin(class {}) {
+export class SbbMenuLink {
   #element: ElementRef<SbbMenuLinkElement> = inject(ElementRef<SbbMenuLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 

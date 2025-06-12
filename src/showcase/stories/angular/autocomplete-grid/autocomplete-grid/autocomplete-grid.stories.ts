@@ -7,7 +7,7 @@ import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
 
 const trigger: InputType = {
   control: false,

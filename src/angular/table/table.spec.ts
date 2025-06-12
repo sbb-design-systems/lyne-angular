@@ -174,6 +174,8 @@ describe('sbb-table', () => {
       tableElement = fixture.nativeElement.querySelector('.sbb-table');
       component = fixture.componentInstance;
       dataSource = fixture.componentInstance.dataSource;
+
+      await waitForLayout(0); // Wait for web component to be initialized
     });
 
     it('should create table and display data source contents', () => {

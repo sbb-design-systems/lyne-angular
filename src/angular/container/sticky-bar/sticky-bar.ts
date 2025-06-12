@@ -20,6 +20,14 @@ export class SbbStickyBar {
     return this.#element.nativeElement.color;
   }
 
+  @Input()
+  public set size(value: 'm' | 's') {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
+  }
+  public get size(): 'm' | 's' {
+    return this.#element.nativeElement.size;
+  }
+
   @Output('willStick') protected _willStick: (typeof this)['willStick'] = NEVER;
   public willStick: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
     this.#element.nativeElement,

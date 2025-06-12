@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute, SbbRouterLinkSupportMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSecondaryButtonLinkElement } from '@sbb-esta/lyne-elements/button/secondary-button-link.js';
 import type { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -10,7 +10,7 @@ import '@sbb-esta/lyne-elements/button/secondary-button-link.js';
   selector: 'sbb-secondary-button-link',
   exportAs: 'sbbSecondaryButtonLink',
 })
-export class SbbSecondaryButtonLink extends SbbRouterLinkSupportMixin(class {}) {
+export class SbbSecondaryButtonLink {
   #element: ElementRef<SbbSecondaryButtonLinkElement> = inject(
     ElementRef<SbbSecondaryButtonLinkElement>,
   );

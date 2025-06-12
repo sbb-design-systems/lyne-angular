@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute, SbbRouterLinkSupportMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbCardLinkElement } from '@sbb-esta/lyne-elements/card/card-link.js';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements/card/card-link.js';
   selector: 'sbb-card-link',
   exportAs: 'sbbCardLink',
 })
-export class SbbCardLink extends SbbRouterLinkSupportMixin(class {}) {
+export class SbbCardLink {
   #element: ElementRef<SbbCardLinkElement> = inject(ElementRef<SbbCardLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 

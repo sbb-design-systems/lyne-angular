@@ -4,10 +4,10 @@ import { SbbFlipCardSummary } from '@sbb-esta/lyne-angular/flip-card/flip-card-s
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const imageAlignment: InputType = {
   control: {

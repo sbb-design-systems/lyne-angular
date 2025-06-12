@@ -1,7 +1,7 @@
 import { SbbTimetableOccupancy } from '@sbb-esta/lyne-angular/timetable-occupancy';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
-import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
 
 const firstClassOccupancy: InputType = {
   control: {

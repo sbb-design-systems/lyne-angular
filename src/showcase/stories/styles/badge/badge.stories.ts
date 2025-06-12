@@ -2,7 +2,7 @@ import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header/header-button';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import type { Args, Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const badgeContent: InputType = {
   control: {

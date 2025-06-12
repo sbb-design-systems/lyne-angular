@@ -1,9 +1,9 @@
 import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header/header-button';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const text: InputType = {
   control: {
