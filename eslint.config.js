@@ -1,4 +1,3 @@
-/* eslint-disable import-x/no-unresolved */
 // @ts-check
 import 'tsx';
 import eslint from '@eslint/js';

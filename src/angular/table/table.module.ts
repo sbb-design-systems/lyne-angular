@@ -1,6 +1,5 @@
 import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
-import { SbbTableWrapper } from '@sbb-esta/lyne-angular/table/table-wrapper';
 
 import { SbbSort } from './sort/sort';
 import { SbbSortHeader } from './sort/sort-header';
@@ -23,6 +22,7 @@ import {
 } from './table/row';
 import { SbbRecycleRows, SbbTable } from './table/table';
 import { SbbTextColumn } from './table/text-column';
+import { SbbTableWrapper } from './table-wrapper/table-wrapper';
 
 const EXPORTED_DECLARATIONS = [
   // Table

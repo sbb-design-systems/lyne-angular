@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute, SbbRouterLinkSupportMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbBlockLinkElement } from '@sbb-esta/lyne-elements/link/block-link.js';
@@ -11,7 +11,7 @@ import '@sbb-esta/lyne-elements/link/block-link.js';
   selector: 'sbb-block-link',
   exportAs: 'sbbBlockLink',
 })
-export class SbbBlockLink extends SbbRouterLinkSupportMixin(class {}) {
+export class SbbBlockLink {
   #element: ElementRef<SbbBlockLinkElement> = inject(ElementRef<SbbBlockLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 

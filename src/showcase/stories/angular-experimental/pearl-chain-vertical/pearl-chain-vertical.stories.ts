@@ -4,7 +4,7 @@ import { SbbPearlChainVertical } from '@sbb-esta/lyne-angular-experimental/pearl
 import { SbbPearlChainVerticalItem } from '@sbb-esta/lyne-angular-experimental/pearl-chain-vertical-item';
 import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const lineType: InputType = {
   options: ['dotted', 'standard', 'thin'],

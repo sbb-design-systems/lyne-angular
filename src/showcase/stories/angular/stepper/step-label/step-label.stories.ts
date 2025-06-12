@@ -1,7 +1,7 @@
 import { SbbStepLabel } from '@sbb-esta/lyne-angular/stepper/step-label';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const label: InputType = {
   control: {

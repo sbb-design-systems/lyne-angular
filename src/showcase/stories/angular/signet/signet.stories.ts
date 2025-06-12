@@ -1,7 +1,7 @@
 import { SbbSignet } from '@sbb-esta/lyne-angular/signet';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const protectiveRoom: InputType = {
   control: {

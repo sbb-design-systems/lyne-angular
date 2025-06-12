@@ -1,7 +1,7 @@
 import { SbbPearlChain } from '@sbb-esta/lyne-angular-experimental/pearl-chain';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 import { convertMillisecondsToSeconds } from '../../../helpers/converter';
 import {

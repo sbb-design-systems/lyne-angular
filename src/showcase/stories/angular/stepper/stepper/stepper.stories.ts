@@ -6,7 +6,7 @@ import { SbbStepLabel } from '@sbb-esta/lyne-angular/stepper/step-label';
 import { SbbStepper } from '@sbb-esta/lyne-angular/stepper/stepper';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const loremIpsum = `
   Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy

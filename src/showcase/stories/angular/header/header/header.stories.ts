@@ -5,10 +5,10 @@ import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
 import { SbbMenu } from '@sbb-esta/lyne-angular/menu/menu';
 import { SbbMenuButton } from '@sbb-esta/lyne-angular/menu/menu-button';
 import { SbbSignet } from '@sbb-esta/lyne-angular/signet';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { InputType } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 const LoremIpsumTemplate = `
   <div>

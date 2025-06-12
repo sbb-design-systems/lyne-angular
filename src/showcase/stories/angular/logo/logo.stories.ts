@@ -1,7 +1,7 @@
 import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
-import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
 
 const protectiveRoom: InputType = {
   control: {

@@ -3,10 +3,10 @@ import { SbbCheckbox } from '@sbb-esta/lyne-angular/checkbox/checkbox';
 import { SbbCheckboxGroup } from '@sbb-esta/lyne-angular/checkbox/checkbox-group';
 import { SbbCheckboxPanel } from '@sbb-esta/lyne-angular/checkbox/checkbox-panel';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const suffixAndSubtext = (): string => `
   <span slot="subtext">Subtext</span>

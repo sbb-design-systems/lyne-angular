@@ -1,10 +1,10 @@
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbPopover } from '@sbb-esta/lyne-angular/popover/popover';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const trigger: InputType = {
   control: false,

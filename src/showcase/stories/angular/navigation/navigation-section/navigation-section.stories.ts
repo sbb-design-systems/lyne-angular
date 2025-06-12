@@ -3,10 +3,10 @@ import { SbbNavigation } from '@sbb-esta/lyne-angular/navigation/navigation';
 import { SbbNavigationList } from '@sbb-esta/lyne-angular/navigation/navigation-list';
 import { SbbNavigationMarker } from '@sbb-esta/lyne-angular/navigation/navigation-marker';
 import { SbbNavigationSection } from '@sbb-esta/lyne-angular/navigation/navigation-section';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { InputType } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 const trigger: InputType = {
   control: false,

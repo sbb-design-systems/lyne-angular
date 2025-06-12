@@ -1,10 +1,10 @@
 import { SbbAlert } from '@sbb-esta/lyne-angular/alert/alert';
 import { SbbAlertGroup } from '@sbb-esta/lyne-angular/alert/alert-group';
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const accessibilityTitleLevel: InputType = {
   control: {

@@ -6,7 +6,7 @@ import { SbbStickyBar } from '@sbb-esta/lyne-angular/container/sticky-bar';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const actionGroup = (): string => `
   <sbb-action-group

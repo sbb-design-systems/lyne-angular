@@ -1,8 +1,8 @@
 import * as tokens from '@sbb-esta/lyne-design-tokens';
 import { setCompodocJson } from '@storybook/addon-docs/angular';
 import type { Preview } from '@storybook/angular';
-import { makeDecorator } from '@storybook/preview-api';
-import type { StoryContext } from '@storybook/types';
+import type { StoryContext } from 'storybook/internal/types';
+import { makeDecorator } from 'storybook/preview-api';
 
 import docJson from './documentation.json';
 

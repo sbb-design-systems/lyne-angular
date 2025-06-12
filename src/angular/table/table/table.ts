@@ -4,8 +4,6 @@ import {
   _VIEW_REPEATER_STRATEGY,
 } from '@angular/cdk/collections';
 import {
-  _COALESCED_STYLE_SCHEDULER,
-  _CoalescedStyleScheduler,
   CDK_TABLE,
   CdkTable,
   DataRowOutlet,
@@ -83,7 +81,6 @@ export class SbbRecycleRows {}
     { provide: _VIEW_REPEATER_STRATEGY, useClass: _DisposeViewRepeaterStrategy },
     { provide: CdkTable, useExisting: SbbTable },
     { provide: CDK_TABLE, useExisting: SbbTable },
-    { provide: _COALESCED_STYLE_SCHEDULER, useClass: _CoalescedStyleScheduler },
     // Prevent nested tables from seeing this table's StickyPositioningListener.
     { provide: STICKY_POSITIONING_LISTENER, useValue: null },
   ],

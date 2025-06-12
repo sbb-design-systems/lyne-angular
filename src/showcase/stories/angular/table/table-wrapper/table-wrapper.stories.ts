@@ -6,7 +6,7 @@ import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table
 import { SbbTableWrapper } from '@sbb-esta/lyne-angular/table/table-wrapper';
 import type { Args, Meta } from '@storybook/angular';
 import { applicationConfig, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
 
 import readme from './readme.md';
 import { SbbTableExampleComponent } from './table-example.component';

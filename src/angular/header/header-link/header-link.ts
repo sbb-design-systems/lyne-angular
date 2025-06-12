@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute, SbbRouterLinkSupportMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbHeaderLinkElement } from '@sbb-esta/lyne-elements/header/header-link.js';
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements/header/header-link.js';
   selector: 'sbb-header-link',
   exportAs: 'sbbHeaderLink',
 })
-export class SbbHeaderLink extends SbbRouterLinkSupportMixin(class {}) {
+export class SbbHeaderLink {
   #element: ElementRef<SbbHeaderLinkElement> = inject(ElementRef<SbbHeaderLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
