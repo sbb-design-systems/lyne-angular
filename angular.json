@@ -52,8 +52,7 @@
             ],
             "compodoc": true,
             "compodocArgs": ["-e", "json", "-d", "src/showcase/.storybook", "--disablePrivate"],
-            "outputDir": "dist/storybook/showcase",
-            "experimentalZoneless": true
+            "outputDir": "dist/storybook/showcase"
           }
         },
         "lint": {
@@ -78,8 +77,7 @@
             ],
             "compodoc": true,
             "compodocArgs": ["-e", "json", "-d", "src/showcase/.storybook", "--disablePrivate"],
-            "port": 6007,
-            "experimentalZoneless": true
+            "port": 6007
           }
         }
       }
