@@ -4,7 +4,7 @@ import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-g
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
 import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
 
 const negative: InputType = {
   control: {

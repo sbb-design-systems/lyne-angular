@@ -1,10 +1,10 @@
 import { SbbCardBadge } from '@sbb-esta/lyne-angular/card/card-badge';
 import { SbbCheckboxPanel } from '@sbb-esta/lyne-angular/checkbox/checkbox-panel';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const label: InputType = {
   control: {

@@ -1,8 +1,8 @@
 import { SbbTimetableRow } from '@sbb-esta/lyne-angular-experimental/timetable-row';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 import { convertMillisecondsToSeconds } from '../../../helpers/converter';
 import { defaultTrip } from '../../../helpers/timetable-row.sample-data';

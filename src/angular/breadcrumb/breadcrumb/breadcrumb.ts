@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute, SbbRouterLinkSupportMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbBreadcrumbElement } from '@sbb-esta/lyne-elements/breadcrumb/breadcrumb.js';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
@@ -9,7 +9,7 @@ import '@sbb-esta/lyne-elements/breadcrumb/breadcrumb.js';
   selector: 'sbb-breadcrumb',
   exportAs: 'sbbBreadcrumb',
 })
-export class SbbBreadcrumb extends SbbRouterLinkSupportMixin(class {}) {
+export class SbbBreadcrumb {
   #element: ElementRef<SbbBreadcrumbElement> = inject(ElementRef<SbbBreadcrumbElement>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -12,7 +12,7 @@ import { SbbSidebarTitle } from '@sbb-esta/lyne-angular/sidebar/sidebar-title';
 import type { SbbSidebarElement } from '@sbb-esta/lyne-elements/sidebar/sidebar.js';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const sidebar = ({ showTitle, showCloseButton, ...args }: Args) => `
   <sbb-sidebar

@@ -1,5 +1,4 @@
-export * from '@sbb-esta/lyne-angular/table/table-wrapper';
-
+export * from './table-wrapper/table-wrapper';
 export * from './table.module';
 export * from './table/table-data-source';
 export * from './table/table';

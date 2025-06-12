@@ -3,10 +3,10 @@ import { SbbTrain } from '@sbb-esta/lyne-angular/train/train';
 import { SbbTrainBlockedPassage } from '@sbb-esta/lyne-angular/train/train-blocked-passage';
 import { SbbTrainFormation } from '@sbb-esta/lyne-angular/train/train-formation';
 import { SbbTrainWagon } from '@sbb-esta/lyne-angular/train/train-wagon';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const view: InputType = {
   control: {

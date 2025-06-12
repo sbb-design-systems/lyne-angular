@@ -2,7 +2,7 @@ import { SbbChipLabel } from '@sbb-esta/lyne-angular/chip-label';
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const importance: InputType = {
   control: false,

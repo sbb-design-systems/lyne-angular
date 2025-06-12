@@ -93,7 +93,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
               fixer.insertTextAfterRange(
                 [node.range[1] - 1, node.range[1] - 1],
                 `import { ${element} } from '${elementPath}';
-import { withActions } from '@storybook/addon-actions/decorator';
+import { withActions } from 'storybook/actions/decorator';
 import { Args, argsToTemplate, Meta, moduleMetadata } from '@storybook/angular';
 `,
               ),

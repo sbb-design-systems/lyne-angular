@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute, SbbRouterLinkSupportMixin } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTeaserHeroElement } from '@sbb-esta/lyne-elements/teaser-hero.js';
 import '@sbb-esta/lyne-elements/teaser-hero.js';
@@ -8,7 +8,7 @@ import '@sbb-esta/lyne-elements/teaser-hero.js';
   selector: 'sbb-teaser-hero',
   exportAs: 'sbbTeaserHero',
 })
-export class SbbTeaserHero extends SbbRouterLinkSupportMixin(class {}) {
+export class SbbTeaserHero {
   #element: ElementRef<SbbTeaserHeroElement> = inject(ElementRef<SbbTeaserHeroElement>);
   #ngZone: NgZone = inject(NgZone);
 

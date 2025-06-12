@@ -4,10 +4,10 @@ import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { SbbToast } from '@sbb-esta/lyne-angular/toast';
 import type { SbbButtonElement } from '@sbb-esta/lyne-elements/button/button.js';
 import type { SbbToastElement } from '@sbb-esta/lyne-elements/toast.js';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const openToast = (event: Event) => {
   ((event.currentTarget as SbbButtonElement).parentElement!.querySelector(
