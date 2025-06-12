@@ -1,7 +1,7 @@
 import { SbbSeatReservationArea } from '@sbb-esta/lyne-angular-experimental/seat-reservation/seat-reservation-area';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import { withActions } from 'storybook/actions/decorator';
 
 const meta: Meta = {
   decorators: [
