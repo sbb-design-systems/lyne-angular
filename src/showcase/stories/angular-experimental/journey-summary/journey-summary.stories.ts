@@ -1,10 +1,10 @@
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
 import { SbbJourneySummary } from '@sbb-esta/lyne-angular-experimental/journey-summary';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 import { convertMillisecondsToSeconds } from '../../../helpers/converter';
 import { futureLeg, pastLeg, progressLeg } from '../../../helpers/pearl-chain.sample-data';

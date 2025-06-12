@@ -1,7 +1,7 @@
 import { SbbFormError } from '@sbb-esta/lyne-angular/form-error';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
-import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
 
 const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus.`;

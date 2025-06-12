@@ -2,10 +2,10 @@ import { SbbAccordion } from '@sbb-esta/lyne-angular/accordion';
 import { SbbExpansionPanel } from '@sbb-esta/lyne-angular/expansion-panel/expansion-panel';
 import { SbbExpansionPanelContent } from '@sbb-esta/lyne-angular/expansion-panel/expansion-panel-content';
 import { SbbExpansionPanelHeader } from '@sbb-esta/lyne-angular/expansion-panel/expansion-panel-header';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { InputType, StoryContext } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType, StoryContext } from 'storybook/internal/types';
 
 const titleLevel: InputType = {
   control: {

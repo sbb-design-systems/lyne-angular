@@ -4,7 +4,7 @@ import { SbbContainer } from '@sbb-esta/lyne-angular/container/container';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 function isDark(colorArg: string): boolean {
   return colorArg === 'midnight' || colorArg === 'charcoal';

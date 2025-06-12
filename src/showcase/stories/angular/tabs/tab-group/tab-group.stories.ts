@@ -3,10 +3,10 @@ import { SbbTab } from '@sbb-esta/lyne-angular/tabs/tab';
 import { SbbTabGroup } from '@sbb-esta/lyne-angular/tabs/tab-group';
 import { SbbTabLabel } from '@sbb-esta/lyne-angular/tabs/tab-label';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
 
 const label: InputType = {
   control: {

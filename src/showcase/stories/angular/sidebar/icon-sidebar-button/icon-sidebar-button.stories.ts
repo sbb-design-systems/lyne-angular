@@ -1,8 +1,8 @@
 import { SbbIconSidebarButton } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-button';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, ArgTypes, Meta } from '@storybook/angular';
 import { argsToTemplate, componentWrapperDecorator } from '@storybook/angular';
-import type { InputType } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
 
 const type: InputType = {
   control: false,

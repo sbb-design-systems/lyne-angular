@@ -1,10 +1,10 @@
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { SbbFormFieldClear } from '@sbb-esta/lyne-angular/form-field/form-field-clear';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
 
 const disabled: InputType = {
   control: {

@@ -1,9 +1,9 @@
 import { SbbFormError } from '@sbb-esta/lyne-angular/form-error';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { InputType, StoryContext } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { InputType, StoryContext } from 'storybook/internal/types';
 
 const inputStory = ({
   label,

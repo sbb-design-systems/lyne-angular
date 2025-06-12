@@ -4,10 +4,10 @@ import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbMenu } from '@sbb-esta/lyne-angular/menu/menu';
 import { SbbMenuButton } from '@sbb-esta/lyne-angular/menu/menu-button';
 import { SbbMenuLink } from '@sbb-esta/lyne-angular/menu/menu-link';
-import { withActions } from '@storybook/addon-actions/decorator';
 import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import { withActions } from 'storybook/actions/decorator';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const userNameStyle =
   'fontWeight: bold; fontSize: var(--sbb-font-size-text-xs); marginTop: var(--sbb-spacing-fixed-1x)';

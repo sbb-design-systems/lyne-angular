@@ -2,7 +2,7 @@ import { SbbChipLabel } from '@sbb-esta/lyne-angular/chip-label';
 import { SbbTeaser } from '@sbb-esta/lyne-angular/teaser';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { ArgTypes, InputType } from '@storybook/types';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const titleContent: InputType = {
   control: {

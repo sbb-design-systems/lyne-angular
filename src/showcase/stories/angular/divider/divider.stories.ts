@@ -1,7 +1,7 @@
 import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
-import type { ArgTypes, InputType, StoryContext } from '@storybook/types';
+import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
 
 const orientation: InputType = {
   control: {

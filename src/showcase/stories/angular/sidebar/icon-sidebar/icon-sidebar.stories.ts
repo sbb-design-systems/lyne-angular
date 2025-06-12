@@ -10,7 +10,7 @@ import { SbbIconSidebarLink } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, ArgTypes, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { InputType } from '@storybook/types';
+import type { InputType } from 'storybook/internal/types';
 
 const position: InputType = {
   control: {
