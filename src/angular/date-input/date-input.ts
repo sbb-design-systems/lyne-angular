@@ -225,4 +225,8 @@ export class SbbDateInput<T = Date>
   public get datepicker(): SbbDatepickerElement<T> | null {
     return this.#element.nativeElement.datepicker;
   }
+
+  public select(): void {
+    return this.#element.nativeElement.select();
+  }
 }

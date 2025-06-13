@@ -27,8 +27,10 @@ import '@sbb-esta/lyne-elements/radio-button/radio-button-group.js';
     },
   ],
 })
-export class SbbRadioButtonGroup extends SbbControlValueAccessorMixin(class {}) {
-  #element: ElementRef<SbbRadioButtonGroupElement> = inject(ElementRef<SbbRadioButtonGroupElement>);
+export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixin(class {}) {
+  #element: ElementRef<SbbRadioButtonGroupElement<T>> = inject(
+    ElementRef<SbbRadioButtonGroupElement<T>>,
+  );
   #ngZone: NgZone = inject(NgZone);
 
   @Input({ transform: booleanAttribute })
@@ -48,10 +50,10 @@ export class SbbRadioButtonGroup extends SbbControlValueAccessorMixin(class {}) 
   }
 
   @Input()
-  public set value(value: string | null) {
+  public set value(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string | null {
+  public get value(): T | null {
     return this.#element.nativeElement.value;
   }
 
@@ -101,7 +103,7 @@ export class SbbRadioButtonGroup extends SbbControlValueAccessorMixin(class {}) 
     'didChange',
   );
 
-  public get radioButtons(): (SbbRadioButtonElement | SbbRadioButtonPanelElement)[] {
+  public get radioButtons(): (SbbRadioButtonElement<T> | SbbRadioButtonPanelElement<T>)[] {
     return this.#element.nativeElement.radioButtons;
   }
 }

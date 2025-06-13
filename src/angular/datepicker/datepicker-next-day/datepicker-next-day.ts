@@ -49,10 +49,10 @@ export class SbbDatepickerNextDay<T = Date> {
   }
 
   @Input()
-  public set value(value: string | null) {
+  public set value(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string | null {
+  public get value(): string {
     return this.#element.nativeElement.value;
   }
 
@@ -62,14 +62,6 @@ export class SbbDatepickerNextDay<T = Date> {
   }
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
-  }
-
-  @Input()
-  public set datePicker(value: string | SbbDatepickerElement<T> | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datePicker = value));
-  }
-  public get datePicker(): string | SbbDatepickerElement<T> | null {
-    return this.#element.nativeElement.datePicker;
   }
 
   public get validity(): ValidityState {
