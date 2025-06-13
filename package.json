@@ -61,7 +61,7 @@
     "@types/node": "22.15.31",
     "angular-eslint": "20.0.0",
     "custom-elements-manifest": "2.1.0",
-    "eslint": "9.28.0",
+    "eslint": "9.29.0",
     "eslint-config-prettier": "10.1.5",
     "eslint-plugin-import-x": "4.15.2",
     "globals": "16.2.0",
