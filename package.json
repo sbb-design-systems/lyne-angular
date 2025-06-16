@@ -58,7 +58,7 @@
     "@storybook/addon-links": "9.0.10",
     "@storybook/angular": "9.0.10",
     "@types/jasmine": "5.1.8",
-    "@types/node": "22.15.31",
+    "@types/node": "22.15.32",
     "angular-eslint": "20.0.0",
     "custom-elements-manifest": "2.1.0",
     "eslint": "9.29.0",
