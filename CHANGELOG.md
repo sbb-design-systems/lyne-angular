@@ -1,5 +1,32 @@
 # Changelog
 
+## [20.0.0-rc.0](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-rc.1...v20.0.0-rc.0) (2025-06-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* Update to Angular v20
+
+### Features
+
+* update to lyne-elements 2.11.1 ([#124](https://github.com/sbb-design-systems/lyne-angular/issues/124)) ([3abe829](https://github.com/sbb-design-systems/lyne-angular/commit/3abe829337cee67ce6d2d3df93f290b7a408b39a))
+* upgrade to Angular 20 ([#125](https://github.com/sbb-design-systems/lyne-angular/issues/125)) ([1aefc8c](https://github.com/sbb-design-systems/lyne-angular/commit/1aefc8ca0e7e930c39c0c46f0b0ce20cebcd269c))
+
+
+### Bug Fixes
+
+* **deps:** update angular ([9869d94](https://github.com/sbb-design-systems/lyne-angular/commit/9869d947ba9f0e5c14e6bc4d65be09d9677328e3))
+* **deps:** update angular ([e1c2041](https://github.com/sbb-design-systems/lyne-angular/commit/e1c2041fd7985315045edb5aefdd6c0eb092af2b))
+* **deps:** update angular to v19.2.11 ([9451f6c](https://github.com/sbb-design-systems/lyne-angular/commit/9451f6c8e379958ab7d689c073477d7c15cf10d3))
+* **deps:** update angular to v19.2.13 ([2a2fb75](https://github.com/sbb-design-systems/lyne-angular/commit/2a2fb75f49b8074f1ca570286422f1c86900716d))
+* **deps:** update dependency @sbb-esta/lyne-design-tokens to v1.6.0 ([#121](https://github.com/sbb-design-systems/lyne-angular/issues/121)) ([1c8d64f](https://github.com/sbb-design-systems/lyne-angular/commit/1c8d64f94a7cc0868a5e9eb6e0567b09c312e277))
+* **deps:** update esta to v2.10.1 ([#113](https://github.com/sbb-design-systems/lyne-angular/issues/113)) ([fa99d2c](https://github.com/sbb-design-systems/lyne-angular/commit/fa99d2cd6347f20205dd73c2299fd8b0c0a61ae8))
+
+
+### Miscellaneous Chores
+
+* configure release 20.0.0-rc.0 ([8bf3a73](https://github.com/sbb-design-systems/lyne-angular/commit/8bf3a730e8fd0eb92ff902121e81ed9c10a62fce))
+
 ## [19.0.0-rc.1](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-rc.0...v19.0.0-rc.1) (2025-05-15)
 
 
