@@ -22,9 +22,17 @@ import '@sbb-esta/lyne-elements/select.js';
     },
   ],
 })
-export class SbbSelect extends SbbControlValueAccessorMixin(class {}) {
-  #element: ElementRef<SbbSelectElement> = inject(ElementRef<SbbSelectElement>);
+export class SbbSelect<T = string> extends SbbControlValueAccessorMixin(class {}) {
+  #element: ElementRef<SbbSelectElement<T>> = inject(ElementRef<SbbSelectElement<T>>);
   #ngZone: NgZone = inject(NgZone);
+
+  @Input()
+  public set size(value: 'm' | 's') {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
+  }
+  public get size(): 'm' | 's' {
+    return this.#element.nativeElement.size;
+  }
 
   @Input()
   public set placeholder(value: string) {
@@ -43,11 +51,11 @@ export class SbbSelect extends SbbControlValueAccessorMixin(class {}) {
   }
 
   @Input({ transform: booleanAttribute })
-  public set readonly(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.readonly = value));
+  public set readOnly(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.readOnly = value));
   }
-  public get readonly(): boolean {
-    return this.#element.nativeElement.readonly;
+  public get readOnly(): boolean {
+    return this.#element.nativeElement.readOnly;
   }
 
   @Input({ transform: booleanAttribute })
@@ -83,10 +91,10 @@ export class SbbSelect extends SbbControlValueAccessorMixin(class {}) {
   }
 
   @Input()
-  public set value(value: string | string[] | null) {
+  public set value(value: T | T[] | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string | string[] | null {
+  public get value(): T | T[] | null {
     return this.#element.nativeElement.value;
   }
 

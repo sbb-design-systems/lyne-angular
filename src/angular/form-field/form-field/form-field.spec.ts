@@ -30,10 +30,10 @@ describe('sbb-form-field', () => {
     await new Promise((resolve) => setTimeout(resolve, 10));
 
     expect(
-      (fixture.nativeElement as HTMLElement)
-        .querySelector('sbb-form-field')!
-        .hasAttribute('data-invalid'),
-    ).toBe(true);
+      getComputedStyle(
+        (fixture.nativeElement as HTMLElement).querySelector('sbb-form-field')!,
+      ).getPropertyValue('--sbb-form-field-border-color'),
+    ).toBe('#c60018');
   });
 });
 

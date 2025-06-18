@@ -30,14 +30,6 @@ export class SbbMenuButton {
   }
 
   @Input()
-  public set amount(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.amount = value));
-  }
-  public get amount(): string {
-    return this.#element.nativeElement.amount;
-  }
-
-  @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
   }
@@ -62,10 +54,10 @@ export class SbbMenuButton {
   }
 
   @Input()
-  public set value(value: string | null) {
+  public set value(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string | null {
+  public get value(): string {
     return this.#element.nativeElement.value;
   }
 

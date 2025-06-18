@@ -1,7 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { CalendarView, SbbCalendarElement } from '@sbb-esta/lyne-elements/calendar.js';
-import type { SbbDateLike } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { fromEvent, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/calendar.js';
@@ -31,7 +30,7 @@ export class SbbCalendar<T = Date> {
   }
 
   @Input()
-  public set min(value: SbbDateLike<T> | null) {
+  public set min(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.min = value));
   }
   public get min(): T | null {
@@ -39,7 +38,7 @@ export class SbbCalendar<T = Date> {
   }
 
   @Input()
-  public set max(value: SbbDateLike<T> | null) {
+  public set max(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.max = value));
   }
   public get max(): T | null {
@@ -47,7 +46,7 @@ export class SbbCalendar<T = Date> {
   }
 
   @Input()
-  public set now(value: SbbDateLike<T> | null) {
+  public set now(value: T) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.now = value));
   }
   public get now(): T {
@@ -55,7 +54,7 @@ export class SbbCalendar<T = Date> {
   }
 
   @Input()
-  public set selected(value: SbbDateLike<T> | null) {
+  public set selected(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.selected = value));
   }
   public get selected(): T | null {

@@ -10,13 +10,13 @@ const inputStory = ({
   placeholder,
   cssClass,
   disabled,
-  readonly,
+  readOnly,
   value,
   ...args
 }: Args): string => `
   <sbb-form-field ${argsToTemplate(args)}>
     ${label && `<label>${label}</label>`}
-    <input ${cssClass ? `class=${cssClass}` : ''} placeholder="${placeholder}" value="${value}" [disabled]=${disabled} [readonly]=${readonly}/>
+    <input ${cssClass ? `class=${cssClass}` : ''} placeholder="${placeholder}" value="${value}" [disabled]=${disabled} [readOnly]=${readOnly}/>
     <sbb-form-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-form-error>
   </sbb-form-field>
 `;
@@ -38,13 +38,13 @@ const textareaStory = ({
   placeholder,
   cssClass,
   disabled,
-  readonly,
+  readOnly,
   value,
   ...args
 }: Args): string => `
   <sbb-form-field ${argsToTemplate(args)}>
     ${label && `<label>${label}</label>`}
-    <textarea ${cssClass ? `class=${cssClass}` : ''} placeholder="${placeholder}" [disabled]=${disabled} [readonly]=${readonly}>${value || ''}</textarea>
+    <textarea ${cssClass ? `class=${cssClass}` : ''} placeholder="${placeholder}" [disabled]=${disabled} [readOnly]=${readOnly}>${value || ''}</textarea>
     <sbb-form-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-form-error>
   </sbb-form-field>
 `;
@@ -77,7 +77,7 @@ const disabled: InputType = {
   },
 };
 
-const readonly: InputType = {
+const readOnly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -160,7 +160,7 @@ export const Input = {
     cssClass,
     placeholder,
     disabled,
-    readonly,
+    readOnly,
     value,
   },
   args: {
@@ -168,7 +168,7 @@ export const Input = {
     cssClass: null,
     placeholder: 'Input placeholder',
     disabled: false,
-    readonly: false,
+    readOnly: false,
     value: 'Input value',
   },
   render: (args: Args) => ({
@@ -200,7 +200,7 @@ export const Textarea = {
     cssClass,
     placeholder,
     disabled,
-    readonly,
+    readOnly,
     value,
   },
   args: {
@@ -208,7 +208,7 @@ export const Textarea = {
     cssClass: null,
     placeholder: 'Input placeholder',
     disabled: false,
-    readonly: false,
+    readOnly: false,
     value: 'Input value',
   },
   render: (args: Args) => ({

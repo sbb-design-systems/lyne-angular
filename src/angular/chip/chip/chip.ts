@@ -8,24 +8,24 @@ import '@sbb-esta/lyne-elements/chip/chip.js';
   selector: 'sbb-chip',
   exportAs: 'sbbChip',
 })
-export class SbbChip {
-  #element: ElementRef<SbbChipElement> = inject(ElementRef<SbbChipElement>);
+export class SbbChip<T = string> {
+  #element: ElementRef<SbbChipElement<T>> = inject(ElementRef<SbbChipElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
   @Input()
-  public set value(value: string) {
+  public set value(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string {
+  public get value(): T | null {
     return this.#element.nativeElement.value;
   }
 
   @Input({ transform: booleanAttribute })
-  public set readonly(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.readonly = value));
+  public set readOnly(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.readOnly = value));
   }
-  public get readonly(): boolean {
-    return this.#element.nativeElement.readonly;
+  public get readOnly(): boolean {
+    return this.#element.nativeElement.readOnly;
   }
 
   @Input({ transform: booleanAttribute })
