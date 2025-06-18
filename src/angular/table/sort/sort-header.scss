@@ -1,5 +1,7 @@
 @use '@sbb-esta/lyne-elements' as sbb;
 
+$sbb-sort-animation-transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
+
 .sbb-sort-header {
   cursor: pointer;
   position: relative;
@@ -60,6 +62,9 @@
   // Start off at 0 since the arrow may become visible while parent are animating.
   // This will be overwritten when the arrow animations kick in. See #11819.
   opacity: 0;
+  transition:
+    opacity $sbb-sort-animation-transition,
+    transform $sbb-sort-animation-transition;
 
   margin: #{sbb.px-to-rem-build(-1)} #{sbb.px-to-rem-build(-8)} #{sbb.px-to-rem-build(-1)}
     #{sbb.px-to-rem-build(-8)};
@@ -76,5 +81,75 @@
     :where(path:nth-child(2)) {
       transform-origin: center;
     }
+  }
+
+  &.no-transition {
+    transition:
+      opacity 0ms,
+      transform 0ms !important;
+  }
+
+  &.active,
+  &.desc-to-active,
+  &.asc-to-active {
+    opacity: 1;
+  }
+
+  &.hint,
+  &.desc-to-hint,
+  &.asc-to-hint {
+    opacity: 0.54;
+  }
+
+  &.desc,
+  &.asc,
+  &.void,
+  &.hint-to-desc,
+  &.active-to-desc,
+  &.hint-to-asc,
+  &.active-to-asc {
+    opacity: 0;
+  }
+
+  // Final position = center
+  &.hint,
+  &.desc-to-hint,
+  &.asc-to-hint,
+  &.desc-to-active,
+  &.asc-to-active,
+  &.active {
+    transform: translateY(0);
+  }
+
+  // Final position = hidden above
+  &.desc,
+  &.hint-to-desc,
+  &.active-to-desc {
+    transform: translateY(-25%);
+  }
+
+  // Final position = hidden below
+  &.asc,
+  &.hint-to-asc,
+  &.active-to-asc {
+    transform: translateY(25%);
+  }
+}
+
+.sbb-sort-indicator {
+  transition: transform $sbb-sort-animation-transition;
+
+  &.asc,
+  &.active-asc {
+    transform: scaleY(-1);
+  }
+
+  &.desc,
+  &.active-desc {
+    transform: scaleY(1);
+  }
+
+  &.no-transition {
+    transition: none !important;
   }
 }
