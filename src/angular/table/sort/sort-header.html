@@ -23,11 +23,7 @@ The approach is based off of: https://dequeuniversity.com/library/aria/tables/sf
   @if (_renderArrow()) {
   <div
     class="sbb-sort-header-arrow"
-    [@arrowOpacity]="_getArrowViewState()"
-    [@arrowPosition]="_getArrowViewState()"
-    [@allowChildren]="_getArrowDirectionState()"
-    (@arrowPosition.start)="_disableViewStateAnimation = true"
-    (@arrowPosition.done)="_disableViewStateAnimation = false"
+    [ngClass]="[_getArrowViewState(), _shouldSkipTransition() ? 'no-transition' : '']"
   >
     <!-- This is a modified version of the sbb arrow-down-small icon to support the animation -->
     <svg
@@ -51,7 +47,8 @@ The approach is based off of: https://dequeuniversity.com/library/aria/tables/sf
         stroke="currentColor"
         stroke-width="1"
         d="M7.5,14.25 L11.5,18.25 L15.5,14.25"
-        [@indicator]="_getArrowDirectionState()"
+        class="sbb-sort-indicator"
+        [ngClass]="[_getArrowDirectionState(), _shouldSkipTransitionIndicator() ? 'no-transition' : '']"
       ></path>
     </svg>
   </div>
