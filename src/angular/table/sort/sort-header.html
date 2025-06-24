@@ -21,10 +21,7 @@ The approach is based off of: https://dequeuniversity.com/library/aria/tables/sf
 
   <!-- Disable animations while a current animation is running -->
   @if (_renderArrow()) {
-  <div
-    class="sbb-sort-header-arrow"
-    [ngClass]="[_getArrowViewState(), _shouldSkipTransition() ? 'no-transition' : '']"
-  >
+  <div [ngClass]="_getArrowContainerClass()">
     <!-- This is a modified version of the sbb arrow-down-small icon to support the animation -->
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -47,8 +44,7 @@ The approach is based off of: https://dequeuniversity.com/library/aria/tables/sf
         stroke="currentColor"
         stroke-width="1"
         d="M7.5,14.25 L11.5,18.25 L15.5,14.25"
-        class="sbb-sort-indicator"
-        [ngClass]="[_getArrowDirectionState(), _shouldSkipTransitionIndicator() ? 'no-transition' : '']"
+        [ngClass]="_getArrowClass()"
       ></path>
     </svg>
   </div>

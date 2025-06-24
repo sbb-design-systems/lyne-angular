@@ -301,9 +301,23 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
   }
 
   /** Returns the arrow position state (opacity, translation). */
-  _getArrowViewState() {
+  _getArrowViewState(): string {
     const fromState = this._viewState.fromState;
     return (fromState ? `${fromState}-to-` : '') + this._viewState.toState;
+  }
+
+  _getArrowContainerClass(): Record<string, boolean> {
+    return {
+      [`sbb-sort-header-arrow ${this._getArrowViewState()}`]: true,
+      'no-transition': this._shouldSkipTransition(),
+    };
+  }
+
+  _getArrowClass(): Record<string, boolean> {
+    return {
+      [`sbb-sort-indicator ${this._getArrowDirectionState()}`]: true,
+      'no-transition': this._shouldSkipTransitionIndicator(),
+    };
   }
 
   /**
