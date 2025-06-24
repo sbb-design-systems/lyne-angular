@@ -1,7 +1,5 @@
 @use '@sbb-esta/lyne-elements' as sbb;
 
-$sbb-sort-animation-transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
-
 .sbb-sort-header {
   cursor: pointer;
   position: relative;
@@ -62,9 +60,12 @@ $sbb-sort-animation-transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
   // Start off at 0 since the arrow may become visible while parent are animating.
   // This will be overwritten when the arrow animations kick in. See #11819.
   opacity: 0;
-  transition:
-    opacity $sbb-sort-animation-transition,
-    transform $sbb-sort-animation-transition;
+  transition: {
+    property: opacity, translate;
+    duration: var(--sbb-disable-animation-duration, var(--sbb-animation-duration-6x));
+    // TODO: Check if it looks ok, original value: cubic-bezier(0.4, 0, 0.2, 1).
+    timing-function: var(--sbb-animation-easing);
+  }
 
   margin: #{sbb.px-to-rem-build(-1)} #{sbb.px-to-rem-build(-8)} #{sbb.px-to-rem-build(-1)}
     #{sbb.px-to-rem-build(-8)};
@@ -86,7 +87,7 @@ $sbb-sort-animation-transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
   &.no-transition {
     transition:
       opacity 0ms,
-      transform 0ms !important;
+      translate 0ms !important;
   }
 
   &.active,
@@ -137,7 +138,8 @@ $sbb-sort-animation-transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sbb-sort-indicator {
-  transition: transform $sbb-sort-animation-transition;
+  transition: scale var(--sbb-disable-animation-duration, var(--sbb-animation-duration-6x))
+    var(--sbb-animation-easing);
 
   &.asc,
   &.active-asc {
