@@ -63,8 +63,7 @@
   transition: {
     property: opacity, translate;
     duration: var(--sbb-disable-animation-duration, var(--sbb-animation-duration-6x));
-    // TODO: Check if it looks ok, original value: cubic-bezier(0.4, 0, 0.2, 1).
-    timing-function: var(--sbb-animation-easing);
+    timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   margin: #{sbb.px-to-rem-build(-1)} #{sbb.px-to-rem-build(-8)} #{sbb.px-to-rem-build(-1)}
@@ -112,34 +111,47 @@
     opacity: 0;
   }
 
-  // Final position = center
   &.hint,
-  &.desc-to-hint,
-  &.asc-to-hint,
+  &.active,
   &.desc-to-active,
-  &.asc-to-active,
-  &.active {
+  &.asc-to-active {
     translate: 0;
   }
 
-  // Final position = hidden above
   &.desc,
-  &.hint-to-desc,
   &.active-to-desc {
+    translate: 0 25%;
+  }
+
+  &.asc,
+  &.active-to-asc {
     translate: 0 -25%;
   }
 
-  // Final position = hidden below
-  &.asc,
-  &.hint-to-asc,
-  &.active-to-asc {
+  &.desc-to-hint {
+    translate: 0;
+    animation: move-desc-to-hint var(--sbb-animation-duration-6x) cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &.hint-to-desc {
     translate: 0 25%;
+    animation: move-hint-to-desc var(--sbb-animation-duration-6x) cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &.asc-to-hint {
+    translate: 0;
+    animation: move-asc-to-hint var(--sbb-animation-duration-6x) cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &.hint-to-asc {
+    translate: 0 -25%;
+    animation: move-hint-to-asc var(--sbb-animation-duration-6x) cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
 .sbb-sort-indicator {
   transition: scale var(--sbb-disable-animation-duration, var(--sbb-animation-duration-6x))
-    var(--sbb-animation-easing);
+    cubic-bezier(0.4, 0, 0.2, 1);
 
   &.asc,
   &.active-asc {
@@ -153,5 +165,41 @@
 
   &.no-transition {
     transition: none !important;
+  }
+}
+
+@keyframes move-desc-to-hint {
+  from {
+    translate: 0 -25%;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes move-hint-to-desc {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 25%;
+  }
+}
+
+@keyframes move-asc-to-hint {
+  from {
+    translate: 0 25%;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes move-hint-to-asc {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 -25%;
   }
 }
