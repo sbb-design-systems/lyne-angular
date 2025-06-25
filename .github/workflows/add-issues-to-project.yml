@@ -17,4 +17,4 @@ jobs:
         uses: actions/add-to-project@v1.0.2
         with:
           project-url: https://github.com/orgs/sbb-design-systems/projects/4
-          github-token: ${{ steps.generate_token.outputs.token }}
+          github-token: ${{ steps.generate-token.outputs.token }}
