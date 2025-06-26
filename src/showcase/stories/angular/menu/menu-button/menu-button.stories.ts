@@ -29,11 +29,6 @@ const value: InputType = {
   },
 };
 
-const amount: InputType = {
-  control: false,
-  table: { disable: true },
-};
-
 const ariaLabel: InputType = {
   control: {
     type: 'text',
@@ -45,7 +40,6 @@ const argTypes: ArgTypes = {
   text,
   type,
   value,
-  amount,
   ariaLabel,
 };
 

@@ -1,29 +1,11 @@
 import { SbbChipLabel } from '@sbb-esta/lyne-angular/chip-label';
 import { SbbTeaser } from '@sbb-esta/lyne-angular/teaser';
+import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import type { ArgTypes, InputType } from 'storybook/internal/types';
 
-const titleContent: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const titleLevel: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: [1, 2, 3, 4, 5, 6],
-};
-
 const target: InputType = {
-  control: {
-    type: 'text',
-  },
-};
-
-const chipContent: InputType = {
   control: {
     type: 'text',
   },
@@ -59,19 +41,14 @@ const description: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  titleContent,
-  titleLevel,
   target,
-  chipContent,
   alignment,
   href,
   description,
 };
 
 const args: Args = {
-  titleContent: 'This is a title',
   target: '_blank',
-  chipContent: undefined,
   alignment: alignment.options![0],
   href: href.options![1],
   description: 'This is a paragraph',
@@ -82,7 +59,7 @@ const args: Args = {
 const meta: Meta = {
   decorators: [
     moduleMetadata({
-      imports: [SbbChipLabel],
+      imports: [SbbChipLabel, SbbTitle],
     }),
   ],
   title: 'elements/sbb-teaser/sbb-teaser',
@@ -98,6 +75,8 @@ const meta: Meta = {
             <img src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg" alt="400x300" />
             <sbb-chip-label class="sbb-figure-overlap-start-start">AI Generated</sbb-chip-label>
           </figure>
+          <sbb-chip-label>Chip content</sbb-chip-label>
+          <sbb-title level="3">This is a title</sbb-title>
           ${description}
         </sbb-teaser>
       </div>

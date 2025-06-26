@@ -19,7 +19,7 @@ import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-n
 
 @Directive({
   selector: 'sbb-seat-reservation-navigation-coach',
-  exportAs: 'SbbSeatReservationNavigationCoach',
+  exportAs: 'sbbSeatReservationNavigationCoach',
 })
 export class SbbSeatReservationNavigationCoach {
   #element: ElementRef<SbbSeatReservationNavigationCoachElement> = inject(

@@ -13,8 +13,8 @@ import '@sbb-esta/lyne-elements/radio-button/radio-button.js';
   selector: 'sbb-radio-button',
   exportAs: 'sbbRadioButton',
 })
-export class SbbRadioButton {
-  #element: ElementRef<SbbRadioButtonElement> = inject(ElementRef<SbbRadioButtonElement>);
+export class SbbRadioButton<T = string> {
+  #element: ElementRef<SbbRadioButtonElement<T>> = inject(ElementRef<SbbRadioButtonElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
   @Input()
@@ -66,10 +66,10 @@ export class SbbRadioButton {
   }
 
   @Input()
-  public set value(value: string | null) {
+  public set value(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string | null {
+  public get value(): T | null {
     return this.#element.nativeElement.value;
   }
 

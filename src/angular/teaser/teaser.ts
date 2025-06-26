@@ -2,7 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTeaserElement } from '@sbb-esta/lyne-elements/teaser.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+
 import '@sbb-esta/lyne-elements/teaser.js';
 
 @Directive({
@@ -19,30 +19,6 @@ export class SbbTeaser {
   }
   public get alignment(): 'after-centered' | 'after' | 'below' {
     return this.#element.nativeElement.alignment;
-  }
-
-  @Input()
-  public set titleLevel(value: SbbTitleLevel) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
-  }
-  public get titleLevel(): SbbTitleLevel {
-    return this.#element.nativeElement.titleLevel;
-  }
-
-  @Input()
-  public set titleContent(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
-  }
-  public get titleContent(): string {
-    return this.#element.nativeElement.titleContent;
-  }
-
-  @Input()
-  public set chipContent(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.chipContent = value));
-  }
-  public get chipContent(): string {
-    return this.#element.nativeElement.chipContent;
   }
 
   @Input()

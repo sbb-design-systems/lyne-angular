@@ -37,11 +37,11 @@ export class SbbToast {
   }
 
   @Input({ transform: booleanAttribute })
-  public set dismissible(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.dismissible = value));
+  public set readOnly(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.readOnly = value));
   }
-  public get dismissible(): boolean {
-    return this.#element.nativeElement.dismissible;
+  public get readOnly(): boolean {
+    return this.#element.nativeElement.readOnly;
   }
 
   @Input()

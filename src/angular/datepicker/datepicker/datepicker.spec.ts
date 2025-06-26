@@ -27,14 +27,12 @@ describe('sbb-datepicker', () => {
   });
 
   it('should select a date via datepicker toggle and update FormControl value', async () => {
-    const datepickerToggle = (fixture.nativeElement as HTMLElement).querySelector(
-      'sbb-datepicker-toggle',
-    )!;
+    const datepicker = component.datepickerToggle().datepicker!;
 
-    datepickerToggle.open();
+    datepicker.open();
 
     // Simulate selecting a date in the calendar
-    const calendarDay = datepickerToggle
+    const calendarDay = datepicker
       .shadowRoot!.querySelector('sbb-calendar')!
       .shadowRoot!.querySelector<HTMLButtonElement>('button[value="2025-04-01"]')!;
 
@@ -72,8 +70,8 @@ describe('sbb-datepicker', () => {
       'sbb-datepicker-next-day',
     )!;
 
-    expect(previousDay.hasAttribute('data-disabled')).toBe(false);
-    expect(nextDay.hasAttribute('data-disabled')).toBe(true);
+    expect(previousDay.disabled).toBe(false);
+    expect(nextDay.disabled).toBe(true);
   });
 });
 
@@ -98,4 +96,5 @@ describe('sbb-datepicker', () => {
 class TestComponent {
   control = new FormControl(new Date('2025-04-30'));
   dateInput = viewChild.required(SbbDateInput<Date>);
+  datepickerToggle = viewChild.required(SbbDatepickerToggle);
 }

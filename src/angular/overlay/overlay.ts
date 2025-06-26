@@ -21,14 +21,6 @@ export class SbbOverlay {
     return this.#element.nativeElement.expanded;
   }
 
-  @Input({ transform: booleanAttribute })
-  public set backButton(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backButton = value));
-  }
-  public get backButton(): boolean {
-    return this.#element.nativeElement.backButton;
-  }
-
   @Input()
   public set accessibilityCloseLabel(value: string) {
     this.#ngZone.runOutsideAngular(
@@ -37,16 +29,6 @@ export class SbbOverlay {
   }
   public get accessibilityCloseLabel(): string {
     return this.#element.nativeElement.accessibilityCloseLabel;
-  }
-
-  @Input()
-  public set accessibilityBackLabel(value: string) {
-    this.#ngZone.runOutsideAngular(
-      () => (this.#element.nativeElement.accessibilityBackLabel = value),
-    );
-  }
-  public get accessibilityBackLabel(): string {
-    return this.#element.nativeElement.accessibilityBackLabel;
   }
 
   @Input({ transform: booleanAttribute })
@@ -58,11 +40,29 @@ export class SbbOverlay {
   }
 
   @Input()
+  public set trigger(value: HTMLElement | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.trigger = value));
+  }
+  public get trigger(): HTMLElement | null {
+    return this.#element.nativeElement.trigger;
+  }
+
+  @Input()
   public set accessibilityLabel(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }
   public get accessibilityLabel(): string {
     return this.#element.nativeElement.accessibilityLabel;
+  }
+
+  @Input({ transform: booleanAttribute })
+  public set skipFocusRestoration(value: boolean) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.skipFocusRestoration = value),
+    );
+  }
+  public get skipFocusRestoration(): boolean {
+    return this.#element.nativeElement.skipFocusRestoration;
   }
 
   @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;
@@ -87,13 +87,6 @@ export class SbbOverlay {
   public didClose: Observable<CustomEvent<SbbOverlayCloseEventDetails>> = fromEvent<
     CustomEvent<SbbOverlayCloseEventDetails>
   >(this.#element.nativeElement, 'didClose');
-
-  @Output('requestBackAction') protected _requestBackAction: (typeof this)['requestBackAction'] =
-    NEVER;
-  public requestBackAction: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'requestBackAction',
-  );
 
   public get isOpen(): boolean {
     return this.#element.nativeElement.isOpen;

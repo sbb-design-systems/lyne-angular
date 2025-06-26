@@ -1,5 +1,4 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSidebarTitleElement } from '@sbb-esta/lyne-elements/sidebar/sidebar-title.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
@@ -27,13 +26,5 @@ export class SbbSidebarTitle {
   }
   public get visualLevel(): SbbTitleLevel | null {
     return this.#element.nativeElement.visualLevel;
-  }
-
-  @Input({ transform: booleanAttribute })
-  public set visuallyHidden(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.visuallyHidden = value));
-  }
-  public get visuallyHidden(): boolean {
-    return this.#element.nativeElement.visuallyHidden;
   }
 }

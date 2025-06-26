@@ -127,7 +127,7 @@ const args: Args = {
   withOptionGroup: false,
   disableGroup: false,
   disabled: false,
-  readonly: false,
+  readOnly: false,
   multiple: false,
   required: false,
 };

@@ -4,11 +4,10 @@ import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { readConfig } from '@sbb-esta/lyne-elements/core/config.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
-import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
+import type { SbbDateInputAssociated } from '@sbb-esta/lyne-elements/date-input.js';
+import { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
 import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 import { fromEvent, NEVER, type Observable } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/date-input.js';
 
 @Directive({
   selector: 'sbb-date-input',
@@ -28,9 +27,14 @@ export class SbbDateInput<T = Date>
   extends SbbControlValueAccessorMixin(class {})
   implements Validator
 {
+  public static resolveAssociation<T>(host: HTMLElement & SbbDateInputAssociated<T>): void {
+    return SbbDateInputElement.resolveAssociation(host);
+  }
+
   #element: ElementRef<SbbDateInputElement<T>> = inject(ElementRef<SbbDateInputElement<T>>);
   #ngZone: NgZone = inject(NgZone);
   #dateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
+
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected validatorOnChange = () => {};
 
@@ -224,5 +228,9 @@ export class SbbDateInput<T = Date>
 
   public get datepicker(): SbbDatepickerElement<T> | null {
     return this.#element.nativeElement.datepicker;
+  }
+
+  public select(): void {
+    return this.#element.nativeElement.select();
   }
 }

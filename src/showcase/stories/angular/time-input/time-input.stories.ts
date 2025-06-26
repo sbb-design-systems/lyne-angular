@@ -15,7 +15,7 @@ const value: InputType = {
   },
 };
 
-const readonly: InputType = {
+const readOnly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -119,7 +119,7 @@ const valueAsDate: InputType = {
 const argTypes: ArgTypes = {
   value,
   disabled,
-  readonly,
+  readOnly,
   required,
   negative,
   label,
@@ -139,7 +139,7 @@ const args: Args = {
   iconStart: 'clock-small',
   iconEnd: 'circle-information-small',
   disabled: false,
-  readonly: false,
+  readOnly: false,
   required: false,
   negative: false,
   optional: false,
@@ -167,8 +167,7 @@ const meta: Meta = {
       <sbb-form-field [size]="size" [optional]="optional" [borderless]="borderless" [negative]="negative" width="collapse">
         ${label ? `<label>${label}</label>` : ''}
         ${iconStart ? `<sbb-icon slot="prefix" [name]="iconStart"></sbb-icon>` : ''}
-        <input ${argsToTemplate(args)}>
-        <sbb-time-input></sbb-time-input>
+        <sbb-time-input ${argsToTemplate(args)}></sbb-time-input>
         ${iconEnd ? `<sbb-icon slot="suffix" name=${iconEnd}></sbb-icon>` : ''}
       </sbb-form-field>
     `,

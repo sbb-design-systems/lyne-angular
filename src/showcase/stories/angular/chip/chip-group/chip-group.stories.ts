@@ -5,7 +5,7 @@ import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
 
-const readonly: InputType = {
+const readOnly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -73,7 +73,7 @@ const required: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  readonly,
+  readOnly,
   disabledInput,
   size,
   hiddenLabel,
@@ -85,7 +85,7 @@ const argTypes: ArgTypes = {
 };
 
 const args: Args = {
-  readonly: false,
+  readOnly: false,
   disabledInput: false,
   disabled: false,
   negative: false,
@@ -113,11 +113,11 @@ const meta: Meta = {
     size,
     hiddenLabel,
     floatingLabel,
-    readonly,
+    readOnly,
     disabledInput,
     ...args
   }: Args) => ({
-    props: { negative, size, hiddenLabel, floatingLabel, readonly, disabledInput, ...args },
+    props: { negative, size, hiddenLabel, floatingLabel, readOnly, disabledInput, ...args },
     template: `
       <sbb-form-field
         [negative]="negative"
@@ -130,7 +130,7 @@ const meta: Meta = {
           <sbb-chip value="chip 1"></sbb-chip>
           <sbb-chip value="chip 2"></sbb-chip>
           <sbb-chip value="chip 3"></sbb-chip>
-          <input placeholder="Placeholder" [disabled]="disabledInput" [readonly]="readonly" />
+          <input placeholder="Placeholder" [disabled]="disabledInput" [readOnly]="readOnly" />
         </sbb-chip-group>
       </sbb-form-field>
     `,

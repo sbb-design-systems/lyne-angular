@@ -32,11 +32,11 @@ import '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
     },
   ],
 })
-export class SbbCheckboxPanel
+export class SbbCheckboxPanel<T = string>
   extends SbbControlValueAccessorMixin(class {})
   implements AfterViewInit
 {
-  #element: ElementRef<SbbCheckboxPanelElement> = inject(ElementRef<SbbCheckboxPanelElement>);
+  #element: ElementRef<SbbCheckboxPanelElement<T>> = inject(ElementRef<SbbCheckboxPanelElement<T>>);
   #ngZone: NgZone = inject(NgZone);
   #focusMonitor = inject(FocusMonitor);
 
@@ -105,10 +105,10 @@ export class SbbCheckboxPanel
   }
 
   @Input()
-  public set value(value: string | null) {
+  public set value(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string | null {
+  public get value(): T | null {
     return this.#element.nativeElement.value;
   }
 

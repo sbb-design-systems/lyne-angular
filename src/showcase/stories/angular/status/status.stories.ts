@@ -1,12 +1,8 @@
 import { SbbStatus } from '@sbb-esta/lyne-angular/status';
+import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';
-import { argsToTemplate } from '@storybook/angular';
+import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import type { ArgTypes, InputType } from 'storybook/internal/types';
-
-const titleLevel: InputType = {
-  control: false,
-  table: { disable: true },
-};
 
 const type: InputType = {
   control: {
@@ -24,6 +20,12 @@ const type: InputType = {
   ],
 };
 
+const title: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const text: InputType = {
   control: {
     type: 'text',
@@ -31,24 +33,36 @@ const text: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  titleLevel,
   type,
+  title,
   text,
 };
 
 const args: Args = {
   type: type.options![0],
+  title: 'Title',
   text: 'Status info text',
 };
 
 const meta: Meta = {
   title: 'elements/sbb-status',
   component: SbbStatus,
+  decorators: [
+    moduleMetadata({
+      imports: [SbbTitle],
+    }),
+  ],
   argTypes,
   args,
-  render: ({ text, ...args }: Args) => ({
-    props: { text, ...args },
-    template: `<sbb-status ${argsToTemplate(args)}>${text}</sbb-status>`,
+  render: ({ title, text, ...args }: Args) => ({
+    props: { title, text, ...args },
+    template: `
+    <sbb-status ${argsToTemplate(args)}>
+      @if (title) {
+        <sbb-title>${title}</sbb-title>
+      }
+      ${text}
+    </sbb-status>`,
   }),
 };
 export default meta;

@@ -27,20 +27,13 @@ const animation: InputType = {
   options: ['all', 'close', 'open', 'none'],
 };
 
-const titleLevel: InputType = {
-  control: false,
-  table: { disable: true },
-};
-
 const argTypes: ArgTypes = {
   type,
   size,
   animation,
-  titleLevel,
 };
 
 const args: Args = {
-  titleContent: 'Title',
   type: type.options![0],
   size: size.options![1],
   animation: animation.options![0],
@@ -73,6 +66,7 @@ const meta: Meta = {
             ${argsToTemplate(args)}
             style="--sbb-notification-margin: 0 0 var(--sbb-spacing-fixed-4x) 0;"
           >
+            <sbb-title>Title</sbb-title>
             The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy
             dog.&nbsp;<sbb-link href="/"> Link one</sbb-link>&nbsp;
             <sbb-link href="/"> Link two</sbb-link>&nbsp;

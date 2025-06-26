@@ -32,11 +32,6 @@ const disabled: InputType = {
   },
 };
 
-const amount: InputType = {
-  control: false,
-  table: { disable: true },
-};
-
 const trigger: InputType = {
   control: false,
   table: { disable: true },
@@ -50,7 +45,6 @@ const listAccessibilityLabel: InputType = {
 const argTypes: ArgTypes = {
   iconName,
   badge,
-  amount,
   disabled,
   trigger,
   listAccessibilityLabel,

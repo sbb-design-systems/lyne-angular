@@ -29,7 +29,7 @@ const disabled: InputType = {
   },
 };
 
-const readonly: InputType = {
+const readOnly: InputType = {
   control: {
     type: 'boolean',
   },
@@ -107,7 +107,7 @@ const argTypes: ArgTypes = {
   origin,
   negative,
   disabled,
-  readonly,
+  readOnly,
   borderless,
   size,
   floatingLabel,
@@ -119,7 +119,7 @@ const argTypes: ArgTypes = {
 const args: Args = {
   negative: false,
   disabled: false,
-  readonly: false,
+  readOnly: false,
   borderless: false,
   size: size.options![0],
   floatingLabel: false,
@@ -148,7 +148,7 @@ const meta: Meta = {
     floatingLabel,
     size,
     disabled,
-    readonly,
+    readOnly,
     iconName,
     disableOption,
     disableGroup,
@@ -160,7 +160,7 @@ const meta: Meta = {
       floatingLabel,
       size,
       disabled,
-      readonly,
+      readOnly,
       iconName,
       disableOption,
       disableGroup,
@@ -169,7 +169,7 @@ const meta: Meta = {
     template: `
       <sbb-form-field [negative]="negative" [borderless]="borderless" [floatingLabel]="floatingLabel" size="size">
         <label>Label</label>
-        <input [disabled]="disabled" [readonly]="readonly" placeholder="Please select."/>
+        <input [disabled]="disabled" [readOnly]="readOnly" placeholder="Please select."/>
         <sbb-autocomplete ${argsToTemplate(args)}>
           <sbb-optgroup [disabled]="disableGroup" label="Group 1">
             <sbb-option [iconName]="iconName" [disabled]="disableOption" value="1">Value 1</sbb-option>

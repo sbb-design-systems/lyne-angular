@@ -4,8 +4,9 @@ import type {
   JourneyHeaderSize,
   SbbJourneyHeaderElement,
 } from '@sbb-esta/lyne-elements/journey-header.js';
-import '@sbb-esta/lyne-elements/journey-header.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+
+import '@sbb-esta/lyne-elements/journey-header.js';
 
 @Directive({
   selector: 'sbb-journey-header',
@@ -61,5 +62,13 @@ export class SbbJourneyHeader {
   }
   public get negative(): boolean {
     return this.#element.nativeElement.negative;
+  }
+
+  @Input()
+  public set visualLevel(value: SbbTitleLevel | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.visualLevel = value));
+  }
+  public get visualLevel(): SbbTitleLevel | null {
+    return this.#element.nativeElement.visualLevel;
   }
 }

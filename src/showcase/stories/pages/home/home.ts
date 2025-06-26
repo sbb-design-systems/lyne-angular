@@ -21,7 +21,7 @@ export const homeTemplate = (args: Args): string => `
         Menu
       </sbb-header-button>
       <div class="sbb-header-spacer"></div>
-      <sbb-header-link iconName="magnifying-glass-small" href="/"> Search </sbb-header-link>
+      <sbb-header-link iconName="magnifying-glass-small" href="/">Search</sbb-header-link>
       <sbb-header-button iconName="user-small" class="sbb-header-shrinkable">
         Sign in
       </sbb-header-button>
@@ -32,7 +32,7 @@ export const homeTemplate = (args: Args): string => `
         <sbb-menu-button aria-pressed="false">Deutsch</sbb-menu-button>
         <sbb-menu-button aria-pressed="false">Français</sbb-menu-button>
         <sbb-menu-button aria-pressed="false">Italiano</sbb-menu-button>
-        <sbb-menu-button iconName="tick-small" aria-pressed="true"> English </sbb-menu-button>
+        <sbb-menu-button iconName="tick-small" aria-pressed="true">English</sbb-menu-button>
       </sbb-menu>
       <div class="sbb-header-spacer sbb-header-spacer-logo"></div>
       <a href="https://www.sbb.ch" class="sbb-header-logo">
@@ -49,11 +49,13 @@ export const homeTemplate = (args: Args): string => `
     <section class="alert-section sbb-grid">
       <div class="grid-reduced-width">
         <sbb-alert-group accessibility-title="Disruptions">
-          <sbb-alert titleContent="Interruption between Genève and Lausanne" size="l">
+          <sbb-alert size="l">
+            <sbb-title>Interruption between Genève and Lausanne</sbb-title>
             The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
             <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
           </sbb-alert>
-          <sbb-alert titleContent="Interruption between Berne and Olten">
+          <sbb-alert>
+            <sbb-title>Interruption between Berne and Olten</sbb-title>
             Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00
             o'clock construction work will take place. You have to expect changed travel times and
             changed connections.
@@ -105,12 +107,12 @@ export const homeTemplate = (args: Args): string => `
 
             <span class="card-product-big">
               <span class="content">
-                <sbb-title level="2" visualLevel="1"> 1/2 </sbb-title>
+                <sbb-title level="2" visualLevel="1">1/2</sbb-title>
                 <sbb-title level="3" visualLevel="6">
                   Travel at half price with the half-fare travel card.
                 </sbb-title>
               </span>
-              <sbb-secondary-button-static> Ride at half price </sbb-secondary-button-static>
+              <sbb-secondary-button-static>Ride at half price</sbb-secondary-button-static>
             </span>
           </sbb-card>
         </div>

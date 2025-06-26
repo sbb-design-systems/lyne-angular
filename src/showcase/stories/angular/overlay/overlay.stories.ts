@@ -2,14 +2,8 @@ import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { SbbOverlay } from '@sbb-esta/lyne-angular/overlay';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import type { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay.js';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-
-const openOverlay = (_event: PointerEvent, id: string): void => {
-  const overlay = document.getElementById(id) as SbbOverlayElement;
-  overlay.open();
-};
 
 const meta: Meta = {
   decorators: [
@@ -19,28 +13,17 @@ const meta: Meta = {
   ],
   title: 'elements/sbb-overlay',
   component: SbbOverlay,
-  argTypes: {
-    openOverlay: { type: 'function', control: false, table: { disable: true } },
-  },
   args: {
-    backButton: false,
     expanded: false,
     negative: false,
-    openOverlay: (e: PointerEvent, id: string) => openOverlay(e, id),
   },
   render: ({ openOverlay, ...args }: Args) => ({
     props: { openOverlay, ...args },
     template: `
-      <sbb-button
-        aria-haspopup="dialog"
-        aria-controls="my-overlay"
-        size="m"
-        type="button"
-        (click)="openOverlay(event, 'my-overlay')"
-      >
+      <sbb-button size="m" #trigger>
         Open overlay
       </sbb-button>
-      <sbb-overlay id="my-overlay" ${argsToTemplate(args)}>
+      <sbb-overlay [trigger]="trigger" ${argsToTemplate(args)}>
         <div class="overlay-content">
           <sbb-title visualLevel="2" negative=${args['negative'] === true} style="margin-block-start: 0">
             Many Meetings

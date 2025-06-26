@@ -95,8 +95,9 @@ const meta: Meta = {
   args,
   render: ({ selected, dateFilter, ...args }: Args) => ({
     props: { selected, dateFilter, ...args },
+    // Selected property not working, needs to be converted to date. TODO: Find a way to do this.
     template: `
-      <sbb-calendar ${argsToTemplate(args)} selected=${selected / 1000} [dateFilter]="dateFilter"></sbb-calendar>`,
+      <sbb-calendar ${argsToTemplate(args)} [selected]="selected" [dateFilter]="dateFilter"></sbb-calendar>`,
   }),
 };
 export default meta;
