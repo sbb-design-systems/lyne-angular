@@ -5,6 +5,7 @@ import type {
   SbbStepValidateEventDetails,
 } from '@sbb-esta/lyne-elements/stepper/step.js';
 import { fromEvent, NEVER, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/stepper/step.js';
 
 @Directive({
@@ -14,12 +15,12 @@ import '@sbb-esta/lyne-elements/stepper/step.js';
 export class SbbStep {
   #element: ElementRef<SbbStepElement> = inject(ElementRef<SbbStepElement>);
 
+  public get label(): SbbStepLabelElement | null {
+    return this.#element.nativeElement.label;
+  }
+
   @Output('validate') protected _validate: (typeof this)['validate'] = NEVER;
   public validate: Observable<CustomEvent<SbbStepValidateEventDetails>> = fromEvent<
     CustomEvent<SbbStepValidateEventDetails>
   >(this.#element.nativeElement, 'validate');
-
-  public get label(): SbbStepLabelElement | null {
-    return this.#element.nativeElement.label;
-  }
 }

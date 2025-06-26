@@ -5,60 +5,16 @@ import { SbbDialogActions } from '@sbb-esta/lyne-angular/dialog/dialog-actions';
 import { SbbDialogContent } from '@sbb-esta/lyne-angular/dialog/dialog-content';
 import { SbbDialogTitle } from '@sbb-esta/lyne-angular/dialog/dialog-title';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
-import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
-import type { SbbDialogElement } from '@sbb-esta/lyne-elements/dialog/dialog.js';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
 import type { ArgTypes, InputType } from 'storybook/internal/types';
-
-const openDialog = (_event: PointerEvent, id: string): void => {
-  const dialog = document.getElementById(id) as SbbDialogElement;
-  dialog.open();
-};
 
 const level: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: [1, 2, 3, 4, 5, 6],
-  table: {
-    category: 'Title',
-  },
-};
-
-const backButton: InputType = {
-  control: {
-    type: 'boolean',
-  },
-  table: {
-    category: 'Title',
-  },
-};
-
-const hideOnScroll: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: ['Deactivate hide on scroll', ...breakpoints],
-  table: {
-    category: 'Title',
-  },
-};
-
-const accessibilityCloseLabel: InputType = {
-  control: {
-    type: 'text',
-  },
-  table: {
-    category: 'Title',
-  },
-};
-
-const accessibilityBackLabel: InputType = {
-  control: {
-    type: 'text',
-  },
   table: {
     category: 'Title',
   },
@@ -80,20 +36,12 @@ const backdropAction: InputType = {
 
 const argTypes: ArgTypes = {
   level,
-  backButton,
-  hideOnScroll,
-  accessibilityCloseLabel,
-  accessibilityBackLabel,
   backdrop,
   backdropAction,
 };
 
 const args: Args = {
   level: level.options![1],
-  backButton: true,
-  hideOnScroll: hideOnScroll.options![0],
-  accessibilityCloseLabel: 'Close dialog',
-  accessibilityBackLabel: 'Go back',
   backdrop: 'opaque',
   backdropAction: backdropAction.options![0],
 };
@@ -117,14 +65,8 @@ const meta: Meta = {
   parameters: {
     actions: { handles: ['click'] },
   },
-  argTypes: {
-    ...argTypes,
-    openDialog: { type: 'function', control: false, table: { disable: true } },
-  },
-  args: {
-    ...args,
-    openDialog: (e: PointerEvent, id: string) => openDialog(e, id),
-  },
+  argTypes,
+  args,
   render: ({
     level,
     backButton,
@@ -144,24 +86,13 @@ const meta: Meta = {
       ...args,
     },
     template: `
-      <sbb-button
-        aria-haspopup="dialog"
-        aria-controls="my-dialog-1"
-        size="m"
-        type="button"
-        (click)="openDialog($event, 'my-dialog-1')"
-      >
+      <sbb-button size="m" #trigger>
         Open dialog
       </sbb-button>
-      <sbb-dialog id="my-dialog-1" ${argsToTemplate(args)} [negative]='negative'>
-        <sbb-dialog-title
-          level=${level}
-          ${backButton ? '[backButton]="backButton"' : ''}
-          ${hideOnScroll === 'Deactivate hide on scroll' ? '' : `[hideOnScroll]="hideOnScroll"`}
-          [accessibilityCloseLabel]="accessibilityCloseLabel"
-          [accessibilityBackLabel]="accessibilityBackLabel"
-          >A describing title of the dialog</sbb-dialog-title
-        >
+      <sbb-dialog [trigger]="trigger" ${argsToTemplate(args)} [negative]='negative'>
+        <sbb-dialog-title level=${level}>
+          A describing title of the dialog
+        </sbb-dialog-title>
         <sbb-dialog-content>
           <p
             id="dialog-content-1"

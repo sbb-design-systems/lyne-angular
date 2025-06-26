@@ -3,6 +3,7 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbOverlayCloseEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbDialogElement } from '@sbb-esta/lyne-elements/dialog/dialog.js';
 import { fromEvent, NEVER, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/dialog/dialog.js';
 
 @Directive({
@@ -21,6 +22,14 @@ export class SbbDialog {
     return this.#element.nativeElement.backdropAction;
   }
 
+  @Input()
+  public set backdrop(value: 'opaque' | 'translucent') {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backdrop = value));
+  }
+  public get backdrop(): 'opaque' | 'translucent' {
+    return this.#element.nativeElement.backdrop;
+  }
+
   @Input({ transform: booleanAttribute })
   public set negative(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.negative = value));
@@ -30,11 +39,11 @@ export class SbbDialog {
   }
 
   @Input()
-  public set backdrop(value: 'opaque' | 'translucent') {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backdrop = value));
+  public set trigger(value: HTMLElement | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.trigger = value));
   }
-  public get backdrop(): 'opaque' | 'translucent' {
-    return this.#element.nativeElement.backdrop;
+  public get trigger(): HTMLElement | null {
+    return this.#element.nativeElement.trigger;
   }
 
   @Input()
@@ -43,6 +52,16 @@ export class SbbDialog {
   }
   public get accessibilityLabel(): string {
     return this.#element.nativeElement.accessibilityLabel;
+  }
+
+  @Input({ transform: booleanAttribute })
+  public set skipFocusRestoration(value: boolean) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.skipFocusRestoration = value),
+    );
+  }
+  public get skipFocusRestoration(): boolean {
+    return this.#element.nativeElement.skipFocusRestoration;
   }
 
   @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;

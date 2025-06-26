@@ -42,7 +42,8 @@ const meta: Meta = {
         }
       </style>
       <sbb-alert-group class="sbb-lead-container-spacing">
-        <sbb-alert titleContent="Interruption between Genève and Lausanne" size="m">
+        <sbb-alert size="m">
+          <sbb-title>Interruption between Genève and Lausanne</sbb-title>
           The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
           <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
         </sbb-alert>

@@ -20,7 +20,7 @@ import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-p
 
 @Directive({
   selector: 'sbb-seat-reservation-place-control',
-  exportAs: 'SbbSeatReservationPlaceControl',
+  exportAs: 'sbbSeatReservationPlaceControl',
 })
 export class SbbSeatReservationPlaceControl {
   #element: ElementRef<SbbSeatReservationPlaceControlElement> = inject(

@@ -1,6 +1,7 @@
 import { SbbAlert } from '@sbb-esta/lyne-angular/alert/alert';
 import { SbbAlertGroup } from '@sbb-esta/lyne-angular/alert/alert-group';
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
+import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
@@ -43,7 +44,7 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [SbbAlert, SbbLink],
+      imports: [SbbAlert, SbbLink, SbbTitle],
     }),
   ],
   title: 'elements/sbb-alert/sbb-alert-group',
@@ -57,11 +58,13 @@ const meta: Meta = {
     props: { ...args },
     template: `
       <sbb-alert-group ${argsToTemplate(args)}>
-        <sbb-alert titleContent="Interruption between Genève and Lausanne" size="l">
+        <sbb-alert size="l">
+          <sbb-title>Interruption between Genève and Lausanne</sbb-title>
           The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
           <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>
         </sbb-alert>
-        <sbb-alert titleContent="Interruption between Berne and Olten">
+        <sbb-alert>
+          <sbb-title>Interruption between Berne and Olten</sbb-title>
           Between Berne and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
           construction work will take place. You have to expect changed travel times and changed
           connections. <sbb-link href="https://www.sbb.ch">Find out more</sbb-link>

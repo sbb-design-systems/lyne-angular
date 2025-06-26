@@ -46,14 +46,6 @@ export class SbbCalendar<T = Date> {
   }
 
   @Input()
-  public set now(value: T) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.now = value));
-  }
-  public get now(): T {
-    return this.#element.nativeElement.now;
-  }
-
-  @Input()
   public set selected(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.selected = value));
   }

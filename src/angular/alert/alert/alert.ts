@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAlertElement } from '@sbb-esta/lyne-elements/alert/alert.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, NEVER, type Observable } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/alert/alert.js';
 
 @Directive({
@@ -35,22 +35,6 @@ export class SbbAlert {
   }
   public get iconName(): string {
     return this.#element.nativeElement.iconName;
-  }
-
-  @Input()
-  public set titleContent(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
-  }
-  public get titleContent(): string {
-    return this.#element.nativeElement.titleContent;
-  }
-
-  @Input()
-  public set titleLevel(value: SbbTitleLevel) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
-  }
-  public get titleLevel(): SbbTitleLevel {
-    return this.#element.nativeElement.titleLevel;
   }
 
   @Input()

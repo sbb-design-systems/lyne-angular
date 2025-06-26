@@ -1,5 +1,4 @@
 import { SbbDialogTitle } from '@sbb-esta/lyne-angular/dialog/dialog-title';
-import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
@@ -11,35 +10,19 @@ const level: InputType = {
   options: [1, 2, 3, 4, 5, 6],
 };
 
-const hideOnScroll: InputType = {
-  control: {
-    type: 'select',
-  },
-  options: [...breakpoints],
-};
-
 const visualLevel: InputType = {
-  control: false,
-  table: { disable: true },
-};
-
-const visuallyHidden: InputType = {
   control: false,
   table: { disable: true },
 };
 
 const argTypes: ArgTypes = {
   level,
-  hideOnScroll,
   visualLevel,
-  visuallyHidden,
 };
 
 const args: Args = {
-  hideOnScroll: hideOnScroll.options![0],
-  backButton: true,
-  accessibilityCloseLabel: 'Close dialog',
-  accessibilityBackLabel: 'Go back',
+  level: 3,
+  negative: false,
 };
 
 const meta: Meta = {

@@ -19,7 +19,7 @@ const value: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Native input',
+    category: 'sbb-date-input',
   },
 };
 
@@ -28,7 +28,7 @@ const disabled: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Native input',
+    category: 'sbb-date-input',
   },
 };
 
@@ -37,7 +37,7 @@ const readOnly: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Native input',
+    category: 'sbb-date-input',
   },
 };
 
@@ -46,7 +46,7 @@ const required: InputType = {
     type: 'boolean',
   },
   table: {
-    category: 'Native input',
+    category: 'sbb-date-input',
   },
 };
 
@@ -55,7 +55,7 @@ const form: InputType = {
     type: 'text',
   },
   table: {
-    category: 'Native input',
+    category: 'sbb-date-input',
   },
 };
 
@@ -64,7 +64,7 @@ const min: InputType = {
     type: 'date',
   },
   table: {
-    category: 'Native input',
+    category: 'sbb-date-input',
   },
 };
 
@@ -73,7 +73,7 @@ const max: InputType = {
     type: 'date',
   },
   table: {
-    category: 'Native input',
+    category: 'sbb-date-input',
   },
 };
 
@@ -157,15 +157,6 @@ const borderless: InputType = {
   },
 };
 
-const now: InputType = {
-  control: {
-    type: 'date',
-  },
-  table: {
-    category: 'Testing',
-  },
-};
-
 const input: InputType = {
   control: false,
   table: {
@@ -190,7 +181,6 @@ const argTypes: ArgTypes = {
   max,
   wide,
   dateFilter,
-  now,
   ariaLabel,
   label,
   size,
@@ -212,7 +202,6 @@ const args: Args = {
   max: undefined,
   wide: false,
   dateFilter: dateFilter.options![0],
-  now: undefined,
   ariaLabel: undefined,
   label: 'Label',
   size: size.options![1],
@@ -260,7 +249,6 @@ const meta: Meta = {
     wide,
     min,
     max,
-    now,
     value,
     form,
     disabled,
@@ -278,7 +266,6 @@ const meta: Meta = {
       wide,
       min,
       max,
-      now,
       value,
       form,
       disabled,
@@ -291,8 +278,6 @@ const meta: Meta = {
       <sbb-form-field [size]="size" [negative]="negative" [optional]="optional" [borderless]="borderless" width="collapse">
         ${label ? `<label>${label}</label>` : ''}
         <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-        <sbb-datepicker-next-day></sbb-datepicker-next-day>
-        <sbb-datepicker-toggle></sbb-datepicker-toggle>
         <sbb-date-input
           value=${value}
           [disabled]="disabled"
@@ -305,8 +290,9 @@ const meta: Meta = {
         <sbb-datepicker
           ${argsToTemplate(args)}
           [wide]="wide"
-          [now]="convertMillisecondsToSeconds(now)"
         ></sbb-datepicker>
+        <sbb-datepicker-toggle></sbb-datepicker-toggle>
+        <sbb-datepicker-next-day></sbb-datepicker-next-day>
       </sbb-form-field>
     `,
   }),

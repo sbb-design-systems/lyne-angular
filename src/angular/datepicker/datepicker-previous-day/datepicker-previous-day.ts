@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
+import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
 import type { SbbDatepickerPreviousDayElement } from '@sbb-esta/lyne-elements/datepicker/datepicker-previous-day.js';
-import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 
 import '@sbb-esta/lyne-elements/datepicker/datepicker-previous-day.js';
 
@@ -25,11 +25,27 @@ export class SbbDatepickerPreviousDay<T = Date> {
   }
 
   @Input()
-  public set datepicker(value: SbbDatepickerElement<T> | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datepicker = value));
+  public set input(value: SbbDateInputElement<T> | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.input = value));
   }
-  public get datepicker(): SbbDatepickerElement<T> | null {
-    return this.#element.nativeElement.datepicker;
+  public get input(): SbbDateInputElement<T> | null {
+    return this.#element.nativeElement.input;
+  }
+
+  @Input()
+  public set value(value: string) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
+  }
+  public get value(): string {
+    return this.#element.nativeElement.value;
+  }
+
+  @Input()
+  public set type(value: SbbButtonType) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
+  }
+  public get type(): SbbButtonType {
+    return this.#element.nativeElement.type;
   }
 
   @Input()
@@ -48,20 +64,8 @@ export class SbbDatepickerPreviousDay<T = Date> {
     return this.#element.nativeElement.name;
   }
 
-  @Input()
-  public set value(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
-  }
-  public get value(): string {
-    return this.#element.nativeElement.value;
-  }
-
-  @Input()
-  public set type(value: SbbButtonType) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
-  }
-  public get type(): SbbButtonType {
-    return this.#element.nativeElement.type;
+  public get disabled(): boolean {
+    return this.#element.nativeElement.disabled;
   }
 
   public get validity(): ValidityState {

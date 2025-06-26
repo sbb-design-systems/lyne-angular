@@ -1,7 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbNotificationElement } from '@sbb-esta/lyne-elements/notification.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/notification.js';
@@ -20,22 +19,6 @@ export class SbbNotification {
   }
   public get type(): 'info' | 'success' | 'warn' | 'error' {
     return this.#element.nativeElement.type;
-  }
-
-  @Input()
-  public set titleContent(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
-  }
-  public get titleContent(): string {
-    return this.#element.nativeElement.titleContent;
-  }
-
-  @Input()
-  public set titleLevel(value: SbbTitleLevel) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
-  }
-  public get titleLevel(): SbbTitleLevel {
-    return this.#element.nativeElement.titleLevel;
   }
 
   @Input({ transform: booleanAttribute })

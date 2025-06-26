@@ -34,12 +34,4 @@ export class SbbTitle {
   public get visualLevel(): SbbTitleLevel | null {
     return this.#element.nativeElement.visualLevel;
   }
-
-  @Input({ transform: booleanAttribute })
-  public set visuallyHidden(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.visuallyHidden = value));
-  }
-  public get visuallyHidden(): boolean {
-    return this.#element.nativeElement.visuallyHidden;
-  }
 }

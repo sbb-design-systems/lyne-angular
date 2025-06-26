@@ -1,7 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbStatusElement, SbbStatusType } from '@sbb-esta/lyne-elements/status.js';
 import '@sbb-esta/lyne-elements/status.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 @Directive({
   selector: 'sbb-status',
@@ -17,22 +16,6 @@ export class SbbStatus {
   }
   public get type(): SbbStatusType {
     return this.#element.nativeElement.type;
-  }
-
-  @Input()
-  public set titleContent(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleContent = value));
-  }
-  public get titleContent(): string {
-    return this.#element.nativeElement.titleContent;
-  }
-
-  @Input()
-  public set titleLevel(value: SbbTitleLevel) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
-  }
-  public get titleLevel(): SbbTitleLevel {
-    return this.#element.nativeElement.titleLevel;
   }
 
   @Input()

@@ -5,7 +5,7 @@ import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation/s
 
 @Directive({
   selector: 'sbb-seat-reservation-scoped',
-  exportAs: 'SbbSeatReservationScoped',
+  exportAs: 'sbbSeatReservationScoped',
 })
 export class SbbSeatReservationScoped {
   #element: ElementRef<SbbSeatReservationScopedElement> = inject(

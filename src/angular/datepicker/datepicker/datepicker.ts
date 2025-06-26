@@ -1,11 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbValidationChangeEvent } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { CalendarView } from '@sbb-esta/lyne-elements/calendar.js';
 import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
-import type {
-  SbbDatepickerElement,
-  SbbInputUpdateEvent,
-} from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
+import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 import { fromEvent, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/datepicker/datepicker.js';
@@ -27,78 +24,66 @@ export class SbbDatepicker<T = Date> {
   }
 
   @Input()
-  public set dateFilter(value: (date: T | null) => boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.dateFilter = value));
-  }
-  public get dateFilter(): (date: T | null) => boolean {
-    return this.#element.nativeElement.dateFilter;
-  }
-
-  @Input()
-  public set input(value: string | HTMLElement | null) {
+  public set input(value: SbbDateInputElement<T> | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.input = value));
   }
-  public get input(): string | HTMLElement | null {
+  public get input(): SbbDateInputElement<T> | null {
     return this.#element.nativeElement.input;
   }
 
   @Input()
-  public set now(value: T) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.now = value));
+  public set view(value: CalendarView) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.view = value));
   }
-  public get now(): T {
-    return this.#element.nativeElement.now;
+  public get view(): CalendarView {
+    return this.#element.nativeElement.view;
   }
 
   @Input()
-  public set valueAsDate(value: T | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.valueAsDate = value));
+  public set trigger(value: HTMLElement | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.trigger = value));
   }
-  public get valueAsDate(): T | null {
-    return this.#element.nativeElement.valueAsDate;
+  public get trigger(): HTMLElement | null {
+    return this.#element.nativeElement.trigger;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('change') protected _change: (typeof this)['change'] = NEVER;
-  public change: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+  @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;
+  public willOpen: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
     this.#element.nativeElement,
-    'change',
+    'willOpen',
   );
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('input') protected _input: (typeof this)['inputEvent'] = NEVER;
-  public inputEvent: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+  @Output('didOpen') protected _didOpen: (typeof this)['didOpen'] = NEVER;
+  public didOpen: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
     this.#element.nativeElement,
-    'input',
+    'didOpen',
   );
 
-  @Output('inputUpdated') protected _inputUpdated: (typeof this)['inputUpdated'] = NEVER;
-  public inputUpdated: Observable<CustomEvent<SbbInputUpdateEvent>> = fromEvent<
-    CustomEvent<SbbInputUpdateEvent>
-  >(this.#element.nativeElement, 'inputUpdated');
+  @Output('willClose') protected _willClose: (typeof this)['willClose'] = NEVER;
+  public willClose: Observable<CustomEvent<{ closeTarget: HTMLElement }>> = fromEvent<
+    CustomEvent<{ closeTarget: HTMLElement }>
+  >(this.#element.nativeElement, 'willClose');
 
-  @Output('datePickerUpdated') protected _datePickerUpdated: (typeof this)['datePickerUpdated'] =
-    NEVER;
-  public datePickerUpdated: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
+  @Output('didClose') protected _didClose: (typeof this)['didClose'] = NEVER;
+  public didClose: Observable<CustomEvent<{ closeTarget: HTMLElement }>> = fromEvent<
+    CustomEvent<{ closeTarget: HTMLElement }>
+  >(this.#element.nativeElement, 'didClose');
+
+  @Output('dateSelected') protected _dateSelected: (typeof this)['dateSelected'] = NEVER;
+  public dateSelected: Observable<CustomEvent<T>> = fromEvent<CustomEvent<T>>(
     this.#element.nativeElement,
-    'datePickerUpdated',
+    'dateSelected',
   );
 
-  @Output('validationChange') protected _validationChange: (typeof this)['validationChange'] =
-    NEVER;
-  public validationChange: Observable<CustomEvent<SbbValidationChangeEvent>> = fromEvent<
-    CustomEvent<SbbValidationChangeEvent>
-  >(this.#element.nativeElement, 'validationChange');
-
-  public get inputElement(): HTMLInputElement | SbbDateInputElement<T> | null {
-    return this.#element.nativeElement.inputElement;
+  public get isOpen(): boolean {
+    return this.#element.nativeElement.isOpen;
   }
 
-  public findPreviousAvailableDate(date: T): T {
-    return this.#element.nativeElement.findPreviousAvailableDate(date);
+  public open(): void {
+    return this.#element.nativeElement.open();
   }
 
-  public findNextAvailableDate(date: T): T {
-    return this.#element.nativeElement.findNextAvailableDate(date);
+  public close(target: HTMLElement): void {
+    return this.#element.nativeElement.close(target);
   }
 }
