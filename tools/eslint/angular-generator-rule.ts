@@ -306,6 +306,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           }
         }
 
+        // outputToObservable
         // Add outputs
         for (const member of publicEvents) {
           const hasPropWithSameName = publicProperties.find((prop) => prop.name === member.name);

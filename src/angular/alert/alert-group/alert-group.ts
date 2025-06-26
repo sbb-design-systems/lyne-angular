@@ -1,7 +1,6 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbAlertGroupElement } from '@sbb-esta/lyne-elements/alert/alert-group.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/alert/alert-group.js';
 
@@ -38,10 +37,4 @@ export class SbbAlertGroup {
   public get accessibilityTitleLevel(): SbbTitleLevel {
     return this.#element.nativeElement.accessibilityTitleLevel;
   }
-
-  @Output('empty') protected _empty: (typeof this)['empty'] = NEVER;
-  public empty: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'empty',
-  );
 }

@@ -1,15 +1,6 @@
-import {
-  Directive,
-  ElementRef,
-  inject,
-  Input,
-  NgZone,
-  numberAttribute,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbImageElement } from '@sbb-esta/lyne-elements/image.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/image.js';
 
 @Directive({
@@ -115,14 +106,6 @@ export class SbbImage {
   public get pictureSizesConfig(): string {
     return this.#element.nativeElement.pictureSizesConfig;
   }
-
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('load') protected _load: (typeof this)['load'] = NEVER;
-  public load: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'load');
-
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('error') protected _error: (typeof this)['error'] = NEVER;
-  public error: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'error');
 
   public get complete(): boolean {
     return this.#element.nativeElement.complete;
