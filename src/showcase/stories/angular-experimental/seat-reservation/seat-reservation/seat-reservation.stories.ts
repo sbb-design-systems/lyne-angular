@@ -1,21 +1,26 @@
 import { SbbSeatReservation } from '@sbb-esta/lyne-angular-experimental/seat-reservation/seat-reservation';
 import type { Args, Meta } from '@storybook/angular';
-import { argsToTemplate, moduleMetadata } from '@storybook/angular';
+import { argsToTemplate } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
 
+import { seatReservationBus, seatReservationTrain } from '../seat-reservation-sample-data';
+
+const trainArgs: Args = {
+  seatReservation: seatReservationTrain,
+};
+
+const busArgs: Args = {
+  seatReservation: seatReservationBus,
+};
+
 const meta: Meta = {
-  decorators: [
-    withActions,
-    moduleMetadata({
-      // add slotted components or remove
-      imports: [],
-    }),
-  ],
+  decorators: [withActions],
   title: 'experimental/sbb-seat-reservation/sbb-seat-reservation',
   component: SbbSeatReservation,
   parameters: {
-    // add events or remove the 'action' object
-    actions: { handles: ['click'] },
+    actions: {
+      handles: ['selectedPlaces', 'selectedCoach'],
+    },
   },
   render: (args: Args) => ({
     props: { ...args },
@@ -24,4 +29,13 @@ const meta: Meta = {
 };
 export default meta;
 
-export const Default = {};
+export const Train = {
+  args: {
+    ...trainArgs,
+  },
+};
+export const Bus = {
+  args: {
+    ...busArgs,
+  },
+};
