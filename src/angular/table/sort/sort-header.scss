@@ -1,5 +1,13 @@
 @use '@sbb-esta/lyne-elements' as sbb;
 
+:root {
+  --sbb-sort-header-animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --sbb-sort-header-animation-duration: var(
+    --sbb-disable-animation-duration,
+    var(--sbb-animation-duration-6x)
+  );
+}
+
 .sbb-sort-header {
   cursor: pointer;
   position: relative;
@@ -60,10 +68,12 @@
   // Start off at 0 since the arrow may become visible while parent are animating.
   // This will be overwritten when the arrow animations kick in. See #11819.
   opacity: 0;
+  animation: var(--sbb-sort-header-animation-name) var(--sbb-sort-header-animation-duration)
+    var(--sbb-sort-header-animation-easing);
   transition: {
     property: opacity, translate;
-    duration: var(--sbb-disable-animation-duration, var(--sbb-animation-duration-6x));
-    timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    duration: var(--sbb-sort-header-animation-duration);
+    timing-function: var(--sbb-sort-header-animation-easing);
   }
 
   margin: #{sbb.px-to-rem-build(-1)} #{sbb.px-to-rem-build(-8)} #{sbb.px-to-rem-build(-1)}
@@ -129,29 +139,33 @@
   }
 
   &.desc-to-hint {
+    --sbb-sort-header-animation-name: move-desc-to-hint;
+
     translate: 0;
-    animation: move-desc-to-hint var(--sbb-animation-duration-6x) cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   &.hint-to-desc {
+    --sbb-sort-header-animation-name: move-hint-to-desc;
+
     translate: 0 25%;
-    animation: move-hint-to-desc var(--sbb-animation-duration-6x) cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   &.asc-to-hint {
+    --sbb-sort-header-animation-name: move-asc-to-hint;
+
     translate: 0;
-    animation: move-asc-to-hint var(--sbb-animation-duration-6x) cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   &.hint-to-asc {
+    --sbb-sort-header-animation-name: move-hint-to-asc;
+
     translate: 0 -25%;
-    animation: move-hint-to-asc var(--sbb-animation-duration-6x) cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
 .sbb-sort-indicator {
-  transition: scale var(--sbb-disable-animation-duration, var(--sbb-animation-duration-6x))
-    cubic-bezier(0.4, 0, 0.2, 1);
+  transition: scale var(--sbb-sort-header-animation-duration)
+    var(--sbb-sort-header-animation-easing);
 
   &.asc,
   &.active-asc {
