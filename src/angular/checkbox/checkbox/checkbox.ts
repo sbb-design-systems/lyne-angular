@@ -7,7 +7,6 @@ import {
   inject,
   Input,
   NgZone,
-  Output,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
@@ -15,7 +14,6 @@ import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/c
 import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkbox.js';
 import type { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
 import type { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
 
@@ -112,17 +110,6 @@ export class SbbCheckbox<T = string>
   public get iconName(): string {
     return this.#element.nativeElement.iconName;
   }
-
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('change') protected _change: (typeof this)['change'] = NEVER;
-  public change: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'change');
-
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('input') protected _input: (typeof this)['input'] = NEVER;
-  public input: Observable<InputEvent> = fromEvent<InputEvent>(
-    this.#element.nativeElement,
-    'input',
-  );
 
   public get group(): SbbCheckboxGroupElement | null {
     return this.#element.nativeElement.group;

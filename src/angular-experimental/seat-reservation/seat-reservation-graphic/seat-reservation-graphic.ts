@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, NgZone, inject, numberAttribute } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSeatReservationGraphicElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-graphic.js';
 

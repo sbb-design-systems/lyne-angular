@@ -1,8 +1,7 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
 
 @Directive({
@@ -70,12 +69,6 @@ export class SbbExpansionPanelHeader {
   public get type(): SbbButtonType {
     return this.#element.nativeElement.type;
   }
-
-  @Output('toggleExpanded') protected _toggleExpanded: (typeof this)['toggleExpanded'] = NEVER;
-  public toggleExpanded: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'toggleExpanded',
-  );
 
   public get validity(): ValidityState {
     return this.#element.nativeElement.validity;

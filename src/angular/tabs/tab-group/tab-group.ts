@@ -1,18 +1,8 @@
-import {
-  Directive,
-  ElementRef,
-  inject,
-  Input,
-  NgZone,
-  numberAttribute,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
 import type {
   InterfaceSbbTabGroupTab,
-  SbbTabChangedEventDetails,
   SbbTabGroupElement,
 } from '@sbb-esta/lyne-elements/tabs/tab-group.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
 import '@sbb-esta/lyne-elements/tabs/tab-group.js';
 
 @Directive({
@@ -40,11 +30,6 @@ export class SbbTabGroup {
   public get initialSelectedIndex(): number {
     return this.#element.nativeElement.initialSelectedIndex;
   }
-
-  @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
-  public didChange: Observable<CustomEvent<SbbTabChangedEventDetails>> = fromEvent<
-    CustomEvent<SbbTabChangedEventDetails>
-  >(this.#element.nativeElement, 'didChange');
 
   public disableTab(tabIndex: number): void {
     return this.#element.nativeElement.disableTab(tabIndex);

@@ -6,12 +6,10 @@ import {
   NgZone,
   numberAttribute,
   type OnInit,
-  Output,
 } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbPaginatorElement } from '@sbb-esta/lyne-elements/paginator/paginator.js';
-import { AsyncSubject, forkJoin, fromEvent, map, NEVER, type Observable } from 'rxjs';
+import { AsyncSubject, forkJoin, map, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/paginator/paginator.js';
 
@@ -92,11 +90,6 @@ export class SbbPaginator implements OnInit {
   public get disabled(): boolean {
     return this.#element.nativeElement.disabled;
   }
-
-  @Output('page') protected _page: (typeof this)['page'] = NEVER;
-  public page: Observable<CustomEvent<SbbPaginatorPageEventDetails>> = fromEvent<
-    CustomEvent<SbbPaginatorPageEventDetails>
-  >(this.#element.nativeElement, 'page');
 
   /** Advances to the next page if it exists. */
   nextPage(): void {

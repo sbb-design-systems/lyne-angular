@@ -1,11 +1,7 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import type {
-  SbbChipGroupElement,
-  SbbChipInputTokenEndEventDetails,
-} from '@sbb-esta/lyne-elements/chip/chip-group.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
+import type { SbbChipGroupElement } from '@sbb-esta/lyne-elements/chip/chip-group.js';
 
 import '@sbb-esta/lyne-elements/chip/chip-group.js';
 
@@ -75,26 +71,6 @@ export class SbbChipGroup<T = string> extends SbbControlValueAccessorMixin(class
   public get name(): string {
     return this.#element.nativeElement.name;
   }
-
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('change') protected _change: (typeof this)['change'] = NEVER;
-  public change: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'change',
-  );
-
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('input') protected _input: (typeof this)['input'] = NEVER;
-  public input: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'input',
-  );
-
-  @Output('chipInputTokenEnd') protected _chipInputTokenEnd: (typeof this)['chipInputTokenEnd'] =
-    NEVER;
-  public chipInputTokenEnd: Observable<CustomEvent<SbbChipInputTokenEndEventDetails>> = fromEvent<
-    CustomEvent<SbbChipInputTokenEndEventDetails>
-  >(this.#element.nativeElement, 'chipInputTokenEnd');
 
   public get form(): HTMLFormElement | null {
     return this.#element.nativeElement.form;

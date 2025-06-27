@@ -1,19 +1,7 @@
-import {
-  Directive,
-  ElementRef,
-  inject,
-  Input,
-  NgZone,
-  numberAttribute,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type {
-  SbbSeatReservationNavigationCoachElement,
-  SelectCoachEventDetails,
-} from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation/seat-reservation-navigation-coach.js';
+import type { SbbSeatReservationNavigationCoachElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation/seat-reservation-navigation-coach.js';
 import type { PlaceTravelClass } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation/seat-reservation-navigation-coach.js';
 
@@ -114,15 +102,4 @@ export class SbbSeatReservationNavigationCoach {
   public get vertical(): boolean {
     return this.#element.nativeElement.vertical;
   }
-
-  @Output('selectCoach') protected _selectCoach: (typeof this)['selectCoach'] = NEVER;
-  public selectCoach: Observable<CustomEvent<SelectCoachEventDetails>> = fromEvent<
-    CustomEvent<SelectCoachEventDetails>
-  >(this.#element.nativeElement, 'selectCoach');
-
-  @Output('focusCoach') protected _focusCoach: (typeof this)['focusCoach'] = NEVER;
-  public focusCoach: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'focusCoach',
-  );
 }

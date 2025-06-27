@@ -1,8 +1,7 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/select.js';
 
@@ -97,44 +96,6 @@ export class SbbSelect<T = string> extends SbbControlValueAccessorMixin(class {}
   public get value(): T | T[] | null {
     return this.#element.nativeElement.value;
   }
-
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('change') protected _change: (typeof this)['change'] = NEVER;
-  public change: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'change',
-  );
-
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('input') protected _input: (typeof this)['input'] = NEVER;
-  public input: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'input',
-  );
-
-  @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;
-  public willOpen: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'willOpen',
-  );
-
-  @Output('didOpen') protected _didOpen: (typeof this)['didOpen'] = NEVER;
-  public didOpen: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'didOpen',
-  );
-
-  @Output('willClose') protected _willClose: (typeof this)['willClose'] = NEVER;
-  public willClose: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'willClose',
-  );
-
-  @Output('didClose') protected _didClose: (typeof this)['didClose'] = NEVER;
-  public didClose: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'didClose',
-  );
 
   public get type(): string {
     return this.#element.nativeElement.type;

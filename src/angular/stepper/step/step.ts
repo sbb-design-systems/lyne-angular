@@ -1,10 +1,6 @@
-import { Directive, ElementRef, inject, Output } from '@angular/core';
+import { Directive, ElementRef, inject } from '@angular/core';
 import type { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
-import type {
-  SbbStepElement,
-  SbbStepValidateEventDetails,
-} from '@sbb-esta/lyne-elements/stepper/step.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
+import type { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
 
 import '@sbb-esta/lyne-elements/stepper/step.js';
 
@@ -18,9 +14,4 @@ export class SbbStep {
   public get label(): SbbStepLabelElement | null {
     return this.#element.nativeElement.label;
   }
-
-  @Output('validate') protected _validate: (typeof this)['validate'] = NEVER;
-  public validate: Observable<CustomEvent<SbbStepValidateEventDetails>> = fromEvent<
-    CustomEvent<SbbStepValidateEventDetails>
-  >(this.#element.nativeElement, 'validate');
 }
