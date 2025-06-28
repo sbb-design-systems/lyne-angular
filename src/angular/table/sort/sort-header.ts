@@ -1,6 +1,7 @@
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import type { CdkColumnDef } from '@angular/cdk/table';
+import { NgClass } from '@angular/common';
 import type { AfterViewInit, InjectionToken, OnDestroy, OnInit } from '@angular/core';
 import {
   booleanAttribute,
@@ -17,7 +18,6 @@ import { merge } from 'rxjs';
 
 import type { SbbSortable, SbbSortHeaderArrowPosition } from './sort';
 import { SBB_SORT_DEFAULT_OPTIONS, SbbSort } from './sort';
-import { sbbSortAnimations } from './sort-animations';
 import type { SbbSortDirection } from './sort-direction';
 import { getSortHeaderNotContainedWithinSortError } from './sort-errors';
 
@@ -75,12 +75,7 @@ interface SbbSortHeaderColumnDef {
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    sbbSortAnimations.arrowOpacity,
-    sbbSortAnimations.arrowPosition,
-    sbbSortAnimations.allowChildren,
-    sbbSortAnimations.indicator,
-  ],
+  imports: [NgClass],
 })
 export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewInit {
   #rerenderSubscription!: Subscription;
@@ -164,6 +159,7 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
   #elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   #ariaDescriber = inject(AriaDescriber);
   #sortOptions = inject(SBB_SORT_DEFAULT_OPTIONS, { optional: true });
+  #previousIndicatorState: string = '';
 
   constructor() {
     if (!this.#sort && (typeof ngDevMode === 'undefined' || ngDevMode)) {
@@ -287,10 +283,41 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
     return `${this._isSorted() ? 'active-' : ''}${this._arrowDirection}`;
   }
 
+  _shouldSkipTransitionIndicator(): boolean {
+    const isBase = (s: string) => s === 'asc' || s === 'desc';
+
+    const current = this._getArrowDirectionState();
+    const skip =
+      isBase(current) &&
+      isBase(this.#previousIndicatorState) &&
+      current !== this.#previousIndicatorState;
+    this.#previousIndicatorState = current;
+    return skip;
+  }
+
+  _shouldSkipTransition(): boolean {
+    const immediateStates = ['asc', 'desc', 'active', 'hint', 'void'];
+    return immediateStates.includes(this._getArrowViewState());
+  }
+
   /** Returns the arrow position state (opacity, translation). */
-  _getArrowViewState() {
+  _getArrowViewState(): string {
     const fromState = this._viewState.fromState;
     return (fromState ? `${fromState}-to-` : '') + this._viewState.toState;
+  }
+
+  _getArrowContainerClass(): Record<string, boolean> {
+    return {
+      [`sbb-sort-header-arrow ${this._getArrowViewState()}`]: true,
+      'no-transition': this._shouldSkipTransition(),
+    };
+  }
+
+  _getArrowClass(): Record<string, boolean> {
+    return {
+      [`sbb-sort-indicator ${this._getArrowDirectionState()}`]: true,
+      'no-transition': this._shouldSkipTransitionIndicator(),
+    };
   }
 
   /**
