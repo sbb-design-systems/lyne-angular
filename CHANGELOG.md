@@ -1,5 +1,23 @@
 # Changelog
 
+## [20.0.0-rc.1](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.0...v20.0.0-rc.1) (2025-06-28)
+
+
+### Features
+
+* update to breaking changes of lyne-elements ([#97](https://github.com/sbb-design-systems/lyne-angular/issues/97)) ([a161316](https://github.com/sbb-design-systems/lyne-angular/commit/a161316f7dd036b94f9c7d2cf20bf2ecb831718e)), closes [#54](https://github.com/sbb-design-systems/lyne-angular/issues/54)
+
+
+### Bug Fixes
+
+* **deps:** update angular ([7d0d35b](https://github.com/sbb-design-systems/lyne-angular/commit/7d0d35b7cd155e28a82b96dde16511d5a6d219a4))
+* **deps:** update angular ([9409fd0](https://github.com/sbb-design-systems/lyne-angular/commit/9409fd0171f6e9909807e08776c1e9142bb28508))
+
+
+### Documentation
+
+* provide stackblitz starter links ([#136](https://github.com/sbb-design-systems/lyne-angular/issues/136)) ([190b074](https://github.com/sbb-design-systems/lyne-angular/commit/190b07405496dac30bfac5cb2f4574b1122106be))
+
 ## [20.0.0-rc.0](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-rc.1...v20.0.0-rc.0) (2025-06-16)
 
 
