@@ -19,8 +19,8 @@ const sidebar = ({ showTitle, showCloseButton, ...args }: Args) => `
     ${argsToTemplate(args)}
     id="sidebar-1"
     role="navigation"
-    (didOpen)="didOpen($event)"
-    (didClose)="didClose($event)"
+    (open)="open($event)"
+    (close)="close($event)"
   >
     ${showTitle ? `<sbb-sidebar-title>Be a unicorn</sbb-sidebar-title>` : ''}
     ${showCloseButton ? `<sbb-sidebar-close-button></sbb-sidebar-close-button>` : ''}
@@ -71,8 +71,8 @@ const argTypes: ArgTypes = {
   showCloseButton,
   isAnimating,
   toggleClick: { type: 'function', control: false, table: { disable: true } },
-  didOpen: { type: 'function', control: false, table: { disable: true } },
-  didClose: { type: 'function', control: false, table: { disable: true } },
+  open: { type: 'function', control: false, table: { disable: true } },
+  close: { type: 'function', control: false, table: { disable: true } },
 };
 
 const args: Args = {
@@ -86,12 +86,12 @@ const args: Args = {
     (event.currentTarget as HTMLElement)?.parentElement?.parentElement
       ?.querySelector<SbbSidebarElement>('#sidebar-1')
       ?.toggle(),
-  didOpen: (event: CustomEvent) =>
+  open: (event: CustomEvent) =>
     (event.currentTarget as HTMLElement)
       .closest('sbb-sidebar-container')
       ?.parentElement?.querySelector(`#toggle-button-1`)
       ?.setAttribute('aria-expanded', 'true'),
-  didClose: (event: CustomEvent) =>
+  close: (event: CustomEvent) =>
     (event.currentTarget as HTMLElement)
       .closest('sbb-sidebar-container')
       ?.parentElement?.querySelector(`#toggle-button-1`)
