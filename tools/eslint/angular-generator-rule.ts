@@ -324,7 +324,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // Add outputs
         for (const member of publicEvents) {
-          const type = member.type?.text ?? 'Event';
+          const type = member.type?.text.replace(/\s+/g, '');
           const normalizedName = CAMEL_CASE_EVENTS_MAP[member.name] ?? member.name;
           const outputSignalName = `${normalizedName}Signal`;
           const outputRegex = new RegExp(
@@ -408,10 +408,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               (n) =>
                 n.type !== AST_NODE_TYPES.PropertyDefinition ||
                 context.sourceCode.getText(n.key) !== outputSignalName ||
-                !context.sourceCode
-                  .getText(n)
-                  .replace(/\s+/g, '')
-                  .includes(`fromEvent<${type}>`.replace(/\s+/g, '')),
+                !context.sourceCode.getText(n).replace(/\s+/g, '').includes(`fromEvent<${type}>`),
             ) ||
             (!isCamelCase &&
               classDeclaration.body.body.every(
@@ -421,13 +418,47 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   !context.sourceCode
                     .getText(n)
                     .replace(/\s+/g, '')
-                    .includes(`outputFromObservable<${type}>`.replace(/\s+/g, '')),
+                    .includes(`outputFromObservable<${type}>`),
               ))
           ) {
             context.report({
               node: classDeclaration.body,
               messageId: 'angularWrongOutputType',
               data: { property: member.name },
+            });
+          }
+
+          // Check if type names are corresponding to manifest
+          if (
+            classDeclaration.body.body.every(
+              (n) =>
+                n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                context.sourceCode.getText(n.key) !== outputSignalName ||
+                !context.sourceCode
+                  .getText(n)
+                  .replace(/\s+/g, '')
+                  .includes(`(this.#element.nativeElement,'${member.name}'`) ||
+                (isCamelCase &&
+                  !context.sourceCode
+                    .getText(n)
+                    .replace(/\s+/g, '')
+                    .includes(`alias:'${normalizedName}'`)),
+            ) ||
+            (!isCamelCase &&
+              classDeclaration.body.body.every(
+                (n) =>
+                  n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                  context.sourceCode.getText(n.key) !== `_${outputSignalName}` ||
+                  !context.sourceCode
+                    .getText(n)
+                    .replace(/\s+/g, '')
+                    .includes(`alias:'${normalizedName}'`),
+              ))
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularWrongOutputEventName',
+              data: { property: member.name, expectedAlias: normalizedName },
             });
           }
         }
@@ -706,7 +737,9 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
       angularMissingInput: 'Missing input for property {{ property }}',
       angularMissingOutput: 'Missing output for property {{ property }}',
       angularMissingMethod: 'Missing output for method {{ method }}',
-      angularWrongOutputType: 'Output type differs from manifest for property {{ property }}',
+      angularWrongOutputType: 'Output type differs from manifest for event {{ property }}',
+      angularWrongOutputEventName:
+        'Output event name differs from manifest for event {{ property }} and expected alias {{ expectedAlias }}',
     },
     fixable: 'code',
     type: 'problem',
