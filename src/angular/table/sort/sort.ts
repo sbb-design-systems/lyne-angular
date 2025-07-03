@@ -6,8 +6,8 @@ import {
   inject,
   InjectionToken,
   Input,
-  Output,
 } from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import type { Observable } from 'rxjs';
 import { ReplaySubject, Subject } from 'rxjs';
 
@@ -110,9 +110,10 @@ export class SbbSort implements OnInit, OnChanges, OnDestroy {
   @Input({ alias: 'sbbSortDisableClear', transform: booleanAttribute })
   disableClear!: boolean;
 
+  readonly sortChange = new EventEmitter<SbbSortState>();
+
   /** Event emitted when the user changes either the active sort or sort direction. */
-  @Output('sbbSortChange') readonly sortChange: EventEmitter<SbbSortState> =
-    new EventEmitter<SbbSortState>();
+  readonly sbbSortChange = outputFromObservable<SbbSortState>(this.sortChange);
 
   /** Emits when the paginator is initialized. */
   initialized: Observable<void> = this.#initializedStream;
