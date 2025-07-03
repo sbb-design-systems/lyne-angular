@@ -217,8 +217,8 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           expectedAngularImports.add('Input').add('NgZone');
         }
         if (publicEvents.length) {
-          expectedRxJsImports.add('fromEvent').add('NEVER');
-          expectedRxJsInteropImports.add('toSignal').add('outputFromObservable');
+          expectedRxJsImports.add('fromEvent');
+          expectedRxJsInteropImports.add('outputFromObservable');
         }
 
         // Add the private variables for the native element and the ngZone
@@ -331,48 +331,75 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             `outputFromObservable(.*alias:.*'${normalizedName}'.*);`,
             's',
           );
-          if (
-            classDeclaration.body.body.every(
-              (n) =>
-                n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                !context.sourceCode.getText(n).match(outputRegex),
-            )
-          ) {
-            context.report({
-              node: classDeclaration.body,
-              messageId: 'angularMissingOutput',
-              data: { property: member.name },
-              fix: (fixer) => {
-                const endOfBody = classDeclaration.body.range[1] - 1;
+          const isCamelCase = CAMEL_CASE_EVENTS_MAP[member.name];
+          if (isCamelCase) {
+            if (
+              classDeclaration.body.body.every(
+                (n) =>
+                  n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                  context.sourceCode.getText(n.key) !== outputSignalName,
+              )
+            ) {
+              context.report({
+                node: classDeclaration.body,
+                messageId: 'angularMissingOutput',
+                data: { property: member.name },
+                fix: (fixer) => {
+                  const endOfBody = classDeclaration.body.range[1] - 1;
+                  return fixer.insertTextBeforeRange(
+                    [endOfBody, endOfBody],
+                    `
+  public ${outputSignalName} = outputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'), { alias: '${normalizedName}' });\n`,
+                  );
+                },
+              });
+            }
+          } else {
+            expectedRxJsImports.add('NEVER');
+            if (
+              classDeclaration.body.body.every(
+                (n) =>
+                  n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                  !context.sourceCode.getText(n).match(outputRegex),
+              )
+            ) {
+              context.report({
+                node: classDeclaration.body,
+                messageId: 'angularMissingOutput',
+                data: { property: member.name },
+                fix: (fixer) => {
+                  const endOfBody = classDeclaration.body.range[1] - 1;
 
-                return fixer.insertTextBeforeRange(
-                  [endOfBody, endOfBody],
-                  `
+                  return fixer.insertTextBeforeRange(
+                    [endOfBody, endOfBody],
+                    `
   protected _${outputSignalName} = outputFromObservable<${type}>(NEVER, { alias: '${normalizedName}' });`,
-                );
-              },
-            });
-          }
-          if (
-            classDeclaration.body.body.every(
-              (n) =>
-                n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                context.sourceCode.getText(n.key) !== outputSignalName,
-            )
-          ) {
-            context.report({
-              node: classDeclaration.body,
-              messageId: 'angularMissingOutput',
-              data: { property: member.name },
-              fix: (fixer) => {
-                const endOfBody = classDeclaration.body.range[1] - 1;
-                return fixer.insertTextBeforeRange(
-                  [endOfBody, endOfBody],
-                  `
+                  );
+                },
+              });
+            }
+            if (
+              classDeclaration.body.body.every(
+                (n) =>
+                  n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                  context.sourceCode.getText(n.key) !== outputSignalName,
+              )
+            ) {
+              expectedRxJsInteropImports.add('toSignal');
+              context.report({
+                node: classDeclaration.body,
+                messageId: 'angularMissingOutput',
+                data: { property: member.name },
+                fix: (fixer) => {
+                  const endOfBody = classDeclaration.body.range[1] - 1;
+                  return fixer.insertTextBeforeRange(
+                    [endOfBody, endOfBody],
+                    `
   public ${outputSignalName} = toSignal(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'));\n`,
-                );
-              },
-            });
+                  );
+                },
+              });
+            }
           }
 
           // Check if output types are corresponding to manifest
@@ -386,15 +413,16 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   .replace(/\s+/g, '')
                   .includes(`fromEvent<${type}>`.replace(/\s+/g, '')),
             ) ||
-            classDeclaration.body.body.every(
-              (n) =>
-                n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                context.sourceCode.getText(n.key) !== `_${outputSignalName}` ||
-                !context.sourceCode
-                  .getText(n)
-                  .replace(/\s+/g, '')
-                  .includes(`outputFromObservable<${type}>`.replace(/\s+/g, '')),
-            )
+            (!isCamelCase &&
+              classDeclaration.body.body.every(
+                (n) =>
+                  n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                  context.sourceCode.getText(n.key) !== `_${outputSignalName}` ||
+                  !context.sourceCode
+                    .getText(n)
+                    .replace(/\s+/g, '')
+                    .includes(`outputFromObservable<${type}>`.replace(/\s+/g, '')),
+              ))
           ) {
             context.report({
               node: classDeclaration.body,
@@ -475,6 +503,26 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         );
         const elementImport = `@sbb-esta/lyne-${elementPath}.js`;
 
+        // Lyne element
+        if (
+          program.body.every(
+            (n) =>
+              n.type !== AST_NODE_TYPES.ImportDeclaration ||
+              n.importKind !== 'value' ||
+              n.source.value !== elementImport,
+          )
+        ) {
+          const lastImport = program.body
+            .filter((n) => n.type === AST_NODE_TYPES.ImportDeclaration)
+            .at(-1)!;
+          context.report({
+            node: lastImport,
+            messageId: 'angularMissingImport',
+            data: { symbol: 'element side effect' },
+            fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport '${elementImport}';`),
+          });
+        }
+
         // Angular imports
         const angularCoreImport = program.body.find(
           (n): n is TSESTree.ImportDeclaration =>
@@ -526,7 +574,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             messageId: 'angularMissingImport',
             data: { symbol: 'booleanAttribute' },
             fix: (fixer) =>
-              fixer.insertTextAfter(
+              fixer.insertTextBefore(
                 lastImport,
                 `\nimport { booleanAttribute } from '@sbb-esta/lyne-angular/core';`,
               ),
@@ -549,7 +597,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               messageId: 'rxJsMissingImport',
               data: { symbol: imports },
               fix: (fixer) =>
-                fixer.insertTextAfter(lastImport, `\nimport { ${imports} } from 'rxjs';`),
+                fixer.insertTextBefore(lastImport, `\nimport { ${imports} } from 'rxjs';`),
             });
           } else {
             const existingImports = rxjsCoreImport.specifiers.map((s) =>
@@ -590,7 +638,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               messageId: 'rxJsInteropMissingImport',
               data: { symbol: imports },
               fix: (fixer) =>
-                fixer.insertTextAfter(
+                fixer.insertTextBefore(
                   lastImport,
                   `\nimport { ${imports} } from '@angular/core/rxjs-interop';`,
                 ),
@@ -635,30 +683,10 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             messageId: 'angularMissingImport',
             data: { symbol: elementClassName },
             fix: (fixer) =>
-              fixer.insertTextAfter(
+              fixer.insertTextBefore(
                 lastImport,
                 `\nimport type { ${elementClassName} } from '${elementImport}';`,
               ),
-          });
-        }
-
-        // Lyne element
-        if (
-          program.body.every(
-            (n) =>
-              n.type !== AST_NODE_TYPES.ImportDeclaration ||
-              n.importKind !== 'value' ||
-              n.source.value !== elementImport,
-          )
-        ) {
-          const lastImport = program.body
-            .filter((n) => n.type === AST_NODE_TYPES.ImportDeclaration)
-            .at(-1)!;
-          context.report({
-            node: lastImport,
-            messageId: 'angularMissingImport',
-            data: { symbol: 'element side effect' },
-            fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport '${elementImport}';`),
           });
         }
       },
