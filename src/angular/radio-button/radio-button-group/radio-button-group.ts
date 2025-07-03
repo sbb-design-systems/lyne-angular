@@ -1,4 +1,5 @@
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -8,6 +9,7 @@ import type {
   SbbRadioButtonPanelElement,
   SbbRadioButtonSize,
 } from '@sbb-esta/lyne-elements/radio-button.js';
+import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/radio-button/radio-button-group.js';
 
@@ -99,4 +101,9 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
   public get radioButtons(): (SbbRadioButtonElement<T> | SbbRadioButtonPanelElement<T>)[] {
     return this.#element.nativeElement.radioButtons;
   }
+
+  public didChangeSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'didChange'),
+    { alias: 'didChange' },
+  );
 }

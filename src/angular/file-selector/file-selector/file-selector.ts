@@ -1,7 +1,9 @@
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbFileSelectorElement } from '@sbb-esta/lyne-elements/file-selector/file-selector.js';
+import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/file-selector/file-selector.js';
 
@@ -132,4 +134,15 @@ export class SbbFileSelector extends SbbControlValueAccessorMixin(class {}) {
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
+
+  protected _inputSignal = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
+  public inputSignal = toSignal(fromEvent<InputEvent>(this.#element.nativeElement, 'input'));
+
+  protected _changeSignal = outputFromObservable<Event>(NEVER, { alias: 'change' });
+  public changeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'change'));
+
+  public fileChangedSignal = outputFromObservable(
+    fromEvent<CustomEvent<Readonly<File>[]>>(this.#element.nativeElement, 'filechanged'),
+    { alias: 'fileChanged' },
+  );
 }

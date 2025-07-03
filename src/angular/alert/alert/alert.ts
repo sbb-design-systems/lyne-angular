@@ -1,6 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAlertElement } from '@sbb-esta/lyne-elements/alert/alert.js';
+import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/alert/alert.js';
 
@@ -55,4 +57,20 @@ export class SbbAlert {
   public close(): void {
     return this.#element.nativeElement.close();
   }
+
+  public beforeOpenSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
+    { alias: 'beforeOpen' },
+  );
+
+  protected _openSignal = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  public openSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'open'));
+
+  public beforeCloseSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'beforeclose'),
+    { alias: 'beforeClose' },
+  );
+
+  protected _closeSignal = outputFromObservable<Event>(NEVER, { alias: 'close' });
+  public closeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'close'));
 }

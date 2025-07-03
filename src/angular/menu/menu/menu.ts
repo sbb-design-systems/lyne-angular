@@ -1,5 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import type { SbbMenuElement } from '@sbb-esta/lyne-elements/menu/menu.js';
+import { fromEvent, NEVER } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/menu/menu.js';
 
 @Directive({
@@ -39,4 +42,20 @@ export class SbbMenu {
   public close(): void {
     return this.#element.nativeElement.close();
   }
+
+  public beforeOpenSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
+    { alias: 'beforeOpen' },
+  );
+
+  protected _openSignal = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  public openSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'open'));
+
+  public beforeCloseSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'beforeclose'),
+    { alias: 'beforeClose' },
+  );
+
+  protected _closeSignal = outputFromObservable<Event>(NEVER, { alias: 'close' });
+  public closeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'close'));
 }

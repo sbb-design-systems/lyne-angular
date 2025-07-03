@@ -1,12 +1,12 @@
 import type { OnChanges, OnDestroy, OnInit } from '@angular/core';
 import {
-  EventEmitter,
-  Output,
   booleanAttribute,
   Directive,
+  EventEmitter,
   inject,
   InjectionToken,
   Input,
+  Output,
 } from '@angular/core';
 import type { Observable } from 'rxjs';
 import { ReplaySubject, Subject } from 'rxjs';

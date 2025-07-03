@@ -1,8 +1,12 @@
 import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import type {
   InterfaceSbbTabGroupTab,
   SbbTabGroupElement,
 } from '@sbb-esta/lyne-elements/tabs/tab-group.js';
+import type { SbbTabChangedEventDetails } from '@sbb-esta/lyne-elements/tabs.js';
+import { fromEvent } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/tabs/tab-group.js';
 
 @Directive({
@@ -42,4 +46,9 @@ export class SbbTabGroup {
   public activateTab(tabIndex: number): void {
     return this.#element.nativeElement.activateTab(tabIndex);
   }
+
+  public tabChangeSignal = outputFromObservable(
+    fromEvent<CustomEvent<SbbTabChangedEventDetails>>(this.#element.nativeElement, 'tabchange'),
+    { alias: 'tabChange' },
+  );
 }

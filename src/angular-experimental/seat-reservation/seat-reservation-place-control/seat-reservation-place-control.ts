@@ -1,10 +1,13 @@
 import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSeatReservationPlaceControlElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-place-control.js';
 import type {
+  PlaceSelection,
   PlaceState,
   PlaceType,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
+import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-place-control.js';
 
@@ -105,4 +108,11 @@ export class SbbSeatReservationPlaceControl {
   public get keyfocus(): string {
     return this.#element.nativeElement.keyfocus;
   }
+
+  protected _selectPlaceSignal = outputFromObservable<CustomEvent<PlaceSelection>>(NEVER, {
+    alias: 'selectPlace',
+  });
+  public selectPlaceSignal = toSignal(
+    fromEvent<CustomEvent<PlaceSelection>>(this.#element.nativeElement, 'selectPlace'),
+  );
 }

@@ -1,9 +1,10 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbLinkListAnchorElement } from '@sbb-esta/lyne-elements/link-list/link-list-anchor.js';
-import '@sbb-esta/lyne-elements/link-list/link-list-anchor.js';
 import type { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+
+import '@sbb-esta/lyne-elements/link-list/link-list-anchor.js';
 
 @Directive({
   selector: 'sbb-link-list-anchor',

@@ -1,6 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAutocompleteGridOptionElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-option.js';
+import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-option.js';
 
@@ -45,4 +47,9 @@ export class SbbAutocompleteGridOption<T = string> {
   public get selected(): boolean {
     return this.#element.nativeElement.selected;
   }
+
+  public optionSelectedSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'optionselected'),
+    { alias: 'optionSelected' },
+  );
 }

@@ -1,7 +1,9 @@
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
+import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/select.js';
 
@@ -11,7 +13,7 @@ import '@sbb-esta/lyne-elements/select.js';
   host: {
     '(change)': 'this.onChangeFn(this.value)',
     '(blur)': 'this.onTouchedFn()',
-    '(didClose)': 'this.onTouchedFn()',
+    '(close)': 'this.onTouchedFn()',
   },
   providers: [
     {
@@ -144,4 +146,26 @@ export class SbbSelect<T = string> extends SbbControlValueAccessorMixin(class {}
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
+
+  protected _inputSignal = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
+  public inputSignal = toSignal(fromEvent<InputEvent>(this.#element.nativeElement, 'input'));
+
+  protected _changeSignal = outputFromObservable<Event>(NEVER, { alias: 'change' });
+  public changeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'change'));
+
+  public beforeOpenSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
+    { alias: 'beforeOpen' },
+  );
+
+  protected _openSignal = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  public openSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'open'));
+
+  public beforeCloseSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'beforeclose'),
+    { alias: 'beforeClose' },
+  );
+
+  protected _closeSignal = outputFromObservable<Event>(NEVER, { alias: 'close' });
+  public closeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'close'));
 }

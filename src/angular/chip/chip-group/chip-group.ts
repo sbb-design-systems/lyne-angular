@@ -1,7 +1,12 @@
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import type { SbbChipGroupElement } from '@sbb-esta/lyne-elements/chip/chip-group.js';
+import type {
+  SbbChipGroupElement,
+  SbbChipInputTokenEndEventDetails,
+} from '@sbb-esta/lyne-elements/chip/chip-group.js';
+import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/chip/chip-group.js';
 
@@ -107,4 +112,18 @@ export class SbbChipGroup<T = string> extends SbbControlValueAccessorMixin(class
   public get displayWith(): ((value: T) => string) | null {
     return this.#element.nativeElement.displayWith;
   }
+
+  public chipInputTokenEndSignal = outputFromObservable(
+    fromEvent<CustomEvent<SbbChipInputTokenEndEventDetails>>(
+      this.#element.nativeElement,
+      'chipinputtokenend',
+    ),
+    { alias: 'chipInputTokenEnd' },
+  );
+
+  protected _inputSignal = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
+  public inputSignal = toSignal(fromEvent<InputEvent>(this.#element.nativeElement, 'input'));
+
+  protected _changeSignal = outputFromObservable<Event>(NEVER, { alias: 'change' });
+  public changeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'change'));
 }

@@ -6,6 +6,7 @@ import type {
   Price,
   SbbTimetableRowElement,
 } from '@sbb-esta/lyne-elements-experimental/timetable-row.js';
+
 import '@sbb-esta/lyne-elements-experimental/timetable-row.js';
 
 @Directive({
