@@ -1,5 +1,13 @@
 import type { OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { booleanAttribute, Directive, inject, InjectionToken, Input } from '@angular/core';
+import {
+  EventEmitter,
+  Output,
+  booleanAttribute,
+  Directive,
+  inject,
+  InjectionToken,
+  Input,
+} from '@angular/core';
 import type { Observable } from 'rxjs';
 import { ReplaySubject, Subject } from 'rxjs';
 
@@ -97,12 +105,14 @@ export class SbbSort implements OnInit, OnChanges, OnDestroy {
 
   /**
    * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
-   * May be overriden by the SbbSortable's disable clear input.
+   * May be overridden by the SbbSortable's disable clear input.
    */
   @Input({ alias: 'sbbSortDisableClear', transform: booleanAttribute })
   disableClear!: boolean;
 
   /** Event emitted when the user changes either the active sort or sort direction. */
+  @Output('sbbSortChange') readonly sortChange: EventEmitter<SbbSortState> =
+    new EventEmitter<SbbSortState>();
 
   /** Emits when the paginator is initialized. */
   initialized: Observable<void> = this.#initializedStream;
