@@ -1,5 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbSignetElement, SbbSignetProtectiveRoom } from '@sbb-esta/lyne-elements/signet.js';
+
 import '@sbb-esta/lyne-elements/signet.js';
 
 @Directive({

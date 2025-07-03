@@ -3,6 +3,7 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
 import type { SbbStepperElement } from '@sbb-esta/lyne-elements/stepper/stepper.js';
+
 import '@sbb-esta/lyne-elements/stepper/stepper.js';
 
 @Directive({

@@ -1,8 +1,10 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import type { SbbFlipCardSummaryElement } from '@sbb-esta/lyne-elements/flip-card/flip-card-summary.js';
 import type { SbbFlipCardElement } from '@sbb-esta/lyne-elements/flip-card/flip-card.js';
 import type { SbbFlipCardDetailsElement } from '@sbb-esta/lyne-elements/flip-card.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
+import { fromEvent, NEVER } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/flip-card/flip-card.js';
 
 @Directive({
@@ -21,12 +23,6 @@ export class SbbFlipCard {
     return this.#element.nativeElement.accessibilityLabel;
   }
 
-  @Output('flip') protected _flip: (typeof this)['flip'] = NEVER;
-  public flip: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'flip',
-  );
-
   public get summary(): SbbFlipCardSummaryElement | null {
     return this.#element.nativeElement.summary;
   }
@@ -42,4 +38,7 @@ export class SbbFlipCard {
   public toggle(): void {
     return this.#element.nativeElement.toggle();
   }
+
+  protected _flipSignal = outputFromObservable<Event>(NEVER, { alias: 'flip' });
+  public flipSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'flip'));
 }

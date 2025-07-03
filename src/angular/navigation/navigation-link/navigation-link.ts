@@ -5,6 +5,7 @@ import type { SbbNavigationLinkElement } from '@sbb-esta/lyne-elements/navigatio
 import type { SbbNavigationMarkerElement } from '@sbb-esta/lyne-elements/navigation/navigation-marker.js';
 import type { SbbNavigationSectionElement } from '@sbb-esta/lyne-elements/navigation/navigation-section.js';
 import type { SbbNavigationActionSize } from '@sbb-esta/lyne-elements/navigation.js';
+
 import '@sbb-esta/lyne-elements/navigation/navigation-link.js';
 
 @Directive({

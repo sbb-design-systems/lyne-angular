@@ -6,8 +6,8 @@ import {
   NgZone,
   numberAttribute,
   type OnInit,
-  Output,
 } from '@angular/core';
+import { outputFromObservable, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbCompactPaginatorElement } from '@sbb-esta/lyne-elements/paginator/compact-paginator.js';
@@ -85,11 +85,6 @@ export class SbbCompactPaginator implements OnInit {
     return this.#element.nativeElement.disabled;
   }
 
-  @Output('page') protected _page: (typeof this)['page'] = NEVER;
-  public page: Observable<CustomEvent<SbbPaginatorPageEventDetails>> = fromEvent<
-    CustomEvent<SbbPaginatorPageEventDetails>
-  >(this.#element.nativeElement, 'page');
-
   /** Advances to the next page if it exists. */
   nextPage(): void {
     this.#element.nativeElement.nextPage();
@@ -134,4 +129,13 @@ export class SbbCompactPaginator implements OnInit {
     this.#initialized.next();
     this.#initialized.complete();
   }
+
+  protected _pageSignal = outputFromObservable<CustomEvent<SbbPaginatorPageEventDetails>>(NEVER, {
+    alias: 'page',
+  });
+  public pageSignal = toSignal(
+    fromEvent<CustomEvent<SbbPaginatorPageEventDetails>>(this.#element.nativeElement, 'page'),
+  );
+
+  public page = toObservable(this.pageSignal);
 }

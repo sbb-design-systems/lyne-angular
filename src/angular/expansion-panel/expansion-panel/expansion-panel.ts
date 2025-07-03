@@ -1,8 +1,10 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
+import { fromEvent, NEVER } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
 
 @Directive({
@@ -61,27 +63,19 @@ export class SbbExpansionPanel {
     return this.#element.nativeElement.size;
   }
 
-  @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;
-  public willOpen: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'willOpen',
+  public beforeOpenSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
+    { alias: 'beforeOpen' },
   );
 
-  @Output('didOpen') protected _didOpen: (typeof this)['didOpen'] = NEVER;
-  public didOpen: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'didOpen',
+  public beforeCloseSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'beforeclose'),
+    { alias: 'beforeClose' },
   );
 
-  @Output('willClose') protected _willClose: (typeof this)['willClose'] = NEVER;
-  public willClose: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'willClose',
-  );
+  protected _openSignal = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  public openSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'open'));
 
-  @Output('didClose') protected _didClose: (typeof this)['didClose'] = NEVER;
-  public didClose: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'didClose',
-  );
+  protected _closeSignal = outputFromObservable<Event>(NEVER, { alias: 'close' });
+  public closeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'close'));
 }

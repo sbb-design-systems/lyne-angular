@@ -1,11 +1,12 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbRadioButtonElement } from '@sbb-esta/lyne-elements/radio-button/radio-button.js';
 import type {
   SbbRadioButtonGroupElement,
   SbbRadioButtonSize,
 } from '@sbb-esta/lyne-elements/radio-button.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
+import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/radio-button/radio-button.js';
 
@@ -73,17 +74,6 @@ export class SbbRadioButton<T = string> {
     return this.#element.nativeElement.value;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('change') protected _change: (typeof this)['change'] = NEVER;
-  public change: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'change');
-
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('input') protected _input: (typeof this)['input'] = NEVER;
-  public input: Observable<InputEvent> = fromEvent<InputEvent>(
-    this.#element.nativeElement,
-    'input',
-  );
-
   public get group(): SbbRadioButtonGroupElement | null {
     return this.#element.nativeElement.group;
   }
@@ -123,4 +113,10 @@ export class SbbRadioButton<T = string> {
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
+
+  protected _changeSignal = outputFromObservable<Event>(NEVER, { alias: 'change' });
+  public changeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'change'));
+
+  protected _inputSignal = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
+  public inputSignal = toSignal(fromEvent<InputEvent>(this.#element.nativeElement, 'input'));
 }

@@ -1,6 +1,7 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import type { SbbStickyBarElement } from '@sbb-esta/lyne-elements/container/sticky-bar.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
+import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/container/sticky-bar.js';
 
@@ -28,30 +29,6 @@ export class SbbStickyBar {
     return this.#element.nativeElement.size;
   }
 
-  @Output('willStick') protected _willStick: (typeof this)['willStick'] = NEVER;
-  public willStick: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'willStick',
-  );
-
-  @Output('didStick') protected _didStick: (typeof this)['didStick'] = NEVER;
-  public didStick: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'didStick',
-  );
-
-  @Output('willUnstick') protected _willUnstick: (typeof this)['willUnstick'] = NEVER;
-  public willUnstick: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'willUnstick',
-  );
-
-  @Output('didUnstick') protected _didUnstick: (typeof this)['didUnstick'] = NEVER;
-  public didUnstick: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'didUnstick',
-  );
-
   public stick(): void {
     return this.#element.nativeElement.stick();
   }
@@ -59,4 +36,20 @@ export class SbbStickyBar {
   public unstick(): void {
     return this.#element.nativeElement.unstick();
   }
+
+  protected _stickSignal = outputFromObservable<Event>(NEVER, { alias: 'stick' });
+  public stickSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'stick'));
+
+  protected _unstickSignal = outputFromObservable<Event>(NEVER, { alias: 'unstick' });
+  public unstickSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'unstick'));
+
+  public beforeStickSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'beforestick'),
+    { alias: 'beforeStick' },
+  );
+
+  public beforeUnstickSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'beforeunstick'),
+    { alias: 'beforeUnstick' },
+  );
 }

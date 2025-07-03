@@ -1,12 +1,5 @@
-import {
-  Directive,
-  ElementRef,
-  Input,
-  NgZone,
-  Output,
-  inject,
-  numberAttribute,
-} from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSeatReservationPlaceControlElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-place-control.js';
 import type {
@@ -14,7 +7,7 @@ import type {
   PlaceState,
   PlaceType,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
-import { NEVER, fromEvent, type Observable } from 'rxjs';
+import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-place-control.js';
 
@@ -116,8 +109,10 @@ export class SbbSeatReservationPlaceControl {
     return this.#element.nativeElement.keyfocus;
   }
 
-  @Output('selectPlace') protected _selectPlace: (typeof this)['selectPlace'] = NEVER;
-  public selectPlace: Observable<CustomEvent<PlaceSelection>> = fromEvent<
-    CustomEvent<PlaceSelection>
-  >(this.#element.nativeElement, 'selectPlace');
+  protected _selectPlaceSignal = outputFromObservable<CustomEvent<PlaceSelection>>(NEVER, {
+    alias: 'selectPlace',
+  });
+  public selectPlaceSignal = toSignal(
+    fromEvent<CustomEvent<PlaceSelection>>(this.#element.nativeElement, 'selectPlace'),
+  );
 }

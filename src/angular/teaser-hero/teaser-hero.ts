@@ -2,6 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTeaserHeroElement } from '@sbb-esta/lyne-elements/teaser-hero.js';
+
 import '@sbb-esta/lyne-elements/teaser-hero.js';
 
 @Directive({

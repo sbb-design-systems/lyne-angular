@@ -1,6 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbFormErrorElement } from '@sbb-esta/lyne-elements/form-error.js';
+
 import '@sbb-esta/lyne-elements/form-error.js';
 
 @Directive({

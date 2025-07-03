@@ -4,6 +4,7 @@ import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/
 import type { SbbLinkListElement } from '@sbb-esta/lyne-elements/link-list/link-list.js';
 import type { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+
 import '@sbb-esta/lyne-elements/link-list/link-list.js';
 
 @Directive({

@@ -14,8 +14,23 @@ import type {
   Package,
 } from 'custom-elements-manifest';
 
-// A list of native DOM events used in @lyne-elements that need an alias.
-const NATIVE_EVENTS_NAME: string[] = ['change', 'input', 'error', 'load'];
+const CAMEL_CASE_EVENTS_MAP: Record<string, string> = {
+  beforeclose: 'beforeClose',
+  beforeopen: 'beforeOpen',
+  beforestick: 'beforeStick',
+  beforeunstick: 'beforeUnstick',
+  chipinputtokenend: 'chipInputTokenEnd',
+  dateselected: 'dateSelected',
+  didChange: 'didChange',
+  filechanged: 'fileChanged',
+  focuscoach: 'focusCoach',
+  optionselected: 'optionSelected',
+  optionselectionchange: 'optionSelectionChange',
+  selectcoach: 'selectCoach',
+  selectplaces: 'selectPlaces',
+  tabchange: 'tabChange',
+  toggleexpanded: 'toggleExpanded',
+};
 
 // Converts camelCase to kebab-case
 function toKebabCase(str: string): string {
@@ -180,6 +195,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         const expectedAngularImports = new Set<string>();
         const expectedRxJsImports = new Set<string>();
+        const expectedRxJsInteropImports = new Set<string>();
 
         // The class and its public data that must be created in the Angular file
         const classManifestDeclaration = getClassManifestDeclaration(module);
@@ -201,8 +217,8 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           expectedAngularImports.add('Input').add('NgZone');
         }
         if (publicEvents.length) {
-          expectedAngularImports.add('Output');
-          expectedRxJsImports.add('fromEvent').add('NEVER').add('type Observable');
+          expectedRxJsImports.add('fromEvent');
+          expectedRxJsInteropImports.add('outputFromObservable');
         }
 
         // Add the private variables for the native element and the ngZone
@@ -308,56 +324,82 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // Add outputs
         for (const member of publicEvents) {
-          const hasPropWithSameName = publicProperties.find((prop) => prop.name === member.name);
-          const memberNameVariable = hasPropWithSameName ? `${member.name}Event` : member.name;
-          const type = member.type?.text ?? 'Event';
-          if (
-            classDeclaration.body.body.every(
-              (n) =>
-                n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                context.sourceCode.getText(n.key) !== `_${member.name}` ||
-                !context.sourceCode.getText(n).includes(`@Output('${member.name}')`),
-            )
-          ) {
-            context.report({
-              node: classDeclaration.body,
-              messageId: 'angularMissingOutput',
-              data: { property: member.name },
-              fix: (fixer) => {
-                const endOfBody = classDeclaration.body.range[1] - 1;
-                const eslintDisableRule = NATIVE_EVENTS_NAME.includes(member.name)
-                  ? `// eslint-disable-next-line @angular-eslint/no-output-native`
-                  : '';
+          const type = member.type?.text.replace(/\s+/g, '');
+          const normalizedName = CAMEL_CASE_EVENTS_MAP[member.name] ?? member.name;
+          const outputSignalName = `${normalizedName}Signal`;
+          const outputRegex = new RegExp(
+            `outputFromObservable(.*alias:.*'${normalizedName}'.*);`,
+            's',
+          );
+          const isCamelCase = CAMEL_CASE_EVENTS_MAP[member.name];
+          if (isCamelCase) {
+            if (
+              classDeclaration.body.body.every(
+                (n) =>
+                  n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                  context.sourceCode.getText(n.key) !== outputSignalName,
+              )
+            ) {
+              context.report({
+                node: classDeclaration.body,
+                messageId: 'angularMissingOutput',
+                data: { property: member.name },
+                fix: (fixer) => {
+                  const endOfBody = classDeclaration.body.range[1] - 1;
+                  return fixer.insertTextBeforeRange(
+                    [endOfBody, endOfBody],
+                    `
+  public ${outputSignalName} = outputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'), { alias: '${normalizedName}' });\n`,
+                  );
+                },
+              });
+            }
+          } else {
+            expectedRxJsImports.add('NEVER');
+            if (
+              classDeclaration.body.body.every(
+                (n) =>
+                  n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                  !context.sourceCode.getText(n).match(outputRegex),
+              )
+            ) {
+              context.report({
+                node: classDeclaration.body,
+                messageId: 'angularMissingOutput',
+                data: { property: member.name },
+                fix: (fixer) => {
+                  const endOfBody = classDeclaration.body.range[1] - 1;
 
-                return fixer.insertTextBeforeRange(
-                  [endOfBody, endOfBody],
-                  `
-  ${eslintDisableRule}
-  @Output('${member.name}') protected _${member.name}: (typeof this)['${memberNameVariable}'] = NEVER;`,
-                );
-              },
-            });
-          }
-          if (
-            classDeclaration.body.body.every(
-              (n) =>
-                n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                context.sourceCode.getText(n.key) !== memberNameVariable,
-            )
-          ) {
-            context.report({
-              node: classDeclaration.body,
-              messageId: 'angularMissingOutput',
-              data: { property: member.name },
-              fix: (fixer) => {
-                const endOfBody = classDeclaration.body.range[1] - 1;
-                return fixer.insertTextBeforeRange(
-                  [endOfBody, endOfBody],
-                  `
-  public ${memberNameVariable}: Observable<${type}> = fromEvent<${type}>(this.#element.nativeElement, '${member.name}');\n`,
-                );
-              },
-            });
+                  return fixer.insertTextBeforeRange(
+                    [endOfBody, endOfBody],
+                    `
+  protected _${outputSignalName} = outputFromObservable<${type}>(NEVER, { alias: '${normalizedName}' });`,
+                  );
+                },
+              });
+            }
+            if (
+              classDeclaration.body.body.every(
+                (n) =>
+                  n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                  context.sourceCode.getText(n.key) !== outputSignalName,
+              )
+            ) {
+              expectedRxJsInteropImports.add('toSignal');
+              context.report({
+                node: classDeclaration.body,
+                messageId: 'angularMissingOutput',
+                data: { property: member.name },
+                fix: (fixer) => {
+                  const endOfBody = classDeclaration.body.range[1] - 1;
+                  return fixer.insertTextBeforeRange(
+                    [endOfBody, endOfBody],
+                    `
+  public ${outputSignalName} = toSignal(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'));\n`,
+                  );
+                },
+              });
+            }
           }
 
           // Check if output types are corresponding to manifest
@@ -365,21 +407,58 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             classDeclaration.body.body.every(
               (n) =>
                 n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                context.sourceCode.getText(n.key) !== memberNameVariable ||
-                !context.sourceCode
-                  .getText(n)
-                  .replace(/\s+/g, '')
-                  .includes(`Observable<${type}>`.replace(/\s+/g, '')) ||
-                !context.sourceCode
-                  .getText(n)
-                  .replace(/\s+/g, '')
-                  .includes(`fromEvent<${type}>`.replace(/\s+/g, '')),
-            )
+                context.sourceCode.getText(n.key) !== outputSignalName ||
+                !context.sourceCode.getText(n).replace(/\s+/g, '').includes(`fromEvent<${type}>`),
+            ) ||
+            (!isCamelCase &&
+              classDeclaration.body.body.every(
+                (n) =>
+                  n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                  context.sourceCode.getText(n.key) !== `_${outputSignalName}` ||
+                  !context.sourceCode
+                    .getText(n)
+                    .replace(/\s+/g, '')
+                    .includes(`outputFromObservable<${type}>`),
+              ))
           ) {
             context.report({
               node: classDeclaration.body,
               messageId: 'angularWrongOutputType',
               data: { property: member.name },
+            });
+          }
+
+          // Check if type names are corresponding to manifest
+          if (
+            classDeclaration.body.body.every(
+              (n) =>
+                n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                context.sourceCode.getText(n.key) !== outputSignalName ||
+                !context.sourceCode
+                  .getText(n)
+                  .replace(/\s+/g, '')
+                  .includes(`(this.#element.nativeElement,'${member.name}'`) ||
+                (isCamelCase &&
+                  !context.sourceCode
+                    .getText(n)
+                    .replace(/\s+/g, '')
+                    .includes(`alias:'${normalizedName}'`)),
+            ) ||
+            (!isCamelCase &&
+              classDeclaration.body.body.every(
+                (n) =>
+                  n.type !== AST_NODE_TYPES.PropertyDefinition ||
+                  context.sourceCode.getText(n.key) !== `_${outputSignalName}` ||
+                  !context.sourceCode
+                    .getText(n)
+                    .replace(/\s+/g, '')
+                    .includes(`alias:'${normalizedName}'`),
+              ))
+          ) {
+            context.report({
+              node: classDeclaration.body,
+              messageId: 'angularWrongOutputEventName',
+              data: { property: member.name, expectedAlias: normalizedName },
             });
           }
         }
@@ -455,6 +534,26 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         );
         const elementImport = `@sbb-esta/lyne-${elementPath}.js`;
 
+        // Lyne element
+        if (
+          program.body.every(
+            (n) =>
+              n.type !== AST_NODE_TYPES.ImportDeclaration ||
+              n.importKind !== 'value' ||
+              n.source.value !== elementImport,
+          )
+        ) {
+          const lastImport = program.body
+            .filter((n) => n.type === AST_NODE_TYPES.ImportDeclaration)
+            .at(-1)!;
+          context.report({
+            node: lastImport,
+            messageId: 'angularMissingImport',
+            data: { symbol: 'element side effect' },
+            fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport '${elementImport}';`),
+          });
+        }
+
         // Angular imports
         const angularCoreImport = program.body.find(
           (n): n is TSESTree.ImportDeclaration =>
@@ -506,7 +605,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             messageId: 'angularMissingImport',
             data: { symbol: 'booleanAttribute' },
             fix: (fixer) =>
-              fixer.insertTextAfter(
+              fixer.insertTextBefore(
                 lastImport,
                 `\nimport { booleanAttribute } from '@sbb-esta/lyne-angular/core';`,
               ),
@@ -529,7 +628,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               messageId: 'rxJsMissingImport',
               data: { symbol: imports },
               fix: (fixer) =>
-                fixer.insertTextAfter(lastImport, `\nimport { ${imports} } from 'rxjs';`),
+                fixer.insertTextBefore(lastImport, `\nimport { ${imports} } from 'rxjs';`),
             });
           } else {
             const existingImports = rxjsCoreImport.specifiers.map((s) =>
@@ -553,6 +652,50 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           }
         }
 
+        // RxJs Interop imports
+        if (expectedRxJsInteropImports.size > 0) {
+          const rxjsInteropImport = program.body.find(
+            (n): n is TSESTree.ImportDeclaration =>
+              n.type === AST_NODE_TYPES.ImportDeclaration &&
+              n.source.value === '@angular/core/rxjs-interop',
+          );
+          if (!rxjsInteropImport) {
+            const imports = Array.from(expectedRxJsInteropImports).sort().join(', ');
+            const lastImport = program.body
+              .filter((n) => n.type === AST_NODE_TYPES.ImportDeclaration)
+              .at(-1)!;
+            context.report({
+              node: program,
+              messageId: 'rxJsInteropMissingImport',
+              data: { symbol: imports },
+              fix: (fixer) =>
+                fixer.insertTextBefore(
+                  lastImport,
+                  `\nimport { ${imports} } from '@angular/core/rxjs-interop';`,
+                ),
+            });
+          } else {
+            const existingImports = rxjsInteropImport.specifiers.map((s) =>
+              (s as TSESTree.ImportSpecifier).importKind === 'type'
+                ? `${(s as TSESTree.ImportSpecifier).importKind} ${((s as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name}`
+                : ((s as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name,
+            );
+            const importsToAdd = Array.from(expectedRxJsInteropImports).filter(
+              (i) => !existingImports.includes(i),
+            );
+            if (importsToAdd.length > 0) {
+              const imports = importsToAdd.sort().join(', ');
+              context.report({
+                node: rxjsInteropImport,
+                messageId: 'rxJsInteropMissingImport',
+                data: { symbol: imports },
+                fix: (fixer) =>
+                  fixer.insertTextAfter(rxjsInteropImport.specifiers.at(-1)!, `, ${imports}`),
+              });
+            }
+          }
+        }
+
         // Lyne element class
         if (
           expectedAngularImports.has('ElementRef') &&
@@ -571,30 +714,10 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             messageId: 'angularMissingImport',
             data: { symbol: elementClassName },
             fix: (fixer) =>
-              fixer.insertTextAfter(
+              fixer.insertTextBefore(
                 lastImport,
                 `\nimport type { ${elementClassName} } from '${elementImport}';`,
               ),
-          });
-        }
-
-        // Lyne element
-        if (
-          program.body.every(
-            (n) =>
-              n.type !== AST_NODE_TYPES.ImportDeclaration ||
-              n.importKind !== 'value' ||
-              n.source.value !== elementImport,
-          )
-        ) {
-          const lastImport = program.body
-            .filter((n) => n.type === AST_NODE_TYPES.ImportDeclaration)
-            .at(-1)!;
-          context.report({
-            node: lastImport,
-            messageId: 'angularMissingImport',
-            data: { symbol: 'element side effect' },
-            fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport '${elementImport}';`),
           });
         }
       },
@@ -607,13 +730,16 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
     messages: {
       angularMissingImport: 'Missing import {{ symbol }}',
       rxJsMissingImport: 'Missing import {{ symbol }}',
+      rxJsInteropMissingImport: 'Missing import {{ symbol }}',
       angularMissingDirective: 'Missing class for {{ className }}',
       angularMissingElementRef: 'Missing ElementRef property',
       angularMissingNgZone: 'Missing NgZone property',
       angularMissingInput: 'Missing input for property {{ property }}',
       angularMissingOutput: 'Missing output for property {{ property }}',
       angularMissingMethod: 'Missing output for method {{ method }}',
-      angularWrongOutputType: 'Output type differs from manifest for property {{ property }}',
+      angularWrongOutputType: 'Output type differs from manifest for event {{ property }}',
+      angularWrongOutputEventName:
+        'Output event name differs from manifest for event {{ property }} and expected alias {{ expectedAlias }}',
     },
     fixable: 'code',
     type: 'problem',

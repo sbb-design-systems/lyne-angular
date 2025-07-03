@@ -1,9 +1,10 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle/toggle-option.js';
 import type { SbbToggleElement } from '@sbb-esta/lyne-elements/toggle/toggle.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
+import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/toggle/toggle.js';
 
@@ -58,13 +59,6 @@ export class SbbToggle<T = string> extends SbbControlValueAccessorMixin(class {}
     return this.#element.nativeElement.value;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('change') protected _change: (typeof this)['change'] = NEVER;
-  public change: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'change',
-  );
-
   public get options(): SbbToggleOptionElement<T>[] {
     return this.#element.nativeElement.options;
   }
@@ -104,4 +98,7 @@ export class SbbToggle<T = string> extends SbbControlValueAccessorMixin(class {}
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
+
+  protected _changeSignal = outputFromObservable<Event>(NEVER, { alias: 'change' });
+  public changeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'change'));
 }

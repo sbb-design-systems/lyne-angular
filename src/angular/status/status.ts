@@ -1,5 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbStatusElement, SbbStatusType } from '@sbb-esta/lyne-elements/status.js';
+
 import '@sbb-esta/lyne-elements/status.js';
 
 @Directive({

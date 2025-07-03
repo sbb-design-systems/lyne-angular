@@ -4,6 +4,7 @@ import type {
   PearlChainVerticalItemAttributes,
   SbbPearlChainVerticalItemElement,
 } from '@sbb-esta/lyne-elements-experimental/pearl-chain-vertical-item.js';
+
 import '@sbb-esta/lyne-elements-experimental/pearl-chain-vertical-item.js';
 
 @Directive({

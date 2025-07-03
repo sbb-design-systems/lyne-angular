@@ -1,4 +1,5 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import type { AbstractControl, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
@@ -7,7 +8,7 @@ import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import type { SbbDateInputAssociated } from '@sbb-esta/lyne-elements/date-input.js';
 import { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
 import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
+import { fromEvent, NEVER } from 'rxjs';
 
 @Directive({
   selector: 'sbb-date-input',
@@ -131,17 +132,6 @@ export class SbbDateInput<T = Date>
     return this.#element.nativeElement.name;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('input') protected _input: (typeof this)['input'] = NEVER;
-  public input: Observable<InputEvent> = fromEvent<InputEvent>(
-    this.#element.nativeElement,
-    'input',
-  );
-
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('change') protected _change: (typeof this)['change'] = NEVER;
-  public change: Observable<Event> = fromEvent<Event>(this.#element.nativeElement, 'change');
-
   public get type(): string {
     return this.#element.nativeElement.type;
   }
@@ -233,4 +223,10 @@ export class SbbDateInput<T = Date>
   public select(): void {
     return this.#element.nativeElement.select();
   }
+
+  protected _inputSignal = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
+  public inputSignal = toSignal(fromEvent<InputEvent>(this.#element.nativeElement, 'input'));
+
+  protected _changeSignal = outputFromObservable<Event>(NEVER, { alias: 'change' });
+  public changeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'change'));
 }

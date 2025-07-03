@@ -5,6 +5,7 @@ import type {
   InterfaceSbbJourneySummaryAttributes,
   SbbJourneySummaryElement,
 } from '@sbb-esta/lyne-elements-experimental/journey-summary.js';
+
 import '@sbb-esta/lyne-elements-experimental/journey-summary.js';
 
 @Directive({
