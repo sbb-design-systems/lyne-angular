@@ -1,5 +1,37 @@
 # Changelog
 
+## [20.0.0-rc.1](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.0...v20.0.0-rc.1) (2025-07-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** update to Lyne 3.0.1, including the reflection of all breaking changes of Lyne. See https://github.com/sbb-design-systems/lyne-components/releases/tag/v3.0.0 for more information. On Angular side we changed the output observables to signals, having "Signal" as name suffix, e.g. "openSignal".
+
+### Features
+
+* update to breaking changes of lyne-elements ([#97](https://github.com/sbb-design-systems/lyne-angular/issues/97)) ([a161316](https://github.com/sbb-design-systems/lyne-angular/commit/a161316f7dd036b94f9c7d2cf20bf2ecb831718e)), closes [#54](https://github.com/sbb-design-systems/lyne-angular/issues/54)
+
+
+### Bug Fixes
+
+* **deps:** update angular ([874f8d5](https://github.com/sbb-design-systems/lyne-angular/commit/874f8d5b8964203be0f0fce7f62a33c4ba9f3e56))
+* **deps:** update angular ([7d0d35b](https://github.com/sbb-design-systems/lyne-angular/commit/7d0d35b7cd155e28a82b96dde16511d5a6d219a4))
+* **deps:** update angular ([9409fd0](https://github.com/sbb-design-systems/lyne-angular/commit/9409fd0171f6e9909807e08776c1e9142bb28508))
+* **deps:** update dependency @angular/cdk to v20.0.5 ([357a7fa](https://github.com/sbb-design-systems/lyne-angular/commit/357a7fa69c2b6426bb36a4591400e1d3205ed134))
+* **deps:** update esta to v3.0.0 ([#137](https://github.com/sbb-design-systems/lyne-angular/issues/137)) ([442f9cc](https://github.com/sbb-design-systems/lyne-angular/commit/442f9ccf06591f54b8f74dbda9c7fce723f7630c))
+* **deps:** update lyne-elements to v3.0.1 ([#142](https://github.com/sbb-design-systems/lyne-angular/issues/142)) ([2d27b19](https://github.com/sbb-design-systems/lyne-angular/commit/2d27b19e6202882fdc7a71d10656da75a7014478))
+* **sbb-time-input, sbb-date-input:** avoid emitting initial value as change ([#140](https://github.com/sbb-design-systems/lyne-angular/issues/140)) ([d6975a7](https://github.com/sbb-design-systems/lyne-angular/commit/d6975a768cdb94ba6458ef32d31317d03da2f3b2)), closes [#129](https://github.com/sbb-design-systems/lyne-angular/issues/129)
+
+
+### Documentation
+
+* provide stackblitz starter links ([#136](https://github.com/sbb-design-systems/lyne-angular/issues/136)) ([190b074](https://github.com/sbb-design-systems/lyne-angular/commit/190b07405496dac30bfac5cb2f4574b1122106be))
+
+
+### Code Refactoring
+
+* **sbb-table:** replace Angular sort animation with scss rules ([#134](https://github.com/sbb-design-systems/lyne-angular/issues/134)) ([2981fff](https://github.com/sbb-design-systems/lyne-angular/commit/2981fff54eeb6cd432189fdc95929bee1b348daf))
+
 ## [20.0.0-rc.0](https://github.com/sbb-design-systems/lyne-angular/compare/v19.0.0-rc.1...v20.0.0-rc.0) (2025-06-16)
 
 
