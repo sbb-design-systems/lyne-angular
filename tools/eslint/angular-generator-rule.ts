@@ -27,7 +27,9 @@ const CAMEL_CASE_EVENTS_MAP: Record<string, string> = {
   optionselected: 'optionSelected',
   optionselectionchange: 'optionSelectionChange',
   selectcoach: 'selectCoach',
-  selectplaces: 'selectPlaces',
+  selectedcoach: 'selectedCoach',
+  selectplace: 'selectPlace',
+  selectedplaces: 'selectedPlaces',
   tabchange: 'tabChange',
   toggleexpanded: 'toggleExpanded',
 };

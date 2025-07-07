@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
-import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSeatReservationElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation.js';
 import type {
@@ -7,7 +7,7 @@ import type {
   SeatReservationCoachSelection,
   SeatReservationSelectedPlacesEventDetails,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
-import { fromEvent, NEVER } from 'rxjs';
+import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation.js';
 
@@ -75,24 +75,19 @@ export class SbbSeatReservation {
     return this.#element.nativeElement.height;
   }
 
-  protected _selectedPlacesSignal = outputFromObservable<
-    CustomEvent<SeatReservationSelectedPlacesEventDetails>
-  >(NEVER, { alias: 'selectedPlaces' });
-  public selectedPlacesSignal = toSignal(
-    fromEvent<CustomEvent<SeatReservationSelectedPlacesEventDetails>>(
-      this.#element.nativeElement,
-      'selectedPlaces',
-    ),
-  );
-
-  protected _selectedCoachSignal = outputFromObservable<CustomEvent<SeatReservationCoachSelection>>(
-    NEVER,
-    { alias: 'selectedCoach' },
-  );
-  public selectedCoachSignal = toSignal(
+  public selectedCoachSignal = outputFromObservable(
     fromEvent<CustomEvent<SeatReservationCoachSelection>>(
       this.#element.nativeElement,
-      'selectedCoach',
+      'selectedcoach',
     ),
+    { alias: 'selectedCoach' },
+  );
+
+  public selectedPlacesSignal = outputFromObservable(
+    fromEvent<CustomEvent<SeatReservationSelectedPlacesEventDetails>>(
+      this.#element.nativeElement,
+      'selectedplaces',
+    ),
+    { alias: 'selectedPlaces' },
   );
 }
