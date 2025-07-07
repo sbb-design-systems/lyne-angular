@@ -1,8 +1,10 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
+import { fromEvent } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
 
 @Directive({
@@ -71,12 +73,6 @@ export class SbbExpansionPanelHeader {
     return this.#element.nativeElement.type;
   }
 
-  @Output('toggleExpanded') protected _toggleExpanded: (typeof this)['toggleExpanded'] = NEVER;
-  public toggleExpanded: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'toggleExpanded',
-  );
-
   public get validity(): ValidityState {
     return this.#element.nativeElement.validity;
   }
@@ -100,4 +96,9 @@ export class SbbExpansionPanelHeader {
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
+
+  public toggleExpandedSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'toggleexpanded'),
+    { alias: 'toggleExpanded' },
+  );
 }

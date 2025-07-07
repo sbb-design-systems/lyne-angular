@@ -1,12 +1,5 @@
-import {
-  Directive,
-  ElementRef,
-  inject,
-  Input,
-  NgZone,
-  numberAttribute,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSeatReservationElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation.js';
 import type {
@@ -14,7 +7,7 @@ import type {
   SeatReservationCoachSelection,
   SeatReservationSelectedPlacesEventDetails,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
+import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation.js';
 
@@ -82,15 +75,24 @@ export class SbbSeatReservation {
     return this.#element.nativeElement.height;
   }
 
-  @Output('selectedPlaces') protected _selectedPlaces: (typeof this)['selectedPlaces'] = NEVER;
-  public selectedPlaces: Observable<CustomEvent<SeatReservationSelectedPlacesEventDetails>> =
+  protected _selectedPlacesSignal = outputFromObservable<
+    CustomEvent<SeatReservationSelectedPlacesEventDetails>
+  >(NEVER, { alias: 'selectedPlaces' });
+  public selectedPlacesSignal = toSignal(
     fromEvent<CustomEvent<SeatReservationSelectedPlacesEventDetails>>(
       this.#element.nativeElement,
       'selectedPlaces',
-    );
+    ),
+  );
 
-  @Output('selectedCoach') protected _selectedCoach: (typeof this)['selectedCoach'] = NEVER;
-  public selectedCoach: Observable<CustomEvent<SeatReservationCoachSelection>> = fromEvent<
-    CustomEvent<SeatReservationCoachSelection>
-  >(this.#element.nativeElement, 'selectedCoach');
+  protected _selectedCoachSignal = outputFromObservable<CustomEvent<SeatReservationCoachSelection>>(
+    NEVER,
+    { alias: 'selectedCoach' },
+  );
+  public selectedCoachSignal = toSignal(
+    fromEvent<CustomEvent<SeatReservationCoachSelection>>(
+      this.#element.nativeElement,
+      'selectedCoach',
+    ),
+  );
 }

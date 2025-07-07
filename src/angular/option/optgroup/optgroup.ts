@@ -1,6 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbOptGroupElement } from '@sbb-esta/lyne-elements/option/optgroup.js';
+
 import '@sbb-esta/lyne-elements/option/optgroup.js';
 
 @Directive({

@@ -1,19 +1,12 @@
-import {
-  Directive,
-  ElementRef,
-  inject,
-  Input,
-  NgZone,
-  numberAttribute,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import type { SbbSeatReservationNavigationCoachElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation/seat-reservation-navigation-coach.js';
 import type {
-  SbbSeatReservationNavigationCoachElement,
+  PlaceTravelClass,
   SelectCoachEventDetails,
-} from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation/seat-reservation-navigation-coach.js';
-import type { PlaceTravelClass } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
+} from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
+import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation/seat-reservation-navigation-coach.js';
 
@@ -115,14 +108,13 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.vertical;
   }
 
-  @Output('selectCoach') protected _selectCoach: (typeof this)['selectCoach'] = NEVER;
-  public selectCoach: Observable<CustomEvent<SelectCoachEventDetails>> = fromEvent<
-    CustomEvent<SelectCoachEventDetails>
-  >(this.#element.nativeElement, 'selectCoach');
+  protected _focusCoachSignal = outputFromObservable<Event>(NEVER, { alias: 'focusCoach' });
+  public focusCoachSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'focusCoach'));
 
-  @Output('focusCoach') protected _focusCoach: (typeof this)['focusCoach'] = NEVER;
-  public focusCoach: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'focusCoach',
+  protected _selectCoachSignal = outputFromObservable<CustomEvent<SelectCoachEventDetails>>(NEVER, {
+    alias: 'selectCoach',
+  });
+  public selectCoachSignal = toSignal(
+    fromEvent<CustomEvent<SelectCoachEventDetails>>(this.#element.nativeElement, 'selectCoach'),
   );
 }

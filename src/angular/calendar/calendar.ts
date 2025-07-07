@@ -1,7 +1,8 @@
-import { Directive, ElementRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { CalendarView, SbbCalendarElement } from '@sbb-esta/lyne-elements/calendar.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
+import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/calendar.js';
 
@@ -69,13 +70,12 @@ export class SbbCalendar<T = Date> {
     return this.#element.nativeElement.orientation;
   }
 
-  @Output('dateSelected') protected _dateSelected: (typeof this)['dateSelected'] = NEVER;
-  public dateSelected: Observable<CustomEvent<T>> = fromEvent<CustomEvent<T>>(
-    this.#element.nativeElement,
-    'dateSelected',
-  );
-
   public resetPosition(): void {
     return this.#element.nativeElement.resetPosition();
   }
+
+  public dateSelectedSignal = outputFromObservable(
+    fromEvent<CustomEvent<T>>(this.#element.nativeElement, 'dateselected'),
+    { alias: 'dateSelected' },
+  );
 }

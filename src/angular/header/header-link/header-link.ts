@@ -3,6 +3,7 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbHeaderLinkElement } from '@sbb-esta/lyne-elements/header/header-link.js';
+
 import '@sbb-esta/lyne-elements/header/header-link.js';
 
 @Directive({

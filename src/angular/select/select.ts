@@ -1,8 +1,9 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
+import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/select.js';
 
@@ -12,7 +13,7 @@ import '@sbb-esta/lyne-elements/select.js';
   host: {
     '(change)': 'this.onChangeFn(this.value)',
     '(blur)': 'this.onTouchedFn()',
-    '(didClose)': 'this.onTouchedFn()',
+    '(close)': 'this.onTouchedFn()',
   },
   providers: [
     {
@@ -98,44 +99,6 @@ export class SbbSelect<T = string> extends SbbControlValueAccessorMixin(class {}
     return this.#element.nativeElement.value;
   }
 
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('change') protected _change: (typeof this)['change'] = NEVER;
-  public change: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'change',
-  );
-
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  @Output('input') protected _input: (typeof this)['input'] = NEVER;
-  public input: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'input',
-  );
-
-  @Output('willOpen') protected _willOpen: (typeof this)['willOpen'] = NEVER;
-  public willOpen: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'willOpen',
-  );
-
-  @Output('didOpen') protected _didOpen: (typeof this)['didOpen'] = NEVER;
-  public didOpen: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'didOpen',
-  );
-
-  @Output('willClose') protected _willClose: (typeof this)['willClose'] = NEVER;
-  public willClose: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'willClose',
-  );
-
-  @Output('didClose') protected _didClose: (typeof this)['didClose'] = NEVER;
-  public didClose: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'didClose',
-  );
-
   public get type(): string {
     return this.#element.nativeElement.type;
   }
@@ -183,4 +146,26 @@ export class SbbSelect<T = string> extends SbbControlValueAccessorMixin(class {}
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
+
+  protected _inputSignal = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
+  public inputSignal = toSignal(fromEvent<InputEvent>(this.#element.nativeElement, 'input'));
+
+  protected _changeSignal = outputFromObservable<Event>(NEVER, { alias: 'change' });
+  public changeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'change'));
+
+  public beforeOpenSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
+    { alias: 'beforeOpen' },
+  );
+
+  protected _openSignal = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  public openSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'open'));
+
+  public beforeCloseSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'beforeclose'),
+    { alias: 'beforeClose' },
+  );
+
+  protected _closeSignal = outputFromObservable<Event>(NEVER, { alias: 'close' });
+  public closeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'close'));
 }

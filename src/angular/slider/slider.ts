@@ -1,8 +1,9 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone, Output } from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSliderElement } from '@sbb-esta/lyne-elements/slider.js';
-import { fromEvent, NEVER, type Observable } from 'rxjs';
+import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/slider.js';
 
@@ -97,12 +98,6 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.name;
   }
 
-  @Output('didChange') protected _didChange: (typeof this)['didChange'] = NEVER;
-  public didChange: Observable<CustomEvent<void>> = fromEvent<CustomEvent<void>>(
-    this.#element.nativeElement,
-    'didChange',
-  );
-
   public get type(): string {
     return this.#element.nativeElement.type;
   }
@@ -134,4 +129,15 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
+
+  protected _changeSignal = outputFromObservable<Event>(NEVER, { alias: 'change' });
+  public changeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'change'));
+
+  public didChangeSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'didChange'),
+    { alias: 'didChange' },
+  );
+
+  protected _inputSignal = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
+  public inputSignal = toSignal(fromEvent<InputEvent>(this.#element.nativeElement, 'input'));
 }
