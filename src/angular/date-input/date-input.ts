@@ -16,7 +16,8 @@ import { fromEvent, NEVER } from 'rxjs';
   host: {
     '(change)': 'this.onChangeFn(this.valueAsDate)',
     '(blur)': 'this.onTouchedFn()',
-    '(input)': 'this.validatorOnChange()',
+    '(beforeinput)': 'this._onBeforeInput()',
+    '(input)': 'this._onInput()',
     '(invalid)': 'this.validatorOnChange()',
   },
   providers: [
@@ -35,14 +36,14 @@ export class SbbDateInput<T = Date>
   #element: ElementRef<SbbDateInputElement<T>> = inject(ElementRef<SbbDateInputElement<T>>);
   #ngZone: NgZone = inject(NgZone);
   #dateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
+  #lastValue: T | null = null;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected validatorOnChange = () => {};
 
   @Input()
   public set value(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
-    this.validatorOnChange?.();
+    this.#runWithValidationCheck(() => (this.#element.nativeElement.value = value));
   }
   public get value(): string {
     return this.#element.nativeElement.value;
@@ -50,8 +51,7 @@ export class SbbDateInput<T = Date>
 
   @Input()
   public set valueAsDate(value: T | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.valueAsDate = value));
-    this.validatorOnChange?.();
+    this.#runWithValidationCheck(() => (this.#element.nativeElement.valueAsDate = value));
   }
   public get valueAsDate(): T | null {
     return this.#element.nativeElement.valueAsDate;
@@ -59,8 +59,7 @@ export class SbbDateInput<T = Date>
 
   @Input()
   public set min(value: T | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.min = value));
-    this.validatorOnChange?.();
+    this.#runWithValidationCheck(() => (this.#element.nativeElement.min = value));
   }
   public get min(): T | null {
     return this.#element.nativeElement.min;
@@ -68,8 +67,7 @@ export class SbbDateInput<T = Date>
 
   @Input()
   public set max(value: T | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.max = value));
-    this.validatorOnChange?.();
+    this.#runWithValidationCheck(() => (this.#element.nativeElement.max = value));
   }
   public get max(): T | null {
     return this.#element.nativeElement.max;
@@ -77,8 +75,7 @@ export class SbbDateInput<T = Date>
 
   @Input()
   public set dateFilter(value: (date: T | null) => boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.dateFilter = value));
-    this.validatorOnChange?.();
+    this.#runWithValidationCheck(() => (this.#element.nativeElement.dateFilter = value));
   }
   public get dateFilter(): (date: T | null) => boolean {
     return this.#element.nativeElement.dateFilter;
@@ -118,7 +115,7 @@ export class SbbDateInput<T = Date>
 
   @Input({ transform: booleanAttribute })
   public set required(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.required = value));
+    this.#runWithValidationCheck(() => (this.#element.nativeElement.required = value));
   }
   public get required(): boolean {
     return this.#element.nativeElement.required;
@@ -229,4 +226,26 @@ export class SbbDateInput<T = Date>
 
   protected _changeSignal = outputFromObservable<Event>(NEVER, { alias: 'change' });
   public changeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'change'));
+
+  #runWithValidationCheck(action: () => void): void {
+    this.#ngZone.runOutsideAngular(() => {
+      const isValid = this.#element.nativeElement.validity.valid;
+      action();
+      if (this.#element.nativeElement.validity.valid !== isValid) {
+        this.validatorOnChange();
+      }
+    });
+  }
+
+  _onBeforeInput() {
+    this.#lastValue = this.#element.nativeElement.valueAsDate;
+  }
+
+  _onInput() {
+    // We need to fire the CVA change event for all
+    // nulls, otherwise the validators won't run.
+    if (!this.valueAsDate || !this.#dateAdapter.sameDate(this.valueAsDate, this.#lastValue)) {
+      this.onChangeFn(this.valueAsDate);
+    }
+  }
 }
