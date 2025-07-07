@@ -7,6 +7,7 @@ import { SbbDatepickerPreviousDay } from '@sbb-esta/lyne-angular/datepicker/date
 import { SbbDatepickerToggle } from '@sbb-esta/lyne-angular/datepicker/datepicker-toggle';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
+import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 
 import { SbbDatepicker } from './datepicker';
 
@@ -30,6 +31,10 @@ describe('sbb-datepicker', () => {
     const datepicker = component.datepickerToggle().datepicker!;
 
     datepicker.open();
+
+    // The sbb-calendar inside the datepicker is instantiated a tick later for performance reasons.
+    // We have to wait for the update to be completed to have it ready.
+    await waitForLitRender(datepicker);
 
     // Simulate selecting a date in the calendar
     const calendarDay = datepicker
