@@ -1,4 +1,5 @@
 import { Component, viewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import type { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.js';
@@ -21,6 +22,11 @@ describe('sbb-time-input', () => {
     expect(component).toBeDefined();
   });
 
+  it('should not initially emit valueChange', async () => {
+    expect(component).toBeDefined();
+    expect(component.valueChangeCount).toEqual(0);
+  });
+
   it('should handle formControl', async () => {
     expect(lyneElement.textContent).toEqual('14:48');
     const oldValue = component.control.value;
@@ -35,7 +41,8 @@ describe('sbb-time-input', () => {
     expect(component.control.valid).toBeTrue();
 
     lyneElement.textContent = 'invalid';
-    lyneElement.dispatchEvent(new Event('input'));
+    lyneElement.dispatchEvent(new InputEvent('beforeinput'));
+    lyneElement.dispatchEvent(new InputEvent('input'));
 
     expect(component.control.valid).toBeFalse();
   });
@@ -100,6 +107,17 @@ describe('sbb-time-input', () => {
 
     expect(component.control.touched).toBeTrue();
   });
+
+  it('should have correct state with user input', async () => {
+    expect(component.control.valid).toBeTrue();
+    lyneElement.dispatchEvent(new InputEvent('beforeinput'));
+    lyneElement.textContent = '12:12';
+    lyneElement.dispatchEvent(new InputEvent('input'));
+
+    expect(component.control.valid).toBeTrue();
+    expect(component.control.value).not.toBeNull();
+    expect(component.control.value).toEqual(new Date('1970-01-01T12:12:00'));
+  });
 });
 
 @Component({
@@ -109,4 +127,9 @@ describe('sbb-time-input', () => {
 class TestComponent {
   timeInput = viewChild.required(SbbTimeInput);
   control = new FormControl(new Date('1970-01-01T14:48:00'));
+  valueChangeCount = 0;
+
+  constructor() {
+    this.control.valueChanges.pipe(takeUntilDestroyed()).subscribe(() => this.valueChangeCount++);
+  }
 }

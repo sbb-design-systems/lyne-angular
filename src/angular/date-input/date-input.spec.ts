@@ -1,4 +1,5 @@
 import { Component, viewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
@@ -22,6 +23,11 @@ describe('sbb-date-input', () => {
     expect(component).toBeDefined();
   });
 
+  it('should not initially emit valueChange', async () => {
+    expect(component).toBeDefined();
+    expect(component.valueChangeCount).toEqual(0);
+  });
+
   it('should handle formControl', async () => {
     expect(lyneElement.textContent).toEqual('We, 30.04.2025');
     const oldValue = component.control.value;
@@ -36,7 +42,8 @@ describe('sbb-date-input', () => {
     expect(component.control.valid).toBeTrue();
 
     lyneElement.textContent = 'invalid';
-    lyneElement.dispatchEvent(new Event('input'));
+    lyneElement.dispatchEvent(new InputEvent('beforeinput'));
+    lyneElement.dispatchEvent(new InputEvent('input'));
 
     expect(component.control.valid).toBeFalse();
   });
@@ -66,6 +73,20 @@ describe('sbb-date-input', () => {
     expect(Object.keys(errors)).toEqual(['sbbDateMin']);
     expect(errors['sbbDateMin'].min).toEqual(dateInput.min);
     expect(errors['sbbDateMin'].actual).toEqual(dateInput.valueAsDate);
+  });
+
+  it('should handle maxValidator when changing valueAsDate', async () => {
+    const dateInput = component.dateInput();
+    dateInput.max = new Date('2025-05-01');
+
+    expect(defaultDateAdapter.toIso8601(dateInput.valueAsDate!)).toEqual('2025-04-30');
+
+    dateInput.valueAsDate = new Date('2025-05-02'); // Set a date that exceeds the max
+
+    const errors = component.control.errors!;
+    expect(Object.keys(errors)).toEqual(['sbbDateMax']);
+    expect(errors['sbbDateMax'].max).toEqual(dateInput.max);
+    expect(errors['sbbDateMax'].actual).toEqual(dateInput.valueAsDate);
   });
 
   it('should handle maxValidator', async () => {
@@ -127,6 +148,18 @@ describe('sbb-date-input', () => {
 
     expect(component.control.touched).toBeTrue();
   });
+
+  it('should have correct state with user input', async () => {
+    expect(component.control.valid).toBeTrue();
+
+    lyneElement.dispatchEvent(new InputEvent('beforeinput'));
+    lyneElement.textContent = '12.12.2025';
+    lyneElement.dispatchEvent(new InputEvent('input'));
+
+    expect(component.control.valid).toBeTrue();
+    expect(component.control.value).not.toBeNull();
+    expect(component.control.value).toEqual(new Date('2025-12-12T00:00:00'));
+  });
 });
 
 @Component({
@@ -136,4 +169,9 @@ describe('sbb-date-input', () => {
 class TestComponent {
   dateInput = viewChild.required(SbbDateInput<Date>);
   control = new FormControl(new Date('2025-04-30'));
+  valueChangeCount = 0;
+
+  constructor() {
+    this.control.valueChanges.pipe(takeUntilDestroyed()).subscribe(() => this.valueChangeCount++);
+  }
 }

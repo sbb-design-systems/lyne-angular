@@ -14,7 +14,7 @@ import '@sbb-esta/lyne-elements/time-input.js';
   host: {
     '(change)': 'this.onChangeFn(this.valueAsDate)',
     '(blur)': 'this.onTouchedFn()',
-    '(input)': 'this.validatorOnChange()',
+    '(input)': 'this._onInput()',
     '(invalid)': 'this.validatorOnChange()',
   },
   providers: [
@@ -25,13 +25,14 @@ import '@sbb-esta/lyne-elements/time-input.js';
 export class SbbTimeInput extends SbbControlValueAccessorMixin(class {}) implements Validator {
   #element: ElementRef<SbbTimeInputElement> = inject(ElementRef<SbbTimeInputElement>);
   #ngZone: NgZone = inject(NgZone);
+  #lastValue: Date | null = null;
+
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected validatorOnChange = () => {};
 
   @Input()
   public set value(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
-    this.validatorOnChange?.();
+    this.#runWithValidationCheck(() => (this.#element.nativeElement.value = value));
   }
   public get value(): string {
     return this.#element.nativeElement.value;
@@ -39,8 +40,7 @@ export class SbbTimeInput extends SbbControlValueAccessorMixin(class {}) impleme
 
   @Input()
   public set valueAsDate(value: Date | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.valueAsDate = value));
-    this.validatorOnChange?.();
+    this.#runWithValidationCheck(() => (this.#element.nativeElement.valueAsDate = value));
   }
   public get valueAsDate(): Date | null {
     return this.#element.nativeElement.valueAsDate;
@@ -72,7 +72,7 @@ export class SbbTimeInput extends SbbControlValueAccessorMixin(class {}) impleme
 
   @Input({ transform: booleanAttribute })
   public set required(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.required = value));
+    this.#runWithValidationCheck(() => (this.#element.nativeElement.required = value));
   }
   public get required(): boolean {
     return this.#element.nativeElement.required;
@@ -159,4 +159,30 @@ export class SbbTimeInput extends SbbControlValueAccessorMixin(class {}) impleme
 
   protected _changeSignal = outputFromObservable<Event>(NEVER, { alias: 'change' });
   public changeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'change'));
+
+  #runWithValidationCheck(action: () => void): void {
+    this.#ngZone.runOutsideAngular(() => {
+      const isValid = this.#element.nativeElement.validity.valid;
+      action();
+      if (this.#element.nativeElement.validity.valid !== isValid) {
+        this.validatorOnChange();
+      }
+    });
+  }
+
+  _onBeforeInput() {
+    this.#lastValue = this.#element.nativeElement.valueAsDate;
+  }
+
+  _onInput() {
+    // We need to fire the CVA change event for all
+    // nulls, otherwise the validators won't run.
+    if (
+      !this.valueAsDate ||
+      this.valueAsDate.getHours() !== this.#lastValue?.getHours() ||
+      this.valueAsDate.getMinutes() !== this.#lastValue?.getMinutes()
+    ) {
+      this.onChangeFn(this.valueAsDate);
+    }
+  }
 }
