@@ -1,14 +1,14 @@
 import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
-import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbSeatReservationNavigationCoachElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation/seat-reservation-navigation-coach.js';
+import type { SbbSeatReservationNavigationCoachElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation-coach.js';
 import type {
   PlaceTravelClass,
   SelectCoachEventDetails,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
-import { fromEvent, NEVER } from 'rxjs';
+import { fromEvent } from 'rxjs';
 
-import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation/seat-reservation-navigation-coach.js';
+import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation-coach.js';
 
 @Directive({
   selector: 'sbb-seat-reservation-navigation-coach',
@@ -108,13 +108,13 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.vertical;
   }
 
-  protected _focusCoachSignal = outputFromObservable<Event>(NEVER, { alias: 'focusCoach' });
-  public focusCoachSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'focusCoach'));
+  public focusCoachSignal = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'focuscoach'),
+    { alias: 'focusCoach' },
+  );
 
-  protected _selectCoachSignal = outputFromObservable<CustomEvent<SelectCoachEventDetails>>(NEVER, {
-    alias: 'selectCoach',
-  });
-  public selectCoachSignal = toSignal(
-    fromEvent<CustomEvent<SelectCoachEventDetails>>(this.#element.nativeElement, 'selectCoach'),
+  public selectCoachSignal = outputFromObservable(
+    fromEvent<CustomEvent<SelectCoachEventDetails>>(this.#element.nativeElement, 'selectcoach'),
+    { alias: 'selectCoach' },
   );
 }

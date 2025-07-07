@@ -60,11 +60,9 @@ export class SbbDatepicker<T = Date> {
     return this.#element.nativeElement.close(target);
   }
 
-  protected _dateSelectedSignal = outputFromObservable<CustomEvent<T>>(NEVER, {
-    alias: 'dateSelected',
-  });
-  public dateSelectedSignal = toSignal(
-    fromEvent<CustomEvent<T>>(this.#element.nativeElement, 'dateSelected'),
+  public dateSelectedSignal = outputFromObservable(
+    fromEvent<CustomEvent<T>>(this.#element.nativeElement, 'dateselected'),
+    { alias: 'dateSelected' },
   );
 
   public beforeCloseSignal = outputFromObservable(

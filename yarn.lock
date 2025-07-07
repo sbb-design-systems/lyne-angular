@@ -2693,18 +2693,18 @@
   resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-1.6.0.tgz#ddff559e4a07d8242a5bb90a5191de4482ea67e5"
   integrity sha512-PWmCwJBNmGjQRI0vDYM1UdVlg75Rac2D9n/ozMThcPOOlbwSE+Dl9vY/PiNEVcWfP9z4xFaEyukSMSP4gdeoFQ==
 
-"@sbb-esta/lyne-elements-experimental@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-experimental/-/lyne-elements-experimental-3.0.0.tgz#5bdb65f3ba2967ccad642cc9f87e06f4bc2aad45"
-  integrity sha512-cdwB+80xl2YKJhRojbdI84OTwlUQhKaf03ujm48XJ2PFdhQF2todDegUptWvhiExqsLzoDU1Pqws+TQlkE26Tw==
+"@sbb-esta/lyne-elements-experimental@3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-experimental/-/lyne-elements-experimental-3.0.1.tgz#7af981b444aed11c9664dc45835e90c4908f5515"
+  integrity sha512-QPmLiJFv+pdXQN7F/xg4dwT7c6kFovT8vhm9SyKoYFmNdubfpMbvzvc9fLTC4Jvn18QB1w1xfCRi0GG3TIEtOg==
   dependencies:
     lit "^3.3.0"
     tslib "^2.8.1"
 
-"@sbb-esta/lyne-elements@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements/-/lyne-elements-3.0.0.tgz#ca8bc7e3f0ff111fb7e5a6af1c497476ad5862cc"
-  integrity sha512-zAemi2Ud3iv2nTq9eGqCbGn8WNMqP5THShpcL6cZJ9DUBBszyzF+4vpsbBjs99YCqH2+ExZPzpeLWi6jN6lu0Q==
+"@sbb-esta/lyne-elements@3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements/-/lyne-elements-3.0.1.tgz#31f852fcc900f1ae6e09a263fad8389c1af237c4"
+  integrity sha512-gucXhehjNBcY/YJMoQI6xnijsVnwITT116aXrPPXbmBMO08enZfRnrpQa3LnRNOdBLI95iEFf/jfKg6mzCEx2w==
   dependencies:
     "@lit-labs/observers" "^2.0.5"
     lit "^3.3.0"

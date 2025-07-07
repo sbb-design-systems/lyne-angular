@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbSeatReservationScopedElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation/seat-reservation-scoped.js';
+import type { SbbSeatReservationScopedElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-scoped.js';
 
-import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation/seat-reservation-scoped.js';
+import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-scoped.js';
 
 @Directive({
   selector: 'sbb-seat-reservation-scoped',
