@@ -3,7 +3,7 @@ import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
 
-import { seatReservationTrain } from '../../seat-reservation-sample-data';
+import { seatReservationTrain } from '../seat-reservation-sample-data';
 
 const defaultArgs: Args = {
   coachId: seatReservationTrain.coachItems[0].id,
@@ -16,7 +16,7 @@ const meta: Meta = {
   component: SbbSeatReservationNavigationCoach,
   parameters: {
     actions: {
-      handles: ['selectCoach', 'focusCoach'],
+      handles: ['selectcoach', 'focuscoach'],
     },
   },
   render: (args: Args) => ({

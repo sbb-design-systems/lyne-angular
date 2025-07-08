@@ -19,7 +19,7 @@ const meta: Meta = {
   component: SbbSeatReservation,
   parameters: {
     actions: {
-      handles: ['selectedPlaces', 'selectedCoach'],
+      handles: ['selectedplaces', 'selectedcoach'],
     },
   },
   render: (args: Args) => ({

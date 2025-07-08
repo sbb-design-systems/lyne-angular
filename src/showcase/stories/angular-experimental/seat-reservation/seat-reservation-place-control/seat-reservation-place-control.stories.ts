@@ -18,7 +18,7 @@ const meta: Meta = {
   component: SbbSeatReservationPlaceControl,
   parameters: {
     actions: {
-      handles: ['selectPlace'],
+      handles: ['selectplace'],
     },
   },
   render: (args: Args) => ({
