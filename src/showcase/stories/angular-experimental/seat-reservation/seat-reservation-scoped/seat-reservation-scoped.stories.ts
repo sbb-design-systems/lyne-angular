@@ -2,8 +2,6 @@ import { SbbSeatReservationScoped } from '@sbb-esta/lyne-angular-experimental/se
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 
-import readme from './readme.md';
-
 const defaultArgs: Args = {
   cellId: '1',
   height: '100',
@@ -17,13 +15,6 @@ const defaultArgs: Args = {
 const meta: Meta = {
   title: 'experimental/sbb-seat-reservation/sbb-seat-reservation-scoped',
   component: SbbSeatReservationScoped,
-  parameters: {
-    docs: {
-      description: {
-        component: readme,
-      },
-    },
-  },
   render: (args: Args) => ({
     props: { ...args },
     template: `<sbb-seat-reservation-scoped ${argsToTemplate(args)}> <sbb-seat-reservation-graphic
