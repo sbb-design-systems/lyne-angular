@@ -1,27 +1,43 @@
 import { SbbSeatReservationScoped } from '@sbb-esta/lyne-angular-experimental/seat-reservation/seat-reservation-scoped';
 import type { Args, Meta } from '@storybook/angular';
-import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import { withActions } from 'storybook/actions/decorator';
+import { argsToTemplate } from '@storybook/angular';
+
+import readme from './readme.md';
+
+const defaultArgs: Args = {
+  cellId: '1',
+  height: '100',
+  width: '100',
+  insetBlockStart: '0',
+  insetInlineStart: '0',
+  scopedClasses: 'coach-border',
+  zIndex: '0',
+};
 
 const meta: Meta = {
-  decorators: [
-    withActions,
-    moduleMetadata({
-      // add slotted components or remove
-      imports: [],
-    }),
-  ],
-  title: 'experimental/sbb-seat-reservation-scoped',
+  title: 'experimental/sbb-seat-reservation/sbb-seat-reservation-scoped',
   component: SbbSeatReservationScoped,
   parameters: {
-    // add events or remove the 'action' object
-    actions: { handles: ['click'] },
+    docs: {
+      description: {
+        component: readme,
+      },
+    },
   },
   render: (args: Args) => ({
     props: { ...args },
-    template: `<sbb-seat-reservation-scoped ${argsToTemplate(args)}></sbb-seat-reservation-scoped>`,
+    template: `<sbb-seat-reservation-scoped ${argsToTemplate(args)}> <sbb-seat-reservation-graphic
+          name="COACH_BORDER_MIDDLE"
+          width=100
+          height=40
+          role="presentation"
+        ></sbb-seat-reservation-graphic></sbb-seat-reservation-scoped>`,
   }),
 };
 export default meta;
 
-export const Default = {};
+export const Default = {
+  args: {
+    ...defaultArgs,
+  },
+};
