@@ -25,8 +25,10 @@ export class SbbDatepickerPreviousDay<T = Date> {
   }
 
   @Input()
-  public set input(value: SbbDateInputElement<T> | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.input = value));
+  public set input(value: string | SbbDateInputElement<T> | null) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.input = value as SbbDateInputElement<T> | null),
+    );
   }
   public get input(): SbbDateInputElement<T> | null {
     return this.#element.nativeElement.input;

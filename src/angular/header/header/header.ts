@@ -21,8 +21,10 @@ export class SbbHeader {
   }
 
   @Input()
-  public set scrollOrigin(value: HTMLElement | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.scrollOrigin = value));
+  public set scrollOrigin(value: string | HTMLElement | null) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.scrollOrigin = value as HTMLElement | null),
+    );
   }
   public get scrollOrigin(): HTMLElement | null {
     return this.#element.nativeElement.scrollOrigin;

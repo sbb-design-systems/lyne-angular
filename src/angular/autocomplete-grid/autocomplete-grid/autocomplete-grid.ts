@@ -33,16 +33,20 @@ export class SbbAutocompleteGrid<T = string> {
   }
 
   @Input()
-  public set origin(value: HTMLElement | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.origin = value));
+  public set origin(value: string | HTMLElement | null) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.origin = value as HTMLElement | null),
+    );
   }
   public get origin(): HTMLElement | null {
     return this.#element.nativeElement.origin;
   }
 
   @Input()
-  public set trigger(value: HTMLInputElement | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.trigger = value));
+  public set trigger(value: string | HTMLInputElement | null) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.trigger = value as HTMLInputElement | null),
+    );
   }
   public get trigger(): HTMLInputElement | null {
     return this.#element.nativeElement.trigger;
