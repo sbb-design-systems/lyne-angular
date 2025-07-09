@@ -40,8 +40,10 @@ export class SbbDialog {
   }
 
   @Input()
-  public set trigger(value: HTMLElement | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.trigger = value));
+  public set trigger(value: string | HTMLElement | null) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.trigger = value as HTMLElement | null),
+    );
   }
   public get trigger(): HTMLElement | null {
     return this.#element.nativeElement.trigger;

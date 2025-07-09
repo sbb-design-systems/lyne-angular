@@ -25,8 +25,10 @@ export class SbbDatepicker<T = Date> {
   }
 
   @Input()
-  public set input(value: SbbDateInputElement<T> | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.input = value));
+  public set input(value: string | SbbDateInputElement<T> | null) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.input = value as SbbDateInputElement<T> | null),
+    );
   }
   public get input(): SbbDateInputElement<T> | null {
     return this.#element.nativeElement.input;
@@ -41,8 +43,10 @@ export class SbbDatepicker<T = Date> {
   }
 
   @Input()
-  public set trigger(value: HTMLElement | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.trigger = value));
+  public set trigger(value: string | HTMLElement | null) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.trigger = value as HTMLElement | null),
+    );
   }
   public get trigger(): HTMLElement | null {
     return this.#element.nativeElement.trigger;

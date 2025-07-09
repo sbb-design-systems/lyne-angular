@@ -18,8 +18,10 @@ export class SbbDatepickerToggle<T = Date> {
   #ngZone: NgZone = inject(NgZone);
 
   @Input()
-  public set datepicker(value: SbbDatepickerElement<T> | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.datepicker = value));
+  public set datepicker(value: string | SbbDatepickerElement<T> | null) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.datepicker = value as SbbDatepickerElement<T> | null),
+    );
   }
   public get datepicker(): SbbDatepickerElement<T> | null {
     return this.#element.nativeElement.datepicker;
@@ -34,8 +36,10 @@ export class SbbDatepickerToggle<T = Date> {
   }
 
   @Input()
-  public set input(value: SbbDateInputElement<T> | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.input = value));
+  public set input(value: string | SbbDateInputElement<T> | null) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.input = value as SbbDateInputElement<T> | null),
+    );
   }
   public get input(): SbbDateInputElement<T> | null {
     return this.#element.nativeElement.input;

@@ -308,14 +308,19 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 }
                 input += `)`;
 
+                const type = member.type?.text ?? 'any';
+                const setterType = type.match(/(Sbb|HTML)[a-zA-Z]*Element/)
+                  ? `string | ${type}`
+                  : type;
+                const typeCast = type === setterType ? '' : ` as ${type}`;
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
   ${input}
-  public set ${member.name}(value: ${member.type?.text ?? 'any'}) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.${member.name} = value));
+  public set ${member.name}(value: ${setterType}) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.${member.name} = value${typeCast}));
   }
-  public get ${member.name}(): ${member.type?.text ?? 'any'} {
+  public get ${member.name}(): ${type} {
     return this.#element.nativeElement.${member.name};
   }\n`,
                 );
