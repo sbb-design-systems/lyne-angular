@@ -2142,7 +2142,7 @@
   dependencies:
     "@inquirer/type" "^1.5.5"
 
-"@lit-labs/observers@^2.0.5":
+"@lit-labs/observers@^2.0.6":
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/@lit-labs/observers/-/observers-2.0.6.tgz#6238d2fd8fd828631863b42f1727e9b0b5792a3a"
   integrity sha512-m+fSQ0twckagzw7SG7DPvGO4qMfKqItIUREXwC7GTo4TWk2H4oz4ozAab5tdMtMqch3M9z4uIx3oPy9x/Ut2Ow==
@@ -2795,21 +2795,21 @@
   resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-1.6.0.tgz#ddff559e4a07d8242a5bb90a5191de4482ea67e5"
   integrity sha512-PWmCwJBNmGjQRI0vDYM1UdVlg75Rac2D9n/ozMThcPOOlbwSE+Dl9vY/PiNEVcWfP9z4xFaEyukSMSP4gdeoFQ==
 
-"@sbb-esta/lyne-elements-experimental@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-experimental/-/lyne-elements-experimental-3.0.1.tgz#7af981b444aed11c9664dc45835e90c4908f5515"
-  integrity sha512-QPmLiJFv+pdXQN7F/xg4dwT7c6kFovT8vhm9SyKoYFmNdubfpMbvzvc9fLTC4Jvn18QB1w1xfCRi0GG3TIEtOg==
+"@sbb-esta/lyne-elements-experimental@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-experimental/-/lyne-elements-experimental-3.1.0.tgz#aef76eae8023b9aaab17ba3b44e982775934f072"
+  integrity sha512-kxsc1vZM18TDJnsqmUkfE88BPy2JtLXlgyrBaZ9+HEV/ZyjjUzDKkwtz4igT8sM4QAhV52Jhx/zwn+xiF6grLA==
   dependencies:
-    lit "^3.3.0"
+    lit "^3.3.1"
     tslib "^2.8.1"
 
-"@sbb-esta/lyne-elements@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements/-/lyne-elements-3.0.1.tgz#31f852fcc900f1ae6e09a263fad8389c1af237c4"
-  integrity sha512-gucXhehjNBcY/YJMoQI6xnijsVnwITT116aXrPPXbmBMO08enZfRnrpQa3LnRNOdBLI95iEFf/jfKg6mzCEx2w==
+"@sbb-esta/lyne-elements@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements/-/lyne-elements-3.1.0.tgz#c38b9e49af5f975700f9c8af508f9187580e5cd6"
+  integrity sha512-ZqxhRerIwZY6Crn9sHKAgpp55lFnxWmxIorePbgp6rnYeYLlH9NQXREwXEOgqYnyLAO5upWoYlagexlF9PtxoA==
   dependencies:
-    "@lit-labs/observers" "^2.0.5"
-    lit "^3.3.0"
+    "@lit-labs/observers" "^2.0.6"
+    lit "^3.3.1"
     tslib "^2.8.1"
 
 "@schematics/angular@20.1.0":
@@ -6917,7 +6917,7 @@ lit-html@^3.2.0, lit-html@^3.3.0:
   dependencies:
     "@types/trusted-types" "^2.0.2"
 
-lit@^3.3.0:
+lit@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/lit/-/lit-3.3.1.tgz#9dc79be626bc9a3b824de98b107dd662cabdeda6"
   integrity sha512-Ksr/8L3PTapbdXJCk+EJVB78jDodUMaP54gD24W186zGRARvwrsPfS60wae/SSCTCNZVPd1chXqio1qHQmu4NA==
