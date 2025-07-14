@@ -46,4 +46,12 @@ export class SbbAccentButtonStatic {
   public get disabled(): boolean {
     return this.#element.nativeElement.disabled;
   }
+
+  @Input({ transform: booleanAttribute })
+  public set loading(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.loading = value));
+  }
+  public get loading(): boolean {
+    return this.#element.nativeElement.loading;
+  }
 }

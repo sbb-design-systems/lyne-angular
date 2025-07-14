@@ -88,6 +88,14 @@ export class SbbSidebarCloseButton {
     return this.#element.nativeElement.type;
   }
 
+  @Input({ transform: booleanAttribute })
+  public set loading(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.loading = value));
+  }
+  public get loading(): boolean {
+    return this.#element.nativeElement.loading;
+  }
+
   public get validity(): ValidityState {
     return this.#element.nativeElement.validity;
   }

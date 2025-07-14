@@ -76,7 +76,7 @@ export class SbbFormField {
     return this.#element.nativeElement.negative;
   }
 
-  public get inputElement(): HTMLInputElement | HTMLSelectElement | HTMLElement | undefined {
+  public get inputElement(): HTMLInputElement | HTMLSelectElement | HTMLElement | null {
     return this.#element.nativeElement.inputElement;
   }
 
