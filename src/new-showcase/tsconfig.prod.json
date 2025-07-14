@@ -4,10 +4,10 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "@sbb-esta/lyne-angular": ["../angular"],
-      "@sbb-esta/lyne-angular/*": ["../angular/*"],
-      "@sbb-esta/lyne-angular-experimental": ["../angular-experimental"],
-      "@sbb-esta/lyne-angular-experimental/*": ["../angular-experimental/*"]
+      "@sbb-esta/lyne-angular": ["../dist/angular"],
+      "@sbb-esta/lyne-angular/*": ["../dist/angular/*"],
+      "@sbb-esta/lyne-angular-experimental": ["../dist/angular-experimental"],
+      "@sbb-esta/lyne-angular-experimental/*": ["../dist/angular-experimental/*"]
     }
   }
 }

@@ -222,10 +222,10 @@
           },
           "configurations": {
             "production": {
-              "tsConfig": "src/new-showcase/tsconfig.json"
+              "tsConfig": "src/new-showcase/tsconfig.prod.json"
             },
             "development": {
-              "tsConfig": "src/new-showcase/tsconfig.dev.json"
+              "tsConfig": "src/new-showcase/tsconfig.json"
             }
           },
           "defaultConfiguration": "production"
