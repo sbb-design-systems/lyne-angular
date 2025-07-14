@@ -120,6 +120,12 @@ const color: InputType = {
   options: ['white', 'milk'],
 };
 
+const forceOpen: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
 const size: InputType = {
   control: {
     type: 'inline-radio',
@@ -150,6 +156,7 @@ const disabledInput: InputType = {
 
 const argTypes: ArgTypes = {
   color,
+  forceOpen,
   size,
   checkedInput,
   disabledInput,
@@ -191,7 +198,7 @@ export const Checkbox = {
   }),
 };
 
-export const Radio = {
+export const RadioButton = {
   render: (args: Args) => ({
     props: { ...args },
     template: WithRadioButtonTemplate(args),
@@ -205,7 +212,7 @@ export const CheckboxGroup = {
   }),
 };
 
-export const RadioGroup = {
+export const RadioButtonGroup = {
   render: (args: Args) => ({
     props: { ...args, checkedInput: true },
     template: WithRadioButtonGroupTemplate({ ...args, checkedInput: true }),

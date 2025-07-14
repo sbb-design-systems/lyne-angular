@@ -205,7 +205,8 @@ and its interface is not tied to any one specific implementation.
 ```ts
 export class TablePaginatorExampleComponent implements OnInit {
   dataSource: SbbTableDataSource<any> = new SbbTableDataSource([]);
-  @ViewChild('paginator', { static: true }) paginator: SbbPaginatorComponent;
+  @ViewChild('paginator', { static: true, read: SbbPaginatorComponent })
+  paginator: SbbPaginatorComponent;
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;

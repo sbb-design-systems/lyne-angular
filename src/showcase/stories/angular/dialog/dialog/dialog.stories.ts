@@ -2,6 +2,7 @@ import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
 import { SbbDialog } from '@sbb-esta/lyne-angular/dialog/dialog';
 import { SbbDialogActions } from '@sbb-esta/lyne-angular/dialog/dialog-actions';
+import { SbbDialogCloseButton } from '@sbb-esta/lyne-angular/dialog/dialog-close-button';
 import { SbbDialogContent } from '@sbb-esta/lyne-angular/dialog/dialog-content';
 import { SbbDialogTitle } from '@sbb-esta/lyne-angular/dialog/dialog-title';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
@@ -52,6 +53,7 @@ const meta: Meta = {
     moduleMetadata({
       imports: [
         SbbDialogTitle,
+        SbbDialogCloseButton,
         SbbDialogContent,
         SbbDialogActions,
         SbbButton,
@@ -93,6 +95,7 @@ const meta: Meta = {
         <sbb-dialog-title level=${level}>
           A describing title of the dialog
         </sbb-dialog-title>
+        <sbb-dialog-close-button></sbb-dialog-close-button>
         <sbb-dialog-content>
           <p
             id="dialog-content-1"
