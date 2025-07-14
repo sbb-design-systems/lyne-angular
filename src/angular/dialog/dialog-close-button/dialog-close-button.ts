@@ -1,20 +1,27 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbTransparentButtonElement } from '@sbb-esta/lyne-elements/button/transparent-button.js';
 import type { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-
-import '@sbb-esta/lyne-elements/button/transparent-button.js';
+import type { SbbDialogCloseButtonElement } from '@sbb-esta/lyne-elements/dialog/dialog-close-button.js';
+import '@sbb-esta/lyne-elements/dialog/dialog-close-button.js';
 
 @Directive({
-  selector: 'sbb-transparent-button',
-  exportAs: 'sbbTransparentButton',
+  selector: 'sbb-dialog-close-button',
+  exportAs: 'sbbDialogCloseButton',
 })
-export class SbbTransparentButton {
-  #element: ElementRef<SbbTransparentButtonElement> = inject(
-    ElementRef<SbbTransparentButtonElement>,
+export class SbbDialogCloseButton {
+  #element: ElementRef<SbbDialogCloseButtonElement> = inject(
+    ElementRef<SbbDialogCloseButtonElement>,
   );
   #ngZone: NgZone = inject(NgZone);
+
+  @Input()
+  public set iconName(value: string) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
+  }
+  public get iconName(): string {
+    return this.#element.nativeElement.iconName;
+  }
 
   @Input()
   public set size(value: SbbButtonSize) {
@@ -25,19 +32,19 @@ export class SbbTransparentButton {
   }
 
   @Input({ transform: booleanAttribute })
+  public set loading(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.loading = value));
+  }
+  public get loading(): boolean {
+    return this.#element.nativeElement.loading;
+  }
+
+  @Input({ transform: booleanAttribute })
   public set negative(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.negative = value));
   }
   public get negative(): boolean {
     return this.#element.nativeElement.negative;
-  }
-
-  @Input()
-  public set iconName(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
-  }
-  public get iconName(): string {
-    return this.#element.nativeElement.iconName;
   }
 
   @Input({ transform: booleanAttribute })
@@ -57,22 +64,6 @@ export class SbbTransparentButton {
   }
 
   @Input()
-  public set form(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.form = value));
-  }
-  public get form(): HTMLFormElement | null {
-    return this.#element.nativeElement.form;
-  }
-
-  @Input()
-  public set name(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.name = value));
-  }
-  public get name(): string {
-    return this.#element.nativeElement.name;
-  }
-
-  @Input()
   public set value(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
@@ -88,12 +79,20 @@ export class SbbTransparentButton {
     return this.#element.nativeElement.type;
   }
 
-  @Input({ transform: booleanAttribute })
-  public set loading(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.loading = value));
+  @Input()
+  public set form(value: string) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.form = value));
   }
-  public get loading(): boolean {
-    return this.#element.nativeElement.loading;
+  public get form(): HTMLFormElement | null {
+    return this.#element.nativeElement.form;
+  }
+
+  @Input()
+  public set name(value: string) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.name = value));
+  }
+  public get name(): string {
+    return this.#element.nativeElement.name;
   }
 
   public get validity(): ValidityState {

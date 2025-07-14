@@ -102,7 +102,7 @@ const preview: Preview = {
       source: { format: 'html' },
       description: {
         component:
-          'For documentation and API, check the Lyne Elements Storybook on https://lyne-storybook.app.sbb.ch.',
+          'For documentation and API, check the Lyne Elements Storybook on [https://lyne-storybook.app.sbb.ch](https://lyne-storybook.app.sbb.ch).',
       },
     },
     viewport: { viewports: storybookViewports },

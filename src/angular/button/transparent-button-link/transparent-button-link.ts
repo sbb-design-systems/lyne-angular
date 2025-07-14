@@ -105,4 +105,12 @@ export class SbbTransparentButtonLink {
   public get accessibilityCurrent(): string {
     return this.#element.nativeElement.accessibilityCurrent;
   }
+
+  @Input({ transform: booleanAttribute })
+  public set loading(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.loading = value));
+  }
+  public get loading(): boolean {
+    return this.#element.nativeElement.loading;
+  }
 }
