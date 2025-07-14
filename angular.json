@@ -193,9 +193,67 @@
           }
         }
       }
+    },
+    "new-showcase": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src/new-showcase",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/new-showcase",
+            "index": "src/new-showcase/index.html",
+            "browser": "src/new-showcase/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "src/new-showcase/tsconfig.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
+            "styles": [
+              "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
+              "src/new-showcase/styles.scss"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "src/new-showcase/tsconfig.json"
+            },
+            "development": {
+              "tsConfig": "src/new-showcase/tsconfig.dev.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "new-showcase:build:production"
+            },
+            "development": {
+              "buildTarget": "new-showcase:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/new-showcase/**/*.ts", "src/new-showcase/**/*.html"],
+            "eslintConfig": "src/new-showcase/eslint.config.mjs"
+          }
+        }
+      }
     }
   },
   "cli": {
-    "schematicCollections": ["angular-eslint"]
+    "schematicCollections": ["angular-eslint"],
+    "analytics": false
   }
 }
