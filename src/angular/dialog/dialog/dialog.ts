@@ -76,7 +76,7 @@ export class SbbDialog {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public close(result: any, target: HTMLElement): any {
+  public close(result?: any, target?: HTMLElement): any {
     return this.#element.nativeElement.close(result, target);
   }
 
