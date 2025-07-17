@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
-import { LyneAngularShowcaseComponent } from './lyne-angular-showcase';
+import { App } from './app';
 
 @Component({
   selector: 'sbb-test',
@@ -9,21 +9,21 @@ import { LyneAngularShowcaseComponent } from './lyne-angular-showcase';
 })
 export class TestComponentStub {}
 
-describe('sbb-lyne-angular-showcase', () => {
+describe('sbb-app', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LyneAngularShowcaseComponent, TestComponentStub],
+      imports: [App, TestComponentStub],
     }).compileComponents();
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(LyneAngularShowcaseComponent);
+    const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   it('should render title', () => {
-    const fixture = TestBed.createComponent(LyneAngularShowcaseComponent);
+    const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     expect(fixture.componentInstance).toBeTruthy();
   });
