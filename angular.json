@@ -193,9 +193,67 @@
           }
         }
       }
+    },
+    "docs": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src/docs",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/docs",
+            "index": "src/docs/index.html",
+            "browser": "src/docs/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "src/docs/tsconfig.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
+            "styles": [
+              "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
+              "src/docs/styles.scss"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "src/docs/tsconfig.prod.json"
+            },
+            "development": {
+              "tsConfig": "src/docs/tsconfig.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "docs:build:production"
+            },
+            "development": {
+              "buildTarget": "docs:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/docs/**/*.ts", "src/docs/**/*.html"],
+            "eslintConfig": "src/docs/eslint.config.mjs"
+          }
+        }
+      }
     }
   },
   "cli": {
-    "schematicCollections": ["angular-eslint"]
+    "schematicCollections": ["angular-eslint"],
+    "analytics": false
   }
 }
