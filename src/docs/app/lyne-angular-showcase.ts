@@ -3,12 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 
 @Component({
-  selector: 'sbb-new-showcase',
+  selector: 'sbb-lyne-angular-showcase',
   imports: [RouterOutlet, SbbButton],
-  templateUrl: './new-showcase.html',
-  styleUrl: './new-showcase.scss',
+  templateUrl: './lyne-angular-showcase.html',
+  styleUrl: './lyne-angular-showcase.scss',
 })
-export class NewShowcaseComponent implements OnInit {
+export class LyneAngularShowcaseComponent implements OnInit {
   public ngOnInit() {
     console.log('New showcase works!');
   }

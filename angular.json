@@ -194,20 +194,20 @@
         }
       }
     },
-    "new-showcase": {
+    "docs": {
       "projectType": "application",
       "root": "",
-      "sourceRoot": "src/new-showcase",
+      "sourceRoot": "src/docs",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/new-showcase",
-            "index": "src/new-showcase/index.html",
-            "browser": "src/new-showcase/main.ts",
+            "outputPath": "dist/docs",
+            "index": "src/docs/index.html",
+            "browser": "src/docs/main.ts",
             "polyfills": ["zone.js"],
-            "tsConfig": "src/new-showcase/tsconfig.json",
+            "tsConfig": "src/docs/tsconfig.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               {
@@ -217,15 +217,15 @@
             ],
             "styles": [
               "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
-              "src/new-showcase/styles.scss"
+              "src/docs/styles.scss"
             ]
           },
           "configurations": {
             "production": {
-              "tsConfig": "src/new-showcase/tsconfig.prod.json"
+              "tsConfig": "src/docs/tsconfig.prod.json"
             },
             "development": {
-              "tsConfig": "src/new-showcase/tsconfig.json"
+              "tsConfig": "src/docs/tsconfig.json"
             }
           },
           "defaultConfiguration": "production"
@@ -234,10 +234,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "new-showcase:build:production"
+              "buildTarget": "docs:build:production"
             },
             "development": {
-              "buildTarget": "new-showcase:build:development"
+              "buildTarget": "docs:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -245,8 +245,8 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/new-showcase/**/*.ts", "src/new-showcase/**/*.html"],
-            "eslintConfig": "src/new-showcase/eslint.config.mjs"
+            "lintFilePatterns": ["src/docs/**/*.ts", "src/docs/**/*.html"],
+            "eslintConfig": "src/docs/eslint.config.mjs"
           }
         }
       }
