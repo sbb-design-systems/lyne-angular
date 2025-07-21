@@ -2,6 +2,7 @@ import { CdkPortalOutlet, type ComponentPortal, type TemplatePortal } from '@ang
 import {
   Component,
   type ComponentRef,
+  effect,
   type EmbeddedViewRef,
   inject,
   ViewChild,
@@ -12,7 +13,7 @@ import {
   SbbOverlayContainerBase,
   SbbOverlayState,
 } from '@sbb-esta/lyne-angular/core/overlay';
-import type { Observable } from 'rxjs';
+import { Subject, type Observable } from 'rxjs';
 
 import { SbbToast } from './toast';
 
@@ -31,6 +32,8 @@ import { SbbToast } from './toast';
 })
 export class SbbToastContainer extends SbbOverlayContainerBase<SbbToast> {
   readonly _config: SbbOverlayConfig<SbbToastContainer, SbbToast, unknown>;
+  private _opened = new Subject<unknown>();
+  private _closed = new Subject<unknown>();
 
   /** The portal outlet inside of this container into which the dialog content will be loaded. */
   elementInstance = inject(SbbToast);
@@ -41,6 +44,12 @@ export class SbbToastContainer extends SbbOverlayContainerBase<SbbToast> {
     super();
 
     this._config = inject(SbbOverlayConfig, { optional: true }) || {};
+    effect(() => {
+      this._opened.next(this.elementInstance.openSignal());
+    });
+    effect(() => {
+      this._closed.next(this.elementInstance.closeSignal());
+    });
   }
 
   override open(): void {
@@ -65,10 +74,6 @@ export class SbbToastContainer extends SbbOverlayContainerBase<SbbToast> {
 
   override get beforeClosed(): Observable<unknown> {
     return outputToObservable(this.elementInstance.beforeCloseSignal);
-  }
-
-  override get beforeOpened(): Observable<unknown> {
-    return outputToObservable(this.elementInstance.beforeOpenSignal);
   }
 
   override get closed(): Observable<unknown> {

@@ -8,11 +8,11 @@ import {
 import { type SbbToast } from './toast';
 import { SbbToastContainer } from './toast-container';
 
-@Injectable({ providedIn: 'any' })
+@Injectable({ providedIn: 'root' })
 export class SbbToastService extends _SbbOverlayBaseService<SbbToastContainer, SbbToast> {
   constructor() {
     const injector = inject(Injector);
-    const parentDialog = inject(SbbToastService, { optional: true, skipSelf: true });
+    const parentDialog = inject(SbbToastService, { optional: true, skipSelf: true })!;
 
     super(injector, parentDialog, SbbToastContainer, SbbOverlayRef, SBB_OVERLAY_DATA);
   }
