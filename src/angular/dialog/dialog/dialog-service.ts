@@ -12,7 +12,7 @@ import { SbbDialogContainer } from './dialog-container';
 export class SbbDialogService extends _SbbOverlayBaseService<SbbDialogContainer, SbbDialog> {
   constructor() {
     const injector = inject(Injector);
-    const parentDialog = inject(SbbDialogService, { optional: true, skipSelf: true });
+    const parentDialog = inject(SbbDialogService, { optional: true, skipSelf: true })!;
 
     super(injector, parentDialog, SbbDialogContainer, SbbOverlayRef, SBB_OVERLAY_DATA);
   }
