@@ -2,17 +2,18 @@ import { CdkPortalOutlet, type ComponentPortal, type TemplatePortal } from '@ang
 import {
   Component,
   type ComponentRef,
+  effect,
   type EmbeddedViewRef,
   inject,
   ViewChild,
 } from '@angular/core';
-import { outputToObservable, toObservable } from '@angular/core/rxjs-interop';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import {
   SbbOverlayConfig,
   SbbOverlayContainerBase,
   SbbOverlayState,
 } from '@sbb-esta/lyne-angular/core/overlay';
-import type { Observable } from 'rxjs';
+import { type Observable, Subject } from 'rxjs';
 
 import { SbbDialog } from './dialog';
 
@@ -31,9 +32,11 @@ import { SbbDialog } from './dialog';
 })
 export class SbbDialogContainer extends SbbOverlayContainerBase<SbbDialog> {
   readonly _config: SbbOverlayConfig<SbbDialogContainer, SbbDialog, unknown>;
+  private _opened = new Subject<unknown>();
+  private _closed = new Subject<unknown>();
 
   /** The portal outlet inside of this container into which the dialog content will be loaded. */
-  elementInstance = inject(SbbDialog);
+  elementInstance = inject(SbbDialog)!;
 
   @ViewChild(CdkPortalOutlet, { static: true }) _portalOutlet!: CdkPortalOutlet;
 
@@ -41,6 +44,12 @@ export class SbbDialogContainer extends SbbOverlayContainerBase<SbbDialog> {
     super();
 
     this._config = inject(SbbOverlayConfig, { optional: true }) || {};
+    effect(() => {
+      this._opened.next(this.elementInstance.openSignal());
+    });
+    effect(() => {
+      this._closed.next(this.elementInstance.closeSignal());
+    });
   }
 
   override open(): void {
@@ -71,19 +80,13 @@ export class SbbDialogContainer extends SbbOverlayContainerBase<SbbDialog> {
     return this.elementInstance.isOpen ? SbbOverlayState.opened : SbbOverlayState.closed;
   }
 
-  override get beforeClosed(): Observable<unknown> {
-    return outputToObservable(this.elementInstance.beforeCloseSignal);
+  public override get opened(): Observable<unknown> {
+    return this._opened;
   }
-
-  override get beforeOpened(): Observable<unknown> {
-    return outputToObservable(this.elementInstance.beforeOpenSignal);
+  public override get closed(): Observable<unknown> {
+    return this._closed;
   }
-
-  override get closed(): Observable<unknown> {
-    return toObservable(this.elementInstance.closeSignal);
-  }
-
-  override get opened(): Observable<unknown> {
-    return toObservable(this.elementInstance.openSignal);
-  }
+  public override beforeClosed: Observable<unknown> = outputToObservable(
+    this.elementInstance.beforeCloseSignal,
+  );
 }
