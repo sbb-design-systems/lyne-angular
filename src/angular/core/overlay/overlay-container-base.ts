@@ -11,7 +11,6 @@ export abstract class SbbOverlayContainerBase<I = unknown, R = unknown> {
   abstract close(result?: unknown, target?: HTMLElement): void;
   abstract getState(): SbbOverlayState;
   abstract elementInstance: I;
-  abstract beforeOpened: Observable<R>;
   abstract beforeClosed: Observable<R>;
   abstract opened: Observable<R>;
   abstract closed: Observable<R>;

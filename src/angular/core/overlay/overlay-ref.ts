@@ -61,11 +61,4 @@ export class SbbOverlayRef<T = unknown> {
   beforeClosed(): Observable<unknown> {
     return this._container.beforeClosed;
   }
-
-  /**
-   * Gets an observable that is notified when the dialog has started opening.
-   */
-  beforeOpened(): Observable<unknown> {
-    return this._container.beforeOpened;
-  }
 }

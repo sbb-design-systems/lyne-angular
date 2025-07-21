@@ -22,7 +22,8 @@ export const SBB_OVERLAY_DATA = new InjectionToken<unknown>('SbbOverlayData');
 export abstract class _SbbOverlayBaseService<
   C extends SbbOverlayContainerBase,
   I = unknown,
-  R extends SbbOverlayRef<unknown> = SbbOverlayRef<unknown>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  R extends SbbOverlayRef<any> = SbbOverlayRef<any>,
 > {
   private readonly _openDialogsAtThisLevel: R[] = [];
   private readonly _afterAllClosedAtThisLevel = new Subject<void>();
@@ -115,7 +116,7 @@ export abstract class _SbbOverlayBaseService<
   open<T = unknown>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     config: SbbOverlayConfig<C, I>,
-  ): R {
+  ): SbbOverlayRef<T> {
     config.id = config.id || this._idGenerator.getId('cdk-dialog-');
 
     if (
@@ -128,18 +129,22 @@ export abstract class _SbbOverlayBaseService<
 
     const overlayRef: OverlayRef = createOverlayRef(this.injector);
     const dialogContainer = this._attachContainer(overlayRef, config);
-    const dialogRef = new this._dialogRefConstructor(dialogContainer, config);
+
+    const dialogRef = new this._dialogRefConstructor(overlayRef, dialogContainer, config);
 
     this._attachContent(componentOrTemplateRef, dialogRef, dialogContainer, config);
-    dialogContainer.open();
 
     this.openDialogs.push(dialogRef!);
     this.afterOpened.next(dialogRef!);
 
-    dialogRef!.afterClosed().subscribe(() => {
+    dialogRef!.afterClosed().subscribe((event) => {
+      if (!event) {
+        return;
+      }
       const index = this.openDialogs.indexOf(dialogRef);
 
       if (index > -1) {
+        overlayRef.detach();
         this.openDialogs.splice(index, 1);
 
         if (!this.openDialogs.length) {
@@ -147,6 +152,8 @@ export abstract class _SbbOverlayBaseService<
         }
       }
     });
+
+    dialogContainer.open();
 
     return dialogRef;
   }
