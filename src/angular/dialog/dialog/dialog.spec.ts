@@ -140,6 +140,8 @@ describe('sbb-dialog', () => {
       });
       await fixture.whenRenderingDone();
 
+      expect(overlayContainerElement.querySelector('#disposed-dialog')).toBeDefined();
+
       dialogRef.close();
       fixture.detectChanges();
       fixture.destroy();
