@@ -8,7 +8,7 @@ import {
 import type { SbbDialog } from './dialog';
 import { SbbDialogContainer } from './dialog-container';
 
-@Injectable({ providedIn: 'any' })
+@Injectable({ providedIn: 'root' })
 export class SbbDialogService extends _SbbOverlayBaseService<SbbDialogContainer, SbbDialog> {
   constructor() {
     const injector = inject(Injector);

@@ -8,7 +8,7 @@ import {
 import { type SbbOverlay } from './overlay';
 import { SbbOverlayContainer } from './overlay-container';
 
-@Injectable({ providedIn: 'any' })
+@Injectable({ providedIn: 'root' })
 export class SbbOverlayService extends _SbbOverlayBaseService<SbbOverlayContainer, SbbOverlay> {
   constructor() {
     const injector = inject(Injector);
