@@ -7,7 +7,7 @@ import {
   inject,
   ViewChild,
 } from '@angular/core';
-import { outputToObservable, toObservable } from '@angular/core/rxjs-interop';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import {
   SbbOverlayConfig,
   SbbOverlayContainerBase,
@@ -72,15 +72,15 @@ export class SbbToastContainer extends SbbOverlayContainerBase<SbbToast> {
     return this.elementInstance.isOpen ? SbbOverlayState.opened : SbbOverlayState.closed;
   }
 
-  override get beforeClosed(): Observable<unknown> {
-    return outputToObservable(this.elementInstance.beforeCloseSignal);
+  public override get opened(): Observable<unknown> {
+    return this._opened;
   }
 
-  override get closed(): Observable<unknown> {
-    return toObservable(this.elementInstance.closeSignal);
+  public override get closed(): Observable<unknown> {
+    return this._closed;
   }
 
-  override get opened(): Observable<unknown> {
-    return toObservable(this.elementInstance.openSignal);
-  }
+  public override beforeClosed: Observable<unknown> = outputToObservable(
+    this.elementInstance.beforeCloseSignal,
+  );
 }
