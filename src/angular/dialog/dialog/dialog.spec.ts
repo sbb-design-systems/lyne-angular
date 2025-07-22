@@ -32,7 +32,7 @@ describe('sbb-dialog', () => {
   describe('service', () => {
     let fixture: ComponentFixture<ServiceTestComponent>,
       component: ServiceTestComponent,
-      dialogService: SbbDialogService,
+      service: SbbDialogService,
       overlayContainerElement: HTMLElement;
 
     beforeEach(async () => {
@@ -43,13 +43,13 @@ describe('sbb-dialog', () => {
 
       fixture = TestBed.createComponent(ServiceTestComponent);
       overlayContainerElement = TestBed.inject(OverlayContainer).getContainerElement();
-      dialogService = TestBed.inject(SbbDialogService);
+      service = TestBed.inject(SbbDialogService);
       component = fixture.componentInstance;
       fixture.detectChanges();
     });
 
     it('renders component', async () => {
-      const ref: SbbOverlayRef<SbbDummyComponent> = dialogService.open<SbbDummyComponent>(
+      const ref: SbbOverlayRef<SbbDummyComponent> = service.open<SbbDummyComponent>(
         SbbDummyComponent,
         {
           data: { dummyText: 'test string' },
@@ -70,7 +70,7 @@ describe('sbb-dialog', () => {
     });
 
     it('renders template', async () => {
-      const ref: SbbOverlayRef = dialogService.open(component.templatePortalContent, {
+      const ref: SbbOverlayRef = service.open(component.templatePortalContent, {
         templateContext: { $implicit: 'test string' },
         id: 'dialog-template',
       });
@@ -82,7 +82,7 @@ describe('sbb-dialog', () => {
     });
 
     it('should emit when dialog opening animation is complete', async () => {
-      const dialogRef = dialogService.open(SbbDummyComponent, {
+      const dialogRef = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
@@ -97,7 +97,7 @@ describe('sbb-dialog', () => {
     });
 
     it('should emit before and after dialog closing animation', async () => {
-      const ref = dialogService.open(SbbDummyComponent, {
+      const ref = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
@@ -116,7 +116,7 @@ describe('sbb-dialog', () => {
     });
 
     it('should use injector from viewContainerRef', async () => {
-      const ref = component.service.open<SbbDummyComponent>(SbbDummyComponent, {
+      const ref = service.open<SbbDummyComponent>(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
@@ -133,7 +133,7 @@ describe('sbb-dialog', () => {
     });
 
     it('should dispose of dialog after close', async () => {
-      const dialogRef = dialogService.open(SbbDummyComponent, {
+      const dialogRef = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
         id: 'disposed-dialog',
@@ -170,14 +170,11 @@ class DirectiveWithViewContainer {
     </ng-template>
     <dir-with-view-container></dir-with-view-container>
   `,
-  providers: [SbbDialogService],
   imports: [DirectiveWithViewContainer],
 })
 class ServiceTestComponent {
   @ViewChild('templatePortalContent') templatePortalContent!: TemplateRef<unknown>;
   @ViewChild(DirectiveWithViewContainer) childWithViewContainer!: DirectiveWithViewContainer;
-
-  service = inject(SbbDialogService);
 
   get childViewContainer() {
     return this.childWithViewContainer.viewContainerRef;
