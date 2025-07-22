@@ -1,5 +1,6 @@
 import { CdkPortalOutlet, type ComponentPortal, type TemplatePortal } from '@angular/cdk/portal';
 import {
+  type OnDestroy,
   Component,
   type ComponentRef,
   effect,
@@ -30,7 +31,7 @@ import { SbbToast } from './toast';
   },
   template: ` <ng-template cdkPortalOutlet></ng-template> `,
 })
-export class SbbToastContainer extends SbbOverlayContainerBase<SbbToast> {
+export class SbbToastContainer extends SbbOverlayContainerBase<SbbToast> implements OnDestroy {
   readonly _config: SbbOverlayConfig<SbbToastContainer, SbbToast, unknown>;
   private _opened = new Subject<unknown>();
   private _closed = new Subject<unknown>();
@@ -50,6 +51,11 @@ export class SbbToastContainer extends SbbOverlayContainerBase<SbbToast> {
     effect(() => {
       this._closed.next(this.elementInstance.closeSignal());
     });
+  }
+
+  ngOnDestroy(): void {
+    this._opened.complete();
+    this._closed.complete();
   }
 
   override open(): void {
