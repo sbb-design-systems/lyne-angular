@@ -115,7 +115,7 @@ export abstract class _SbbOverlayBaseService<
 
   open<T = unknown>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-    config: SbbOverlayConfig<C, I>,
+    config: SbbOverlayConfig<C, I> = {},
   ): SbbOverlayRef<T> {
     config.id = config.id || this._idGenerator.getId('cdk-dialog-');
 
