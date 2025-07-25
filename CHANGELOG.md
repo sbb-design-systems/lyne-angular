@@ -1,5 +1,27 @@
 # Changelog
 
+## [20.0.0-rc.2](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.1...v20.0.0-rc.2) (2025-07-25)
+
+
+### Bug Fixes
+
+* **deps:** update angular ([bc7e5e6](https://github.com/sbb-design-systems/lyne-angular/commit/bc7e5e6b5ffbc10ca2525d1ed484547d6e9c75ee))
+* **deps:** update angular ([d5e2595](https://github.com/sbb-design-systems/lyne-angular/commit/d5e25953767c19c3695485f0329f9e5429d6089b))
+* **deps:** update angular to v20.1.0 ([#146](https://github.com/sbb-design-systems/lyne-angular/issues/146)) ([693531a](https://github.com/sbb-design-systems/lyne-angular/commit/693531a34b1f17a5b7d66e8e8766b37dff41e846))
+* **deps:** update angular to v20.1.2 ([37702fc](https://github.com/sbb-design-systems/lyne-angular/commit/37702fcb72f6a59e505a09bbd3f117e9cffe0d50))
+* **deps:** update esta to v3.1.0 ([#147](https://github.com/sbb-design-systems/lyne-angular/issues/147)) ([ebc058e](https://github.com/sbb-design-systems/lyne-angular/commit/ebc058e755c96573c6494fdcfccaa32689b9669c))
+
+
+### Documentation
+
+* **sbb-seat-reservation:** extended default storybook stories with data ([#143](https://github.com/sbb-design-systems/lyne-angular/issues/143)) ([59c1d8d](https://github.com/sbb-design-systems/lyne-angular/commit/59c1d8d9c2b4738cd72dc33367e2550caf8d3522))
+* **sbb-table-wrapper:** update sbb-paginator documentation ([#149](https://github.com/sbb-design-systems/lyne-angular/issues/149)) ([81b2c38](https://github.com/sbb-design-systems/lyne-angular/commit/81b2c3819fc9090c7a50d11793e03bf7f8afe24c))
+
+
+### Code Refactoring
+
+* add string type to element references properties ([#145](https://github.com/sbb-design-systems/lyne-angular/issues/145)) ([98bd89c](https://github.com/sbb-design-systems/lyne-angular/commit/98bd89c40d899771b6369aca42655540976d7640))
+
 ## [20.0.0-rc.1](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.0...v20.0.0-rc.1) (2025-07-07)
 
 
