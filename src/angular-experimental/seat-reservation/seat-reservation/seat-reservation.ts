@@ -44,11 +44,21 @@ export class SbbSeatReservation {
   }
 
   @Input({ transform: numberAttribute })
-  public set maxReservations(value: number) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.maxReservations = value));
+  public set maxSeatReservations(value: number) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.maxSeatReservations = value));
   }
-  public get maxReservations(): number {
-    return this.#element.nativeElement.maxReservations;
+  public get maxSeatReservations(): number {
+    return this.#element.nativeElement.maxSeatReservations;
+  }
+
+  @Input({ transform: numberAttribute })
+  public set maxBicycleReservations(value: number) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.maxBicycleReservations = value),
+    );
+  }
+  public get maxBicycleReservations(): number {
+    return this.#element.nativeElement.maxBicycleReservations;
   }
 
   @Input({ transform: booleanAttribute })
@@ -57,6 +67,14 @@ export class SbbSeatReservation {
   }
   public get preventPlaceClick(): boolean {
     return this.#element.nativeElement.preventPlaceClick;
+  }
+
+  @Input({ transform: numberAttribute })
+  public set preselectCoachIndex(value: number) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.preselectCoachIndex = value));
+  }
+  public get preselectCoachIndex(): number {
+    return this.#element.nativeElement.preselectCoachIndex;
   }
 
   @Input({ transform: numberAttribute })
