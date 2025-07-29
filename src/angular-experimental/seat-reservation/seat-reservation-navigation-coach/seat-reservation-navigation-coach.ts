@@ -3,6 +3,7 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSeatReservationNavigationCoachElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation-coach.js';
 import type {
+  CoachNumberOfFreePlaces,
   PlaceTravelClass,
   SelectCoachEventDetails,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
@@ -58,6 +59,14 @@ export class SbbSeatReservationNavigationCoach {
   }
   public get index(): number {
     return this.#element.nativeElement.index;
+  }
+
+  @Input()
+  public set freePlacesByType(value: CoachNumberOfFreePlaces) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.freePlacesByType = value));
+  }
+  public get freePlacesByType(): CoachNumberOfFreePlaces {
+    return this.#element.nativeElement.freePlacesByType;
   }
 
   @Input()

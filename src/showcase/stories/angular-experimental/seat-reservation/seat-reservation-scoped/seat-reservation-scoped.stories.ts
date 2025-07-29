@@ -2,15 +2,7 @@ import { SbbSeatReservationScoped } from '@sbb-esta/lyne-angular-experimental/se
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 
-const defaultArgs: Args = {
-  cellId: '1',
-  height: '100',
-  width: '100',
-  insetBlockStart: '0',
-  insetInlineStart: '0',
-  scopedClasses: 'coach-border',
-  zIndex: '0',
-};
+const defaultArgs: Args = {};
 
 const meta: Meta = {
   title: 'experimental/sbb-seat-reservation/sbb-seat-reservation-scoped',
