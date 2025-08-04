@@ -109,6 +109,14 @@ export class SbbSeatReservationPlaceControl {
     return this.#element.nativeElement.keyfocus;
   }
 
+  @Input({ transform: numberAttribute })
+  public set deckIndex(value: number) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.deckIndex = value));
+  }
+  public get deckIndex(): number {
+    return this.#element.nativeElement.deckIndex;
+  }
+
   public selectPlaceSignal = outputFromObservable(
     fromEvent<CustomEvent<PlaceSelection>>(this.#element.nativeElement, 'selectplace'),
     { alias: 'selectPlace' },
