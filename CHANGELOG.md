@@ -1,5 +1,32 @@
 # Changelog
 
+## [20.0.0-rc.2](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.1...v20.0.0-rc.2) (2025-08-04)
+
+
+### Bug Fixes
+
+* **deps:** update angular ([bc7e5e6](https://github.com/sbb-design-systems/lyne-angular/commit/bc7e5e6b5ffbc10ca2525d1ed484547d6e9c75ee))
+* **deps:** update angular ([d5e2595](https://github.com/sbb-design-systems/lyne-angular/commit/d5e25953767c19c3695485f0329f9e5429d6089b))
+* **deps:** update angular to v20.1.0 ([#146](https://github.com/sbb-design-systems/lyne-angular/issues/146)) ([693531a](https://github.com/sbb-design-systems/lyne-angular/commit/693531a34b1f17a5b7d66e8e8766b37dff41e846))
+* **deps:** update angular to v20.1.2 ([37702fc](https://github.com/sbb-design-systems/lyne-angular/commit/37702fcb72f6a59e505a09bbd3f117e9cffe0d50))
+* **deps:** update angular to v20.1.4 ([7dd8bfc](https://github.com/sbb-design-systems/lyne-angular/commit/7dd8bfc69b0b357fc754ed055edd9ec4e10a5a18))
+* **deps:** update angular to v20.1.4 ([2358ec3](https://github.com/sbb-design-systems/lyne-angular/commit/2358ec37240802e6c0bf7132a686d2a0e00c4a93))
+* **deps:** update esta to v3.1.0 ([#147](https://github.com/sbb-design-systems/lyne-angular/issues/147)) ([ebc058e](https://github.com/sbb-design-systems/lyne-angular/commit/ebc058e755c96573c6494fdcfccaa32689b9669c))
+* **deps:** update esta to v3.2.0 ([#154](https://github.com/sbb-design-systems/lyne-angular/issues/154)) ([7efee1a](https://github.com/sbb-design-systems/lyne-angular/commit/7efee1a32f03babf496fd5293a251a89efdebbf8))
+* **deps:** update esta to v3.3.0 ([#162](https://github.com/sbb-design-systems/lyne-angular/issues/162)) ([36e3791](https://github.com/sbb-design-systems/lyne-angular/commit/36e37919064802d50c7226df8f3d1fe5142b07b7))
+* **sbb-autocomplete:** export SbbAutocompleteTrigger and document feature ([#160](https://github.com/sbb-design-systems/lyne-angular/issues/160)) ([8a465fa](https://github.com/sbb-design-systems/lyne-angular/commit/8a465fa4468b2bd702273a0fb3339d50c70fe0fb)), closes [#157](https://github.com/sbb-design-systems/lyne-angular/issues/157)
+
+
+### Documentation
+
+* **sbb-seat-reservation:** extended default storybook stories with data ([#143](https://github.com/sbb-design-systems/lyne-angular/issues/143)) ([59c1d8d](https://github.com/sbb-design-systems/lyne-angular/commit/59c1d8d9c2b4738cd72dc33367e2550caf8d3522))
+* **sbb-table-wrapper:** update sbb-paginator documentation ([#149](https://github.com/sbb-design-systems/lyne-angular/issues/149)) ([81b2c38](https://github.com/sbb-design-systems/lyne-angular/commit/81b2c3819fc9090c7a50d11793e03bf7f8afe24c))
+
+
+### Code Refactoring
+
+* add string type to element references properties ([#145](https://github.com/sbb-design-systems/lyne-angular/issues/145)) ([98bd89c](https://github.com/sbb-design-systems/lyne-angular/commit/98bd89c40d899771b6369aca42655540976d7640))
+
 ## [20.0.0-rc.1](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.0...v20.0.0-rc.1) (2025-07-07)
 
 
