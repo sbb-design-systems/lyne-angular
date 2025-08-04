@@ -29,17 +29,23 @@ const orientation: InputType = {
   options: ['horizontal', 'vertical'],
 };
 
-const now: InputType = {
-  control: {
-    type: 'date',
-  },
-};
-
 const view: InputType = {
   control: {
     type: 'inline-radio',
   },
   options: ['day', 'month', 'year'],
+};
+
+const multiple: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
+
+const weekNumbers: InputType = {
+  control: {
+    type: 'boolean',
+  },
 };
 
 const filterFunctions = [
@@ -71,7 +77,8 @@ const argTypes: ArgTypes = {
   view,
   dateFilter,
   orientation,
-  now,
+  multiple,
+  weekNumbers,
 };
 
 const today = new Date();
@@ -82,6 +89,8 @@ const args: Args = {
   orientation: orientation.options![0],
   wide: false,
   selected: today,
+  multiple: false,
+  weekNumbers: false,
 };
 
 const meta: Meta = {
@@ -94,10 +103,10 @@ const meta: Meta = {
   argTypes,
   args,
   render: ({ selected, dateFilter, ...args }: Args) => ({
-    props: { selected, dateFilter, ...args },
+    props: { selected, dateFilter, multiple, ...args },
     // Selected property not working, needs to be converted to date. TODO: Find a way to do this.
     template: `
-      <sbb-calendar ${argsToTemplate(args)} [selected]="selected" [dateFilter]="dateFilter"></sbb-calendar>`,
+      <sbb-calendar ${argsToTemplate(args)} [selected]="multiple ? [selected] : selected" [dateFilter]="dateFilter" [multiple]="multiple"></sbb-calendar>`,
   }),
 };
 export default meta;

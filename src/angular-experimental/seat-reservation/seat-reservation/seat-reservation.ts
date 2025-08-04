@@ -4,8 +4,8 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSeatReservationElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation.js';
 import type {
   SeatReservation,
-  SeatReservationCoachSelection,
-  SeatReservationSelectedPlacesEventDetails,
+  SeatReservationSelectedCoach,
+  SeatReservationSelectedPlaces,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 import { fromEvent } from 'rxjs';
 
@@ -20,11 +20,11 @@ export class SbbSeatReservation {
   #ngZone: NgZone = inject(NgZone);
 
   @Input()
-  public set seatReservation(value: SeatReservation) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.seatReservation = value));
+  public set seatReservations(value: SeatReservation[]) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.seatReservations = value));
   }
-  public get seatReservation(): SeatReservation {
-    return this.#element.nativeElement.seatReservation;
+  public get seatReservations(): SeatReservation[] {
+    return this.#element.nativeElement.seatReservations;
   }
 
   @Input({ transform: booleanAttribute })
@@ -94,7 +94,7 @@ export class SbbSeatReservation {
   }
 
   public selectedCoachSignal = outputFromObservable(
-    fromEvent<CustomEvent<SeatReservationCoachSelection>>(
+    fromEvent<CustomEvent<SeatReservationSelectedCoach>>(
       this.#element.nativeElement,
       'selectedcoach',
     ),
@@ -102,7 +102,7 @@ export class SbbSeatReservation {
   );
 
   public selectedPlacesSignal = outputFromObservable(
-    fromEvent<CustomEvent<SeatReservationSelectedPlacesEventDetails>>(
+    fromEvent<CustomEvent<SeatReservationSelectedPlaces>>(
       this.#element.nativeElement,
       'selectedplaces',
     ),

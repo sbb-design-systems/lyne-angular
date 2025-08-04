@@ -47,10 +47,10 @@ export class SbbCalendar<T = Date> {
   }
 
   @Input()
-  public set selected(value: T | null) {
+  public set selected(value: T | T[] | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.selected = value));
   }
-  public get selected(): T | null {
+  public get selected(): T | T[] | null {
     return this.#element.nativeElement.selected;
   }
 
@@ -70,12 +70,28 @@ export class SbbCalendar<T = Date> {
     return this.#element.nativeElement.orientation;
   }
 
+  @Input({ transform: booleanAttribute })
+  public set multiple(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.multiple = value));
+  }
+  public get multiple(): boolean {
+    return this.#element.nativeElement.multiple;
+  }
+
+  @Input({ transform: booleanAttribute })
+  public set weekNumbers(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.weekNumbers = value));
+  }
+  public get weekNumbers(): boolean {
+    return this.#element.nativeElement.weekNumbers;
+  }
+
   public resetPosition(): void {
     return this.#element.nativeElement.resetPosition();
   }
 
   public dateSelectedSignal = outputFromObservable(
-    fromEvent<CustomEvent<T>>(this.#element.nativeElement, 'dateselected'),
+    fromEvent<CustomEvent<T | T[]>>(this.#element.nativeElement, 'dateselected'),
     { alias: 'dateSelected' },
   );
 }
