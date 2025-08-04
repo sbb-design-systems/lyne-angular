@@ -1,4 +1,7 @@
-The `sbb-table` provides a SBB Design styled data-table that can be used to display rows of data.
+This documentation focuses on the Angular features of the `sbb-table-wrapper`.
+For Lyne elements documentation and API, check the Lyne Elements Storybook on [https://lyne-storybook.app.sbb.ch/?path=/docs/elements-sbb-table-sbb-table-wrapper--docs](https://lyne-storybook.app.sbb.ch/?path=/docs/elements-sbb-table-sbb-table-wrapper--docs).
+
+The `sbb-table` provides an SBB Design styled data-table that can be used to display rows of data.
 You can use a table for displaying data, but not for structuring content.
 
 This table builds on the foundation of the CDK data-table and uses a similar interface for its

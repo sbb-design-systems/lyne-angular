@@ -6,6 +6,8 @@ import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
 
+import readme from './readme.md';
+
 const trigger: InputType = {
   control: false,
   table: {
@@ -139,6 +141,11 @@ const meta: Meta = {
   parameters: {
     backgroundColor: (context: StoryContext) =>
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+    docs: {
+      description: {
+        component: readme,
+      },
+    },
   },
   argTypes,
   args,
