@@ -6,11 +6,11 @@ import { withActions } from 'storybook/actions/decorator';
 import { seatReservationBus, seatReservationTrain } from '../seat-reservation-sample-data';
 
 const trainArgs: Args = {
-  seatReservation: seatReservationTrain,
+  seatReservations: [seatReservationTrain],
 };
 
 const busArgs: Args = {
-  seatReservation: seatReservationBus,
+  seatReservations: [seatReservationBus],
 };
 
 const meta: Meta = {
