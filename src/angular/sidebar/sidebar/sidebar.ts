@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OnInit } from '@angular/core';
 import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSidebarContainerElement } from '@sbb-esta/lyne-elements/sidebar/sidebar-container.js';
@@ -11,7 +11,7 @@ import '@sbb-esta/lyne-elements/sidebar/sidebar.js';
   selector: 'sbb-sidebar',
   exportAs: 'sbbSidebar',
 })
-export class SbbSidebar {
+export class SbbSidebar implements OnInit {
   #element: ElementRef<SbbSidebarElement> = inject(ElementRef<SbbSidebarElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -75,18 +75,6 @@ export class SbbSidebar {
     return this.#element.nativeElement.isOpen;
   }
 
-  public toggle(): void {
-    return this.#element.nativeElement.toggle();
-  }
-
-  public open(): void {
-    return this.#element.nativeElement.open();
-  }
-
-  public close(): void {
-    return this.#element.nativeElement.close();
-  }
-
   public beforeOpenSignal = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
@@ -102,4 +90,34 @@ export class SbbSidebar {
 
   protected _closeSignal = outputFromObservable<Event>(NEVER, { alias: 'close' });
   public closeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'close'));
+
+  public constructor() {
+    // We can't use `this.container` in the constructor, because the element is not yet connected to the DOM.
+    const container = this.#element.nativeElement.closest('sbb-sidebar-container');
+
+    if (container && !container.classList.contains('sbb-disable-animation')) {
+      container.classList.add('sbb-disable-animation', 'sbb-deferred-animation-init');
+    }
+  }
+
+  public async ngOnInit(): Promise<void> {
+    await this.#element.nativeElement.updateComplete;
+    const container = this.container;
+
+    if (container?.classList.contains('sbb-deferred-animation-init')) {
+      container.classList.remove('sbb-disable-animation', 'sbb-deferred-animation-init');
+    }
+  }
+
+  public toggle(): void {
+    return this.#element.nativeElement.toggle();
+  }
+
+  public open(): void {
+    return this.#element.nativeElement.open();
+  }
+
+  public close(): void {
+    return this.#element.nativeElement.close();
+  }
 }
