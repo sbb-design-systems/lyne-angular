@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OnInit } from '@angular/core';
 import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
@@ -11,9 +11,19 @@ import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
   selector: 'sbb-expansion-panel',
   exportAs: 'sbbExpansionPanel',
 })
-export class SbbExpansionPanel {
+export class SbbExpansionPanel implements OnInit {
   #element: ElementRef<SbbExpansionPanelElement> = inject(ElementRef<SbbExpansionPanelElement>);
   #ngZone: NgZone = inject(NgZone);
+
+  constructor() {
+    // Ensure that the animation is disabled on initialization. OnInit it can be activated again.
+    if (!this.#element.nativeElement.classList.contains('sbb-disable-animation')) {
+      this.#element.nativeElement.classList.add(
+        'sbb-disable-animation',
+        'sbb-expansion-panel-init',
+      );
+    }
+  }
 
   @Input()
   public set titleLevel(value: SbbTitleLevel | null) {
@@ -78,4 +88,13 @@ export class SbbExpansionPanel {
 
   protected _closeSignal = outputFromObservable<Event>(NEVER, { alias: 'close' });
   public closeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'close'));
+
+  public ngOnInit(): void {
+    if (this.#element.nativeElement.classList.contains('sbb-expansion-panel-init')) {
+      this.#element.nativeElement.classList.remove(
+        'sbb-disable-animation',
+        'sbb-expansion-panel-init',
+      );
+    }
+  }
 }
