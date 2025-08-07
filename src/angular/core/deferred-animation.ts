@@ -1,6 +1,10 @@
 import { Directive, ElementRef, inject, type AfterViewInit } from '@angular/core';
 import type { LitElement } from 'lit';
 
+/**
+ * When using some components together with Angular Router, the initial animation can be visible.
+ * Applying this directive to a component will defer the animation until the component is fully rendered.
+ */
 @Directive()
 export class SbbDeferredAnimation implements AfterViewInit {
   #element: ElementRef<LitElement> = inject(ElementRef);

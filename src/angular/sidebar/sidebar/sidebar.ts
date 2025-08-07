@@ -92,7 +92,9 @@ export class SbbSidebar implements OnInit {
   public closeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'close'));
 
   public constructor() {
-    // We can't use `this.container` in the constructor, because the element is not yet connected to the DOM.
+    //  We have to access the sbb-sidebar-container because the animations are applied to it.
+    //  As the animation state (whether it is open) is handled in this class, the logic must be added here.
+    //  We cannot use 'this.container' getter in the constructor because the element has not yet been connected to the DOM.
     const container = this.#element.nativeElement.closest('sbb-sidebar-container');
 
     if (container && !container.classList.contains('sbb-disable-animation')) {
