@@ -10,7 +10,11 @@ import {
 } from '@angular/core';
 import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import {
+  booleanAttribute,
+  SbbControlValueAccessorMixin,
+  SbbDeferredAnimation,
+} from '@sbb-esta/lyne-angular/core';
 import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
 import { fromEvent, NEVER } from 'rxjs';
 
@@ -29,6 +33,7 @@ import '@sbb-esta/lyne-elements/toggle-check.js';
       multi: true,
     },
   ],
+  hostDirectives: [SbbDeferredAnimation],
 })
 export class SbbToggleCheck<T = string>
   extends SbbControlValueAccessorMixin(class {})

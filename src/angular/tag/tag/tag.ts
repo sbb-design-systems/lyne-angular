@@ -10,7 +10,11 @@ import {
 } from '@angular/core';
 import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import {
+  booleanAttribute,
+  SbbControlValueAccessorMixin,
+  SbbDeferredAnimation,
+} from '@sbb-esta/lyne-angular/core';
 import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
 import { fromEvent, NEVER } from 'rxjs';
 
@@ -29,6 +33,7 @@ import '@sbb-esta/lyne-elements/tag/tag.js';
       multi: true,
     },
   ],
+  hostDirectives: [SbbDeferredAnimation],
 })
 export class SbbTag<T = string>
   extends SbbControlValueAccessorMixin(class {})

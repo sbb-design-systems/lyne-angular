@@ -10,7 +10,11 @@ import {
 } from '@angular/core';
 import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import {
+  booleanAttribute,
+  SbbControlValueAccessorMixin,
+  SbbDeferredAnimation,
+} from '@sbb-esta/lyne-angular/core';
 import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
 import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
 import type { SbbPanelSize } from '@sbb-esta/lyne-elements/core/mixins.js';
@@ -31,6 +35,7 @@ import '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
       multi: true,
     },
   ],
+  hostDirectives: [SbbDeferredAnimation],
 })
 export class SbbCheckboxPanel<T = string>
   extends SbbControlValueAccessorMixin(class {})

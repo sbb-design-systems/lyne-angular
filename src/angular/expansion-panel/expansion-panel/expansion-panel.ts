@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbDeferredAnimation } from '@sbb-esta/lyne-angular/core';
 import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, NEVER } from 'rxjs';
@@ -10,6 +10,7 @@ import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
 @Directive({
   selector: 'sbb-expansion-panel',
   exportAs: 'sbbExpansionPanel',
+  hostDirectives: [SbbDeferredAnimation],
 })
 export class SbbExpansionPanel {
   #element: ElementRef<SbbExpansionPanelElement> = inject(ElementRef<SbbExpansionPanelElement>);
