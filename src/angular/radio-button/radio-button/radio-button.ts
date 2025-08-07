@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbDeferredAnimation } from '@sbb-esta/lyne-angular/core';
 import type { SbbRadioButtonElement } from '@sbb-esta/lyne-elements/radio-button/radio-button.js';
 import type {
   SbbRadioButtonGroupElement,
@@ -13,6 +13,7 @@ import '@sbb-esta/lyne-elements/radio-button/radio-button.js';
 @Directive({
   selector: 'sbb-radio-button',
   exportAs: 'sbbRadioButton',
+  hostDirectives: [SbbDeferredAnimation],
 })
 export class SbbRadioButton<T = string> {
   #element: ElementRef<SbbRadioButtonElement<T>> = inject(ElementRef<SbbRadioButtonElement<T>>);

@@ -100,13 +100,14 @@ export class SbbSidebar implements OnInit {
     }
   }
 
-  public async ngOnInit(): Promise<void> {
-    await this.#element.nativeElement.updateComplete;
-    const container = this.container;
+  public ngOnInit(): void {
+    this.#element.nativeElement.updateComplete.then(() => {
+      const container = this.container;
 
-    if (container?.classList.contains('sbb-deferred-animation-init')) {
-      container.classList.remove('sbb-disable-animation', 'sbb-deferred-animation-init');
-    }
+      if (container?.classList.contains('sbb-deferred-animation-init')) {
+        container.classList.remove('sbb-disable-animation', 'sbb-deferred-animation-init');
+      }
+    });
   }
 
   public toggle(): void {

@@ -1,7 +1,11 @@
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import {
+  booleanAttribute,
+  SbbControlValueAccessorMixin,
+  SbbDeferredAnimation,
+} from '@sbb-esta/lyne-angular/core';
 import type { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle/toggle-option.js';
 import type { SbbToggleElement } from '@sbb-esta/lyne-elements/toggle/toggle.js';
 import { fromEvent, NEVER } from 'rxjs';
@@ -22,6 +26,7 @@ import '@sbb-esta/lyne-elements/toggle/toggle.js';
       multi: true,
     },
   ],
+  hostDirectives: [SbbDeferredAnimation],
 })
 export class SbbToggle<T = string> extends SbbControlValueAccessorMixin(class {}) {
   #element: ElementRef<SbbToggleElement<T>> = inject(ElementRef<SbbToggleElement<T>>);
