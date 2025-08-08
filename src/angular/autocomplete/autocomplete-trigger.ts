@@ -50,7 +50,7 @@ export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor 
   writeValue(value: T): void {
     Promise.resolve(null).then(() => {
       // Given a value, returns the string that should be shown within the input.
-      const toDisplay = this.autocomplete?.displayWith?.(value) ?? value;
+      const toDisplay = value ? (this.autocomplete?.displayWith?.(value) ?? value) : null;
 
       // Simply falling back to an empty string if the display value is falsy does not work properly.
       // The display value can also be the number zero and shouldn't fall back to an empty string.
