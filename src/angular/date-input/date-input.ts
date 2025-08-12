@@ -149,6 +149,10 @@ export class SbbDateInput<T = Date>
     return this.#element.nativeElement.willValidate;
   }
 
+  public get empty(): boolean {
+    return this.#element.nativeElement.empty;
+  }
+
   /** The form control validator for whether the input parses. */
   #parseValidator: ValidatorFn = (): ValidationErrors | null =>
     this.validity.badInput ? { sbbDateParse: { text: this.#element.nativeElement.value } } : null;
