@@ -42,7 +42,7 @@ export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor 
   get autocomplete(): SbbAutocomplete<T> | SbbAutocompleteGrid<T> | null {
     return this.#autocomplete;
   }
-  set autocomplete(autocomplete: SbbAutocomplete<T> | SbbAutocompleteGrid<T> | null) {
+  set autocomplete(autocomplete: SbbAutocomplete<T> | SbbAutocompleteGrid<T>) {
     this.#autocomplete = autocomplete;
   }
   #autocomplete: SbbAutocomplete<T> | SbbAutocompleteGrid<T> | null = null;
