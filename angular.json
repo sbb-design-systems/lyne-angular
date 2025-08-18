@@ -203,6 +203,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "sourceMap": {
+              "scripts": true,
+              "styles": true,
+              "hidden": false,
+              "vendor": true
+            },
             "outputPath": "dist/docs",
             "index": "src/docs/index.html",
             "browser": "src/docs/main.ts",
