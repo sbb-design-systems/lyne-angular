@@ -8,25 +8,21 @@ import type { LitElement } from 'lit';
 @Directive()
 export class SbbDeferredAnimation implements AfterViewInit {
   #element: ElementRef<LitElement> = inject(ElementRef);
+  #disableAnimationClassSet: boolean = false;
 
   constructor() {
     // Ensure that the animation is disabled on initialization. It's activated again in the AfterViewInit hook.
     if (!this.#element.nativeElement.classList.contains('sbb-disable-animation')) {
-      this.#element.nativeElement.classList.add(
-        'sbb-disable-animation',
-        'sbb-deferred-animation-init',
-      );
+      this.#element.nativeElement.classList.add('sbb-disable-animation');
+      this.#disableAnimationClassSet = true;
     }
   }
 
   ngAfterViewInit(): void {
-    this.#element.nativeElement.updateComplete.then(() => {
-      if (this.#element.nativeElement.classList.contains('sbb-deferred-animation-init')) {
-        this.#element.nativeElement.classList.remove(
-          'sbb-disable-animation',
-          'sbb-deferred-animation-init',
-        );
-      }
-    });
+    if (this.#disableAnimationClassSet) {
+      this.#element.nativeElement.updateComplete.then(() => {
+        this.#element.nativeElement.classList.remove('sbb-disable-animation');
+      });
+    }
   }
 }

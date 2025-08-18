@@ -14,6 +14,7 @@ import '@sbb-esta/lyne-elements/sidebar/sidebar.js';
 export class SbbSidebar implements OnInit {
   #element: ElementRef<SbbSidebarElement> = inject(ElementRef<SbbSidebarElement>);
   #ngZone: NgZone = inject(NgZone);
+  #disabledAnimationClassSet: boolean = false;
 
   @Input()
   public set color(value: 'white' | 'milk') {
@@ -98,7 +99,8 @@ export class SbbSidebar implements OnInit {
     const container = this.#element.nativeElement.closest('sbb-sidebar-container');
 
     if (container && !container.classList.contains('sbb-disable-animation')) {
-      container.classList.add('sbb-disable-animation', 'sbb-deferred-animation-init');
+      container.classList.add('sbb-disable-animation');
+      this.#disabledAnimationClassSet = true;
     }
   }
 
@@ -106,8 +108,8 @@ export class SbbSidebar implements OnInit {
     this.#element.nativeElement.updateComplete.then(() => {
       const container = this.container;
 
-      if (container?.classList.contains('sbb-deferred-animation-init')) {
-        container.classList.remove('sbb-disable-animation', 'sbb-deferred-animation-init');
+      if (container && this.#disabledAnimationClassSet) {
+        container.classList.remove('sbb-disable-animation');
       }
     });
   }

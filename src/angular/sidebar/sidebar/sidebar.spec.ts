@@ -31,10 +31,8 @@ describe('sbb-sidebar', () => {
 
     it('should have animation deferred', async () => {
       expect(containerElement).toHaveClass('sbb-disable-animation');
-      expect(containerElement).toHaveClass('sbb-deferred-animation-init');
       await waitForLitRender(sidebarElement);
       expect(containerElement).not.toHaveClass('sbb-disable-animation');
-      expect(containerElement).not.toHaveClass('sbb-deferred-animation-init');
     });
   });
 
@@ -52,10 +50,8 @@ describe('sbb-sidebar', () => {
 
     it('should not remove sbb-disable-animation class if it is already applied', async () => {
       expect(containerElement).toHaveClass('sbb-disable-animation');
-      expect(containerElement).not.toHaveClass('sbb-deferred-animation-init');
       await waitForLitRender(sidebarElement);
       expect(containerElement).toHaveClass('sbb-disable-animation');
-      expect(containerElement).not.toHaveClass('sbb-deferred-animation-init');
     });
   });
 });

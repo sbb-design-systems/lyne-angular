@@ -17,11 +17,9 @@ describe(`sbb-deferred-animation`, () => {
     )!;
 
     expect(checkboxPanelElement).toHaveClass('sbb-disable-animation');
-    expect(checkboxPanelElement).toHaveClass('sbb-deferred-animation-init');
     await waitForLitRender(checkboxPanelElement);
 
     expect(checkboxPanelElement).not.toHaveClass('sbb-disable-animation');
-    expect(checkboxPanelElement).not.toHaveClass('sbb-deferred-animation-init');
   });
 
   it('should not remove sbb-disable-animation class if it is already applied', async () => {
@@ -32,10 +30,8 @@ describe(`sbb-deferred-animation`, () => {
     fixture.detectChanges();
 
     expect(checkboxPanelElement).toHaveClass('sbb-disable-animation');
-    expect(checkboxPanelElement).not.toHaveClass('sbb-deferred-animation-init');
     await waitForLitRender(checkboxPanelElement);
     expect(checkboxPanelElement).toHaveClass('sbb-disable-animation');
-    expect(checkboxPanelElement).not.toHaveClass('sbb-deferred-animation-init');
   });
 });
 
