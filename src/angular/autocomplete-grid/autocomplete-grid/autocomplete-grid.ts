@@ -113,4 +113,9 @@ export class SbbAutocompleteGrid<T = string> {
 
   protected _closeSignal = outputFromObservable<Event>(NEVER, { alias: 'close' });
   public closeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'close'));
+
+  public optionSelected = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'optionselected'),
+    { alias: 'optionSelected' },
+  );
 }
