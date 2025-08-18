@@ -1,14 +1,13 @@
 import { Directive, ElementRef, forwardRef, inject, Input } from '@angular/core';
 import type { ControlValueAccessor } from '@angular/forms';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import type { SbbAutocompleteGrid } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid';
 import type { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option/option.js';
 import { BehaviorSubject } from 'rxjs';
 
 import type { SbbAutocomplete } from './autocomplete';
 
 @Directive({
-  selector: `input[sbbAutocomplete], input[sbbAutocompleteGrid]`,
+  selector: `input[sbbAutocomplete]`,
   exportAs: 'sbbAutocompleteTrigger',
   providers: [
     {
@@ -39,13 +38,13 @@ export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor 
 
   /** The autocomplete panel to be attached to this trigger. */
   @Input('sbbAutocomplete')
-  get autocomplete(): SbbAutocomplete<T> | SbbAutocompleteGrid<T> | null {
+  get autocomplete(): SbbAutocomplete<T> | null {
     return this.#autocomplete;
   }
-  set autocomplete(autocomplete: SbbAutocomplete<T> | SbbAutocompleteGrid<T> | null) {
+  set autocomplete(autocomplete: SbbAutocomplete<T>) {
     this.#autocomplete = autocomplete;
   }
-  #autocomplete: SbbAutocomplete<T> | SbbAutocompleteGrid<T> | null = null;
+  #autocomplete: SbbAutocomplete<T> | null = null;
 
   // Implemented as part of ControlValueAccessor.
   writeValue(value: T): void {
