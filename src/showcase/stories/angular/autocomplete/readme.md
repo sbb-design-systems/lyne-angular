@@ -29,3 +29,16 @@ class TestComponentWithComplexValue {
     value ? value.property : value;
 }
 ```
+
+## Complex Values
+
+### `displayWith` function
+
+When using complex values, the selection should most likely still be represented as text.
+To achieve this, you can use the `displayWith` property which accepts a function.
+This function receives the selected value and should return a string.
+
+Please note that the parameter is the assigned value of the selected option which does not necessarily
+align with the type information.
+
+Additionally, when using Angular Forms, the initially passed value of `displayWith` can be `null`.
