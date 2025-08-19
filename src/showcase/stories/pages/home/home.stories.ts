@@ -8,10 +8,12 @@ import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
 import { SbbCardBadge } from '@sbb-esta/lyne-angular/card/card-badge';
 import { SbbCardLink } from '@sbb-esta/lyne-angular/card/card-link';
 import { SbbClock } from '@sbb-esta/lyne-angular/clock';
-import { SbbDialog } from '@sbb-esta/lyne-angular/dialog/dialog';
-import { SbbDialogActions } from '@sbb-esta/lyne-angular/dialog/dialog-actions';
-import { SbbDialogContent } from '@sbb-esta/lyne-angular/dialog/dialog-content';
-import { SbbDialogTitle } from '@sbb-esta/lyne-angular/dialog/dialog-title';
+import {
+  SbbDialog,
+  SbbDialogActions,
+  SbbDialogContent,
+  SbbDialogTitle,
+} from '@sbb-esta/lyne-angular/dialog';
 import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
 import { SbbFooter } from '@sbb-esta/lyne-angular/footer';
 import { SbbHeader } from '@sbb-esta/lyne-angular/header/header';
