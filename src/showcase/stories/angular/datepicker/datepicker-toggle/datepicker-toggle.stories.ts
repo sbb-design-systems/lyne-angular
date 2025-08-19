@@ -1,7 +1,7 @@
 import { SbbDateInput } from '@sbb-esta/lyne-angular/date-input';
 import { SbbDatepicker } from '@sbb-esta/lyne-angular/datepicker/datepicker';
 import { SbbDatepickerToggle } from '@sbb-esta/lyne-angular/datepicker/datepicker-toggle';
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
+import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';

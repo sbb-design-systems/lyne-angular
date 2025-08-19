@@ -3,7 +3,7 @@ import { Component, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SbbAutocomplete } from '@sbb-esta/lyne-angular/autocomplete';
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
+import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
 import type { SbbChipInputTokenEndEventDetails } from '@sbb-esta/lyne-elements/chip/chip-group.js';
 import type { SbbChipElement } from '@sbb-esta/lyne-elements/chip/chip.js';

@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
+import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import { SbbPaginator } from '@sbb-esta/lyne-angular/paginator/paginator';
 import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
 import { SbbTableWrapper } from '@sbb-esta/lyne-angular/table/table-wrapper';

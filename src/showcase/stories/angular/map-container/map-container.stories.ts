@@ -1,5 +1,4 @@
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
-import { SbbFormFieldClear } from '@sbb-esta/lyne-angular/form-field/form-field-clear';
+import { SbbFormField, SbbFormFieldClear } from '@sbb-esta/lyne-angular/form-field';
 import { SbbHeader } from '@sbb-esta/lyne-angular/header/header';
 import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header/header-button';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
