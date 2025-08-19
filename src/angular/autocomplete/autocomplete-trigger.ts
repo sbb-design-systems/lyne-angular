@@ -4,7 +4,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option/option.js';
 import { BehaviorSubject } from 'rxjs';
 
-import type { SbbAutocomplete } from './autocomplete';
+import type { SbbAutocompleteType } from './autocomplete-type';
 
 @Directive({
   selector: `input[sbbAutocomplete]`,
@@ -38,13 +38,13 @@ export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor 
 
   /** The autocomplete panel to be attached to this trigger. */
   @Input('sbbAutocomplete')
-  get autocomplete(): SbbAutocomplete<T> | null {
+  get autocomplete(): SbbAutocompleteType<T> | null {
     return this.#autocomplete;
   }
-  set autocomplete(autocomplete: SbbAutocomplete<T>) {
+  set autocomplete(autocomplete: SbbAutocompleteType<T>) {
     this.#autocomplete = autocomplete;
   }
-  #autocomplete: SbbAutocomplete<T> | null = null;
+  #autocomplete: SbbAutocompleteType<T> | null = null;
 
   // Implemented as part of ControlValueAccessor.
   writeValue(value: T): void {

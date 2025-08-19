@@ -4,13 +4,15 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAutocompleteElement } from '@sbb-esta/lyne-elements/autocomplete.js';
 import { fromEvent, NEVER } from 'rxjs';
 
+import type { SbbAutocompleteType } from './autocomplete-type';
+
 import '@sbb-esta/lyne-elements/autocomplete.js';
 
 @Directive({
   selector: 'sbb-autocomplete',
   exportAs: 'sbbAutocomplete',
 })
-export class SbbAutocomplete<T = string> {
+export class SbbAutocomplete<T = string> implements SbbAutocompleteType<T> {
   #element: ElementRef<SbbAutocompleteElement<T>> = inject(ElementRef<SbbAutocompleteElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
