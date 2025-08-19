@@ -31,57 +31,6 @@
     }
   },
   "projects": {
-    "showcase": {
-      "projectType": "application",
-      "root": "",
-      "sourceRoot": "src/showcase",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@storybook/angular:build-storybook",
-          "options": {
-            "configDir": "src/showcase/.storybook",
-            "browserTarget": "showcase:build",
-            "styles": [
-              "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
-              "src/showcase/stories/styles/layout/layout.scss",
-              "src/showcase/stories/styles/scrollbar/scrollbar-internal.scss",
-              "src/showcase/stories/styles/typography/typo-internal.scss",
-              "src/showcase/stories/pages/home/home.scss",
-              "src/showcase/stories/pages/lean/lean.scss"
-            ],
-            "compodoc": true,
-            "compodocArgs": ["-e", "json", "-d", "src/showcase/.storybook", "--disablePrivate"],
-            "outputDir": "dist/storybook/showcase"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": ["src/showcase/**/*.ts", "src/showcase/**/*.html"],
-            "eslintConfig": "src/showcase/eslint.config.mjs"
-          }
-        },
-        "storybook": {
-          "builder": "@storybook/angular:start-storybook",
-          "options": {
-            "configDir": "src/showcase/.storybook",
-            "browserTarget": "showcase:build",
-            "styles": [
-              "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
-              "src/showcase/stories/styles/layout/layout.scss",
-              "src/showcase/stories/styles/scrollbar/scrollbar-internal.scss",
-              "src/showcase/stories/styles/typography/typo-internal.scss",
-              "src/showcase/stories/pages/home/home.scss",
-              "src/showcase/stories/pages/lean/lean.scss"
-            ],
-            "compodoc": true,
-            "compodocArgs": ["-e", "json", "-d", "src/showcase/.storybook", "--disablePrivate"],
-            "port": 6007
-          }
-        }
-      }
-    },
     "angular": {
       "projectType": "library",
       "root": "src/angular",
@@ -190,6 +139,57 @@
               "src/angular-experimental/**/*.html"
             ],
             "eslintConfig": "src/angular-experimental/eslint.config.mjs"
+          }
+        }
+      }
+    },
+    "showcase": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src/showcase",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": "src/showcase/.storybook",
+            "browserTarget": "showcase:build",
+            "styles": [
+              "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
+              "src/showcase/stories/styles/layout/layout.scss",
+              "src/showcase/stories/styles/scrollbar/scrollbar-internal.scss",
+              "src/showcase/stories/styles/typography/typo-internal.scss",
+              "src/showcase/stories/pages/home/home.scss",
+              "src/showcase/stories/pages/lean/lean.scss"
+            ],
+            "compodoc": true,
+            "compodocArgs": ["-e", "json", "-d", "src/showcase/.storybook", "--disablePrivate"],
+            "outputDir": "dist/storybook/showcase"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/showcase/**/*.ts", "src/showcase/**/*.html"],
+            "eslintConfig": "src/showcase/eslint.config.mjs"
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": "src/showcase/.storybook",
+            "browserTarget": "showcase:build",
+            "styles": [
+              "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
+              "src/showcase/stories/styles/layout/layout.scss",
+              "src/showcase/stories/styles/scrollbar/scrollbar-internal.scss",
+              "src/showcase/stories/styles/typography/typo-internal.scss",
+              "src/showcase/stories/pages/home/home.scss",
+              "src/showcase/stories/pages/lean/lean.scss"
+            ],
+            "compodoc": true,
+            "compodocArgs": ["-e", "json", "-d", "src/showcase/.storybook", "--disablePrivate"],
+            "port": 6007
           }
         }
       }

@@ -1,2 +1,2 @@
 export * from './autocomplete-grid';
-export * from '../../autocomplete/autocomplete-trigger';
+export { SbbAutocompleteTrigger } from '@sbb-esta/lyne-angular/autocomplete';

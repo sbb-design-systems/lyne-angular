@@ -1,5 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
+import type { SbbAutocompleteType } from '@sbb-esta/lyne-angular/autocomplete';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAutocompleteGridElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid.js';
 import { fromEvent, NEVER } from 'rxjs';
@@ -10,7 +11,7 @@ import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid.js';
   selector: 'sbb-autocomplete-grid',
   exportAs: 'sbbAutocompleteGrid',
 })
-export class SbbAutocompleteGrid<T = string> {
+export class SbbAutocompleteGrid<T = string> implements SbbAutocompleteType<T> {
   #element: ElementRef<SbbAutocompleteGridElement<T>> = inject(
     ElementRef<SbbAutocompleteGridElement<T>>,
   );
