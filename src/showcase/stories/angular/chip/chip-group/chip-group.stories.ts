@@ -1,5 +1,4 @@
-import { SbbChip } from '@sbb-esta/lyne-angular/chip/chip';
-import { SbbChipGroup } from '@sbb-esta/lyne-angular/chip/chip-group';
+import { SbbChip, SbbChipGroup } from '@sbb-esta/lyne-angular/chip';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
