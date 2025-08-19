@@ -7,10 +7,9 @@ import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-g
 import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 
-import { SbbAutocomplete, SbbAutocompleteTrigger } from '../../autocomplete';
-import { SbbOption } from '../../option/option';
-
 import { SbbAutocompleteGrid } from './autocomplete-grid';
+
+import { SbbAutocompleteTrigger } from '.';
 
 describe('sbb-autocomplete-grid', () => {
   describe('with string value', () => {
@@ -62,7 +61,9 @@ describe('sbb-autocomplete-grid', () => {
       expect(input.value).toEqual('value 1');
       expect(component.control.value).toEqual({ property: 'value 1', otherProp: 'test' });
 
-      const options = (fixture.nativeElement as HTMLElement).querySelectorAll('sbb-option')!;
+      const options = (fixture.nativeElement as HTMLElement).querySelectorAll(
+        'sbb-autocomplete-grid-option',
+      )!;
       options[1].click();
       fixture.detectChanges();
 
@@ -99,7 +100,9 @@ describe('sbb-autocomplete-grid', () => {
       fixture.changeDetectorRef.markForCheck();
       fixture.detectChanges();
 
-      const options = (fixture.nativeElement as HTMLElement).querySelectorAll('sbb-option')!;
+      const options = (fixture.nativeElement as HTMLElement).querySelectorAll(
+        'sbb-autocomplete-grid-option',
+      )!;
       options[1].click();
 
       fixture.detectChanges();
@@ -132,7 +135,9 @@ describe('sbb-autocomplete-grid', () => {
       autocomplete.open();
       expect(autocomplete.isOpen).toBeTrue();
 
-      const options = (fixture.nativeElement as HTMLElement).querySelectorAll('sbb-option')!;
+      const options = (fixture.nativeElement as HTMLElement).querySelectorAll(
+        'sbb-autocomplete-grid-option',
+      )!;
       options[1].click();
       fixture.detectChanges();
 
@@ -236,7 +241,7 @@ class TestComponent {
       <input id="input" [formControl]="control" [sbbAutocomplete]="auto" />
       <sbb-autocomplete-grid
         [displayWith]="displayWith"
-        #auto="sbbAutocomplete"
+        #auto="sbbAutocompleteGrid"
         (optionSelected)="optionSelected($event)"
       >
         @for (value of values; track value) {
@@ -267,14 +272,16 @@ class TestComponentWithComplexValue {
     { property: 'value 1', otherProp: 'test' },
     { property: 'value 2', otherProp: 'other test' },
   ];
-  autocomplete = viewChild.required(SbbAutocomplete);
-  options = viewChildren(SbbOption);
+  autocomplete = viewChild.required(SbbAutocompleteGrid);
+  options = viewChildren(SbbAutocompleteGridOption);
   control = new FormControl(this.values[0]);
   displayWith: ((value: { property: string; otherProperty: string }) => string) | null = (value) =>
     value ? value.property : value;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  optionSelected(_event: CustomEvent<SbbOption<{ property: string; otherProperty: string }>>) {
+  optionSelected(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _event: CustomEvent<SbbAutocompleteGridOption<{ property: string; otherProperty: string }>>,
+  ) {
     // noop;
   }
 }
