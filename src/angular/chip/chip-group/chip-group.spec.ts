@@ -207,13 +207,13 @@ export class TestComponentWithComplexValue {
     );
 
     if (foundFruit) {
-      this._addValueToControl(foundFruit);
+      this.#addValueToControl(foundFruit);
       // Clear input
       this.input().nativeElement.value = '';
     }
   }
 
-  private _addValueToControl(foundFruit: Fruit) {
+  #addValueToControl(foundFruit: Fruit) {
     this.favoriteFruits.patchValue([...this.favoriteFruits.value!, foundFruit]);
     this.favoriteFruits.markAsDirty();
   }
