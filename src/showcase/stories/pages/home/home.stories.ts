@@ -1,6 +1,5 @@
 import { SbbActionGroup } from '@sbb-esta/lyne-angular/action-group';
-import { SbbAlert } from '@sbb-esta/lyne-angular/alert/alert';
-import { SbbAlertGroup } from '@sbb-esta/lyne-angular/alert/alert-group';
+import { SbbAlert, SbbAlertGroup } from '@sbb-esta/lyne-angular/alert';
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbButtonLink } from '@sbb-esta/lyne-angular/button/button-link';
 import { SbbSecondaryButtonLink } from '@sbb-esta/lyne-angular/button/secondary-button-link';

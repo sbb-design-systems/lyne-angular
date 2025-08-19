@@ -1,5 +1,4 @@
-import { SbbAlert } from '@sbb-esta/lyne-angular/alert/alert';
-import { SbbAlertGroup } from '@sbb-esta/lyne-angular/alert/alert-group';
+import { SbbAlert, SbbAlertGroup } from '@sbb-esta/lyne-angular/alert';
 import { SbbBreadcrumb } from '@sbb-esta/lyne-angular/breadcrumb/breadcrumb';
 import { SbbBreadcrumbGroup } from '@sbb-esta/lyne-angular/breadcrumb/breadcrumb-group';
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
