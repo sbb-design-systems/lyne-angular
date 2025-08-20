@@ -5,7 +5,7 @@ import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
 
 import { SbbAutocomplete } from './autocomplete';
-import { SbbAutocompleteTrigger } from './autocomplete-trigger';
+import { SbbAutocompleteModule } from './autocomplete.module';
 
 describe('sbb-autocomplete', () => {
   describe('with string value', () => {
@@ -222,7 +222,7 @@ class TestComponent {
       }
     </sbb-autocomplete>
   </sbb-form-field>`,
-  imports: [SbbFormField, SbbAutocomplete, SbbOption, ReactiveFormsModule, SbbAutocompleteTrigger],
+  imports: [SbbFormField, SbbAutocompleteModule, SbbOption, ReactiveFormsModule],
 })
 class TestComponentWithComplexValue {
   values = [
