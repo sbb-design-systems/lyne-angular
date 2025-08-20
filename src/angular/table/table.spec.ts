@@ -7,7 +7,7 @@ import { fakeAsync, flushMicrotasks, TestBed, tick, waitForAsync } from '@angula
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SbbPaginator } from '@sbb-esta/lyne-angular/paginator/paginator';
-import { SbbTableWrapper } from '@sbb-esta/lyne-angular/table/table-wrapper';
+import { SbbTableWrapper } from '@sbb-esta/lyne-angular/table';
 import type { Observable } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';
 
