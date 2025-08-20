@@ -1,4 +1,4 @@
-import { SbbFlipCardSummary } from '@sbb-esta/lyne-angular/flip-card';
+import { SbbFlipCardSummary } from '@sbb-esta/lyne-angular/flip-card/flip-card-summary';
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';
