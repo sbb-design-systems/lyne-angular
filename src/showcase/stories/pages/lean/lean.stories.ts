@@ -17,7 +17,7 @@ import { SbbRadioButton } from '@sbb-esta/lyne-angular/radio-button/radio-button
 import { SbbRadioButtonGroup } from '@sbb-esta/lyne-angular/radio-button/radio-button-group';
 import { SbbSelect } from '@sbb-esta/lyne-angular/select';
 import { SbbSignet } from '@sbb-esta/lyne-angular/signet';
-import { SbbTableWrapper } from '@sbb-esta/lyne-angular/table';
+import { SbbTableWrapper } from '@sbb-esta/lyne-angular/table/table-wrapper';
 import type { Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 
