@@ -3,9 +3,7 @@ import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import type { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle/toggle-option.js';
 
-import { SbbToggleOption } from '../toggle-option';
-
-import { SbbToggle } from './toggle';
+import { SbbToggle, SbbToggleOption } from '..';
 
 describe('sbb-toggle', () => {
   let fixture: ComponentFixture<TestComponent>, component: TestComponent;
