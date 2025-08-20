@@ -1,4 +1,4 @@
-import { SbbChip } from '@sbb-esta/lyne-angular/chip';
+import { SbbChip } from '@sbb-esta/lyne-angular/chip/chip';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 import type { StoryContext } from 'storybook/internal/types';
