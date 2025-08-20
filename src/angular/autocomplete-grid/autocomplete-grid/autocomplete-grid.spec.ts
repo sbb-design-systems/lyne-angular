@@ -1,16 +1,15 @@
 import { Component, viewChild, viewChildren } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { SbbAutocompleteGridButton } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-button';
+import { SbbAutocompleteGridCell } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-cell';
+import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-option';
+import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 
-import {
-  SbbAutocompleteGrid,
-  SbbAutocompleteGridButton,
-  SbbAutocompleteGridCell,
-  SbbAutocompleteGridOption,
-  SbbAutocompleteGridRow,
-  SbbAutocompleteTrigger,
-} from '..';
+import { SbbAutocompleteGrid } from './autocomplete-grid';
+
+import { SbbAutocompleteTrigger } from '.';
 
 describe('sbb-autocomplete-grid', () => {
   describe('with string value', () => {

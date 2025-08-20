@@ -97,18 +97,16 @@ const generateStructure = (pkg: Package, projectPath: string) => {
       const testPath = join(directoryPath, `${moduleName}.spec.ts`);
       if (!existsSync(directoryPath)) {
         mkdirSync(directoryPath, { recursive: true });
-
-        const ngPackagePath = join(directoryPath, 'ng-package.json');
-        if (!existsSync(ngPackagePath)) {
-          const ngPackageConfig = `{\n  "lib": {\n    "entryFile": "index.ts"\n  }\n}\n`;
-          writeFileSync(ngPackagePath, ngPackageConfig, 'utf8');
-        }
-        const indexPath = join(directoryPath, 'index.ts');
-        if (!existsSync(indexPath)) {
-          writeFileSync(indexPath, `export * from './${moduleName}';\n`, 'utf8');
-        }
       }
-
+      const ngPackagePath = join(directoryPath, 'ng-package.json');
+      if (!existsSync(ngPackagePath)) {
+        const ngPackageConfig = `{\n  "lib": {\n    "entryFile": "index.ts"\n  }\n}\n`;
+        writeFileSync(ngPackagePath, ngPackageConfig, 'utf8');
+      }
+      const indexPath = join(directoryPath, 'index.ts');
+      if (!existsSync(indexPath)) {
+        writeFileSync(indexPath, `export * from './${moduleName}';\n`, 'utf8');
+      }
       if (!existsSync(modulePath)) {
         writeFileSync(modulePath, '', 'utf8');
       }

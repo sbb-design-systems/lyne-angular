@@ -1,8 +1,6 @@
-import {
-  SbbAutocompleteGridButton,
-  SbbAutocompleteGridCell,
-  SbbAutocompleteGridRow,
-} from '@sbb-esta/lyne-angular/autocomplete-grid';
+import { SbbAutocompleteGridButton } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-button';
+import { SbbAutocompleteGridCell } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-cell';
+import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';

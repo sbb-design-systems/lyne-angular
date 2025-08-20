@@ -1,4 +1,5 @@
-import { SbbAlert, SbbAlertGroup } from '@sbb-esta/lyne-angular/alert';
+import { SbbAlert } from '@sbb-esta/lyne-angular/alert/alert';
+import { SbbAlertGroup } from '@sbb-esta/lyne-angular/alert/alert-group';
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';

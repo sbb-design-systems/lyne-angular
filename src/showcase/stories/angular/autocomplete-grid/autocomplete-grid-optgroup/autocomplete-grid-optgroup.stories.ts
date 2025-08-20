@@ -1,11 +1,9 @@
-import {
-  SbbAutocompleteGrid,
-  SbbAutocompleteGridButton,
-  SbbAutocompleteGridCell,
-  SbbAutocompleteGridOptgroup,
-  SbbAutocompleteGridOption,
-  SbbAutocompleteGridRow,
-} from '@sbb-esta/lyne-angular/autocomplete-grid';
+import { SbbAutocompleteGrid } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid';
+import { SbbAutocompleteGridButton } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-button';
+import { SbbAutocompleteGridCell } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-cell';
+import { SbbAutocompleteGridOptgroup } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-optgroup';
+import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-option';
+import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
