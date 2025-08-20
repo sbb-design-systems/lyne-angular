@@ -1,4 +1,5 @@
-import { SbbFormField, SbbFormFieldClear } from '@sbb-esta/lyne-angular/form-field';
+import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
+import { SbbFormFieldClear } from '@sbb-esta/lyne-angular/form-field/form-field-clear';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';

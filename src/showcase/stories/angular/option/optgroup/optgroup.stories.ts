@@ -1,5 +1,5 @@
 import { SbbAutocomplete } from '@sbb-esta/lyne-angular/autocomplete';
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
+import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { SbbOptGroup } from '@sbb-esta/lyne-angular/option/optgroup';
 import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
 import { SbbSelect } from '@sbb-esta/lyne-angular/select';

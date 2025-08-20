@@ -4,7 +4,7 @@ import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-butt
 import { SbbCardBadge } from '@sbb-esta/lyne-angular/card/card-badge';
 import { SbbCheckboxPanel } from '@sbb-esta/lyne-angular/checkbox/checkbox-panel';
 import { SbbContainer } from '@sbb-esta/lyne-angular/container/container';
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
+import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
 import { SbbHeader } from '@sbb-esta/lyne-angular/header/header';
 import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header/header-button';
 import { SbbHeaderLink } from '@sbb-esta/lyne-angular/header/header-link';
