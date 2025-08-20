@@ -1,5 +1,5 @@
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
-import { SbbPopover } from '@sbb-esta/lyne-angular/popover/popover';
+import { SbbPopover } from '@sbb-esta/lyne-angular/popover';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';

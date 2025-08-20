@@ -1,4 +1,4 @@
-import { SbbSeatReservationArea } from '@sbb-esta/lyne-angular-experimental/seat-reservation/seat-reservation-area';
+import { SbbSeatReservationArea } from '@sbb-esta/lyne-angular-experimental/seat-reservation';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 

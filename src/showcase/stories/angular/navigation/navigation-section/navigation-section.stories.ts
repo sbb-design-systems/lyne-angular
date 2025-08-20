@@ -1,8 +1,10 @@
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
-import { SbbNavigation } from '@sbb-esta/lyne-angular/navigation/navigation';
-import { SbbNavigationList } from '@sbb-esta/lyne-angular/navigation/navigation-list';
-import { SbbNavigationMarker } from '@sbb-esta/lyne-angular/navigation/navigation-marker';
-import { SbbNavigationSection } from '@sbb-esta/lyne-angular/navigation/navigation-section';
+import {
+  SbbNavigation,
+  SbbNavigationList,
+  SbbNavigationMarker,
+  SbbNavigationSection,
+} from '@sbb-esta/lyne-angular/navigation';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';

@@ -1,5 +1,4 @@
-import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
-import { SbbCardButton } from '@sbb-esta/lyne-angular/card/card-button';
+import { SbbCard, SbbCardButton } from '@sbb-esta/lyne-angular/card';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';

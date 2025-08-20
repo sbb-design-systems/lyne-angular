@@ -1,5 +1,4 @@
-import { SbbTag } from '@sbb-esta/lyne-angular/tag/tag';
-import { SbbTagGroup } from '@sbb-esta/lyne-angular/tag/tag-group';
+import { SbbTag, SbbTagGroup } from '@sbb-esta/lyne-angular/tag';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import type { ArgTypes, InputType } from 'storybook/internal/types';

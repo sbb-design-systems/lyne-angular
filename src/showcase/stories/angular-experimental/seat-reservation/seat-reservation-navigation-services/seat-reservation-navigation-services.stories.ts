@@ -1,4 +1,4 @@
-import { SbbSeatReservationNavigationServices } from '@sbb-esta/lyne-angular-experimental/seat-reservation/seat-reservation-navigation-services';
+import { SbbSeatReservationNavigationServices } from '@sbb-esta/lyne-angular-experimental/seat-reservation';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 

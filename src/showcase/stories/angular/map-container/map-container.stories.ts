@@ -1,7 +1,5 @@
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
-import { SbbFormFieldClear } from '@sbb-esta/lyne-angular/form-field/form-field-clear';
-import { SbbHeader } from '@sbb-esta/lyne-angular/header/header';
-import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header/header-button';
+import { SbbFormField, SbbFormFieldClear } from '@sbb-esta/lyne-angular/form-field';
+import { SbbHeader, SbbHeaderButton } from '@sbb-esta/lyne-angular/header';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
 import { SbbMapContainer } from '@sbb-esta/lyne-angular/map-container';

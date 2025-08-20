@@ -1,4 +1,4 @@
-import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header/header-button';
+import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import type { Args, Meta, StoryObj } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';

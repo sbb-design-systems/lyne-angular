@@ -1,14 +1,15 @@
 import { SbbChipLabel } from '@sbb-esta/lyne-angular/chip-label';
-import { SbbHeader } from '@sbb-esta/lyne-angular/header/header';
-import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header/header-button';
+import { SbbHeader, SbbHeaderButton } from '@sbb-esta/lyne-angular/header';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbLinkList } from '@sbb-esta/lyne-angular/link-list/link-list';
 import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
-import { SbbSidebar } from '@sbb-esta/lyne-angular/sidebar/sidebar';
-import { SbbSidebarCloseButton } from '@sbb-esta/lyne-angular/sidebar/sidebar-close-button';
-import { SbbSidebarContainer } from '@sbb-esta/lyne-angular/sidebar/sidebar-container';
-import { SbbSidebarContent } from '@sbb-esta/lyne-angular/sidebar/sidebar-content';
-import { SbbSidebarTitle } from '@sbb-esta/lyne-angular/sidebar/sidebar-title';
+import {
+  SbbSidebar,
+  SbbSidebarCloseButton,
+  SbbSidebarContainer,
+  SbbSidebarContent,
+  SbbSidebarTitle,
+} from '@sbb-esta/lyne-angular/sidebar';
 import type { SbbSidebarElement } from '@sbb-esta/lyne-elements/sidebar/sidebar.js';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
