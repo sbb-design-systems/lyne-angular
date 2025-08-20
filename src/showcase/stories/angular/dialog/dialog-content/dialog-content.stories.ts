@@ -1,4 +1,4 @@
-import { SbbDialogContent } from '@sbb-esta/lyne-angular/dialog';
+import { SbbDialogContent } from '@sbb-esta/lyne-angular/dialog/dialog-content';
 import type { Meta } from '@storybook/angular';
 
 const meta: Meta = {
