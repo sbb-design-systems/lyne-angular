@@ -1,8 +1,9 @@
 import { Component, ElementRef, viewChildren } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { SbbBreadcrumb } from '@sbb-esta/lyne-angular/breadcrumb/breadcrumb';
 import type { SbbBreadcrumbElement } from '@sbb-esta/lyne-elements/breadcrumb/breadcrumb.js';
 
-import { SbbBreadcrumbGroup, SbbBreadcrumb } from '..';
+import { SbbBreadcrumbGroup } from './breadcrumb-group';
 
 describe('sbb-breadcrumb-group', () => {
   let fixture: ComponentFixture<TestComponent>, component: TestComponent;

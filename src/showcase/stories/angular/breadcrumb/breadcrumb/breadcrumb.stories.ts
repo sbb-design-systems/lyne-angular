@@ -1,4 +1,4 @@
-import { SbbBreadcrumb } from '@sbb-esta/lyne-angular/breadcrumb';
+import { SbbBreadcrumb } from '@sbb-esta/lyne-angular/breadcrumb/breadcrumb';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
