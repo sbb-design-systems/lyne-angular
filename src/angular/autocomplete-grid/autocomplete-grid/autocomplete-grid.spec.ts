@@ -3,14 +3,7 @@ import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 
-import {
-  SbbAutocompleteGrid,
-  SbbAutocompleteGridButton,
-  SbbAutocompleteGridCell,
-  SbbAutocompleteGridOption,
-  SbbAutocompleteGridRow,
-  SbbAutocompleteTrigger,
-} from '..';
+import { SbbAutocompleteGrid, SbbAutocompleteGridModule, SbbAutocompleteGridOption } from '..';
 
 describe('sbb-autocomplete-grid', () => {
   describe('with string value', () => {
@@ -220,15 +213,7 @@ describe('sbb-autocomplete-grid', () => {
       </sbb-autocomplete-grid-row>
     </sbb-autocomplete-grid>
   </sbb-form-field>`,
-  imports: [
-    SbbFormField,
-    SbbAutocompleteGrid,
-    SbbAutocompleteGridRow,
-    SbbAutocompleteGridOption,
-    SbbAutocompleteGridCell,
-    SbbAutocompleteGridButton,
-    ReactiveFormsModule,
-  ],
+  imports: [SbbFormField, SbbAutocompleteGridModule, ReactiveFormsModule],
 })
 class TestComponent {
   autocomplete = viewChild.required(SbbAutocompleteGrid);
@@ -258,15 +243,7 @@ class TestComponent {
       </sbb-autocomplete-grid>
     </sbb-form-field>
   `,
-  imports: [
-    SbbFormField,
-    SbbAutocompleteGrid,
-    SbbAutocompleteGridOption,
-    ReactiveFormsModule,
-    SbbAutocompleteTrigger,
-    SbbAutocompleteGridRow,
-    SbbAutocompleteGridCell,
-  ],
+  imports: [SbbFormField, ReactiveFormsModule, SbbAutocompleteGridModule],
 })
 class TestComponentWithComplexValue {
   values = [

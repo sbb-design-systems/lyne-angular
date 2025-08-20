@@ -4,9 +4,7 @@ import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import type { SbbSidebarContainerElement } from '@sbb-esta/lyne-elements/sidebar/sidebar-container.js';
 import type { SbbSidebarElement } from '@sbb-esta/lyne-elements/sidebar/sidebar.js';
 
-import { SbbSidebarContainer, SbbSidebarContent } from '..';
-
-import { SbbSidebar } from './sidebar';
+import { SbbSidebarModule } from '..';
 
 describe('sbb-sidebar', () => {
   let containerElement: SbbSidebarContainerElement, sidebarElement: SbbSidebarElement;
@@ -62,7 +60,7 @@ describe('sbb-sidebar', () => {
       <sbb-sidebar-content (transitionend)="transitionend()"></sbb-sidebar-content>
     </sbb-sidebar-container>
   </div>`,
-  imports: [SbbSidebar, SbbSidebarContainer, SbbSidebarContent],
+  imports: [SbbSidebarModule],
 })
 class TestComponent {
   transitionend() {
@@ -75,6 +73,6 @@ class TestComponent {
     <sbb-sidebar [opened]="true"></sbb-sidebar>
     <sbb-sidebar-content></sbb-sidebar-content>
   </sbb-sidebar-container>`,
-  imports: [SbbSidebar, SbbSidebarContainer, SbbSidebarContent],
+  imports: [SbbSidebarModule],
 })
 class TestComponentWithDisabledAnimation {}
