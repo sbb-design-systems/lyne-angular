@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write # Required for OIDC
   packages: write
   pull-requests: write
 
@@ -35,6 +36,8 @@ jobs:
         env:
           VERSION: ${{ steps.release.outputs.version }}
 
+      - name: Update npm
+        run: npm install --global npm@latest
       - name: Get token
         id: get_token
         uses: actions/create-github-app-token@v2
@@ -65,14 +68,14 @@ jobs:
 
       - name: 'Release: Publish @sbb-esta/lyne-angular'
         if: ${{ steps.release.outputs.release_created }}
-        run: yarn publish dist/angular --tag ${{ steps.npm_tag.outputs.npm_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd dist/angular
+          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
       - name: 'Release: Publish @sbb-esta/lyne-angular-experimental'
         if: ${{ steps.release.outputs.release_created }}
-        run: yarn publish dist/angular-experimental --tag ${{ steps.npm_tag.outputs.npm_tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          cd dist/angular-experimental
+          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
 
       - uses: ./.github/actions/setup-mint
       - name: 'Container: Build and publish release image'
