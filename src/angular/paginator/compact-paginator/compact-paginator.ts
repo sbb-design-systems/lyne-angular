@@ -85,6 +85,36 @@ export class SbbCompactPaginator implements OnInit {
     return this.#element.nativeElement.disabled;
   }
 
+  @Input()
+  public set accessibilityPageLabel(value: string) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.accessibilityPageLabel = value),
+    );
+  }
+  public get accessibilityPageLabel(): string {
+    return this.#element.nativeElement.accessibilityPageLabel;
+  }
+
+  @Input()
+  public set accessibilityPreviousPageLabel(value: string) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.accessibilityPreviousPageLabel = value),
+    );
+  }
+  public get accessibilityPreviousPageLabel(): string {
+    return this.#element.nativeElement.accessibilityPreviousPageLabel;
+  }
+
+  @Input()
+  public set accessibilityNextPageLabel(value: string) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.accessibilityNextPageLabel = value),
+    );
+  }
+  public get accessibilityNextPageLabel(): string {
+    return this.#element.nativeElement.accessibilityNextPageLabel;
+  }
+
   /** Advances to the next page if it exists. */
   nextPage(): void {
     this.#element.nativeElement.nextPage();
