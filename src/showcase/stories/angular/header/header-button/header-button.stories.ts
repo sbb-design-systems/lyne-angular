@@ -1,4 +1,4 @@
-import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header/header-button';
+import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';

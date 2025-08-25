@@ -1,12 +1,13 @@
 import { SbbChipLabel } from '@sbb-esta/lyne-angular/chip-label';
-import { SbbHeader } from '@sbb-esta/lyne-angular/header/header';
-import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header/header-button';
+import { SbbHeader, SbbHeaderButton } from '@sbb-esta/lyne-angular/header';
 import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
-import { SbbIconSidebar } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar';
-import { SbbIconSidebarButton } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-button';
-import { SbbIconSidebarContainer } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-container';
-import { SbbIconSidebarContent } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-content';
-import { SbbIconSidebarLink } from '@sbb-esta/lyne-angular/sidebar/icon-sidebar-link';
+import {
+  SbbIconSidebar,
+  SbbIconSidebarButton,
+  SbbIconSidebarContainer,
+  SbbIconSidebarContent,
+  SbbIconSidebarLink,
+} from '@sbb-esta/lyne-angular/sidebar';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, ArgTypes, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';

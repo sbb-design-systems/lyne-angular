@@ -1,23 +1,20 @@
 import { SbbActionGroup } from '@sbb-esta/lyne-angular/action-group';
-import { SbbAlert } from '@sbb-esta/lyne-angular/alert/alert';
-import { SbbAlertGroup } from '@sbb-esta/lyne-angular/alert/alert-group';
+import { SbbAlert, SbbAlertGroup } from '@sbb-esta/lyne-angular/alert';
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbButtonLink } from '@sbb-esta/lyne-angular/button/button-link';
 import { SbbSecondaryButtonLink } from '@sbb-esta/lyne-angular/button/secondary-button-link';
 import { SbbSecondaryButtonStatic } from '@sbb-esta/lyne-angular/button/secondary-button-static';
-import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
-import { SbbCardBadge } from '@sbb-esta/lyne-angular/card/card-badge';
-import { SbbCardLink } from '@sbb-esta/lyne-angular/card/card-link';
+import { SbbCard, SbbCardBadge, SbbCardLink } from '@sbb-esta/lyne-angular/card';
 import { SbbClock } from '@sbb-esta/lyne-angular/clock';
-import { SbbDialog } from '@sbb-esta/lyne-angular/dialog/dialog';
-import { SbbDialogActions } from '@sbb-esta/lyne-angular/dialog/dialog-actions';
-import { SbbDialogContent } from '@sbb-esta/lyne-angular/dialog/dialog-content';
-import { SbbDialogTitle } from '@sbb-esta/lyne-angular/dialog/dialog-title';
+import {
+  SbbDialog,
+  SbbDialogActions,
+  SbbDialogContent,
+  SbbDialogTitle,
+} from '@sbb-esta/lyne-angular/dialog';
 import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
 import { SbbFooter } from '@sbb-esta/lyne-angular/footer';
-import { SbbHeader } from '@sbb-esta/lyne-angular/header/header';
-import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header/header-button';
-import { SbbHeaderLink } from '@sbb-esta/lyne-angular/header/header-link';
+import { SbbHeader, SbbHeaderButton, SbbHeaderLink } from '@sbb-esta/lyne-angular/header';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { SbbJourneyHeader } from '@sbb-esta/lyne-angular/journey-header';
@@ -25,15 +22,15 @@ import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { SbbLinkList } from '@sbb-esta/lyne-angular/link-list/link-list';
 import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
-import { SbbMenu } from '@sbb-esta/lyne-angular/menu/menu';
-import { SbbMenuButton } from '@sbb-esta/lyne-angular/menu/menu-button';
-import { SbbMenuLink } from '@sbb-esta/lyne-angular/menu/menu-link';
-import { SbbNavigation } from '@sbb-esta/lyne-angular/navigation/navigation';
-import { SbbNavigationButton } from '@sbb-esta/lyne-angular/navigation/navigation-button';
-import { SbbNavigationLink } from '@sbb-esta/lyne-angular/navigation/navigation-link';
-import { SbbNavigationList } from '@sbb-esta/lyne-angular/navigation/navigation-list';
-import { SbbNavigationMarker } from '@sbb-esta/lyne-angular/navigation/navigation-marker';
-import { SbbNavigationSection } from '@sbb-esta/lyne-angular/navigation/navigation-section';
+import { SbbMenu, SbbMenuButton, SbbMenuLink } from '@sbb-esta/lyne-angular/menu';
+import {
+  SbbNavigation,
+  SbbNavigationButton,
+  SbbNavigationLink,
+  SbbNavigationList,
+  SbbNavigationMarker,
+  SbbNavigationSection,
+} from '@sbb-esta/lyne-angular/navigation';
 import { SbbSkiplinkList } from '@sbb-esta/lyne-angular/skiplink-list';
 import { SbbTeaserHero } from '@sbb-esta/lyne-angular/teaser-hero';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';

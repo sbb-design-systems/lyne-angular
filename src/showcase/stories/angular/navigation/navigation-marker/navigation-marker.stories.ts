@@ -1,5 +1,4 @@
-import { SbbNavigationButton } from '@sbb-esta/lyne-angular/navigation/navigation-button';
-import { SbbNavigationMarker } from '@sbb-esta/lyne-angular/navigation/navigation-marker';
+import { SbbNavigationButton, SbbNavigationMarker } from '@sbb-esta/lyne-angular/navigation';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';

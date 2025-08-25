@@ -1,10 +1,12 @@
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
-import { SbbDialog } from '@sbb-esta/lyne-angular/dialog/dialog';
-import { SbbDialogActions } from '@sbb-esta/lyne-angular/dialog/dialog-actions';
-import { SbbDialogCloseButton } from '@sbb-esta/lyne-angular/dialog/dialog-close-button';
-import { SbbDialogContent } from '@sbb-esta/lyne-angular/dialog/dialog-content';
-import { SbbDialogTitle } from '@sbb-esta/lyne-angular/dialog/dialog-title';
+import {
+  SbbDialog,
+  SbbDialogActions,
+  SbbDialogCloseButton,
+  SbbDialogContent,
+  SbbDialogTitle,
+} from '@sbb-esta/lyne-angular/dialog';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';

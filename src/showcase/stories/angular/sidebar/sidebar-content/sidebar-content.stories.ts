@@ -1,4 +1,4 @@
-import { SbbSidebarContent } from '@sbb-esta/lyne-angular/sidebar/sidebar-content';
+import { SbbSidebarContent } from '@sbb-esta/lyne-angular/sidebar';
 import type { Meta } from '@storybook/angular';
 
 const meta: Meta = {

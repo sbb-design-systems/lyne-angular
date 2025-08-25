@@ -1,4 +1,4 @@
-import { SbbNavigationButton } from '@sbb-esta/lyne-angular/navigation/navigation-button';
+import { SbbNavigationButton } from '@sbb-esta/lyne-angular/navigation';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 import type { ArgTypes, InputType } from 'storybook/internal/types';

@@ -1,4 +1,4 @@
-import { SbbCardBadge } from '@sbb-esta/lyne-angular/card/card-badge';
+import { SbbCardBadge } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxPanel } from '@sbb-esta/lyne-angular/checkbox/checkbox-panel';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import type { Args, Meta } from '@storybook/angular';

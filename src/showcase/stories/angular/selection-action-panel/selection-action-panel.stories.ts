@@ -1,5 +1,5 @@
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
-import { SbbCardBadge } from '@sbb-esta/lyne-angular/card/card-badge';
+import { SbbCardBadge } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxGroup } from '@sbb-esta/lyne-angular/checkbox/checkbox-group';
 import { SbbCheckboxPanel } from '@sbb-esta/lyne-angular/checkbox/checkbox-panel';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';

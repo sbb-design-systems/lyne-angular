@@ -1,9 +1,7 @@
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
-import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
-import { SbbStep } from '@sbb-esta/lyne-angular/stepper/step';
-import { SbbStepLabel } from '@sbb-esta/lyne-angular/stepper/step-label';
-import { SbbStepper } from '@sbb-esta/lyne-angular/stepper/stepper';
+import { SbbCard } from '@sbb-esta/lyne-angular/card';
+import { SbbStep, SbbStepLabel, SbbStepper } from '@sbb-esta/lyne-angular/stepper';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import type { ArgTypes, InputType } from 'storybook/internal/types';

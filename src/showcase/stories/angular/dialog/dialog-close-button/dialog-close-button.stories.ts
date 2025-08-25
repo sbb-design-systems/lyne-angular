@@ -1,4 +1,4 @@
-import { SbbDialogCloseButton } from '@sbb-esta/lyne-angular/dialog/dialog-close-button';
+import { SbbDialogCloseButton } from '@sbb-esta/lyne-angular/dialog';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';

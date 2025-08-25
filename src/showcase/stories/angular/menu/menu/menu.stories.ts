@@ -1,9 +1,7 @@
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
-import { SbbMenu } from '@sbb-esta/lyne-angular/menu/menu';
-import { SbbMenuButton } from '@sbb-esta/lyne-angular/menu/menu-button';
-import { SbbMenuLink } from '@sbb-esta/lyne-angular/menu/menu-link';
+import { SbbMenu, SbbMenuButton, SbbMenuLink } from '@sbb-esta/lyne-angular/menu';
 import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';

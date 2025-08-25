@@ -2,10 +2,12 @@ import { Component, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SbbDateInput } from '@sbb-esta/lyne-angular/date-input';
-import { SbbDatepickerNextDay } from '@sbb-esta/lyne-angular/datepicker/datepicker-next-day';
-import { SbbDatepickerPreviousDay } from '@sbb-esta/lyne-angular/datepicker/datepicker-previous-day';
-import { SbbDatepickerToggle } from '@sbb-esta/lyne-angular/datepicker/datepicker-toggle';
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
+import {
+  SbbDatepickerNextDay,
+  SbbDatepickerPreviousDay,
+  SbbDatepickerToggle,
+} from '@sbb-esta/lyne-angular/datepicker';
+import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 

@@ -1,6 +1,8 @@
-import { SbbFlipCard } from '@sbb-esta/lyne-angular/flip-card/flip-card';
-import { SbbFlipCardDetails } from '@sbb-esta/lyne-angular/flip-card/flip-card-details';
-import { SbbFlipCardSummary } from '@sbb-esta/lyne-angular/flip-card/flip-card-summary';
+import {
+  SbbFlipCard,
+  SbbFlipCardDetails,
+  SbbFlipCardSummary,
+} from '@sbb-esta/lyne-angular/flip-card';
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';

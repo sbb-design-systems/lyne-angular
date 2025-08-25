@@ -1,4 +1,4 @@
-import { SbbDialogTitle } from '@sbb-esta/lyne-angular/dialog/dialog-title';
+import { SbbDialogTitle } from '@sbb-esta/lyne-angular/dialog';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';

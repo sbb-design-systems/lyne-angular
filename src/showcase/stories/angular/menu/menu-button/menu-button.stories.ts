@@ -1,4 +1,4 @@
-import { SbbMenuButton } from '@sbb-esta/lyne-angular/menu/menu-button';
+import { SbbMenuButton } from '@sbb-esta/lyne-angular/menu';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';

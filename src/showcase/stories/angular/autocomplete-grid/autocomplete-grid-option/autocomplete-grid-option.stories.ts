@@ -1,7 +1,9 @@
-import { SbbAutocompleteGrid } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid';
-import { SbbAutocompleteGridOption } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-option';
-import { SbbAutocompleteGridRow } from '@sbb-esta/lyne-angular/autocomplete-grid/autocomplete-grid-row';
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
+import {
+  SbbAutocompleteGrid,
+  SbbAutocompleteGridOption,
+  SbbAutocompleteGridRow,
+} from '@sbb-esta/lyne-angular/autocomplete-grid';
+import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import type { InputType, StoryContext } from 'storybook/internal/types';

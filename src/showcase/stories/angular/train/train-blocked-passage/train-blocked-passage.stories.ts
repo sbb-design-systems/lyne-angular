@@ -1,4 +1,4 @@
-import { SbbTrainBlockedPassage } from '@sbb-esta/lyne-angular/train/train-blocked-passage';
+import { SbbTrainBlockedPassage } from '@sbb-esta/lyne-angular/train';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 

@@ -1,5 +1,5 @@
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
-import { SbbCard } from '@sbb-esta/lyne-angular/card/card';
+import { SbbCard } from '@sbb-esta/lyne-angular/card';
 import { SbbContainer } from '@sbb-esta/lyne-angular/container/container';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';

@@ -1,4 +1,4 @@
-import { SbbTrainWagon } from '@sbb-esta/lyne-angular/train/train-wagon';
+import { SbbTrainWagon } from '@sbb-esta/lyne-angular/train';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 import type { ArgTypes, InputType } from 'storybook/internal/types';

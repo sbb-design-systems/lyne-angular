@@ -1,9 +1,8 @@
 import { Component, ElementRef, viewChildren } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { SbbBreadcrumb } from '@sbb-esta/lyne-angular/breadcrumb/breadcrumb';
 import type { SbbBreadcrumbElement } from '@sbb-esta/lyne-elements/breadcrumb/breadcrumb.js';
 
-import { SbbBreadcrumbGroup } from './breadcrumb-group';
+import { SbbBreadcrumbModule } from '..';
 
 describe('sbb-breadcrumb-group', () => {
   let fixture: ComponentFixture<TestComponent>, component: TestComponent;
@@ -28,7 +27,7 @@ describe('sbb-breadcrumb-group', () => {
     <sbb-breadcrumb href="https://example.com/one">One</sbb-breadcrumb>
     <sbb-breadcrumb href="https://example.com/two">Two</sbb-breadcrumb>
   </sbb-breadcrumb-group>`,
-  imports: [SbbBreadcrumbGroup, SbbBreadcrumb],
+  imports: [SbbBreadcrumbModule],
 })
 class TestComponent {
   breadcrumbs = viewChildren<ElementRef<SbbBreadcrumbElement>>(ElementRef<SbbBreadcrumbElement>);

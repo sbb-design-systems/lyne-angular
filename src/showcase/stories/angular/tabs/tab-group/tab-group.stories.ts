@@ -1,7 +1,5 @@
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
-import { SbbTab } from '@sbb-esta/lyne-angular/tabs/tab';
-import { SbbTabGroup } from '@sbb-esta/lyne-angular/tabs/tab-group';
-import { SbbTabLabel } from '@sbb-esta/lyne-angular/tabs/tab-label';
+import { SbbTab, SbbTabGroup, SbbTabLabel } from '@sbb-esta/lyne-angular/tabs';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';

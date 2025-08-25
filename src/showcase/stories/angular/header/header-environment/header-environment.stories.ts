@@ -1,10 +1,11 @@
-import { SbbHeader } from '@sbb-esta/lyne-angular/header/header';
-import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header/header-button';
-import { SbbHeaderEnvironment } from '@sbb-esta/lyne-angular/header/header-environment';
-import { SbbHeaderLink } from '@sbb-esta/lyne-angular/header/header-link';
+import {
+  SbbHeader,
+  SbbHeaderButton,
+  SbbHeaderEnvironment,
+  SbbHeaderLink,
+} from '@sbb-esta/lyne-angular/header';
 import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
-import { SbbMenu } from '@sbb-esta/lyne-angular/menu/menu';
-import { SbbMenuButton } from '@sbb-esta/lyne-angular/menu/menu-button';
+import { SbbMenu, SbbMenuButton } from '@sbb-esta/lyne-angular/menu';
 import { SbbSignet } from '@sbb-esta/lyne-angular/signet';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
