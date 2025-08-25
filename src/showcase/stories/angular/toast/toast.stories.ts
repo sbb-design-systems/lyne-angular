@@ -9,6 +9,8 @@ import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
 import type { ArgTypes, InputType } from 'storybook/internal/types';
 
+import readme from './readme.md';
+
 const openToast = (event: Event) => {
   ((event.currentTarget as SbbButtonElement).parentElement!.querySelector(
     'sbb-toast',
@@ -81,6 +83,11 @@ const meta: Meta = {
   component: SbbToast,
   parameters: {
     actions: { handles: ['click'] },
+    docs: {
+      description: {
+        component: readme,
+      },
+    },
   },
   argTypes: {
     ...argTypes,
