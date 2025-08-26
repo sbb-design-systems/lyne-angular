@@ -167,7 +167,7 @@ function writeAngularModule(
 
   const content = `${importLines.join('\n')}
 
-export const Sbb${moduleName}Module = [${classNames.join(', ')}];
+export const Sbb${moduleName}Module = [${classNames.join(', ')}] as const;
 `;
   writeFileSync(join(moduleRoot, `${moduleFileName}.ts`), content.trim() + '\n');
 }

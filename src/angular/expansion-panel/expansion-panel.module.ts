@@ -6,4 +6,4 @@ export const SbbExpansionPanelModule = [
   SbbExpansionPanel,
   SbbExpansionPanelContent,
   SbbExpansionPanelHeader,
-];
+] as const;

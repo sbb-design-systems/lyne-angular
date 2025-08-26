@@ -12,4 +12,4 @@ export const SbbNavigationModule = [
   SbbNavigationList,
   SbbNavigationMarker,
   SbbNavigationSection,
-];
+] as const;

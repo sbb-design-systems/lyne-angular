@@ -14,4 +14,4 @@ export const SbbSeatReservationModule = [
   SbbSeatReservationNavigationServices,
   SbbSeatReservationPlaceControl,
   SbbSeatReservationScoped,
-];
+] as const;

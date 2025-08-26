@@ -51,4 +51,4 @@ export const SbbTableModule = [
   // Sort
   SbbSort,
   SbbSortHeader,
-];
+] as const;

@@ -15,4 +15,4 @@ export const SbbAutocompleteGridModule = [
   SbbAutocompleteGridOptgroup,
   SbbAutocompleteGridOption,
   SbbAutocompleteGridRow,
-];
+] as const;

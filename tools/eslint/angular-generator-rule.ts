@@ -165,7 +165,7 @@ const generateStructure = (pkg: Package, projectPath: string) => {
             }
 
             // Read the existing module array and alphabetically add the new class
-            const exportedModulesRegex = /export const (Sbb\w+Module) = \[(.*?)\];/s;
+            const exportedModulesRegex = /export const (Sbb\w+Module) = \[(.*?)\] as const;/s;
             const exportedDeclarationsMatch = angularModuleContent.match(exportedModulesRegex);
 
             if (exportedDeclarationsMatch) {
@@ -180,7 +180,7 @@ const generateStructure = (pkg: Package, projectPath: string) => {
                 exportedDeclarations.sort();
                 angularModuleContent = angularModuleContent.replace(
                   exportedModulesRegex,
-                  `export const ${exportModuleName} = [\n  ${exportedDeclarations.join(',\n  ')},\n];\n`,
+                  `export const ${exportModuleName} = [\n  ${exportedDeclarations.join(',\n  ')},\n] as const;\n`,
                 );
               }
             }

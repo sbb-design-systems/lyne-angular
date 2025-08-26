@@ -10,4 +10,4 @@ export const SbbDialogModule = [
   SbbDialogCloseButton,
   SbbDialogContent,
   SbbDialogTitle,
-];
+] as const;
