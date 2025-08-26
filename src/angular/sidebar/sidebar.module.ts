@@ -20,4 +20,4 @@ export const SbbSidebarModule = [
   SbbSidebarContainer,
   SbbSidebarContent,
   SbbSidebarTitle,
-];
+] as const;

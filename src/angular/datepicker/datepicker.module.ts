@@ -8,4 +8,4 @@ export const SbbDatepickerModule = [
   SbbDatepickerNextDay,
   SbbDatepickerPreviousDay,
   SbbDatepickerToggle,
-];
+] as const;

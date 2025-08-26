@@ -3,4 +3,9 @@ import { SbbTrainBlockedPassage } from './train-blocked-passage/train-blocked-pa
 import { SbbTrainFormation } from './train-formation/train-formation';
 import { SbbTrainWagon } from './train-wagon/train-wagon';
 
-export const SbbTrainModule = [SbbTrain, SbbTrainBlockedPassage, SbbTrainFormation, SbbTrainWagon];
+export const SbbTrainModule = [
+  SbbTrain,
+  SbbTrainBlockedPassage,
+  SbbTrainFormation,
+  SbbTrainWagon,
+] as const;
