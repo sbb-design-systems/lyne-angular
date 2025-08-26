@@ -1,5 +1,40 @@
 # Changelog
 
+## [20.0.0-rc.3](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.2...v20.0.0-rc.3) (2025-08-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* The components of the following modules have received a group export while the individual exports were removed. Additionally, there is a module symbol (e.g. SbbAutocompleteModule) which can be imported in order to import all components at once. Migrated modules: 'alert', 'autocomplete-grid', 'breadcrumb', 'card', 'chip', 'datepicker', 'dialog', 'expansion-panel', 'flip-card', 'form-field', 'header', 'menu', 'navigation', 'option', 'popover', 'stepper', 'sidebar', 'tabs', 'tag', 'toggle', 'train', 'seat-reservation'.
+
+### Features
+
+* **sbb-autocomplete-grid:** enable complex values ([f3fdffa](https://github.com/sbb-design-systems/lyne-angular/commit/f3fdffa32996d59ee0c21f85588921803f6362ce))
+* **sbb-autocomplete-grid:** re-export SbbAutocompleteTrigger directive ([#172](https://github.com/sbb-design-systems/lyne-angular/issues/172)) ([c490268](https://github.com/sbb-design-systems/lyne-angular/commit/c49026868a3745760160f4d60ecd187cbf310e0a))
+
+
+### Bug Fixes
+
+* avoid animations during component initialization ([#166](https://github.com/sbb-design-systems/lyne-angular/issues/166)) ([bc08c88](https://github.com/sbb-design-systems/lyne-angular/commit/bc08c88e3fb7b1fb278118c344165b973be18814)), closes [#163](https://github.com/sbb-design-systems/lyne-angular/issues/163)
+* **deps:** update angular ([c393010](https://github.com/sbb-design-systems/lyne-angular/commit/c3930107f1e83b3e3bd71467f260bafce8042b33))
+* **deps:** update angular to v20.1.7 ([55de218](https://github.com/sbb-design-systems/lyne-angular/commit/55de218249ffe13054dfe6c101b3e58622f8090e))
+* **deps:** update angular to v20.2.0 ([36319f7](https://github.com/sbb-design-systems/lyne-angular/commit/36319f7573ce2c9c83ffc9940383f9c713c07f00))
+* **deps:** update angular to v20.2.1 ([119d747](https://github.com/sbb-design-systems/lyne-angular/commit/119d747a555d2ed991cfe6dfab6b5c9dd2b2bed3))
+* **deps:** update dependency @angular/cdk to v20.1.6 ([69b5b79](https://github.com/sbb-design-systems/lyne-angular/commit/69b5b79d7cf4c4a6e7be3978a8d1b3f9758bc167))
+* **deps:** update dependency @sbb-esta/lyne-design-tokens to v1.6.1 ([#164](https://github.com/sbb-design-systems/lyne-angular/issues/164)) ([60277ea](https://github.com/sbb-design-systems/lyne-angular/commit/60277ea3d665602f92f122f9e34cf344712ae30d))
+* **deps:** update esta to v3.3.2 ([#170](https://github.com/sbb-design-systems/lyne-angular/issues/170)) ([e65e73d](https://github.com/sbb-design-systems/lyne-angular/commit/e65e73d2495df4d36ade63162d21789a0f2a4bef))
+* **deps:** update esta to v3.4.0 ([#174](https://github.com/sbb-design-systems/lyne-angular/issues/174)) ([eab34a3](https://github.com/sbb-design-systems/lyne-angular/commit/eab34a35fd3f69553d0b0f605c61b34a7a05491f))
+
+
+### Documentation
+
+* **sbb-autocomplete:** enhance displayWith documentation ([#169](https://github.com/sbb-design-systems/lyne-angular/issues/169)) ([fe2657f](https://github.com/sbb-design-systems/lyne-angular/commit/fe2657f99ce030f6d803cb6dfeb2a5a4be9021d4)), closes [#168](https://github.com/sbb-design-systems/lyne-angular/issues/168)
+
+
+### Code Refactoring
+
+* group exports for multi component modules ([#173](https://github.com/sbb-design-systems/lyne-angular/issues/173)) ([2d2a575](https://github.com/sbb-design-systems/lyne-angular/commit/2d2a575001cb1632d8f68fdefa575928abb8d075))
+
 ## [20.0.0-rc.2](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.1...v20.0.0-rc.2) (2025-08-04)
 
 
