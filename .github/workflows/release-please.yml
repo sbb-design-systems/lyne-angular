@@ -36,8 +36,6 @@ jobs:
         env:
           VERSION: ${{ steps.release.outputs.version }}
 
-      - name: Update npm
-        run: npm install --global npm@latest
       - name: Get token
         id: get_token
         uses: actions/create-github-app-token@v2
@@ -56,6 +54,8 @@ jobs:
           scope: sbb-esta
       - run: yarn install --frozen-lockfile --non-interactive
 
+      - name: Update npm
+        run: npm install --global npm@latest
       - name: Run build
         run: STORYBOOK_COMPONENTS_VERSION="${{ steps.version.outputs.version }}" yarn build
       - name: Remove files with forbidden extensions
