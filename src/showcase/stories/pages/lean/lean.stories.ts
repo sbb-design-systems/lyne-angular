@@ -8,7 +8,7 @@ import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import { SbbHeader, SbbHeaderButton, SbbHeaderLink } from '@sbb-esta/lyne-angular/header';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { SbbMenu, SbbMenuButton } from '@sbb-esta/lyne-angular/menu';
-import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
+import { SbbOption } from '@sbb-esta/lyne-angular/option';
 import { SbbPaginator } from '@sbb-esta/lyne-angular/paginator/paginator';
 import { SbbRadioButton } from '@sbb-esta/lyne-angular/radio-button/radio-button';
 import { SbbRadioButtonGroup } from '@sbb-esta/lyne-angular/radio-button/radio-button-group';

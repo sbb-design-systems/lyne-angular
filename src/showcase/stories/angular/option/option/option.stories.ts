@@ -1,6 +1,6 @@
 import { SbbAutocomplete } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
-import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
+import { SbbOption } from '@sbb-esta/lyne-angular/option';
 import { SbbSelect } from '@sbb-esta/lyne-angular/select';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';

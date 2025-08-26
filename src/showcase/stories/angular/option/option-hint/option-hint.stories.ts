@@ -1,9 +1,7 @@
 import { SbbAutocomplete } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
-import { SbbOptGroup } from '@sbb-esta/lyne-angular/option/optgroup';
-import { SbbOption } from '@sbb-esta/lyne-angular/option/option';
-import { SbbOptionHint } from '@sbb-esta/lyne-angular/option/option-hint';
+import { SbbOptGroup, SbbOption, SbbOptionHint } from '@sbb-esta/lyne-angular/option';
 import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';

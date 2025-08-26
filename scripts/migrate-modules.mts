@@ -16,29 +16,7 @@ import { basename, dirname } from 'node:path';
  * NOTE: This script is entirely generated with GitHub copilot and is far not optimized.
  */
 
-const modulesToMigrate = [
-  'alert',
-  'autocomplete-grid',
-  'breadcrumb',
-  'card',
-  'chip',
-  'datepicker',
-  'dialog',
-  'expansion-panel',
-  'flip-card',
-  'form-field',
-  'header',
-  'menu',
-  'navigation',
-  'popover',
-  'stepper',
-  'sidebar',
-  'tabs',
-  'tag',
-  'toggle',
-  'train',
-  'seat-reservation',
-];
+const modulesToMigrate = ['option'];
 
 // Helper functions
 function walkDir(dir: string, callback: (filePath: string) => void) {
