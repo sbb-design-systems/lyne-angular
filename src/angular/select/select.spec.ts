@@ -2,11 +2,11 @@ import type { Signal } from '@angular/core';
 import { Component, viewChild, viewChildren } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { SbbOption } from '@sbb-esta/lyne-angular/option';
 import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option/option.js';
 
-import { SbbOption } from '../option/option';
-
 import { SbbSelect } from './select';
+import { SbbSelectModule } from './select.module';
 
 describe('sbb-select', () => {
   describe('single', () => {
@@ -166,7 +166,7 @@ describe('sbb-select', () => {
       <sbb-option value="{{ opt }}">Option {{ opt }}</sbb-option>
     }
   </sbb-select>`,
-  imports: [SbbSelect, SbbOption, ReactiveFormsModule],
+  imports: [SbbSelectModule, ReactiveFormsModule],
 })
 class TestComponent {
   select = viewChild.required(SbbSelect);
@@ -180,7 +180,7 @@ class TestComponent {
       <sbb-option value="{{ opt }}">Option {{ opt }}</sbb-option>
     }
   </sbb-select>`,
-  imports: [SbbSelect, SbbOption, ReactiveFormsModule],
+  imports: [SbbSelectModule, ReactiveFormsModule],
 })
 class TestComponentMultiple {
   select = viewChild.required(SbbSelect);
@@ -194,7 +194,7 @@ class TestComponentMultiple {
       <sbb-option [value]="opt">{{ opt.property }} ({{ opt.otherProperty }})</sbb-option>
     }
   </sbb-select>`,
-  imports: [SbbSelect, SbbOption, ReactiveFormsModule],
+  imports: [SbbSelectModule, ReactiveFormsModule],
 })
 class TestComponentComplexValue {
   values = [
