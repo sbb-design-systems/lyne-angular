@@ -5,6 +5,8 @@ import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 
+import readme from './readme.md';
+
 const meta: Meta = {
   decorators: [
     moduleMetadata({
@@ -13,6 +15,13 @@ const meta: Meta = {
   ],
   title: 'elements/sbb-overlay',
   component: SbbOverlay,
+  parameters: {
+    docs: {
+      description: {
+        component: readme,
+      },
+    },
+  },
   args: {
     expanded: false,
     negative: false,
