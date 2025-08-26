@@ -1,9 +1,11 @@
 import { SbbDateInput } from '@sbb-esta/lyne-angular/date-input';
-import { SbbDatepicker } from '@sbb-esta/lyne-angular/datepicker/datepicker';
-import { SbbDatepickerNextDay } from '@sbb-esta/lyne-angular/datepicker/datepicker-next-day';
-import { SbbDatepickerPreviousDay } from '@sbb-esta/lyne-angular/datepicker/datepicker-previous-day';
-import { SbbDatepickerToggle } from '@sbb-esta/lyne-angular/datepicker/datepicker-toggle';
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
+import {
+  SbbDatepicker,
+  SbbDatepickerNextDay,
+  SbbDatepickerPreviousDay,
+  SbbDatepickerToggle,
+} from '@sbb-esta/lyne-angular/datepicker';
+import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';

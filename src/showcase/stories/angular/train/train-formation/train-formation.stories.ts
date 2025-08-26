@@ -1,8 +1,10 @@
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
-import { SbbTrain } from '@sbb-esta/lyne-angular/train/train';
-import { SbbTrainBlockedPassage } from '@sbb-esta/lyne-angular/train/train-blocked-passage';
-import { SbbTrainFormation } from '@sbb-esta/lyne-angular/train/train-formation';
-import { SbbTrainWagon } from '@sbb-esta/lyne-angular/train/train-wagon';
+import {
+  SbbTrain,
+  SbbTrainBlockedPassage,
+  SbbTrainFormation,
+  SbbTrainWagon,
+} from '@sbb-esta/lyne-angular/train';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';

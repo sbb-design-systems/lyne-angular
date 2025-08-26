@@ -1,4 +1,4 @@
-import { SbbExpansionPanelHeader } from '@sbb-esta/lyne-angular/expansion-panel/expansion-panel-header';
+import { SbbExpansionPanelHeader } from '@sbb-esta/lyne-angular/expansion-panel';
 import type { Meta } from '@storybook/angular';
 
 const meta: Meta = {

@@ -95,18 +95,101 @@ const generateStructure = (pkg: Package, projectPath: string) => {
       const moduleName = basename(directoryPath);
       const modulePath = join(directoryPath, `${moduleName}.ts`);
       const testPath = join(directoryPath, `${moduleName}.spec.ts`);
+
       if (!existsSync(directoryPath)) {
         mkdirSync(directoryPath, { recursive: true });
+
+        const indexPath = join(directoryPath, 'index.ts');
+        const commonIndexPath = join(directoryPath, '..', 'index.ts');
+        const hasCommonModule = existsSync(commonIndexPath);
+        const ngPackagePath = join(directoryPath, 'ng-package.json');
+
+        // Only add ng-package.json and index.ts if the module is not already in the common index
+        if (!existsSync(ngPackagePath) && !hasCommonModule) {
+          const ngPackageConfig = `{\n  "lib": {\n    "entryFile": "index.ts"\n  }\n}\n`;
+          writeFileSync(ngPackagePath, ngPackageConfig, 'utf8');
+        }
+        if (!existsSync(indexPath) && !hasCommonModule) {
+          writeFileSync(indexPath, `export * from './${moduleName}';\n`, 'utf8');
+        }
+
+        // If there is a common index, we need to add the export statement for the new module
+        // And we need to update the *.module.ts file
+        if (hasCommonModule) {
+          // Edit index.ts in the common directory
+          const indexContent = readFileSync(commonIndexPath, 'utf8');
+          if (!indexContent.includes(`./${moduleName}`)) {
+            const indexLines = indexContent.split('\n').filter((line) => line.trim() !== '');
+            indexLines.push(`export * from './${moduleName}/${moduleName}';`);
+            // Sort exports alphabetically, but keep the *.module.ts at the end
+            indexLines.sort((a, b) => {
+              if (a.includes('.module') && !b.includes('.module')) {
+                return 1; // a is a module, b is not
+              }
+              if (!a.includes('.module') && b.includes('.module')) {
+                return -1; // b is a module, a is not
+              }
+              return a.localeCompare(b); // both are not modules, sort alphabetically
+            });
+
+            // Write the updated content back to the index.ts
+            writeFileSync(commonIndexPath, `${indexLines.join('\n')}\n`, 'utf8');
+          }
+
+          // Add the class to the angular.module.ts if it does not exist
+          const modulePath = join(directoryPath, '..');
+          const angularModulePath = join(modulePath, `${modulePath.split('/').pop()}.module.ts`);
+
+          if (existsSync(angularModulePath)) {
+            let angularModuleContent = readFileSync(angularModulePath, 'utf8');
+            const className = getClassManifestDeclaration(module).name.replace('Element', '');
+
+            const importLine = `import { ${className} } from './${moduleName}/${moduleName}';`;
+
+            // Read the existing imports and alphabetically add the new import
+            if (!angularModuleContent.includes(`import { ${className} }`)) {
+              const existingImports = angularModuleContent
+                .split('\n')
+                .filter((line) => line.trim().startsWith('import {'))
+                .map((line) => line.trim());
+              existingImports.push(importLine);
+              existingImports.sort();
+
+              const newImportSection = existingImports.join('\n') + '\n';
+
+              const remainingSection = angularModuleContent
+                .split('\n')
+                .filter((line) => !line.trim().startsWith('import {'))
+                .join('\n');
+              angularModuleContent = `${newImportSection}${remainingSection}`;
+            }
+
+            // Read the existing module array and alphabetically add the new class
+            const exportedModulesRegex = /export const (Sbb\w+Module) = \[(.*?)\];/s;
+            const exportedDeclarationsMatch = angularModuleContent.match(exportedModulesRegex);
+
+            if (exportedDeclarationsMatch) {
+              const exportModuleName = exportedDeclarationsMatch[1];
+              const exportedDeclarations = exportedDeclarationsMatch[2]
+                .split(',')
+                .map((d) => d.trim())
+                .filter((d) => d !== '');
+
+              if (!exportedDeclarations.includes(className)) {
+                exportedDeclarations.push(className);
+                exportedDeclarations.sort();
+                angularModuleContent = angularModuleContent.replace(
+                  exportedModulesRegex,
+                  `export const ${exportModuleName} = [\n  ${exportedDeclarations.join(',\n  ')},\n];\n`,
+                );
+              }
+            }
+
+            writeFileSync(angularModulePath, angularModuleContent, 'utf8');
+          }
+        }
       }
-      const ngPackagePath = join(directoryPath, 'ng-package.json');
-      if (!existsSync(ngPackagePath)) {
-        const ngPackageConfig = `{\n  "lib": {\n    "entryFile": "index.ts"\n  }\n}\n`;
-        writeFileSync(ngPackagePath, ngPackageConfig, 'utf8');
-      }
-      const indexPath = join(directoryPath, 'index.ts');
-      if (!existsSync(indexPath)) {
-        writeFileSync(indexPath, `export * from './${moduleName}';\n`, 'utf8');
-      }
+
       if (!existsSync(modulePath)) {
         writeFileSync(modulePath, '', 'utf8');
       }

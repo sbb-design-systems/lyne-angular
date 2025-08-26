@@ -1,4 +1,4 @@
-import { SbbTabLabel } from '@sbb-esta/lyne-angular/tabs/tab-label';
+import { SbbTabLabel } from '@sbb-esta/lyne-angular/tabs';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 import type { ArgTypes, InputType } from 'storybook/internal/types';

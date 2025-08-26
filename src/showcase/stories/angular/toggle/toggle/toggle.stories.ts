@@ -1,5 +1,4 @@
-import { SbbToggle } from '@sbb-esta/lyne-angular/toggle/toggle';
-import { SbbToggleOption } from '@sbb-esta/lyne-angular/toggle/toggle-option';
+import { SbbToggle, SbbToggleOption } from '@sbb-esta/lyne-angular/toggle';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';

@@ -1,6 +1,6 @@
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
-import { SbbDialogActions } from '@sbb-esta/lyne-angular/dialog/dialog-actions';
+import { SbbDialogActions } from '@sbb-esta/lyne-angular/dialog';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import type { Args, Meta } from '@storybook/angular';

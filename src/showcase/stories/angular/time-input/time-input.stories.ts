@@ -1,4 +1,4 @@
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field/form-field';
+import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import { SbbTimeInput } from '@sbb-esta/lyne-angular/time-input';
 import type { Args, Meta } from '@storybook/angular';

@@ -1,4 +1,4 @@
-import { SbbStep } from '@sbb-esta/lyne-angular/stepper/step';
+import { SbbStep } from '@sbb-esta/lyne-angular/stepper';
 import type { Meta } from '@storybook/angular';
 
 const meta: Meta = {
