@@ -1,5 +1,12 @@
 # Changelog
 
+## [20.0.0-rc.4](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.3...v20.0.0-rc.4) (2025-08-26)
+
+
+### Bug Fixes
+
+* declare modules as const ([#175](https://github.com/sbb-design-systems/lyne-angular/issues/175)) ([c37173b](https://github.com/sbb-design-systems/lyne-angular/commit/c37173b975263ce149a3aa1167dd882fb99c4ad2))
+
 ## [20.0.0-rc.3](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.2...v20.0.0-rc.3) (2025-08-26)
 
 
