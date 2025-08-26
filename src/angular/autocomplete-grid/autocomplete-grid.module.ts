@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { SbbAutocompleteTrigger } from '@sbb-esta/lyne-angular/autocomplete';
 
 import { SbbAutocompleteGrid } from './autocomplete-grid/autocomplete-grid';
@@ -8,7 +7,7 @@ import { SbbAutocompleteGridOptgroup } from './autocomplete-grid-optgroup/autoco
 import { SbbAutocompleteGridOption } from './autocomplete-grid-option/autocomplete-grid-option';
 import { SbbAutocompleteGridRow } from './autocomplete-grid-row/autocomplete-grid-row';
 
-const EXPORTED_DECLARATIONS = [
+export const SbbAutocompleteGridModule = [
   SbbAutocompleteTrigger,
   SbbAutocompleteGrid,
   SbbAutocompleteGridButton,
@@ -17,9 +16,3 @@ const EXPORTED_DECLARATIONS = [
   SbbAutocompleteGridOption,
   SbbAutocompleteGridRow,
 ];
-
-@NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
-})
-export class SbbAutocompleteGridModule {}
