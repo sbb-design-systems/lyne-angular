@@ -1,5 +1,12 @@
 # Changelog
 
+## [20.0.0-rc.5](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.4...v20.0.0-rc.5) (2025-08-28)
+
+
+### Bug Fixes
+
+* **deps:** update angular ([caeb4a6](https://github.com/sbb-design-systems/lyne-angular/commit/caeb4a692b61e79191b10b9b2733084861887cf5))
+
 ## [20.0.0-rc.4](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.3...v20.0.0-rc.4) (2025-08-26)
 
 
