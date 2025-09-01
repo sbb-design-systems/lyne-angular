@@ -80,6 +80,10 @@ export class SbbDialog {
     return this.#element.nativeElement.close(result, target);
   }
 
+  public announceTitle(): void {
+    return this.#element.nativeElement.announceTitle();
+  }
+
   public beforeCloseSignal = outputFromObservable(
     fromEvent<CustomEvent<SbbOverlayCloseEventDetails>>(this.#element.nativeElement, 'beforeclose'),
     { alias: 'beforeClose' },

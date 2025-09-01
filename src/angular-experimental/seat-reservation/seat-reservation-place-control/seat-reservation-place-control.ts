@@ -45,44 +45,12 @@ export class SbbSeatReservationPlaceControl {
     return this.#element.nativeElement.propertyIds;
   }
 
-  @Input({ transform: numberAttribute })
-  public set rotation(value: number) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.rotation = value));
-  }
-  public get rotation(): number {
-    return this.#element.nativeElement.rotation;
-  }
-
-  @Input({ transform: numberAttribute })
-  public set width(value: number) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.width = value));
-  }
-  public get width(): number {
-    return this.#element.nativeElement.width;
-  }
-
-  @Input({ transform: numberAttribute })
-  public set height(value: number) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.height = value));
-  }
-  public get height(): number {
-    return this.#element.nativeElement.height;
-  }
-
   @Input()
   public set text(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.text = value));
   }
   public get text(): string {
     return this.#element.nativeElement.text;
-  }
-
-  @Input({ transform: numberAttribute })
-  public set textRotation(value: number) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.textRotation = value));
-  }
-  public get textRotation(): number {
-    return this.#element.nativeElement.textRotation;
   }
 
   @Input({ transform: numberAttribute })

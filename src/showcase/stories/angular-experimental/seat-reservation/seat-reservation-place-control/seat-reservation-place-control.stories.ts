@@ -6,9 +6,6 @@ import { withActions } from 'storybook/actions/decorator';
 const defaultArgs: Args = {
   type: 'SEAT',
   state: 'FREE',
-  width: 32,
-  height: 32,
-  rotation: 0,
   text: '',
 };
 
