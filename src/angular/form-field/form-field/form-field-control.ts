@@ -1,11 +1,11 @@
 import type { SbbFormFieldElementControl } from '@sbb-esta/lyne-elements/form-field.js';
 import type { Observable } from 'rxjs';
 
-/** An interface which allows a control to work inside of a `SbbField`. */
+/** An interface which allows a control to work inside of an `SbbFormField`. */
 export abstract class SbbFormFieldControl implements SbbFormFieldElementControl {
   /**
-   * Stream that emits whenever the state of the control changes such that the parent `SbbField`
-   * needs to run change detection.
+   * Stream that must emit whenever the state of the control changes in order for the
+   * parent `SbbFormField` to run change detection.
    */
   abstract readonly stateChanges: Observable<void>;
   /** The id of the form field. */
