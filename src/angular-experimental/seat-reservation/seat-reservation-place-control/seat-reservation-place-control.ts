@@ -85,7 +85,7 @@ export class SbbSeatReservationPlaceControl {
     return this.#element.nativeElement.deckIndex;
   }
 
-  public selectPlaceSignal = outputFromObservable(
+  public selectPlaceOutput = outputFromObservable(
     fromEvent<CustomEvent<PlaceSelection>>(this.#element.nativeElement, 'selectplace'),
     { alias: 'selectPlace' },
   );

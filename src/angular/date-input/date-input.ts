@@ -1,8 +1,12 @@
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
-import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import type { AbstractControl, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import {
+  booleanAttribute,
+  internalOutputFromObservable,
+  SbbControlValueAccessorMixin,
+} from '@sbb-esta/lyne-angular/core';
 import { readConfig } from '@sbb-esta/lyne-elements/core/config.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import type { SbbDateInputAssociated } from '@sbb-esta/lyne-elements/date-input.js';
@@ -225,11 +229,15 @@ export class SbbDateInput<T = Date>
     return this.#element.nativeElement.select();
   }
 
-  protected _inputSignal = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
-  public inputSignal = toSignal(fromEvent<InputEvent>(this.#element.nativeElement, 'input'));
+  protected _inputOutput = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
+  public inputOutput = internalOutputFromObservable(
+    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
+  );
 
-  protected _changeSignal = outputFromObservable<Event>(NEVER, { alias: 'change' });
-  public changeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'change'));
+  protected _changeOutput = outputFromObservable<Event>(NEVER, { alias: 'change' });
+  public changeOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'change'),
+  );
 
   #runWithValidationCheck(action: () => void): void {
     this.#ngZone.runOutsideAngular(() => {

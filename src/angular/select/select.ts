@@ -1,7 +1,11 @@
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
-import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import {
+  booleanAttribute,
+  internalOutputFromObservable,
+  SbbControlValueAccessorMixin,
+} from '@sbb-esta/lyne-angular/core';
 import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
 import { fromEvent, NEVER } from 'rxjs';
 
@@ -147,25 +151,33 @@ export class SbbSelect<T = string> extends SbbControlValueAccessorMixin(class {}
     return this.#element.nativeElement.setCustomValidity(message);
   }
 
-  protected _inputSignal = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
-  public inputSignal = toSignal(fromEvent<InputEvent>(this.#element.nativeElement, 'input'));
+  protected _inputOutput = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
+  public inputOutput = internalOutputFromObservable(
+    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
+  );
 
-  protected _changeSignal = outputFromObservable<Event>(NEVER, { alias: 'change' });
-  public changeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'change'));
+  protected _changeOutput = outputFromObservable<Event>(NEVER, { alias: 'change' });
+  public changeOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'change'),
+  );
 
-  public beforeOpenSignal = outputFromObservable(
+  public beforeOpenOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
   );
 
-  protected _openSignal = outputFromObservable<Event>(NEVER, { alias: 'open' });
-  public openSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'open'));
+  protected _openOutput = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  public openOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'open'),
+  );
 
-  public beforeCloseSignal = outputFromObservable(
+  public beforeCloseOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeclose'),
     { alias: 'beforeClose' },
   );
 
-  protected _closeSignal = outputFromObservable<Event>(NEVER, { alias: 'close' });
-  public closeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'close'));
+  protected _closeOutput = outputFromObservable<Event>(NEVER, { alias: 'close' });
+  public closeOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'close'),
+  );
 }

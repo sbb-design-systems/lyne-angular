@@ -90,7 +90,7 @@ export class SbbCalendar<T = Date> {
     return this.#element.nativeElement.resetPosition();
   }
 
-  public dateSelectedSignal = outputFromObservable(
+  public dateSelectedOutput = outputFromObservable(
     fromEvent<CustomEvent<T | T[]>>(this.#element.nativeElement, 'dateselected'),
     { alias: 'dateSelected' },
   );

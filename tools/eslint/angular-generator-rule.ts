@@ -281,6 +281,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         const expectedAngularImports = new Set<string>();
         const expectedRxJsImports = new Set<string>();
         const expectedRxJsInteropImports = new Set<string>();
+        const expectedCoreImports = new Set<string>();
 
         // The class and its public data that must be created in the Angular file
         const classManifestDeclaration = getClassManifestDeclaration(module);
@@ -295,7 +296,6 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // The Angular class being written on
         const classDeclaration = node.parent as unknown as TSESTree.ClassDeclaration;
-        let hasBooleanAttributesToTransform = false;
 
         // Add imports related to inputs and outputs properties
         if (publicProperties.length) {
@@ -382,7 +382,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 const endOfBody = classDeclaration.body.range[1] - 1;
                 let input = '@Input(';
                 if (member.type?.text === 'boolean') {
-                  hasBooleanAttributesToTransform = true;
+                  expectedCoreImports.add('booleanAttribute');
                   input += `{ transform: booleanAttribute }`;
                 }
                 if (member.type?.text === 'number') {
@@ -416,7 +416,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         for (const member of publicEvents) {
           const type = member.type?.text.replace(/\s+/g, '');
           const normalizedName = CAMEL_CASE_EVENTS_MAP[member.name] ?? member.name;
-          const outputSignalName = `${normalizedName}Signal`;
+          const outputName = `${normalizedName}Output`;
           const outputRegex = new RegExp(
             `outputFromObservable(.*alias:.*'${normalizedName}'.*);`,
             's',
@@ -427,7 +427,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               classDeclaration.body.body.every(
                 (n) =>
                   n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                  context.sourceCode.getText(n.key) !== outputSignalName,
+                  context.sourceCode.getText(n.key) !== outputName,
               )
             ) {
               context.report({
@@ -439,7 +439,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   return fixer.insertTextBeforeRange(
                     [endOfBody, endOfBody],
                     `
-  public ${outputSignalName} = outputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'), { alias: '${normalizedName}' });\n`,
+  public ${outputName} = outputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'), { alias: '${normalizedName}' });\n`,
                   );
                 },
               });
@@ -463,7 +463,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   return fixer.insertTextBeforeRange(
                     [endOfBody, endOfBody],
                     `
-  protected _${outputSignalName} = outputFromObservable<${type}>(NEVER, { alias: '${normalizedName}' });`,
+  protected _${outputName} = outputFromObservable<${type}>(NEVER, { alias: '${normalizedName}' });`,
                   );
                 },
               });
@@ -472,10 +472,10 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               classDeclaration.body.body.every(
                 (n) =>
                   n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                  context.sourceCode.getText(n.key) !== outputSignalName,
+                  context.sourceCode.getText(n.key) !== outputName,
               )
             ) {
-              expectedRxJsInteropImports.add('toSignal');
+              expectedCoreImports.add('internalOutputFromObservable');
               context.report({
                 node: classDeclaration.body,
                 messageId: 'angularMissingOutput',
@@ -485,7 +485,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   return fixer.insertTextBeforeRange(
                     [endOfBody, endOfBody],
                     `
-  public ${outputSignalName} = toSignal(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'));\n`,
+  public ${outputName} = internalOutputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'));\n`,
                   );
                 },
               });
@@ -497,14 +497,14 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             classDeclaration.body.body.every(
               (n) =>
                 n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                context.sourceCode.getText(n.key) !== outputSignalName ||
+                context.sourceCode.getText(n.key) !== outputName ||
                 !context.sourceCode.getText(n).replace(/\s+/g, '').includes(`fromEvent<${type}>`),
             ) ||
             (!isCamelCase &&
               classDeclaration.body.body.every(
                 (n) =>
                   n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                  context.sourceCode.getText(n.key) !== `_${outputSignalName}` ||
+                  context.sourceCode.getText(n.key) !== `_${outputName}` ||
                   !context.sourceCode
                     .getText(n)
                     .replace(/\s+/g, '')
@@ -523,7 +523,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             classDeclaration.body.body.every(
               (n) =>
                 n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                context.sourceCode.getText(n.key) !== outputSignalName ||
+                context.sourceCode.getText(n.key) !== outputName ||
                 !context.sourceCode
                   .getText(n)
                   .replace(/\s+/g, '')
@@ -538,7 +538,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               classDeclaration.body.body.every(
                 (n) =>
                   n.type !== AST_NODE_TYPES.PropertyDefinition ||
-                  context.sourceCode.getText(n.key) !== `_${outputSignalName}` ||
+                  context.sourceCode.getText(n.key) !== `_${outputName}` ||
                   !context.sourceCode
                     .getText(n)
                     .replace(/\s+/g, '')
@@ -677,29 +677,46 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           }
         }
 
-        // booleanAttribute
-        if (
-          hasBooleanAttributesToTransform &&
-          program.body.every(
-            (n) =>
-              n.type !== AST_NODE_TYPES.ImportDeclaration ||
-              n.importKind !== 'value' ||
-              n.source.value !== '@sbb-esta/lyne-angular/core',
-          )
-        ) {
-          const lastImport = program.body
-            .filter((n) => n.type === AST_NODE_TYPES.ImportDeclaration)
-            .at(-1)!;
-          context.report({
-            node: lastImport,
-            messageId: 'angularMissingImport',
-            data: { symbol: 'booleanAttribute' },
-            fix: (fixer) =>
-              fixer.insertTextBefore(
-                lastImport,
-                `\nimport { booleanAttribute } from '@sbb-esta/lyne-angular/core';`,
-              ),
-          });
+        // Core imports
+        if (expectedCoreImports.size > 0) {
+          const coreImport = program.body.find(
+            (n): n is TSESTree.ImportDeclaration =>
+              n.type === AST_NODE_TYPES.ImportDeclaration &&
+              n.source.value === '@sbb-esta/lyne-angular/core',
+          );
+          if (!coreImport) {
+            const imports = Array.from(expectedCoreImports).sort().join(', ');
+            const lastImport = program.body
+              .filter((n) => n.type === AST_NODE_TYPES.ImportDeclaration)
+              .at(-1)!;
+            context.report({
+              node: lastImport,
+              messageId: 'angularMissingImport',
+              data: { symbol: imports },
+              fix: (fixer) =>
+                fixer.insertTextBefore(
+                  node,
+                  `\nimport { ${imports} } from '@sbb-esta/lyne-angular/core';\n`,
+                ),
+            });
+          } else {
+            const existingImports = coreImport.specifiers.map(
+              (spec) => ((spec as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name,
+            );
+            const importsToAdd = Array.from(expectedCoreImports).filter(
+              (importName) => !existingImports.includes(importName),
+            );
+            if (importsToAdd.length > 0) {
+              const imports = importsToAdd.sort().join(', ');
+              context.report({
+                node: coreImport,
+                messageId: 'angularMissingImport',
+                data: { symbol: imports },
+                fix: (fixer) =>
+                  fixer.insertTextAfter(coreImport.specifiers.at(-1)!, `, ${imports}`),
+              });
+            }
+          }
         }
 
         // RxJs imports

@@ -1,5 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbAlertGroupElement } from '@sbb-esta/lyne-elements/alert/alert-group.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, NEVER } from 'rxjs';
@@ -40,6 +41,8 @@ export class SbbAlertGroup {
     return this.#element.nativeElement.accessibilityTitleLevel;
   }
 
-  protected _emptySignal = outputFromObservable<Event>(NEVER, { alias: 'empty' });
-  public emptySignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'empty'));
+  protected _emptyOutput = outputFromObservable<Event>(NEVER, { alias: 'empty' });
+  public emptyOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'empty'),
+  );
 }
