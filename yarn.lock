@@ -402,10 +402,10 @@
   optionalDependencies:
     lmdb "3.4.2"
 
-"@angular/cdk@20.2.1":
-  version "20.2.1"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-20.2.1.tgz#8b4184b368f1607f35b10b1ea934198a0bfb85bd"
-  integrity sha512-yEPh5hr9LZW4ey/HxtaGdSBDIkNzziLo0Dr1RP8JcxhOQ2Bzv2PZ+g8jC6aPGD7NPV8FtDf0FhTEzQr+m+gBXQ==
+"@angular/cdk@20.2.2":
+  version "20.2.2"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-20.2.2.tgz#9015cb37f466982fea5f0077ab57b6ab620f3638"
+  integrity sha512-jLvIMmFI8zoi6vAu1Aszua59GmhqBOtsVfkwLUGg5Hi86DI/inJr9BznNX2EKDtaulYMGZCmDgsltXQXeqP5Lg==
   dependencies:
     parse5 "^8.0.0"
     tslib "^2.3.0"
