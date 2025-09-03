@@ -5,6 +5,8 @@ import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType, StoryContext } from 'storybook/internal/types';
 
+import readme from './readme.md';
+
 const inputStory = ({
   label,
   placeholder,
@@ -135,6 +137,11 @@ const meta: Meta = {
     actions: { handles: ['change', 'input'] },
     backgroundColor: (context: StoryContext) =>
       context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+    docs: {
+      description: {
+        component: readme,
+      },
+    },
   },
   argTypes: {
     size,
