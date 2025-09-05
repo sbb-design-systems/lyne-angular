@@ -51,7 +51,7 @@
     "@angular/compiler-cli": "20.2.4",
     "@commitlint/cli": "19.8.1",
     "@commitlint/config-conventional": "19.8.1",
-    "@compodoc/compodoc": "1.1.27",
+    "@compodoc/compodoc": "1.1.30",
     "@storybook/addon-a11y": "9.0.11",
     "@storybook/addon-actions": "9.0.8",
     "@storybook/addon-docs": "9.0.11",
