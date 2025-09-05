@@ -1,6 +1,10 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
-import { booleanAttribute, SbbDeferredAnimation } from '@sbb-esta/lyne-angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
+import {
+  booleanAttribute,
+  internalOutputFromObservable,
+  SbbDeferredAnimation,
+} from '@sbb-esta/lyne-angular/core';
 import type { SbbSelectionExpansionPanelElement } from '@sbb-esta/lyne-elements/selection-expansion-panel.js';
 import { fromEvent, NEVER } from 'rxjs';
 
@@ -41,19 +45,23 @@ export class SbbSelectionExpansionPanel {
     return this.#element.nativeElement.borderless;
   }
 
-  public beforeOpenSignal = outputFromObservable(
+  public beforeOpenOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
   );
 
-  public beforeCloseSignal = outputFromObservable(
+  public beforeCloseOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeclose'),
     { alias: 'beforeClose' },
   );
 
-  protected _closeSignal = outputFromObservable<Event>(NEVER, { alias: 'close' });
-  public closeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'close'));
+  protected _closeOutput = outputFromObservable<Event>(NEVER, { alias: 'close' });
+  public closeOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'close'),
+  );
 
-  protected _openSignal = outputFromObservable<Event>(NEVER, { alias: 'open' });
-  public openSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'open'));
+  protected _openOutput = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  public openOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'open'),
+  );
 }

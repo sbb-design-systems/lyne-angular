@@ -1,4 +1,4 @@
-import type { OutputRef, Signal } from '@angular/core';
+import type { OutputRef } from '@angular/core';
 
 export interface SbbAutocompleteType<T = string> {
   size: 'm' | 's';
@@ -11,10 +11,10 @@ export interface SbbAutocompleteType<T = string> {
   readonly isOpen: boolean;
   autoActiveFirstOption: boolean;
   displayWith: ((value: T) => string) | null;
-  beforeOpenSignal: OutputRef<Event>;
-  openSignal: Signal<Event | undefined>;
-  beforeCloseSignal: OutputRef<Event>;
-  closeSignal: Signal<Event | undefined>;
+  beforeOpenOutput: OutputRef<Event>;
+  openOutput: OutputRef<Event | undefined>;
+  beforeCloseOutput: OutputRef<Event>;
+  closeOutput: OutputRef<Event | undefined>;
   optionSelected: OutputRef<Event>;
 
   open(): void;

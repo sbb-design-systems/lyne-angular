@@ -7,8 +7,8 @@ import {
   numberAttribute,
   type OnInit,
 } from '@angular/core';
-import { outputFromObservable, toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { outputFromObservable, outputToObservable } from '@angular/core/rxjs-interop';
+import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbPaginatorElement } from '@sbb-esta/lyne-elements/paginator/paginator.js';
 import { AsyncSubject, forkJoin, fromEvent, map, NEVER, type Observable } from 'rxjs';
@@ -178,12 +178,12 @@ export class SbbPaginator implements OnInit {
     this.#initialized.complete();
   }
 
-  protected _pageSignal = outputFromObservable<CustomEvent<SbbPaginatorPageEventDetails>>(NEVER, {
+  protected _pageOutput = outputFromObservable<CustomEvent<SbbPaginatorPageEventDetails>>(NEVER, {
     alias: 'page',
   });
-  public pageSignal = toSignal(
+  public pageOutput = internalOutputFromObservable(
     fromEvent<CustomEvent<SbbPaginatorPageEventDetails>>(this.#element.nativeElement, 'page'),
   );
 
-  public page = toObservable(this.pageSignal);
+  public page = outputToObservable(this.pageOutput);
 }

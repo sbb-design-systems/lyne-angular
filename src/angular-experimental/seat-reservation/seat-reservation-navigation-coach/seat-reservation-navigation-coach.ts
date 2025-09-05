@@ -117,12 +117,12 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.vertical;
   }
 
-  public focusCoachSignal = outputFromObservable(
+  public focusCoachOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'focuscoach'),
     { alias: 'focusCoach' },
   );
 
-  public selectCoachSignal = outputFromObservable(
+  public selectCoachOutput = outputFromObservable(
     fromEvent<CustomEvent<SelectCoachEventDetails>>(this.#element.nativeElement, 'selectcoach'),
     { alias: 'selectCoach' },
   );

@@ -46,12 +46,12 @@ export class SbbOption<T = string> {
     return this.#element.nativeElement.selected;
   }
 
-  public optionSelectionChangeSignal = outputFromObservable(
+  public optionSelectionChangeOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'optionselectionchange'),
     { alias: 'optionSelectionChange' },
   );
 
-  public optionSelectedSignal = outputFromObservable(
+  public optionSelectedOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'optionselected'),
     { alias: 'optionSelected' },
   );

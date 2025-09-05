@@ -1,7 +1,9 @@
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSelectionActionPanelElement } from '@sbb-esta/lyne-elements/selection-action-panel.js';
+
 import '@sbb-esta/lyne-elements/selection-action-panel.js';
+
 @Directive({
   selector: 'sbb-selection-action-panel',
   exportAs: 'sbbSelectionActionPanel',

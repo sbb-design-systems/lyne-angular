@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, type AfterViewInit } from '@angular/core';
+import { type AfterViewInit, Directive, ElementRef, inject } from '@angular/core';
 import type { LitElement } from 'lit';
 
 /**

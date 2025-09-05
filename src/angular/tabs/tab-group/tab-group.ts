@@ -47,7 +47,7 @@ export class SbbTabGroup {
     return this.#element.nativeElement.activateTab(tabIndex);
   }
 
-  public tabChangeSignal = outputFromObservable(
+  public tabChangeOutput = outputFromObservable(
     fromEvent<CustomEvent<SbbTabChangedEventDetails>>(this.#element.nativeElement, 'tabchange'),
     { alias: 'tabChange' },
   );

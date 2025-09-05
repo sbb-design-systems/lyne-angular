@@ -97,7 +97,7 @@ export class SbbExpansionPanelHeader {
     return this.#element.nativeElement.setCustomValidity(message);
   }
 
-  public toggleExpandedSignal = outputFromObservable(
+  public toggleExpandedOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'toggleexpanded'),
     { alias: 'toggleExpanded' },
   );

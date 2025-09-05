@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { CalendarView } from '@sbb-esta/lyne-elements/calendar.js';
 import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
 import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
@@ -64,12 +64,12 @@ export class SbbDatepicker<T = Date> {
     return this.#element.nativeElement.close(target);
   }
 
-  public dateSelectedSignal = outputFromObservable(
+  public dateSelectedOutput = outputFromObservable(
     fromEvent<CustomEvent<T>>(this.#element.nativeElement, 'dateselected'),
     { alias: 'dateSelected' },
   );
 
-  public beforeCloseSignal = outputFromObservable(
+  public beforeCloseOutput = outputFromObservable(
     fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
       this.#element.nativeElement,
       'beforeclose',
@@ -77,22 +77,24 @@ export class SbbDatepicker<T = Date> {
     { alias: 'beforeClose' },
   );
 
-  protected _closeSignal = outputFromObservable<CustomEvent<{ closeTarget: HTMLElement | null }>>(
+  protected _closeOutput = outputFromObservable<CustomEvent<{ closeTarget: HTMLElement | null }>>(
     NEVER,
     { alias: 'close' },
   );
-  public closeSignal = toSignal(
+  public closeOutput = internalOutputFromObservable(
     fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
       this.#element.nativeElement,
       'close',
     ),
   );
 
-  public beforeOpenSignal = outputFromObservable(
+  public beforeOpenOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
   );
 
-  protected _openSignal = outputFromObservable<Event>(NEVER, { alias: 'open' });
-  public openSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'open'));
+  protected _openOutput = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  public openOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'open'),
+  );
 }

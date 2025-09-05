@@ -93,7 +93,7 @@ export class SbbSeatReservation {
     return this.#element.nativeElement.height;
   }
 
-  public selectedCoachSignal = outputFromObservable(
+  public selectedCoachOutput = outputFromObservable(
     fromEvent<CustomEvent<SeatReservationSelectedCoach>>(
       this.#element.nativeElement,
       'selectedcoach',
@@ -101,7 +101,7 @@ export class SbbSeatReservation {
     { alias: 'selectedCoach' },
   );
 
-  public selectedPlacesSignal = outputFromObservable(
+  public selectedPlacesOutput = outputFromObservable(
     fromEvent<CustomEvent<SeatReservationSelectedPlaces>>(
       this.#element.nativeElement,
       'selectedplaces',

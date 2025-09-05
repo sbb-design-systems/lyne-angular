@@ -1,7 +1,11 @@
 import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
-import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import {
+  booleanAttribute,
+  internalOutputFromObservable,
+  SbbControlValueAccessorMixin,
+} from '@sbb-esta/lyne-angular/core';
 import type {
   SbbChipGroupElement,
   SbbChipInputTokenEndEventDetails,
@@ -113,7 +117,7 @@ export class SbbChipGroup<T = string> extends SbbControlValueAccessorMixin(class
     return this.#element.nativeElement.displayWith;
   }
 
-  public chipInputTokenEndSignal = outputFromObservable(
+  public chipInputTokenEndOutput = outputFromObservable(
     fromEvent<CustomEvent<SbbChipInputTokenEndEventDetails>>(
       this.#element.nativeElement,
       'chipinputtokenend',
@@ -121,9 +125,13 @@ export class SbbChipGroup<T = string> extends SbbControlValueAccessorMixin(class
     { alias: 'chipInputTokenEnd' },
   );
 
-  protected _inputSignal = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
-  public inputSignal = toSignal(fromEvent<InputEvent>(this.#element.nativeElement, 'input'));
+  protected _inputOutput = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
+  public inputOutput = internalOutputFromObservable(
+    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
+  );
 
-  protected _changeSignal = outputFromObservable<Event>(NEVER, { alias: 'change' });
-  public changeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'change'));
+  protected _changeOutput = outputFromObservable<Event>(NEVER, { alias: 'change' });
+  public changeOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'change'),
+  );
 }

@@ -102,7 +102,7 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
     return this.#element.nativeElement.radioButtons;
   }
 
-  public didChangeSignal = outputFromObservable(
+  public didChangeOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'didChange'),
     { alias: 'didChange' },
   );
