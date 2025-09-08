@@ -1,6 +1,10 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
-import { booleanAttribute, SbbDeferredAnimation } from '@sbb-esta/lyne-angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
+import {
+  booleanAttribute,
+  internalOutputFromObservable,
+  SbbDeferredAnimation,
+} from '@sbb-esta/lyne-angular/core';
 import type { SbbPanelSize } from '@sbb-esta/lyne-elements/core/mixins.js';
 import type { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-panel.js';
 import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button.js';
@@ -131,9 +135,13 @@ export class SbbRadioButtonPanel<T = string> {
     return this.#element.nativeElement.setCustomValidity(message);
   }
 
-  protected _changeSignal = outputFromObservable<Event>(NEVER, { alias: 'change' });
-  public changeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'change'));
+  protected _changeOutput = outputFromObservable<Event>(NEVER, { alias: 'change' });
+  public changeOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'change'),
+  );
 
-  protected _inputSignal = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
-  public inputSignal = toSignal(fromEvent<InputEvent>(this.#element.nativeElement, 'input'));
+  protected _inputOutput = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
+  public inputOutput = internalOutputFromObservable(
+    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
+  );
 }

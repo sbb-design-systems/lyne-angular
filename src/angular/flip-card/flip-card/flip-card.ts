@@ -1,5 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbFlipCardSummaryElement } from '@sbb-esta/lyne-elements/flip-card/flip-card-summary.js';
 import type { SbbFlipCardElement } from '@sbb-esta/lyne-elements/flip-card/flip-card.js';
 import type { SbbFlipCardDetailsElement } from '@sbb-esta/lyne-elements/flip-card.js';
@@ -39,6 +40,8 @@ export class SbbFlipCard {
     return this.#element.nativeElement.toggle();
   }
 
-  protected _flipSignal = outputFromObservable<Event>(NEVER, { alias: 'flip' });
-  public flipSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'flip'));
+  protected _flipOutput = outputFromObservable<Event>(NEVER, { alias: 'flip' });
+  public flipOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'flip'),
+  );
 }

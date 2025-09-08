@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import type { SbbAutocompleteType } from '@sbb-esta/lyne-angular/autocomplete';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbAutocompleteGridElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid.js';
 import { fromEvent, NEVER } from 'rxjs';
 
@@ -99,21 +99,25 @@ export class SbbAutocompleteGrid<T = string> implements SbbAutocompleteType<T> {
     return this.#element.nativeElement.displayWith;
   }
 
-  public beforeOpenSignal = outputFromObservable(
+  public beforeOpenOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
   );
 
-  protected _openSignal = outputFromObservable<Event>(NEVER, { alias: 'open' });
-  public openSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'open'));
+  protected _openOutput = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  public openOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'open'),
+  );
 
-  public beforeCloseSignal = outputFromObservable(
+  public beforeCloseOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeclose'),
     { alias: 'beforeClose' },
   );
 
-  protected _closeSignal = outputFromObservable<Event>(NEVER, { alias: 'close' });
-  public closeSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'close'));
+  protected _closeOutput = outputFromObservable<Event>(NEVER, { alias: 'close' });
+  public closeOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'close'),
+  );
 
   public optionSelected = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'optionselected'),

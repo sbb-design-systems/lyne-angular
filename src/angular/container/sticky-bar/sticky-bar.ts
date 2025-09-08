@@ -1,5 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbStickyBarElement } from '@sbb-esta/lyne-elements/container/sticky-bar.js';
 import { fromEvent, NEVER } from 'rxjs';
 
@@ -37,18 +38,22 @@ export class SbbStickyBar {
     return this.#element.nativeElement.unstick();
   }
 
-  protected _stickSignal = outputFromObservable<Event>(NEVER, { alias: 'stick' });
-  public stickSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'stick'));
+  protected _stickOutput = outputFromObservable<Event>(NEVER, { alias: 'stick' });
+  public stickOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'stick'),
+  );
 
-  protected _unstickSignal = outputFromObservable<Event>(NEVER, { alias: 'unstick' });
-  public unstickSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'unstick'));
+  protected _unstickOutput = outputFromObservable<Event>(NEVER, { alias: 'unstick' });
+  public unstickOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'unstick'),
+  );
 
-  public beforeStickSignal = outputFromObservable(
+  public beforeStickOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforestick'),
     { alias: 'beforeStick' },
   );
 
-  public beforeUnstickSignal = outputFromObservable(
+  public beforeUnstickOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeunstick'),
     { alias: 'beforeUnstick' },
   );

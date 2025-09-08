@@ -48,7 +48,7 @@ export class SbbAutocompleteGridOption<T = string> {
     return this.#element.nativeElement.selected;
   }
 
-  public optionSelectedSignal = outputFromObservable(
+  public optionSelectedOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'optionselected'),
     { alias: 'optionSelected' },
   );

@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { outputFromObservable, toSignal } from '@angular/core/rxjs-interop';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbOverlayCloseEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay.js';
 import { fromEvent, NEVER } from 'rxjs';
@@ -82,23 +82,25 @@ export class SbbOverlay {
     return this.#element.nativeElement.close(result, target);
   }
 
-  public beforeCloseSignal = outputFromObservable(
+  public beforeCloseOutput = outputFromObservable(
     fromEvent<CustomEvent<SbbOverlayCloseEventDetails>>(this.#element.nativeElement, 'beforeclose'),
     { alias: 'beforeClose' },
   );
 
-  protected _closeSignal = outputFromObservable<CustomEvent<SbbOverlayCloseEventDetails>>(NEVER, {
+  protected _closeOutput = outputFromObservable<CustomEvent<SbbOverlayCloseEventDetails>>(NEVER, {
     alias: 'close',
   });
-  public closeSignal = toSignal(
+  public closeOutput = internalOutputFromObservable(
     fromEvent<CustomEvent<SbbOverlayCloseEventDetails>>(this.#element.nativeElement, 'close'),
   );
 
-  public beforeOpenSignal = outputFromObservable(
+  public beforeOpenOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
   );
 
-  protected _openSignal = outputFromObservable<Event>(NEVER, { alias: 'open' });
-  public openSignal = toSignal(fromEvent<Event>(this.#element.nativeElement, 'open'));
+  protected _openOutput = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  public openOutput = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'open'),
+  );
 }
