@@ -1,5 +1,27 @@
 # Changelog
 
+## [20.0.0-rc.5](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.4...v20.0.0-rc.5) (2025-09-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* Previously we had a mix of types for outputs. With this change we align all outputs to OutputRefs. With this also the names changed. E.g. an `openSignal` becomes `openOutput`.
+
+### Features
+
+* **sbb-form-field:** provide support for custom controls ([#178](https://github.com/sbb-design-systems/lyne-angular/issues/178)) ([19c91f7](https://github.com/sbb-design-systems/lyne-angular/commit/19c91f73681ca19a8fcd80a707462dde84bc1713)), closes [#55](https://github.com/sbb-design-systems/lyne-angular/issues/55)
+
+
+### Bug Fixes
+
+* align output types by using OutputRef ([#180](https://github.com/sbb-design-systems/lyne-angular/issues/180)) ([c4d643f](https://github.com/sbb-design-systems/lyne-angular/commit/c4d643fe55c79fb0dced544bd9f58e800e86a90f))
+* **deps:** update angular ([e9662ff](https://github.com/sbb-design-systems/lyne-angular/commit/e9662ff0d7ec952bd47e8924642c32973f3f9be4))
+* **deps:** update angular ([caeb4a6](https://github.com/sbb-design-systems/lyne-angular/commit/caeb4a692b61e79191b10b9b2733084861887cf5))
+* **deps:** update angular to v20.2.3 ([7ce40c0](https://github.com/sbb-design-systems/lyne-angular/commit/7ce40c0c7322dd6634d59648984bf8129e2fad86))
+* **deps:** update dependency @angular/cdk to v20.2.2 ([4724030](https://github.com/sbb-design-systems/lyne-angular/commit/472403084b52e97efed3af58c1b76f829dc123f6))
+* **deps:** update esta to v3.5.0 ([#179](https://github.com/sbb-design-systems/lyne-angular/issues/179)) ([0b835f1](https://github.com/sbb-design-systems/lyne-angular/commit/0b835f15ad07cc910ac41c83f2043d0c972a8f09))
+* **deps:** update esta to v3.6.0 ([#181](https://github.com/sbb-design-systems/lyne-angular/issues/181)) ([b0a1583](https://github.com/sbb-design-systems/lyne-angular/commit/b0a1583484e33818002808c3221ecb97e986b47d))
+
 ## [20.0.0-rc.4](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.3...v20.0.0-rc.4) (2025-08-26)
 
 
