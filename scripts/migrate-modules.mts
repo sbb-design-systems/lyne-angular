@@ -165,9 +165,16 @@ function writeAngularModule(
   );
   const classNames = classExports.map((e) => e.name);
 
-  const content = `${importLines.join('\n')}
-
-export const Sbb${moduleName}Module = [${classNames.join(', ')}] as const;
+  const sbbModuleName = `Sbb${moduleName}Module`;
+  const content = `
+import { NgModule } from '@angular/core';
+${importLines.join('\n')}
+const EXPORTED_DECLARATIONS = [${classNames.join(', ')}];
+@NgModule({
+  imports: EXPORTED_DECLARATIONS,
+  exports: EXPORTED_DECLARATIONS
+})
+export class ${sbbModuleName} {}
 `;
   writeFileSync(join(moduleRoot, `${moduleFileName}.ts`), content.trim() + '\n');
 }

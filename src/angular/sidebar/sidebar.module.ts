@@ -1,3 +1,5 @@
+import { NgModule } from '@angular/core';
+
 import { SbbIconSidebar } from './icon-sidebar/icon-sidebar';
 import { SbbIconSidebarButton } from './icon-sidebar-button/icon-sidebar-button';
 import { SbbIconSidebarContainer } from './icon-sidebar-container/icon-sidebar-container';
@@ -9,7 +11,7 @@ import { SbbSidebarContainer } from './sidebar-container/sidebar-container';
 import { SbbSidebarContent } from './sidebar-content/sidebar-content';
 import { SbbSidebarTitle } from './sidebar-title/sidebar-title';
 
-export const SbbSidebarModule = [
+const EXPORTED_DECLARATIONS = [
   SbbIconSidebar,
   SbbIconSidebarButton,
   SbbIconSidebarContainer,
@@ -20,4 +22,10 @@ export const SbbSidebarModule = [
   SbbSidebarContainer,
   SbbSidebarContent,
   SbbSidebarTitle,
-] as const;
+];
+
+@NgModule({
+  imports: EXPORTED_DECLARATIONS,
+  exports: EXPORTED_DECLARATIONS,
+})
+export class SbbSidebarModule {}

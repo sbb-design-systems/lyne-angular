@@ -164,13 +164,12 @@ const generateStructure = (pkg: Package, projectPath: string) => {
               angularModuleContent = `${newImportSection}${remainingSection}`;
             }
 
-            // Read the existing module array and alphabetically add the new class
-            const exportedModulesRegex = /export const (Sbb\w+Module) = \[(.*?)\] as const;/s;
+            // Read the existing EXPORTED_DECLARATIONS array and alphabetically add the new class
+            const exportedModulesRegex = /const EXPORTED_DECLARATIONS = \[(.*?)\];/s;
             const exportedDeclarationsMatch = angularModuleContent.match(exportedModulesRegex);
 
             if (exportedDeclarationsMatch) {
-              const exportModuleName = exportedDeclarationsMatch[1];
-              const exportedDeclarations = exportedDeclarationsMatch[2]
+              const exportedDeclarations = exportedDeclarationsMatch[1]
                 .split(',')
                 .map((d) => d.trim())
                 .filter((d) => d !== '');
@@ -180,7 +179,7 @@ const generateStructure = (pkg: Package, projectPath: string) => {
                 exportedDeclarations.sort();
                 angularModuleContent = angularModuleContent.replace(
                   exportedModulesRegex,
-                  `export const ${exportModuleName} = [\n  ${exportedDeclarations.join(',\n  ')},\n] as const;\n`,
+                  `const EXPORTED_DECLARATIONS = [\n  ${exportedDeclarations.join(',\n  ')},\n];\n`,
                 );
               }
             }
