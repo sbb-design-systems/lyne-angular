@@ -1,3 +1,5 @@
+import { NgModule } from '@angular/core';
+
 import { SbbSort } from './sort/sort';
 import { SbbSortHeader } from './sort/sort-header';
 import {
@@ -21,7 +23,7 @@ import { SbbRecycleRows, SbbTable } from './table/table';
 import { SbbTextColumn } from './table/text-column';
 import { SbbTableWrapper } from './table-wrapper/table-wrapper';
 
-export const SbbTableModule = [
+const EXPORTED_DECLARATIONS = [
   // Table
   SbbTable,
   SbbRecycleRows,
@@ -51,4 +53,10 @@ export const SbbTableModule = [
   // Sort
   SbbSort,
   SbbSortHeader,
-] as const;
+];
+
+@NgModule({
+  imports: EXPORTED_DECLARATIONS,
+  exports: EXPORTED_DECLARATIONS,
+})
+export class SbbTableModule {}
