@@ -1,4 +1,5 @@
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
+import { SbbCard } from '@sbb-esta/lyne-angular/card';
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
 import { SbbOverlay } from '@sbb-esta/lyne-angular/overlay';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
@@ -8,7 +9,7 @@ import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 const meta: Meta = {
   decorators: [
     moduleMetadata({
-      imports: [SbbButton, SbbTitle, SbbImage],
+      imports: [SbbButton, SbbTitle, SbbImage, SbbCard],
     }),
   ],
   title: 'elements/sbb-overlay',
@@ -43,12 +44,12 @@ const meta: Meta = {
           of blended word and melody. 'It is a song to Elbereth,'' said Bilbo. 'They will sing that, and
           other songs of the Blessed Realm, many times tonight. Come on!’ —J.R.R. Tolkien, The Lord of
           the Rings: The Fellowship of the Ring, “Many Meetings”
-          <div style="position: relative; margin-block-start: 1rem; padding: 1rem; border-radius: var(--sbb-border-radius-4x); background-color: ${args['negative'] === true ? 'var(--sbb-color-metal)' : 'var(--sbb-color-cloud)'}">
+          <sbb-card color="transparent-bordered" style="margin-block-start: 1rem">
             J.R.R. Tolkien, the mastermind behind Middle-earth's enchanting world, was born on January 3,
             1892. With "The Hobbit" and "The Lord of the Rings", he pioneered fantasy literature. Tolkien's
             linguistic brilliance and mythic passion converge in a literary legacy that continues to
             transport readers to magical realms.
-          </div>
+          </sbb-card>
         </div>
       </sbb-overlay>
     `,

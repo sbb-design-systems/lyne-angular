@@ -1,86 +1,29 @@
-import { SbbCarouselItem, SbbCarouselList } from '@sbb-esta/lyne-angular/carousel';
-import type { Meta } from '@storybook/angular';
+import { SbbCard } from '@sbb-esta/lyne-angular/card';
+import { SbbCarouselList } from '@sbb-esta/lyne-angular/carousel';
+import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
-
-const images: string[] = [
-  'https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg',
-  'https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg',
-  'https://cdn.img.sbb.ch/content/dam/internet/lyne/Kaufmann-frau.jpg',
-];
 
 const meta: Meta = {
   decorators: [
     moduleMetadata({
-      imports: [SbbCarouselItem],
+      imports: [SbbCard],
     }),
   ],
   title: 'elements/sbb-carousel/sbb-carousel-list',
   component: SbbCarouselList,
+  render: (args: Args) => ({
+    props: { ...args },
+    template: `
+      <sbb-card color="milk">
+        <b>sbb-carousel-list</b> is an element meant to be used in combination with the
+        'sbb-carousel'.
+        <p style="margin-block-end: 0">
+          See the <b>sbb-carousel</b> examples to see it in action.
+        </p>
+      </sbb-card>
+    `,
+  }),
 };
 export default meta;
 
-export const Native = {
-  render: () => ({
-    template: `
-      <sbb-carousel-list>
-        ${new Array(3)
-          .fill(null)
-          .map(
-            (_, i) => `
-              <sbb-carousel-item>
-                <img src="${images[i]}" alt="SBB image" height="300" width="400" />
-              </sbb-carousel-item>
-            `,
-          )
-          .join('')}
-      </sbb-carousel-list>
-    `,
-  }),
-};
-
-export const SbbImage = {
-  render: () => ({
-    template: `
-      <sbb-carousel-list>
-        ${new Array(3)
-          .fill(null)
-          .map(
-            (_, i) => `
-              <sbb-carousel-item>
-                <sbb-image
-                  image-src="${images[i]}"
-                  alt="SBB image"
-                  style="width: 400px; height: 300px;"
-                ></sbb-image>
-              </sbb-carousel-item>
-            `,
-          )
-          .join('')}
-      </sbb-carousel-list>
-    `,
-  }),
-};
-
-export const Caption = {
-  render: () => ({
-    template: `
-      <sbb-carousel-list>
-        ${new Array(3)
-          .fill(null)
-          .map(
-            (_, i) => `
-              <sbb-carousel-item>
-                <div class="sbb-image">
-                  <img src="${images[i]}" alt="SBB image ${i + 1}" width="400" height="300" />
-                  <figcaption style="text-align: center;">
-                    Caption for picture ${i + 1}
-                  </figcaption>
-                </div>
-              </sbb-carousel-item>
-            `,
-          )
-          .join('')}
-      </sbb-carousel-list>
-    `,
-  }),
-};
+export const Default = {};

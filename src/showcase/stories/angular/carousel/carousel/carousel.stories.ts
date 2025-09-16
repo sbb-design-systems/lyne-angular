@@ -35,6 +35,7 @@ export default meta;
 
 export const Native = {
   render: (args: Args) => ({
+    props: { ...args },
     template: `
       <sbb-carousel ${argsToTemplate(args)}>
         <sbb-carousel-list>
@@ -81,7 +82,7 @@ export const SbbImage = {
   }),
 };
 
-export const Caption = {
+export const Figure = {
   render: (args: Args) => ({
     template: `
       <sbb-carousel ${argsToTemplate(args)}>
@@ -91,12 +92,12 @@ export const Caption = {
             .map(
               (_, i) => `
               <sbb-carousel-item>
-                <div class="sbb-image">
-                  <img src="${images[i]}" alt="SBB image ${i + 1}" width="800" height="450" />
+                <figure class="sbb-figure" style="width:800px; height:450px;">
+                  <img src="${images[i]}" alt="SBB image ${i + 1}"  />
                   <figcaption style="text-align: center;">
                     Caption for picture ${i + 1}
                   </figcaption>
-                </div>
+                </figure>
               </sbb-carousel-item>
             `,
             )
