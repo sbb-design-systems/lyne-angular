@@ -16,7 +16,7 @@ import { basename, dirname } from 'node:path';
  * NOTE: This script is entirely generated with GitHub copilot and is far not optimized.
  */
 
-const modulesToMigrate = ['option'];
+const modulesToMigrate = ['timetable-form', 'carousel'];
 
 // Helper functions
 function walkDir(dir: string, callback: (filePath: string) => void) {

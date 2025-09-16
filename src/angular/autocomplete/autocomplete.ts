@@ -60,6 +60,24 @@ export class SbbAutocomplete<T = string> implements SbbAutocompleteType<T> {
     return this.#element.nativeElement.preserveIconSpace;
   }
 
+  @Input({ transform: booleanAttribute })
+  public set autoSelectActiveOption(value: boolean) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.autoSelectActiveOption = value),
+    );
+  }
+  public get autoSelectActiveOption(): boolean {
+    return this.#element.nativeElement.autoSelectActiveOption;
+  }
+
+  @Input({ transform: booleanAttribute })
+  public set requireSelection(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.requireSelection = value));
+  }
+  public get requireSelection(): boolean {
+    return this.#element.nativeElement.requireSelection;
+  }
+
   public get originElement(): HTMLElement | null {
     return this.#element.nativeElement.originElement;
   }
