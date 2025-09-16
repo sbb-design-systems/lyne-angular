@@ -1,27 +1,137 @@
-import { SbbCarousel } from '@sbb-esta/lyne-angular/carousel';
+import { SbbCarousel, SbbCarouselItem, SbbCarouselList } from '@sbb-esta/lyne-angular/carousel';
+import { SbbCompactPaginator } from '@sbb-esta/lyne-angular/paginator/compact-paginator';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import { withActions } from 'storybook/actions/decorator';
+import type { InputType } from 'storybook/internal/types';
+
+const images: string[] = [
+  'https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg',
+  'https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg',
+  'https://cdn.img.sbb.ch/content/dam/internet/lyne/Kaufmann-frau.jpg',
+];
+
+const shadow: InputType = {
+  control: {
+    type: 'boolean',
+  },
+};
 
 const meta: Meta = {
   decorators: [
-    withActions,
     moduleMetadata({
-      // add slotted components or remove
-      imports: [],
+      imports: [SbbCarouselList, SbbCarouselItem, SbbCompactPaginator],
     }),
   ],
-  title: 'elements/sbb-carousel',
+  title: 'elements/sbb-carousel/sbb-carousel',
   component: SbbCarousel,
-  parameters: {
-    // add events or remove the 'action' object
-    actions: { handles: ['click'] },
+  argTypes: {
+    shadow,
   },
-  render: (args: Args) => ({
-    props: { ...args },
-    template: `<sbb-carousel ${argsToTemplate(args)}></sbb-carousel>`,
-  }),
+  args: {
+    shadow: true,
+  },
 };
 export default meta;
 
-export const Default = {};
+export const Native = {
+  render: (args: Args) => ({
+    template: `
+      <sbb-carousel ${argsToTemplate(args)}>
+        <sbb-carousel-list>
+          ${new Array(3)
+            .fill(null)
+            .map(
+              (_, i) => `
+              <sbb-carousel-item>
+                <img src="${images[i]}" alt="SBB image" height="450" width="800" />
+              </sbb-carousel-item>
+            `,
+            )
+            .join('')}
+        </sbb-carousel-list>
+        <sbb-compact-paginator></sbb-compact-paginator>
+      </sbb-carousel>
+    `,
+  }),
+};
+
+export const SbbImage = {
+  render: (args: Args) => ({
+    template: `
+      <sbb-carousel ${argsToTemplate(args)}>
+        <sbb-carousel-list>
+          ${new Array(3)
+            .fill(null)
+            .map(
+              (_, i) => `
+              <sbb-carousel-item>
+                <sbb-image
+                  image-src="${images[i]}"
+                  alt="SBB image"
+                  style="width: 800px; height: 450px;"
+                ></sbb-image>
+              </sbb-carousel-item>
+            `,
+            )
+            .join('')}
+        </sbb-carousel-list>
+        <sbb-compact-paginator></sbb-compact-paginator>
+      </sbb-carousel>
+    `,
+  }),
+};
+
+export const Caption = {
+  render: (args: Args) => ({
+    template: `
+      <sbb-carousel ${argsToTemplate(args)}>
+        <sbb-carousel-list>
+          ${new Array(3)
+            .fill(null)
+            .map(
+              (_, i) => `
+              <sbb-carousel-item>
+                <div class="sbb-image">
+                  <img src="${images[i]}" alt="SBB image ${i + 1}" width="800" height="450" />
+                  <figcaption style="text-align: center;">
+                    Caption for picture ${i + 1}
+                  </figcaption>
+                </div>
+              </sbb-carousel-item>
+            `,
+            )
+            .join('')}
+        </sbb-carousel-list>
+        <sbb-compact-paginator></sbb-compact-paginator>
+      </sbb-carousel>
+    `,
+  }),
+};
+
+export const Link = {
+  render: (args: Args) => ({
+    template: `
+      <sbb-carousel ${argsToTemplate(args)}>
+        <sbb-carousel-list>
+          ${new Array(3)
+            .fill(null)
+            .map(
+              (_, i) => `
+              <sbb-carousel-item>
+                <a href="https://github.com/sbb-design-systems/lyne-components" target="_blank" tabindex="-1">
+                  <sbb-image
+                    image-src="${images[i]}"
+                    alt="SBB image ${i + 1}"
+                    style="width: 800px; height: 450px;"
+                  ></sbb-image>
+                  </a>
+              </sbb-carousel-item>
+            `,
+            )
+            .join('')}
+        </sbb-carousel-list>
+        <sbb-compact-paginator></sbb-compact-paginator>
+      </sbb-carousel>
+    `,
+  }),
+};
