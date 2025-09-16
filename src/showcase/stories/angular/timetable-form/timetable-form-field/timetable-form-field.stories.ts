@@ -1,25 +1,27 @@
+import { SbbCard } from '@sbb-esta/lyne-angular/card';
 import { SbbTimetableFormField } from '@sbb-esta/lyne-angular/timetable-form';
 import type { Args, Meta } from '@storybook/angular';
-import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import { withActions } from 'storybook/actions/decorator';
+import { moduleMetadata } from '@storybook/angular';
 
 const meta: Meta = {
   decorators: [
-    withActions,
     moduleMetadata({
-      // add slotted components or remove
-      imports: [],
+      imports: [SbbCard],
     }),
   ],
-  title: 'elements/sbb-timetable-form-field',
+  title: 'elements/sbb-timetable-form/sbb-timetable-form-field',
   component: SbbTimetableFormField,
-  parameters: {
-    // add events or remove the 'action' object
-    actions: { handles: ['click'] },
-  },
   render: (args: Args) => ({
     props: { ...args },
-    template: `<sbb-timetable-form-field ${argsToTemplate(args)}></sbb-timetable-form-field>`,
+    template: `
+      <sbb-card color="milk">
+        <b>sbb-timetable-form-field</b> is an element meant to be used in combination with the
+        'sbb-timetable-form'.
+        <p style="margin-block-end: 0">
+          See the <b>sbb-timetable-form</b> examples to see it in action.
+        </p>
+      </sbb-card>
+    `,
   }),
 };
 export default meta;
