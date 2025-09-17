@@ -12,8 +12,8 @@ import { SbbToastContainer } from './toast-container';
 export class SbbToastService extends _SbbOverlayBaseService<SbbToastContainer, SbbToast> {
   constructor() {
     const injector = inject(Injector);
-    const parentDialog = inject(SbbToastService, { optional: true, skipSelf: true })!;
+    const parentToastService = inject(SbbToastService, { optional: true, skipSelf: true })!;
 
-    super(injector, parentDialog, SbbToastContainer, SbbOverlayRef, SBB_OVERLAY_DATA);
+    super(injector, parentToastService, SbbToastContainer, SbbOverlayRef, SBB_OVERLAY_DATA);
   }
 }

@@ -137,7 +137,7 @@ export abstract class _SbbOverlayBaseService<
     this.openDialogs.push(dialogRef!);
     this.afterOpened.next(dialogRef!);
 
-    dialogRef!.afterClosed().subscribe((event) => {
+    dialogRef!.afterClosed.subscribe((event) => {
       if (!event) {
         return;
       }

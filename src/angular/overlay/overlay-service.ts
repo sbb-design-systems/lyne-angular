@@ -12,8 +12,8 @@ import { SbbOverlayContainer } from './overlay-container';
 export class SbbOverlayService extends _SbbOverlayBaseService<SbbOverlayContainer, SbbOverlay> {
   constructor() {
     const injector = inject(Injector);
-    const parentDialog = inject(SbbOverlayService, { optional: true, skipSelf: true });
+    const parentOverlayService = inject(SbbOverlayService, { optional: true, skipSelf: true });
 
-    super(injector, parentDialog, SbbOverlayContainer, SbbOverlayRef, SBB_OVERLAY_DATA);
+    super(injector, parentOverlayService, SbbOverlayContainer, SbbOverlayRef, SBB_OVERLAY_DATA);
   }
 }

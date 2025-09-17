@@ -89,7 +89,7 @@ describe('sbb-dialog', () => {
       const spy = jasmine.createSpy('afterOpen spy');
       await fixture.whenRenderingDone();
 
-      dialogRef.afterOpened().subscribe(spy);
+      dialogRef.afterOpened.subscribe(spy);
 
       fixture.detectChanges();
       expect(spy).toHaveBeenCalled();
@@ -103,8 +103,8 @@ describe('sbb-dialog', () => {
       });
       const beforeCloseSpy = jasmine.createSpy('afterClose spy');
       const afterCloseSpy = jasmine.createSpy('afterClose spy');
-      ref.beforeClosed().subscribe(beforeCloseSpy);
-      ref.afterClosed().subscribe(afterCloseSpy);
+      ref.beforeClosed.subscribe(beforeCloseSpy);
+      ref.afterClosed.subscribe(afterCloseSpy);
       await fixture.whenRenderingDone();
 
       fixture.detectChanges();
