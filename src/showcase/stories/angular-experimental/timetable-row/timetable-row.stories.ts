@@ -65,7 +65,7 @@ const meta: Meta = {
   component: SbbTimetableRow,
   parameters: {
     actions: { handles: ['click'] },
-    backgroundColor: () => 'var(--sbb-color-milk)',
+    backgroundColor: () => 'var(--sbb-background-color-3)',
   },
   argTypes: {
     ...argTypes,

@@ -55,7 +55,7 @@ const meta: Meta = {
   component: SbbMenuLink,
   parameters: {
     actions: { handles: ['click'] },
-    backgroundColor: () => 'var(--sbb-color-black)',
+    backgroundColor: () => 'var(--sbb-background-color-1-negative)',
   },
   argTypes,
   args,

@@ -60,7 +60,7 @@ const meta: Meta = {
   title: 'elements/sbb-navigation/sbb-navigation-link',
   component: SbbNavigationLink,
   parameters: {
-    backgroundColor: () => 'var(--sbb-color-midnight)',
+    backgroundColor: () => 'var(--sbb-background-color-1-negative)',
   },
   argTypes,
   args,

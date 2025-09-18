@@ -4,7 +4,7 @@ import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
-import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const label: InputType = {
   control: {
@@ -79,8 +79,7 @@ const meta: Meta = {
   title: 'elements/sbb-tab/sbb-tab-group',
   component: SbbTabGroup,
   parameters: {
-    backgroundColor: (context: StoryContext) =>
-      context.args['negative'] ? 'var(--sbb-color-milk)' : 'var(--sbb-color-white)',
+    backgroundColor: () => 'var(--sbb-background-color-3)',
   },
   argTypes,
   args,
