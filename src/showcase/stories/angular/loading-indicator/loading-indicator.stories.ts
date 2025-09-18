@@ -32,7 +32,9 @@ const meta: Meta = {
   component: SbbLoadingIndicator,
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args['color'] === 'white' ? 'var(--sbb-color-iron)' : 'var(--sbb-color-white)',
+      context.args['color'] === 'white'
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
   },
   argTypes,
   args,

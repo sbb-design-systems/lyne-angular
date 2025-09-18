@@ -12,7 +12,7 @@ const meta: Meta = {
   title: 'elements/sbb-flip-card/sbb-flip-card-details',
   component: SbbFlipCardDetails,
   parameters: {
-    backgroundColor: () => 'var(--sbb-color-midnight)',
+    backgroundColor: () => 'var(--sbb-background-color-1-negative)',
   },
   render: (args: Args) => ({
     props: { ...args },
