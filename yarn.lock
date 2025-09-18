@@ -2785,10 +2785,10 @@
   optionalDependencies:
     fsevents "~2.3.2"
 
-"@sbb-esta/lyne-design-tokens@1.6.1":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-1.6.1.tgz#6f5b4ba0b6e87a0d0c449c697d582b86794f4555"
-  integrity sha512-YV4y67dwc9/agotkYd1LAAHgYQulgaO6Yq4c/00AvhmSf/+LDdLwLQQjGVYVhEfZbg+ww1aZIYLA6skY8wonQA==
+"@sbb-esta/lyne-design-tokens@1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-1.8.0.tgz#f42258a493c8069bb4cc1f65453ac4257bdc5e66"
+  integrity sha512-evvULU/NvJeP2NYfPehZKMC3kvC/jq8Q1FrZCF5JmW9+0Sgmg7nxL+nnlMK1OzxTBqPCN51WxbzA9UxiRDDDBg==
 
 "@sbb-esta/lyne-elements-experimental@3.7.0":
   version "3.7.0"
