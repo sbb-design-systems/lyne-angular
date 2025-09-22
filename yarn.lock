@@ -2889,23 +2889,23 @@
   optionalDependencies:
     fsevents "~2.3.2"
 
-"@sbb-esta/lyne-design-tokens@1.6.1":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-1.6.1.tgz#6f5b4ba0b6e87a0d0c449c697d582b86794f4555"
-  integrity sha512-YV4y67dwc9/agotkYd1LAAHgYQulgaO6Yq4c/00AvhmSf/+LDdLwLQQjGVYVhEfZbg+ww1aZIYLA6skY8wonQA==
+"@sbb-esta/lyne-design-tokens@1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-1.8.0.tgz#f42258a493c8069bb4cc1f65453ac4257bdc5e66"
+  integrity sha512-evvULU/NvJeP2NYfPehZKMC3kvC/jq8Q1FrZCF5JmW9+0Sgmg7nxL+nnlMK1OzxTBqPCN51WxbzA9UxiRDDDBg==
 
-"@sbb-esta/lyne-elements-experimental@3.7.0":
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-experimental/-/lyne-elements-experimental-3.7.0.tgz#5da0bf59a097ff4caf5aa2f59ec44b25de1bb077"
-  integrity sha512-4CZ7qqAq6Ivap8g7xpDnYC52rvWK5h33tVbtLrPYqpirJioyrjlCDmktSO4rZhfdzz6WgLEoCBh+uU47qgWihQ==
+"@sbb-esta/lyne-elements-experimental@3.8.0":
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-experimental/-/lyne-elements-experimental-3.8.0.tgz#b5414cff67785717ef2aa923056a88b669e0ea97"
+  integrity sha512-KgaHNLXhKGBiJr3wxmny0X+jxGDj4qrSSJVMgvv19Cgsnl03gGbED3Z2Wmzx2ZcbtDzrueDVYpxBq065E5G/Vw==
   dependencies:
     lit "^3.3.1"
     tslib "^2.8.1"
 
-"@sbb-esta/lyne-elements@3.7.0":
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements/-/lyne-elements-3.7.0.tgz#1ffb9892b0f4183a0e797cb531132f16f35545b6"
-  integrity sha512-eM2EFCGygQdGgi873FTaZFQaEbqVhrJuJropOJxzJN7u8GNtD8ZVcZlVjIEbaS4DFIcpEcz2nSpAwc8iI9sdZw==
+"@sbb-esta/lyne-elements@3.8.0":
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements/-/lyne-elements-3.8.0.tgz#b75756ca356c1fc3bd859bfa660dbfc9e0d82f48"
+  integrity sha512-Mdp/tinTW0NW8bHkN1wHqX2FOqoHFVAJYQq4mu6Q7voAcQJ7WpIddFjvEP7GQdhxlW37LUtqBnF6rNI5DQHxwg==
   dependencies:
     "@lit-labs/observers" "^2.0.6"
     lit "^3.3.1"
