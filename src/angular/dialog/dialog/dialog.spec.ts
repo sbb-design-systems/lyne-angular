@@ -1,6 +1,7 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import {
   Component,
+  DestroyRef,
   Directive,
   inject,
   type TemplateRef,
@@ -38,7 +39,7 @@ describe('sbb-dialog', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [ServiceTestComponent, SbbDummyComponent, TestComponent],
-        providers: [SbbDialogService],
+        providers: [SbbDialogService, DestroyRef],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ServiceTestComponent);
@@ -82,36 +83,41 @@ describe('sbb-dialog', () => {
     });
 
     it('should emit when dialog opening animation is complete', async () => {
+      const serviceSpy = jasmine.createSpy('afterOpened spy');
+      const spy = jasmine.createSpy('afterOpen spy');
+      service.afterOpened.subscribe(serviceSpy);
       const dialogRef = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
-      const spy = jasmine.createSpy('afterOpen spy');
       await fixture.whenRenderingDone();
 
-      dialogRef.afterOpened.subscribe(spy);
+      dialogRef.afterOpen.subscribe({ complete: spy });
 
       fixture.detectChanges();
-      expect(spy).toHaveBeenCalled();
+      expect(serviceSpy).toHaveBeenCalled();
       dialogRef.close();
     });
 
     it('should emit before and after dialog closing animation', async () => {
+      const beforeCloseSpy = jasmine.createSpy('beforeClose spy');
+      const afterCloseSpy = jasmine.createSpy('afterClose spy');
       const ref = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
-      const beforeCloseSpy = jasmine.createSpy('afterClose spy');
-      const afterCloseSpy = jasmine.createSpy('afterClose spy');
-      ref.beforeClosed.subscribe(beforeCloseSpy);
-      ref.afterClosed.subscribe(afterCloseSpy);
+      ref.beforeClose.subscribe(beforeCloseSpy);
+      ref.afterClose.subscribe({
+        complete: afterCloseSpy,
+      });
       await fixture.whenRenderingDone();
 
-      fixture.detectChanges();
+      expect(service.openDialogs[0]).toBe(ref);
       ref.close();
 
       fixture.detectChanges();
       expect(beforeCloseSpy).toHaveBeenCalled();
+      expect(service.openDialogs.length).toBe(0);
       expect(afterCloseSpy).toHaveBeenCalled();
     });
 
@@ -178,5 +184,9 @@ class ServiceTestComponent {
 
   get childViewContainer() {
     return this.childWithViewContainer.viewContainerRef;
+  }
+
+  public methodToSpy() {
+    return;
   }
 }

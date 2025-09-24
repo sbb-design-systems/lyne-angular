@@ -82,18 +82,18 @@ describe('sbb-toast', () => {
     });
 
     it('should emit when toast opening animation is complete', async () => {
+      const spy = jasmine.createSpy('afterOpen spy');
       const toastRef = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
-      const spy = jasmine.createSpy('afterOpen spy');
+      toastRef.afterOpen.subscribe({ complete: spy });
       await fixture.whenRenderingDone();
+      fixture.detectChanges();
 
-      toastRef.afterOpened.subscribe(spy);
-
+      toastRef.close();
       fixture.detectChanges();
       expect(spy).toHaveBeenCalled();
-      toastRef.close();
     });
 
     it('should emit before and after toast closing animation', async () => {
@@ -101,10 +101,10 @@ describe('sbb-toast', () => {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
-      const beforeCloseSpy = jasmine.createSpy('afterClose spy');
+      const beforeCloseSpy = jasmine.createSpy('beforeClose spy');
       const afterCloseSpy = jasmine.createSpy('afterClose spy');
-      ref.beforeClosed.subscribe(beforeCloseSpy);
-      ref.afterClosed.subscribe(afterCloseSpy);
+      ref.beforeClose.subscribe(beforeCloseSpy);
+      ref.afterClose.subscribe({ complete: afterCloseSpy });
       await fixture.whenRenderingDone();
 
       fixture.detectChanges();

@@ -44,21 +44,21 @@ export class SbbOverlayRef<T = unknown> {
   /**
    * Gets an observable that is notified when the dialog is finished opening.
    */
-  get afterOpened(): Observable<Event | undefined> {
+  get afterOpen(): Observable<Event | undefined> {
     return this._container.afterOpen;
   }
 
   /**
    * Gets an observable that is notified when the dialog is finished closing.
    */
-  get afterClosed(): Observable<Event | undefined> {
+  get afterClose(): Observable<Event | undefined> {
     return this._container.afterClose;
   }
 
   /**
    * Gets an observable that is notified when the dialog has started closing.
    */
-  get beforeClosed(): Observable<Event | undefined> {
+  get beforeClose(): Observable<Event | undefined> {
     return this._container.beforeClose;
   }
 }
