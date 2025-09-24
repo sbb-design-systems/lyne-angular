@@ -101,7 +101,9 @@ const generateStructure = (pkg: Package, projectPath: string) => {
 
         const indexPath = join(directoryPath, 'index.ts');
         const commonIndexPath = join(directoryPath, '..', 'index.ts');
-        const hasCommonModule = existsSync(commonIndexPath);
+        // src/angular has his own index.ts, so it has to be excluded, otherwise all modules are treated as common
+        const hasCommonModule =
+          existsSync(commonIndexPath) && projectPath !== join(directoryPath, '..');
         const ngPackagePath = join(directoryPath, 'ng-package.json');
 
         // Only add ng-package.json and index.ts if the module is not already in the common index
