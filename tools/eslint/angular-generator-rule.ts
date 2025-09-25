@@ -101,7 +101,9 @@ const generateStructure = (pkg: Package, projectPath: string) => {
 
         const indexPath = join(directoryPath, 'index.ts');
         const commonIndexPath = join(directoryPath, '..', 'index.ts');
-        const hasCommonModule = existsSync(commonIndexPath);
+        // the root folder has his own index.ts, so it has to be excluded, otherwise all modules are treated as common
+        const hasCommonModule =
+          existsSync(commonIndexPath) && projectPath !== join(directoryPath, '..');
         const ngPackagePath = join(directoryPath, 'ng-package.json');
 
         // Only add ng-package.json and index.ts if the module is not already in the common index
@@ -164,13 +166,12 @@ const generateStructure = (pkg: Package, projectPath: string) => {
               angularModuleContent = `${newImportSection}${remainingSection}`;
             }
 
-            // Read the existing module array and alphabetically add the new class
-            const exportedModulesRegex = /export const (Sbb\w+Module) = \[(.*?)\] as const;/s;
+            // Read the existing EXPORTED_DECLARATIONS array and alphabetically add the new class
+            const exportedModulesRegex = /const EXPORTED_DECLARATIONS = \[(.*?)\];/s;
             const exportedDeclarationsMatch = angularModuleContent.match(exportedModulesRegex);
 
             if (exportedDeclarationsMatch) {
-              const exportModuleName = exportedDeclarationsMatch[1];
-              const exportedDeclarations = exportedDeclarationsMatch[2]
+              const exportedDeclarations = exportedDeclarationsMatch[1]
                 .split(',')
                 .map((d) => d.trim())
                 .filter((d) => d !== '');
@@ -180,7 +181,7 @@ const generateStructure = (pkg: Package, projectPath: string) => {
                 exportedDeclarations.sort();
                 angularModuleContent = angularModuleContent.replace(
                   exportedModulesRegex,
-                  `export const ${exportModuleName} = [\n  ${exportedDeclarations.join(',\n  ')},\n] as const;\n`,
+                  `const EXPORTED_DECLARATIONS = [\n  ${exportedDeclarations.join(',\n  ')},\n];\n`,
                 );
               }
             }

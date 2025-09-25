@@ -38,7 +38,7 @@ describe('sbb-form-field', () => {
         getComputedStyle(
           (fixture.nativeElement as HTMLElement).querySelector('sbb-form-field')!,
         ).getPropertyValue('--sbb-form-field-border-color'),
-      ).toBe('#c60018');
+      ).toBe('light-dark(#c60018, #ff3838)');
     });
   });
 
@@ -72,7 +72,7 @@ describe('sbb-form-field', () => {
         getComputedStyle(
           (fixture.nativeElement as HTMLElement).querySelector('sbb-form-field')!,
         ).getPropertyValue('--sbb-form-field-border-color'),
-      ).toBe('#c60018');
+      ).toBe('light-dark(#c60018, #ff3838)');
     });
 
     it('should reflect changed disabled state', async () => {

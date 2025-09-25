@@ -10,7 +10,8 @@ import type { ArgTypes, InputType } from 'storybook/internal/types';
 const userNameStyle =
   'fontWeight: bold; fontSize: var(--sbb-font-size-text-xs); marginTop: var(--sbb-spacing-fixed-1x)';
 
-const userInfoStyle = 'color: var(--sbb-color-graphite); fontSize: var(--sbb-font-size-text-xxs)';
+const userInfoStyle =
+  'color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke)); fontSize: var(--sbb-font-size-text-xxs)';
 
 const iconName: InputType = {
   control: {
