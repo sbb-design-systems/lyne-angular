@@ -83,20 +83,26 @@ describe('sbb-dialog', () => {
     });
 
     it('should emit when dialog opening animation is complete', async () => {
-      const serviceSpy = jasmine.createSpy('afterOpened spy');
       const spy = jasmine.createSpy('afterOpen spy');
+      const serviceSpy = jasmine.createSpy('service afterOpened spy');
+
       service.afterOpened.subscribe(serviceSpy);
+
       const dialogRef = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
-      await fixture.whenRenderingDone();
 
       dialogRef.afterOpen.subscribe({ complete: spy });
 
+      await fixture.whenRenderingDone();
       fixture.detectChanges();
-      expect(serviceSpy).toHaveBeenCalled();
+
       dialogRef.close();
+      await fixture.whenRenderingDone();
+
+      expect(serviceSpy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalled();
     });
 
     it('should emit before and after dialog closing animation', async () => {

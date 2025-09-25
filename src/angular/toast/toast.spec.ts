@@ -83,11 +83,17 @@ describe('sbb-toast', () => {
 
     it('should emit when toast opening animation is complete', async () => {
       const spy = jasmine.createSpy('afterOpen spy');
+      const serviceSpy = jasmine.createSpy('afterOpen spy');
+
+      service.afterOpened.subscribe(serviceSpy);
+
       const toastRef = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
+
       toastRef.afterOpen.subscribe({ complete: spy });
+
       await fixture.whenRenderingDone();
       fixture.detectChanges();
 
