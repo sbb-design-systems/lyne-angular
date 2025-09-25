@@ -1,8 +1,8 @@
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
-import { SbbTooltip } from '@sbb-esta/lyne-angular/tooltip';
+import { SbbTooltip, SbbTooltipDirective } from '@sbb-esta/lyne-angular/tooltip';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
-import type { InputType } from 'storybook/internal/types';
+import type { ArgTypes, InputType } from 'storybook/internal/types';
 
 const trigger: InputType = {
   control: false,
@@ -35,14 +35,41 @@ const tooltipPosition: InputType = {
   },
 };
 
+const openDelay: InputType = {
+  control: {
+    type: 'number',
+  },
+};
+
+const closeDelay: InputType = {
+  control: {
+    type: 'number',
+  },
+};
+
+const attributeUsageArgTypes: ArgTypes = {
+  'sbb-tooltip-open-delay': openDelay,
+  'sbb-tooltip-close-delay': closeDelay,
+};
+
+const attributeUsageArgs: Args = {
+  'sbb-tooltip': "I'm a tooltip from the [sbb-tooltip] attribute",
+  'sbb-tooltip-open-delay': 1000,
+  'sbb-tooltip-close-delay': 1000,
+};
+
 const meta: Meta = {
   decorators: [
     moduleMetadata({
-      imports: [SbbButton],
+      imports: [SbbButton, SbbTooltipDirective],
     }),
   ],
   title: 'elements/sbb-tooltip',
   component: SbbTooltip,
+};
+export default meta;
+
+export const Default = {
   argTypes: { tooltipPosition, trigger },
   args: { tooltipPosition: tooltipPosition.options![0] },
   render: ({ tooltipPosition, ...args }: Args) => ({
@@ -52,6 +79,13 @@ const meta: Meta = {
       <sbb-tooltip trigger="tooltip-trigger" ${argsToTemplate(args)}> I'm a tooltip!!! </sbb-tooltip>`,
   }),
 };
-export default meta;
 
-export const Default = {};
+export const AttributeUsage = {
+  argTypes: { trigger, ...attributeUsageArgTypes },
+  args: { ...attributeUsageArgs },
+  render: (args: Args) => ({
+    props: { ...args },
+    template: `
+      <sbb-button style='position: absolute' ${argsToTemplate(args)}>Button</sbb-button>`,
+  }),
+};
