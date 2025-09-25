@@ -81,6 +81,7 @@ describe('sbb-toast', () => {
       expect(ref.componentInstance).toBeUndefined();
     });
 
+    // TODO: understand why next is not called in tests
     it('should emit when toast opening animation is complete', async () => {
       const spy = jasmine.createSpy('afterOpen spy');
       const serviceSpy = jasmine.createSpy('afterOpen spy');
@@ -102,6 +103,7 @@ describe('sbb-toast', () => {
       expect(spy).toHaveBeenCalled();
     });
 
+    // TODO: understand why next is not called in tests
     it('should emit before and after toast closing animation', async () => {
       const ref = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,

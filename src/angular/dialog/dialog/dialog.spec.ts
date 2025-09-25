@@ -82,6 +82,7 @@ describe('sbb-dialog', () => {
       expect(ref.componentInstance).toBeUndefined();
     });
 
+    // TODO: understand why next is not called in tests
     it('should emit when dialog opening animation is complete', async () => {
       const spy = jasmine.createSpy('afterOpen spy');
       const serviceSpy = jasmine.createSpy('service afterOpened spy');
@@ -105,6 +106,7 @@ describe('sbb-dialog', () => {
       expect(spy).toHaveBeenCalled();
     });
 
+    // TODO: understand why next is not called in tests
     it('should emit before and after dialog closing animation', async () => {
       const beforeCloseSpy = jasmine.createSpy('beforeClose spy');
       const afterCloseSpy = jasmine.createSpy('afterClose spy');
