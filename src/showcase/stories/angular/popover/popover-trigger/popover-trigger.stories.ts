@@ -60,14 +60,16 @@ const meta: Meta = {
   parameters: {
     actions: { handles: ['click'] },
     backgroundColor: (context: StoryContext) =>
-      context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args['negative']
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
   },
   argTypes,
   args,
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <div style="color: ${args['negative'] ? 'var(--sbb-color-white)' : 'var(--sbb-color-black)'}">
+      <div style="color: ${args['negative'] ? 'var(--sbb-color-1-negative)' : 'var(--sbb-color-1)'}">
         <span class="sbb-text-s" style="display: flex; align-items: center;">
           <span style="margin-inline-end: var(--sbb-spacing-fixed-1x);"> This is a demo text. </span>
           <sbb-popover-trigger id="popover-trigger" ${argsToTemplate(args)}></sbb-popover-trigger>
