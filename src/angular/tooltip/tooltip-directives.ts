@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input } from '@angular/core';
+import { Directive, ElementRef, inject, Input, numberAttribute } from '@angular/core';
 
 @Directive({
   selector: '[sbb-tooltip]',
@@ -18,9 +18,9 @@ export class SbbTooltipDirective {
     return this.#elementRef.nativeElement.getAttribute('sbb-tooltip');
   }
 
-  @Input('sbb-tooltip-open-delay')
-  public set openDelay(value: number | null) {
-    if (value) {
+  @Input({ alias: 'sbb-tooltip-open-delay', transform: numberAttribute })
+  public set openDelay(value: number) {
+    if (!isNaN(value) && value >= 0) {
       this.#elementRef.nativeElement.setAttribute('sbb-tooltip-open-delay', String(value));
     } else {
       this.#elementRef.nativeElement.removeAttribute('sbb-tooltip-open-delay');
@@ -30,9 +30,9 @@ export class SbbTooltipDirective {
     return Number(this.#elementRef.nativeElement.getAttribute('sbb-tooltip-open-delay'));
   }
 
-  @Input('sbb-tooltip-close-delay')
-  public set closeDelay(value: number | null) {
-    if (value) {
+  @Input({ alias: 'sbb-tooltip-close-delay', transform: numberAttribute })
+  public set closeDelay(value: number) {
+    if (!isNaN(value) && value >= 0) {
       this.#elementRef.nativeElement.setAttribute('sbb-tooltip-close-delay', String(value));
     } else {
       this.#elementRef.nativeElement.removeAttribute('sbb-tooltip-close-delay');

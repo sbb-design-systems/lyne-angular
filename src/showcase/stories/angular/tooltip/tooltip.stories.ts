@@ -54,8 +54,8 @@ const attributeUsageArgTypes: ArgTypes = {
 
 const attributeUsageArgs: Args = {
   'sbb-tooltip': "I'm a tooltip from the [sbb-tooltip] attribute",
-  'sbb-tooltip-open-delay': 1000,
-  'sbb-tooltip-close-delay': 1000,
+  'sbb-tooltip-open-delay': null,
+  'sbb-tooltip-close-delay': null,
 };
 
 const meta: Meta = {
