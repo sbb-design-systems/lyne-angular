@@ -103,4 +103,8 @@ export class SbbOverlay {
   public openOutput = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'open'),
   );
+
+  public escapeStrategy(): void {
+    return this.#element.nativeElement.escapeStrategy();
+  }
 }

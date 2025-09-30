@@ -129,4 +129,8 @@ export class SbbSidebar implements OnInit {
   public close(): void {
     return this.#element.nativeElement.close();
   }
+
+  public escapeStrategy(): void {
+    return this.#element.nativeElement.escapeStrategy();
+  }
 }

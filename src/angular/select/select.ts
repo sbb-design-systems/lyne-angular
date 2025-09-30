@@ -180,4 +180,8 @@ export class SbbSelect<T = string> extends SbbControlValueAccessorMixin(class {}
   public closeOutput = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'close'),
   );
+
+  public escapeStrategy(): void {
+    return this.#element.nativeElement.escapeStrategy();
+  }
 }

@@ -1,6 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import type { SbbTabGroupElement } from '@sbb-esta/lyne-elements/tabs/tab-group.js';
 import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs/tab-label.js';
+import type { SbbTabElement } from '@sbb-esta/lyne-elements/tabs/tab.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 import '@sbb-esta/lyne-elements/tabs/tab-label.js';
@@ -51,5 +53,21 @@ export class SbbTabLabel {
   }
   public get iconName(): string {
     return this.#element.nativeElement.iconName;
+  }
+
+  public get tab(): SbbTabElement | null {
+    return this.#element.nativeElement.tab;
+  }
+
+  public get group(): SbbTabGroupElement | null {
+    return this.#element.nativeElement.group;
+  }
+
+  public deactivate(): void {
+    return this.#element.nativeElement.deactivate();
+  }
+
+  public activate(): void {
+    return this.#element.nativeElement.activate();
   }
 }
