@@ -141,4 +141,8 @@ export class SbbAutocompleteGrid<T = string> implements SbbAutocompleteType<T> {
     fromEvent<Event>(this.#element.nativeElement, 'optionselected'),
     { alias: 'optionSelected' },
   );
+
+  public escapeStrategy(): void {
+    return this.#element.nativeElement.escapeStrategy();
+  }
 }
