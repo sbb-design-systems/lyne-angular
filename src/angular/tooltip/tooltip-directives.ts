@@ -19,8 +19,8 @@ export class SbbTooltipDirective {
   }
 
   @Input({ alias: 'sbb-tooltip-open-delay', transform: numberAttribute })
-  public set openDelay(value: number) {
-    if (!isNaN(value) && value >= 0) {
+  public set openDelay(value: number | null) {
+    if (value !== null && !isNaN(value) && value >= 0) {
       this.#elementRef.nativeElement.setAttribute('sbb-tooltip-open-delay', String(value));
     } else {
       this.#elementRef.nativeElement.removeAttribute('sbb-tooltip-open-delay');
@@ -31,8 +31,8 @@ export class SbbTooltipDirective {
   }
 
   @Input({ alias: 'sbb-tooltip-close-delay', transform: numberAttribute })
-  public set closeDelay(value: number) {
-    if (!isNaN(value) && value >= 0) {
+  public set closeDelay(value: number | null) {
+    if (value !== null && !isNaN(value) && value >= 0) {
       this.#elementRef.nativeElement.setAttribute('sbb-tooltip-close-delay', String(value));
     } else {
       this.#elementRef.nativeElement.removeAttribute('sbb-tooltip-close-delay');
