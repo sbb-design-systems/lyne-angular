@@ -47,9 +47,19 @@ const closeDelay: InputType = {
   },
 };
 
+const sbbTooltip: InputType = {
+  control: {
+    type: 'text',
+  },
+};
+
 const attributeUsageArgTypes: ArgTypes = {
+  'sbb-tooltip': sbbTooltip,
   'sbb-tooltip-open-delay': openDelay,
   'sbb-tooltip-close-delay': closeDelay,
+  openDelay: { control: false, table: { disable: true } },
+  closeDelay: { control: false, table: { disable: true } },
+  longPressCloseDelay: { control: false, table: { disable: true } },
 };
 
 const attributeUsageArgs: Args = {
