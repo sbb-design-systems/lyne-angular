@@ -77,4 +77,8 @@ export class SbbNavigation {
   public closeOutput = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'close'),
   );
+
+  public escapeStrategy(): void {
+    return this.#element.nativeElement.escapeStrategy();
+  }
 }

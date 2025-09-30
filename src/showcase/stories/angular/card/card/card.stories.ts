@@ -28,7 +28,9 @@ const meta: Meta = {
   component: SbbCard,
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args['color'] === 'milk' ? 'var(--sbb-color-white)' : 'var(--sbb-color-milk)',
+      context.args['color'] === 'milk'
+        ? 'var(--sbb-background-color-1)'
+        : 'var(--sbb-background-color-3)',
   },
   argTypes: { size, color },
   args: {

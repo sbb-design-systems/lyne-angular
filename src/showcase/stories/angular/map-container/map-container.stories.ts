@@ -1,3 +1,4 @@
+import { SbbCard } from '@sbb-esta/lyne-angular/card';
 import { SbbFormField, SbbFormFieldClear } from '@sbb-esta/lyne-angular/form-field';
 import { SbbHeader, SbbHeaderButton } from '@sbb-esta/lyne-angular/header';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
@@ -13,6 +14,7 @@ const meta: Meta = {
       imports: [
         SbbFormField,
         SbbIcon,
+        SbbCard,
         SbbTitle,
         SbbHeader,
         SbbLogo,
@@ -50,16 +52,16 @@ const meta: Meta = {
           ${[...Array(10).keys()]
             .map(
               (value) => `
-                  <div style="background-color: var(--sbb-color-milk); height: 116px; display: flex; align-items: center; justify-content: center; border-radius: var(--sbb-border-radius-4x); margin-block-end: var(--sbb-spacing-fixed-4x);">
+                  <sbb-card color="milk" style="margin-block-end: var(--sbb-spacing-fixed-4x);">
                     <p>Situation ${value}</p>
-                  </div>
+                  </sbb-card>
                 `,
             )
             .join('')}
         </div>
 
         <div slot="map" style="height: 100%">
-          <div style="background-color: grey; height: 100%; display: flex; align-items: center; justify-content: center;">
+          <div style="background-color: var(--sbb-background-color-4); height: 100%; display: flex; align-items: center; justify-content: center;">
             map
           </div>
         </div>

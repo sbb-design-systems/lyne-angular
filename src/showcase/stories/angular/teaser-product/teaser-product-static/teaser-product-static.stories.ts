@@ -48,7 +48,9 @@ const meta: Meta = {
   component: SbbTeaserProductStatic,
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args['negative']
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
   },
   argTypes,
   args,
