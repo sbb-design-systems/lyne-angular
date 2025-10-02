@@ -9,9 +9,9 @@ const imageSrc: InputType = {
     type: 'select',
   },
   options: [
-    'https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg',
-    'https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg',
-    'https://cdn.img.sbb.ch/content/dam/internet/lyne/Kaufmann-frau.jpg',
+    'https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Billetkontrolle.jpg',
+    'https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Hoehenrundweg-Gryden-Lenk.jpg',
+    'https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Kaufmann-frau.jpg',
   ],
 };
 

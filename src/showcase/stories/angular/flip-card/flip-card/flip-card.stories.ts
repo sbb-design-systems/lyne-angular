@@ -82,7 +82,7 @@ const meta: Meta = {
             <sbb-title level="4">{{label}}</sbb-title>
             <sbb-image
               slot="image"
-              imageSrc='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg'
+              imageSrc='https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Billetkontrolle.jpg'
               alt="Conductor controlling a ticket"
             ></sbb-image>
           </sbb-flip-card-summary>

@@ -83,7 +83,8 @@ const args: Args = {
   href: href.options![0],
   content: 'Break out and explore castles and palaces.',
   linkContent: 'Find out more',
-  imageSrc: 'https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg',
+  imageSrc:
+    'https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Hoehenrundweg-Gryden-Lenk.jpg',
   imageAlt: 'image alt',
 };
 
