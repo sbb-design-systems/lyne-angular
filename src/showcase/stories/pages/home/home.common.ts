@@ -192,7 +192,7 @@ export const teaserHero = (): string => `
       Considerate with SBB Green Class.
       <sbb-image
         slot="image"
-        imageSrc="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg"
+        imageSrc="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Billetkontrolle.jpg"
       ></sbb-image>
     </sbb-teaser-hero>
   </section>
