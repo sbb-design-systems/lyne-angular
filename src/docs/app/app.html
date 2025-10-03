@@ -1,5 +1,21 @@
-<main class="main">Sbb app works!</main>
-
-<sbb-button>Button</sbb-button>
-
+<sbb-header hide-on-scroll>
+  <span class="sbb-header-info">
+    <strong>Lyne Angular</strong>
+    <span>Version -</span>
+  </span>
+  <sbb-header-link routerLink="/">Introduction</sbb-header-link>
+  <sbb-header-link routerLink="/howtoupdate">How to update</sbb-header-link>
+  <div class="sbb-header-spacer"></div>
+  <sbb-form-field>
+    <sbb-select [formControl]="sbbVariant">
+      <sbb-option [value]="'standard'">Standard</sbb-option>
+      <sbb-option [value]="'lean'">Lean</sbb-option>
+      <sbb-option [value]="'light'">Lean (light mode)</sbb-option>
+      <sbb-option [value]="'dark'">Lean (dark mode)</sbb-option>
+    </sbb-select>
+  </sbb-form-field>
+  <a href="https://www.sbb.ch" class="sbb-header-logo">
+    <sbb-logo protective-room="none"></sbb-logo>
+  </a>
+</sbb-header>
 <router-outlet />
