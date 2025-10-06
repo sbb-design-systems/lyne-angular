@@ -25,10 +25,10 @@ describe(`sbb-tab-content`, () => {
     await fixture.whenRenderingDone();
     expect(eagerTabElement.textContent).toEqual('Eager content');
     expect(lazyTabElement.textContent).toEqual('');
-    const lazyTablabelElement = (fixture.nativeElement as HTMLElement).querySelector(
+    const lazyTabLabelElement = (fixture.nativeElement as HTMLElement).querySelector(
       '#lazy-label',
     )! as SbbTabLabelElement;
-    lazyTablabelElement.click();
+    lazyTabLabelElement.click();
     fixture.detectChanges();
     await fixture.whenRenderingDone();
     expect(lazyTabElement.textContent).toEqual('Lazy');
