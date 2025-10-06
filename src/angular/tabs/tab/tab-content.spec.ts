@@ -18,7 +18,7 @@ describe(`sbb-tab-content`, () => {
     expect(component).toBeDefined();
   });
 
-  fit('should load tabs eagerly and lazily', async () => {
+  it('should load tabs eagerly and lazily', async () => {
     const eagerTabElement = (fixture.nativeElement as HTMLElement).querySelector('#eager')!;
     const lazyTabElement = (fixture.nativeElement as HTMLElement).querySelector('#lazy')!;
     fixture.detectChanges();
