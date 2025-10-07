@@ -72,7 +72,7 @@ const meta: Meta = {
       <div style="max-width: 760px;">
         <sbb-teaser ${argsToTemplate(args)}>
           <figure slot="image" class="sbb-figure">
-            <img src="https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg" alt="400x300" />
+            <img src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Billetkontrolle.jpg" alt="400x300" />
             <sbb-chip-label class="sbb-figure-overlap-start-start">AI Generated</sbb-chip-label>
           </figure>
           <sbb-chip-label>Chip content</sbb-chip-label>

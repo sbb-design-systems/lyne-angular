@@ -1,9 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
-import type {
-  InterfaceSbbTabGroupTab,
-  SbbTabGroupElement,
-} from '@sbb-esta/lyne-elements/tabs/tab-group.js';
+import type { SbbTabGroupElement } from '@sbb-esta/lyne-elements/tabs/tab-group.js';
+import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs/tab-label.js';
 import type { SbbTabChangedEventDetails } from '@sbb-esta/lyne-elements/tabs.js';
 import { fromEvent } from 'rxjs';
 
@@ -18,10 +16,10 @@ export class SbbTabGroup {
   #ngZone: NgZone = inject(NgZone);
 
   @Input()
-  public set size(value: InterfaceSbbTabGroupTab['size']) {
+  public set size(value: 's' | 'l' | 'xl') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): InterfaceSbbTabGroupTab['size'] {
+  public get size(): 's' | 'l' | 'xl' {
     return this.#element.nativeElement.size;
   }
 
@@ -51,4 +49,8 @@ export class SbbTabGroup {
     fromEvent<CustomEvent<SbbTabChangedEventDetails>>(this.#element.nativeElement, 'tabchange'),
     { alias: 'tabChange' },
   );
+
+  public get labels(): SbbTabLabelElement[] {
+    return this.#element.nativeElement.labels;
+  }
 }

@@ -48,7 +48,9 @@ const meta: Meta = {
   component: SbbTeaserProductStatic,
   parameters: {
     backgroundColor: (context: StoryContext) =>
-      context.args['negative'] ? 'var(--sbb-color-black)' : 'var(--sbb-color-white)',
+      context.args['negative']
+        ? 'var(--sbb-background-color-1-negative)'
+        : 'var(--sbb-background-color-1)',
   },
   argTypes,
   args,
@@ -57,7 +59,7 @@ const meta: Meta = {
     template: `
       <sbb-teaser-product-static ${argsToTemplate(args)}>
         <figure slot="image" class="sbb-figure">
-          <img src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg' alt="" />
+          <img src='https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Hoehenrundweg-Gryden-Lenk.jpg' alt="" />
           ${
             withChip
               ? `<sbb-chip-label class=${args['image-alignment'] === 'after' ? 'sbb-figure-overlap-start-end' : 'sbb-figure-overlap-start-start'}>

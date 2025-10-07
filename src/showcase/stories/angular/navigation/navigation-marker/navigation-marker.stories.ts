@@ -30,7 +30,7 @@ const meta: Meta = {
   component: SbbNavigationMarker,
   parameters: {
     actions: { handles: ['click'] },
-    backgroundColor: () => 'var(--sbb-color-midnight)',
+    backgroundColor: () => 'var(--sbb-background-color-1-negative)',
   },
   argTypes,
   args,

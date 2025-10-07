@@ -17,7 +17,7 @@ const meta: Meta = {
     template: `
       <div style="max-width: 45rem; margin: auto">
         <sbb-message>
-          <sbb-image slot="image" imageSrc='https://cdn.img.sbb.ch/content/dam/internet/lyne/Frau-No-Results.png'></sbb-image>
+          <sbb-image slot="image" imageSrc='https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Frau-No-Results.png'></sbb-image>
           <sbb-title level="3" slot="title">Unfortunately, an error has occurred.</sbb-title>
           <p slot="subtitle">Please reload the page or try your search again later.</p>
           <p slot="legend">Error code: 0001</p>

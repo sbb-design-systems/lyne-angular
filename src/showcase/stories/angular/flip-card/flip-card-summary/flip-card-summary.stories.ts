@@ -34,12 +34,12 @@ const meta: Meta = {
     props: { ...args },
     template: `
       <div
-        style="position: relative; display: flex; flex-flow: column wrap; gap: var(--sbb-spacing-responsive-xs); min-height: 17.5rem; background-color: var(--sbb-color-cloud-alpha-80);">
+        style="position: relative; display: flex; flex-flow: column wrap; gap: var(--sbb-spacing-responsive-xs); min-height: 17.5rem; background-color: var(--sbb-background-color-4);">
         <sbb-flip-card-summary ${argsToTemplate(args)}>
           <sbb-title level="4">Summary</sbb-title>
           <sbb-image
             slot="image"
-            imageSrc='https://cdn.img.sbb.ch/content/dam/internet/lyne/Billetkontrolle.jpg'
+            imageSrc='https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Billetkontrolle.jpg'
             alt="Conductor controlling a ticket"
           ></sbb-image>
         </sbb-flip-card-summary>

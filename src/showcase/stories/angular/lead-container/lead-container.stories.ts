@@ -80,7 +80,7 @@ const meta: Meta = {
       </p>
       <sbb-image
         slot="image"
-        imageSrc='https://cdn.img.sbb.ch/content/dam/internet/lyne/Einheitswagen-IV-EuroCity.jpg'
+        imageSrc='https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Einheitswagen-IV-EuroCity.jpg'
         alt="Station of Lucerne from outside"
       ></sbb-image>
     </sbb-lead-container>

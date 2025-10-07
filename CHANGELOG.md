@@ -1,5 +1,31 @@
 # Changelog
 
+## [20.0.0-rc.7](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.6...v20.0.0-rc.7) (2025-10-07)
+
+
+### Features
+
+* add tooltip directives ([#193](https://github.com/sbb-design-systems/lyne-angular/issues/193)) ([70640ce](https://github.com/sbb-design-systems/lyne-angular/commit/70640ce1380c456f66e49088c2fbda7c9f8fdadb))
+* **sbb-tab-module:** add tabContent directive ([#194](https://github.com/sbb-design-systems/lyne-angular/issues/194)) ([1acde12](https://github.com/sbb-design-systems/lyne-angular/commit/1acde122a55be77d4deb40afdb5f3db3ef99b5fb))
+
+
+### Bug Fixes
+
+* **deps:** update angular ([e5cb63a](https://github.com/sbb-design-systems/lyne-angular/commit/e5cb63a4e68865e41ea316f1c7296a953fc12a5e))
+* **deps:** update angular ([6bd937c](https://github.com/sbb-design-systems/lyne-angular/commit/6bd937ccfe022c5b3d7ff99ae2be49dd4f35d1f1))
+* **deps:** update angular to v20.3.1 ([f22e463](https://github.com/sbb-design-systems/lyne-angular/commit/f22e4639b46e2812d5b9396addaa82f35ab3eddd))
+* **deps:** update angular to v20.3.3 ([4f06c15](https://github.com/sbb-design-systems/lyne-angular/commit/4f06c15f1b2359d56c72864cb0a27c86e737ced0))
+* **deps:** update dependency @angular/cdk to v20.2.7 ([865ff94](https://github.com/sbb-design-systems/lyne-angular/commit/865ff943cf10f3d6a6229ed936e144bf5a6849da))
+* **deps:** update esta to v3.10.0 ([#198](https://github.com/sbb-design-systems/lyne-angular/issues/198)) ([2456e5d](https://github.com/sbb-design-systems/lyne-angular/commit/2456e5d066607fe032731b74a5db20d1936ed67f))
+* **deps:** update esta to v3.8.0 ([#186](https://github.com/sbb-design-systems/lyne-angular/issues/186)) ([e7d47f8](https://github.com/sbb-design-systems/lyne-angular/commit/e7d47f8439e3f4da8d912bb0d4ccba77eafe499e))
+* **deps:** update esta to v3.9.0 ([#196](https://github.com/sbb-design-systems/lyne-angular/issues/196)) ([1d42e98](https://github.com/sbb-design-systems/lyne-angular/commit/1d42e9851e062f7b87c2d4f65dee9edcee8f7764))
+* exclude root's index.ts from hasCommonModule logic ([#191](https://github.com/sbb-design-systems/lyne-angular/issues/191)) ([3605ddb](https://github.com/sbb-design-systems/lyne-angular/commit/3605ddb6c43a9bacfc2075529e4912b24b2b2c68))
+
+
+### Code Refactoring
+
+* adapt to dark mode color changes ([#189](https://github.com/sbb-design-systems/lyne-angular/issues/189)) ([c803503](https://github.com/sbb-design-systems/lyne-angular/commit/c803503c39992fc55f493ee8d0d007fa57c97e64))
+
 ## [20.0.0-rc.6](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.5...v20.0.0-rc.6) (2025-09-16)
 
 
