@@ -59,7 +59,7 @@ const meta: Meta = {
     template: `
       <sbb-teaser-product-static ${argsToTemplate(args)}>
         <figure slot="image" class="sbb-figure">
-          <img src='https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg' alt="" />
+          <img src='https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Hoehenrundweg-Gryden-Lenk.jpg' alt="" />
           ${
             withChip
               ? `<sbb-chip-label class=${args['image-alignment'] === 'after' ? 'sbb-figure-overlap-start-end' : 'sbb-figure-overlap-start-start'}>

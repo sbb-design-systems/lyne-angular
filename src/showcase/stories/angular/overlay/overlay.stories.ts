@@ -37,7 +37,7 @@ const meta: Meta = {
           pierced his heart.
           <sbb-image
             style="margin-block: 1rem"
-            imageSrc='https://cdn.img.sbb.ch/content/dam/internet/lyne/Hoehenrundweg-Gryden-Lenk.jpg'
+            imageSrc='https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Hoehenrundweg-Gryden-Lenk.jpg'
             alt="Natural landscape"
           ></sbb-image>
           He stood still enchanted, while the sweet syllables of the elvish song fell like clear jewels

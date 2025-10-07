@@ -15,6 +15,11 @@ for (const directive of docJson.directives) {
   directive.methodsClass = [];
   directive.propertiesClass = [];
 }
+for (const directive of docJson.components) {
+  directive.outputsClass = [];
+  directive.methodsClass = [];
+  directive.propertiesClass = [];
+}
 setCompodocJson(docJson);
 
 /**
