@@ -8,7 +8,7 @@
   "nvm": {
     "enabled": false
   },
-  "baseBranches": ["main"],
+  "baseBranchPatterns": ["main"],
   "lockFileMaintenance": {
     "schedule": ["before 7am on monday"],
     "enabled": true
@@ -16,7 +16,14 @@
   "ignoreDeps": ["typescript", "zone.js"],
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance", "bump"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "lockFileMaintenance",
+        "bump"
+      ],
       "automerge": true,
       "automergeType": "branch",
       "automergeStrategy": "squash"
@@ -51,7 +58,11 @@
     },
     {
       "groupName": "eslint",
-      "matchPackageNames": ["typescript-eslint{/,}**", "eslint{/,}**", "angular-eslint{/,}**"]
+      "matchPackageNames": [
+        "typescript-eslint{/,}**",
+        "eslint{/,}**",
+        "angular-eslint{/,}**"
+      ]
     },
     {
       "groupName": "commitlint",
