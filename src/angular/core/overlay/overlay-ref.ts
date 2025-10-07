@@ -22,43 +22,46 @@ export class SbbOverlayRef<T = unknown> {
 
   id?: string;
 
+  #container: SbbOverlayContainerBase;
+
   constructor(
-    private _container: SbbOverlayContainerBase,
-    private _config: SbbOverlayConfig<SbbOverlayContainerBase, unknown, unknown>,
+    container: SbbOverlayContainerBase,
+    config: SbbOverlayConfig<SbbOverlayContainerBase>,
   ) {
-    this.id = this._config.id;
+    this.id = config.id;
+    this.#container = container;
   }
 
   /**
    * Close the dialog.
-   * @param dialogResult Optional result to return to the dialog opener.
+   * @param result Optional result to return to the dialog opener.
    */
-  close(result?: unknown, target?: HTMLElement): void {
-    this._container.close(result, target);
+  close(result?: unknown): void {
+    this.#container.close(result);
   }
 
   getState(): SbbOverlayState {
-    return this._container.getState();
+    return this.#container.getState();
   }
 
   /**
    * Gets an observable that is notified when the dialog is finished opening.
    */
   get afterOpen(): Observable<Event | undefined> {
-    return this._container.afterOpen;
+    return this.#container.afterOpen;
   }
 
   /**
    * Gets an observable that is notified when the dialog is finished closing.
    */
   get afterClose(): Observable<Event | undefined> {
-    return this._container.afterClose;
+    return this.#container.afterClose;
   }
 
   /**
    * Gets an observable that is notified when the dialog has started closing.
    */
   get beforeClose(): Observable<Event | undefined> {
-    return this._container.beforeClose;
+    return this.#container.beforeClose;
   }
 }

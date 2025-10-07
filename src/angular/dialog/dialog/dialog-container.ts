@@ -17,6 +17,7 @@ import type { Observable } from 'rxjs';
 import { SbbDialog } from './dialog';
 
 @Component({
+  // Selector should not attribute match as it will be created programmatically
   selector: 'sbb-dialog[sbb-dialog-container]',
   imports: [CdkPortalOutlet],
   hostDirectives: [

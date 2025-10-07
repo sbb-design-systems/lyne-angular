@@ -17,6 +17,7 @@ import type { Observable } from 'rxjs';
 import { SbbToast } from './toast';
 
 @Component({
+  // Selector should not attribute match as it will be created programmatically
   selector: 'sbb-toast[sbb-toast-container]',
   imports: [CdkPortalOutlet],
   hostDirectives: [

@@ -17,6 +17,7 @@ import type { Observable } from 'rxjs';
 import { SbbOverlay } from './overlay';
 
 @Component({
+  // Selector should not attribute match as it will be created programmatically
   selector: 'sbb-overlay[sbb-overlay-container]',
   imports: [CdkPortalOutlet],
   hostDirectives: [

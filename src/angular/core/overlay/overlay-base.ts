@@ -19,18 +19,19 @@ import type { SbbOverlayRef } from './overlay-ref';
 /** Injection token that can be used to access the data that was passed in to a dialog. */
 export const SBB_OVERLAY_DATA = new InjectionToken<unknown>('SbbOverlayData');
 
-export abstract class _SbbOverlayBaseService<
+export abstract class SbbOverlayBaseService<
   C extends SbbOverlayContainerBase,
+  // Type of Container Instance
   I = unknown,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   R extends SbbOverlayRef<any> = SbbOverlayRef<any>,
 > {
-  private readonly _openDialogsAtThisLevel: R[] = [];
-  private readonly _afterAllClosedAtThisLevel = new Subject<void>();
-  private readonly _afterOpenedAtThisLevel = new Subject<R>();
-  private _idGenerator = inject(_IdGenerator);
+  readonly #openDialogsAtThisLevel: R[] = [];
+  readonly #afterAllClosedAtThisLevel = new Subject<void>();
+  readonly #afterOpenedAtThisLevel = new Subject<R>();
+  #idGenerator = inject(_IdGenerator);
 
-  private _createInjector<D>(
+  #createInjector<D>(
     config: SbbOverlayConfig<C, I, D>,
     dialogRef: SbbOverlayRef,
     dialogContainer: C,
@@ -38,12 +39,12 @@ export abstract class _SbbOverlayBaseService<
   ): Injector {
     const userInjector = config.injector || config.viewContainerRef?.injector;
     const providers: StaticProvider[] = [
-      { provide: this._dialogContainerType, useValue: dialogContainer },
-      { provide: this._dialogRefConstructor, useValue: dialogRef },
+      { provide: this.#dialogContainerType, useValue: dialogContainer },
+      { provide: this.#dialogRefConstructor, useValue: dialogRef },
     ];
 
     if (config.data) {
-      providers.push({ provide: this._dialogDataToken, useValue: config.data });
+      providers.push({ provide: this.#dialogDataToken, useValue: config.data });
     }
     if (config.providers) {
       if (typeof config.providers === 'function') {
@@ -56,8 +57,8 @@ export abstract class _SbbOverlayBaseService<
     return Injector.create({ providers, parent: userInjector || fallbackInjector });
   }
 
-  private _attachContainer(overlayRef: OverlayRef, config: SbbOverlayConfig<C, I>): C {
-    const containerType: Type<C> = this._dialogContainerType;
+  #attachContainer(overlayRef: OverlayRef, config: SbbOverlayConfig<C, I>): C {
+    const containerType: Type<C> = this.#dialogContainerType;
     const userInjector = config.injector || config.viewContainerRef?.injector;
     const providers: StaticProvider[] = [
       { provide: SbbOverlayConfig, useValue: config },
@@ -77,13 +78,13 @@ export abstract class _SbbOverlayBaseService<
     return containerRef.instance;
   }
 
-  private _attachContent<D = unknown>(
+  #attachContent<D = unknown>(
     componentOrTemplateRef: ComponentType<D> | TemplateRef<D>,
     dialogRef: SbbOverlayRef<D>,
     dialogContainer: C,
     config: SbbOverlayConfig<C, I, D>,
   ) {
-    const injector = this._createInjector(config, dialogRef, dialogContainer, this.injector);
+    const injector = this.#createInjector(config, dialogRef, dialogContainer, this.injector);
     if (componentOrTemplateRef instanceof TemplateRef) {
       let context = { $implicit: config.data, dialogRef };
 
@@ -117,7 +118,7 @@ export abstract class _SbbOverlayBaseService<
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     config: SbbOverlayConfig<C, I> = {},
   ): SbbOverlayRef<T> {
-    config.id = config.id || this._idGenerator.getId('cdk-dialog-');
+    config.id = config.id || this.#idGenerator.getId('cdk-dialog-');
 
     if (
       config.id &&
@@ -128,11 +129,11 @@ export abstract class _SbbOverlayBaseService<
     }
 
     const overlayRef: OverlayRef = createOverlayRef(this.injector);
-    const dialogContainer = this._attachContainer(overlayRef, config);
+    const dialogContainer = this.#attachContainer(overlayRef, config);
 
-    const dialogRef = new this._dialogRefConstructor(dialogContainer, config);
+    const dialogRef = new this.#dialogRefConstructor(dialogContainer, config);
 
-    this._attachContent(componentOrTemplateRef, dialogRef, dialogContainer, config);
+    this.#attachContent(componentOrTemplateRef, dialogRef, dialogContainer, config);
 
     this.openDialogs.push(dialogRef!);
     this.afterOpened.next(dialogRef!);
@@ -148,7 +149,7 @@ export abstract class _SbbOverlayBaseService<
         this.openDialogs.splice(index, 1);
 
         if (!this.openDialogs.length) {
-          this._getAfterAllClosed().next();
+          this.#getAfterAllClosed().next();
         }
       }
     });
@@ -168,20 +169,20 @@ export abstract class _SbbOverlayBaseService<
 
   /** Keeps track of the currently-open dialogs. */
   get openDialogs(): R[] {
-    return this._parentDialog ? this._parentDialog.openDialogs : this._openDialogsAtThisLevel;
+    return this.#parentDialog ? this.#parentDialog.openDialogs : this.#openDialogsAtThisLevel;
   }
 
   /**
-   * Closes all of the currently-open dialogs.
+   * Closes all currently-open dialogs.
    */
   closeAll(): void {
     const overlays = this.openDialogs;
     overlays.map((ref: R) => ref.close());
   }
 
-  private _getAfterAllClosed(): Subject<void> {
-    const parent = this._parentDialog;
-    return parent ? parent._getAfterAllClosed() : this._afterAllClosedAtThisLevel;
+  #getAfterAllClosed(): Subject<void> {
+    const parent = this.#parentDialog;
+    return parent ? parent.#getAfterAllClosed() : this.#afterAllClosedAtThisLevel;
   }
 
   /**
@@ -191,21 +192,31 @@ export abstract class _SbbOverlayBaseService<
   readonly afterAllClosed: Observable<void> = defer(
     () =>
       this.openDialogs.length
-        ? this._getAfterAllClosed()
-        : this._getAfterAllClosed().pipe(startWith(undefined)),
+        ? this.#getAfterAllClosed()
+        : this.#getAfterAllClosed().pipe(startWith(undefined)),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ) as Observable<any>;
 
   /** Stream that emits when a dialog has been opened. */
   get afterOpened(): Subject<R> {
-    return this._parentDialog ? this._parentDialog.afterOpened : this._afterOpenedAtThisLevel;
+    return this.#parentDialog ? this.#parentDialog.afterOpened : this.#afterOpenedAtThisLevel;
   }
+
+  #parentDialog: SbbOverlayBaseService<C, I, R> | null;
+  #dialogContainerType: Type<C>;
+  #dialogRefConstructor: Type<R>;
+  #dialogDataToken: InjectionToken<unknown>;
 
   constructor(
     public injector: Injector,
-    private _parentDialog: _SbbOverlayBaseService<C, I, R> | null,
-    private _dialogContainerType: Type<C>,
-    private _dialogRefConstructor: Type<R>,
-    private _dialogDataToken: InjectionToken<unknown>,
-  ) {}
+    parentDialog: SbbOverlayBaseService<C, I, R> | null,
+    dialogContainerType: Type<C>,
+    dialogRefConstructor: Type<R>,
+    dialogDataToken: InjectionToken<unknown>,
+  ) {
+    this.#parentDialog = parentDialog;
+    this.#dialogContainerType = dialogContainerType;
+    this.#dialogRefConstructor = dialogRefConstructor;
+    this.#dialogDataToken = dialogDataToken;
+  }
 }

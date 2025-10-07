@@ -8,7 +8,7 @@ export abstract class SbbOverlayContainerBase<I = unknown> {
   abstract open(): void;
   abstract attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
   abstract attachTemplatePortal<T>(portal: TemplatePortal<T>): EmbeddedViewRef<T>;
-  abstract close(result?: unknown, target?: HTMLElement): void;
+  abstract close(result?: unknown): void;
   abstract getState(): SbbOverlayState;
   abstract elementInstance: I;
   abstract beforeClose: Observable<Event | undefined>;

@@ -1,6 +1,6 @@
 import { inject, Injectable, Injector } from '@angular/core';
 import {
-  _SbbOverlayBaseService,
+  SbbOverlayBaseService,
   SBB_OVERLAY_DATA,
   SbbOverlayRef,
 } from '@sbb-esta/lyne-angular/core/overlay';
@@ -9,7 +9,7 @@ import type { SbbDialog } from './dialog';
 import { SbbDialogContainer } from './dialog-container';
 
 @Injectable({ providedIn: 'root' })
-export class SbbDialogService extends _SbbOverlayBaseService<SbbDialogContainer, SbbDialog> {
+export class SbbDialogService extends SbbOverlayBaseService<SbbDialogContainer, SbbDialog> {
   constructor() {
     const injector = inject(Injector);
     const parentDialogService = inject(SbbDialogService, { optional: true, skipSelf: true })!;
