@@ -2910,18 +2910,18 @@
   resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-1.8.0.tgz#f42258a493c8069bb4cc1f65453ac4257bdc5e66"
   integrity sha512-evvULU/NvJeP2NYfPehZKMC3kvC/jq8Q1FrZCF5JmW9+0Sgmg7nxL+nnlMK1OzxTBqPCN51WxbzA9UxiRDDDBg==
 
-"@sbb-esta/lyne-elements-experimental@3.9.0":
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-experimental/-/lyne-elements-experimental-3.9.0.tgz#00dd171788be91b4d8f1e9acc8b363948becfaf7"
-  integrity sha512-2Oo/+uEv6+U0XT0p4POl7rjHti5DtdzXjWRgT14xSNQAuyE43bqjqNPt8/Z7lBVaDvJKUi9G3SrYF6a0Tf4Gnw==
+"@sbb-esta/lyne-elements-experimental@3.10.0":
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-experimental/-/lyne-elements-experimental-3.10.0.tgz#f1d7132fafdc88bfbf874a517e1f20bb2249e47c"
+  integrity sha512-Ds/ESabxr4RYbXNPJNIcL/6nGykSJnBM0msGmnDTMxgIeLq3DrJq+6h2wVt7a3bvegva0Zhf5Sjk+ToA8+GMIg==
   dependencies:
     lit "^3.3.1"
     tslib "^2.8.1"
 
-"@sbb-esta/lyne-elements@3.9.0":
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements/-/lyne-elements-3.9.0.tgz#692f4d0ff539561fc31a673ad5bd5b7f9ef55d23"
-  integrity sha512-aLiMsfOT99neT/rOrqNGvewUe16Y7nqtXOFvljG4IJITfTMVC/D9ofmvEUPucuB1Wk6LOaGN+Yyz3P75l51Z0Q==
+"@sbb-esta/lyne-elements@3.10.0":
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements/-/lyne-elements-3.10.0.tgz#ee201f2e0f7e85a31cb4ccb01e1202e2d9a1fae7"
+  integrity sha512-JgWcnsMNp1cqt8JnuK/zADAuHl2oHLE8hlO5x4LETNNEtXqyJAvOLvdfXbA03Yu/0o5zxPLLh0Bz34fEs+ltHw==
   dependencies:
     "@lit-labs/observers" "^2.0.6"
     lit "^3.3.1"
