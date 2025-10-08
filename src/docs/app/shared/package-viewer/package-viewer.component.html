@@ -1,7 +1,7 @@
 <sbb-sidebar-container>
   <sbb-sidebar role="navigation" opened>
     @for (section of (package | async)?.sections ?? []; track section.name) {
-      <sbb-expansion-panel expanded>
+      <sbb-expansion-panel expanded borderless>
         <sbb-expansion-panel-header>{{ section.name }}</sbb-expansion-panel-header>
         <sbb-expansion-panel-content>
           @for (entry of section.entries; track entry.label) {
