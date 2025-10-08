@@ -1,0 +1,19 @@
+<sbb-sidebar-container>
+  <sbb-sidebar role="navigation" opened>
+    @for (section of (package | async)?.sections ?? []; track section.name) {
+      <sbb-expansion-panel expanded>
+        <sbb-expansion-panel-header>{{ section.name }}</sbb-expansion-panel-header>
+        <sbb-expansion-panel-content>
+          @for (entry of section.entries; track entry.label) {
+            <sbb-block-link [routerLink]="entry.link" routerLinkActive="sbb-active">{{
+              entry.label
+            }}</sbb-block-link>
+          }
+        </sbb-expansion-panel-content>
+      </sbb-expansion-panel>
+    }
+  </sbb-sidebar>
+  <sbb-sidebar-content role="main">
+    <router-outlet />
+  </sbb-sidebar-content>
+</sbb-sidebar-container>

@@ -1,4 +1,4 @@
-<sbb-header hide-on-scroll>
+<sbb-header hide-on-scroll scroll-origin="content">
   <span class="sbb-header-info">
     <strong>Lyne Angular</strong>
     <span>Version -</span>
@@ -18,4 +18,23 @@
     <sbb-logo protective-room="none"></sbb-logo>
   </a>
 </sbb-header>
-<router-outlet />
+<sbb-sidebar-container>
+  <sbb-sidebar opened>
+    <sbb-link-list>
+      @for (packageEntry of packages | keyvalue; track this.packages['key']) {
+      <sbb-block-link
+        [iconName]="packageEntry.value['svgIcon']"
+        [routerLink]="packageEntry.key"
+        routerLinkActive="sbb-active"
+        [style.text-decoration]="packageEntry.value['isDeprecated'] ? 'line-through' : ''"
+      >
+        {{packageEntry.value['name']}}
+      </sbb-block-link>
+      }
+    </sbb-link-list>
+  </sbb-sidebar>
+  <sbb-sidebar-content id="content" role="main">
+    <router-outlet />
+  </sbb-sidebar-content>
+</sbb-sidebar-container>
+<sbb-container> </sbb-container>
