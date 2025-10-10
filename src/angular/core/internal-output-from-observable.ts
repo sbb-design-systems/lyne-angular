@@ -12,18 +12,20 @@ import type { Observable } from 'rxjs';
  * @internal
  */
 class SbbInternalOutputFromObservableRef<T> implements OutputRef<T> {
-  private destroyed = false;
+  #destroyed = false;
+  #source: Observable<T>;
 
   destroyRef = inject(DestroyRef);
 
-  constructor(private source: Observable<T>) {
+  constructor(source: Observable<T>) {
+    this.#source = source;
     this.destroyRef.onDestroy(() => {
-      this.destroyed = true;
+      this.#destroyed = true;
     });
   }
 
   subscribe(callbackFn: (value: T) => void): OutputRefSubscription {
-    if (this.destroyed && ngDevMode) {
+    if (this.#destroyed && ngDevMode) {
       throw new Error(
         'Unexpected subscription to destroyed `OutputRef`. ' +
           'The owning directive/component is destroyed.',
@@ -31,7 +33,7 @@ class SbbInternalOutputFromObservableRef<T> implements OutputRef<T> {
     }
 
     // Stop yielding more values when the directive/component is already destroyed.
-    const subscription = this.source.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
+    const subscription = this.#source.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (value) => callbackFn(value),
     });
 
