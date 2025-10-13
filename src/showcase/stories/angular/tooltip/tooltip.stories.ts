@@ -11,27 +11,19 @@ const trigger: InputType = {
   },
 };
 
-const positions = [
-  'inset-inline-start: 2rem;',
-  'inset-inline-start: calc(50% - 44px);',
-  'inset-inline-end: 2rem;',
-  'inset-block-end: 2rem;',
-  'inset-inline-start: calc(50% - 44px); inset-block-end: 2rem;',
-  'inset-inline-end: 2rem; inset-block-end: 2rem;',
-];
-const tooltipPosition: InputType = {
-  options: Object.keys(positions),
-  mapping: positions,
+const position: InputType = {
+  options: [
+    'block-end',
+    'block-start',
+    'inline-start',
+    'inline-end',
+    'bottom',
+    'top',
+    'left',
+    'right',
+  ],
   control: {
     type: 'select',
-    labels: {
-      0: 'below start',
-      1: 'below center',
-      2: 'below end',
-      3: 'above start',
-      4: 'above center',
-      5: 'above end',
-    },
   },
 };
 
@@ -57,6 +49,7 @@ const attributeUsageArgTypes: ArgTypes = {
   'sbb-tooltip': sbbTooltip,
   'sbb-tooltip-open-delay': openDelay,
   'sbb-tooltip-close-delay': closeDelay,
+  'sbb-tooltip-position': position,
   openDelay: { control: false, table: { disable: true } },
   closeDelay: { control: false, table: { disable: true } },
   longPressCloseDelay: { control: false, table: { disable: true } },
@@ -66,6 +59,7 @@ const attributeUsageArgs: Args = {
   'sbb-tooltip': "I'm a tooltip from the [sbb-tooltip] attribute",
   'sbb-tooltip-open-delay': null,
   'sbb-tooltip-close-delay': null,
+  'sbb-tooltip-position': position.options![0],
 };
 
 const meta: Meta = {
@@ -80,13 +74,13 @@ const meta: Meta = {
 export default meta;
 
 export const Default = {
-  argTypes: { tooltipPosition, trigger },
-  args: { tooltipPosition: tooltipPosition.options![0] },
-  render: ({ tooltipPosition, ...args }: Args) => ({
-    props: { tooltipPosition, ...args },
+  argTypes: { position, trigger },
+  args: { position: position.options![0] },
+  render: ({ position, ...args }: Args) => ({
+    props: { position, ...args },
     template: `
-      <sbb-button id="tooltip-trigger" style="position: absolute; ${tooltipPosition}">Button</sbb-button>
-      <sbb-tooltip trigger="tooltip-trigger" ${argsToTemplate(args)}> I'm a tooltip!!! </sbb-tooltip>`,
+      <sbb-button id="tooltip-trigger" style="margin-block-start: 10rem; margin-inline-start: 10rem;">Button</sbb-button>
+      <sbb-tooltip trigger="tooltip-trigger" ${argsToTemplate(args)} [ngStyle]="{ '--sbb-overlay-position-area': position }"> I'm a tooltip!!! </sbb-tooltip>`,
   }),
 };
 
@@ -96,6 +90,6 @@ export const AttributeUsage = {
   render: (args: Args) => ({
     props: { ...args },
     template: `
-      <sbb-button style='position: absolute' ${argsToTemplate(args)}>Button</sbb-button>`,
+      <sbb-button style="margin-block-start: 10rem; margin-inline-start: 10rem;" ${argsToTemplate(args)}>Button</sbb-button>`,
   }),
 };
