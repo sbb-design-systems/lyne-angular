@@ -1,5 +1,23 @@
 # Changelog
 
+## [20.0.0-rc.8](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.7...v20.0.0-rc.8) (2025-10-13)
+
+
+### Features
+
+* **sbb-dialog, sbb-overlay, sbb-toast:** provide services to create components programmatically ([#155](https://github.com/sbb-design-systems/lyne-angular/issues/155)) ([917fdc2](https://github.com/sbb-design-systems/lyne-angular/commit/917fdc2f8590d89246e82c005a442cd42bec8df3))
+
+
+### Bug Fixes
+
+* **deps:** update angular ([01ab267](https://github.com/sbb-design-systems/lyne-angular/commit/01ab267352fdd53099eaae316648dda7c9c7b66a))
+* **deps:** update esta to v3.11.0 ([#202](https://github.com/sbb-design-systems/lyne-angular/issues/202)) ([c8f2d6a](https://github.com/sbb-design-systems/lyne-angular/commit/c8f2d6a056329ca6c2acab5cf2408a6d84114bea))
+
+
+### Documentation
+
+* add readme for tabcontent directive ([#200](https://github.com/sbb-design-systems/lyne-angular/issues/200)) ([e0b1b8f](https://github.com/sbb-design-systems/lyne-angular/commit/e0b1b8f466bca054cc049f0590c294d3dbad89f5))
+
 ## [20.0.0-rc.7](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.6...v20.0.0-rc.7) (2025-10-07)
 
 
