@@ -41,4 +41,16 @@ export class SbbTooltipDirective {
   public get closeDelay(): number {
     return Number(this.#elementRef.nativeElement.getAttribute('sbb-tooltip-close-delay'));
   }
+
+  @Input({ alias: 'sbb-tooltip-position' })
+  public set position(value: string | null) {
+    if (value) {
+      this.#elementRef.nativeElement.setAttribute('sbb-tooltip-position', value);
+    } else {
+      this.#elementRef.nativeElement.removeAttribute('sbb-tooltip-position');
+    }
+  }
+  public get position(): string | null {
+    return this.#elementRef.nativeElement.getAttribute('sbb-tooltip-position');
+  }
 }
