@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { SbbDialog } from './dialog/dialog';
+import { SbbDialogContainer } from './dialog/dialog-container';
 import { SbbDialogActions } from './dialog-actions/dialog-actions';
 import { SbbDialogCloseButton } from './dialog-close-button/dialog-close-button';
 import { SbbDialogContent } from './dialog-content/dialog-content';
@@ -12,6 +13,7 @@ const EXPORTED_DECLARATIONS = [
   SbbDialogCloseButton,
   SbbDialogContent,
   SbbDialogTitle,
+  SbbDialogContainer,
 ];
 
 @NgModule({
