@@ -50,24 +50,24 @@ describe('sbb-paginator', () => {
     expect(pageEventSpy).not.toHaveBeenCalled();
   });
 
-  it('should emit page event when changing pageSize', async () => {
+  it('should not emit page event when changing pageSize', async () => {
     const pageEventSpy = spyOn(component, 'page');
 
     component.paginator().pageSize = 1;
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(pageEventSpy).toHaveBeenCalledTimes(1);
+    expect(pageEventSpy).not.toHaveBeenCalled();
   });
 
-  it('should emit page event when changing pageIndex', async () => {
+  it('should not emit page event when changing pageIndex', async () => {
     const pageEventSpy = spyOn(component, 'page');
 
     component.paginator().pageSize = 1;
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(pageEventSpy).toHaveBeenCalledTimes(1);
+    expect(pageEventSpy).not.toHaveBeenCalled();
   });
 });
 

@@ -160,12 +160,19 @@ export class SbbCompactPaginator implements OnInit {
     this.#initialized.complete();
   }
 
+  protected _ɵpageOutput = outputFromObservable<CustomEvent<SbbPaginatorPageEventDetails>>(NEVER, {
+    alias: 'ɵpage',
+  });
+  public ɵpageOutput = internalOutputFromObservable(
+    fromEvent<CustomEvent<SbbPaginatorPageEventDetails>>(this.#element.nativeElement, 'ɵpage'),
+  );
+  public ɵpage = outputToObservable(this.ɵpageOutput);
+
   protected _pageOutput = outputFromObservable<CustomEvent<SbbPaginatorPageEventDetails>>(NEVER, {
     alias: 'page',
   });
   public pageOutput = internalOutputFromObservable(
     fromEvent<CustomEvent<SbbPaginatorPageEventDetails>>(this.#element.nativeElement, 'page'),
   );
-
   public page = outputToObservable(this.pageOutput);
 }
