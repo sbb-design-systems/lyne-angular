@@ -63,7 +63,7 @@ describe('sbb-paginator', () => {
   it('should not emit page event when changing pageIndex', async () => {
     const pageEventSpy = spyOn(component, 'page');
 
-    component.paginator().pageSize = 1;
+    component.paginator().pageIndex = 1;
     fixture.detectChanges();
     await fixture.whenStable();
 
