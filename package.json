@@ -78,7 +78,7 @@
     "lint-staged": "16.2.4",
     "ng-packagr": "20.3.0",
     "npm-run-all2": "8.0.4",
-    "playwright": "1.56.0",
+    "playwright": "1.56.1",
     "prettier": "3.6.2",
     "storybook": "9.0.11",
     "tsx": "4.20.6",
