@@ -40,45 +40,69 @@ describe('sbb-paginator', () => {
     expect(pageEventSpy).not.toHaveBeenCalled();
   });
 
-  it('should not emit page event when changing length', async () => {
+  it('should handle event emission when length changes', async () => {
     const pageEventSpy = spyOn(component, 'page');
+    const privatePageEventSpy = spyOn(component, 'privatePage');
 
-    component.paginator().length = 100;
+    component.paginator().length = 50;
     fixture.detectChanges();
     await fixture.whenStable();
-
     expect(pageEventSpy).not.toHaveBeenCalled();
+    expect(privatePageEventSpy).not.toHaveBeenCalled();
+
+    component.paginator().pageIndex = 3;
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(pageEventSpy).not.toHaveBeenCalled();
+    expect(privatePageEventSpy).toHaveBeenCalled();
+
+    component.paginator().length = 10;
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(pageEventSpy).not.toHaveBeenCalled();
+    expect(privatePageEventSpy).toHaveBeenCalledTimes(2);
   });
 
-  it('should not emit page event when changing pageSize', async () => {
+  it('should handle event emission when pageSize changes', async () => {
     const pageEventSpy = spyOn(component, 'page');
+    const privatePageEventSpy = spyOn(component, 'privatePage');
 
     component.paginator().pageSize = 1;
     fixture.detectChanges();
     await fixture.whenStable();
-
     expect(pageEventSpy).not.toHaveBeenCalled();
+    expect(privatePageEventSpy).toHaveBeenCalled();
   });
 
-  it('should not emit page event when changing pageIndex', async () => {
+  it('should handle event emission when pageIndex changes', async () => {
     const pageEventSpy = spyOn(component, 'page');
+    const privatePageEventSpy = spyOn(component, 'privatePage');
 
     component.paginator().pageIndex = 1;
     fixture.detectChanges();
     await fixture.whenStable();
-
     expect(pageEventSpy).not.toHaveBeenCalled();
+    expect(privatePageEventSpy).toHaveBeenCalled();
   });
 });
 
 @Component({
-  template: `<sbb-paginator (page)="page($event)"></sbb-paginator>`,
+  template: `<sbb-paginator
+    (page)="page($event)"
+    (ɵpage)="privatePage($event)"
+    length="100"
+    page-size="10"
+  ></sbb-paginator>`,
   imports: [SbbPaginator],
 })
 class TestComponent {
   paginator = viewChild.required(SbbPaginator);
 
   page() {
+    // no-op
+  }
+
+  privatePage() {
     // no-op
   }
 }
