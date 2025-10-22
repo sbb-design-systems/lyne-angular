@@ -474,8 +474,8 @@ describe('sbb-table', () => {
       for (let i = 0; i < 100; i++) {
         component.underlyingDataSource.addData();
       }
+      flushMicrotasks(); // Resolve promise that updates paginator's properties
       fixture.detectChanges();
-      flushMicrotasks(); // Resolve promise that updates paginator's length
       expectTableToMatchContent(tableElement, [
         ['Column A', 'Column B', 'Column C'],
         ['a_1', 'b_1', 'c_1'],
@@ -488,6 +488,7 @@ describe('sbb-table', () => {
 
       // Navigate to the next page
       component.paginator.nextPage();
+      flushMicrotasks(); // Resolve promise that updates paginator's properties
       fixture.detectChanges();
       expectTableToMatchContent(tableElement, [
         ['Column A', 'Column B', 'Column C'],
