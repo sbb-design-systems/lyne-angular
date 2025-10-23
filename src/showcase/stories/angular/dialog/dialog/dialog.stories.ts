@@ -13,6 +13,8 @@ import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
 import type { ArgTypes, InputType } from 'storybook/internal/types';
 
+import readme from './readme.md';
+
 const level: InputType = {
   control: {
     type: 'inline-radio',
@@ -68,6 +70,11 @@ const meta: Meta = {
   component: SbbDialog,
   parameters: {
     actions: { handles: ['click'] },
+    docs: {
+      description: {
+        component: readme,
+      },
+    },
   },
   argTypes,
   args,

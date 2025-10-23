@@ -3,6 +3,8 @@ import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import type { ArgTypes, InputType } from 'storybook/internal/types';
 
+import readme from '../../autocomplete/readme.md';
+
 const text: InputType = {
   control: {
     type: 'text',
@@ -23,6 +25,13 @@ const meta: Meta = {
   component: SbbTab,
   argTypes,
   args,
+  parameters: {
+    docs: {
+      description: {
+        component: readme,
+      },
+    },
+  },
 };
 export default meta;
 

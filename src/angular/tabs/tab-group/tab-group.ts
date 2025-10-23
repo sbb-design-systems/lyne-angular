@@ -2,6 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import type { SbbTabGroupElement } from '@sbb-esta/lyne-elements/tabs/tab-group.js';
 import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs/tab-label.js';
+import type { SbbTabElement } from '@sbb-esta/lyne-elements/tabs/tab.js';
 import type { SbbTabChangedEventDetails } from '@sbb-esta/lyne-elements/tabs.js';
 import { fromEvent } from 'rxjs';
 
@@ -52,5 +53,9 @@ export class SbbTabGroup {
 
   public get labels(): SbbTabLabelElement[] {
     return this.#element.nativeElement.labels;
+  }
+
+  public get tabs(): SbbTabElement[] {
+    return this.#element.nativeElement.tabs;
   }
 }
