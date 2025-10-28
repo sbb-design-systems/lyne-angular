@@ -175,7 +175,12 @@ const meta: Meta = {
       ...args,
     },
     template: `
-      <sbb-form-field [negative]="negative" [borderless]="borderless" [floatingLabel]="floatingLabel" size="size">
+      <sbb-form-field
+        [negative]="negative"
+        [borderless]="borderless"
+        [floatingLabel]="floatingLabel"
+        size="size"
+        ${args['position'] === 'above' ? `style="inset-block-end: 2rem; inset-inline-start: 2rem; position: absolute;"` : ''}>
         <label>Label</label>
         <input [disabled]="disabled" [readOnly]="readOnly" placeholder="Please select."/>
         <sbb-autocomplete ${argsToTemplate(args)}>

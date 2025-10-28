@@ -199,6 +199,7 @@ const meta: Meta = {
         [borderless]="borderless"
         [size]="size"
         [floatingLabel]="floatingLabel"
+        ${args['position'] === 'above' ? `style="inset-block-end: 2rem; inset-inline-start: 2rem; position: absolute;"` : ''}
       >
         <label>Label</label>
         <input
