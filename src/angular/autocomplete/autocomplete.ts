@@ -78,6 +78,32 @@ export class SbbAutocomplete<T = string> implements SbbAutocompleteType<T> {
     return this.#element.nativeElement.requireSelection;
   }
 
+  @Input({ transform: booleanAttribute })
+  public set autoActiveFirstOption(value: boolean) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.autoActiveFirstOption = value),
+    );
+  }
+  public get autoActiveFirstOption(): boolean {
+    return this.#element.nativeElement.autoActiveFirstOption;
+  }
+
+  @Input()
+  public set displayWith(value: ((value: T) => string) | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.displayWith = value));
+  }
+  public get displayWith(): ((value: T) => string) | null {
+    return this.#element.nativeElement.displayWith;
+  }
+
+  @Input()
+  public set position(value: 'auto' | 'above' | 'below') {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.position = value));
+  }
+  public get position(): 'auto' | 'above' | 'below' {
+    return this.#element.nativeElement.position;
+  }
+
   public get originElement(): HTMLElement | null {
     return this.#element.nativeElement.originElement;
   }
@@ -96,24 +122,6 @@ export class SbbAutocomplete<T = string> implements SbbAutocompleteType<T> {
 
   public close(): void {
     return this.#element.nativeElement.close();
-  }
-
-  @Input({ transform: booleanAttribute })
-  public set autoActiveFirstOption(value: boolean) {
-    this.#ngZone.runOutsideAngular(
-      () => (this.#element.nativeElement.autoActiveFirstOption = value),
-    );
-  }
-  public get autoActiveFirstOption(): boolean {
-    return this.#element.nativeElement.autoActiveFirstOption;
-  }
-
-  @Input()
-  public set displayWith(value: ((value: T) => string) | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.displayWith = value));
-  }
-  public get displayWith(): ((value: T) => string) | null {
-    return this.#element.nativeElement.displayWith;
   }
 
   public beforeOpenOutput = outputFromObservable(

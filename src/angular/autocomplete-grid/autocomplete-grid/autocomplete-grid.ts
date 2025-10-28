@@ -79,24 +79,12 @@ export class SbbAutocompleteGrid<T = string> implements SbbAutocompleteType<T> {
     return this.#element.nativeElement.requireSelection;
   }
 
-  public get originElement(): HTMLElement | null {
-    return this.#element.nativeElement.originElement;
+  @Input()
+  public set position(value: 'auto' | 'above' | 'below') {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.position = value));
   }
-
-  public get triggerElement(): HTMLInputElement | null | undefined {
-    return this.#element.nativeElement.triggerElement;
-  }
-
-  public get isOpen(): boolean {
-    return this.#element.nativeElement.isOpen;
-  }
-
-  public open(): void {
-    return this.#element.nativeElement.open();
-  }
-
-  public close(): void {
-    return this.#element.nativeElement.close();
+  public get position(): 'auto' | 'above' | 'below' {
+    return this.#element.nativeElement.position;
   }
 
   @Input({ transform: booleanAttribute })
@@ -115,6 +103,26 @@ export class SbbAutocompleteGrid<T = string> implements SbbAutocompleteType<T> {
   }
   public get displayWith(): ((value: T) => string) | null {
     return this.#element.nativeElement.displayWith;
+  }
+
+  public get originElement(): HTMLElement | null {
+    return this.#element.nativeElement.originElement;
+  }
+
+  public get triggerElement(): HTMLInputElement | null | undefined {
+    return this.#element.nativeElement.triggerElement;
+  }
+
+  public get isOpen(): boolean {
+    return this.#element.nativeElement.isOpen;
+  }
+
+  public open(): void {
+    return this.#element.nativeElement.open();
+  }
+
+  public close(): void {
+    return this.#element.nativeElement.close();
   }
 
   public beforeOpenOutput = outputFromObservable(
