@@ -14,7 +14,7 @@ import type { SbbSort } from '../sort/sort';
  * Interface that matches the required API parts of the SbbPaginator.
  */
 export interface SbbTableDataSourcePaginator {
-  page: Observable<CustomEvent<SbbPaginatorPageEventDetails> | undefined>;
+  ɵpage: Observable<CustomEvent<SbbPaginatorPageEventDetails> | undefined>;
   pageIndex: number;
   initialized: Observable<void>;
   pageSize: number;
@@ -274,7 +274,7 @@ export class _SbbTableDataSource<
       ? merge(this.#sort.sortChange, this.#sort.initialized)
       : observableOf(null);
     const pageChange = this.#paginator
-      ? merge(this.#paginator.page, this.#internalPageChanges, this.#paginator.initialized)
+      ? merge(this.#paginator.ɵpage, this.#internalPageChanges, this.#paginator.initialized)
       : observableOf(null);
     const dataStream = this.#data;
     // Watch for base data or filter changes to provide a filtered set of data.

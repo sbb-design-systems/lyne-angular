@@ -12,6 +12,7 @@ import { SbbTableExampleComponent } from './table-example.component';
 
 const DATA_SAMPLE = [
   {
+    id: 0,
     line: 'Lausanne - Fribourg - Bern Steigerhubel',
     from: 'Schmitten',
     to: 'Wünnewil',
@@ -19,6 +20,7 @@ const DATA_SAMPLE = [
     timestamp: '2024-03-08T14:23:54.78Z',
   },
   {
+    id: 1,
     line: 'Lausanne - Fribourg - Bern Steigerhubel',
     from: 'Thörishaus Station',
     to: 'Oberwangen',
@@ -26,6 +28,7 @@ const DATA_SAMPLE = [
     timestamp: '2024-03-08T14:23:54.78Z',
   },
   {
+    id: 2,
     line: 'Lausanne - Fribourg - Bern Steigerhubel',
     from: 'Villars-sur-Glâne',
     to: 'Fribourg/Freiburg',
@@ -33,6 +36,7 @@ const DATA_SAMPLE = [
     timestamp: '2024-03-08T14:23:54.78Z',
   },
   {
+    id: 3,
     line: 'Löchligut/Solothurn - NBS/ABS - Olten',
     from: 'Derendingen',
     to: 'Fribourg/Freiburg',
@@ -46,8 +50,7 @@ const LONG_DATA_SAMPLE = [
   ...DATA_SAMPLE,
   ...DATA_SAMPLE,
   ...DATA_SAMPLE,
-];
-
+].map((e, i) => ({ ...e, id: i }));
 const shortDatasource = new SbbTableDataSource(DATA_SAMPLE);
 const longDatasource = new SbbTableDataSource(LONG_DATA_SAMPLE);
 
@@ -72,8 +75,8 @@ const datasource: InputType = {
 };
 
 const columnsOptions = [
-  ['line', 'from', 'to', 'timestamp', 'provider'],
-  ['line', 'from', 'to'],
+  ['id', 'line', 'from', 'to', 'timestamp', 'provider'],
+  ['id', 'line', 'from', 'to'],
 ];
 const columns: InputType = {
   options: Object.keys(columnsOptions),
@@ -108,6 +111,7 @@ const defaultTemplate = ({ columns, datasource, size, negative }: Args) => `
       aria-label="Train lines 2024"
       class="sbb-table sbb-table-${size} ${negative ? 'sbb-table--negative' : ''}"
     >
+      <sbb-text-column name="id"></sbb-text-column>
       <sbb-text-column name="line"></sbb-text-column>
       <sbb-text-column name="from"></sbb-text-column>
       <sbb-text-column name="to"></sbb-text-column>
@@ -135,6 +139,7 @@ const withSortTemplate = ({ columns, datasource, size, negative }: Args) => `
       sbbSortActive="from"
       sbbSortDirection="desc"
     >
+      <sbb-text-column name="id"></sbb-text-column>
       <ng-container sbbColumnDef="line">
         <th
           sbb-header-cell
@@ -181,6 +186,7 @@ const withPaginatorTemplate = ({ columns, datasource, size, negative }: Args) =>
       aria-label="Train lines 2024"
       class="sbb-table sbb-table-${size} ${negative ? 'sbb-table--negative' : ''}"
     >
+      <sbb-text-column name="id"></sbb-text-column>
       <sbb-text-column name="line"></sbb-text-column>
       <sbb-text-column name="from"></sbb-text-column>
       <sbb-text-column name="to"></sbb-text-column>
@@ -211,6 +217,7 @@ const withFilterTemplate = ({ columns, datasource, size, negative }: Args) => `
       aria-label="Train lines 2024"
       class="sbb-table sbb-table-${size} ${negative ? 'sbb-table--negative' : ''}"
     >
+      <sbb-text-column name="id"></sbb-text-column>
       <sbb-text-column name="line"></sbb-text-column>
       <sbb-text-column name="from"></sbb-text-column>
       <sbb-text-column name="to"></sbb-text-column>
@@ -261,6 +268,7 @@ const withStickyColumnsTemplate = ({ columns, datasource, size, negative }: Args
       class="sbb-table sbb-table-${size} ${negative ? 'sbb-table--negative' : ''}"
       style="width: 150%;"
     >
+      <sbb-text-column name="id"></sbb-text-column>
       <sbb-text-column name="line" sticky></sbb-text-column>
       <sbb-text-column name="from"></sbb-text-column>
       <sbb-text-column name="to"></sbb-text-column>
