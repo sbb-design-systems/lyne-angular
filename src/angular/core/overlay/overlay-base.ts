@@ -131,7 +131,7 @@ export abstract class SbbOverlayBaseService<
     const overlayRef: OverlayRef = createOverlayRef(this.injector);
     const dialogContainer = this.#attachContainer(overlayRef, config);
 
-    const dialogRef = new this.#dialogRefConstructor(dialogContainer, config);
+    const dialogRef = new this.#dialogRefConstructor(dialogContainer, overlayRef, config);
 
     this.#attachContent(componentOrTemplateRef, dialogRef, dialogContainer, config);
 
@@ -145,7 +145,6 @@ export abstract class SbbOverlayBaseService<
       const index = this.openDialogs.indexOf(dialogRef);
 
       if (index > -1) {
-        overlayRef.detach();
         this.openDialogs.splice(index, 1);
 
         if (!this.openDialogs.length) {
