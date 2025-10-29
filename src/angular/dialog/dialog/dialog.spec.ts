@@ -106,7 +106,6 @@ describe('sbb-dialog', () => {
       expect(spy).toHaveBeenCalled();
     });
 
-    // TODO: understand why next is not called in tests
     it('should emit before and after dialog closing animation', async () => {
       const beforeCloseSpy = jasmine.createSpy('beforeClose spy');
       const afterCloseSpy = jasmine.createSpy('afterClose spy');
@@ -115,9 +114,7 @@ describe('sbb-dialog', () => {
         data: { dummyText: 'test string' },
       });
       ref.beforeClose.subscribe(beforeCloseSpy);
-      ref.afterClose.subscribe({
-        complete: afterCloseSpy,
-      });
+      ref.afterClose.subscribe(afterCloseSpy);
       await fixture.whenRenderingDone();
 
       expect(service.openDialogs[0]).toBe(ref);
