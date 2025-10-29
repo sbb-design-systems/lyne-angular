@@ -83,6 +83,12 @@ describe('sbb-paginator', () => {
     await fixture.whenStable();
     expect(pageEventSpy).not.toHaveBeenCalled();
     expect(privatePageEventSpy).toHaveBeenCalled();
+
+    component.paginator().pageSize = 1;
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(pageEventSpy).not.toHaveBeenCalled();
+    expect(privatePageEventSpy).toHaveBeenCalled();
   });
 });
 
