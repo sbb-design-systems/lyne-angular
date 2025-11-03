@@ -1,0 +1,13 @@
+:host {
+  display: block;
+  padding: 3rem 1.5rem;
+}
+
+nav {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-6x);
+}
+
+sbb-link-button {
+  font-size: var(--sbb-font-size-text-xl);
+}

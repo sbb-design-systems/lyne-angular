@@ -1,0 +1,9 @@
+@let _examples = examples | async;
+
+@if (_examples) {
+  @for (exampleData of _examples; track exampleData) {
+    <sbb-example-viewer [exampleData]="exampleData" />
+  }
+} @else {
+  No Examples found
+}

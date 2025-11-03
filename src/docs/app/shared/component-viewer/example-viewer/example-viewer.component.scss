@@ -1,0 +1,41 @@
+@use '@sbb-esta/lyne-elements' as sbb;
+
+:host {
+  display: block;
+  padding: sbb.px-to-rem-build(24);
+  margin-bottom: 1em;
+  position: relative;
+  border: 1px solid var(--sbb-color-silver);
+
+  ::ng-deep pre {
+    margin: 1em 0;
+    white-space: pre-wrap;
+  }
+}
+
+.example-viewer-header {
+  border-bottom: 1px solid var(--sbb-color-silver);
+  display: flex;
+  padding-bottom: sbb.px-to-rem-build(20);
+  margin-bottom: 1em;
+}
+
+.example-viewer-header-button {
+  flex-shrink: 0;
+  margin-left: 0.5em;
+}
+
+.example-viewer-title {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.sbb-example-viewer-tabs {
+  margin-bottom: 2em;
+}
+
+.devmode-notification {
+  margin-bottom: var(--sbb-divider-small);
+}

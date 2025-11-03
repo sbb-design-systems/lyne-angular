@@ -217,8 +217,9 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               {
-                "glob": "**/*",
-                "input": "public"
+                "glob": "**/*.md",
+                "input": "src/angular/",
+                "output": "docs-content/overviews/angular/"
               }
             ],
             "styles": [

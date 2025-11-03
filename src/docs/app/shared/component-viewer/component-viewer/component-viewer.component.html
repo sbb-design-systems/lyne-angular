@@ -1,0 +1,9 @@
+<nav>
+  @for (section of sections; track section) {
+    <sbb-link-button [routerLink]="['.', section.toLowerCase()]" routerLinkActive>
+      {{ section }}
+    </sbb-link-button>
+  }
+</nav>
+
+<router-outlet></router-outlet>
