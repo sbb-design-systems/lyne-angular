@@ -30,8 +30,8 @@ export class SbbOverlayRef<T = unknown> {
 
   constructor(
     container: SbbOverlayContainerBase,
-    overlayRef: OverlayRef,
     config: SbbOverlayConfig<SbbOverlayContainerBase>,
+    overlayRef: OverlayRef,
   ) {
     this.id = config.id;
     this.#container = container;
