@@ -270,7 +270,7 @@ function createPropJSDoc(jsdoc?: string): string | null {
   return jsdoc ? `/**\n   * ${jsdoc.replace(/\n/g, '\n   * ')}\n   */` : null;
 }
 
-function cleanComment(comment: string): string {
+function formatComment(comment: string): string {
   return comment
     .replace(/^\/\*\*?/, '')
     .replace(/\*\/$/, '')
@@ -369,8 +369,8 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             fix: (fixer) => fixer.insertTextBefore(node, `${classFullJSDoc}\n`),
           });
         } else if (!classCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
-          const classJSDocValue = cleanComment(classCurrentJSDoc.value);
-          const cleanClassJSDoc = cleanComment(classFullJSDoc);
+          const classJSDocValue = formatComment(classCurrentJSDoc.value);
+          const cleanClassJSDoc = formatComment(classFullJSDoc);
           if (classJSDocValue !== cleanClassJSDoc) {
             context.report({
               node,
@@ -452,7 +452,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // Add properties
         for (const member of publicProperties) {
-          const memberFullJSDoc = createPropJSDoc(member.description);
+          const propFullJSDoc = createPropJSDoc(member.description);
           if (
             classDeclaration.body.body.every(
               (n) =>
@@ -487,7 +487,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
-  ${memberFullJSDoc ? `${memberFullJSDoc}\n  ${input}` : input}
+  ${propFullJSDoc ? `${propFullJSDoc}\n  ${input}` : input}
   public set ${member.name}(value: ${setterType}) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.${member.name} = value${typeCast}));
   }
@@ -506,25 +506,25 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               context.sourceCode.getText(n.key) === member.name &&
               context.sourceCode.getText(n).includes('@Input('),
           );
-          if (memberNode && memberFullJSDoc) {
-            const memberCurrentJSDoc = getLeadingJSDocComment(sourceCode, memberNode);
-            if (!memberCurrentJSDoc) {
+          if (memberNode && propFullJSDoc) {
+            const propCurrentJSDoc = getLeadingJSDocComment(sourceCode, memberNode);
+            if (!propCurrentJSDoc) {
               context.report({
                 node,
                 messageId: 'angularMissingIncorrectJSDoc',
-                fix: (fixer) => fixer.insertTextBefore(memberNode, `${memberFullJSDoc}\n  `),
+                fix: (fixer) => fixer.insertTextBefore(memberNode, `${propFullJSDoc}\n  `),
               });
-            } else if (!memberCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
-              const memberJSDocValue = cleanComment(memberCurrentJSDoc.value);
-              const cleanMemberJSDoc = cleanComment(memberFullJSDoc);
-              if (memberJSDocValue !== cleanMemberJSDoc) {
+            } else if (!propCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
+              const propJSDocValue = formatComment(propCurrentJSDoc.value);
+              const cleanPropJSDoc = formatComment(propFullJSDoc);
+              if (propJSDocValue !== cleanPropJSDoc) {
                 context.report({
                   node,
                   messageId: 'angularMissingIncorrectJSDoc',
                   fix: (fixer) =>
                     fixer.replaceTextRange(
-                      [memberCurrentJSDoc.range[0], memberCurrentJSDoc.range[1] + 1],
-                      `${memberFullJSDoc}\n`,
+                      [propCurrentJSDoc.range[0], propCurrentJSDoc.range[1] + 1],
+                      `${propFullJSDoc}\n`,
                     ),
                 });
               }
@@ -675,6 +675,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // Add get method
         for (const member of publicGetters) {
+          const getterFullJSDoc = createPropJSDoc(member.description);
           if (
             classDeclaration.body.body.every(
               (n) =>
@@ -691,12 +692,42 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
-  public get ${member.name}(): ${member.type?.text ?? ``} {
+  ${getterFullJSDoc ? `${getterFullJSDoc}\n  ` : ''}public get ${member.name}(): ${member.type?.text ?? ``} {
     return this.#element.nativeElement.${member.name};
   }\n`,
                 );
               },
             });
+          }
+
+          const getterNode = classDeclaration.body.body.find(
+            (n) =>
+              n.type === AST_NODE_TYPES.MethodDefinition &&
+              context.sourceCode.getText(n.key) === member.name,
+          );
+          if (getterNode && getterFullJSDoc) {
+            const getterCurrentJSDoc = getLeadingJSDocComment(sourceCode, getterNode);
+            if (!getterCurrentJSDoc) {
+              context.report({
+                node,
+                messageId: 'angularMissingIncorrectJSDoc',
+                fix: (fixer) => fixer.insertTextBefore(getterNode, `${getterFullJSDoc}\n  `),
+              });
+            } else if (!getterCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
+              const propJSDocValue = formatComment(getterCurrentJSDoc.value);
+              const cleanPropJSDoc = formatComment(getterFullJSDoc);
+              if (propJSDocValue !== cleanPropJSDoc) {
+                context.report({
+                  node,
+                  messageId: 'angularMissingIncorrectJSDoc',
+                  fix: (fixer) =>
+                    fixer.replaceTextRange(
+                      [getterCurrentJSDoc.range[0], getterCurrentJSDoc.range[1] + 1],
+                      `${getterFullJSDoc}\n`,
+                    ),
+                });
+              }
+            }
           }
         }
 
