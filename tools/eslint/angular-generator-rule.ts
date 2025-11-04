@@ -3,7 +3,12 @@ import { dirname, relative, resolve } from 'node:path';
 import { basename, join } from 'path';
 import { fileURLToPath } from 'url';
 
-import { AST_NODE_TYPES, ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
+import {
+  AST_NODE_TYPES,
+  ESLintUtils,
+  type TSESTree,
+  type TSESLint,
+} from '@typescript-eslint/utils';
 import type {
   ClassMember,
   ClassMethod,
@@ -13,6 +18,8 @@ import type {
   JavaScriptModule,
   Package,
 } from 'custom-elements-manifest';
+
+const EXCLUDE_JSDOC_OVERRIDE: string = '@excludeJSDocOverride';
 
 const CAMEL_CASE_EVENTS_MAP: Record<string, string> = {
   beforeclose: 'beforeClose',
@@ -219,8 +226,63 @@ const generateStructure = (pkg: Package, projectPath: string) => {
 generateStructure(elementsManifest, join(root, 'src/angular'));
 generateStructure(elementsExperimentalManifest, join(root, 'src/angular-experimental'));
 
+function getLeadingJSDocComment(
+  sourceCode: TSESLint.SourceCode,
+  node: TSESTree.Decorator,
+): TSESTree.Comment | null {
+  const commentsBefore = sourceCode.getCommentsBefore(node);
+  if (!commentsBefore.length) {
+    return null;
+  }
+
+  const lastComment = commentsBefore[commentsBefore.length - 1];
+  const isJSDoc = lastComment.type === 'Block' && lastComment.value.startsWith('*');
+  const hasNoBlankLine = node.loc.start.line - lastComment.loc.end.line <= 1;
+
+  return isJSDoc && hasNoBlankLine ? lastComment : null;
+}
+
+function createClassJSDoc(
+  classManifestDeclaration: CustomElementDeclaration & { classGenerics: string },
+): string {
+  const slots = classManifestDeclaration.slots;
+  const cssProps = classManifestDeclaration.cssProperties;
+  const cssParts = classManifestDeclaration.cssParts;
+  let classDescr = `/**\n * ${classManifestDeclaration.description}\n`;
+  if (slots && slots?.length) {
+    classDescr += ` *\n${slots.map((slot) => ` * @slot ${slot.name} - ${slot.description}`).join('\n')}\n`;
+  }
+  if (cssProps) {
+    classDescr += `${cssProps
+      .map((cssProp) => ` * @cssprop [${cssProp.name}=${cssProp.default}] - ${cssProp.description}`)
+      .join('\n')}\n`;
+  }
+  if (cssParts) {
+    classDescr += `${cssParts
+      .map((cssPart) => ` * @csspart ${cssPart.name} - ${cssPart.description}`)
+      .join('\n')}\n`;
+  }
+  classDescr += ` */`;
+  return classDescr;
+}
+
+function createPropJSDoc(jsdoc?: string): string {
+  return jsdoc ? `/**\n   * ${jsdoc}\n   */` : '';
+}
+
+function cleanComment(comment: string): string {
+  return comment
+    .replace(/^\/\*\*?/, '')
+    .replace(/\*\/$/, '')
+    .replace(/^\s*\* ?/gm, '')
+    .replace(/\r?\n/g, ' ')
+    .replace(/\s\s+/g, ' ')
+    .trim();
+}
+
 export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
+    const sourceCode = context.sourceCode;
     return {
       Program(node: TSESTree.Program) {
         const module = getPairedModuleFromManifest(context.filename);
@@ -298,6 +360,32 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         // The Angular class being written on
         const classDeclaration = node.parent as unknown as TSESTree.ClassDeclaration;
 
+        const classFullJSDoc = createClassJSDoc(classManifestDeclaration);
+        const classCurrentJSDoc = getLeadingJSDocComment(sourceCode, node);
+        if (!classCurrentJSDoc) {
+          context.report({
+            node,
+            messageId: 'angularMissingIncorrectClassComment',
+            data: { className: classManifestDeclaration.name },
+            fix: (fixer) => fixer.insertTextBefore(node, `${classFullJSDoc}\n`),
+          });
+        } else if (!classCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
+          const classJSDocValue = cleanComment(classCurrentJSDoc.value);
+          const cleanClassJSDoc = cleanComment(classFullJSDoc);
+          if (classJSDocValue !== cleanClassJSDoc) {
+            context.report({
+              node,
+              messageId: 'angularMissingIncorrectClassComment',
+              data: { className: classManifestDeclaration.name },
+              fix: (fixer) =>
+                fixer.replaceTextRange(
+                  [classCurrentJSDoc.range[0], classCurrentJSDoc.range[1] + 1],
+                  `${classFullJSDoc}\n`,
+                ),
+            });
+          }
+        }
+
         // Add imports related to inputs and outputs properties
         if (publicProperties.length) {
           expectedAngularImports.add('Input').add('NgZone');
@@ -366,6 +454,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // Add properties
         for (const member of publicProperties) {
+          const propFullJSDoc = createPropJSDoc(member.description);
           if (
             classDeclaration.body.body.every(
               (n) =>
@@ -400,6 +489,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
+  ${propFullJSDoc}
   ${input}
   public set ${member.name}(value: ${setterType}) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.${member.name} = value${typeCast}));
@@ -840,6 +930,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
       rxJsMissingImport: 'Missing import {{ symbol }}',
       rxJsInteropMissingImport: 'Missing import {{ symbol }}',
       angularMissingDirective: 'Missing class for {{ className }}',
+      angularMissingIncorrectClassComment: 'Missing or incorrect comment for class {{ className }}',
       angularMissingElementRef: 'Missing ElementRef property',
       angularMissingNgZone: 'Missing NgZone property',
       angularMissingInput: 'Missing input for property {{ property }}',
