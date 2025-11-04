@@ -229,17 +229,36 @@ generateStructure(elementsExperimentalManifest, join(root, 'src/angular-experime
 function getLeadingJSDocComment(
   sourceCode: TSESLint.SourceCode,
   node: TSESTree.Decorator | TSESTree.ClassElement,
-): TSESTree.Comment | null {
+): TSESTree.BlockComment | null {
+  const commentsBefore = sourceCode.getCommentsBefore(node);
+  if (!commentsBefore.length || commentsBefore.every((e) => e.type === 'Line')) {
+    return null;
+  }
+
+  const blockComments = commentsBefore.filter((com) => com.type === 'Block');
+  const lastComment = commentsBefore[commentsBefore.length - 1];
+  const lastBlockComment = blockComments[blockComments.length - 1];
+  const hasNoBlankLine =
+    node.loc.start.line - lastBlockComment.loc.end.line <= (lastComment.type === 'Line' ? 2 : 1);
+
+  const isJSDoc = lastBlockComment.value.startsWith('*');
+  return isJSDoc && hasNoBlankLine ? lastBlockComment : null;
+}
+
+function getLeadingLineComment(
+  sourceCode: TSESLint.SourceCode,
+  node: TSESTree.Decorator | TSESTree.ClassElement,
+): TSESTree.LineComment | null {
   const commentsBefore = sourceCode.getCommentsBefore(node);
   if (!commentsBefore.length) {
     return null;
   }
 
   const lastComment = commentsBefore[commentsBefore.length - 1];
-  const isJSDoc = lastComment.type === 'Block' && lastComment.value.startsWith('*');
+  const isLineComment = lastComment.type === 'Line';
   const hasNoBlankLine = node.loc.start.line - lastComment.loc.end.line <= 1;
 
-  return isJSDoc && hasNoBlankLine ? lastComment : null;
+  return isLineComment && hasNoBlankLine ? lastComment : null;
 }
 
 function createClassJSDoc(
@@ -733,6 +752,12 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // Add methods
         for (const member of publicMethods) {
+          const methodFullJSDoc = createPropJSDoc(member.description);
+          const disableAnyType =
+            member.parameters?.some((param) => param.type?.text === 'any') ||
+            member.return?.type?.text === 'any'
+              ? '\n  // eslint-disable-next-line @typescript-eslint/no-explicit-any'
+              : '';
           if (
             classDeclaration.body.body.every(
               (n) =>
@@ -750,20 +775,50 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   ?.map((e) => `${e.name}: ${e.type?.text}`)
                   .join(', ');
                 const methodArguments = member.parameters?.map((param) => param.name).join(', ');
-                const disableAnyType =
-                  member.parameters?.some((param) => param.type?.text === 'any') ||
-                  member.return?.type?.text === 'any'
-                    ? '\n  // eslint-disable-next-line @typescript-eslint/no-explicit-any'
-                    : '';
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
-                  `${disableAnyType}
+                  `  ${methodFullJSDoc ? `${methodFullJSDoc}` : ''}${disableAnyType}
   public ${member.name}(${methodParam ?? ``}): ${member.return?.type?.text ?? ``} {
     return this.#element.nativeElement.${member.name}(${methodArguments ?? ``});
   }\n`,
                 );
               },
             });
+          }
+
+          const methodNode = classDeclaration.body.body.find(
+            (n) =>
+              n.type === AST_NODE_TYPES.MethodDefinition &&
+              context.sourceCode.getText(n.key) === member.name,
+          );
+          if (methodNode && methodFullJSDoc) {
+            const methodCurrentJSDoc = getLeadingJSDocComment(sourceCode, methodNode);
+            const methodAnyComment = getLeadingLineComment(sourceCode, methodNode);
+            if (!methodCurrentJSDoc) {
+              context.report({
+                node,
+                messageId: 'angularMissingIncorrectJSDoc',
+                fix: (fixer) =>
+                  fixer.insertTextBeforeRange(
+                    methodAnyComment ? methodAnyComment!.range : methodNode.range,
+                    `${methodFullJSDoc}\n  `,
+                  ),
+              });
+            } else if (!methodCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
+              const propJSDocValue = formatComment(methodCurrentJSDoc.value);
+              const cleanPropJSDoc = formatComment(methodFullJSDoc);
+              if (propJSDocValue !== cleanPropJSDoc) {
+                context.report({
+                  node,
+                  messageId: 'angularMissingIncorrectJSDoc',
+                  fix: (fixer) =>
+                    fixer.replaceTextRange(
+                      methodAnyComment ? methodAnyComment!.range : methodCurrentJSDoc.range,
+                      `${methodFullJSDoc}\n`,
+                    ),
+                });
+              }
+            }
           }
         }
 
