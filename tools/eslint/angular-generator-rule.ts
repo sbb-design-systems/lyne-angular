@@ -228,7 +228,7 @@ generateStructure(elementsExperimentalManifest, join(root, 'src/angular-experime
 
 function getLeadingJSDocComment(
   sourceCode: TSESLint.SourceCode,
-  node: TSESTree.Decorator,
+  node: TSESTree.Decorator | TSESTree.ClassElement,
 ): TSESTree.Comment | null {
   const commentsBefore = sourceCode.getCommentsBefore(node);
   if (!commentsBefore.length) {
@@ -266,8 +266,8 @@ function createClassJSDoc(
   return classDescr;
 }
 
-function createPropJSDoc(jsdoc?: string): string {
-  return jsdoc ? `/**\n   * ${jsdoc}\n   */` : '';
+function createPropJSDoc(jsdoc?: string): string | null {
+  return jsdoc ? `/**\n   * ${jsdoc.replace(/\n/g, '\n   * ')}\n   */` : null;
 }
 
 function cleanComment(comment: string): string {
@@ -365,8 +365,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         if (!classCurrentJSDoc) {
           context.report({
             node,
-            messageId: 'angularMissingIncorrectClassComment',
-            data: { className: classManifestDeclaration.name },
+            messageId: 'angularMissingIncorrectJSDoc',
             fix: (fixer) => fixer.insertTextBefore(node, `${classFullJSDoc}\n`),
           });
         } else if (!classCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
@@ -375,8 +374,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           if (classJSDocValue !== cleanClassJSDoc) {
             context.report({
               node,
-              messageId: 'angularMissingIncorrectClassComment',
-              data: { className: classManifestDeclaration.name },
+              messageId: 'angularMissingIncorrectJSDoc',
               fix: (fixer) =>
                 fixer.replaceTextRange(
                   [classCurrentJSDoc.range[0], classCurrentJSDoc.range[1] + 1],
@@ -454,7 +452,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // Add properties
         for (const member of publicProperties) {
-          const propFullJSDoc = createPropJSDoc(member.description);
+          const memberFullJSDoc = createPropJSDoc(member.description);
           if (
             classDeclaration.body.body.every(
               (n) =>
@@ -489,8 +487,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
-  ${propFullJSDoc}
-  ${input}
+  ${memberFullJSDoc ? `${memberFullJSDoc}\n  ${input}` : input}
   public set ${member.name}(value: ${setterType}) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.${member.name} = value${typeCast}));
   }
@@ -500,6 +497,38 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 );
               },
             });
+          }
+
+          const memberNode = classDeclaration.body.body.find(
+            (n) =>
+              n.type === AST_NODE_TYPES.MethodDefinition &&
+              n.kind === 'set' &&
+              context.sourceCode.getText(n.key) === member.name &&
+              context.sourceCode.getText(n).includes('@Input('),
+          );
+          if (memberNode && memberFullJSDoc) {
+            const memberCurrentJSDoc = getLeadingJSDocComment(sourceCode, memberNode);
+            if (!memberCurrentJSDoc) {
+              context.report({
+                node,
+                messageId: 'angularMissingIncorrectJSDoc',
+                fix: (fixer) => fixer.insertTextBefore(memberNode, `${memberFullJSDoc}\n  `),
+              });
+            } else if (!memberCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
+              const memberJSDocValue = cleanComment(memberCurrentJSDoc.value);
+              const cleanMemberJSDoc = cleanComment(memberFullJSDoc);
+              if (memberJSDocValue !== cleanMemberJSDoc) {
+                context.report({
+                  node,
+                  messageId: 'angularMissingIncorrectJSDoc',
+                  fix: (fixer) =>
+                    fixer.replaceTextRange(
+                      [memberCurrentJSDoc.range[0], memberCurrentJSDoc.range[1] + 1],
+                      `${memberFullJSDoc}\n`,
+                    ),
+                });
+              }
+            }
           }
         }
 
@@ -930,7 +959,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
       rxJsMissingImport: 'Missing import {{ symbol }}',
       rxJsInteropMissingImport: 'Missing import {{ symbol }}',
       angularMissingDirective: 'Missing class for {{ className }}',
-      angularMissingIncorrectClassComment: 'Missing or incorrect comment for class {{ className }}',
+      angularMissingIncorrectJSDoc: 'Missing or incorrect JSDoc',
       angularMissingElementRef: 'Missing ElementRef property',
       angularMissingNgZone: 'Missing NgZone property',
       angularMissingInput: 'Missing input for property {{ property }}',
