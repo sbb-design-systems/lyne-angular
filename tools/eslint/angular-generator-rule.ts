@@ -6,8 +6,8 @@ import { fileURLToPath } from 'url';
 import {
   AST_NODE_TYPES,
   ESLintUtils,
-  type TSESTree,
   type TSESLint,
+  type TSESTree,
 } from '@typescript-eslint/utils';
 import type {
   ClassMember,
@@ -226,7 +226,7 @@ const generateStructure = (pkg: Package, projectPath: string) => {
 generateStructure(elementsManifest, join(root, 'src/angular'));
 generateStructure(elementsExperimentalManifest, join(root, 'src/angular-experimental'));
 
-function getLeadingJSDocComment(
+function getLeadingJSDocBlockComment(
   sourceCode: TSESLint.SourceCode,
   node: TSESTree.Decorator | TSESTree.ClassElement,
 ): TSESTree.BlockComment | null {
@@ -245,7 +245,7 @@ function getLeadingJSDocComment(
   return isJSDoc && hasNoBlankLine ? lastBlockComment : null;
 }
 
-function getLeadingLineComment(
+function getLeadingJSDocLineComment(
   sourceCode: TSESLint.SourceCode,
   node: TSESTree.Decorator | TSESTree.ClassElement,
 ): TSESTree.LineComment | null {
@@ -285,8 +285,41 @@ function createClassJSDoc(
   return classDescr;
 }
 
-function createPropJSDoc(jsdoc?: string): string | null {
+function createJSDoc(jsdoc?: string): string | null {
   return jsdoc ? `/**\n   * ${jsdoc.replace(/\n/g, '\n   * ')}\n   */` : null;
+}
+
+function addMissingJsDoc(
+  context: TSESLint.RuleContext<string, unknown[]>,
+  node: TSESTree.ClassElement,
+  sourceCode: TSESLint.SourceCode,
+  jsDoc: string,
+  name: string,
+): void {
+  const nodeCurrentJSDoc = getLeadingJSDocBlockComment(sourceCode, node);
+  if (!nodeCurrentJSDoc) {
+    context.report({
+      node,
+      messageId: 'angularMissingIncorrectJSDoc',
+      data: { symbol: name },
+      fix: (fixer) => fixer.insertTextBefore(node, `${jsDoc}\n  `),
+    });
+  } else if (!nodeCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
+    const nodeFormattedJSDoc = formatComment(nodeCurrentJSDoc.value);
+    const currentFormattedJSDoc = formatComment(jsDoc);
+    if (nodeFormattedJSDoc !== currentFormattedJSDoc) {
+      context.report({
+        node,
+        messageId: 'angularMissingIncorrectJSDoc',
+        data: { symbol: name },
+        fix: (fixer) =>
+          fixer.replaceTextRange(
+            [nodeCurrentJSDoc.range[0], nodeCurrentJSDoc.range[1] + 1],
+            `${jsDoc}\n`,
+          ),
+      });
+    }
+  }
 }
 
 function formatComment(comment: string): string {
@@ -379,25 +412,27 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         // The Angular class being written on
         const classDeclaration = node.parent as unknown as TSESTree.ClassDeclaration;
 
-        const classFullJSDoc = createClassJSDoc(classManifestDeclaration);
-        const classCurrentJSDoc = getLeadingJSDocComment(sourceCode, node);
+        const classJSDoc = createClassJSDoc(classManifestDeclaration);
+        const classCurrentJSDoc = getLeadingJSDocBlockComment(sourceCode, node);
         if (!classCurrentJSDoc) {
           context.report({
             node,
             messageId: 'angularMissingIncorrectJSDoc',
-            fix: (fixer) => fixer.insertTextBefore(node, `${classFullJSDoc}\n`),
+            data: { symbol: classManifestDeclaration.name },
+            fix: (fixer) => fixer.insertTextBefore(node, `${classJSDoc}\n`),
           });
         } else if (!classCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
-          const classJSDocValue = formatComment(classCurrentJSDoc.value);
-          const cleanClassJSDoc = formatComment(classFullJSDoc);
-          if (classJSDocValue !== cleanClassJSDoc) {
+          const classFormattedJSDocValue = formatComment(classCurrentJSDoc.value);
+          const classCurrentFormattedJSDoc = formatComment(classJSDoc);
+          if (classFormattedJSDocValue !== classCurrentFormattedJSDoc) {
             context.report({
               node,
               messageId: 'angularMissingIncorrectJSDoc',
+              data: { symbol: classManifestDeclaration.name },
               fix: (fixer) =>
                 fixer.replaceTextRange(
                   [classCurrentJSDoc.range[0], classCurrentJSDoc.range[1] + 1],
-                  `${classFullJSDoc}\n`,
+                  `${classJSDoc}\n`,
                 ),
             });
           }
@@ -471,7 +506,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // Add properties
         for (const member of publicProperties) {
-          const propFullJSDoc = createPropJSDoc(member.description);
+          const propJSDoc = createJSDoc(member.description);
           if (
             classDeclaration.body.body.every(
               (n) =>
@@ -506,7 +541,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
-  ${propFullJSDoc ? `${propFullJSDoc}\n  ${input}` : input}
+  ${propJSDoc ? `${propJSDoc}\n  ${input}` : input}
   public set ${member.name}(value: ${setterType}) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.${member.name} = value${typeCast}));
   }
@@ -525,29 +560,8 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               context.sourceCode.getText(n.key) === member.name &&
               context.sourceCode.getText(n).includes('@Input('),
           );
-          if (memberNode && propFullJSDoc) {
-            const propCurrentJSDoc = getLeadingJSDocComment(sourceCode, memberNode);
-            if (!propCurrentJSDoc) {
-              context.report({
-                node,
-                messageId: 'angularMissingIncorrectJSDoc',
-                fix: (fixer) => fixer.insertTextBefore(memberNode, `${propFullJSDoc}\n  `),
-              });
-            } else if (!propCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
-              const propJSDocValue = formatComment(propCurrentJSDoc.value);
-              const cleanPropJSDoc = formatComment(propFullJSDoc);
-              if (propJSDocValue !== cleanPropJSDoc) {
-                context.report({
-                  node,
-                  messageId: 'angularMissingIncorrectJSDoc',
-                  fix: (fixer) =>
-                    fixer.replaceTextRange(
-                      [propCurrentJSDoc.range[0], propCurrentJSDoc.range[1] + 1],
-                      `${propFullJSDoc}\n`,
-                    ),
-                });
-              }
-            }
+          if (memberNode && propJSDoc) {
+            addMissingJsDoc(context, memberNode, sourceCode, propJSDoc, member.name);
           }
         }
 
@@ -560,7 +574,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             `outputFromObservable(.*alias:.*'${normalizedName}'.*);`,
             's',
           );
-          const eventFullJSDoc = createPropJSDoc(member.description);
+          const eventJSDoc = createJSDoc(member.description);
           const isCamelCase = CAMEL_CASE_EVENTS_MAP[member.name];
           if (isCamelCase) {
             if (
@@ -579,7 +593,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   return fixer.insertTextBeforeRange(
                     [endOfBody, endOfBody],
                     `
-  ${eventFullJSDoc ? `${eventFullJSDoc}\n` : ''}  public ${outputName} = outputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'), { alias: '${normalizedName}' });\n`,
+  ${eventJSDoc ? `${eventJSDoc}\n` : ''}  public ${outputName} = outputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'), { alias: '${normalizedName}' });\n`,
                   );
                 },
               });
@@ -624,7 +638,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   const endOfBody = classDeclaration.body.range[1] - 1;
                   return fixer.insertTextBeforeRange(
                     [endOfBody, endOfBody],
-                    `${eventFullJSDoc ? `\n  ${eventFullJSDoc}\n` : ''}  public ${outputName} = internalOutputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'));\n`,
+                    `${eventJSDoc ? `\n  ${eventJSDoc}\n` : ''}  public ${outputName} = internalOutputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'));\n`,
                   );
                 },
               });
@@ -636,29 +650,8 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               n.type === AST_NODE_TYPES.PropertyDefinition &&
               context.sourceCode.getText(n.key) === outputName,
           );
-          if (eventNode && eventFullJSDoc) {
-            const eventCurrentJSDoc = getLeadingJSDocComment(sourceCode, eventNode);
-            if (!eventCurrentJSDoc) {
-              context.report({
-                node,
-                messageId: 'angularMissingIncorrectJSDoc',
-                fix: (fixer) => fixer.insertTextBefore(eventNode, `${eventFullJSDoc}\n  `),
-              });
-            } else if (!eventCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
-              const eventJSDocValue = formatComment(eventCurrentJSDoc.value);
-              const cleanEventJSDoc = formatComment(eventFullJSDoc);
-              if (eventJSDocValue !== cleanEventJSDoc) {
-                context.report({
-                  node,
-                  messageId: 'angularMissingIncorrectJSDoc',
-                  fix: (fixer) =>
-                    fixer.replaceTextRange(
-                      [eventCurrentJSDoc.range[0], eventCurrentJSDoc.range[1] + 1],
-                      `${eventFullJSDoc}\n`,
-                    ),
-                });
-              }
-            }
+          if (eventNode && eventJSDoc) {
+            addMissingJsDoc(context, eventNode, sourceCode, eventJSDoc, member.name);
           }
 
           // Check if output types are corresponding to manifest
@@ -724,7 +717,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // Add get method
         for (const member of publicGetters) {
-          const getterFullJSDoc = createPropJSDoc(member.description);
+          const getterJSDoc = createJSDoc(member.description);
           if (
             classDeclaration.body.body.every(
               (n) =>
@@ -741,7 +734,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
-  ${getterFullJSDoc ? `${getterFullJSDoc}\n  ` : ''}public get ${member.name}(): ${member.type?.text ?? ``} {
+  ${getterJSDoc ? `${getterJSDoc}\n  ` : ''}public get ${member.name}(): ${member.type?.text ?? ``} {
     return this.#element.nativeElement.${member.name};
   }\n`,
                 );
@@ -754,35 +747,14 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               n.type === AST_NODE_TYPES.MethodDefinition &&
               context.sourceCode.getText(n.key) === member.name,
           );
-          if (getterNode && getterFullJSDoc) {
-            const getterCurrentJSDoc = getLeadingJSDocComment(sourceCode, getterNode);
-            if (!getterCurrentJSDoc) {
-              context.report({
-                node,
-                messageId: 'angularMissingIncorrectJSDoc',
-                fix: (fixer) => fixer.insertTextBefore(getterNode, `${getterFullJSDoc}\n  `),
-              });
-            } else if (!getterCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
-              const propJSDocValue = formatComment(getterCurrentJSDoc.value);
-              const cleanPropJSDoc = formatComment(getterFullJSDoc);
-              if (propJSDocValue !== cleanPropJSDoc) {
-                context.report({
-                  node,
-                  messageId: 'angularMissingIncorrectJSDoc',
-                  fix: (fixer) =>
-                    fixer.replaceTextRange(
-                      [getterCurrentJSDoc.range[0], getterCurrentJSDoc.range[1] + 1],
-                      `${getterFullJSDoc}\n`,
-                    ),
-                });
-              }
-            }
+          if (getterNode && getterJSDoc) {
+            addMissingJsDoc(context, getterNode, sourceCode, getterJSDoc, member.name);
           }
         }
 
         // Add methods
         for (const member of publicMethods) {
-          const methodFullJSDoc = createPropJSDoc(member.description);
+          const methodJSDoc = createJSDoc(member.description);
           const disableAnyType =
             member.parameters?.some((param) => param.type?.text === 'any') ||
             member.return?.type?.text === 'any'
@@ -807,7 +779,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 const methodArguments = member.parameters?.map((param) => param.name).join(', ');
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
-                  `  ${methodFullJSDoc ? `${methodFullJSDoc}` : ''}${disableAnyType}
+                  `  ${methodJSDoc ? `${methodJSDoc}` : ''}${disableAnyType}
   public ${member.name}(${methodParam ?? ``}): ${member.return?.type?.text ?? ``} {
     return this.#element.nativeElement.${member.name}(${methodArguments ?? ``});
   }\n`,
@@ -821,30 +793,32 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               n.type === AST_NODE_TYPES.MethodDefinition &&
               context.sourceCode.getText(n.key) === member.name,
           );
-          if (methodNode && methodFullJSDoc) {
-            const methodCurrentJSDoc = getLeadingJSDocComment(sourceCode, methodNode);
-            const methodAnyComment = getLeadingLineComment(sourceCode, methodNode);
+          if (methodNode && methodJSDoc) {
+            const methodCurrentJSDoc = getLeadingJSDocBlockComment(sourceCode, methodNode);
+            const methodAnyComment = getLeadingJSDocLineComment(sourceCode, methodNode);
             if (!methodCurrentJSDoc) {
               context.report({
                 node,
                 messageId: 'angularMissingIncorrectJSDoc',
+                data: { symbol: member.name },
                 fix: (fixer) =>
                   fixer.insertTextBeforeRange(
                     methodAnyComment ? methodAnyComment!.range : methodNode.range,
-                    `${methodFullJSDoc}\n  `,
+                    `${methodJSDoc}\n  `,
                   ),
               });
             } else if (!methodCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
-              const propJSDocValue = formatComment(methodCurrentJSDoc.value);
-              const cleanPropJSDoc = formatComment(methodFullJSDoc);
-              if (propJSDocValue !== cleanPropJSDoc) {
+              const methodFormattedJSDoc = formatComment(methodCurrentJSDoc.value);
+              const currentFormattedJSDoc = formatComment(methodJSDoc);
+              if (methodFormattedJSDoc !== currentFormattedJSDoc) {
                 context.report({
                   node,
                   messageId: 'angularMissingIncorrectJSDoc',
+                  data: { symbol: member.name },
                   fix: (fixer) =>
                     fixer.replaceTextRange(
                       methodAnyComment ? methodAnyComment!.range : methodCurrentJSDoc.range,
-                      `${methodFullJSDoc}\n`,
+                      `${methodJSDoc}\n`,
                     ),
                 });
               }
@@ -1075,7 +1049,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
       rxJsMissingImport: 'Missing import {{ symbol }}',
       rxJsInteropMissingImport: 'Missing import {{ symbol }}',
       angularMissingDirective: 'Missing class for {{ className }}',
-      angularMissingIncorrectJSDoc: 'Missing or incorrect JSDoc',
+      angularMissingIncorrectJSDoc: 'Missing or incorrect JSDoc for {{ symbol }}',
       angularMissingElementRef: 'Missing ElementRef property',
       angularMissingNgZone: 'Missing NgZone property',
       angularMissingInput: 'Missing input for property {{ property }}',
