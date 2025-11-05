@@ -798,7 +798,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             const methodAnyComment = getLeadingJSDocLineComment(sourceCode, methodNode);
             if (!methodCurrentJSDoc) {
               context.report({
-                node,
+                node: methodNode,
                 messageId: 'angularMissingIncorrectJSDoc',
                 data: { symbol: member.name },
                 fix: (fixer) =>
@@ -812,7 +812,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               const currentFormattedJSDoc = formatComment(methodJSDoc);
               if (methodFormattedJSDoc !== currentFormattedJSDoc) {
                 context.report({
-                  node,
+                  node: methodNode,
                   messageId: 'angularMissingIncorrectJSDoc',
                   data: { symbol: member.name },
                   fix: (fixer) =>
