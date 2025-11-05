@@ -19,6 +19,9 @@ import type {
   Package,
 } from 'custom-elements-manifest';
 
+/**
+ * Use this annotation to skip the JSDoc rule overriding.
+ */
 const EXCLUDE_JSDOC_OVERRIDE: string = '@excludeJSDocOverride';
 
 const CAMEL_CASE_EVENTS_MAP: Record<string, string> = {
@@ -226,16 +229,30 @@ const generateStructure = (pkg: Package, projectPath: string) => {
 generateStructure(elementsManifest, join(root, 'src/angular'));
 generateStructure(elementsExperimentalManifest, join(root, 'src/angular-experimental'));
 
+/**
+ * The `typescript/eslint-parser` doesn't consider the JSDoc comments as part of the node they refers to,
+ * but groups them in a 'comments' array property at Program level (outermost node).
+ * This method can be used to retrieve the block comment relative to a specific node.
+ *
+ * NOTE:
+ * we have some method with parameters typed as `any`,
+ * and we use the `eslint-disable-next-line @typescript-eslint/no-explicit-any` to skip the check on them;
+ * the filter for 'Block' and the specific checks on the `hasNoBlankLine` variable
+ * have been added to handle this case.
+ *
+ * @param sourceCode the linted file
+ * @param node the node we are checking for the block comment presence
+ */
 function getLeadingJSDocBlockComment(
   sourceCode: TSESLint.SourceCode,
   node: TSESTree.Decorator | TSESTree.ClassElement,
 ): TSESTree.BlockComment | null {
   const commentsBefore = sourceCode.getCommentsBefore(node);
-  if (!commentsBefore.length || commentsBefore.every((e) => e.type === 'Line')) {
+  if (!commentsBefore.length || commentsBefore.every((c) => c.type === 'Line')) {
     return null;
   }
 
-  const blockComments = commentsBefore.filter((com) => com.type === 'Block');
+  const blockComments = commentsBefore.filter((c) => c.type === 'Block');
   const lastComment = commentsBefore[commentsBefore.length - 1];
   const lastBlockComment = blockComments[blockComments.length - 1];
   const hasNoBlankLine =
@@ -245,6 +262,14 @@ function getLeadingJSDocBlockComment(
   return isJSDoc && hasNoBlankLine ? lastBlockComment : null;
 }
 
+/**
+ * The `typescript/eslint-parser` doesn't consider the JSDoc comments as part of the node they refers to,
+ * but groups them in a 'comments' array property at Program level (outermost node).
+ * This method can be used to retrieve the line comment relative to a specific node.
+ *
+ * @param sourceCode the linted file
+ * @param node the node we are checking for the line comment presence
+ */
 function getLeadingJSDocLineComment(
   sourceCode: TSESLint.SourceCode,
   node: TSESTree.Decorator | TSESTree.ClassElement,
@@ -261,6 +286,11 @@ function getLeadingJSDocLineComment(
   return isLineComment && hasNoBlankLine ? lastComment : null;
 }
 
+/**
+ * Format the class' JSDoc based on the manifest's data:
+ * - description (mandatory)
+ * - slots / cssProps / cssParts (facultative)
+ */
 function createClassJSDoc(
   classManifestDeclaration: CustomElementDeclaration & { classGenerics: string },
 ): string {
@@ -285,10 +315,20 @@ function createClassJSDoc(
   return classDescr;
 }
 
+/**
+ * Format the JSDoc for class's internals (properties, methods, getters..)
+ */
 function createJSDoc(jsdoc?: string): string | null {
   return jsdoc ? `/**\n   * ${jsdoc.replace(/\n/g, '\n   * ')}\n   */` : null;
 }
 
+/**
+ * Checks if the node has a JSDoc block comment.
+ *
+ * If not, it reports an error on the node, and it adds the documentation provided;
+ * if yes, checks for the `@excludeJSDocOverride` annotation, and if not found
+ * it reports an error on the node and it overrides the current documentation with the provided one.
+ */
 function addMissingJsDoc(
   context: TSESLint.RuleContext<string, unknown[]>,
   node: TSESTree.ClassElement,
@@ -322,6 +362,9 @@ function addMissingJsDoc(
   }
 }
 
+/**
+ * It formats the comment returning only the text.
+ */
 function formatComment(comment: string): string {
   return comment
     .replace(/^\/\*\*?/, '')
@@ -412,6 +455,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         // The Angular class being written on
         const classDeclaration = node.parent as unknown as TSESTree.ClassDeclaration;
 
+        // Documentation check
         const classJSDoc = createClassJSDoc(classManifestDeclaration);
         const classCurrentJSDoc = getLeadingJSDocBlockComment(sourceCode, node);
         if (!classCurrentJSDoc) {
@@ -553,6 +597,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             });
           }
 
+          // Documentation check
           const memberNode = classDeclaration.body.body.find(
             (n) =>
               n.type === AST_NODE_TYPES.MethodDefinition &&
@@ -645,6 +690,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             }
           }
 
+          // Documentation check
           const eventNode = classDeclaration.body.body.find(
             (n) =>
               n.type === AST_NODE_TYPES.PropertyDefinition &&
@@ -742,6 +788,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             });
           }
 
+          // Documentation check
           const getterNode = classDeclaration.body.body.find(
             (n) =>
               n.type === AST_NODE_TYPES.MethodDefinition &&
@@ -788,6 +835,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             });
           }
 
+          // Documentation check
           const methodNode = classDeclaration.body.body.find(
             (n) =>
               n.type === AST_NODE_TYPES.MethodDefinition &&
