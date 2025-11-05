@@ -9,6 +9,11 @@ import { NEVER, fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/carousel/carousel-item.js';
 
+/**
+ * It displays an item contained into the `sbb-carousel` component.
+ *
+ * @slot  - Use the unnamed slot to add images for the carousel, as <img>, <sbb-image>, <picture>, ...
+ */
 @Directive({
   selector: 'sbb-carousel-item',
   exportAs: 'sbbCarouselItem',
@@ -20,6 +25,9 @@ export class SbbCarouselItem {
     NEVER,
     { alias: 'beforeshow' },
   );
+  /**
+   * Event emitted when the item is starting scrolling.
+   */
   public beforeshowOutput = internalOutputFromObservable(
     fromEvent<CustomEvent<SbbCarouselItemEventDetail>>(this.#element.nativeElement, 'beforeshow'),
   );
@@ -27,6 +35,9 @@ export class SbbCarouselItem {
   protected _showOutput = outputFromObservable<CustomEvent<SbbCarouselItemEventDetail>>(NEVER, {
     alias: 'show',
   });
+  /**
+   * Event emitted when the item is full visible after scrolling.
+   */
   public showOutput = internalOutputFromObservable(
     fromEvent<CustomEvent<SbbCarouselItemEventDetail>>(this.#element.nativeElement, 'show'),
   );

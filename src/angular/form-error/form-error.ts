@@ -4,6 +4,12 @@ import type { SbbFormErrorElement } from '@sbb-esta/lyne-elements/form-error.js'
 
 import '@sbb-esta/lyne-elements/form-error.js';
 
+/**
+ * It displays an error message in the `sbb-form-field`.
+ *
+ * @slot  - Use this slot to display the error message.
+ * @slot icon - Use this slot to override the default error icon.
+ */
 @Directive({
   selector: 'sbb-form-error',
   exportAs: 'sbbFormError',
@@ -12,6 +18,9 @@ export class SbbFormError {
   #element: ElementRef<SbbFormErrorElement> = inject(ElementRef<SbbFormErrorElement>);
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * Negative coloring variant flag.
+   */
   @Input({ transform: booleanAttribute })
   public set negative(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.negative = value));

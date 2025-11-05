@@ -4,6 +4,11 @@ import type { SbbTableWrapperElement } from '@sbb-esta/lyne-elements/table/table
 
 import '@sbb-esta/lyne-elements/table/table-wrapper.js';
 
+/**
+ * Wraps a table to enhance its functionality.
+ *
+ * @slot  - Use the unnamed slot to add the table.
+ */
 @Directive({
   selector: 'sbb-table-wrapper',
   exportAs: 'sbbTableWrapper',
@@ -12,6 +17,9 @@ export class SbbTableWrapper {
   #element: ElementRef<SbbTableWrapperElement> = inject(ElementRef<SbbTableWrapperElement>);
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * Negative coloring variant flag.
+   */
   @Input({ transform: booleanAttribute })
   public set negative(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.negative = value));
@@ -20,6 +28,9 @@ export class SbbTableWrapper {
     return this.#element.nativeElement.negative;
   }
 
+  /**
+   * Whether the table wrapper is focusable.
+   */
   @Input({ transform: booleanAttribute })
   public set focusable(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.focusable = value));

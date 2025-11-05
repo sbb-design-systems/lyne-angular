@@ -11,6 +11,9 @@ import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation.js';
 
+/**
+ * Main component for the seat reservation.
+ */
 @Directive({
   selector: 'sbb-seat-reservation',
   exportAs: 'sbbSeatReservation',
@@ -19,6 +22,9 @@ export class SbbSeatReservation {
   #element: ElementRef<SbbSeatReservationElement> = inject(ElementRef<SbbSeatReservationElement>);
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * The seat reservations array contains all coaches and places
+   */
   @Input()
   public set seatReservations(value: SeatReservation[]) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.seatReservations = value));
@@ -27,6 +33,9 @@ export class SbbSeatReservation {
     return this.#element.nativeElement.seatReservations;
   }
 
+  /**
+   * The seat reservation navigation can be toggled by this property
+   */
   @Input({ transform: booleanAttribute })
   public set hasNavigation(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hasNavigation = value));
@@ -35,6 +44,9 @@ export class SbbSeatReservation {
     return this.#element.nativeElement.hasNavigation;
   }
 
+  /**
+   * The seat reservation area is aligned vertically
+   */
   @Input({ transform: booleanAttribute })
   public set alignVertical(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.alignVertical = value));
@@ -43,6 +55,9 @@ export class SbbSeatReservation {
     return this.#element.nativeElement.alignVertical;
   }
 
+  /**
+   * Maximal number of possible clickable seats
+   */
   @Input({ transform: numberAttribute })
   public set maxSeatReservations(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.maxSeatReservations = value));
@@ -51,6 +66,9 @@ export class SbbSeatReservation {
     return this.#element.nativeElement.maxSeatReservations;
   }
 
+  /**
+   * Maximal number of possible clickable bicycle places
+   */
   @Input({ transform: numberAttribute })
   public set maxBicycleReservations(value: number) {
     this.#ngZone.runOutsideAngular(
@@ -61,6 +79,9 @@ export class SbbSeatReservation {
     return this.#element.nativeElement.maxBicycleReservations;
   }
 
+  /**
+   * Any click functionality is prevented
+   */
   @Input({ transform: booleanAttribute })
   public set preventPlaceClick(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.preventPlaceClick = value));
@@ -77,6 +98,9 @@ export class SbbSeatReservation {
     return this.#element.nativeElement.preselectCoachIndex;
   }
 
+  /**
+   * The seat reservation area's base grid size
+   */
   @Input({ transform: numberAttribute })
   public set baseGridSize(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.baseGridSize = value));
@@ -85,6 +109,9 @@ export class SbbSeatReservation {
     return this.#element.nativeElement.baseGridSize;
   }
 
+  /**
+   * The seat reservation area's width
+   */
   @Input({ transform: numberAttribute })
   public set height(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.height = value));
@@ -93,6 +120,9 @@ export class SbbSeatReservation {
     return this.#element.nativeElement.height;
   }
 
+  /**
+   * Emits when a coach was selected and returns a CoachSelection
+   */
   public selectedCoachOutput = outputFromObservable(
     fromEvent<CustomEvent<SeatReservationSelectedCoach>>(
       this.#element.nativeElement,
@@ -101,6 +131,9 @@ export class SbbSeatReservation {
     { alias: 'selectedCoach' },
   );
 
+  /**
+   * Emits when a place was selected and returns a Place array with all selected places.
+   */
   public selectedPlacesOutput = outputFromObservable(
     fromEvent<CustomEvent<SeatReservationSelectedPlaces>>(
       this.#element.nativeElement,
