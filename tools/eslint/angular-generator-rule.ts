@@ -560,6 +560,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             `outputFromObservable(.*alias:.*'${normalizedName}'.*);`,
             's',
           );
+          const eventFullJSDoc = createPropJSDoc(member.description);
           const isCamelCase = CAMEL_CASE_EVENTS_MAP[member.name];
           if (isCamelCase) {
             if (
@@ -578,7 +579,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   return fixer.insertTextBeforeRange(
                     [endOfBody, endOfBody],
                     `
-  public ${outputName} = outputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'), { alias: '${normalizedName}' });\n`,
+  ${eventFullJSDoc ? `${eventFullJSDoc}\n` : ''}  public ${outputName} = outputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'), { alias: '${normalizedName}' });\n`,
                   );
                 },
               });
@@ -623,11 +624,40 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   const endOfBody = classDeclaration.body.range[1] - 1;
                   return fixer.insertTextBeforeRange(
                     [endOfBody, endOfBody],
-                    `
-  public ${outputName} = internalOutputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'));\n`,
+                    `${eventFullJSDoc ? `\n  ${eventFullJSDoc}\n` : ''}  public ${outputName} = internalOutputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'));\n`,
                   );
                 },
               });
+            }
+          }
+
+          const eventNode = classDeclaration.body.body.find(
+            (n) =>
+              n.type === AST_NODE_TYPES.PropertyDefinition &&
+              context.sourceCode.getText(n.key) === outputName,
+          );
+          if (eventNode && eventFullJSDoc) {
+            const eventCurrentJSDoc = getLeadingJSDocComment(sourceCode, eventNode);
+            if (!eventCurrentJSDoc) {
+              context.report({
+                node,
+                messageId: 'angularMissingIncorrectJSDoc',
+                fix: (fixer) => fixer.insertTextBefore(eventNode, `${eventFullJSDoc}\n  `),
+              });
+            } else if (!eventCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
+              const eventJSDocValue = formatComment(eventCurrentJSDoc.value);
+              const cleanEventJSDoc = formatComment(eventFullJSDoc);
+              if (eventJSDocValue !== cleanEventJSDoc) {
+                context.report({
+                  node,
+                  messageId: 'angularMissingIncorrectJSDoc',
+                  fix: (fixer) =>
+                    fixer.replaceTextRange(
+                      [eventCurrentJSDoc.range[0], eventCurrentJSDoc.range[1] + 1],
+                      `${eventFullJSDoc}\n`,
+                    ),
+                });
+              }
             }
           }
 
