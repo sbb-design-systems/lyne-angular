@@ -6,6 +6,11 @@ import type { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 
 import '@sbb-esta/lyne-elements/action-group.js';
 
+/**
+ * It can be used as a container for one or more action element, like `sbb-button` or `sbb-block-link`.
+ *
+ * @slot  - Use the unnamed slot to add `sbb-block-link` or `sbb-button` elements to the `sbb-action-group`.
+ */
 @Directive({
   selector: 'sbb-action-group',
   exportAs: 'sbbActionGroup',
@@ -14,6 +19,9 @@ export class SbbActionGroup {
   #element: ElementRef<SbbActionGroupElement> = inject(ElementRef<SbbActionGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * Set the slotted `<sbb-action-group>` children's alignment.
+   */
   @Input()
   public set alignGroup(value: 'start' | 'center' | 'stretch' | 'end') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.alignGroup = value));
@@ -22,6 +30,9 @@ export class SbbActionGroup {
     return this.#element.nativeElement.alignGroup;
   }
 
+  /**
+   * Overrides the behaviour of `orientation` property.
+   */
   @Input()
   public set horizontalFrom(value: SbbHorizontalFrom) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.horizontalFrom = value));
@@ -30,6 +41,9 @@ export class SbbActionGroup {
     return this.#element.nativeElement.horizontalFrom;
   }
 
+  /**
+   * Indicates the orientation of the components inside the `<sbb-action-group>`.
+   */
   @Input()
   public set orientation(value: SbbOrientation) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.orientation = value));
@@ -38,6 +52,10 @@ export class SbbActionGroup {
     return this.#element.nativeElement.orientation;
   }
 
+  /**
+   * Size of the nested sbb-button instances.
+   * This will overwrite the size attribute of nested sbb-button instances.
+   */
   @Input()
   public set buttonSize(value: SbbButtonSize) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.buttonSize = value));
@@ -46,6 +64,10 @@ export class SbbActionGroup {
     return this.#element.nativeElement.buttonSize;
   }
 
+  /**
+   * Size of the nested sbb-block-link instances.
+   * This will overwrite the size attribute of nested sbb-block-link instances.
+   */
   @Input()
   public set linkSize(value: SbbLinkSize) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.linkSize = value));

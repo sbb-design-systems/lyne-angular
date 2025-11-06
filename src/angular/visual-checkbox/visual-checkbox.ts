@@ -5,6 +5,9 @@ import type { SbbVisualCheckboxElement } from '@sbb-esta/lyne-elements/visual-ch
 
 import '@sbb-esta/lyne-elements/visual-checkbox.js';
 
+/**
+ * It visually displays a non-interactive checkbox.
+ */
 @Directive({
   selector: 'sbb-visual-checkbox',
   exportAs: 'sbbVisualCheckbox',
@@ -13,6 +16,9 @@ export class SbbVisualCheckbox {
   #element: ElementRef<SbbVisualCheckboxElement> = inject(ElementRef<SbbVisualCheckboxElement>);
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * Checked state.
+   */
   @Input({ transform: booleanAttribute })
   public set checked(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.checked = value));
@@ -21,6 +27,9 @@ export class SbbVisualCheckbox {
     return this.#element.nativeElement.checked;
   }
 
+  /**
+   * Indeterminate state.
+   */
   @Input({ transform: booleanAttribute })
   public set indeterminate(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.indeterminate = value));
@@ -29,6 +38,9 @@ export class SbbVisualCheckbox {
     return this.#element.nativeElement.indeterminate;
   }
 
+  /**
+   * Size of the checkbox, either xs, s or m.
+   */
   @Input()
   public set size(value: SbbCheckboxSize) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
@@ -37,6 +49,9 @@ export class SbbVisualCheckbox {
     return this.#element.nativeElement.size;
   }
 
+  /**
+   * Whether the component is disabled.
+   */
   @Input({ transform: booleanAttribute })
   public set disabled(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabled = value));
@@ -45,6 +60,9 @@ export class SbbVisualCheckbox {
     return this.#element.nativeElement.disabled;
   }
 
+  /**
+   * Negative coloring variant flag.
+   */
   @Input({ transform: booleanAttribute })
   public set negative(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.negative = value));

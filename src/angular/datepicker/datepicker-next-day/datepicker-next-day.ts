@@ -6,6 +6,9 @@ import type { SbbDatepickerNextDayElement } from '@sbb-esta/lyne-elements/datepi
 
 import '@sbb-esta/lyne-elements/datepicker/datepicker-next-day.js';
 
+/**
+ * Combined with a `sbb-datepicker`, it can be used to move the date ahead.
+ */
 @Directive({
   selector: 'sbb-datepicker-next-day',
   exportAs: 'sbbDatepickerNextDay',
@@ -16,6 +19,9 @@ export class SbbDatepickerNextDay<T = Date> {
   );
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * Negative coloring variant flag.
+   */
   @Input({ transform: booleanAttribute })
   public set negative(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.negative = value));
@@ -24,6 +30,11 @@ export class SbbDatepickerNextDay<T = Date> {
     return this.#element.nativeElement.negative;
   }
 
+  /**
+   * The associated date input element.
+   *
+   * For attribute usage, provide an id reference.
+   */
   @Input()
   public set input(value: string | SbbDateInputElement<T> | null) {
     this.#ngZone.runOutsideAngular(
@@ -34,6 +45,9 @@ export class SbbDatepickerNextDay<T = Date> {
     return this.#element.nativeElement.input;
   }
 
+  /**
+   * Value of the form element.
+   */
   @Input()
   public set value(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
@@ -42,6 +56,9 @@ export class SbbDatepickerNextDay<T = Date> {
     return this.#element.nativeElement.value;
   }
 
+  /**
+   * The type attribute to use for the button.
+   */
   @Input()
   public set type(value: SbbButtonType) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
@@ -50,6 +67,9 @@ export class SbbDatepickerNextDay<T = Date> {
     return this.#element.nativeElement.type;
   }
 
+  /**
+   * The `<form>` element to associate the button with.
+   */
   @Input()
   public set form(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.form = value));
@@ -58,6 +78,9 @@ export class SbbDatepickerNextDay<T = Date> {
     return this.#element.nativeElement.form;
   }
 
+  /**
+   * Name of the form element. Will be read from name attribute.
+   */
   @Input()
   public set name(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.name = value));
@@ -66,30 +89,62 @@ export class SbbDatepickerNextDay<T = Date> {
     return this.#element.nativeElement.name;
   }
 
+  /**
+   * Whether this button is disabled.
+   */
   public get disabled(): boolean {
     return this.#element.nativeElement.disabled;
   }
 
+  /**
+   * Returns the ValidityState object for this element.
+   */
   public get validity(): ValidityState {
     return this.#element.nativeElement.validity;
   }
 
+  /**
+   * Returns the current error message, if available, which corresponds
+   * to the current validation state.
+   * Please note that only one message is returned at a time (e.g. if
+   * multiple validity states are invalid, only the chronologically first one
+   * is returned until it is fixed, at which point the next message might be
+   * returned, if it is still applicable). Also a custom validity message
+   * (see below) has precedence over native validation messages.
+   */
   public get validationMessage(): string {
     return this.#element.nativeElement.validationMessage;
   }
 
+  /**
+   * Returns true if this element will be validated
+   * when the form is submitted; false otherwise.
+   */
   public get willValidate(): boolean {
     return this.#element.nativeElement.willValidate;
   }
 
+  /**
+   * Returns true if this element has no validity problems; false otherwise.
+   * Fires an invalid event at the element in the latter case.
+   */
   public checkValidity(): boolean {
     return this.#element.nativeElement.checkValidity();
   }
 
+  /**
+   * Returns true if this element has no validity problems; otherwise,
+   * returns false, fires an invalid event at the element,
+   * and (if the event isn't canceled) reports the problem to the user.
+   */
   public reportValidity(): boolean {
     return this.#element.nativeElement.reportValidity();
   }
 
+  /**
+   * Sets the custom validity message for this element. Use the empty string
+   * to indicate that the element does not have a custom validity error.
+   */
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }

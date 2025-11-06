@@ -4,6 +4,13 @@ import type { SbbContainerElement } from '@sbb-esta/lyne-elements/container/cont
 
 import '@sbb-esta/lyne-elements/container/container.js';
 
+/**
+ * It displays its content with the default page spacing.
+ *
+ * @slot  - Use the unnamed slot to add anything to the container.
+ * @slot sticky-bar - The slot used by the sbb-sticky-bar component.
+ * @slot image - The slot used to slot an `sbb-image` to use as background.
+ */
 @Directive({
   selector: 'sbb-container',
   exportAs: 'sbbContainer',
@@ -12,6 +19,9 @@ export class SbbContainer {
   #element: ElementRef<SbbContainerElement> = inject(ElementRef<SbbContainerElement>);
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * Whether the container is expanded.
+   */
   @Input({ transform: booleanAttribute })
   public set expanded(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.expanded = value));
@@ -20,6 +30,9 @@ export class SbbContainer {
     return this.#element.nativeElement.expanded;
   }
 
+  /**
+   * Whether the background color is shown on full container width on large screens.
+   */
   @Input({ transform: booleanAttribute })
   public set backgroundExpanded(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.backgroundExpanded = value));
@@ -28,6 +41,9 @@ export class SbbContainer {
     return this.#element.nativeElement.backgroundExpanded;
   }
 
+  /**
+   * Color of the container, like transparent, white etc.
+   */
   @Input()
   public set color(value: 'transparent' | 'white' | 'milk' | 'midnight' | 'charcoal') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.color = value));

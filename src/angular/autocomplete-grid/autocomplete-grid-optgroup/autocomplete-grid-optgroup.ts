@@ -4,6 +4,11 @@ import type { SbbAutocompleteGridOptgroupElement } from '@sbb-esta/lyne-elements
 
 import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-optgroup.js';
 
+/**
+ * It can be used as a container for one or more `sbb-autocomplete-grid-option`.
+ *
+ * @slot  - Use the unnamed slot to add `sbb-autocomplete-grid-option` elements to the `sbb-autocomplete-grid-optgroup`.
+ */
 @Directive({
   selector: 'sbb-autocomplete-grid-optgroup',
   exportAs: 'sbbAutocompleteGridOptgroup',
@@ -14,6 +19,9 @@ export class SbbAutocompleteGridOptgroup {
   );
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * Whether the component is disabled.
+   */
   @Input({ transform: booleanAttribute })
   public set disabled(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabled = value));
@@ -22,6 +30,9 @@ export class SbbAutocompleteGridOptgroup {
     return this.#element.nativeElement.disabled;
   }
 
+  /**
+   * Option group label.
+   */
   @Input()
   public set label(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.label = value));

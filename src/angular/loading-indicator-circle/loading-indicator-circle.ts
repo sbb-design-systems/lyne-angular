@@ -3,6 +3,9 @@ import type { SbbLoadingIndicatorCircleElement } from '@sbb-esta/lyne-elements/l
 
 import '@sbb-esta/lyne-elements/loading-indicator-circle.js';
 
+/**
+ * It displays a circle loading indicator.
+ */
 @Directive({
   selector: 'sbb-loading-indicator-circle',
   exportAs: 'sbbLoadingIndicatorCircle',
@@ -13,6 +16,9 @@ export class SbbLoadingIndicatorCircle {
   );
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * Color variant.
+   */
   @Input()
   public set color(value: 'default' | 'smoke' | 'white') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.color = value));

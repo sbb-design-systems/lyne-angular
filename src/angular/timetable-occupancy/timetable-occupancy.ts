@@ -5,6 +5,9 @@ import type { SbbTimetableOccupancyElement } from '@sbb-esta/lyne-elements/timet
 
 import '@sbb-esta/lyne-elements/timetable-occupancy.js';
 
+/**
+ * Used in `sbb-timetable-row`, it displays information about wagon occupancy.
+ */
 @Directive({
   selector: 'sbb-timetable-occupancy',
   exportAs: 'sbbTimetableOccupancy',
@@ -15,6 +18,9 @@ export class SbbTimetableOccupancy {
   );
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * Occupancy for first class wagons.
+   */
   @Input()
   public set firstClassOccupancy(value: SbbOccupancy | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.firstClassOccupancy = value));
@@ -23,6 +29,9 @@ export class SbbTimetableOccupancy {
     return this.#element.nativeElement.firstClassOccupancy;
   }
 
+  /**
+   * Occupancy for second class wagons.
+   */
   @Input()
   public set secondClassOccupancy(value: SbbOccupancy | null) {
     this.#ngZone.runOutsideAngular(
@@ -33,6 +42,9 @@ export class SbbTimetableOccupancy {
     return this.#element.nativeElement.secondClassOccupancy;
   }
 
+  /**
+   * Negative coloring variant flag.
+   */
   @Input({ transform: booleanAttribute })
   public set negative(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.negative = value));
