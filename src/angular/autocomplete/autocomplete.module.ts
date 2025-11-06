@@ -4,10 +4,14 @@ import { SbbOptionModule } from '@sbb-esta/lyne-angular/option';
 import { SbbAutocomplete } from './autocomplete';
 import { SbbAutocompleteTrigger } from './autocomplete-trigger';
 
-const EXPORTED_DECLARATIONS = [SbbAutocompleteTrigger, SbbAutocomplete, SbbOptionModule];
+const SBB_AUTOCOMPLETE_EXPORTED_DECLARATIONS = [
+  SbbAutocompleteTrigger,
+  SbbAutocomplete,
+  SbbOptionModule,
+];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_AUTOCOMPLETE_EXPORTED_DECLARATIONS,
+  exports: SBB_AUTOCOMPLETE_EXPORTED_DECLARATIONS,
 })
 export class SbbAutocompleteModule {}

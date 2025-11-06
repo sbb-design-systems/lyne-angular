@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { SbbOverlay } from './overlay';
 import { SbbOverlayContainer } from './overlay-container';
 
-const EXPORTED_DECLARATIONS = [SbbOverlay, SbbOverlayContainer];
+const SBB_OVERLAY_EXPORTED_DECLARATIONS = [SbbOverlay, SbbOverlayContainer];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_OVERLAY_EXPORTED_DECLARATIONS,
+  exports: SBB_OVERLAY_EXPORTED_DECLARATIONS,
 })
 export class SbbOverlayModule {}

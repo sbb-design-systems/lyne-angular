@@ -11,7 +11,7 @@ import { SbbSidebarContainer } from './sidebar-container/sidebar-container';
 import { SbbSidebarContent } from './sidebar-content/sidebar-content';
 import { SbbSidebarTitle } from './sidebar-title/sidebar-title';
 
-const EXPORTED_DECLARATIONS = [
+const SBB_SIDEBAR_EXPORTED_DECLARATIONS = [
   SbbIconSidebar,
   SbbIconSidebarButton,
   SbbIconSidebarContainer,
@@ -25,7 +25,7 @@ const EXPORTED_DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_SIDEBAR_EXPORTED_DECLARATIONS,
+  exports: SBB_SIDEBAR_EXPORTED_DECLARATIONS,
 })
 export class SbbSidebarModule {}

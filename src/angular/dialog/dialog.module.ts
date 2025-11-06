@@ -7,7 +7,7 @@ import { SbbDialogCloseButton } from './dialog-close-button/dialog-close-button'
 import { SbbDialogContent } from './dialog-content/dialog-content';
 import { SbbDialogTitle } from './dialog-title/dialog-title';
 
-const EXPORTED_DECLARATIONS = [
+const SBB_DIALOG_EXPORTED_DECLARATIONS = [
   SbbDialog,
   SbbDialogActions,
   SbbDialogCloseButton,
@@ -17,7 +17,7 @@ const EXPORTED_DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_DIALOG_EXPORTED_DECLARATIONS,
+  exports: SBB_DIALOG_EXPORTED_DECLARATIONS,
 })
 export class SbbDialogModule {}

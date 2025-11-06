@@ -8,7 +8,7 @@ import { SbbSeatReservationNavigationServices } from './seat-reservation-navigat
 import { SbbSeatReservationPlaceControl } from './seat-reservation-place-control/seat-reservation-place-control';
 import { SbbSeatReservationScoped } from './seat-reservation-scoped/seat-reservation-scoped';
 
-const EXPORTED_DECLARATIONS = [
+const SBB_SEAT_RESERVATION_EXPORTED_DECLARATIONS = [
   SbbSeatReservation,
   SbbSeatReservationArea,
   SbbSeatReservationGraphic,
@@ -19,7 +19,7 @@ const EXPORTED_DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_SEAT_RESERVATION_EXPORTED_DECLARATIONS,
+  exports: SBB_SEAT_RESERVATION_EXPORTED_DECLARATIONS,
 })
 export class SbbSeatReservationModule {}

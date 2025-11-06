@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { SbbPopover } from './popover/popover';
 import { SbbPopoverTrigger } from './popover-trigger/popover-trigger';
 
-const EXPORTED_DECLARATIONS = [SbbPopover, SbbPopoverTrigger];
+const SBB_POPOVER_EXPORTED_DECLARATIONS = [SbbPopover, SbbPopoverTrigger];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_POPOVER_EXPORTED_DECLARATIONS,
+  exports: SBB_POPOVER_EXPORTED_DECLARATIONS,
 })
 export class SbbPopoverModule {}

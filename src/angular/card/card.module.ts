@@ -5,10 +5,10 @@ import { SbbCardBadge } from './card-badge/card-badge';
 import { SbbCardButton } from './card-button/card-button';
 import { SbbCardLink } from './card-link/card-link';
 
-const EXPORTED_DECLARATIONS = [SbbCard, SbbCardBadge, SbbCardButton, SbbCardLink];
+const SBB_CARD_EXPORTED_DECLARATIONS = [SbbCard, SbbCardBadge, SbbCardButton, SbbCardLink];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_CARD_EXPORTED_DECLARATIONS,
+  exports: SBB_CARD_EXPORTED_DECLARATIONS,
 })
 export class SbbCardModule {}

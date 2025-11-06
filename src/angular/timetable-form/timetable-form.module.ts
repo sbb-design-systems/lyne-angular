@@ -5,7 +5,7 @@ import { SbbTimetableFormDetails } from './timetable-form-details/timetable-form
 import { SbbTimetableFormField } from './timetable-form-field/timetable-form-field';
 import { SbbTimetableFormSwapButton } from './timetable-form-swap-button/timetable-form-swap-button';
 
-const EXPORTED_DECLARATIONS = [
+const SBB_TIMETABLE_FORM_EXPORTED_DECLARATIONS = [
   SbbTimetableForm,
   SbbTimetableFormDetails,
   SbbTimetableFormField,
@@ -13,7 +13,7 @@ const EXPORTED_DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_TIMETABLE_FORM_EXPORTED_DECLARATIONS,
+  exports: SBB_TIMETABLE_FORM_EXPORTED_DECLARATIONS,
 })
 export class SbbTimetableFormModule {}

@@ -3,10 +3,10 @@ import { SbbExpansionPanelModule } from '@sbb-esta/lyne-angular/expansion-panel'
 
 import { SbbAccordion } from './accordion';
 
-const EXPORTED_DECLARATIONS = [SbbAccordion, SbbExpansionPanelModule];
+const SBB_ACCORDION_EXPORTED_DECLARATIONS = [SbbAccordion, SbbExpansionPanelModule];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_ACCORDION_EXPORTED_DECLARATIONS,
+  exports: SBB_ACCORDION_EXPORTED_DECLARATIONS,
 })
 export class SbbAccordionModule {}

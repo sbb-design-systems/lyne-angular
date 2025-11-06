@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { SbbToast } from './toast';
 import { SbbToastContainer } from './toast-container';
 
-const EXPORTED_DECLARATIONS = [SbbToast, SbbToastContainer];
+const SBB_TOAST_EXPORTED_DECLARATIONS = [SbbToast, SbbToastContainer];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_TOAST_EXPORTED_DECLARATIONS,
+  exports: SBB_TOAST_EXPORTED_DECLARATIONS,
 })
 export class SbbToastModule {}
