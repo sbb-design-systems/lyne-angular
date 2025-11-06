@@ -23,7 +23,7 @@ import { SbbRecycleRows, SbbTable } from './table/table';
 import { SbbTextColumn } from './table/text-column';
 import { SbbTableWrapper } from './table-wrapper/table-wrapper';
 
-const EXPORTED_DECLARATIONS = [
+const SBB_TABLE_EXPORTED_DECLARATIONS = [
   // Table
   SbbTable,
   SbbRecycleRows,
@@ -56,7 +56,7 @@ const EXPORTED_DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_TABLE_EXPORTED_DECLARATIONS,
+  exports: SBB_TABLE_EXPORTED_DECLARATIONS,
 })
 export class SbbTableModule {}

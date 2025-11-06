@@ -8,7 +8,7 @@ import { SbbAutocompleteGridOptgroup } from './autocomplete-grid-optgroup/autoco
 import { SbbAutocompleteGridOption } from './autocomplete-grid-option/autocomplete-grid-option';
 import { SbbAutocompleteGridRow } from './autocomplete-grid-row/autocomplete-grid-row';
 
-const EXPORTED_DECLARATIONS = [
+const SBB_AUTOCOMPLETE_GRID_EXPORTED_DECLARATIONS = [
   SbbAutocompleteTrigger,
   SbbAutocompleteGrid,
   SbbAutocompleteGridButton,
@@ -19,7 +19,7 @@ const EXPORTED_DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_AUTOCOMPLETE_GRID_EXPORTED_DECLARATIONS,
+  exports: SBB_AUTOCOMPLETE_GRID_EXPORTED_DECLARATIONS,
 })
 export class SbbAutocompleteGridModule {}

@@ -4,14 +4,14 @@ import { SbbExpansionPanel } from './expansion-panel/expansion-panel';
 import { SbbExpansionPanelContent } from './expansion-panel-content/expansion-panel-content';
 import { SbbExpansionPanelHeader } from './expansion-panel-header/expansion-panel-header';
 
-const EXPORTED_DECLARATIONS = [
+const SBB_EXPANSION_PANEL_EXPORTED_DECLARATIONS = [
   SbbExpansionPanel,
   SbbExpansionPanelContent,
   SbbExpansionPanelHeader,
 ];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_EXPANSION_PANEL_EXPORTED_DECLARATIONS,
+  exports: SBB_EXPANSION_PANEL_EXPORTED_DECLARATIONS,
 })
 export class SbbExpansionPanelModule {}

@@ -5,10 +5,15 @@ import { SbbTrainBlockedPassage } from './train-blocked-passage/train-blocked-pa
 import { SbbTrainFormation } from './train-formation/train-formation';
 import { SbbTrainWagon } from './train-wagon/train-wagon';
 
-const EXPORTED_DECLARATIONS = [SbbTrain, SbbTrainBlockedPassage, SbbTrainFormation, SbbTrainWagon];
+const SBB_TRAIN_EXPORTED_DECLARATIONS = [
+  SbbTrain,
+  SbbTrainBlockedPassage,
+  SbbTrainFormation,
+  SbbTrainWagon,
+];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_TRAIN_EXPORTED_DECLARATIONS,
+  exports: SBB_TRAIN_EXPORTED_DECLARATIONS,
 })
 export class SbbTrainModule {}

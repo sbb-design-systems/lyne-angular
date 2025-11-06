@@ -3,10 +3,10 @@ import { SbbOptionModule } from '@sbb-esta/lyne-angular/option';
 
 import { SbbSelect } from './select';
 
-const EXPORTED_DECLARATIONS = [SbbSelect, SbbOptionModule];
+const SBB_SELECT_EXPORTED_DECLARATIONS = [SbbSelect, SbbOptionModule];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_SELECT_EXPORTED_DECLARATIONS,
+  exports: SBB_SELECT_EXPORTED_DECLARATIONS,
 })
 export class SbbSelectModule {}

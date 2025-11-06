@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { SbbTooltip } from './tooltip';
 import { SbbTooltipDirective } from './tooltip-directives';
 
-const EXPORTED_DECLARATIONS = [SbbTooltip, SbbTooltipDirective];
+const SBB_TOOLTIP_EXPORTED_DECLARATIONS = [SbbTooltip, SbbTooltipDirective];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_TOOLTIP_EXPORTED_DECLARATIONS,
+  exports: SBB_TOOLTIP_EXPORTED_DECLARATIONS,
 })
 export class SbbTooltipModule {}
