@@ -1,12 +1,16 @@
 import { Component, HostBinding, inject, type OnDestroy } from '@angular/core';
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { marked } from 'marked';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 
 import { HtmlLoader } from '../html-loader.service';
 import { moduleParams } from '../module-params';
 
+/**
+ * Load and convert a Markdown file to HTML.
+ */
 @Component({
   selector: 'sbb-markdown-viewer',
   template: '',
@@ -25,10 +29,17 @@ export class MarkdownViewerComponent implements OnDestroy {
   constructor() {
     moduleParams(this._route)
       .pipe(
-        switchMap((params) => this._htmlLoader.withParams(params).fromDocumentation().load()),
+        switchMap((params) =>
+          params.loaderBuilderInterceptor
+            ? params.loaderBuilderInterceptor!(this._htmlLoader.withParams(params)).load()
+            : this._htmlLoader.withParams(params).fromDocumentation().load(),
+        ),
+        switchMap((markdown) => marked.parse(markdown)),
         takeUntil(this._destroyed),
       )
-      .subscribe((content) => (this.content = this._domSanitizer.bypassSecurityTrustHtml(content)));
+      .subscribe((content) => {
+        this.content = this._domSanitizer.bypassSecurityTrustHtml(content);
+      });
   }
 
   ngOnDestroy(): void {

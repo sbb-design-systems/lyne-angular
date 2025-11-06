@@ -12,6 +12,7 @@ import type { ShowcaseMetaPackage } from '../meta';
 @Component({
   selector: 'sbb-package-viewer',
   templateUrl: './package-viewer.component.html',
+  styleUrls: ['./package-viewer.component.scss'],
   imports: [
     AsyncPipe,
     RouterLink,

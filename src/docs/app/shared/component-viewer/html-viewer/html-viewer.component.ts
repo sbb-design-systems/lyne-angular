@@ -28,7 +28,9 @@ export class HtmlViewerComponent implements OnDestroy {
     moduleParams(this._route)
       .pipe(
         switchMap((params) =>
-          params.loaderBuilderInterceptor!(this._htmlLoader.withParams(params)).load(),
+          params.loaderBuilderInterceptor
+            ? params.loaderBuilderInterceptor!(this._htmlLoader.withParams(params)).load()
+            : this._htmlLoader.withParams(params).fromDocumentation().load(),
         ),
         map((content) => {
           // Replace all relative fragment URLs with absolute fragment URLs. e.g. "#my-section" becomes

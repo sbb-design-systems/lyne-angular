@@ -36,7 +36,7 @@ const routes: Routes = [
       {
         path: 'components/:id',
         component: ComponentViewerComponent,
-        data: { packageName: 'angular' },
+        data: { packageName: 'angular', packageData: PACKAGES['angular'] },
         children: componentViewerSubnavigation,
       },
     ],

@@ -1,13 +1,13 @@
 import type { Routes } from '@angular/router';
 
 import type { LoaderBuilder } from '../../loader-builder';
+import { MarkdownViewerComponent } from '../../markdown-viewer/markdown-viewer.component';
 import { ExampleListViewerComponent } from '../example-list-viewer/example-list-viewer.component';
-import { HtmlViewerComponent } from '../html-viewer/html-viewer.component';
 
 export const componentViewerSubnavigation: Routes = [
   {
     path: 'overview',
-    component: HtmlViewerComponent,
+    component: MarkdownViewerComponent,
     data: {
       loaderBuilderInterceptor: (loaderBuilder: LoaderBuilder) =>
         loaderBuilder.fromModuleDocumentation(),
@@ -15,7 +15,7 @@ export const componentViewerSubnavigation: Routes = [
   },
   {
     path: 'api',
-    component: HtmlViewerComponent,
+    component: MarkdownViewerComponent,
     data: {
       loaderBuilderInterceptor: (loaderBuilder: LoaderBuilder) =>
         loaderBuilder.fromApiDocumentation(),
