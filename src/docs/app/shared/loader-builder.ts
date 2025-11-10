@@ -29,7 +29,7 @@ export class LoaderBuilder {
   }
 
   fromApiDocumentation() {
-    this._url = `docs-content/api-docs/${this._packageName}-${this._id}.html`;
+    this._url = `docs-content/overviews/${this._packageName}/${this._id}/api.md`;
     return this;
   }
 
