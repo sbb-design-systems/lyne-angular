@@ -1,71 +1,67 @@
 import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { Component, inject, Input, ViewContainerRef } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import type { SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-// import type { ExampleData} from '@sbb-esta/components-examples';
-// import { loadExample } from '@sbb-esta/components-examples';
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
 import { SbbTabsModule } from '@sbb-esta/lyne-angular/tabs';
 import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
+import { marked } from 'marked';
 import type { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import type { ExampleData } from '../../example-data';
-import { loadExample } from '../../example-module';
+import type { ExampleData } from '../../../example-data';
+import { loadExample } from '../../../example-module';
 import { HtmlLoader } from '../../html-loader.service';
 import { moduleParams } from '../../module-params';
 
 interface ExampleCode {
   label: string;
-  code: string;
+  code: SafeHtml;
 }
 
 @Component({
   selector: 'sbb-example-outlet',
   template: '',
 })
-class ExampleOutletComponent implements OnInit {
+export class ExampleOutletComponent implements OnInit {
   @Input() exampleData!: ExampleData;
 
   private _viewContainerRef = inject(ViewContainerRef);
 
   async ngOnInit() {
-    const example = await loadExample(this.exampleData?.id);
-    // @ts-expect-error TODO: handle list of examples properly
-    this._viewContainerRef.createComponent(example[this.exampleData.componentNames[0]], {
-      // @ts-expect-error TODO: handle list of examples properly
-      injector: example.injector,
-    });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const module = (await loadExample(this.exampleData.id)) as any;
+    this._viewContainerRef.createComponent(module[this.exampleData.name]);
   }
 }
-
-export default ExampleOutletComponent;
 
 @Component({
   selector: 'sbb-example-viewer',
   templateUrl: './example-viewer.component.html',
   styleUrls: ['./example-viewer.component.scss'],
-  imports: [AsyncPipe, ExampleOutletComponent, SbbTooltipModule, SbbTabsModule, SbbSecondaryButton],
+  imports: [AsyncPipe, ExampleOutletComponent, SbbTabsModule, SbbTooltipModule, SbbSecondaryButton],
 })
 export class ExampleViewerComponent implements OnInit {
   @Input() exampleData!: ExampleData;
+
   exampleCodes!: Observable<ExampleCode[]>;
   showSource: boolean = false;
-  private _defaultExtensionsOrder = ['html', 'ts', 'css'];
 
+  private _defaultExtensionsOrder = ['html', 'ts', 'css', 'scss'];
   private _htmlLoader = inject(HtmlLoader);
   private _route = inject(ActivatedRoute);
+  private _domSanitizer = inject(DomSanitizer);
 
   ngOnInit(): void {
+    console.log('example data', this.exampleData); // TODO: remove
     this.exampleCodes = combineLatest(
       this.exampleData.exampleFiles.map((exampleFile) =>
-        this._createLoader(
-          this._convertToExampleName(this.exampleData.selectorName),
-          exampleFile,
-        ).pipe(
+        this._createLoader(exampleFile).pipe(
           map((code) => ({
-            label: this._convertToFileLabel(exampleFile),
+            label: this._getFileExtension(exampleFile),
             code,
           })),
         ),
@@ -81,41 +77,28 @@ export class ExampleViewerComponent implements OnInit {
     );
   }
 
+  // TODO: ?
   stackBlitzEnabled() {
     return moduleParams(this._route).pipe(
       map((params) => ['angular', 'journey-maps'].includes(params.packageName)),
     );
   }
 
-  private _createLoader(exampleName: string, exampleFile: string) {
-    const exampleHtmlFile = this._convertToHtmlFilePath(exampleFile);
+  /** Load, convert and highlight the example file */
+  private _createLoader(exampleFile: string) {
     return moduleParams(this._route).pipe(
       switchMap((params) =>
-        this._htmlLoader.withParams(params).fromExamples(exampleName, exampleHtmlFile).load(),
+        this._htmlLoader.withParams(params).fromExamples(this.exampleData.id, exampleFile).load(),
       ),
+      switchMap((code) =>
+        marked.parse(`\`\`\`${this._getFileExtension(exampleFile)} \n${code}\n\`\`\``),
+      ),
+      map((code) => this._domSanitizer.bypassSecurityTrustHtml(code)),
     );
   }
 
-  // Returns the path to the html file for a given example file.
-  private _convertToHtmlFilePath(filePath: string): string {
-    return filePath.replace(/(.*)[.](html|ts|css)/, '$1-$2.html');
-  }
-
-  // Get the example name from the selector name
-  private _convertToExampleName(selectorName: string): string {
-    return selectorName.replace('sbb-', '').replace('-example', '');
-  }
-
-  // Get the label for a given html example file
-  private _convertToFileLabel(filePath: string): string {
-    const showExtensionOnly =
-      this._removeFileExtension(this.exampleData.indexFilename) ===
-      this._removeFileExtension(filePath);
-    return showExtensionOnly ? filePath.split('.').pop()!.toUpperCase() : filePath;
-  }
-
-  // Remove the extension from a given file
-  private _removeFileExtension(filePath: string): string {
-    return filePath.replace(/\.[^/.]+$/, '');
+  /** Extract the file extension from the example file */
+  private _getFileExtension(filePath: string): string {
+    return filePath.split('.').pop()!.toUpperCase();
   }
 }

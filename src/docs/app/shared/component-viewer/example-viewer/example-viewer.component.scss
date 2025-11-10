@@ -6,11 +6,6 @@
   margin-bottom: 1em;
   position: relative;
   border: 1px solid var(--sbb-color-silver);
-
-  ::ng-deep pre {
-    margin: 1em 0;
-    white-space: pre-wrap;
-  }
 }
 
 .example-viewer-header {
@@ -34,6 +29,10 @@
 
 .sbb-example-viewer-tabs {
   margin-bottom: 2em;
+
+  &[hidden] {
+    display: none;
+  }
 }
 
 .devmode-notification {

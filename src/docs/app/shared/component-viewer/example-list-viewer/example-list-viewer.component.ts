@@ -2,11 +2,10 @@ import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-// import { ExampleData } from '@sbb-esta/components-examples'; TODO: uncomment
 import type { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ExampleData } from '../../example-data';
+import { ExampleData } from '../../../example-data';
 import { moduleParams } from '../../module-params';
 import { ExampleViewerComponent } from '../example-viewer/example-viewer.component';
 

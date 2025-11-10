@@ -4,8 +4,10 @@ import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import type { LoaderBuilder } from './loader-builder';
+import type { ShowcaseMetaPackage } from './meta';
 
 export interface ModuleParams {
+  packageData: ShowcaseMetaPackage;
   packageName: string;
   id: string;
   loaderBuilderInterceptor?: (loaderBuilder: LoaderBuilder) => LoaderBuilder;

@@ -33,8 +33,8 @@ export class LoaderBuilder {
     return this;
   }
 
-  fromExamples(exampleName: string, exampleHtmlFile: string) {
-    this._url = `docs-content/examples-highlighted/${this._packageName}/${this._id}/${exampleName}/${exampleHtmlFile}`;
+  fromExamples(name: string, file: string) {
+    this._url = `docs-content/examples/${this._packageName}/${this._id}/${name}/${file}`;
     return this;
   }
 

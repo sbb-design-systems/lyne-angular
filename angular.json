@@ -220,6 +220,11 @@
                 "glob": "**/*.md",
                 "input": "src/angular/",
                 "output": "docs-content/overviews/angular/"
+              },
+              {
+                "glob": "**/*.{html,ts}",
+                "input": "src/docs/app/angular/examples/",
+                "output": "docs-content/examples/angular/"
               }
             ],
             "styles": [
