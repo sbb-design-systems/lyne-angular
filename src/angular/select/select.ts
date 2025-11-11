@@ -14,6 +14,7 @@ import {
   internalOutputFromObservable,
   SbbControlValueAccessorMixin,
 } from '@sbb-esta/lyne-angular/core';
+import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option/option.js';
 import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
 import { fromEvent, NEVER } from 'rxjs';
 
@@ -137,7 +138,7 @@ export class SbbSelect<T = string> extends SbbControlValueAccessorMixin(class {}
    * Value of the form element.
    */
   @Input()
-  public set value(value: T | T[] | null) {
+  public set value(value: T | T[]) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
   public get value(): T | T[] | null {
@@ -298,5 +299,12 @@ export class SbbSelect<T = string> extends SbbControlValueAccessorMixin(class {}
    */
   public escapeStrategy(): void {
     return this.#element.nativeElement.escapeStrategy();
+  }
+
+  /**
+   * Returns all SbbOptionElements from this sbb-select instance.
+   */
+  public get options(): SbbOptionElement<T>[] {
+    return this.#element.nativeElement.options;
   }
 }

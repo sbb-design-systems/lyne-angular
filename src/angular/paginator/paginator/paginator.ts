@@ -236,7 +236,7 @@ export class SbbPaginator implements OnInit {
       alias: 'page',
     });
   /**
-   * The page event is dispatched when the page index changes.
+   * The page event is dispatched when the page index, length or page size changes.
    */
   public pageOutput: OutputRef<CustomEvent<SbbPaginatorPageEventDetails>> =
     internalOutputFromObservable(

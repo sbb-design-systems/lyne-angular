@@ -54,6 +54,9 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.propertyIds;
   }
 
+  /**
+   * Pre-selected coach index property
+   */
   @Input({ transform: booleanAttribute })
   public set selected(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.selected = value));
@@ -62,6 +65,9 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.selected;
   }
 
+  /**
+   * Focused coach index property
+   */
   @Input({ transform: booleanAttribute })
   public set focused(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.focused = value));
