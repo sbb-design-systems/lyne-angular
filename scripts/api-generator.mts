@@ -51,7 +51,7 @@ Selector: \`${directive['selector']}\`
 Exported as: \`${directive['exportAs']}\`
 
 ${directive['inputsClass'] && directive['inputsClass'].length > 0 ? createInputsTable(directive) : ''}
-
+${directive['propertiesClass'] && directive['propertiesClass'].length > 0 ? createOutputTable(directive) : ''}
 ${directive['methodsClass'] && directive['methodsClass'].length > 0 ? createMethodsTable(directive) : ''}
 `;
   });
@@ -59,28 +59,78 @@ ${directive['methodsClass'] && directive['methodsClass'].length > 0 ? createMeth
   return readmeText;
 };
 
+// TODO verify if accessors have to be split in another table
 const createInputsTable = (directive: any): string => {
+  const inputs = directive['inputsClass'] as any[];
+  const inputsNames = new Set(inputs.map((input) => input.name));
+  const accessorsNamesToAdd = Object.keys(directive['accessors']).filter(
+    (key) => !inputsNames.has(key),
+  );
+  const accessorsToAdd = accessorsNamesToAdd.map((acc) => {
+    const accessor = directive['accessors'][acc];
+    return accessor['getSignature'] ?? accessor['setSignature'];
+  }) as any[];
   return `### Properties
 | Name | Type | Description |
 | --- | --- | --- |
-${(directive['inputsClass'] as any[])
+${[...inputs, ...accessorsToAdd]
   .map(
     (input) =>
-      `| ${input['name']} | \`${input['type'].replaceAll('|', '\\\|')}\` | ${input['rawdescription']?.replaceAll('\n', '')} |\n`,
+      `| ${input['name']} | ${createTypeForTable(input['type'])} | ${createDescriptionForTable(input['rawdescription'])} |\n`,
   )
-  .join('')}`;
+  .join('')}\n`;
+};
+
+const createOutputTable = (directive: any): string => {
+  const outputs = (directive['propertiesClass'] as any[]).filter(
+    (prop) =>
+      prop['name'].toLowerCase().includes('output') &&
+      prop['defaultValue'].toLowerCase().includes('outputfromobservable('),
+  );
+  if (outputs.length > 0) {
+    return `### Events
+| Name | Description |
+| --- | --- |
+${outputs
+  .map(
+    (output) => `| ${output['name']} | ${createDescriptionForTable(output['rawdescription'])} |\n`,
+  )
+  .join('')}\n`;
+  }
+  return '';
 };
 
 const createMethodsTable = (directive: any): string => {
   return `### Methods
-| Name | Args | Return type | Description |
+| Name | Parameters | Return type | Description |
 | --- | --- | --- | --- |
 ${(directive['methodsClass'] as any[])
   .map(
     (method) =>
-      `| ${method['name']} | ${(method['args'] as any[])?.map((arg) => `${arg.name}: \`${arg.type}\``).join('\n')} | \`${method['returnType']?.replaceAll('|', '\\\|')}\` | ${method['rawdescription']?.replaceAll('\n', '')} |\n`,
+      `| ${method['name']} | ${createParametersForTable(method['args'])} | ${createTypeForTable(method['returnType'])} | ${method['rawdescription']?.replaceAll('\n', '')} |\n`,
   )
-  .join('')}`;
+  .join('')}\n`;
+};
+
+const createTypeForTable = (type?: string): string => {
+  if (type) {
+    return `\`${type.replaceAll('|', '\\\|')}\``;
+  }
+  return '-';
+};
+
+const createDescriptionForTable = (rawdescription?: string): string => {
+  if (rawdescription) {
+    return `${rawdescription.replaceAll('\n', '')}`;
+  }
+  return '-';
+};
+
+const createParametersForTable = (args: any[]): string => {
+  if (args && args.length > 0) {
+    return `${args.map((arg) => `${arg.name}${arg.optional ? '?' : ''}: \`${arg.type}\``).join(' - ')}`;
+  }
+  return '-';
 };
 
 generateApi(elementsManifest, join(root, 'src/angular'));
