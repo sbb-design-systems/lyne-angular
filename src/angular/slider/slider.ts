@@ -1,4 +1,12 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  forwardRef,
+  inject,
+  Input,
+  NgZone,
+  type OutputRef,
+} from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
@@ -134,18 +142,22 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.setCustomValidity(message);
   }
 
-  protected _changeOutput = outputFromObservable<Event>(NEVER, { alias: 'change' });
-  public changeOutput = internalOutputFromObservable(
+  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'change',
+  });
+  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'change'),
   );
 
-  public didChangeOutput = outputFromObservable(
+  public didChangeOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'didChange'),
     { alias: 'didChange' },
   );
 
-  protected _inputOutput = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
-  public inputOutput = internalOutputFromObservable(
+  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
+    alias: 'input',
+  });
+  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
     fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
   );
 }

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject } from '@angular/core';
+import { Directive, ElementRef, inject, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type {
@@ -16,18 +16,20 @@ import '@sbb-esta/lyne-elements/carousel/carousel-item.js';
 export class SbbCarouselItem {
   #element: ElementRef<SbbCarouselItemElement> = inject(ElementRef<SbbCarouselItemElement>);
 
-  protected _beforeshowOutput = outputFromObservable<CustomEvent<SbbCarouselItemEventDetail>>(
-    NEVER,
-    { alias: 'beforeshow' },
-  );
-  public beforeshowOutput = internalOutputFromObservable(
-    fromEvent<CustomEvent<SbbCarouselItemEventDetail>>(this.#element.nativeElement, 'beforeshow'),
-  );
+  protected _beforeshowOutput: OutputRef<CustomEvent<SbbCarouselItemEventDetail>> =
+    outputFromObservable<CustomEvent<SbbCarouselItemEventDetail>>(NEVER, { alias: 'beforeshow' });
+  public beforeshowOutput: OutputRef<CustomEvent<SbbCarouselItemEventDetail>> =
+    internalOutputFromObservable(
+      fromEvent<CustomEvent<SbbCarouselItemEventDetail>>(this.#element.nativeElement, 'beforeshow'),
+    );
 
-  protected _showOutput = outputFromObservable<CustomEvent<SbbCarouselItemEventDetail>>(NEVER, {
+  protected _showOutput: OutputRef<CustomEvent<SbbCarouselItemEventDetail>> = outputFromObservable<
+    CustomEvent<SbbCarouselItemEventDetail>
+  >(NEVER, {
     alias: 'show',
   });
-  public showOutput = internalOutputFromObservable(
-    fromEvent<CustomEvent<SbbCarouselItemEventDetail>>(this.#element.nativeElement, 'show'),
-  );
+  public showOutput: OutputRef<CustomEvent<SbbCarouselItemEventDetail>> =
+    internalOutputFromObservable(
+      fromEvent<CustomEvent<SbbCarouselItemEventDetail>>(this.#element.nativeElement, 'show'),
+    );
 }

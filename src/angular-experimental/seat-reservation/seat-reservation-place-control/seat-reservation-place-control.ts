@@ -1,4 +1,12 @@
-import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  inject,
+  Input,
+  NgZone,
+  numberAttribute,
+  type OutputRef,
+} from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSeatReservationPlaceControlElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-place-control.js';
@@ -85,7 +93,7 @@ export class SbbSeatReservationPlaceControl {
     return this.#element.nativeElement.deckIndex;
   }
 
-  public selectPlaceOutput = outputFromObservable(
+  public selectPlaceOutput: OutputRef<CustomEvent<PlaceSelection>> = outputFromObservable(
     fromEvent<CustomEvent<PlaceSelection>>(this.#element.nativeElement, 'selectplace'),
     { alias: 'selectPlace' },
   );

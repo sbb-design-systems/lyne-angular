@@ -1,4 +1,12 @@
-import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  inject,
+  Input,
+  NgZone,
+  numberAttribute,
+  type OutputRef,
+} from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSeatReservationElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation.js';
@@ -93,19 +101,21 @@ export class SbbSeatReservation {
     return this.#element.nativeElement.height;
   }
 
-  public selectedCoachOutput = outputFromObservable(
-    fromEvent<CustomEvent<SeatReservationSelectedCoach>>(
-      this.#element.nativeElement,
-      'selectedcoach',
-    ),
-    { alias: 'selectedCoach' },
-  );
+  public selectedCoachOutput: OutputRef<CustomEvent<SeatReservationSelectedCoach>> =
+    outputFromObservable(
+      fromEvent<CustomEvent<SeatReservationSelectedCoach>>(
+        this.#element.nativeElement,
+        'selectedcoach',
+      ),
+      { alias: 'selectedCoach' },
+    );
 
-  public selectedPlacesOutput = outputFromObservable(
-    fromEvent<CustomEvent<SeatReservationSelectedPlaces>>(
-      this.#element.nativeElement,
-      'selectedplaces',
-    ),
-    { alias: 'selectedPlaces' },
-  );
+  public selectedPlacesOutput: OutputRef<CustomEvent<SeatReservationSelectedPlaces>> =
+    outputFromObservable(
+      fromEvent<CustomEvent<SeatReservationSelectedPlaces>>(
+        this.#element.nativeElement,
+        'selectedplaces',
+      ),
+      { alias: 'selectedPlaces' },
+    );
 }

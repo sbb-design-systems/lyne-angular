@@ -1,4 +1,12 @@
-import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  inject,
+  Input,
+  NgZone,
+  numberAttribute,
+  type OutputRef,
+} from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSeatReservationNavigationCoachElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation-coach.js';
@@ -117,12 +125,12 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.vertical;
   }
 
-  public focusCoachOutput = outputFromObservable(
+  public focusCoachOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'focuscoach'),
     { alias: 'focusCoach' },
   );
 
-  public selectCoachOutput = outputFromObservable(
+  public selectCoachOutput: OutputRef<CustomEvent<SelectCoachEventDetails>> = outputFromObservable(
     fromEvent<CustomEvent<SelectCoachEventDetails>>(this.#element.nativeElement, 'selectcoach'),
     { alias: 'selectCoach' },
   );

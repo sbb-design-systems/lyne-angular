@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option/option.js';
@@ -46,12 +46,12 @@ export class SbbOption<T = string> {
     return this.#element.nativeElement.selected;
   }
 
-  public optionSelectionChangeOutput = outputFromObservable(
+  public optionSelectionChangeOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'optionselectionchange'),
     { alias: 'optionSelectionChange' },
   );
 
-  public optionSelectedOutput = outputFromObservable(
+  public optionSelectedOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'optionselected'),
     { alias: 'optionSelected' },
   );

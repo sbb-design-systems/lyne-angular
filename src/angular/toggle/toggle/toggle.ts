@@ -1,4 +1,12 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  forwardRef,
+  inject,
+  Input,
+  NgZone,
+  type OutputRef,
+} from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
@@ -105,8 +113,10 @@ export class SbbToggle<T = string> extends SbbControlValueAccessorMixin(class {}
     return this.#element.nativeElement.setCustomValidity(message);
   }
 
-  protected _changeOutput = outputFromObservable<Event>(NEVER, { alias: 'change' });
-  public changeOutput = internalOutputFromObservable(
+  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'change',
+  });
+  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'change'),
   );
 }

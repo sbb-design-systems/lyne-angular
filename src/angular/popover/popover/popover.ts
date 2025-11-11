@@ -1,4 +1,12 @@
-import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  inject,
+  Input,
+  NgZone,
+  numberAttribute,
+  type OutputRef,
+} from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover.js';
@@ -78,32 +86,34 @@ export class SbbPopover {
     return this.#element.nativeElement.close(target);
   }
 
-  public beforeCloseOutput = outputFromObservable(
-    fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
-      this.#element.nativeElement,
-      'beforeclose',
-    ),
-    { alias: 'beforeClose' },
-  );
+  public beforeCloseOutput: OutputRef<CustomEvent<{ closeTarget: HTMLElement | null }>> =
+    outputFromObservable(
+      fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
+        this.#element.nativeElement,
+        'beforeclose',
+      ),
+      { alias: 'beforeClose' },
+    );
 
-  protected _closeOutput = outputFromObservable<CustomEvent<{ closeTarget: HTMLElement | null }>>(
-    NEVER,
-    { alias: 'close' },
-  );
-  public closeOutput = internalOutputFromObservable(
-    fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
-      this.#element.nativeElement,
-      'close',
-    ),
-  );
+  protected _closeOutput: OutputRef<CustomEvent<{ closeTarget: HTMLElement | null }>> =
+    outputFromObservable<CustomEvent<{ closeTarget: HTMLElement | null }>>(NEVER, {
+      alias: 'close',
+    });
+  public closeOutput: OutputRef<CustomEvent<{ closeTarget: HTMLElement | null }>> =
+    internalOutputFromObservable(
+      fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
+        this.#element.nativeElement,
+        'close',
+      ),
+    );
 
-  public beforeOpenOutput = outputFromObservable(
+  public beforeOpenOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
   );
 
-  protected _openOutput = outputFromObservable<Event>(NEVER, { alias: 'open' });
-  public openOutput = internalOutputFromObservable(
+  protected _openOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  public openOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'open'),
   );
 
