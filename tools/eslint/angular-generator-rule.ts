@@ -3,7 +3,12 @@ import { dirname, relative, resolve } from 'node:path';
 import { basename, join } from 'path';
 import { fileURLToPath } from 'url';
 
-import { AST_NODE_TYPES, ESLintUtils, type TSESTree } from '@typescript-eslint/utils';
+import {
+  AST_NODE_TYPES,
+  ESLintUtils,
+  type TSESLint,
+  type TSESTree,
+} from '@typescript-eslint/utils';
 import type {
   ClassMember,
   ClassMethod,
@@ -13,6 +18,11 @@ import type {
   JavaScriptModule,
   Package,
 } from 'custom-elements-manifest';
+
+/**
+ * Use this annotation to skip the JSDoc rule overriding.
+ */
+const EXCLUDE_JSDOC_OVERRIDE: string = '@excludeJSDocOverride';
 
 const CAMEL_CASE_EVENTS_MAP: Record<string, string> = {
   beforeclose: 'beforeClose',
@@ -219,8 +229,155 @@ const generateStructure = (pkg: Package, projectPath: string) => {
 generateStructure(elementsManifest, join(root, 'src/angular'));
 generateStructure(elementsExperimentalManifest, join(root, 'src/angular-experimental'));
 
+/**
+ * The `typescript/eslint-parser` doesn't consider the JSDoc comments as part of the node they refers to,
+ * but groups them in a 'comments' array property at Program level (outermost node).
+ * This method can be used to retrieve the block comment relative to a specific node.
+ *
+ * NOTE:
+ * we have some method with parameters typed as `any`,
+ * and we use the `eslint-disable-next-line @typescript-eslint/no-explicit-any` to skip the check on them;
+ * the filter for 'Block' and the specific checks on the `hasNoBlankLine` variable
+ * have been added to handle this case.
+ *
+ * @param sourceCode the linted file
+ * @param node the node we are checking for the block comment presence
+ */
+function getLeadingJSDocBlockComment(
+  sourceCode: TSESLint.SourceCode,
+  node: TSESTree.Decorator | TSESTree.ClassElement,
+): TSESTree.BlockComment | null {
+  const commentsBefore = sourceCode.getCommentsBefore(node);
+  if (!commentsBefore.length || commentsBefore.every((c) => c.type === 'Line')) {
+    return null;
+  }
+
+  const blockComments = commentsBefore.filter((c) => c.type === 'Block');
+  const lastComment = commentsBefore[commentsBefore.length - 1];
+  const lastBlockComment = blockComments[blockComments.length - 1];
+  const hasNoBlankLine =
+    node.loc.start.line - lastBlockComment.loc.end.line <= (lastComment.type === 'Line' ? 2 : 1);
+
+  const isJSDoc = lastBlockComment.value.startsWith('*');
+  return isJSDoc && hasNoBlankLine ? lastBlockComment : null;
+}
+
+/**
+ * The `typescript/eslint-parser` doesn't consider the JSDoc comments as part of the node they refers to,
+ * but groups them in a 'comments' array property at Program level (outermost node).
+ * This method can be used to retrieve the line comment relative to a specific node.
+ *
+ * @param sourceCode the linted file
+ * @param node the node we are checking for the line comment presence
+ */
+function getLeadingJSDocLineComment(
+  sourceCode: TSESLint.SourceCode,
+  node: TSESTree.Decorator | TSESTree.ClassElement,
+): TSESTree.LineComment | null {
+  const commentsBefore = sourceCode.getCommentsBefore(node);
+  if (!commentsBefore.length) {
+    return null;
+  }
+
+  const lastComment = commentsBefore[commentsBefore.length - 1];
+  const isLineComment = lastComment.type === 'Line';
+  const hasNoBlankLine = node.loc.start.line - lastComment.loc.end.line <= 1;
+
+  return isLineComment && hasNoBlankLine ? lastComment : null;
+}
+
+/**
+ * Format the class' JSDoc based on the manifest's data:
+ * - description (mandatory)
+ * - slots / cssProps / cssParts (facultative)
+ */
+function createClassJSDoc(
+  classManifestDeclaration: CustomElementDeclaration & { classGenerics: string },
+): string {
+  const slots = classManifestDeclaration.slots;
+  const cssProps = classManifestDeclaration.cssProperties;
+  const cssParts = classManifestDeclaration.cssParts;
+  let classDescr = `/**\n * ${classManifestDeclaration.description}\n`;
+  if (slots && slots?.length) {
+    classDescr += ` *\n${slots.map((slot) => ` * @slot ${slot.name} - ${slot.description}`).join('\n')}\n`;
+  }
+  if (cssProps) {
+    classDescr += `${cssProps
+      .map((cssProp) => ` * @cssprop [${cssProp.name}=${cssProp.default}] - ${cssProp.description}`)
+      .join('\n')}\n`;
+  }
+  if (cssParts) {
+    classDescr += `${cssParts
+      .map((cssPart) => ` * @csspart ${cssPart.name} - ${cssPart.description}`)
+      .join('\n')}\n`;
+  }
+  classDescr += ` */`;
+  return classDescr;
+}
+
+/**
+ * Format the JSDoc for class's internals (properties, methods, getters..)
+ */
+function createJSDoc(jsdoc?: string): string | null {
+  return jsdoc ? `/**\n   * ${jsdoc.replace(/\n/g, '\n   * ')}\n   */` : null;
+}
+
+/**
+ * Checks if the node has a JSDoc block comment.
+ *
+ * If not, it reports an error on the node, and it adds the documentation provided;
+ * if yes, checks for the `@excludeJSDocOverride` annotation, and if not found
+ * it reports an error on the node and it overrides the current documentation with the provided one.
+ */
+function addMissingJsDoc(
+  context: TSESLint.RuleContext<string, unknown[]>,
+  node: TSESTree.ClassElement,
+  sourceCode: TSESLint.SourceCode,
+  jsDoc: string,
+  name: string,
+): void {
+  const nodeCurrentJSDoc = getLeadingJSDocBlockComment(sourceCode, node);
+  if (!nodeCurrentJSDoc) {
+    context.report({
+      node,
+      messageId: 'angularMissingIncorrectJSDoc',
+      data: { symbol: name },
+      fix: (fixer) => fixer.insertTextBefore(node, `${jsDoc}\n  `),
+    });
+  } else if (!nodeCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
+    const nodeFormattedJSDoc = formatComment(nodeCurrentJSDoc.value);
+    const currentFormattedJSDoc = formatComment(jsDoc);
+    if (nodeFormattedJSDoc !== currentFormattedJSDoc) {
+      context.report({
+        node,
+        messageId: 'angularMissingIncorrectJSDoc',
+        data: { symbol: name },
+        fix: (fixer) =>
+          fixer.replaceTextRange(
+            [nodeCurrentJSDoc.range[0], nodeCurrentJSDoc.range[1] + 1],
+            `${jsDoc}\n`,
+          ),
+      });
+    }
+  }
+}
+
+/**
+ * It formats the comment returning only the text.
+ */
+function formatComment(comment: string): string {
+  return comment
+    .replace(/^\/\*\*?/, '')
+    .replace(/\*\/$/, '')
+    .replace(/^\s*\* ?/gm, '')
+    .replace(/\r?\n/g, ' ')
+    .replace(/\s\s+/g, ' ')
+    .trim();
+}
+
 export default ESLintUtils.RuleCreator.withoutDocs({
   create(context) {
+    const sourceCode = context.sourceCode;
     return {
       Program(node: TSESTree.Program) {
         const module = getPairedModuleFromManifest(context.filename);
@@ -298,6 +455,33 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         // The Angular class being written on
         const classDeclaration = node.parent as unknown as TSESTree.ClassDeclaration;
 
+        // Documentation check
+        const classJSDoc = createClassJSDoc(classManifestDeclaration);
+        const classCurrentJSDoc = getLeadingJSDocBlockComment(sourceCode, node);
+        if (!classCurrentJSDoc) {
+          context.report({
+            node,
+            messageId: 'angularMissingIncorrectJSDoc',
+            data: { symbol: classManifestDeclaration.name },
+            fix: (fixer) => fixer.insertTextBefore(node, `${classJSDoc}\n`),
+          });
+        } else if (!classCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
+          const classFormattedJSDocValue = formatComment(classCurrentJSDoc.value);
+          const classCurrentFormattedJSDoc = formatComment(classJSDoc);
+          if (classFormattedJSDocValue !== classCurrentFormattedJSDoc) {
+            context.report({
+              node,
+              messageId: 'angularMissingIncorrectJSDoc',
+              data: { symbol: classManifestDeclaration.name },
+              fix: (fixer) =>
+                fixer.replaceTextRange(
+                  [classCurrentJSDoc.range[0], classCurrentJSDoc.range[1] + 1],
+                  `${classJSDoc}\n`,
+                ),
+            });
+          }
+        }
+
         // Add imports related to inputs and outputs properties
         if (publicProperties.length) {
           expectedAngularImports.add('Input').add('NgZone');
@@ -367,6 +551,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // Add properties
         for (const member of publicProperties) {
+          const propJSDoc = createJSDoc(member.description);
           if (
             classDeclaration.body.body.every(
               (n) =>
@@ -401,7 +586,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
-  ${input}
+  ${propJSDoc ? `${propJSDoc}\n  ${input}` : input}
   public set ${member.name}(value: ${setterType}) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.${member.name} = value${typeCast}));
   }
@@ -411,6 +596,18 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 );
               },
             });
+          }
+
+          // Documentation check
+          const memberNode = classDeclaration.body.body.find(
+            (n) =>
+              n.type === AST_NODE_TYPES.MethodDefinition &&
+              n.kind === 'set' &&
+              context.sourceCode.getText(n.key) === member.name &&
+              context.sourceCode.getText(n).includes('@Input('),
+          );
+          if (memberNode && propJSDoc) {
+            addMissingJsDoc(context, memberNode, sourceCode, propJSDoc, member.name);
           }
         }
 
@@ -423,6 +620,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             `outputFromObservable(.*alias:.*'${normalizedName}'.*);`,
             's',
           );
+          const eventJSDoc = createJSDoc(member.description);
           const isCamelCase = CAMEL_CASE_EVENTS_MAP[member.name];
           if (isCamelCase) {
             if (
@@ -441,7 +639,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   return fixer.insertTextBeforeRange(
                     [endOfBody, endOfBody],
                     `
-  public ${outputName}: OutputRef<${type}> = outputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'), { alias: '${normalizedName}' });\n`,
+  ${eventJSDoc ? `${eventJSDoc}\n` : ''}  public ${outputName}: OutputRef<${type}> = outputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'), { alias: '${normalizedName}' });\n`,
                   );
                 },
               });
@@ -486,12 +684,21 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   const endOfBody = classDeclaration.body.range[1] - 1;
                   return fixer.insertTextBeforeRange(
                     [endOfBody, endOfBody],
-                    `
-  public ${outputName}: OutputRef<${type}> = internalOutputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'));\n`,
+                    `${eventJSDoc ? `\n  ${eventJSDoc}\n` : ''}  public ${outputName}: OutputRef<${type}> = internalOutputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'));\n`,
                   );
                 },
               });
             }
+          }
+
+          // Documentation check
+          const eventNode = classDeclaration.body.body.find(
+            (n) =>
+              n.type === AST_NODE_TYPES.PropertyDefinition &&
+              context.sourceCode.getText(n.key) === outputName,
+          );
+          if (eventNode && eventJSDoc) {
+            addMissingJsDoc(context, eventNode, sourceCode, eventJSDoc, member.name);
           }
 
           // Check if output types are corresponding to manifest
@@ -557,6 +764,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // Add get method
         for (const member of publicGetters) {
+          const getterJSDoc = createJSDoc(member.description);
           if (
             classDeclaration.body.body.every(
               (n) =>
@@ -573,17 +781,33 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
                   `
-  public get ${member.name}(): ${member.type?.text ?? ``} {
+  ${getterJSDoc ? `${getterJSDoc}\n  ` : ''}public get ${member.name}(): ${member.type?.text ?? ``} {
     return this.#element.nativeElement.${member.name};
   }\n`,
                 );
               },
             });
           }
+
+          // Documentation check
+          const getterNode = classDeclaration.body.body.find(
+            (n) =>
+              n.type === AST_NODE_TYPES.MethodDefinition &&
+              context.sourceCode.getText(n.key) === member.name,
+          );
+          if (getterNode && getterJSDoc) {
+            addMissingJsDoc(context, getterNode, sourceCode, getterJSDoc, member.name);
+          }
         }
 
         // Add methods
         for (const member of publicMethods) {
+          const methodJSDoc = createJSDoc(member.description);
+          const disableAnyType =
+            member.parameters?.some((param) => param.type?.text === 'any') ||
+            member.return?.type?.text === 'any'
+              ? '\n  // eslint-disable-next-line @typescript-eslint/no-explicit-any'
+              : '';
           if (
             classDeclaration.body.body.every(
               (n) =>
@@ -601,20 +825,53 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   ?.map((e) => `${e.name}: ${e.type?.text}`)
                   .join(', ');
                 const methodArguments = member.parameters?.map((param) => param.name).join(', ');
-                const disableAnyType =
-                  member.parameters?.some((param) => param.type?.text === 'any') ||
-                  member.return?.type?.text === 'any'
-                    ? '\n  // eslint-disable-next-line @typescript-eslint/no-explicit-any'
-                    : '';
                 return fixer.insertTextBeforeRange(
                   [endOfBody, endOfBody],
-                  `${disableAnyType}
+                  `  ${methodJSDoc ? `${methodJSDoc}` : ''}${disableAnyType}
   public ${member.name}(${methodParam ?? ``}): ${member.return?.type?.text ?? ``} {
     return this.#element.nativeElement.${member.name}(${methodArguments ?? ``});
   }\n`,
                 );
               },
             });
+          }
+
+          // Documentation check
+          const methodNode = classDeclaration.body.body.find(
+            (n) =>
+              n.type === AST_NODE_TYPES.MethodDefinition &&
+              context.sourceCode.getText(n.key) === member.name,
+          );
+          if (methodNode && methodJSDoc) {
+            const methodCurrentJSDoc = getLeadingJSDocBlockComment(sourceCode, methodNode);
+            const methodAnyComment = getLeadingJSDocLineComment(sourceCode, methodNode);
+            if (!methodCurrentJSDoc) {
+              context.report({
+                node: methodNode,
+                messageId: 'angularMissingIncorrectJSDoc',
+                data: { symbol: member.name },
+                fix: (fixer) =>
+                  fixer.insertTextBeforeRange(
+                    methodAnyComment ? methodAnyComment!.range : methodNode.range,
+                    `${methodJSDoc}\n  `,
+                  ),
+              });
+            } else if (!methodCurrentJSDoc.value.includes(EXCLUDE_JSDOC_OVERRIDE)) {
+              const methodFormattedJSDoc = formatComment(methodCurrentJSDoc.value);
+              const currentFormattedJSDoc = formatComment(methodJSDoc);
+              if (methodFormattedJSDoc !== currentFormattedJSDoc) {
+                context.report({
+                  node: methodNode,
+                  messageId: 'angularMissingIncorrectJSDoc',
+                  data: { symbol: member.name },
+                  fix: (fixer) =>
+                    fixer.replaceTextRange(
+                      methodAnyComment ? methodAnyComment!.range : methodCurrentJSDoc.range,
+                      `${methodJSDoc}\n`,
+                    ),
+                });
+              }
+            }
           }
         }
 
@@ -843,6 +1100,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
       rxJsMissingImport: 'Missing import {{ symbol }}',
       rxJsInteropMissingImport: 'Missing import {{ symbol }}',
       angularMissingDirective: 'Missing class for {{ className }}',
+      angularMissingIncorrectJSDoc: 'Missing or incorrect JSDoc for {{ symbol }}',
       angularMissingElementRef: 'Missing ElementRef property',
       angularMissingNgZone: 'Missing NgZone property',
       angularMissingInput: 'Missing input for property {{ property }}',

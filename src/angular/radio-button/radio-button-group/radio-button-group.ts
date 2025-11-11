@@ -21,6 +21,12 @@ import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/radio-button/radio-button-group.js';
 
+/**
+ * It can be used as a container for one or more `sbb-radio-button`.
+ *
+ * @slot  - Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`.
+ * @slot error - Use this to provide a `sbb-form-error` to show an error message.
+ */
 @Directive({
   selector: 'sbb-radio-button-group',
   exportAs: 'sbbRadioButtonGroup',
@@ -42,6 +48,9 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
   );
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * Whether the radios can be deselected.
+   */
   @Input({ transform: booleanAttribute })
   public set allowEmptySelection(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.allowEmptySelection = value));
@@ -50,6 +59,9 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
     return this.#element.nativeElement.allowEmptySelection;
   }
 
+  /**
+   * Whether the radio group is required.
+   */
   @Input({ transform: booleanAttribute })
   public set required(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.required = value));
@@ -58,6 +70,9 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
     return this.#element.nativeElement.required;
   }
 
+  /**
+   * The value of the radio group.
+   */
   @Input()
   public set value(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
@@ -66,6 +81,9 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
     return this.#element.nativeElement.value;
   }
 
+  /**
+   * Size variant, either xs, s or m.
+   */
   @Input()
   public set size(value: SbbRadioButtonSize) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
@@ -74,6 +92,9 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
     return this.#element.nativeElement.size;
   }
 
+  /**
+   * Overrides the behaviour of `orientation` property.
+   */
   @Input()
   public set horizontalFrom(value: SbbHorizontalFrom | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.horizontalFrom = value));
@@ -82,6 +103,9 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
     return this.#element.nativeElement.horizontalFrom;
   }
 
+  /**
+   * Radio group's orientation, either horizontal or vertical.
+   */
   @Input()
   public set orientation(value: SbbOrientation) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.orientation = value));
@@ -98,6 +122,9 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
     return this.#element.nativeElement.name;
   }
 
+  /**
+   * Whether the component is disabled.
+   */
   @Input({ transform: booleanAttribute })
   public set disabled(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabled = value));
@@ -106,10 +133,16 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
     return this.#element.nativeElement.disabled;
   }
 
+  /**
+   * List of contained radio buttons.
+   */
   public get radioButtons(): (SbbRadioButtonElement<T> | SbbRadioButtonPanelElement<T>)[] {
     return this.#element.nativeElement.radioButtons;
   }
 
+  /**
+   * Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.
+   */
   public didChangeOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'didChange'),
     { alias: 'didChange' },

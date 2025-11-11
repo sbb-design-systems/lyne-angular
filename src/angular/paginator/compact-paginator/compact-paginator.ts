@@ -16,6 +16,9 @@ import { AsyncSubject, forkJoin, fromEvent, map, NEVER, type Observable } from '
 
 import '@sbb-esta/lyne-elements/paginator/compact-paginator.js';
 
+/**
+ * It displays a paginator component in compact mode.
+ */
 @Directive({
   selector: 'sbb-compact-paginator',
   exportAs: 'sbbCompactPaginator',
@@ -30,6 +33,9 @@ export class SbbCompactPaginator implements OnInit {
     this.#initialized,
   ]).pipe(map(() => undefined));
 
+  /**
+   * Total number of items.
+   */
   @Input({ transform: numberAttribute })
   public set length(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.length = value));
@@ -38,6 +44,9 @@ export class SbbCompactPaginator implements OnInit {
     return this.#element.nativeElement.length;
   }
 
+  /**
+   * Number of items per page.
+   */
   @Input({ transform: numberAttribute })
   public set pageSize(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pageSize = value));
@@ -46,6 +55,9 @@ export class SbbCompactPaginator implements OnInit {
     return this.#element.nativeElement.pageSize;
   }
 
+  /**
+   * Current page index.
+   */
   @Input({ transform: numberAttribute })
   public set pageIndex(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pageIndex = value));
@@ -54,6 +66,9 @@ export class SbbCompactPaginator implements OnInit {
     return this.#element.nativeElement.pageIndex;
   }
 
+  /**
+   * Position of the prev/next buttons.
+   */
   @Input()
   public set pagerPosition(value: 'start' | 'end') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.pagerPosition = value));
@@ -62,6 +77,9 @@ export class SbbCompactPaginator implements OnInit {
     return this.#element.nativeElement.pagerPosition;
   }
 
+  /**
+   * Size variant, either m or s.
+   */
   @Input()
   public set size(value: 'm' | 's') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
@@ -70,6 +88,9 @@ export class SbbCompactPaginator implements OnInit {
     return this.#element.nativeElement.size;
   }
 
+  /**
+   * Negative coloring variant flag.
+   */
   @Input({ transform: booleanAttribute })
   public set negative(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.negative = value));
@@ -78,6 +99,9 @@ export class SbbCompactPaginator implements OnInit {
     return this.#element.nativeElement.negative;
   }
 
+  /**
+   * Whether the component is disabled.
+   */
   @Input({ transform: booleanAttribute })
   public set disabled(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabled = value));
@@ -86,6 +110,10 @@ export class SbbCompactPaginator implements OnInit {
     return this.#element.nativeElement.disabled;
   }
 
+  /**
+   * Accessibility label for the page. Defaults to `page`.
+   * Can be set for cases like a carousel, where `slide` or `image` fits better.
+   */
   @Input()
   public set accessibilityPageLabel(value: string) {
     this.#ngZone.runOutsideAngular(
@@ -96,6 +124,10 @@ export class SbbCompactPaginator implements OnInit {
     return this.#element.nativeElement.accessibilityPageLabel;
   }
 
+  /**
+   * Accessibility label for the previous page. Defaults to `previous page`.
+   * Can be set for cases like a carousel, where `slide` or `image` fits better.
+   */
   @Input()
   public set accessibilityPreviousPageLabel(value: string) {
     this.#ngZone.runOutsideAngular(
@@ -106,6 +138,10 @@ export class SbbCompactPaginator implements OnInit {
     return this.#element.nativeElement.accessibilityPreviousPageLabel;
   }
 
+  /**
+   * Accessibility label for the next page. Defaults to `next page`.
+   * Can be set for cases like a carousel, where `slide` or `image` fits better.
+   */
   @Input()
   public set accessibilityNextPageLabel(value: string) {
     this.#ngZone.runOutsideAngular(
@@ -151,7 +187,15 @@ export class SbbCompactPaginator implements OnInit {
     return this.#element.nativeElement.hasNextPage();
   }
 
-  /** Calculate the number of pages */
+  /**
+   * Calculates the current number of pages based on the `length` and the `pageSize`;
+   * value must be rounded up (e.g. `length = 21` and `pageSize = 10` means 3 pages).
+   */
+
+  /**
+   * Calculates the current number of pages based on the `length` and the `pageSize`;
+   * value must be rounded up (e.g. `length = 21` and `pageSize = 10` means 3 pages).
+   */
   numberOfPages(): number {
     return this.#element.nativeElement.numberOfPages();
   }
@@ -165,6 +209,9 @@ export class SbbCompactPaginator implements OnInit {
     outputFromObservable<CustomEvent<SbbPaginatorPageEventDetails>>(NEVER, {
       alias: 'page',
     });
+  /**
+   * The page event is dispatched when the page index changes.
+   */
   public pageOutput: OutputRef<CustomEvent<SbbPaginatorPageEventDetails>> =
     internalOutputFromObservable(
       fromEvent<CustomEvent<SbbPaginatorPageEventDetails>>(this.#element.nativeElement, 'page'),

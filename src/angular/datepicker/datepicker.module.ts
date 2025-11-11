@@ -5,7 +5,7 @@ import { SbbDatepickerNextDay } from './datepicker-next-day/datepicker-next-day'
 import { SbbDatepickerPreviousDay } from './datepicker-previous-day/datepicker-previous-day';
 import { SbbDatepickerToggle } from './datepicker-toggle/datepicker-toggle';
 
-const EXPORTED_DECLARATIONS = [
+const SBB_DATEPICKER_EXPORTED_DECLARATIONS = [
   SbbDatepicker,
   SbbDatepickerNextDay,
   SbbDatepickerPreviousDay,
@@ -13,7 +13,7 @@ const EXPORTED_DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_DATEPICKER_EXPORTED_DECLARATIONS,
+  exports: SBB_DATEPICKER_EXPORTED_DECLARATIONS,
 })
 export class SbbDatepickerModule {}

@@ -4,10 +4,10 @@ import { SbbCarousel } from './carousel/carousel';
 import { SbbCarouselItem } from './carousel-item/carousel-item';
 import { SbbCarouselList } from './carousel-list/carousel-list';
 
-const EXPORTED_DECLARATIONS = [SbbCarousel, SbbCarouselItem, SbbCarouselList];
+const SBB_CAROUSEL_EXPORTED_DECLARATIONS = [SbbCarousel, SbbCarouselItem, SbbCarouselList];
 
 @NgModule({
-  imports: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS,
+  imports: SBB_CAROUSEL_EXPORTED_DECLARATIONS,
+  exports: SBB_CAROUSEL_EXPORTED_DECLARATIONS,
 })
 export class SbbCarouselModule {}

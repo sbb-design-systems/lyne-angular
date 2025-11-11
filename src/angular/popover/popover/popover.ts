@@ -14,6 +14,12 @@ import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/popover/popover.js';
 
+/**
+ * It displays contextual information within a popover.
+ *
+ * @slot  - Use the unnamed slot to add content into the popover.
+ * @cssprop [--sbb-popover-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
+ */
 @Directive({
   selector: 'sbb-popover',
   exportAs: 'sbbPopover',
@@ -22,6 +28,11 @@ export class SbbPopover {
   #element: ElementRef<SbbPopoverElement> = inject(ElementRef<SbbPopoverElement>);
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * The element that will trigger the popover overlay.
+   *
+   * For attribute usage, provide an id reference.
+   */
   @Input()
   public set trigger(value: string | HTMLElement | null) {
     this.#ngZone.runOutsideAngular(
@@ -32,6 +43,9 @@ export class SbbPopover {
     return this.#element.nativeElement.trigger;
   }
 
+  /**
+   * Whether the close button should be hidden.
+   */
   @Input({ transform: booleanAttribute })
   public set hideCloseButton(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hideCloseButton = value));
@@ -40,6 +54,9 @@ export class SbbPopover {
     return this.#element.nativeElement.hideCloseButton;
   }
 
+  /**
+   * Whether the popover should be triggered on hover.
+   */
   @Input({ transform: booleanAttribute })
   public set hoverTrigger(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hoverTrigger = value));
@@ -48,6 +65,10 @@ export class SbbPopover {
     return this.#element.nativeElement.hoverTrigger;
   }
 
+  /**
+   * Open the popover after a given delay in milliseconds.
+   * Global configuration is used as default, if not set.
+   */
   @Input({ transform: numberAttribute })
   public set openDelay(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.openDelay = value));
@@ -56,6 +77,10 @@ export class SbbPopover {
     return this.#element.nativeElement.openDelay;
   }
 
+  /**
+   * Close the popover after a given delay in milliseconds.
+   * Global configuration is used as default, if not set.
+   */
   @Input({ transform: numberAttribute })
   public set closeDelay(value: number) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.closeDelay = value));
@@ -64,6 +89,9 @@ export class SbbPopover {
     return this.#element.nativeElement.closeDelay;
   }
 
+  /**
+   * This will be forwarded as aria-label to the close button element.
+   */
   @Input()
   public set accessibilityCloseLabel(value: string) {
     this.#ngZone.runOutsideAngular(
@@ -74,18 +102,30 @@ export class SbbPopover {
     return this.#element.nativeElement.accessibilityCloseLabel;
   }
 
+  /**
+   * Whether the element is open.
+   */
   public get isOpen(): boolean {
     return this.#element.nativeElement.isOpen;
   }
 
+  /**
+   * Opens the popover on trigger click.
+   */
   public open(): void {
     return this.#element.nativeElement.open();
   }
 
+  /**
+   * Closes the popover.
+   */
   public close(target: HTMLElement): void {
     return this.#element.nativeElement.close(target);
   }
 
+  /**
+   * Emits whenever the component begins the closing transition. Can be canceled.
+   */
   public beforeCloseOutput: OutputRef<CustomEvent<{ closeTarget: HTMLElement | null }>> =
     outputFromObservable(
       fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
@@ -99,6 +139,9 @@ export class SbbPopover {
     outputFromObservable<CustomEvent<{ closeTarget: HTMLElement | null }>>(NEVER, {
       alias: 'close',
     });
+  /**
+   * Emits whenever the component is closed.
+   */
   public closeOutput: OutputRef<CustomEvent<{ closeTarget: HTMLElement | null }>> =
     internalOutputFromObservable(
       fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
@@ -107,16 +150,25 @@ export class SbbPopover {
       ),
     );
 
+  /**
+   * Emits whenever the component starts the opening transition. Can be canceled.
+   */
   public beforeOpenOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
   );
 
   protected _openOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  /**
+   * Emits whenever the component is opened.
+   */
   public openOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'open'),
   );
 
+  /**
+   * The method which is called on escape key press. Defaults to calling close()
+   */
   public escapeStrategy(): void {
     return this.#element.nativeElement.escapeStrategy();
   }
