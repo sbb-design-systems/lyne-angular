@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import {
   booleanAttribute,
@@ -94,7 +94,7 @@ export class SbbExpansionPanel {
   /**
    * Emits whenever the `sbb-expansion-panel` starts the opening transition.
    */
-  public beforeOpenOutput = outputFromObservable(
+  public beforeOpenOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
   );
@@ -102,24 +102,24 @@ export class SbbExpansionPanel {
   /**
    * Emits whenever the `sbb-expansion-panel` begins the closing transition.
    */
-  public beforeCloseOutput = outputFromObservable(
+  public beforeCloseOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeclose'),
     { alias: 'beforeClose' },
   );
 
-  protected _openOutput = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  protected _openOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'open' });
   /**
    * Emits whenever the `sbb-expansion-panel` is opened.
    */
-  public openOutput = internalOutputFromObservable(
+  public openOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'open'),
   );
 
-  protected _closeOutput = outputFromObservable<Event>(NEVER, { alias: 'close' });
+  protected _closeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'close' });
   /**
    * Emits whenever the `sbb-expansion-panel` is closed.
    */
-  public closeOutput = internalOutputFromObservable(
+  public closeOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'close'),
   );
 }

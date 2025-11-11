@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbAlertGroupElement } from '@sbb-esta/lyne-elements/alert/alert-group.js';
@@ -59,11 +59,11 @@ export class SbbAlertGroup {
     return this.#element.nativeElement.accessibilityTitleLevel;
   }
 
-  protected _emptyOutput = outputFromObservable<Event>(NEVER, { alias: 'empty' });
+  protected _emptyOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'empty' });
   /**
    * Emits when `sbb-alert-group` becomes empty.
    */
-  public emptyOutput = internalOutputFromObservable(
+  public emptyOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'empty'),
   );
 }

@@ -6,6 +6,7 @@ import {
   NgZone,
   numberAttribute,
   type OnInit,
+  type OutputRef,
 } from '@angular/core';
 import { outputFromObservable, outputToObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
@@ -204,15 +205,19 @@ export class SbbCompactPaginator implements OnInit {
     this.#initialized.complete();
   }
 
-  protected _pageOutput = outputFromObservable<CustomEvent<SbbPaginatorPageEventDetails>>(NEVER, {
-    alias: 'page',
-  });
+  protected _pageOutput: OutputRef<CustomEvent<SbbPaginatorPageEventDetails>> =
+    outputFromObservable<CustomEvent<SbbPaginatorPageEventDetails>>(NEVER, {
+      alias: 'page',
+    });
   /**
    * The page event is dispatched when the page index changes.
    */
-  public pageOutput = internalOutputFromObservable(
-    fromEvent<CustomEvent<SbbPaginatorPageEventDetails>>(this.#element.nativeElement, 'page'),
-  );
+  public pageOutput: OutputRef<CustomEvent<SbbPaginatorPageEventDetails>> =
+    internalOutputFromObservable(
+      fromEvent<CustomEvent<SbbPaginatorPageEventDetails>>(this.#element.nativeElement, 'page'),
+    );
 
-  public page = outputToObservable(this.pageOutput);
+  public page: Observable<CustomEvent<SbbPaginatorPageEventDetails>> = outputToObservable(
+    this.pageOutput,
+  );
 }

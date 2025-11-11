@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { CalendarView } from '@sbb-esta/lyne-elements/calendar.js';
@@ -95,7 +95,7 @@ export class SbbDatepicker<T = Date> {
   /**
    * Event emitted on date selection.
    */
-  public dateSelectedOutput = outputFromObservable(
+  public dateSelectedOutput: OutputRef<CustomEvent<T>> = outputFromObservable(
     fromEvent<CustomEvent<T>>(this.#element.nativeElement, 'dateselected'),
     { alias: 'dateSelected' },
   );
@@ -103,41 +103,43 @@ export class SbbDatepicker<T = Date> {
   /**
    * Emits whenever the component begins the closing transition. Can be canceled.
    */
-  public beforeCloseOutput = outputFromObservable(
-    fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
-      this.#element.nativeElement,
-      'beforeclose',
-    ),
-    { alias: 'beforeClose' },
-  );
+  public beforeCloseOutput: OutputRef<CustomEvent<{ closeTarget: HTMLElement | null }>> =
+    outputFromObservable(
+      fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
+        this.#element.nativeElement,
+        'beforeclose',
+      ),
+      { alias: 'beforeClose' },
+    );
 
-  protected _closeOutput = outputFromObservable<CustomEvent<{ closeTarget: HTMLElement | null }>>(
-    NEVER,
-    { alias: 'close' },
-  );
+  protected _closeOutput: OutputRef<CustomEvent<{ closeTarget: HTMLElement | null }>> =
+    outputFromObservable<CustomEvent<{ closeTarget: HTMLElement | null }>>(NEVER, {
+      alias: 'close',
+    });
   /**
    * Emits whenever the component is closed.
    */
-  public closeOutput = internalOutputFromObservable(
-    fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
-      this.#element.nativeElement,
-      'close',
-    ),
-  );
+  public closeOutput: OutputRef<CustomEvent<{ closeTarget: HTMLElement | null }>> =
+    internalOutputFromObservable(
+      fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
+        this.#element.nativeElement,
+        'close',
+      ),
+    );
 
   /**
    * Emits whenever the component starts the opening transition. Can be canceled.
    */
-  public beforeOpenOutput = outputFromObservable(
+  public beforeOpenOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
   );
 
-  protected _openOutput = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  protected _openOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'open' });
   /**
    * Emits whenever the component is opened.
    */
-  public openOutput = internalOutputFromObservable(
+  public openOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'open'),
   );
 

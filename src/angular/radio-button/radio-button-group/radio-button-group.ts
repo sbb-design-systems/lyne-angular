@@ -1,4 +1,12 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  forwardRef,
+  inject,
+  Input,
+  NgZone,
+  type OutputRef,
+} from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
@@ -135,7 +143,7 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
   /**
    * Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.
    */
-  public didChangeOutput = outputFromObservable(
+  public didChangeOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'didChange'),
     { alias: 'didChange' },
   );

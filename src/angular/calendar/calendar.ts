@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { CalendarView, SbbCalendarElement } from '@sbb-esta/lyne-elements/calendar.js';
@@ -128,7 +128,7 @@ export class SbbCalendar<T = Date> {
   /**
    * Event emitted on date selection.
    */
-  public dateSelectedOutput = outputFromObservable(
+  public dateSelectedOutput: OutputRef<CustomEvent<T[] | T>> = outputFromObservable(
     fromEvent<CustomEvent<T | T[]>>(this.#element.nativeElement, 'dateselected'),
     { alias: 'dateSelected' },
   );

@@ -1,4 +1,12 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  forwardRef,
+  inject,
+  Input,
+  NgZone,
+  type OutputRef,
+} from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
@@ -178,29 +186,34 @@ export class SbbChipGroup<T = string> extends SbbControlValueAccessorMixin(class
   /**
    * Notifies that a chip is about to be created. Can be prevented.
    */
-  public chipInputTokenEndOutput = outputFromObservable(
-    fromEvent<CustomEvent<SbbChipInputTokenEndEventDetails>>(
-      this.#element.nativeElement,
-      'chipinputtokenend',
-    ),
-    { alias: 'chipInputTokenEnd' },
-  );
+  public chipInputTokenEndOutput: OutputRef<CustomEvent<SbbChipInputTokenEndEventDetails>> =
+    outputFromObservable(
+      fromEvent<CustomEvent<SbbChipInputTokenEndEventDetails>>(
+        this.#element.nativeElement,
+        'chipinputtokenend',
+      ),
+      { alias: 'chipInputTokenEnd' },
+    );
 
-  protected _inputOutput = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
+  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
+    alias: 'input',
+  });
   /**
    * The input event fires when the value has been changed as a direct result of a user action.
    */
-  public inputOutput = internalOutputFromObservable(
+  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
     fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
   );
 
-  protected _changeOutput = outputFromObservable<Event>(NEVER, { alias: 'change' });
+  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'change',
+  });
   /**
    * The change event is fired when the user modifies the element's value.
    * Unlike the input event, the change event is not necessarily fired
    * for each alteration to an element's value.
    */
-  public changeOutput = internalOutputFromObservable(
+  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'change'),
   );
 }

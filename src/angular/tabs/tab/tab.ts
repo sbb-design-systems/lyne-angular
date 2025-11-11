@@ -4,6 +4,7 @@ import {
   ContentChild,
   ElementRef,
   inject,
+  type OutputRef,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
@@ -45,8 +46,10 @@ export class SbbTab {
     return this.#element.nativeElement.label;
   }
 
-  protected _activeOutput = outputFromObservable<Event>(NEVER, { alias: 'active' });
-  public activeOutput = internalOutputFromObservable(
+  protected _activeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'active',
+  });
+  public activeOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'active'),
   );
 

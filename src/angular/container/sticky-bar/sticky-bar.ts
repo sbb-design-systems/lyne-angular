@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbStickyBarElement } from '@sbb-esta/lyne-elements/container/sticky-bar.js';
@@ -58,26 +58,28 @@ export class SbbStickyBar {
     return this.#element.nativeElement.unstick();
   }
 
-  protected _stickOutput = outputFromObservable<Event>(NEVER, { alias: 'stick' });
+  protected _stickOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'stick' });
   /**
    * Emits when the animation from normal content flow to `position: sticky` ends.
    */
-  public stickOutput = internalOutputFromObservable(
+  public stickOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'stick'),
   );
 
-  protected _unstickOutput = outputFromObservable<Event>(NEVER, { alias: 'unstick' });
+  protected _unstickOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'unstick',
+  });
   /**
    * Emits when the animation from `position: sticky` to normal content flow ends.
    */
-  public unstickOutput = internalOutputFromObservable(
+  public unstickOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'unstick'),
   );
 
   /**
    * Emits when the animation from normal content flow to `position: sticky` starts. Can be canceled.
    */
-  public beforeStickOutput = outputFromObservable(
+  public beforeStickOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforestick'),
     { alias: 'beforeStick' },
   );
@@ -85,7 +87,7 @@ export class SbbStickyBar {
   /**
    * Emits when the animation from `position: sticky` to normal content flow starts. Can be canceled.
    */
-  public beforeUnstickOutput = outputFromObservable(
+  public beforeUnstickOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeunstick'),
     { alias: 'beforeUnstick' },
   );

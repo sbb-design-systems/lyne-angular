@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
@@ -158,7 +158,7 @@ export class SbbExpansionPanelHeader {
   /**
    * Notifies that the `sbb-expansion-panel` is about to expand/shrink.
    */
-  public toggleExpandedOutput = outputFromObservable(
+  public toggleExpandedOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'toggleexpanded'),
     { alias: 'toggleExpanded' },
   );

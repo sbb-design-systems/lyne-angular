@@ -1,4 +1,12 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  forwardRef,
+  inject,
+  Input,
+  NgZone,
+  type OutputRef,
+} from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
@@ -231,53 +239,57 @@ export class SbbSelect<T = string> extends SbbControlValueAccessorMixin(class {}
     return this.#element.nativeElement.setCustomValidity(message);
   }
 
-  protected _inputOutput = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
+  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
+    alias: 'input',
+  });
   /**
    * The input event fires when the value has been changed as a direct result of a user action.
    */
-  public inputOutput = internalOutputFromObservable(
+  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
     fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
   );
 
-  protected _changeOutput = outputFromObservable<Event>(NEVER, { alias: 'change' });
+  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'change',
+  });
   /**
    * The change event is fired when the user modifies the element's value.
    * Unlike the input event, the change event is not necessarily fired
    * for each alteration to an element's value.
    */
-  public changeOutput = internalOutputFromObservable(
+  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'change'),
   );
 
   /**
    * Emits whenever the component starts the opening transition. Can be canceled.
    */
-  public beforeOpenOutput = outputFromObservable(
+  public beforeOpenOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
   );
 
-  protected _openOutput = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  protected _openOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'open' });
   /**
    * Emits whenever the component is opened.
    */
-  public openOutput = internalOutputFromObservable(
+  public openOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'open'),
   );
 
   /**
    * Emits whenever the component begins the closing transition. Can be canceled.
    */
-  public beforeCloseOutput = outputFromObservable(
+  public beforeCloseOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeclose'),
     { alias: 'beforeClose' },
   );
 
-  protected _closeOutput = outputFromObservable<Event>(NEVER, { alias: 'close' });
+  protected _closeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'close' });
   /**
    * Emits whenever the component is closed.
    */
-  public closeOutput = internalOutputFromObservable(
+  public closeOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'close'),
   );
 

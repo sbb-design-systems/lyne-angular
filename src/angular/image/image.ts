@@ -1,4 +1,12 @@
-import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  inject,
+  Input,
+  NgZone,
+  numberAttribute,
+  type OutputRef,
+} from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbImageElement } from '@sbb-esta/lyne-elements/image.js';
@@ -269,19 +277,19 @@ export class SbbImage {
     return this.#element.nativeElement.complete;
   }
 
-  protected _loadOutput = outputFromObservable<Event>(NEVER, { alias: 'load' });
+  protected _loadOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'load' });
   /**
    * Emits when the image has been loaded.
    */
-  public loadOutput = internalOutputFromObservable(
+  public loadOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'load'),
   );
 
-  protected _errorOutput = outputFromObservable<Event>(NEVER, { alias: 'error' });
+  protected _errorOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'error' });
   /**
    * Emits when the image loading ended in an error.
    */
-  public errorOutput = internalOutputFromObservable(
+  public errorOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'error'),
   );
 }

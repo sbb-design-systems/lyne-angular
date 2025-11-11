@@ -489,6 +489,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         if (publicEvents.length) {
           expectedRxJsImports.add('fromEvent');
           expectedRxJsInteropImports.add('outputFromObservable');
+          expectedAngularImports.add('type OutputRef');
         }
 
         // Add the private variables for the native element and the ngZone
@@ -638,7 +639,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   return fixer.insertTextBeforeRange(
                     [endOfBody, endOfBody],
                     `
-  ${eventJSDoc ? `${eventJSDoc}\n` : ''}  public ${outputName} = outputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'), { alias: '${normalizedName}' });\n`,
+  ${eventJSDoc ? `${eventJSDoc}\n` : ''}  public ${outputName}: OutputRef<${type}> = outputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'), { alias: '${normalizedName}' });\n`,
                   );
                 },
               });
@@ -662,7 +663,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   return fixer.insertTextBeforeRange(
                     [endOfBody, endOfBody],
                     `
-  protected _${outputName} = outputFromObservable<${type}>(NEVER, { alias: '${normalizedName}' });`,
+  protected _${outputName}: OutputRef<${type}> = outputFromObservable<${type}>(NEVER, { alias: '${normalizedName}' });`,
                   );
                 },
               });
@@ -683,7 +684,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                   const endOfBody = classDeclaration.body.range[1] - 1;
                   return fixer.insertTextBeforeRange(
                     [endOfBody, endOfBody],
-                    `${eventJSDoc ? `\n  ${eventJSDoc}\n` : ''}  public ${outputName} = internalOutputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'));\n`,
+                    `${eventJSDoc ? `\n  ${eventJSDoc}\n` : ''}  public ${outputName}: OutputRef<${type}> = internalOutputFromObservable(fromEvent<${type}>(this.#element.nativeElement, '${member.name}'));\n`,
                   );
                 },
               });
@@ -917,8 +918,10 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               fixer.insertTextBefore(node, `\nimport { ${imports} } from '@angular/core';\n`),
           });
         } else {
-          const existingImports = angularCoreImport.specifiers.map(
-            (spec) => ((spec as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name,
+          const existingImports = angularCoreImport.specifiers.map((s) =>
+            (s as TSESTree.ImportSpecifier).importKind === 'type'
+              ? `${(s as TSESTree.ImportSpecifier).importKind} ${((s as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name}`
+              : ((s as TSESTree.ImportSpecifier).imported as TSESTree.Identifier).name,
           );
           const importsToAdd = Array.from(expectedAngularImports).filter(
             (importName) => !existingImports.includes(importName),

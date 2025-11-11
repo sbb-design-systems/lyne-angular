@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbNotificationElement } from '@sbb-esta/lyne-elements/notification.js';
@@ -72,7 +72,7 @@ export class SbbNotification {
   /**
    * Emits when the opening animation starts.
    */
-  public beforeOpenOutput = outputFromObservable(
+  public beforeOpenOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
   );
@@ -80,24 +80,24 @@ export class SbbNotification {
   /**
    * Emits when the closing animation starts. Can be canceled to prevent the component from closing.
    */
-  public beforeCloseOutput = outputFromObservable(
+  public beforeCloseOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeclose'),
     { alias: 'beforeClose' },
   );
 
-  protected _openOutput = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  protected _openOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'open' });
   /**
    * Emits when the opening animation ends.
    */
-  public openOutput = internalOutputFromObservable(
+  public openOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'open'),
   );
 
-  protected _closeOutput = outputFromObservable<Event>(NEVER, { alias: 'close' });
+  protected _closeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'close' });
   /**
    * Emits when the closing animation ends.
    */
-  public closeOutput = internalOutputFromObservable(
+  public closeOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'close'),
   );
 }

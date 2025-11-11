@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbOverlayCloseEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
@@ -123,34 +123,40 @@ export class SbbOverlay {
   /**
    * Emits whenever the component begins the closing transition. Can be canceled.
    */
-  public beforeCloseOutput = outputFromObservable(
-    fromEvent<CustomEvent<SbbOverlayCloseEventDetails>>(this.#element.nativeElement, 'beforeclose'),
-    { alias: 'beforeClose' },
-  );
+  public beforeCloseOutput: OutputRef<CustomEvent<SbbOverlayCloseEventDetails>> =
+    outputFromObservable(
+      fromEvent<CustomEvent<SbbOverlayCloseEventDetails>>(
+        this.#element.nativeElement,
+        'beforeclose',
+      ),
+      { alias: 'beforeClose' },
+    );
 
-  protected _closeOutput = outputFromObservable<CustomEvent<SbbOverlayCloseEventDetails>>(NEVER, {
-    alias: 'close',
-  });
+  protected _closeOutput: OutputRef<CustomEvent<SbbOverlayCloseEventDetails>> =
+    outputFromObservable<CustomEvent<SbbOverlayCloseEventDetails>>(NEVER, {
+      alias: 'close',
+    });
   /**
    * Emits whenever the component is closed.
    */
-  public closeOutput = internalOutputFromObservable(
-    fromEvent<CustomEvent<SbbOverlayCloseEventDetails>>(this.#element.nativeElement, 'close'),
-  );
+  public closeOutput: OutputRef<CustomEvent<SbbOverlayCloseEventDetails>> =
+    internalOutputFromObservable(
+      fromEvent<CustomEvent<SbbOverlayCloseEventDetails>>(this.#element.nativeElement, 'close'),
+    );
 
   /**
    * Emits whenever the component starts the opening transition. Can be canceled.
    */
-  public beforeOpenOutput = outputFromObservable(
+  public beforeOpenOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
   );
 
-  protected _openOutput = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  protected _openOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'open' });
   /**
    * Emits whenever the component is opened.
    */
-  public openOutput = internalOutputFromObservable(
+  public openOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'open'),
   );
 
