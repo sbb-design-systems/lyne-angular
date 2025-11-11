@@ -11,6 +11,9 @@ import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation-coach.js';
 
+/**
+ * This component will display the navigation coach item for Seat reservation.
+ */
 @Directive({
   selector: 'sbb-seat-reservation-navigation-coach',
   exportAs: 'sbbSeatReservationNavigationCoach',
@@ -21,6 +24,9 @@ export class SbbSeatReservationNavigationCoach {
   );
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * Coach ID, which is used to identify the coach in the navigation
+   */
   @Input()
   public set coachId(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.coachId = value));
@@ -29,6 +35,9 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.coachId;
   }
 
+  /**
+   * Coach service property ids, which are used to display the services in the navigation
+   */
   @Input()
   public set propertyIds(value: string[]) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.propertyIds = value));
@@ -61,6 +70,9 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.index;
   }
 
+  /**
+   * Representation of places available for selecting, counting seat places and bicycle places separetely
+   */
   @Input()
   public set freePlacesByType(value: CoachNumberOfFreePlaces) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.freePlacesByType = value));
@@ -69,6 +81,9 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.freePlacesByType;
   }
 
+  /**
+   * Travel class of the coach
+   */
   @Input()
   public set travelClass(value: PlaceTravelClass[]) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.travelClass = value));
@@ -77,6 +92,9 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.travelClass;
   }
 
+  /**
+   * If the coach is a driver/restricted area
+   */
   @Input({ transform: booleanAttribute })
   public set driverArea(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.driverArea = value));
@@ -85,6 +103,9 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.driverArea;
   }
 
+  /**
+   * If the coach is the first in the navigation
+   */
   @Input({ transform: booleanAttribute })
   public set first(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.first = value));
@@ -93,6 +114,9 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.first;
   }
 
+  /**
+   * If the coach is the last in the navigation
+   */
   @Input({ transform: booleanAttribute })
   public set last(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.last = value));
@@ -101,6 +125,9 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.last;
   }
 
+  /**
+   * Disable the coach navigation
+   */
   @Input({ transform: booleanAttribute })
   public set disable(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disable = value));
@@ -109,6 +136,9 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.disable;
   }
 
+  /**
+   * If the coach navigation should be displayed vertically
+   */
   @Input({ transform: booleanAttribute })
   public set vertical(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.vertical = value));
@@ -117,11 +147,17 @@ export class SbbSeatReservationNavigationCoach {
     return this.#element.nativeElement.vertical;
   }
 
+  /**
+   * Emits when a nav coach has the focus
+   */
   public focusCoachOutput = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'focuscoach'),
     { alias: 'focusCoach' },
   );
 
+  /**
+   * Emits when a coach within the navigation was selected and returns the clicked coach nav index.
+   */
   public selectCoachOutput = outputFromObservable(
     fromEvent<CustomEvent<SelectCoachEventDetails>>(this.#element.nativeElement, 'selectcoach'),
     { alias: 'selectCoach' },

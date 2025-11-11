@@ -4,6 +4,9 @@ import type { SbbSeatReservationNavigationServicesElement } from '@sbb-esta/lyne
 
 import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation-services.js';
 
+/**
+ * Component displays the available service icons of one coach.
+ */
 @Directive({
   selector: 'sbb-seat-reservation-navigation-services',
   exportAs: 'sbbSeatReservationNavigationServices',
@@ -14,6 +17,9 @@ export class SbbSeatReservationNavigationServices {
   );
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * Coach service property ids, which are used to display the services in the navigation
+   */
   @Input()
   public set propertyIds(value: string[]) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.propertyIds = value));
@@ -22,6 +28,9 @@ export class SbbSeatReservationNavigationServices {
     return this.#element.nativeElement.propertyIds;
   }
 
+  /**
+   * If true, the service icons are displayed vertically
+   */
   @Input({ transform: booleanAttribute })
   public set vertical(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.vertical = value));
