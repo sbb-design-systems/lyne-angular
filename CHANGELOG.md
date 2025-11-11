@@ -1,5 +1,31 @@
 # Changelog
 
+## [20.0.0-rc.9](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.8...v20.0.0-rc.9) (2025-11-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sbb-dialog, sbb-overlay, sbb-toast:** added parameter to SbbOverlayRef class constructor.
+
+### Bug Fixes
+
+* **deps:** update angular ([934d79c](https://github.com/sbb-design-systems/lyne-angular/commit/934d79c2d974f6f127f21ad370557c8a201242d2))
+* **deps:** update angular ([4485e4b](https://github.com/sbb-design-systems/lyne-angular/commit/4485e4b0e2226c501f0c230c8fd80b6e0525653f))
+* **deps:** update angular ([54d4be3](https://github.com/sbb-design-systems/lyne-angular/commit/54d4be3448166e4e8db8c854efee60413ed3524a))
+* **deps:** update angular ([ffbe06e](https://github.com/sbb-design-systems/lyne-angular/commit/ffbe06e8624d410c89c59ae973f90d63d64115ac))
+* **deps:** update angular to v20.3.6 ([9658f5d](https://github.com/sbb-design-systems/lyne-angular/commit/9658f5d3e5a785d00e124638962c33c0e4bc368b))
+* **deps:** update dependency @angular/cdk to v20.2.11 ([028d9d7](https://github.com/sbb-design-systems/lyne-angular/commit/028d9d7690b286cdff7100c9860d49bece1b1976))
+* **deps:** update dependency @angular/cdk to v20.2.12 ([9333244](https://github.com/sbb-design-systems/lyne-angular/commit/93332449d27b56fa484bdecc6a1ac94352d789b5))
+* **deps:** update esta to v3.13.0 ([#215](https://github.com/sbb-design-systems/lyne-angular/issues/215)) ([6d91aaf](https://github.com/sbb-design-systems/lyne-angular/commit/6d91aaf9effae6cecae50d505cc4e907680e1900))
+* **sbb-dialog, sbb-overlay, sbb-toast:** afterClose event not emitting ([#211](https://github.com/sbb-design-systems/lyne-angular/issues/211)) ([a89d2c4](https://github.com/sbb-design-systems/lyne-angular/commit/a89d2c4b7ae1311e91096d6a31b53386c265ade8))
+
+
+### Documentation
+
+* add JSDoc from lyne-components ([#212](https://github.com/sbb-design-systems/lyne-angular/issues/212)) ([a09630d](https://github.com/sbb-design-systems/lyne-angular/commit/a09630d9ac6668312629d839fb50bb6f3b8f2f2c))
+* add output type for docs-app ([#214](https://github.com/sbb-design-systems/lyne-angular/issues/214)) ([5bf1a06](https://github.com/sbb-design-systems/lyne-angular/commit/5bf1a067538c192f53945d449f50d1ee8e89642b))
+* avoid 'EXPORTED_DECLARATIONS' clash on compodoc ([#213](https://github.com/sbb-design-systems/lyne-angular/issues/213)) ([0aaf033](https://github.com/sbb-design-systems/lyne-angular/commit/0aaf03391a2ccdd897d249f3c7eb6754cb3e3dce))
+
 ## [20.0.0-rc.8](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.7...v20.0.0-rc.8) (2025-10-13)
 
 
