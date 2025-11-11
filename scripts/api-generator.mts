@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'url';
 import type { Package } from 'custom-elements-manifest';
 import { readFileSync, writeFileSync } from 'fs';
-import { basename, join } from 'path';
+import { join } from 'path';
 import { dirname } from 'node:path';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -40,23 +40,28 @@ const createReadmeAPI = (modulePath: string): string => {
   const directives = (documentation['directives'] as any[]).filter(
     (e) => dirname(e.file) === modulePath,
   );
+  if (directives && directives.length > 0) {
+    readmeText += createDocsDirectives(directives);
+  }
 
-  directives.forEach((directive) => {
-    readmeText += `## API Reference for ${directive['name']}
+  return readmeText;
+};
+
+const createDocsDirectives = (directives: any[]): string => {
+  return directives
+    .map(
+      (directive) =>
+        `## API Reference for ${directive['name']}
 
 ${directive['rawdescription']?.replaceAll('\n', '')}
 
-Selector: \`${directive['selector']}\`
+**Selector:** \`${directive['selector']}\`
 
-Exported as: \`${directive['exportAs']}\`
+**Exported as:** \`${directive['exportAs']}\`
 
-${directive['inputsClass'] && directive['inputsClass'].length > 0 ? createInputsTable(directive) : ''}
-${directive['propertiesClass'] && directive['propertiesClass'].length > 0 ? createOutputTable(directive) : ''}
-${directive['methodsClass'] && directive['methodsClass'].length > 0 ? createMethodsTable(directive) : ''}
-`;
-  });
-
-  return readmeText;
+${directive['inputsClass'] && directive['inputsClass'].length > 0 ? createInputsTable(directive) : ''}${directive['propertiesClass'] && directive['propertiesClass'].length > 0 ? createOutputTable(directive) : ''}${directive['methodsClass'] && directive['methodsClass'].length > 0 ? createMethodsTable(directive) : ''}`,
+    )
+    .join('');
 };
 
 // TODO verify if accessors have to be split in another table
@@ -71,6 +76,7 @@ const createInputsTable = (directive: any): string => {
     return accessor['getSignature'] ?? accessor['setSignature'];
   }) as any[];
   return `### Properties
+
 | Name | Type | Description |
 | --- | --- | --- |
 ${[...inputs, ...accessorsToAdd]
@@ -89,6 +95,7 @@ const createOutputTable = (directive: any): string => {
   );
   if (outputs.length > 0) {
     return `### Events
+
 | Name | Description |
 | --- | --- |
 ${outputs
@@ -102,6 +109,7 @@ ${outputs
 
 const createMethodsTable = (directive: any): string => {
   return `### Methods
+
 | Name | Parameters | Return type | Description |
 | --- | --- | --- | --- |
 ${(directive['methodsClass'] as any[])
