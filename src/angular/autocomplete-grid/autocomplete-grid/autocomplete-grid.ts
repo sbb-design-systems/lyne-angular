@@ -119,6 +119,41 @@ export class SbbAutocompleteGrid<T = string> implements SbbAutocompleteType<T> {
   }
 
   /**
+   * The position of the autocomplete panel relative to the trigger.
+   */
+  @Input()
+  public set position(value: 'auto' | 'above' | 'below') {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.position = value));
+  }
+  public get position(): 'auto' | 'above' | 'below' {
+    return this.#element.nativeElement.position;
+  }
+
+  /**
+   * Whether the first option is automatically activated when the autocomplete is opened.
+   */
+  @Input({ transform: booleanAttribute })
+  public set autoActiveFirstOption(value: boolean) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.autoActiveFirstOption = value),
+    );
+  }
+  public get autoActiveFirstOption(): boolean {
+    return this.#element.nativeElement.autoActiveFirstOption;
+  }
+
+  /**
+   * Function that maps an option's control value to its display value in the trigger.
+   */
+  @Input()
+  public set displayWith(value: ((value: T) => string) | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.displayWith = value));
+  }
+  public get displayWith(): ((value: T) => string) | null {
+    return this.#element.nativeElement.displayWith;
+  }
+
+  /**
    * Returns the element where autocomplete overlay is attached to.
    */
   public get originElement(): HTMLElement | null {
@@ -151,30 +186,6 @@ export class SbbAutocompleteGrid<T = string> implements SbbAutocompleteType<T> {
    */
   public close(): void {
     return this.#element.nativeElement.close();
-  }
-
-  /**
-   * Whether the first option is automatically activated when the autocomplete is opened.
-   */
-  @Input({ transform: booleanAttribute })
-  public set autoActiveFirstOption(value: boolean) {
-    this.#ngZone.runOutsideAngular(
-      () => (this.#element.nativeElement.autoActiveFirstOption = value),
-    );
-  }
-  public get autoActiveFirstOption(): boolean {
-    return this.#element.nativeElement.autoActiveFirstOption;
-  }
-
-  /**
-   * Function that maps an option's control value to its display value in the trigger.
-   */
-  @Input()
-  public set displayWith(value: ((value: T) => string) | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.displayWith = value));
-  }
-  public get displayWith(): ((value: T) => string) | null {
-    return this.#element.nativeElement.displayWith;
   }
 
   /**

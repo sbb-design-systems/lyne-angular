@@ -235,6 +235,9 @@ export class SbbTimeInput extends SbbControlValueAccessorMixin(class {}) impleme
   protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
     alias: 'input',
   });
+  /**
+   * The input event fires when the value has been changed as a direct result of a user action.
+   */
   public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
     fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
   );
@@ -242,6 +245,9 @@ export class SbbTimeInput extends SbbControlValueAccessorMixin(class {}) impleme
   protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
     alias: 'change',
   });
+  /**
+   * The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+   */
   public changeOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'change'),
   );

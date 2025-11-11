@@ -70,6 +70,9 @@ export class SbbDateInput<T = Date>
     return this.#element.nativeElement.value;
   }
 
+  /**
+   * Formats the current input's value as date.
+   */
   @Input()
   public set valueAsDate(value: T | null) {
     this.#runWithValidationCheck(() => (this.#element.nativeElement.valueAsDate = value));
@@ -324,6 +327,9 @@ export class SbbDateInput<T = Date>
   protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
     alias: 'input',
   });
+  /**
+   * The input event fires when the value has been changed as a direct result of a user action.
+   */
   public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
     fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
   );
@@ -331,6 +337,9 @@ export class SbbDateInput<T = Date>
   protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
     alias: 'change',
   });
+  /**
+   * The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+   */
   public changeOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'change'),
   );
