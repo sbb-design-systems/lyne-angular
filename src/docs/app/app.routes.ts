@@ -1,6 +1,5 @@
 import type { Routes } from '@angular/router';
 
-import { IntroductionComponent } from './introduction/introduction.component';
 import { VariantSwitch } from './variant-switch';
 
 export const routes: Routes = [
@@ -10,7 +9,8 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: IntroductionComponent,
+        redirectTo: 'angular',
+        pathMatch: 'full',
       },
       {
         path: 'angular',

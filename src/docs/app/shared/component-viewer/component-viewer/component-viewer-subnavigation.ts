@@ -27,6 +27,7 @@ export const componentViewerSubnavigation: Routes = [
   },
   {
     path: '',
+    pathMatch: 'full',
     redirectTo: 'overview',
   },
 ];

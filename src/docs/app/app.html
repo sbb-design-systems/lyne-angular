@@ -1,4 +1,4 @@
-<sbb-header hide-on-scroll expanded scroll-origin="content">
+<sbb-header expanded size="s">
   <span class="sbb-header-info">
     <strong>Lyne Angular</strong>
     <span>Version -</span>
@@ -6,7 +6,7 @@
   <sbb-header-link routerLink="/">Introduction</sbb-header-link>
   <sbb-header-link routerLink="/howtoupdate">How to update</sbb-header-link>
   <div class="sbb-header-spacer"></div>
-  <sbb-form-field>
+  <sbb-form-field size="s">
     <sbb-select [formControl]="sbbVariant">
       <sbb-option [value]="'standard'">Standard</sbb-option>
       <sbb-option [value]="'lean'">Lean</sbb-option>
@@ -18,23 +18,21 @@
     <sbb-logo protective-room="none"></sbb-logo>
   </a>
 </sbb-header>
-<sbb-sidebar-container>
-  <sbb-sidebar opened>
-    <sbb-link-list>
-      @for (packageEntry of packages | keyvalue; track this.packages['key']) {
-      <sbb-block-link
-        [iconName]="packageEntry.value['svgIcon']"
-        [routerLink]="packageEntry.key"
-        routerLinkActive="sbb-active"
-        [style.text-decoration]="packageEntry.value['isDeprecated'] ? 'line-through' : ''"
-      >
-        {{packageEntry.value['name']}}
-      </sbb-block-link>
-      }
-    </sbb-link-list>
-  </sbb-sidebar>
-  <sbb-sidebar-content id="content" role="main">
+<sbb-icon-sidebar-container>
+  <sbb-icon-sidebar color="milk">
+    @for (packageEntry of packages | keyvalue; track $index) {
+    <sbb-icon-sidebar-link
+      [iconName]="packageEntry.value['svgIcon']"
+      [routerLink]="packageEntry.key"
+      routerLinkActive="sbb-active"
+      [style.text-decoration]="packageEntry.value['isDeprecated'] ? 'line-through' : ''"
+      [sbb-tooltip]="packageEntry.value['name']"
+      [attr.accessibility-label]="packageEntry.value['name']"
+    >
+    </sbb-icon-sidebar-link>
+    }
+  </sbb-icon-sidebar>
+  <sbb-icon-sidebar-content id="content" role="main">
     <router-outlet />
-  </sbb-sidebar-content>
-</sbb-sidebar-container>
-<sbb-container> </sbb-container>
+  </sbb-icon-sidebar-content>
+</sbb-icon-sidebar-container>

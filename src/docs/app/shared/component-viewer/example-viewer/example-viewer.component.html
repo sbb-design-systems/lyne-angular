@@ -25,7 +25,7 @@
 </div>
 
 <sbb-tab-group [hidden]="!showSource" class="sbb-example-viewer-tabs">
-  @for (content of exampleCodes | async; track exampleCodes) {
+  @for (content of exampleCodes | async; track $index) {
     <sbb-tab-label>{{ content.label }}</sbb-tab-label>
     <sbb-tab [innerHtml]="content.code"> </sbb-tab>
   }
