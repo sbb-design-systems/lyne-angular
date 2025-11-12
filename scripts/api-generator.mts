@@ -49,28 +49,37 @@ const scanFoldersAndWriteFiles = (projectPath: string, apiFolder: string) => {
 const createReadmeAPI = (modulePath: string): string => {
   let readmeText = '';
 
-  // TODO: injectables - interfaces - miscellaneous
+  // TODO: injectables - miscellaneous
   const directives = (documentation['directives'] as any[]).filter(
     (e) => dirname(e.file) === modulePath,
   );
-  if (directives && directives.length > 0) {
+  if (directives?.length > 0) {
     readmeText += createDocsComponentsDirectives(directives);
   }
+
   const components = (documentation['components'] as any[]).filter(
     (e) => dirname(e.file) === modulePath,
   );
-  if (components && components.length > 0) {
+  if (components?.length > 0) {
     readmeText += createDocsComponentsDirectives(components);
   }
+
   const classes = (documentation['classes'] as any[]).filter((e) => dirname(e.file) === modulePath);
-  if (classes.length > 0) {
-    readmeText += createDocsClasses(classes);
+  if (classes?.length > 0) {
+    readmeText += createDocsClassesInterfaces(classes);
+  }
+
+  const interfaces = (documentation['interfaces'] as any[]).filter(
+    (e) => dirname(e.file) === modulePath,
+  );
+  if (interfaces?.length > 0) {
+    readmeText += createDocsClassesInterfaces(interfaces);
   }
 
   return readmeText;
 };
 
-const createDocsClasses = (entities: any[]): string => {
+const createDocsClassesInterfaces = (entities: any[]): string => {
   return entities
     .map(
       (entity) =>
