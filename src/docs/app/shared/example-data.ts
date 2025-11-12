@@ -28,8 +28,8 @@ export class ExampleData {
   // TODO: check if needed
   componentNames: string[];
 
-  static find(library: string, id: string): ExampleData[] {
-    return EXAMPLE_COMPONENTS[id].map(
+  static find(library: string, id: string, module?: string): ExampleData[] {
+    return EXAMPLE_COMPONENTS[module ? `${module}/${id}` : id].map(
       (example) =>
         new ExampleData(library, id, typeof example === 'string' ? { id: example } : example),
     );

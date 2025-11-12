@@ -9,6 +9,7 @@ import type { ShowcaseMetaPackage } from './meta';
 export interface ModuleParams {
   packageData: ShowcaseMetaPackage;
   packageName: string;
+  module?: string;
   id: string;
   loaderBuilderInterceptor?: (loaderBuilder: LoaderBuilder) => LoaderBuilder;
 }

@@ -12,8 +12,8 @@ import type { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import type { ExampleData } from '../../../example-data';
-import { loadExample } from '../../../example-module';
+import type { ExampleData } from '../../example-data';
+import { loadExample } from '../../example-module';
 import { HtmlLoader } from '../../html-loader.service';
 import { moduleParams } from '../../module-params';
 

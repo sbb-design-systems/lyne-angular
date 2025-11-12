@@ -40,6 +40,8 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
         name: 'Components',
         entries: [
           { label: 'Accordion', link: './components/accordion' },
+          { label: 'Alert', link: './components/alert' },
+          { label: 'Button - Mini button', link: './components/button/mini-button' },
           { label: 'TBD', link: './tbd' },
         ],
       },

@@ -39,6 +39,12 @@ const routes: Routes = [
         data: { packageName: 'angular', packageData: PACKAGES['angular'] },
         children: componentViewerSubnavigation,
       },
+      {
+        path: 'components/:module/:id',
+        component: ComponentViewerComponent,
+        data: { packageName: 'angular', packageData: PACKAGES['angular'] },
+        children: componentViewerSubnavigation,
+      },
     ],
   },
 ];
