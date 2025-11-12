@@ -237,7 +237,8 @@
               "tsConfig": "src/docs/tsconfig.prod.json"
             },
             "development": {
-              "tsConfig": "src/docs/tsconfig.json"
+              "tsConfig": "src/docs/tsconfig.json",
+              "optimization": false
             }
           },
           "defaultConfiguration": "production"
