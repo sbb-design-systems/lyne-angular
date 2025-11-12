@@ -8,6 +8,7 @@ import type { ModuleParams } from './module-params';
 export class LoaderBuilder {
   private _url?: string;
   private readonly _packageName: string;
+  private readonly _module: string | undefined;
   private readonly _id: string;
 
   constructor(
@@ -15,6 +16,7 @@ export class LoaderBuilder {
     params: ModuleParams,
   ) {
     this._packageName = params.packageName;
+    this._module = params.module;
     this._id = params.id;
   }
 
@@ -24,7 +26,8 @@ export class LoaderBuilder {
   }
 
   fromModuleDocumentation() {
-    this._url = `docs-content/overviews/${this._packageName}/${this._id}/readme.md`;
+    const modulePath = this._module ? `${this._module}/` : '';
+    this._url = `docs-content/overviews/${this._packageName}/${modulePath}${this._id}/readme.md`;
     return this;
   }
 
@@ -34,7 +37,8 @@ export class LoaderBuilder {
   }
 
   fromExamples(name: string, file: string) {
-    this._url = `docs-content/examples/${this._packageName}/${this._id}/${name}/${file}`;
+    const modulePath = this._module ? `${this._module}/` : '';
+    this._url = `docs-content/examples/${this._packageName}/${modulePath}${this._id}/${name}/${file}`;
     return this;
   }
 

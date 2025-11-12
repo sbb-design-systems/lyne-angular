@@ -26,7 +26,7 @@ export const componentViewerSubnavigation: Routes = [
     component: ExampleListViewerComponent,
   },
   {
-    path: '**',
+    path: '',
     redirectTo: 'overview',
   },
 ];
