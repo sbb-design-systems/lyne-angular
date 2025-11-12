@@ -50,25 +50,27 @@ const createReadmeAPI = (modulePath: string): string => {
     (e) => dirname(e.file) === modulePath,
   );
   if (directives && directives.length > 0) {
-    readmeText += createDocsDirectives(directives);
+    readmeText += createDocsComponentsDirectives(directives);
+  }
+  const components = (documentation['components'] as any[]).filter(
+    (e) => dirname(e.file) === modulePath,
+  );
+  if (components && components.length > 0) {
+    readmeText += createDocsComponentsDirectives(components);
   }
 
   return readmeText;
 };
 
-const createDocsDirectives = (directives: any[]): string => {
-  return directives
+const createDocsComponentsDirectives = (entities: any[]): string => {
+  return entities
     .map(
-      (directive) =>
-        `## API Reference for ${directive['name']}
-
-${directive['rawdescription']?.replaceAll('\n', '')}
-
-**Selector:** \`${directive['selector']}\`
-
-**Exported as:** \`${directive['exportAs']}\`
-
-${directive['inputsClass'] && directive['inputsClass'].length > 0 ? createInputsTable(directive) : ''}${directive['propertiesClass'] && directive['propertiesClass'].length > 0 ? createOutputTable(directive) : ''}${directive['methodsClass'] && directive['methodsClass'].length > 0 ? createMethodsTable(directive) : ''}`,
+      (entity) =>
+        `## API Reference for ${entity['name']}
+${entity['rawdescription'] ? `\n${entity['rawdescription']?.replaceAll('\n', ' ').trimStart()}\n` : ''}
+**Selector:** \`${entity['selector']}\`
+${entity['exportAs'] ? `\n**Exported as:** \`${entity['exportAs']}\`\n` : ''}
+${entity['inputsClass'] && entity['inputsClass'].length > 0 ? createInputsTable(entity) : ''}${entity['propertiesClass'] && entity['propertiesClass'].length > 0 ? createOutputTable(entity) : ''}${entity['methodsClass'] && entity['methodsClass'].length > 0 ? createMethodsTable(entity) : ''}`,
     )
     .join('');
 };
@@ -117,14 +119,19 @@ ${outputs
 };
 
 const createMethodsTable = (directive: any): string => {
+  const methods = directive['methodsClass'] as any[];
+  if (methods.every((method) => (method['name'] as string).startsWith('ng'))) {
+    return '';
+  }
+
   return `### Methods
 
 | Name | Parameters | Return type | Description |
 | --- | --- | --- | --- |
-${(directive['methodsClass'] as any[])
+${methods
   .map(
     (method) =>
-      `| ${method['name']} | ${createParametersForTable(method['args'])} | ${createTypeForTable(method['returnType'])} | ${method['rawdescription']?.replaceAll('\n', '')} |\n`,
+      `| ${method['name']} | ${createParametersForTable(method['args'])} | ${createTypeForTable(method['returnType'])} | ${createDescriptionForTable(method['rawdescription'])} |\n`,
   )
   .join('')}\n`;
 };
@@ -138,7 +145,7 @@ const createTypeForTable = (type?: string): string => {
 
 const createDescriptionForTable = (rawdescription?: string): string => {
   if (rawdescription) {
-    return `${rawdescription.replaceAll('\n', '')}`;
+    return `${rawdescription.replaceAll('\n', ' ').trimStart()}`;
   }
   return '-';
 };
