@@ -1,35 +1,44 @@
 import { fileURLToPath } from 'url';
-import type { Package } from 'custom-elements-manifest';
-import { readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
-import { dirname } from 'node:path';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
+import { basename, dirname, join, normalize, relative } from 'path';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-
-const readManifest = (name: string): Package =>
-  JSON.parse(
-    readFileSync(join(root, `/node_modules/@sbb-esta/${name}/custom-elements.json`), 'utf8'),
-  );
-const elementsManifest = readManifest('lyne-elements');
-const elementsExperimentalManifest = readManifest('lyne-elements-experimental');
-
 const documentation = JSON.parse(
   readFileSync(join(root, `/src/docs/documentation/documentation.json`), 'utf8'),
 );
 
-const generateApi = (pkg: Package, projectPath: string) => {
-  for (const module of pkg.modules) {
-    if (
-      module.declarations?.some(
-        (d) => d.kind === 'class' && 'customElement' in d && d.customElement,
-      )
-    ) {
-      const directoryPath = dirname(join(projectPath, module.path));
-      const apiPath = join(directoryPath, 'api.md');
-      const readmeContent = createReadmeAPI(directoryPath.split(root)[1]);
+const generateApiFiles = (projectPath: string) => {
+  // Create output folder
+  const outputFolder: string = join(root, `/src/docs/documentation/api`);
+  if (!existsSync(outputFolder)) {
+    mkdirSync(outputFolder, { recursive: true });
+  }
 
-      writeFileSync(apiPath, readmeContent, 'utf8');
-    }
+  // Recursive method to scan directories and create files
+  scanFoldersAndWriteFiles(projectPath, join(root, `/src/docs/documentation/api`));
+};
+
+const scanFoldersAndWriteFiles = (projectPath: string, apiFolder: string) => {
+  const folders = readdirSync(projectPath, { withFileTypes: true });
+  const subFolders = folders.filter((e) => e.isDirectory());
+
+  // Inner folder reached
+  if (subFolders.length === 0) {
+    const folderName = basename(projectPath);
+    const apiFileName = `${folderName}-api.md`;
+    const outPath = join(apiFolder, apiFileName);
+
+    // Scan documentation and add content
+    const readmeContent = createReadmeAPI(relative(root, normalize(projectPath)));
+
+    writeFileSync(outPath, readmeContent, 'utf-8');
+    return;
+  }
+
+  // Inner folder not reached, go deeper recursively
+  for (const sub of subFolders) {
+    const subPath = join(projectPath, sub.name);
+    scanFoldersAndWriteFiles(subPath, apiFolder);
   }
 };
 
@@ -141,5 +150,5 @@ const createParametersForTable = (args: any[]): string => {
   return '-';
 };
 
-generateApi(elementsManifest, join(root, 'src/angular'));
-generateApi(elementsExperimentalManifest, join(root, 'src/angular-experimental'));
+generateApiFiles(join(root, 'src/angular'));
+generateApiFiles(join(root, 'src/angular-experimental'));
