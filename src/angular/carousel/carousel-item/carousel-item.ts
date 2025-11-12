@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject } from '@angular/core';
+import { Directive, ElementRef, inject, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type {
@@ -9,6 +9,11 @@ import { NEVER, fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/carousel/carousel-item.js';
 
+/**
+ * It displays an item contained into the `sbb-carousel` component.
+ *
+ * @slot  - Use the unnamed slot to add images for the carousel, as <img>, <sbb-image>, <picture>, ...
+ */
 @Directive({
   selector: 'sbb-carousel-item',
   exportAs: 'sbbCarouselItem',
@@ -16,18 +21,26 @@ import '@sbb-esta/lyne-elements/carousel/carousel-item.js';
 export class SbbCarouselItem {
   #element: ElementRef<SbbCarouselItemElement> = inject(ElementRef<SbbCarouselItemElement>);
 
-  protected _beforeshowOutput = outputFromObservable<CustomEvent<SbbCarouselItemEventDetail>>(
-    NEVER,
-    { alias: 'beforeshow' },
-  );
-  public beforeshowOutput = internalOutputFromObservable(
-    fromEvent<CustomEvent<SbbCarouselItemEventDetail>>(this.#element.nativeElement, 'beforeshow'),
-  );
+  protected _beforeshowOutput: OutputRef<CustomEvent<SbbCarouselItemEventDetail>> =
+    outputFromObservable<CustomEvent<SbbCarouselItemEventDetail>>(NEVER, { alias: 'beforeshow' });
+  /**
+   * Event emitted when the item is starting scrolling.
+   */
+  public beforeshowOutput: OutputRef<CustomEvent<SbbCarouselItemEventDetail>> =
+    internalOutputFromObservable(
+      fromEvent<CustomEvent<SbbCarouselItemEventDetail>>(this.#element.nativeElement, 'beforeshow'),
+    );
 
-  protected _showOutput = outputFromObservable<CustomEvent<SbbCarouselItemEventDetail>>(NEVER, {
+  protected _showOutput: OutputRef<CustomEvent<SbbCarouselItemEventDetail>> = outputFromObservable<
+    CustomEvent<SbbCarouselItemEventDetail>
+  >(NEVER, {
     alias: 'show',
   });
-  public showOutput = internalOutputFromObservable(
-    fromEvent<CustomEvent<SbbCarouselItemEventDetail>>(this.#element.nativeElement, 'show'),
-  );
+  /**
+   * Event emitted when the item is full visible after scrolling.
+   */
+  public showOutput: OutputRef<CustomEvent<SbbCarouselItemEventDetail>> =
+    internalOutputFromObservable(
+      fromEvent<CustomEvent<SbbCarouselItemEventDetail>>(this.#element.nativeElement, 'show'),
+    );
 }

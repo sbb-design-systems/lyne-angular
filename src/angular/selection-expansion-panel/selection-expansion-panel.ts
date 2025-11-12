@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import {
   booleanAttribute,
@@ -10,6 +10,12 @@ import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/selection-expansion-panel.js';
 
+/**
+ * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
+ *
+ * @slot  - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-expansion-panel`.
+ * @slot content - Use this slot to provide custom content for the panel (optional).
+ */
 @Directive({
   selector: 'sbb-selection-expansion-panel',
   exportAs: 'sbbSelectionExpansionPanel',
@@ -21,6 +27,9 @@ export class SbbSelectionExpansionPanel {
   );
   #ngZone: NgZone = inject(NgZone);
 
+  /**
+   * The background color of the panel.
+   */
   @Input()
   public set color(value: 'white' | 'milk') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.color = value));
@@ -29,6 +38,9 @@ export class SbbSelectionExpansionPanel {
     return this.#element.nativeElement.color;
   }
 
+  /**
+   * Whether the content section is always visible.
+   */
   @Input({ transform: booleanAttribute })
   public set forceOpen(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.forceOpen = value));
@@ -37,6 +49,9 @@ export class SbbSelectionExpansionPanel {
     return this.#element.nativeElement.forceOpen;
   }
 
+  /**
+   * Whether the unselected panel has a border.
+   */
   @Input({ transform: booleanAttribute })
   public set borderless(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.borderless = value));
@@ -45,23 +60,35 @@ export class SbbSelectionExpansionPanel {
     return this.#element.nativeElement.borderless;
   }
 
-  public beforeOpenOutput = outputFromObservable(
+  /**
+   * Emits whenever the content section starts the opening transition.
+   */
+  public beforeOpenOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
   );
 
-  public beforeCloseOutput = outputFromObservable(
+  /**
+   * Emits whenever the content section begins the closing transition.
+   */
+  public beforeCloseOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeclose'),
     { alias: 'beforeClose' },
   );
 
-  protected _closeOutput = outputFromObservable<Event>(NEVER, { alias: 'close' });
-  public closeOutput = internalOutputFromObservable(
+  protected _closeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'close' });
+  /**
+   * Emits whenever the content section is closed.
+   */
+  public closeOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'close'),
   );
 
-  protected _openOutput = outputFromObservable<Event>(NEVER, { alias: 'open' });
-  public openOutput = internalOutputFromObservable(
+  protected _openOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  /**
+   * Emits whenever the content section is opened.
+   */
+  public openOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'open'),
   );
 }

@@ -1,4 +1,12 @@
-import { Directive, ElementRef, inject, Input, NgZone, type OnInit } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  inject,
+  Input,
+  NgZone,
+  type OnInit,
+  type OutputRef,
+} from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbSidebarContainerElement } from '@sbb-esta/lyne-elements/sidebar/sidebar-container.js';
@@ -7,6 +15,12 @@ import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/sidebar/sidebar.js';
 
+/**
+ * This component corresponds to a sidebar that can be opened on the sidebar container.
+ *
+ * @slot  - Use the unnamed slot to slot any content into the sidebar.
+ * @slot title - Use the title slot to add an <sbb-title>.
+ */
 @Directive({
   selector: 'sbb-sidebar',
   exportAs: 'sbbSidebar',
@@ -16,6 +30,9 @@ export class SbbSidebar implements OnInit {
   #ngZone: NgZone = inject(NgZone);
   #disabledAnimationClassSet: boolean = false;
 
+  /**
+   * Background color of the sidebar. Either `white` or `milk`.
+   */
   @Input()
   public set color(value: 'white' | 'milk') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.color = value));
@@ -24,6 +41,9 @@ export class SbbSidebar implements OnInit {
     return this.#element.nativeElement.color;
   }
 
+  /**
+   * Mode of the sidebar; one of 'side' or 'over'.
+   */
   @Input()
   public set mode(value: 'side' | 'over') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.mode = value));
@@ -32,6 +52,9 @@ export class SbbSidebar implements OnInit {
     return this.#element.nativeElement.mode;
   }
 
+  /**
+   * The side that the sidebar is attached to.
+   */
   @Input()
   public set position(value: 'start' | 'end') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.position = value));
@@ -40,6 +63,11 @@ export class SbbSidebar implements OnInit {
     return this.#element.nativeElement.position;
   }
 
+  /**
+   * Whether the sidebar is opened or closed.
+   * Can be used to initially set the opened state, where
+   * the animation will be skipped.
+   */
   @Input({ transform: booleanAttribute })
   public set opened(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.opened = value));
@@ -48,6 +76,11 @@ export class SbbSidebar implements OnInit {
     return this.#element.nativeElement.opened;
   }
 
+  /**
+   * Whether the sidebar should focus the first focusable element automatically when opened.
+   * Defaults to false in when mode is set to `side`, otherwise defaults to true.
+   * If explicitly enabled, focus will be moved into the sidebar in `side` mode as well.
+   */
   @Input({ transform: booleanAttribute })
   public set focusOnOpen(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.focusOnOpen = value));
@@ -56,6 +89,9 @@ export class SbbSidebar implements OnInit {
     return this.#element.nativeElement.focusOnOpen;
   }
 
+  /**
+   * Whether the component is currently animating.
+   */
   @Input({ transform: booleanAttribute })
   public set isAnimating(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.isAnimating = value));
@@ -64,35 +100,57 @@ export class SbbSidebar implements OnInit {
     return this.#element.nativeElement.isAnimating;
   }
 
+  /**
+   * Returns the SbbSidebarContainerElement where this sidebar is contained.
+   */
   public get container(): SbbSidebarContainerElement | null {
     return this.#element.nativeElement.container;
   }
 
+  /**
+   * Returns a promise which completes whenever an animation ends.
+   * When a new animation starts, a new Promise is returned.
+   */
   public get animationComplete(): Promise<void> | null {
     return this.#element.nativeElement.animationComplete;
   }
 
+  /**
+   * Whether the element is open.
+   */
   public get isOpen(): boolean {
     return this.#element.nativeElement.isOpen;
   }
 
-  public beforeOpenOutput = outputFromObservable(
+  /**
+   * Emits whenever the component starts the opening transition. Can be canceled.
+   */
+  public beforeOpenOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
     { alias: 'beforeOpen' },
   );
 
-  protected _openOutput = outputFromObservable<Event>(NEVER, { alias: 'open' });
-  public openOutput = internalOutputFromObservable(
+  protected _openOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  /**
+   * Emits whenever the component is opened.
+   */
+  public openOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'open'),
   );
 
-  public beforeCloseOutput = outputFromObservable(
+  /**
+   * Emits whenever the component begins the closing transition. Can be canceled.
+   */
+  public beforeCloseOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'beforeclose'),
     { alias: 'beforeClose' },
   );
 
-  protected _closeOutput = outputFromObservable<Event>(NEVER, { alias: 'close' });
-  public closeOutput = internalOutputFromObservable(
+  protected _closeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'close' });
+  /**
+   * Emits whenever the component is closed.
+   */
+  public closeOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'close'),
   );
 
@@ -118,18 +176,30 @@ export class SbbSidebar implements OnInit {
     });
   }
 
+  /**
+   * Toggles the sidebar visibility.
+   */
   public toggle(): void {
     return this.#element.nativeElement.toggle();
   }
 
+  /**
+   * Opens the sidebar.
+   */
   public open(): void {
     return this.#element.nativeElement.open();
   }
 
+  /**
+   * Closes the sidebar.
+   */
   public close(): void {
     return this.#element.nativeElement.close();
   }
 
+  /**
+   * The method which is called on escape key press. Defaults to calling close()
+   */
   public escapeStrategy(): void {
     return this.#element.nativeElement.escapeStrategy();
   }

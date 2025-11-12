@@ -103,7 +103,6 @@ describe('sbb-toast', () => {
       expect(spy).toHaveBeenCalled();
     });
 
-    // TODO: understand why next is not called in tests
     it('should emit before and after toast closing animation', async () => {
       const ref = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
@@ -112,7 +111,7 @@ describe('sbb-toast', () => {
       const beforeCloseSpy = jasmine.createSpy('beforeClose spy');
       const afterCloseSpy = jasmine.createSpy('afterClose spy');
       ref.beforeClose.subscribe(beforeCloseSpy);
-      ref.afterClose.subscribe({ complete: afterCloseSpy });
+      ref.afterClose.subscribe(afterCloseSpy);
       await fixture.whenRenderingDone();
 
       fixture.detectChanges();

@@ -7,6 +7,7 @@ import {
   inject,
   Input,
   NgZone,
+  type OutputRef,
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -21,6 +22,12 @@ import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/toggle-check.js';
 
+/**
+ * It displays a toggle checkbox.
+ *
+ * @slot  - Use the unnamed slot to add content to the toggle label.
+ * @slot icon - Use this slot to provide an icon. If `icon-name` is set, a sbb-icon will be used.
+ */
 @Directive({
   selector: 'sbb-toggle-check',
   exportAs: 'sbbToggleCheck',
@@ -44,6 +51,9 @@ export class SbbToggleCheck<T = string>
   #ngZone: NgZone = inject(NgZone);
   #focusMonitor = inject(FocusMonitor);
 
+  /**
+   * Size variant, either m, s or xs.
+   */
   @Input()
   public set size(value: 'xs' | 's' | 'm') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
@@ -52,6 +62,9 @@ export class SbbToggleCheck<T = string>
     return this.#element.nativeElement.size;
   }
 
+  /**
+   * The svg name for the true state - default -> 'tick-small'
+   */
   @Input()
   public set iconName(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
@@ -60,6 +73,9 @@ export class SbbToggleCheck<T = string>
     return this.#element.nativeElement.iconName;
   }
 
+  /**
+   * The label position relative to the toggle. Defaults to 'after'
+   */
   @Input()
   public set labelPosition(value: 'before' | 'after') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.labelPosition = value));
@@ -68,6 +84,9 @@ export class SbbToggleCheck<T = string>
     return this.#element.nativeElement.labelPosition;
   }
 
+  /**
+   * Whether the checkbox is checked.
+   */
   @Input({ transform: booleanAttribute })
   public set checked(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.checked = value));
@@ -76,6 +95,9 @@ export class SbbToggleCheck<T = string>
     return this.#element.nativeElement.checked;
   }
 
+  /**
+   * Whether the component is disabled.
+   */
   @Input({ transform: booleanAttribute })
   public set disabled(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabled = value));
@@ -84,6 +106,9 @@ export class SbbToggleCheck<T = string>
     return this.#element.nativeElement.disabled;
   }
 
+  /**
+   * Whether the component is required.
+   */
   @Input({ transform: booleanAttribute })
   public set required(value: boolean) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.required = value));
@@ -92,6 +117,9 @@ export class SbbToggleCheck<T = string>
     return this.#element.nativeElement.required;
   }
 
+  /**
+   * Name of the form element. Will be read from name attribute.
+   */
   @Input()
   public set name(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.name = value));
@@ -100,6 +128,9 @@ export class SbbToggleCheck<T = string>
     return this.#element.nativeElement.name;
   }
 
+  /**
+   * Value of the form element.
+   */
   @Input()
   public set value(value: T | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
@@ -108,10 +139,16 @@ export class SbbToggleCheck<T = string>
     return this.#element.nativeElement.value;
   }
 
+  /**
+   * Form type of element.
+   */
   public get type(): string {
     return this.#element.nativeElement.type;
   }
 
+  /**
+   * Returns the form owner of this element.
+   */
   public get form(): HTMLFormElement | null {
     return this.#element.nativeElement.form;
   }
@@ -136,37 +173,76 @@ export class SbbToggleCheck<T = string>
     });
   }
 
+  /**
+   * Returns the ValidityState object for this element.
+   */
   public get validity(): ValidityState {
     return this.#element.nativeElement.validity;
   }
 
+  /**
+   * Returns the current error message, if available, which corresponds
+   * to the current validation state.
+   * Please note that only one message is returned at a time (e.g. if
+   * multiple validity states are invalid, only the chronologically first one
+   * is returned until it is fixed, at which point the next message might be
+   * returned, if it is still applicable). Also a custom validity message
+   * (see below) has precedence over native validation messages.
+   */
   public get validationMessage(): string {
     return this.#element.nativeElement.validationMessage;
   }
 
+  /**
+   * Returns true if this element will be validated
+   * when the form is submitted; false otherwise.
+   */
   public get willValidate(): boolean {
     return this.#element.nativeElement.willValidate;
   }
 
+  /**
+   * Returns true if this element has no validity problems; false otherwise.
+   * Fires an invalid event at the element in the latter case.
+   */
   public checkValidity(): boolean {
     return this.#element.nativeElement.checkValidity();
   }
 
+  /**
+   * Returns true if this element has no validity problems; otherwise,
+   * returns false, fires an invalid event at the element,
+   * and (if the event isn't canceled) reports the problem to the user.
+   */
   public reportValidity(): boolean {
     return this.#element.nativeElement.reportValidity();
   }
 
+  /**
+   * Sets the custom validity message for this element. Use the empty string
+   * to indicate that the element does not have a custom validity error.
+   */
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
 
-  protected _changeOutput = outputFromObservable<Event>(NEVER, { alias: 'change' });
-  public changeOutput = internalOutputFromObservable(
+  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'change',
+  });
+  /**
+   * The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+   */
+  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'change'),
   );
 
-  protected _inputOutput = outputFromObservable<InputEvent>(NEVER, { alias: 'input' });
-  public inputOutput = internalOutputFromObservable(
+  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
+    alias: 'input',
+  });
+  /**
+   * The input event fires when the value has been changed as a direct result of a user action.
+   */
+  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
     fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
   );
 }
