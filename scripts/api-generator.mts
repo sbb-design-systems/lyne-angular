@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'url';
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, rmSync } from 'fs';
 import { basename, dirname, join, normalize, relative } from 'path';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -7,15 +7,18 @@ const documentation = JSON.parse(
   readFileSync(join(root, `/src/docs/documentation/documentation.json`), 'utf8'),
 );
 
-const generateApiFiles = (projectPath: string) => {
-  // Create output folder
+const generateApiFiles = (projectPath: string[]) => {
   const outputFolder: string = join(root, `/src/docs/documentation/api`);
-  if (!existsSync(outputFolder)) {
-    mkdirSync(outputFolder, { recursive: true });
+  // Clean and recreate output folder
+  if (existsSync(outputFolder)) {
+    rmSync(outputFolder, { recursive: true, force: true });
   }
+  mkdirSync(outputFolder, { recursive: true });
 
   // Recursive method to scan directories and create files
-  scanFoldersAndWriteFiles(projectPath, join(root, `/src/docs/documentation/api`));
+  projectPath.forEach((p) =>
+    scanFoldersAndWriteFiles(p, join(root, `/src/docs/documentation/api`)),
+  );
 };
 
 const scanFoldersAndWriteFiles = (projectPath: string, apiFolder: string) => {
@@ -30,8 +33,9 @@ const scanFoldersAndWriteFiles = (projectPath: string, apiFolder: string) => {
 
     // Scan documentation and add content
     const readmeContent = createReadmeAPI(relative(root, normalize(projectPath)));
-
-    writeFileSync(outPath, readmeContent, 'utf-8');
+    if (readmeContent) {
+      writeFileSync(outPath, readmeContent, { encoding: 'utf-8', flag: 'a' });
+    }
     return;
   }
 
@@ -45,7 +49,7 @@ const scanFoldersAndWriteFiles = (projectPath: string, apiFolder: string) => {
 const createReadmeAPI = (modulePath: string): string => {
   let readmeText = '';
 
-  // TODO: classes - components - injectables - interfaces - miscellaneous
+  // TODO: injectables - interfaces - miscellaneous
   const directives = (documentation['directives'] as any[]).filter(
     (e) => dirname(e.file) === modulePath,
   );
@@ -58,8 +62,23 @@ const createReadmeAPI = (modulePath: string): string => {
   if (components && components.length > 0) {
     readmeText += createDocsComponentsDirectives(components);
   }
+  const classes = (documentation['classes'] as any[]).filter((e) => dirname(e.file) === modulePath);
+  if (classes.length > 0) {
+    readmeText += createDocsClasses(classes);
+  }
 
   return readmeText;
+};
+
+const createDocsClasses = (entities: any[]): string => {
+  return entities
+    .map(
+      (entity) =>
+        `## API Reference for ${entity['name']}${entity['extends']?.length > 0 ? ` extends ${entity['extends'].join(', ')}` : ''}${entity['implements']?.length > 0 ? ` implements ${entity['implements'].join(',')}` : ''}
+${entity['rawdescription'] ? `\n${entity['rawdescription']?.replaceAll('\n', ' ').trimStart()}\n` : ''}
+${entity['properties']?.length > 0 ? createInputsTable(entity['properties'], entity['accessors']) : ''}${entity['methods']?.length > 0 ? createMethodsTable(entity['methods']) : ''}`,
+    )
+    .join('');
 };
 
 const createDocsComponentsDirectives = (entities: any[]): string => {
@@ -70,30 +89,31 @@ const createDocsComponentsDirectives = (entities: any[]): string => {
 ${entity['rawdescription'] ? `\n${entity['rawdescription']?.replaceAll('\n', ' ').trimStart()}\n` : ''}
 **Selector:** \`${entity['selector']}\`
 ${entity['exportAs'] ? `\n**Exported as:** \`${entity['exportAs']}\`\n` : ''}
-${entity['inputsClass'] && entity['inputsClass'].length > 0 ? createInputsTable(entity) : ''}${entity['propertiesClass'] && entity['propertiesClass'].length > 0 ? createOutputTable(entity) : ''}${entity['methodsClass'] && entity['methodsClass'].length > 0 ? createMethodsTable(entity) : ''}`,
+${entity['inputsClass']?.length > 0 ? createInputsTable(entity['inputsClass'], entity['accessors']) : ''}${entity['propertiesClass']?.length > 0 ? createOutputTable(entity) : ''}${entity['methodsClass']?.length > 0 ? createMethodsTable(entity['methodsClass']) : ''}`,
     )
     .join('');
 };
 
 // TODO verify if accessors have to be split in another table
-const createInputsTable = (directive: any): string => {
-  const inputs = directive['inputsClass'] as any[];
-  const inputsNames = new Set(inputs.map((input) => input.name));
-  const accessorsNamesToAdd = Object.keys(directive['accessors']).filter(
-    (key) => !inputsNames.has(key),
-  );
-  const accessorsToAdd = accessorsNamesToAdd.map((acc) => {
-    const accessor = directive['accessors'][acc];
-    return accessor['getSignature'] ?? accessor['setSignature'];
-  }) as any[];
+const createInputsTable = (inputs: any[], accessors: Record<string, any>): string => {
+  if (accessors) {
+    const inputsNames = new Set(inputs.map((input) => input.name));
+    const accessorsToAdd = Object.keys(accessors)
+      .filter((key) => !inputsNames.has(key))
+      .map((acc) => {
+        const accessor = accessors[acc];
+        return accessor['getSignature'] ?? accessor['setSignature'];
+      }) as any[];
+    inputs = [...inputs, ...accessorsToAdd];
+  }
   return `### Properties
 
 | Name | Type | Description |
 | --- | --- | --- |
-${[...inputs, ...accessorsToAdd]
+${inputs
   .map(
     (input) =>
-      `| ${input['name']} | ${createTypeForTable(input['type'])} | ${createDescriptionForTable(input['rawdescription'])} |\n`,
+      `| ${input['name']} | ${createTypeForTable(input['returnType'] ?? input['type'])} | ${createDescriptionForTable(input['rawdescription'])} |\n`,
   )
   .join('')}\n`;
 };
@@ -118,8 +138,7 @@ ${outputs
   return '';
 };
 
-const createMethodsTable = (directive: any): string => {
-  const methods = directive['methodsClass'] as any[];
+const createMethodsTable = (methods: any[]): string => {
   if (methods.every((method) => (method['name'] as string).startsWith('ng'))) {
     return '';
   }
@@ -157,5 +176,4 @@ const createParametersForTable = (args: any[]): string => {
   return '-';
 };
 
-generateApiFiles(join(root, 'src/angular'));
-generateApiFiles(join(root, 'src/angular-experimental'));
+generateApiFiles([join(root, 'src/angular'), join(root, 'src/angular-experimental')]);
