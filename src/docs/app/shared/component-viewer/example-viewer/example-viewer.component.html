@@ -1,9 +1,8 @@
 <div class="example-viewer-header sbb-icon-scaled">
   <h3 class="example-viewer-title">{{ this.exampleData.description }}</h3>
   <sbb-secondary-button
-    type="button"
     class="example-viewer-header-button"
-    icon-name="play-small"
+    icon-name="display-binary-code-small"
     aria-label="View code"
     sbb-tooltip="View code"
     (click)="showSource = !showSource"
@@ -28,9 +27,7 @@
 <sbb-tab-group [hidden]="!showSource" class="sbb-example-viewer-tabs">
   @for (content of exampleCodes | async; track exampleCodes) {
     <sbb-tab-label>{{ content.label }}</sbb-tab-label>
-    <sbb-tab>
-      <pre><code [innerHtml]="content.code"></code></pre>
-    </sbb-tab>
+    <sbb-tab [innerHtml]="content.code"> </sbb-tab>
   }
 </sbb-tab-group>
 
