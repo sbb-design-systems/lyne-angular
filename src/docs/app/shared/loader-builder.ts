@@ -32,7 +32,7 @@ export class LoaderBuilder {
   }
 
   fromApiDocumentation() {
-    this._url = `docs-content/overviews/${this._packageName}/${this._id}/api.md`;
+    this._url = `docs-content/api/${this._packageName}/${this._id}-api.md`;
     return this;
   }
 

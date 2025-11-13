@@ -222,9 +222,29 @@
                 "output": "docs-content/overviews/angular/"
               },
               {
+                "glob": "**/*.md",
+                "input": "src/docs/app/angular/api",
+                "output": "docs-content/api/angular"
+              },
+              {
                 "glob": "**/*.{html,ts}",
                 "input": "src/docs/app/angular/examples/",
                 "output": "docs-content/examples/angular/"
+              },
+              {
+                "glob": "**/*.md",
+                "input": "src/angular-experimental/",
+                "output": "docs-content/overviews/angular-experimental/"
+              },
+              {
+                "glob": "**/*.md",
+                "input": "src/docs/app/angular-experimental/api",
+                "output": "docs-content/api/angular-experimental"
+              },
+              {
+                "glob": "**/*.{html,ts}",
+                "input": "src/docs/app/angular-experimental/examples/",
+                "output": "docs-content/examples/angular-experimental/"
               }
             ],
             "styles": [
