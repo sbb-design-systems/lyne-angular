@@ -20,7 +20,7 @@
     "test:angular": "ng test angular",
     "test:angular-experimental": "ng test angular-experimental",
     "compodoc:run": "run-s compodoc:generate compodoc:api",
-    "compodoc:generate": "compodoc -p tsconfig.doc.json -e json -d src/docs/documentation --minimal --disablePrivate --disableProtected --disableInternal --disableSourceCode",
+    "compodoc:generate": "compodoc -p tsconfig.doc.json -e json -d src/docs --minimal --disablePrivate --disableProtected --disableInternal --disableSourceCode",
     "compodoc:api": "tsx scripts/api-generator.mts",
     "format": "prettier \"**/*\" --write --ignore-unknown",
     "integrity": "yarn format",

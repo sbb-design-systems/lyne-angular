@@ -31,6 +31,7 @@ declare const ngDevMode: object | null;
  * be fully opaque in the center.
  *
  * @docs-private
+ * @internal
  */
 export type SbbArrowViewState = SbbSortDirection | 'hint' | 'active';
 
@@ -38,6 +39,7 @@ export type SbbArrowViewState = SbbSortDirection | 'hint' | 'active';
  * States describing the arrow's animated position (animating fromState to toState).
  * If the fromState is not defined, there will be no animated transition to the toState.
  * @docs-private
+ * @internal
  */
 export interface SbbArrowViewStateTransition {
   fromState?: SbbArrowViewState;

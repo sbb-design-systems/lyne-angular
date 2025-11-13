@@ -3,37 +3,46 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, rmSync
 import { basename, dirname, join, normalize, relative } from 'path';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const documentation = JSON.parse(
-  readFileSync(join(root, `/src/docs/documentation/documentation.json`), 'utf8'),
-);
+const documentation = JSON.parse(readFileSync(join(root, `/src/docs/documentation.json`), 'utf8'));
 
-const generateApiFiles = (projectPath: string[]) => {
-  const outputFolder: string = join(root, `/src/docs/documentation/api`);
-  // Clean and recreate output folder
-  if (existsSync(outputFolder)) {
-    rmSync(outputFolder, { recursive: true, force: true });
+/**
+ * Starting from `projectFolder`, it goes deeper until it reaches the innermost folders;
+ * if the folder's path matches the path of any object (directive, component, class...) in the `compodoc` file,
+ * it creates a `<folder>-api.md` file for the found object under `src/docs/app/<project>/api`.
+ *
+ * NOTE: since there could be cases of folders with the same name (e.g. `angular/overlay` and `angular/core/overlay`),
+ * the `api` folder is deleted and recreated every time and the readme file is created with the 'append' flag (`a`).
+ *
+ * @param projectFolder the name of the package (angular / angular-experimental / ...)
+ */
+const generateApiFiles = (projectFolder: string) => {
+  const projectPath = join(root, 'src', projectFolder);
+  const outputPath = join(root, 'src/docs/app', projectFolder, 'api');
+  if (existsSync(outputPath)) {
+    rmSync(outputPath, { recursive: true, force: true });
   }
-  mkdirSync(outputFolder, { recursive: true });
-
-  // Recursive method to scan directories and create files
-  projectPath.forEach((p) =>
-    scanFoldersAndWriteFiles(p, join(root, `/src/docs/documentation/api`)),
-  );
+  mkdirSync(outputPath, { recursive: true });
+  scanFoldersAndWriteFiles(projectPath, outputPath);
 };
 
+/**
+ * Recursive function which reaches the innermost folder and creates a `.md` file
+ * with the documentation of the objects from compodoc that matches the final path.
+ *
+ * @param projectPath path of the source package
+ * @param apiFolder path of the output folder
+ */
 const scanFoldersAndWriteFiles = (projectPath: string, apiFolder: string) => {
   const folders = readdirSync(projectPath, { withFileTypes: true });
   const subFolders = folders.filter((e) => e.isDirectory());
 
   // Inner folder reached
   if (subFolders.length === 0) {
-    const folderName = basename(projectPath);
-    const apiFileName = `${folderName}-api.md`;
-    const outPath = join(apiFolder, apiFileName);
-
-    // Scan documentation and add content
+    // Scan the documentation file and possibly create the docs file.
     const readmeContent = createReadmeAPI(relative(root, normalize(projectPath)));
     if (readmeContent) {
+      const apiFileName = `${basename(projectPath)}-api.md`;
+      const outPath = join(apiFolder, apiFileName);
       writeFileSync(outPath, readmeContent, { encoding: 'utf-8', flag: 'a' });
     }
     return;
@@ -49,41 +58,84 @@ const scanFoldersAndWriteFiles = (projectPath: string, apiFolder: string) => {
 const createReadmeAPI = (modulePath: string): string => {
   let readmeText = '';
 
-  // TODO: injectables - miscellaneous
-  const directives = (documentation['directives'] as any[]).filter(
-    (e) => dirname(e.file) === modulePath,
+  // Add directives
+  readmeText += addToReadme(
+    modulePath,
+    ['directives'],
+    'Directives',
+    createDocsComponentsDirectives,
   );
-  if (directives?.length > 0) {
-    readmeText += createDocsComponentsDirectives(directives);
-  }
 
-  const components = (documentation['components'] as any[]).filter(
-    (e) => dirname(e.file) === modulePath,
+  // Add components
+  readmeText += addToReadme(
+    modulePath,
+    ['components'],
+    'Components',
+    createDocsComponentsDirectives,
   );
-  if (components?.length > 0) {
-    readmeText += createDocsComponentsDirectives(components);
-  }
 
-  const classes = (documentation['classes'] as any[]).filter((e) => dirname(e.file) === modulePath);
-  if (classes?.length > 0) {
-    readmeText += createDocsClassesInterfaces(classes);
-  }
-
-  const interfaces = (documentation['interfaces'] as any[]).filter(
-    (e) => dirname(e.file) === modulePath,
+  // Add classes
+  readmeText += addToReadme(
+    modulePath,
+    ['classes'],
+    'Classes',
+    createDocsClassesInterfacesInjectables,
   );
-  if (interfaces?.length > 0) {
-    readmeText += createDocsClassesInterfaces(interfaces);
-  }
+
+  // Add interfaces
+  readmeText += addToReadme(
+    modulePath,
+    ['interfaces'],
+    'Interfaces',
+    createDocsClassesInterfacesInjectables,
+  );
+
+  // Add injectables
+  readmeText += addToReadme(
+    modulePath,
+    ['injectables'],
+    'Injectables',
+    createDocsClassesInterfacesInjectables,
+  );
+
+  // Add type aliases
+  readmeText += addToReadme(
+    modulePath,
+    ['miscellaneous', 'typealiases'],
+    'Type aliases',
+    createDocsTypeAliases,
+  );
+
+  // Add enumerations
+  readmeText += addToReadme(
+    modulePath,
+    ['miscellaneous', 'enumerations'],
+    'Enumerations',
+    createDocsEnumerations,
+  );
 
   return readmeText;
 };
 
-const createDocsClassesInterfaces = (entities: any[]): string => {
+const addToReadme = (
+  modulePath: string,
+  keys: string[],
+  sectionName: string,
+  createFn: (p: any[]) => string,
+) => {
+  const listElements = keys.reduce((acc, key) => acc?.[key], documentation) as any[];
+  const found = listElements.filter((obj) => dirname(obj.file) === modulePath);
+  if (found?.length > 0) {
+    return `# ${sectionName}\n\n${createFn(found)}`;
+  }
+  return '';
+};
+
+const createDocsClassesInterfacesInjectables = (entities: any[]): string => {
   return entities
     .map(
       (entity) =>
-        `## API Reference for ${entity['name']}${entity['extends']?.length > 0 ? ` extends ${entity['extends'].join(', ')}` : ''}${entity['implements']?.length > 0 ? ` implements ${entity['implements'].join(',')}` : ''}
+        `## ${entity['name']}${entity['extends']?.length > 0 ? ` extends ${entity['extends'].join(', ')}` : ''}${entity['implements']?.length > 0 ? ` implements ${entity['implements'].join(',')}` : ''}
 ${entity['rawdescription'] ? `\n${entity['rawdescription']?.replaceAll('\n', ' ').trimStart()}\n` : ''}
 ${entity['properties']?.length > 0 ? createInputsTable(entity['properties'], entity['accessors']) : ''}${entity['methods']?.length > 0 ? createMethodsTable(entity['methods']) : ''}`,
     )
@@ -94,7 +146,7 @@ const createDocsComponentsDirectives = (entities: any[]): string => {
   return entities
     .map(
       (entity) =>
-        `## API Reference for ${entity['name']}
+        `## ${entity['name']}
 ${entity['rawdescription'] ? `\n${entity['rawdescription']?.replaceAll('\n', ' ').trimStart()}\n` : ''}
 **Selector:** \`${entity['selector']}\`
 ${entity['exportAs'] ? `\n**Exported as:** \`${entity['exportAs']}\`\n` : ''}
@@ -103,8 +155,22 @@ ${entity['inputsClass']?.length > 0 ? createInputsTable(entity['inputsClass'], e
     .join('');
 };
 
-// TODO verify if accessors have to be split in another table
-const createInputsTable = (inputs: any[], accessors: Record<string, any>): string => {
+const createDocsTypeAliases = (typeAliases: any[]): string => {
+  return typeAliases
+    .map((alias) => `## ${alias['name']}\n\n\`type ${alias['name']} = ${alias['rawtype']};\``)
+    .join('');
+};
+
+const createDocsEnumerations = (enums: any[]): string => {
+  return enums
+    .map(
+      (enumVal) =>
+        `## ${enumVal['name']}\n\n\`enum ${enumVal['name']} = { ${(enumVal['childs'] as any[]).map((c) => `${c.name}`).join(', ')} }\`\n`,
+    )
+    .join('');
+};
+
+const createInputsTable = (inputs: any[], accessors?: Record<string, any>): string => {
   if (accessors) {
     const inputsNames = new Set(inputs.map((input) => input.name));
     const accessorsToAdd = Object.keys(accessors)
@@ -122,7 +188,7 @@ const createInputsTable = (inputs: any[], accessors: Record<string, any>): strin
 ${inputs
   .map(
     (input) =>
-      `| ${input['name']} | ${createTypeForTable(input['returnType'] ?? input['type'])} | ${createDescriptionForTable(input['rawdescription'])} |\n`,
+      `| ${input['name']} | ${createTypeForTable(input['returnType'] ?? input['type'])} | ${createDescriptionForTable(input['rawdescription'])}|\n`,
   )
   .join('')}\n`;
 };
@@ -140,7 +206,7 @@ const createOutputTable = (directive: any): string => {
 | --- | --- |
 ${outputs
   .map(
-    (output) => `| ${output['name']} | ${createDescriptionForTable(output['rawdescription'])} |\n`,
+    (output) => `| ${output['name']} | ${createDescriptionForTable(output['rawdescription'])}|\n`,
   )
   .join('')}\n`;
   }
@@ -185,4 +251,5 @@ const createParametersForTable = (args: any[]): string => {
   return '-';
 };
 
-generateApiFiles([join(root, 'src/angular'), join(root, 'src/angular-experimental')]);
+generateApiFiles('angular');
+generateApiFiles('angular-experimental');
