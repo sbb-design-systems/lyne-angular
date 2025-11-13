@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { SbbExpansionPanelModule } from '@sbb-esta/lyne-angular/expansion-panel';
+import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbSidebarModule } from '@sbb-esta/lyne-angular/sidebar';
 import type { Observable } from 'rxjs';
@@ -18,7 +18,7 @@ import type { ShowcaseMetaPackage } from '../meta';
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
-    SbbExpansionPanelModule,
+    SbbAccordionModule,
     SbbBlockLink,
     SbbSidebarModule,
   ],

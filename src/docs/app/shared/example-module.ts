@@ -15,6 +15,7 @@ export async function loadExample(id: string): Promise<unknown> {
     case 'mini-button-basic':
       return import('../angular/examples/button/mini-button');
     default:
+      console.warn(`No example found for component with id "${id}".`);
       return undefined;
   }
 }
