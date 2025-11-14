@@ -1,9 +1,128 @@
 import { fileURLToPath } from 'url';
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, rmSync } from 'fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { basename, dirname, join, normalize, relative } from 'path';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const documentation = JSON.parse(readFileSync(join(root, `/src/docs/documentation.json`), 'utf8'));
+
+/**
+ * The configuration object used to merge different `api` files in a single one for the angular project.
+ */
+const mergeConfigAngular = {
+  accordion: ['accordion', 'expansion-panel', 'expansion-panel-header', 'expansion-panel-content'],
+  alert: ['alert', 'alert-group'],
+  'autocomplete-grid': [
+    'autocomplete-grid',
+    'autocomplete-grid-row',
+    'autocomplete-grid-optgroup',
+    'autocomplete-grid-option',
+    'autocomplete-grid-cell',
+    'autocomplete-grid-button',
+  ],
+  breadcrumb: ['breadcrumb', 'breadcrumb-group'],
+  button: [
+    'button',
+    'button-link',
+    'button-static',
+    'accent-button',
+    'accent-button-link',
+    'accent-button-static',
+    'secondary-button',
+    'secondary-button-link',
+    'secondary-button-static',
+    'transparent-button',
+    'transparent-button-link',
+    'transparent-button-static',
+    'mini-button',
+    'mini-button-group',
+  ],
+  card: ['card', 'card-button', 'card-link', 'card-badge'],
+  carousel: ['carousel', 'carousel-list', 'carousel-item'],
+  checkbox: ['checkbox', 'checkbox-group', 'checkbox-panel'],
+  chip: ['chip', 'chip-group'],
+  container: ['container', 'sticky-bar'],
+  dialog: ['dialog', 'dialog-title', 'dialog-content', 'dialog-actions', 'dialog-close-button'],
+  'file-selector': ['file-selector', 'file-selector-dropzone'],
+  'flip-card': ['flip-card', 'flip-card-summary', 'flip-card-details'],
+  'form-field': ['form-field', 'form-field-clear', 'form-error'],
+  header: ['header', 'header-button', 'header-link', 'header-environment'],
+  'link-list': ['link-list', 'link-list-anchor'],
+  link: [
+    'link',
+    'link-button',
+    'link-static',
+    'block-link',
+    'block-link-button',
+    'block-link-static',
+  ],
+  menu: ['menu', 'menu-button', 'menu-link'],
+  'mini-calendar': ['mini-calendar', 'mini-calendar-month', 'mini-calendar-day'],
+  navigation: [
+    'navigation',
+    'navigation-section',
+    'navigation-list',
+    'navigation-marker',
+    'navigation-link',
+    'navigation-button',
+  ],
+  option: ['option', 'optgroup', 'option-hint'],
+  paginator: ['paginator', 'compact-paginator'],
+  popover: ['popover', 'popover-trigger'],
+  'radio-button': ['radio-button', 'radio-button-group', 'radio-button-panel'],
+  sidebar: [
+    'sidebar',
+    'sidebar-container',
+    'sidebar-content',
+    'sidebar-title',
+    'sidebar-close-button',
+  ],
+  'icon-sidebar': [
+    'icon-sidebar',
+    'icon-sidebar-container',
+    'icon-sidebar-content',
+    'icon-sidebar-button',
+    'icon-sidebar-link',
+  ],
+  stepper: ['stepper', 'step', 'step-label'],
+  table: ['table', 'table-wrapper', 'sort'],
+  tab: ['tab', 'tab-group', 'tab-label'],
+  tag: ['tag', 'tag-group'],
+  teaser: ['teaser', 'teaser-hero', 'teaser-product', 'teaser-product-static'],
+  'timetable-form': [
+    'timetable-form',
+    'timetable-form-field',
+    'timetable-form-details',
+    'timetable-form-swap-button',
+  ],
+  timetable: [
+    'train-formation',
+    'train',
+    'train-wagon',
+    'train-blocked-passage',
+    'timetable-occupancy',
+    'timetable-occupancy-icon',
+  ],
+  toggle: ['toggle', 'toggle-option', 'toggle-check'],
+};
+
+/**
+ * The configuration object used to merge different `api` files in a single one for the angular-experimental project.
+ */
+const mergeConfigAngularExperimental = {
+  'seat-reservation': [
+    'seat-reservation-area',
+    'seat-reservation-graphic',
+    'seat-reservation-navigation-coach',
+    'seat-reservation-navigation-services',
+    'seat-reservation-place-control',
+    'seat-reservation-scoped',
+  ],
+};
+
+const mergeConfig: Record<string, Record<string, string[]>> = {
+  angular: mergeConfigAngular,
+  'angular-experimental': mergeConfigAngularExperimental,
+};
 
 /**
  * Starting from `projectFolder`, it goes deeper until it reaches the innermost folders;
@@ -23,6 +142,7 @@ const generateApiFiles = (projectFolder: string) => {
   }
   mkdirSync(outputPath, { recursive: true });
   scanFoldersAndWriteFiles(projectPath, outputPath);
+  mergeFilesInModule(outputPath, mergeConfig[projectFolder]);
 };
 
 /**
@@ -55,6 +175,36 @@ const scanFoldersAndWriteFiles = (projectPath: string, apiFolder: string) => {
   }
 };
 
+/**
+ * Based on the provided `config` object, it creates a single file from several ones.
+ * The config's values are mapped as `<config.value[i]>-api.md` files,
+ * then these files are read and joined as a single file, named as `<config.key>-api.md`.
+ * @param path the project path
+ * @param config the key-values object used to generate the file
+ */
+const mergeFilesInModule = (path: string, config: Record<string, string[]>): void => {
+  Object.entries(config).forEach(([mainFile, subFiles]: [string, string[]]) => {
+    let outputDoc = '';
+    subFiles
+      .map((fileName) => join(path, `${fileName}-api.md`))
+      .forEach((file) => {
+        outputDoc += readFileSync(file, 'utf8');
+        rmSync(file, { force: true });
+        writeFileSync(join(path, `${mainFile}-api.md`), outputDoc, { encoding: 'utf-8' });
+      });
+  });
+};
+
+/**
+ * It creates the docs content by concatenating:
+ *  - directives
+ *  - components
+ *  - classes
+ *  - interfaces
+ *  - types
+ *  - enums
+ * @param modulePath the path of the innermost folder, used to check which entities needs to be written
+ */
 const createReadmeAPI = (modulePath: string): string => {
   let readmeText = '';
 
@@ -62,7 +212,7 @@ const createReadmeAPI = (modulePath: string): string => {
   readmeText += addToReadme(
     modulePath,
     ['directives'],
-    'Directives',
+    'Directive',
     createDocsComponentsDirectives,
   );
 
@@ -70,7 +220,7 @@ const createReadmeAPI = (modulePath: string): string => {
   readmeText += addToReadme(
     modulePath,
     ['components'],
-    'Components',
+    'Component',
     createDocsComponentsDirectives,
   );
 
@@ -78,7 +228,7 @@ const createReadmeAPI = (modulePath: string): string => {
   readmeText += addToReadme(
     modulePath,
     ['classes'],
-    'Classes',
+    'Class',
     createDocsClassesInterfacesInjectables,
   );
 
@@ -86,7 +236,7 @@ const createReadmeAPI = (modulePath: string): string => {
   readmeText += addToReadme(
     modulePath,
     ['interfaces'],
-    'Interfaces',
+    'Interface',
     createDocsClassesInterfacesInjectables,
   );
 
@@ -94,7 +244,7 @@ const createReadmeAPI = (modulePath: string): string => {
   readmeText += addToReadme(
     modulePath,
     ['injectables'],
-    'Injectables',
+    'Injectable',
     createDocsClassesInterfacesInjectables,
   );
 
@@ -102,7 +252,7 @@ const createReadmeAPI = (modulePath: string): string => {
   readmeText += addToReadme(
     modulePath,
     ['miscellaneous', 'typealiases'],
-    'Type aliases',
+    'Type alias',
     createDocsTypeAliases,
   );
 
@@ -110,44 +260,56 @@ const createReadmeAPI = (modulePath: string): string => {
   readmeText += addToReadme(
     modulePath,
     ['miscellaneous', 'enumerations'],
-    'Enumerations',
+    'Enumeration',
     createDocsEnumerations,
   );
 
   return readmeText;
 };
 
+/**
+ * From the `documentation` object, it accesses the object which key is given by cycling the `keys` value.
+ * If in the object's values there are entities which `file` property matches the `modulePath`,
+ * apply the `createFn` callback.
+ * @param modulePath the scanned path
+ * @param keys the keys needed to access the entities,
+ *   e.g. "{ lvl1: { lvl2: [ { file: 1 }, { file: 2 } ] } }" => ['lvl1', 'lvl2']
+ * @param type the entity type
+ * @param createFn the callback function that creates the docs
+ */
 const addToReadme = (
   modulePath: string,
   keys: string[],
-  sectionName: string,
-  createFn: (p: any[]) => string,
+  type: string,
+  createFn: (entities: any[], type: string) => string,
 ) => {
   const listElements = keys.reduce((acc, key) => acc?.[key], documentation) as any[];
   const found = listElements.filter((obj) => dirname(obj.file) === modulePath);
   if (found?.length > 0) {
-    return `# ${sectionName}\n\n${createFn(found)}`;
+    return createFn(found, type);
   }
   return '';
 };
 
-const createDocsClassesInterfacesInjectables = (entities: any[]): string => {
+const createDocsClassesInterfacesInjectables = (entities: any[], type: string): string => {
   return entities
     .map(
       (entity) =>
         `## ${entity['name']}${entity['extends']?.length > 0 ? ` extends ${entity['extends'].join(', ')}` : ''}${entity['implements']?.length > 0 ? ` implements ${entity['implements'].join(',')}` : ''}
 ${entity['rawdescription'] ? `\n${entity['rawdescription']?.replaceAll('\n', ' ').trimStart()}\n` : ''}
+**Type:** ${type}\n
 ${entity['properties']?.length > 0 ? createInputsTable(entity['properties'], entity['accessors']) : ''}${entity['methods']?.length > 0 ? createMethodsTable(entity['methods']) : ''}`,
     )
     .join('');
 };
 
-const createDocsComponentsDirectives = (entities: any[]): string => {
+const createDocsComponentsDirectives = (entities: any[], type: string): string => {
   return entities
     .map(
       (entity) =>
         `## ${entity['name']}
 ${entity['rawdescription'] ? `\n${entity['rawdescription']?.replaceAll('\n', ' ').trimStart()}\n` : ''}
+**Type:** ${type}\n
 **Selector:** \`${entity['selector']}\`
 ${entity['exportAs'] ? `\n**Exported as:** \`${entity['exportAs']}\`\n` : ''}
 ${entity['inputsClass']?.length > 0 ? createInputsTable(entity['inputsClass'], entity['accessors']) : ''}${entity['propertiesClass']?.length > 0 ? createOutputTable(entity) : ''}${entity['methodsClass']?.length > 0 ? createMethodsTable(entity['methodsClass']) : ''}`,
@@ -155,17 +317,23 @@ ${entity['inputsClass']?.length > 0 ? createInputsTable(entity['inputsClass'], e
     .join('');
 };
 
-const createDocsTypeAliases = (typeAliases: any[]): string => {
+const createDocsTypeAliases = (typeAliases: any[], type: string): string => {
   return typeAliases
-    .map((alias) => `## ${alias['name']}\n\n\`type ${alias['name']} = ${alias['rawtype']};\``)
+    .map(
+      (alias) => `## ${alias['name']}\n
+**Type:** ${type}\n
+\`type ${alias['name']} = ${alias['rawtype']};\`\n\n`,
+    )
     .join('');
 };
 
-const createDocsEnumerations = (enums: any[]): string => {
+const createDocsEnumerations = (enums: any[], type: string): string => {
   return enums
     .map(
       (enumVal) =>
-        `## ${enumVal['name']}\n\n\`enum ${enumVal['name']} = { ${(enumVal['childs'] as any[]).map((c) => `${c.name}`).join(', ')} }\`\n`,
+        `## ${enumVal['name']}\n
+**Type:** ${type}\n
+\`enum ${enumVal['name']} = { ${(enumVal['childs'] as any[]).map((c) => `${c.name}`).join(', ')} }\`\n\n`,
     )
     .join('');
 };
@@ -214,7 +382,8 @@ ${outputs
 };
 
 const createMethodsTable = (methods: any[]): string => {
-  if (methods.every((method) => (method['name'] as string).startsWith('ng'))) {
+  const filteredMethods = methods.filter((method) => !(method['name'] as string).startsWith('ng'));
+  if (filteredMethods?.length === 0) {
     return '';
   }
 
@@ -222,7 +391,7 @@ const createMethodsTable = (methods: any[]): string => {
 
 | Name | Parameters | Return type | Description |
 | --- | --- | --- | --- |
-${methods
+${filteredMethods
   .map(
     (method) =>
       `| ${method['name']} | ${createParametersForTable(method['args'])} | ${createTypeForTable(method['returnType'])} | ${createDescriptionForTable(method['rawdescription'])} |\n`,
