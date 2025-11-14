@@ -41,6 +41,7 @@ const mergeConfigAngular = {
   checkbox: ['checkbox', 'checkbox-group', 'checkbox-panel'],
   chip: ['chip', 'chip-group'],
   container: ['container', 'sticky-bar'],
+  datepicker: ['datepicker', 'datepicker-toggle', 'datepicker-previous-day', 'datepicker-next-day'],
   dialog: ['dialog', 'dialog-title', 'dialog-content', 'dialog-actions', 'dialog-close-button'],
   'file-selector': ['file-selector', 'file-selector-dropzone'],
   'flip-card': ['flip-card', 'flip-card-summary', 'flip-card-details'],
@@ -75,8 +76,6 @@ const mergeConfigAngular = {
     'sidebar-content',
     'sidebar-title',
     'sidebar-close-button',
-  ],
-  'icon-sidebar': [
     'icon-sidebar',
     'icon-sidebar-container',
     'icon-sidebar-content',
