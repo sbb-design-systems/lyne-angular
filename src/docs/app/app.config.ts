@@ -1,6 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { type ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import GithubSlugger from 'github-slugger';
 import hljs from 'highlight.js';
 import { marked, type Tokens } from 'marked';
 import { markedHighlight } from 'marked-highlight';
@@ -53,6 +54,22 @@ marked.use({
       if (body) body = `<tbody>${body}</tbody>`;
 
       return `<table class="sbb-table">\n <thead>\n ${header} </thead>\n ${body} </table>\n`;
+    },
+    heading({ tokens, depth }: Tokens.Heading): string {
+      const text = marked.Parser.parseInline(tokens);
+      if (depth < 3) {
+        const headingId = new GithubSlugger().slug(text);
+        const href = `${window.location.origin}${window.location.pathname}#${headingId}`;
+        return `
+            <h${depth} id="${headingId}">
+              <a href="${href}" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: initial;">
+                <sbb-icon name="link-small"></sbb-icon>
+                ${text}
+              </a>
+            </h${depth}>`;
+      }
+
+      return `<h${depth}>${text}</h${depth}>`;
     },
   },
 });
