@@ -1,1 +1,3 @@
-## Test Accordion readme
+## sbb-accordion
+
+WIP

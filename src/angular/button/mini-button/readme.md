@@ -1,1 +1,3 @@
-## Test Button/mini-button readme
+## sbb-mini-button
+
+WIP
