@@ -5,9 +5,8 @@ import hljs from 'highlight.js';
 import { marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 
-import { DocsMarkedRenderer } from '../tools/markdown-to-html/docs-marked-renderer';
-
 import { routes } from './app.routes';
+import { DocsMarkedRenderer } from './docs-marked-renderer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,20 +16,19 @@ export const appConfig: ApplicationConfig = {
   ],
 };
 
-marked.use(
-  markedHighlight({
+marked
+  .use({
     async: true,
-    emptyLangClass: 'hljs',
-    langPrefix: 'hljs language-',
-    highlight(code, lang) {
-      const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-      return hljs.highlight(code, { language }).value;
-    },
-  }),
-);
-
-// TODO: Move the renderer to another file
-marked.use({
-  async: true,
-  renderer: DocsMarkedRenderer,
-});
+    renderer: DocsMarkedRenderer,
+  })
+  .use(
+    markedHighlight({
+      async: true,
+      emptyLangClass: 'hljs',
+      langPrefix: 'hljs language-',
+      highlight(code, lang) {
+        const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+        return hljs.highlight(code, { language }).value;
+      },
+    }),
+  );

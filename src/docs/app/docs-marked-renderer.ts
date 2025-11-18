@@ -1,7 +1,7 @@
 import GithubSlugger from 'github-slugger';
 import type { RendererObject, Tokens } from 'marked';
 
-export const DocsMarkedRenderer: RendererObject<string, string> = {
+export const DocsMarkedRenderer: RendererObject = {
   heading({ tokens, depth }: Tokens.Heading): string {
     const text = this.parser.parseInline(tokens);
     if (depth < 3) {
