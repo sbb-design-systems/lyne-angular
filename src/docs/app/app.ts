@@ -1,6 +1,7 @@
 import { KeyValuePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Meta } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import { SbbHeader, SbbHeaderLink } from '@sbb-esta/lyne-angular/header';
@@ -38,4 +39,9 @@ export class App {
   private _variantSwitch = inject(VariantSwitch);
   sbbVariant = this._variantSwitch.sbbVariant;
   packages = PACKAGES;
+  version: string = '';
+
+  constructor() {
+    this.version = inject(Meta).getTag('name="sbb-docs-version"')!.content;
+  }
 }

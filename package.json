@@ -11,6 +11,7 @@
     "build:angular-experimental": "ng build angular-experimental",
     "postbuild:angular-experimental": "node --experimental-strip-types ./scripts/patch-package-version.mts",
     "build:docs": "run-s compodoc:run docs:build",
+    "postbuild:docs": "node --experimental-strip-types ./scripts/patch-docs-version.mts",
     "build:showcase": "ng build showcase",
     "build": "yarn -s build:angular && yarn -s build:angular-experimental && yarn -s build:showcase && yarn -s build:docs",
     "watch:angular": "ng build angular --watch --configuration development",
