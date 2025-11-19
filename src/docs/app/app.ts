@@ -42,6 +42,6 @@ export class App {
   version: string = '';
 
   constructor() {
-    this.version = inject(Meta).getTag('name="sbb-docs-version"')!.content;
+    this.version = inject(Meta).getTag('name="sbb-lyne-angular-version"')!.content;
   }
 }

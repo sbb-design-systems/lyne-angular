@@ -10,9 +10,20 @@ if (!existsSync(indexPath)) {
   );
 }
 
-const { version } = JSON.parse(
+const { version, dependencies } = JSON.parse(
   readFileSync(fileURLToPath(import.meta.resolve('../package.json')), 'utf8'),
 );
+let lyneVersion = dependencies['@sbb-esta/lyne-elements'] as string;
+if (!lyneVersion.startsWith('^')) {
+  lyneVersion = `^${lyneVersion}`;
+}
+let lyneTokenVersion = dependencies['@sbb-esta/lyne-design-tokens'] as string;
+if (!lyneTokenVersion.startsWith('^')) {
+  lyneTokenVersion = `^${lyneTokenVersion}`;
+}
 
-const content = readFileSync(indexPath, 'utf8').replaceAll('0.0.0-PLACEHOLDER', version);
+const content = readFileSync(indexPath, 'utf8')
+  .replaceAll('0.0.0-LYNE-ANGULAR', version)
+  .replaceAll('0.0.0-LYNE-TOKEN', lyneTokenVersion)
+  .replaceAll('0.0.0-LYNE', lyneVersion);
 writeFileSync(indexPath, content, 'utf8');
