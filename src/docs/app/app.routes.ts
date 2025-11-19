@@ -1,5 +1,7 @@
 import type { Routes } from '@angular/router';
 
+import { HowToUpdateComponent } from './howtoupdate/how-to-update.component';
+import { IntroductionComponent } from './introduction/introduction.component';
 import { VariantSwitch } from './variant-switch';
 
 export const routes: Routes = [
@@ -9,8 +11,11 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'angular',
-        pathMatch: 'full',
+        component: IntroductionComponent,
+      },
+      {
+        path: 'howtoupdate',
+        component: HowToUpdateComponent,
       },
       {
         path: 'angular',

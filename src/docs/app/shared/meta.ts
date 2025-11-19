@@ -34,7 +34,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
       },
       {
         name: 'Guides',
-        entries: [{ label: 'TBD', link: './tbd' }],
+        entries: [{ label: 'TBD', link: './' }],
       },
       {
         name: 'Components',
