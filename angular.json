@@ -217,6 +217,11 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               {
+                "glob": "**/*",
+                "input": "src/docs/assets",
+                "output": "assets"
+              },
+              {
                 "glob": "**/*.md",
                 "input": "src/angular/",
                 "output": "docs-content/overviews/angular/"
@@ -227,7 +232,7 @@
                 "output": "docs-content/api/angular"
               },
               {
-                "glob": "**/*.{html,ts}",
+                "glob": "**/*.{html,ts,css}",
                 "input": "src/docs/app/angular/examples/",
                 "output": "docs-content/examples/angular/"
               },
@@ -242,7 +247,7 @@
                 "output": "docs-content/api/angular-experimental"
               },
               {
-                "glob": "**/*.{html,ts}",
+                "glob": "**/*.{html,ts,css}",
                 "input": "src/docs/app/angular-experimental/examples/",
                 "output": "docs-content/examples/angular-experimental/"
               }

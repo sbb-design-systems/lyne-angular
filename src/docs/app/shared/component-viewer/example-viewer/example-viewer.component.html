@@ -9,19 +9,18 @@
   >
   </sbb-secondary-button>
 
-  <!-- TODO: stackblitz -->
-  <!--  @if (stackBlitzEnabled() | async) {-->
-  <!--    <sbb-secondary-button-->
-  <!--      sbb-stack-blitz-button-->
-  <!--      type="button"-->
-  <!--      [example]="exampleData.id"-->
-  <!--      class="example-viewer-header-button"-->
-  <!--      aria-label="Edit example in StackBlitz"-->
-  <!--      sbb-tooltip="Edit example in StackBlitz"-->
-  <!--    >-->
-  <!--      <sbb-icon svgIcon="link-external-small" />-->
-  <!--    </sbb-secondary-button>-->
-  <!--  }-->
+  @if (stackBlitzEnabled() | async) {
+    <sbb-secondary-button
+      sbb-stack-blitz-button
+      [exampleData]="exampleData"
+      type="button"
+      class="example-viewer-header-button"
+      aria-label="Edit example in StackBlitz"
+      sbb-tooltip="Edit example in StackBlitz"
+      icon-name="link-external-small"
+    >
+    </sbb-secondary-button>
+  }
 </div>
 
 <sbb-tab-group [hidden]="!showSource" class="sbb-example-viewer-tabs">

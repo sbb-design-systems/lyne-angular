@@ -17,16 +17,20 @@ export class ExampleData {
   /** List of files that are part of this example. */
   exampleFiles: string[];
 
+  /** Whether the css has to be added to exampleFiles. */
+  hasStyle = false;
+
   /** Selector name of the example component. */
   selectorName: string;
 
   /** Name of the file that contains the example component. */
-  // TODO: check if needed
-  importPath: string;
+  indexFilename: string;
 
   /** Names of the components being used in this example. */
-  // TODO: check if needed
   componentNames: string[];
+
+  /** Path from which to import the example. */
+  importPath: string;
 
   static find(library: string, id: string, module?: string): ExampleData[] {
     return (EXAMPLE_COMPONENTS[module ? `${module}/${id}` : id] || []).map(
@@ -40,13 +44,18 @@ export class ExampleData {
 
     this.id = example.id!;
     this.name = example.name ?? exampleName.replace(/-+/g, '') + 'Example';
+    // TODO check these setters
     this.exampleFiles = example.exampleFiles ?? [
       `${example.id}-example.html`,
       `${example.id}-example.ts`,
     ];
-    this.selectorName = example.selectorName ?? `sbb-${example}-example`;
-    this.importPath = example.importPath ?? `../${library}/examples/${id}`;
+    if (example.hasStyle) {
+      this.exampleFiles.push(`${example.id}-example.css`);
+    }
+    this.selectorName = example.selectorName ?? `sbb-${example.id}-example`;
+    this.indexFilename = example.indexFilename ?? `${example.id}-example.ts`;
     this.description = example.description ?? exampleName.replace(/-+/g, ' ') + ' Example';
+    this.importPath = `${library}/${id}`;
     this.componentNames = example.componentNames ?? [this.name];
   }
 }

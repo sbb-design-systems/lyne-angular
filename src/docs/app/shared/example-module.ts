@@ -1,7 +1,7 @@
 import type { ExampleData } from './example-data';
 
 export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[]> = {
-  accordion: ['accordion-basic'],
+  accordion: [{ id: 'accordion-basic', hasStyle: true }],
   alert: ['alert-basic'],
   'button/mini-button': ['mini-button-basic'],
 };

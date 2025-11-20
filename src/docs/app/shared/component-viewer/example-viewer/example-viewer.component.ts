@@ -16,6 +16,7 @@ import type { ExampleData } from '../../example-data';
 import { loadExample } from '../../example-module';
 import { HtmlLoader } from '../../html-loader.service';
 import { moduleParams } from '../../module-params';
+import { StackBlitzButton } from '../stack-blitz/stack-blitz-button';
 
 interface ExampleCode {
   label: string;
@@ -42,7 +43,14 @@ export class ExampleOutletComponent implements OnInit {
   selector: 'sbb-example-viewer',
   templateUrl: './example-viewer.component.html',
   styleUrls: ['./example-viewer.component.scss'],
-  imports: [AsyncPipe, ExampleOutletComponent, SbbTabsModule, SbbTooltipModule, SbbSecondaryButton],
+  imports: [
+    AsyncPipe,
+    ExampleOutletComponent,
+    SbbTabsModule,
+    SbbTooltipModule,
+    SbbSecondaryButton,
+    StackBlitzButton,
+  ],
 })
 export class ExampleViewerComponent implements OnInit {
   @Input() exampleData!: ExampleData;
@@ -77,7 +85,6 @@ export class ExampleViewerComponent implements OnInit {
     );
   }
 
-  // TODO: ?
   stackBlitzEnabled() {
     return moduleParams(this._route).pipe(
       map((params) => ['angular', 'journey-maps'].includes(params.packageName)),
