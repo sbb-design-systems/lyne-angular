@@ -1,3 +1,0 @@
-## sbb-dialog-actions
-
-WIP

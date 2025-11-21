@@ -1,3 +1,0 @@
-## sbb-dialog-title
-
-WIP

@@ -1,3 +1,0 @@
-## sbb-popover-trigger
-
-WIP

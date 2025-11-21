@@ -1,3 +1,0 @@
-## sbb-tab-group
-
-WIP

@@ -1,3 +1,0 @@
-## sbb-sidebar-title
-
-WIP

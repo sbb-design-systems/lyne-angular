@@ -1,3 +1,0 @@
-## sbb-link-button
-
-WIP

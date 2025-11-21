@@ -1,3 +1,0 @@
-## sbb-chip-group
-
-WIP

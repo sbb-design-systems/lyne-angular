@@ -1,3 +1,0 @@
-## sbb-train-wagon
-
-WIP

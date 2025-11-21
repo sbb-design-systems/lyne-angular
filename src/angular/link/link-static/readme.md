@@ -1,3 +1,0 @@
-## sbb-link-static
-
-WIP

@@ -1,3 +1,0 @@
-## sbb-compact-paginator
-
-WIP

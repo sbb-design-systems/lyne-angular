@@ -1,3 +1,0 @@
-## sbb-option-hint
-
-WIP

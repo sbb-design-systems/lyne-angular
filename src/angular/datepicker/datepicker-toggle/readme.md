@@ -1,3 +1,0 @@
-## sbb-datepicker-toggle
-
-WIP

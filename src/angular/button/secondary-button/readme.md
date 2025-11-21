@@ -1,3 +1,0 @@
-## sbb-secondary-button
-
-WIP

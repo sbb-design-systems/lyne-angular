@@ -1,3 +1,0 @@
-## sbb-menu-button
-
-WIP

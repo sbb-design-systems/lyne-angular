@@ -1,3 +1,0 @@
-## sbb-breadcrumb-group
-
-WIP

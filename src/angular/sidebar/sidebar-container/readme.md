@@ -1,3 +1,0 @@
-## sbb-sidebar-container
-
-WIP

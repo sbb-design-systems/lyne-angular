@@ -1,3 +1,0 @@
-## sbb-carousel-list
-
-WIP

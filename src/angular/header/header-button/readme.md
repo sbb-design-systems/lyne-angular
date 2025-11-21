@@ -1,3 +1,0 @@
-## sbb-header-button
-
-WIP

@@ -1,3 +1,0 @@
-## sbb-card-link
-
-WIP

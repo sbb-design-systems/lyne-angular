@@ -1,3 +1,0 @@
-## sbb-navigation-marker
-
-WIP

@@ -1,3 +1,0 @@
-## sbb-checkbox-panel
-
-WIP
