@@ -30,9 +30,7 @@ export class MarkdownViewerComponent implements OnDestroy {
     moduleParams(this._route)
       .pipe(
         switchMap((params) =>
-          params.loaderBuilderInterceptor
-            ? params.loaderBuilderInterceptor!(this._htmlLoader.withParams(params)).load()
-            : this._htmlLoader.withParams(params).fromDocumentation().load(),
+          params.loaderBuilderInterceptor!(this._htmlLoader.withParams(params)).load(),
         ),
         switchMap((markdown) => marked.parse(markdown)),
         takeUntil(this._destroyed),

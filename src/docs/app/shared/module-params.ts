@@ -14,11 +14,22 @@ export interface ModuleParams {
   loaderBuilderInterceptor?: (loaderBuilder: LoaderBuilder) => LoaderBuilder;
 }
 
+/**
+ * Combines current route's params/data with its ancestor's params/data.
+ * The usage of the `Array.unshift` before `Object.assign` allows to override ancestors params/data.
+ */
 export const moduleParams = (route: ActivatedRoute): Observable<ModuleParams> => {
-  return combineLatest([route.parent!.params, route.params, route.parent!.data, route.data]).pipe(
-    map(
-      ([parentParams, params, parentData, data]) =>
-        ({ ...parentParams, ...params, ...parentData, ...data }) as ModuleParams,
-    ),
-  );
+  const streams: Observable<ModuleParams>[] = [];
+  let currentRoute: ActivatedRoute | null = route;
+
+  while (currentRoute) {
+    streams.unshift(
+      combineLatest([currentRoute.params, currentRoute.data]).pipe(
+        map(([params, data]) => ({ ...params, ...data }) as ModuleParams),
+      ),
+    );
+    currentRoute = currentRoute.parent;
+  }
+
+  return combineLatest(streams).pipe(map((parts) => Object.assign({}, ...parts) as ModuleParams));
 };

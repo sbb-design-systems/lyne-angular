@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { componentViewerSubnavigation } from '../shared/component-viewer/component-viewer/component-viewer-subnavigation';
 import { ComponentViewerComponent } from '../shared/component-viewer/component-viewer/component-viewer.component';
+import type { LoaderBuilder } from '../shared/loader-builder';
 import { MarkdownViewerComponent } from '../shared/markdown-viewer/markdown-viewer.component';
 import { PACKAGES } from '../shared/meta';
 import { PackageViewerComponent } from '../shared/package-viewer/package-viewer.component';
@@ -12,7 +13,10 @@ const routes: Routes = [
   {
     path: '',
     component: PackageViewerComponent,
-    data: { packageData: PACKAGES['angular'] },
+    data: {
+      packageName: 'angular',
+      packageData: PACKAGES['angular'],
+    },
     children: [
       {
         path: '',
@@ -26,23 +30,27 @@ const routes: Routes = [
       {
         path: 'introduction/:id',
         component: MarkdownViewerComponent,
-        data: { packageName: 'angular' },
+        data: {
+          loaderBuilderInterceptor: (loaderBuilder: LoaderBuilder) =>
+            loaderBuilder.fromDocumentation(),
+        },
       },
       {
         path: 'guides/:id',
         component: MarkdownViewerComponent,
-        data: { packageName: 'angular' },
+        data: {
+          loaderBuilderInterceptor: (loaderBuilder: LoaderBuilder) =>
+            loaderBuilder.fromDocumentation(),
+        },
       },
       {
         path: 'components/:id',
         component: ComponentViewerComponent,
-        data: { packageName: 'angular', packageData: PACKAGES['angular'] },
         children: componentViewerSubnavigation,
       },
       {
         path: 'components/:module/:id',
         component: ComponentViewerComponent,
-        data: { packageName: 'angular', packageData: PACKAGES['angular'] },
         children: componentViewerSubnavigation,
       },
     ],
