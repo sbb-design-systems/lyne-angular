@@ -39,20 +39,14 @@ export class StackBlitzButton {
     if (this._openStackBlitzFn) {
       this._openStackBlitzFn(this._variantSwitch.sbbVariant.value === 'lean');
     } else {
-      // this._notificationToast.open(
-      //   'StackBlitz is not ready yet. Please try again in a few seconds.',
-      //   undefined,
-      // );
+      // FIXME ?
+      console.log('StackBlitz is not ready yet. Please try again in a few seconds.');
     }
   }
 
   private _prepareStackBlitzForExample(data: ExampleData): void {
     this._ngZone.runOutsideAngular(async () => {
-      const isTest = data.id.includes('harness');
-      this._openStackBlitzFn = await this._stackBlitzWriter.createStackBlitzForExample(
-        data,
-        isTest,
-      );
+      this._openStackBlitzFn = await this._stackBlitzWriter.createStackBlitzForExample(data);
     });
   }
 }

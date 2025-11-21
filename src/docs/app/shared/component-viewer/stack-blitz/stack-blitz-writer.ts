@@ -49,23 +49,19 @@ type FileDictionary = Record<string, string>;
 @Injectable({ providedIn: 'root' })
 export class StackBlitzWriter {
   private _fileCache = new Map<string, Observable<string>>();
-
   private _http: HttpClient = inject(HttpClient);
   private _ngZone: NgZone = inject(NgZone);
-
-  private _version = inject(Meta).getTag('name="sbb-lyne-angular-version"')!.content;
-  private _lyneVersion = inject(Meta).getTag('name="sbb-lyne-components-version"')!.content;
-  private _tokenVersion = inject(Meta).getTag('name="sbb-lyne-token-version"')!.content;
+  private _meta: Meta = inject(Meta);
+  private _version = this._getPatchedTagVersion('name="sbb-lyne-angular-version"');
+  private _lyneVersion = this._getPatchedTagVersion('name="sbb-lyne-components-version"');
+  private _tokenVersion = this._getPatchedTagVersion('name="sbb-lyne-token-version"');
 
   /** Opens a StackBlitz for the specified example. */
-  createStackBlitzForExample(
-    data: ExampleData,
-    isTest: boolean,
-  ): Promise<(isSbbLean: boolean) => void> {
+  createStackBlitzForExample(data: ExampleData): Promise<(isSbbLean: boolean) => void> {
     // Run outside the zone since the creation doesn't interact with Angular
     // and the file requests can cause excessive change detections.
     return this._ngZone.runOutsideAngular(async () => {
-      const files = await this._buildInMemoryFileDictionary(data, isTest);
+      const files = await this._buildInMemoryFileDictionary(data);
       const exampleMainFile = `src/app/${data.indexFilename}`;
 
       return (isSbbLean: boolean) => {
@@ -77,7 +73,8 @@ export class StackBlitzWriter {
         this._openStackBlitz({
           files,
           title: `Sbb Angular Library - ${data.description}`,
-          description: `${data.description}\n\nAuto-generated from: https://angular.app.sbb.ch`,
+          // FIXME the definitive app endpoint must be updated once deployed
+          description: `${data.description}\n\nAuto-generated from: https://lyne-angular.app.sbb.ch`,
           openFile: exampleMainFile,
         });
       };
@@ -111,10 +108,7 @@ export class StackBlitzWriter {
    * Builds an in-memory file dictionary representing an CLI project serving
    * the example. The dictionary can then be passed to StackBlitz as project files.
    */
-  private async _buildInMemoryFileDictionary(
-    data: ExampleData,
-    isTest: boolean,
-  ): Promise<FileDictionary> {
+  private async _buildInMemoryFileDictionary(data: ExampleData): Promise<FileDictionary> {
     const result: FileDictionary = {};
     const tasks: Promise<unknown>[] = [];
     const exampleBaseContentPath = `${DOCS_CONTENT_PATH}/${data.importPath}/${data.id}/`;
@@ -123,9 +117,7 @@ export class StackBlitzWriter {
       tasks.push(
         this._loadFile(TEMPLATE_PATH + relativeFilePath)
           // Replace example placeholders in the template files.
-          .then((content) =>
-            this._replaceExamplePlaceholders(data, relativeFilePath, content, isTest),
-          )
+          .then((content) => this._replaceExamplePlaceholders(data, relativeFilePath, content))
           .then((content) => (result[relativeFilePath] = content)),
       );
     }
@@ -170,7 +162,6 @@ export class StackBlitzWriter {
     data: ExampleData,
     fileName: string,
     fileContent: string,
-    isTest: boolean,
   ): string {
     // Replaces the version placeholder in the `index.html` and `package.json` file.
     // Technically we invalidate the `package-lock.json` file for the StackBlitz boilerplate
@@ -190,8 +181,6 @@ export class StackBlitzWriter {
       fileContent = fileContent
         .replace(/sbb-angular-docs-example/g, data.selectorName)
         .replace(/\${title}/g, data.description);
-    } else if (fileName === '.stackblitzrc') {
-      fileContent = fileContent.replace(/\${startCommand}/, isTest ? 'npm test' : 'npm start');
     } else if (fileName === 'src/main.ts') {
       fileContent = fileContent.replaceAll('SbbAngularDocsExample', data.componentNames[0]);
 
@@ -200,5 +189,19 @@ export class StackBlitzWriter {
       fileContent = fileContent.replace(/sbb-angular-docs-example/g, importFileName);
     }
     return fileContent;
+  }
+
+  /**
+   * In local environment, the postinstall script which overrides the versions in the index.html is not run,
+   * so versions value are still placeholders; since it breaks the stackblitz install, 'latest' is set.
+   * @param tag
+   * @private
+   */
+  private _getPatchedTagVersion(tag: string): string {
+    const tagVersion = this._meta.getTag(tag)!.content;
+    if (tagVersion.startsWith('0.0.0')) {
+      return 'latest';
+    }
+    return tagVersion;
   }
 }

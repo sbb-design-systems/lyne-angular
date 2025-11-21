@@ -9,7 +9,7 @@
   >
   </sbb-secondary-button>
 
-  @if (stackBlitzEnabled() | async) {
+  @if ((stackBlitzEnabled() | async) && exampleData) {
     <sbb-secondary-button
       sbb-stack-blitz-button
       [exampleData]="exampleData"
