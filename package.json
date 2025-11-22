@@ -61,7 +61,7 @@
     "@storybook/angular": "9.0.11",
     "@types/jasmine": "5.1.13",
     "@types/node": "22.19.1",
-    "angular-eslint": "20.6.0",
+    "angular-eslint": "20.7.0",
     "custom-elements-manifest": "2.1.0",
     "eslint": "9.39.1",
     "eslint-config-prettier": "10.1.8",
