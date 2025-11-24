@@ -64,7 +64,6 @@ export class ExampleViewerComponent implements OnInit {
   private _domSanitizer = inject(DomSanitizer);
 
   ngOnInit(): void {
-    console.log('example data', this.exampleData); // TODO: remove
     this.exampleCodes = combineLatest(
       this.exampleData.exampleFiles.map((exampleFile) =>
         this._createLoader(exampleFile).pipe(

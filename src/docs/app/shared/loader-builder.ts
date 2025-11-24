@@ -43,7 +43,6 @@ export class LoaderBuilder {
   }
 
   load(): Observable<string> {
-    console.log(this._url);
     return this._http.get(this._url!, { responseType: 'text' }).pipe(catchError(() => of('')));
   }
 }

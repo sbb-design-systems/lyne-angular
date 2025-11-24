@@ -14,7 +14,7 @@ export const routes: Routes = [
         component: IntroductionComponent,
       },
       {
-        path: 'howtoupdate',
+        path: 'how-to-update',
         component: HowToUpdateComponent,
       },
       {
