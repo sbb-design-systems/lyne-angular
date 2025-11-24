@@ -83,7 +83,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           { label: 'Paginator', link: './components/paginator' },
           { label: 'Popover', link: './components/popover' },
           { label: 'Radio Button', link: './components/radio-button' },
-          { label: 'Screen Readed Only', link: './components/screen-reader-only' },
+          { label: 'Screen Reader Only', link: './components/screen-reader-only' },
           { label: 'Select', link: './components/select' },
           { label: 'Selection Action Panel', link: './components/selection-action-panel' },
           { label: 'Selection Expansion Panel', link: './components/selection-expansion-panel' },
