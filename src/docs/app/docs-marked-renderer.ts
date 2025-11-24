@@ -1,22 +1,21 @@
 import GithubSlugger from 'github-slugger';
 import type { RendererObject, Tokens } from 'marked';
 
+const slugger = new GithubSlugger();
+
 export const DocsMarkedRenderer: RendererObject = {
   heading({ tokens, depth }: Tokens.Heading): string {
     const text = this.parser.parseInline(tokens);
-    if (depth < 3) {
-      const headingId = new GithubSlugger().slug(text);
-      const href = `${window.location.origin}${window.location.pathname}#${headingId}`;
-      return `
-            <h${depth} id="${headingId}">
-              <a href="${href}" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: initial;">
-                <sbb-icon name="link-small"></sbb-icon>
-                ${text}
-              </a>
-            </h${depth}>`;
-    }
-
-    return `<h${depth}>${text}</h${depth}>`;
+    const headingId = slugger.slug(text);
+    const href = `${window.location.origin}${window.location.pathname}#${headingId}`;
+    return `
+      <h${depth} id="${headingId}">
+        <a href="${href}" class="sbb-docs-link">
+          <sbb-icon name="link-small" class="sbb-docs-link-icon"></sbb-icon>
+          ${text}
+        </a>
+      </h${depth}>
+    `;
   },
   table(token: Tokens.Table): string {
     let header = '';

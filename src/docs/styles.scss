@@ -13,3 +13,21 @@ pre {
 code {
   border: 1px solid #ccc;
 }
+
+.sbb-docs-link {
+  --sbb-docs-link-icon-color: initial;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: initial;
+
+  &:hover {
+    --sbb-docs-link-icon-color: var(--sbb-color-primary);
+  }
+}
+
+.sbb-docs-link-icon {
+  color: var(--sbb-docs-link-icon-color);
+}
