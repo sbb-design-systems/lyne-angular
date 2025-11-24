@@ -87,6 +87,10 @@ export default ESLintUtils.RuleCreator.withoutDocs({
       moduleDoesNotExist: 'The configured module "{{module}}" does not exist.',
       exampleDoesNotExist:
         'The configured example "{{example}}" of the module "{{module}}" does not exist.',
+      exampleNotImported:
+        'The example "{{example}}" of the module "{{module}}" is not imported in the "loadExample" switch.',
+      importedExampleDoesNotExist:
+        'The imported example "{{example}}" is not configured. Please delete the import statement or add the example to EXAMPLE_COMPONENTS.',
     },
   },
   create(context) {
@@ -107,98 +111,149 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     return {
       // Find the 'EXAMPLE_COMPONENTS' declaration and extract a map of moduleId => exampleIds
       VariableDeclarator(node: TSESTree.VariableDeclarator) {
-        if (node.id.type === 'Identifier' && node.id.name === 'EXAMPLE_COMPONENTS') {
-          hasExampleComponents = true;
+        if (node.id.type !== 'Identifier' || node.id.name !== 'EXAMPLE_COMPONENTS') {
+          return;
+        }
+        hasExampleComponents = true;
 
-          if (!node.init || node.init.type !== 'ObjectExpression') {
-            context.report({
-              node,
-              messageId: 'notObjectLiteral',
-            });
-            return;
+        if (!node.init || node.init.type !== 'ObjectExpression') {
+          context.report({
+            node,
+            messageId: 'notObjectLiteral',
+          });
+          return;
+        }
+
+        const objectExpr = node.init;
+        for (const prop of objectExpr.properties) {
+          if (prop.type !== 'Property') continue;
+
+          let moduleId: string | null = null;
+          if (prop.key.type === 'Identifier' && !prop.computed) {
+            moduleId = prop.key.name;
+          } else if (prop.key.type === 'Literal' && typeof prop.key.value === 'string') {
+            moduleId = prop.key.value;
           }
 
-          const objectExpr = node.init;
-          for (const prop of objectExpr.properties) {
-            if (prop.type !== 'Property') continue;
+          if (!moduleId || prop.value.type !== 'ArrayExpression') {
+            continue;
+          }
 
-            let moduleId: string | null = null;
-            if (prop.key.type === 'Identifier' && !prop.computed) {
-              moduleId = prop.key.name;
-            } else if (prop.key.type === 'Literal' && typeof prop.key.value === 'string') {
-              moduleId = prop.key.value;
-            }
-
-            if (!moduleId || prop.value.type !== 'ArrayExpression') {
+          const examples = new Set<string>();
+          for (const element of prop.value.elements) {
+            if (!element || (element.type !== 'Literal' && element.type !== 'ObjectExpression')) {
               continue;
             }
 
-            const examples = new Set<string>();
-            for (const element of prop.value.elements) {
-              if (!element || (element.type !== 'Literal' && element.type !== 'ObjectExpression')) {
-                continue;
-              }
+            const id = extractExampleId(element);
+            if (id) {
+              examples.add(id);
 
-              const id = extractExampleId(element);
-              if (id) {
-                examples.add(id);
-
-                // Example is configured, but it does not exist on disk FIX: delete the example from EXAMPLE_COMPONENTS
-                if (onDiskExamples.has(moduleId) && !onDiskExamples.get(moduleId)!.has(id)) {
-                  context.report({
-                    node: element,
-                    messageId: 'exampleDoesNotExist',
-                    data: { module: moduleId, example: id },
-                    fix: (fixer) => fixer.remove(element),
-                  });
-                }
-              }
-            }
-
-            configuredExamples.set(moduleId, examples);
-
-            // Module is configured, but it does not exist on disk FIX: delete the module from EXAMPLE_COMPONENTS
-            if (!onDiskExamples.has(moduleId)) {
-              context.report({
-                node: prop,
-                messageId: 'moduleDoesNotExist',
-                data: { module: moduleId },
-                fix: (fixer) => fixer.remove(prop),
-              });
-              continue;
-            }
-
-            // Example exists physically, but it's not configured FIX: add the example to the module in EXAMPLE_COMPONENTS
-            for (const example of onDiskExamples.get(moduleId)!) {
-              if (!examples.has(example)) {
+              // Example is configured, but it does not exist on disk FIX: delete the example from EXAMPLE_COMPONENTS
+              if (onDiskExamples.has(moduleId) && !onDiskExamples.get(moduleId)!.has(id)) {
                 context.report({
-                  node: prop.key,
-                  messageId: 'exampleNotConfigured',
-                  data: { module: moduleId, example },
-                  fix: (fixer) =>
-                    fixer.insertTextAfterRange(
-                      [prop.value.range[0], prop.value.range[1] - 1],
-                      `, '${example}'`,
-                    ),
+                  node: element,
+                  messageId: 'exampleDoesNotExist',
+                  data: { module: moduleId, example: id },
+                  fix: (fixer) => fixer.remove(element),
                 });
               }
             }
           }
 
-          // Module exists physically, but it's not configured FIX: add the module to EXAMPLE_COMPONENTS
-          for (const moduleId of onDiskExamples.keys()) {
-            if (!configuredExamples.has(moduleId)) {
+          configuredExamples.set(moduleId, examples);
+
+          // Module is configured, but it does not exist on disk FIX: delete the module from EXAMPLE_COMPONENTS
+          if (!onDiskExamples.has(moduleId)) {
+            context.report({
+              node: prop,
+              messageId: 'moduleDoesNotExist',
+              data: { module: moduleId },
+              fix: (fixer) => fixer.remove(prop),
+            });
+            continue;
+          }
+
+          // Example exists physically, but it's not configured FIX: add the example to the module in EXAMPLE_COMPONENTS
+          for (const example of onDiskExamples.get(moduleId)!) {
+            if (!examples.has(example)) {
               context.report({
-                node: objectExpr,
-                messageId: 'moduleNotConfigured',
-                data: { module: moduleId },
+                node: prop.key,
+                messageId: 'exampleNotConfigured',
+                data: { module: moduleId, example },
                 fix: (fixer) =>
                   fixer.insertTextAfterRange(
-                    [objectExpr.range[0], objectExpr.range[1] - 1],
-                    `${moduleId}: [],`,
+                    [prop.value.range[0], prop.value.range[1] - 1],
+                    `, '${example}'`,
                   ),
               });
             }
+          }
+        }
+
+        // Module exists physically, but it's not configured FIX: add the module to EXAMPLE_COMPONENTS
+        for (const moduleId of onDiskExamples.keys()) {
+          if (!configuredExamples.has(moduleId)) {
+            context.report({
+              node: objectExpr,
+              messageId: 'moduleNotConfigured',
+              data: { module: moduleId },
+              fix: (fixer) =>
+                fixer.insertTextAfterRange(
+                  [objectExpr.range[0], objectExpr.range[1] - 1],
+                  `${moduleId}: [],`,
+                ),
+            });
+          }
+        }
+      },
+
+      // Ensure that the 'loadExample' function handles all the configured examples
+      FunctionDeclaration(node: TSESTree.FunctionDeclaration) {
+        if (node.id?.type !== 'Identifier' || node.id?.name !== 'loadExample') {
+          return;
+        }
+
+        const switchNode = node.body.body.find((n) => n.type === 'SwitchStatement')!;
+        const defaultNode = switchNode.cases.find((c) => !c.test)!;
+        const importedExamples = switchNode.cases
+          .map((c) => (c.test?.type === 'Literal' ? c.test.value : null))
+          .filter(Boolean) as string[];
+
+        // Check that all configured examples are imported
+        for (const [moduleId, examples] of configuredExamples.entries()) {
+          for (const example of examples) {
+            if (!importedExamples.includes(example)) {
+              context.report({
+                node: switchNode,
+                messageId: 'exampleNotImported',
+                data: { module: moduleId, example },
+                fix: (fixer) =>
+                  fixer.insertTextBefore(
+                    defaultNode,
+                    `case '${example}':\n return import('.angular/examples/${moduleId}');\n`,
+                  ),
+              });
+            }
+          }
+        }
+
+        // Flatten the map values in a single array
+        const allConfiguredExamplesIds = new Array(...configuredExamples.values())
+          .map((e) => new Array(...e.values()))
+          .flat();
+
+        // Check that all imported examples are configured
+        for (const example of importedExamples) {
+          if (!allConfiguredExamplesIds.includes(example)) {
+            context.report({
+              node:
+                switchNode.cases.find(
+                  (c) => c.test?.type === 'Literal' && c.test.value === example,
+                ) ?? switchNode,
+              messageId: 'importedExampleDoesNotExist',
+              data: { example },
+            });
           }
         }
       },
@@ -212,8 +267,6 @@ export default ESLintUtils.RuleCreator.withoutDocs({
           });
           return;
         }
-
-        // TODO: handle 'loadExample' function
       },
     };
   },
