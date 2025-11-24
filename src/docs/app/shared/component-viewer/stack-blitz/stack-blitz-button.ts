@@ -1,8 +1,11 @@
-import { inject, NgZone, Directive, Input } from '@angular/core';
+import { Directive, inject, Input, NgZone } from '@angular/core';
+import type { SbbToast } from '@sbb-esta/lyne-angular/toast';
+import { SbbToastService } from '@sbb-esta/lyne-angular/toast';
 
 import { VariantSwitch } from '../../../variant-switch';
 import type { ExampleData } from '../../example-data';
 
+import { StackBlitzMessage } from './stack-blitz-message';
 import { StackBlitzWriter } from './stack-blitz-writer';
 
 @Directive({
@@ -34,13 +37,18 @@ export class StackBlitzButton {
   private _stackBlitzWriter: StackBlitzWriter = inject(StackBlitzWriter);
   private _ngZone: NgZone = inject(NgZone);
   private _variantSwitch = inject(VariantSwitch);
+  private _toastService = inject(SbbToastService);
 
   openStackBlitz(): void {
     if (this._openStackBlitzFn) {
       this._openStackBlitzFn(this._variantSwitch.sbbVariant.value === 'lean');
     } else {
-      // FIXME ?
-      console.log('StackBlitz is not ready yet. Please try again in a few seconds.');
+      this._toastService.open(StackBlitzMessage, {
+        setupContainer: (sbbToast: SbbToast) => {
+          sbbToast.readOnly = true;
+          sbbToast.timeout = 2000;
+        },
+      });
     }
   }
 
