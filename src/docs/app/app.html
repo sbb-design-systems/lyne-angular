@@ -27,7 +27,7 @@
       routerLinkActive="sbb-active"
       [style.text-decoration]="packageEntry.value['isDeprecated'] ? 'line-through' : ''"
       [sbb-tooltip]="packageEntry.value['name']"
-      [attr.accessibility-label]="packageEntry.value['name']"
+      [accessibilityLabel]="packageEntry.value['name']"
     >
     </sbb-icon-sidebar-link>
     }

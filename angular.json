@@ -232,7 +232,7 @@
                 "output": "docs-content/api/angular"
               },
               {
-                "glob": "**/*.{html,ts,css}",
+                "glob": "**/*.{html,ts,css,scss}",
                 "input": "src/docs/app/angular/examples/",
                 "output": "docs-content/examples/angular/"
               },
@@ -247,7 +247,7 @@
                 "output": "docs-content/api/angular-experimental"
               },
               {
-                "glob": "**/*.{html,ts,css}",
+                "glob": "**/*.{html,ts,css,scss}",
                 "input": "src/docs/app/angular-experimental/examples/",
                 "output": "docs-content/examples/angular-experimental/"
               }

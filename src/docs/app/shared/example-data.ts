@@ -50,7 +50,7 @@ export class ExampleData {
       `${example.id}-example.ts`,
     ];
     if (example.hasStyle) {
-      this.exampleFiles.push(`${example.id}-example.css`);
+      this.exampleFiles.push(`${example.id}-example.scss`);
     }
     this.selectorName = example.selectorName ?? `sbb-${example.id}-example`;
     this.indexFilename = example.indexFilename ?? `${example.id}-example.ts`;
