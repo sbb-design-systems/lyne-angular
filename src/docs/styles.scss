@@ -10,12 +10,8 @@ pre {
   margin: 0;
 }
 
-code {
-  border: 1px solid #ccc;
-}
-
-.sbb-docs-link {
-  --sbb-docs-link-icon-color: initial;
+.docs-link {
+  --docs-link-icon-color: initial;
 
   display: inline-flex;
   align-items: center;
@@ -24,10 +20,70 @@ code {
   color: initial;
 
   &:hover {
-    --sbb-docs-link-icon-color: var(--sbb-color-primary);
+    --docs-link-icon-color: var(--sbb-color-primary);
   }
 }
 
-.sbb-docs-link-icon {
-  color: var(--sbb-docs-link-icon-color);
+.docs-link-icon {
+  color: var(--docs-link-icon-color);
+}
+
+.docs-toc-container {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 1rem;
+}
+
+.docs-toc-content {
+  height: fit-content;
+  top: 0;
+  position: sticky;
+  border-left: 2px solid var(--sbb-color-primary);
+  margin-block-start: 1rem;
+  padding-inline: 1rem;
+  font-size: 13px;
+
+  h3 {
+    margin: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.docs-heading {
+  list-style: none;
+
+  &.docs-heading-2:first-of-type {
+    padding-block-start: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: initial;
+  }
+
+  &:hover {
+    a {
+      color: var(--sbb-color-primary);
+    }
+  }
+}
+
+.docs-heading-2 {
+  padding-block-start: 0.25rem;
+}
+
+.docs-heading-3 {
+  padding-inline-start: 1rem;
+}
+
+.docs-heading-4 {
+  padding-inline-start: 2rem;
+}
+
+.docs-heading-5 {
+  padding-inline-start: 3rem;
 }
