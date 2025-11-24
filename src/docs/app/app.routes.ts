@@ -1,6 +1,6 @@
 import type { Routes } from '@angular/router';
 
-import { HowToUpdateComponent } from './howtoupdate/how-to-update.component';
+import { HowToUpdateComponent } from './how-to-update/how-to-update.component';
 import { IntroductionComponent } from './introduction/introduction.component';
 import { VariantSwitch } from './variant-switch';
 

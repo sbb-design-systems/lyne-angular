@@ -2,7 +2,7 @@
   <sbb-sidebar role="navigation" opened>
     <sbb-accordion multi>
       @for (section of (package | async)?.sections ?? []; track $index) {
-        <sbb-expansion-panel [expanded]="$index === 0">
+        <sbb-expansion-panel expanded>
           <sbb-expansion-panel-header>{{ section.name }}</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>
             @for (entry of section.entries; track $index) {
