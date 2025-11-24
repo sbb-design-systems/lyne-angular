@@ -55,7 +55,7 @@ export class SbbSeatReservationNavigationCoach {
   }
 
   /**
-   * Pre-selected coach index property
+   * Select coach property
    */
   @Input({ transform: booleanAttribute })
   public set selected(value: boolean) {
@@ -66,7 +66,7 @@ export class SbbSeatReservationNavigationCoach {
   }
 
   /**
-   * Focused coach index property
+   * Focus coach property
    */
   @Input({ transform: booleanAttribute })
   public set focused(value: boolean) {
@@ -176,4 +176,26 @@ export class SbbSeatReservationNavigationCoach {
     fromEvent<CustomEvent<SelectCoachEventDetails>>(this.#element.nativeElement, 'selectcoach'),
     { alias: 'selectCoach' },
   );
+
+  /**
+   * Hover coach property
+   */
+  @Input({ transform: booleanAttribute })
+  public set hovered(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hovered = value));
+  }
+  public get hovered(): boolean {
+    return this.#element.nativeElement.hovered;
+  }
+
+  /**
+   * Native focus for this navigation coach is also set when the focused property is changed
+   */
+  @Input({ transform: booleanAttribute })
+  public set nativeFocusActive(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.nativeFocusActive = value));
+  }
+  public get nativeFocusActive(): boolean {
+    return this.#element.nativeElement.nativeFocusActive;
+  }
 }
