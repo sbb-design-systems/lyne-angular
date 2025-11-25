@@ -15,6 +15,15 @@ import { StackBlitzWriter } from './stack-blitz-writer';
   },
 })
 export class StackBlitzButton {
+  @Input()
+  set exampleData(exampleData: ExampleData) {
+    if (exampleData) {
+      this._prepareStackBlitzForExample(exampleData);
+    } else {
+      this._openStackBlitzFn = null;
+    }
+  }
+
   /**
    * Function that can be invoked to open the StackBlitz window synchronously.
    *
@@ -24,15 +33,6 @@ export class StackBlitzButton {
    * same tick as the user interaction.
    */
   private _openStackBlitzFn: ((isSbbLean: boolean) => void) | null = null;
-
-  @Input()
-  set exampleData(exampleData: ExampleData) {
-    if (exampleData) {
-      this._prepareStackBlitzForExample(exampleData);
-    } else {
-      this._openStackBlitzFn = null;
-    }
-  }
 
   private _stackBlitzWriter: StackBlitzWriter = inject(StackBlitzWriter);
   private _ngZone: NgZone = inject(NgZone);
