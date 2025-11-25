@@ -1,3 +1,4 @@
+import { SbbMiniButton } from '@sbb-esta/lyne-angular/button/mini-button';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbPopover } from '@sbb-esta/lyne-angular/popover';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
@@ -50,7 +51,7 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [SbbTitle, SbbBlockLink],
+      imports: [SbbTitle, SbbBlockLink, SbbMiniButton],
     }),
   ],
   title: 'elements/sbb-popover/sbb-popover',
@@ -63,10 +64,7 @@ const meta: Meta = {
   render: ({ triggerPosition, ...args }: Args) => ({
     props: { ...args },
     template: `
-      <sbb-popover-trigger
-        style="margin-inline: 2rem; position: absolute; cursor: pointer; ${triggerPosition}"
-        id="popover-trigger"
-      ></sbb-popover-trigger>
+      <sbb-mini-button icon-name="circle-information-small" style="margin-inline: 2rem; position: absolute; cursor: pointer; ${triggerPosition}" id="popover-trigger"></sbb-mini-button>
       <sbb-popover trigger="popover-trigger" ${argsToTemplate(args)}>
         <sbb-title level="2" visualLevel="6" style="margin-block-start: 0"> Title. </sbb-title>
         <p style="margin: 0" class="sbb-text-s">

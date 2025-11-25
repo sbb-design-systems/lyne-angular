@@ -21,7 +21,7 @@ export class SbbHeaderButton {
 
   /**
    * Used to set the minimum breakpoint from which the text is displayed.
-   * E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra,
+   * E.g. if set to 'large', the text will be visible for breakpoints large and ultra,
    * and hidden for all the others. Ignored if no icon is set.
    */
   @Input()

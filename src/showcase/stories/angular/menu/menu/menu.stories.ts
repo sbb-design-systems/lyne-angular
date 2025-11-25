@@ -36,17 +36,11 @@ const trigger: InputType = {
   table: { disable: true },
 };
 
-const listAccessibilityLabel: InputType = {
-  control: false,
-  table: { disable: true },
-};
-
 const argTypes: ArgTypes = {
   iconName,
   badge,
   disabled,
   trigger,
-  listAccessibilityLabel,
 };
 
 const args: Args = {

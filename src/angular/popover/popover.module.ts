@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 
 import { SbbPopover } from './popover/popover';
-import { SbbPopoverTrigger } from './popover-trigger/popover-trigger';
 
-const SBB_POPOVER_EXPORTED_DECLARATIONS = [SbbPopover, SbbPopoverTrigger];
+const SBB_POPOVER_EXPORTED_DECLARATIONS = [SbbPopover];
 
 @NgModule({
   imports: SBB_POPOVER_EXPORTED_DECLARATIONS,

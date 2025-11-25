@@ -10,10 +10,8 @@ import '@sbb-esta/lyne-elements/dialog/dialog.js';
 /**
  * It displays an interactive overlay element.
  *
- * @slot actions - This slot is used for the actions, the slot is automatically assigned to the `sbb-dialog-actions` element.
  * @slot  - Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`.
  * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
- * @csspart scroll-container - Can be used to change styles of the scroll container of the content.
  */
 @Directive({
   selector: 'sbb-dialog',

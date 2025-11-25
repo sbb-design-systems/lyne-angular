@@ -119,8 +119,8 @@ export class SbbPopover {
   /**
    * Closes the popover.
    */
-  public close(target: HTMLElement): void {
-    return this.#element.nativeElement.close(target);
+  public close(): void {
+    return this.#element.nativeElement.close();
   }
 
   /**

@@ -245,7 +245,7 @@ export class SbbImage {
    *            "conditionFeature": "max-width",
    *            "conditionFeatureValue": {
    *              "lyneDesignToken": true,
-   *              "value": "sbb-breakpoint-micro-max"
+   *              "value": "sbb-breakpoint-small-max"
    *            },
    *            "conditionOperator": "and"
    *          },

@@ -1,5 +1,4 @@
-import { SbbFormError } from '@sbb-esta/lyne-angular/form-error';
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
+import { SbbError, SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
@@ -128,7 +127,7 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [SbbFormError],
+      imports: [SbbError],
     }),
   ],
   title: 'elements/sbb-form-field/sbb-form-field',

@@ -2,7 +2,7 @@ import {
   SbbAutocompleteGridButton,
   SbbAutocompleteGridCell,
   SbbAutocompleteGridRow,
-} from '@sbb-esta/lyne-angular/autocomplete-grid';
+} from '@sbb-esta/lyne-angular-experimental/autocomplete-grid';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
