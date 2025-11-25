@@ -113,7 +113,7 @@ const meta: Meta = {
             Dialog content
           </p>
         </sbb-dialog-content>
-        <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontalFrom="medium">
+        <sbb-dialog-actions align-group="stretch" orientation="vertical" horizontalFrom="large">
           <sbb-block-link
             align-self="start"
             icon-name="chevron-small-left-small"

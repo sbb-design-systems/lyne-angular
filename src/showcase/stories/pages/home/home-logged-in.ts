@@ -171,7 +171,7 @@ export const homeLoggedInTemplate = ({ legs, ...args }: Args): string => `
             <sbb-dialog-actions
               alignGroup="stretch"
               orientation="vertical"
-              horizontalFrom="medium"
+              horizontalFrom="large"
             >
               <sbb-block-link
                 size="s"

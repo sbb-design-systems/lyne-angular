@@ -12,7 +12,7 @@ const actionGroup = (): string => `
   <sbb-action-group
     align-group="stretch"
     orientation="vertical"
-    horizontal-from="medium"
+    horizontal-from="large"
     style="width:100%;"
   >
     <sbb-block-link
