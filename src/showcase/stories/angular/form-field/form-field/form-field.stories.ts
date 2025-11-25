@@ -18,7 +18,7 @@ const inputStory = ({
   <sbb-form-field ${argsToTemplate(args)}>
     ${label && `<label>${label}</label>`}
     <input ${cssClass ? `class=${cssClass}` : ''} placeholder="${placeholder}" value="${value}" [disabled]=${disabled} [readOnly]=${readOnly}/>
-    <sbb-form-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-form-error>
+    <sbb-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-error>
   </sbb-form-field>
 `;
 
@@ -30,7 +30,7 @@ const selectStory = ({ label, cssClass, disabled, ...args }: Args): string => `
       <option value="2">Value 2</option>
       <option value="3">Value 3</option>
     </select>
-    <sbb-form-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-form-error>
+    <sbb-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-error>
   </sbb-form-field>
 `;
 
@@ -46,7 +46,7 @@ const textareaStory = ({
   <sbb-form-field ${argsToTemplate(args)}>
     ${label && `<label>${label}</label>`}
     <textarea ${cssClass ? `class=${cssClass}` : ''} placeholder="${placeholder}" [disabled]=${disabled} [readOnly]=${readOnly}>${value || ''}</textarea>
-    <sbb-form-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-form-error>
+    <sbb-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-error>
   </sbb-form-field>
 `;
 

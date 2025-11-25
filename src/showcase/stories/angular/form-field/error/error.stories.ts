@@ -22,7 +22,7 @@ const args: Args = {
 };
 
 const meta: Meta = {
-  title: 'elements/sbb-form-field/sbb-form-error',
+  title: 'elements/sbb-form-field/sbb-error',
   component: SbbError,
   argTypes,
   args,
