@@ -72,7 +72,7 @@ const meta: Meta = {
       imports: [SbbFormField, SbbAutocompleteGridRow, SbbAutocompleteGrid],
     }),
   ],
-  title: 'elements/sbb-autocomplete-grid/sbb-autocomplete-grid-option',
+  title: 'elements-experimental/sbb-autocomplete-grid/sbb-autocomplete-grid-option',
   component: SbbAutocompleteGridOption,
   parameters: {
     backgroundColor: (context: StoryContext) =>

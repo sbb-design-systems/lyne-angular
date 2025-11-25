@@ -157,7 +157,7 @@ const meta: Meta = {
       ],
     }),
   ],
-  title: 'elements/sbb-autocomplete-grid/sbb-autocomplete-grid',
+  title: 'elements-experimental/sbb-autocomplete-grid/sbb-autocomplete-grid',
   component: SbbAutocompleteGrid,
   parameters: {
     backgroundColor: (context: StoryContext) =>

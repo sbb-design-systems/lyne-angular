@@ -28,7 +28,7 @@ const meta: Meta = {
       imports: [SbbAutocompleteGridCell, SbbAutocompleteGridOptgroup, SbbAutocompleteGridOption],
     }),
   ],
-  title: 'elements/sbb-autocomplete-grid/sbb-autocomplete-grid-row',
+  title: 'elements-experimental/sbb-autocomplete-grid/sbb-autocomplete-grid-row',
   component: SbbAutocompleteGridRow,
   argTypes,
   args,
