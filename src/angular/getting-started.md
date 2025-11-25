@@ -1,5 +1,7 @@
 # Getting started doc test
 
+### HTML Example Test
+
 ```html
 <!-- HTML -->
 <sbb-button icon-name="info"> Button text </sbb-button>
@@ -11,6 +13,8 @@
 
 <sbb-button icon-name="info" aria-label="Click for more information."></sbb-button>
 ```
+
+### Typescript Example Test
 
 ```ts
 // TS
@@ -25,7 +29,7 @@ export class TablePaginatorExampleComponent implements OnInit {
 }
 ```
 
-## Table
+### Table
 
 | Name         | Attribute     | Privacy | Type                    | Default            | Description                                                                             |
 | ------------ | ------------- | ------- | ----------------------- | ------------------ | --------------------------------------------------------------------------------------- |

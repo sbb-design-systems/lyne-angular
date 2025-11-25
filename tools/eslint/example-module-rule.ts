@@ -231,7 +231,7 @@ export default ESLintUtils.RuleCreator.withoutDocs({
                 fix: (fixer) =>
                   fixer.insertTextBefore(
                     defaultNode,
-                    `case '${example}':\n return import('.angular/examples/${moduleId}');\n`,
+                    `case '${example}':\n return import('../angular/examples/${moduleId}');\n`,
                   ),
               });
             }
