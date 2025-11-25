@@ -1,13 +1,13 @@
 import { SbbChipLabel } from '@sbb-esta/lyne-angular/chip-label';
 import { SbbHeader, SbbHeaderButton } from '@sbb-esta/lyne-angular/header';
-import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
 import {
   SbbIconSidebar,
   SbbIconSidebarButton,
   SbbIconSidebarContainer,
   SbbIconSidebarContent,
   SbbIconSidebarLink,
-} from '@sbb-esta/lyne-angular/sidebar';
+} from '@sbb-esta/lyne-angular/icon-sidebar';
+import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, ArgTypes, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';

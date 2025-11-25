@@ -1,4 +1,4 @@
-import { SbbIconSidebarLink } from '@sbb-esta/lyne-angular/sidebar';
+import { SbbIconSidebarLink } from '@sbb-esta/lyne-angular/icon-sidebar';
 import type { Args, ArgTypes, Meta } from '@storybook/angular';
 import { argsToTemplate, componentWrapperDecorator } from '@storybook/angular';
 import type { InputType } from 'storybook/internal/types';

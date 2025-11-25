@@ -1,4 +1,4 @@
-import { SbbFormError } from '@sbb-esta/lyne-angular/form-error';
+import { SbbError } from '@sbb-esta/lyne-angular/form-field';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 import type { ArgTypes, InputType, StoryContext } from 'storybook/internal/types';
@@ -23,7 +23,7 @@ const args: Args = {
 
 const meta: Meta = {
   title: 'elements/sbb-form-field/sbb-form-error',
-  component: SbbFormError,
+  component: SbbError,
   argTypes,
   args,
   parameters: {
@@ -34,7 +34,7 @@ const meta: Meta = {
   },
   render: ({ errorText, ...args }: Args) => ({
     props: { errorText, ...args },
-    template: `<sbb-form-error ${argsToTemplate(args)}>${errorText}</sbb-form-error>`,
+    template: `<sbb-error ${argsToTemplate(args)}>${errorText}</sbb-error>`,
   }),
 };
 export default meta;

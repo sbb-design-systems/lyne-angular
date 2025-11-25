@@ -1,4 +1,4 @@
-import { SbbIconSidebarButton } from '@sbb-esta/lyne-angular/sidebar';
+import { SbbIconSidebarButton } from '@sbb-esta/lyne-angular/icon-sidebar';
 import type { Args, ArgTypes, Meta } from '@storybook/angular';
 import { argsToTemplate, componentWrapperDecorator } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
