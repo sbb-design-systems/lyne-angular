@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 
-import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-row.js';
+import '@sbb-esta/lyne-elements-experimental/autocomplete-grid/autocomplete-grid-row.js';
 
 /**
  * The component is used as a wrapper for options and action buttons.

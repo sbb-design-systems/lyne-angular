@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SbbFormError } from './form-error';
+import { SbbError } from './error';
 
-describe('sbb-form-error', () => {
+describe('sbb-error', () => {
   let fixture: ComponentFixture<TestComponent>, component: TestComponent;
 
   beforeEach(async () => {
@@ -18,7 +18,7 @@ describe('sbb-form-error', () => {
 });
 
 @Component({
-  template: `<sbb-form-error></sbb-form-error>`,
-  imports: [SbbFormError],
+  template: `<sbb-error></sbb-error>`,
+  imports: [SbbError],
 })
 class TestComponent {}

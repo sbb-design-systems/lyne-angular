@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbAutocompleteGridOptgroupElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-optgroup.js';
+import type { SbbAutocompleteGridOptgroupElement } from '@sbb-esta/lyne-elements-experimental/autocomplete-grid/autocomplete-grid-optgroup.js';
 
-import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid-optgroup.js';
+import '@sbb-esta/lyne-elements-experimental/autocomplete-grid/autocomplete-grid-optgroup.js';
 
 /**
  * It can be used as a container for one or more `sbb-autocomplete-grid-option`.

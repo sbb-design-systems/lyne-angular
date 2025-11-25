@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbIconSidebarContainerElement } from '@sbb-esta/lyne-elements/sidebar/icon-sidebar-container.js';
-import type { SbbIconSidebarElement } from '@sbb-esta/lyne-elements/sidebar/icon-sidebar.js';
+import type { SbbIconSidebarContainerElement } from '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar-container.js';
+import type { SbbIconSidebarElement } from '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar.js';
 
-import '@sbb-esta/lyne-elements/sidebar/icon-sidebar.js';
+import '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar.js';
 
 /**
  * Icon sidebar, can be placed inside a `sbb-icon-sidebar-container` element.

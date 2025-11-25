@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject } from '@angular/core';
-import type { SbbIconSidebarContainerElement } from '@sbb-esta/lyne-elements/sidebar/icon-sidebar-container.js';
-import type { SbbIconSidebarElement } from '@sbb-esta/lyne-elements/sidebar/icon-sidebar.js';
+import type { SbbIconSidebarContainerElement } from '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar-container.js';
+import type { SbbIconSidebarElement } from '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar.js';
 
-import '@sbb-esta/lyne-elements/sidebar/icon-sidebar-container.js';
+import '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar-container.js';
 
 /**
  * This is the parent component to one or two `<sbb-icon-sidebar>`s and one `<sbb-icon-sidebar-content>` element.

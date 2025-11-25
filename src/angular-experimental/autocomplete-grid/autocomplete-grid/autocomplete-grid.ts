@@ -2,10 +2,10 @@ import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@a
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import type { SbbAutocompleteType } from '@sbb-esta/lyne-angular/autocomplete';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbAutocompleteGridElement } from '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid.js';
+import type { SbbAutocompleteGridElement } from '@sbb-esta/lyne-elements-experimental/autocomplete-grid/autocomplete-grid.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/autocomplete-grid/autocomplete-grid.js';
+import '@sbb-esta/lyne-elements-experimental/autocomplete-grid/autocomplete-grid.js';
 
 /**
  * Combined with a native input, it displays a panel with a list of available options with connected buttons.

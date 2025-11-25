@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbFormErrorElement } from '@sbb-esta/lyne-elements/form-error.js';
+import type { SbbErrorElement } from '@sbb-esta/lyne-elements/form-field/error.js';
 
-import '@sbb-esta/lyne-elements/form-error.js';
+import '@sbb-esta/lyne-elements/form-field/error.js';
 
 /**
  * It displays an error message in the `sbb-form-field`.
@@ -11,11 +11,11 @@ import '@sbb-esta/lyne-elements/form-error.js';
  * @slot icon - Use this slot to override the default error icon.
  */
 @Directive({
-  selector: 'sbb-form-error',
-  exportAs: 'sbbFormError',
+  selector: 'sbb-error',
+  exportAs: 'sbbError',
 })
-export class SbbFormError {
-  #element: ElementRef<SbbFormErrorElement> = inject(ElementRef<SbbFormErrorElement>);
+export class SbbError {
+  #element: ElementRef<SbbErrorElement> = inject(ElementRef<SbbErrorElement>);
   #ngZone: NgZone = inject(NgZone);
 
   /**

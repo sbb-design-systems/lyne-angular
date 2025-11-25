@@ -1,9 +1,9 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbIconSidebarLinkElement } from '@sbb-esta/lyne-elements/sidebar/icon-sidebar-link.js';
+import type { SbbIconSidebarLinkElement } from '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar-link.js';
 
-import '@sbb-esta/lyne-elements/sidebar/icon-sidebar-link.js';
+import '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar-link.js';
 
 /**
  * Link to be placed inside `sbb-icon-sidebar`.
