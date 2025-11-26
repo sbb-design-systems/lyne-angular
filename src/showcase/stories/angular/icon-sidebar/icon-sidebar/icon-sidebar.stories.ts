@@ -65,7 +65,7 @@ const meta: Meta = {
       ],
     }),
   ],
-  title: 'elements/sbb-sidebar/sbb-icon-sidebar',
+  title: 'elements/sbb-icon-sidebar/sbb-icon-sidebar',
   component: SbbIconSidebar,
   parameters: { docs: { story: { inline: false, iframeHeight: '500px' } } },
   argTypes,

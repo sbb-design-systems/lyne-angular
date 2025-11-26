@@ -53,7 +53,7 @@ const meta: Meta = {
       </div>`,
     ),
   ],
-  title: 'elements/sbb-sidebar/sbb-icon-sidebar-link',
+  title: 'elements/sbb-icon-sidebar/sbb-icon-sidebar-link',
   component: SbbIconSidebarLink,
   argTypes,
   args,

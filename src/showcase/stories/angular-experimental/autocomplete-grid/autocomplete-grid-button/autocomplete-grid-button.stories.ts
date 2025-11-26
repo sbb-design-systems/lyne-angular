@@ -21,7 +21,7 @@ const meta: Meta = {
       imports: [SbbAutocompleteGridRow, SbbAutocompleteGridCell],
     }),
   ],
-  title: 'elements-experimental/sbb-autocomplete-grid/sbb-autocomplete-grid-button',
+  title: 'experimental/sbb-autocomplete-grid/sbb-autocomplete-grid-button',
   component: SbbAutocompleteGridButton,
   parameters: {
     actions: { handles: ['click'] },

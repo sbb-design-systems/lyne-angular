@@ -61,7 +61,7 @@ const meta: Meta = {
       </div>`,
     ),
   ],
-  title: 'elements/sbb-sidebar/sbb-icon-sidebar-button',
+  title: 'elements/sbb-icon-sidebar/sbb-icon-sidebar-button',
   component: SbbIconSidebarButton,
   parameters: {
     actions: { handles: ['click'] },
