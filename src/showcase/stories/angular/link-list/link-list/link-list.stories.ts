@@ -18,7 +18,7 @@ const horizontalFrom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['zero', 'small', 'large', 'ultra'],
 };
 
 const size: InputType = {

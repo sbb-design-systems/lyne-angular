@@ -10,7 +10,7 @@ const type: InputType = {
   control: {
     type: 'select',
   },
-  options: ['info', 'success', 'warn', 'error'],
+  options: ['info', 'note', 'success', 'warn', 'error'],
 };
 
 const size: InputType = {

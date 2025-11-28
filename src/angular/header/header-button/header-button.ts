@@ -21,7 +21,7 @@ export class SbbHeaderButton {
 
   /**
    * Used to set the minimum breakpoint from which the text is displayed.
-   * E.g. if set to 'large', the text will be visible for breakpoints large, wide, ultra,
+   * E.g. if set to 'large', the text will be visible for breakpoints large and ultra,
    * and hidden for all the others. Ignored if no icon is set.
    */
   @Input()
@@ -102,7 +102,7 @@ export class SbbHeaderButton {
    * Please note that only one message is returned at a time (e.g. if
    * multiple validity states are invalid, only the chronologically first one
    * is returned until it is fixed, at which point the next message might be
-   * returned, if it is still applicable). Also a custom validity message
+   * returned, if it is still applicable). Also, a custom validity message
    * (see below) has precedence over native validation messages.
    */
   public get validationMessage(): string {

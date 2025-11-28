@@ -19,17 +19,6 @@ export class SbbCard {
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either xs, s, m, l, xl, xxl or xxxl.
-   */
-  @Input()
-  public set size(value: 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl') {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
-  }
-  public get size(): 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl' {
-    return this.#element.nativeElement.size;
-  }
-
-  /**
    * Option to set the component's background color.
    */
   @Input()

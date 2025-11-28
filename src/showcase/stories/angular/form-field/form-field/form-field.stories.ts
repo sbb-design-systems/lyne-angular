@@ -1,5 +1,4 @@
-import { SbbFormError } from '@sbb-esta/lyne-angular/form-error';
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
+import { SbbError, SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
@@ -19,7 +18,7 @@ const inputStory = ({
   <sbb-form-field ${argsToTemplate(args)}>
     ${label && `<label>${label}</label>`}
     <input ${cssClass ? `class=${cssClass}` : ''} placeholder="${placeholder}" value="${value}" [disabled]=${disabled} [readOnly]=${readOnly}/>
-    <sbb-form-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-form-error>
+    <sbb-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-error>
   </sbb-form-field>
 `;
 
@@ -31,7 +30,7 @@ const selectStory = ({ label, cssClass, disabled, ...args }: Args): string => `
       <option value="2">Value 2</option>
       <option value="3">Value 3</option>
     </select>
-    <sbb-form-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-form-error>
+    <sbb-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-error>
   </sbb-form-field>
 `;
 
@@ -47,7 +46,7 @@ const textareaStory = ({
   <sbb-form-field ${argsToTemplate(args)}>
     ${label && `<label>${label}</label>`}
     <textarea ${cssClass ? `class=${cssClass}` : ''} placeholder="${placeholder}" [disabled]=${disabled} [readOnly]=${readOnly}>${value || ''}</textarea>
-    <sbb-form-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-form-error>
+    <sbb-error style="display: ${cssClass ? `flex` : 'none'}">Error</sbb-error>
   </sbb-form-field>
 `;
 
@@ -128,7 +127,7 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [SbbFormError],
+      imports: [SbbError],
     }),
   ],
   title: 'elements/sbb-form-field/sbb-form-field',

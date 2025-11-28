@@ -44,9 +44,9 @@ export class SbbAlert {
   }
 
   /**
-   * Name of the icon which will be forward to the nested `sbb-icon`.
-   * Choose the icons from https://icons.app.sbb.ch.
-   * Styling is optimized for icons of type HIM-CUS.
+   * The icon name we want to use, choose from the small icon variants
+   * from the ui-icons category from here
+   * https://icons.app.sbb.ch.
    */
   @Input()
   public set iconName(value: string) {

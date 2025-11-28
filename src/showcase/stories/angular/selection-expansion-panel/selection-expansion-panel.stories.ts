@@ -113,13 +113,6 @@ const WithRadioButtonGroupTemplate = ({
   </sbb-radio-button-group>
 `;
 
-const color: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['white', 'milk'],
-};
-
 const forceOpen: InputType = {
   control: {
     type: 'boolean',
@@ -155,7 +148,6 @@ const disabledInput: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  color,
   forceOpen,
   size,
   checkedInput,
@@ -163,7 +155,6 @@ const argTypes: ArgTypes = {
 };
 
 const args: Args = {
-  color: color.options![0],
   size: size.options![0],
   forceOpen: false,
   checkedInput: false,

@@ -25,7 +25,7 @@ import '@sbb-esta/lyne-elements/radio-button/radio-button-group.js';
  * It can be used as a container for one or more `sbb-radio-button`.
  *
  * @slot  - Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`.
- * @slot error - Use this to provide a `sbb-form-error` to show an error message.
+ * @slot error - Use this to provide a `sbb-error` to show an error message.
  */
 @Directive({
   selector: 'sbb-radio-button-group',

@@ -36,20 +36,6 @@ export class SbbMenu {
   }
 
   /**
-   * This will be forwarded as aria-label to the inner list.
-   * Used only if the menu automatically renders the actions inside as a list.
-   */
-  @Input()
-  public set listAccessibilityLabel(value: string) {
-    this.#ngZone.runOutsideAngular(
-      () => (this.#element.nativeElement.listAccessibilityLabel = value),
-    );
-  }
-  public get listAccessibilityLabel(): string {
-    return this.#element.nativeElement.listAccessibilityLabel;
-  }
-
-  /**
    * Whether the element is open.
    */
   public get isOpen(): boolean {
@@ -110,7 +96,7 @@ export class SbbMenu {
   }
 
   /**
-   * Closes the menu and all related menus  nested and parent menus).
+   * Closes the menu and all related menus (nested and parent menus).
    */
   public closeAll(): void {
     return this.#element.nativeElement.closeAll();

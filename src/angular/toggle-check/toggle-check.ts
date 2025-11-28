@@ -63,7 +63,9 @@ export class SbbToggleCheck<T = string>
   }
 
   /**
-   * The svg name for the true state - default -> 'tick-small'
+   * The icon name we want to use, choose from the small icon variants
+   * from the ui-icons category from here
+   * https://icons.app.sbb.ch.
    */
   @Input()
   public set iconName(value: string) {
@@ -186,7 +188,7 @@ export class SbbToggleCheck<T = string>
    * Please note that only one message is returned at a time (e.g. if
    * multiple validity states are invalid, only the chronologically first one
    * is returned until it is fixed, at which point the next message might be
-   * returned, if it is still applicable). Also a custom validity message
+   * returned, if it is still applicable). Also, a custom validity message
    * (see below) has precedence over native validation messages.
    */
   public get validationMessage(): string {

@@ -12,7 +12,7 @@ import '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
  * It can be used as a container for one or more `sbb-checkbox`.
  *
  * @slot  - Use the unnamed slot to add `sbb-checkbox` elements to the `sbb-checkbox-group`.
- * @slot error - Slot used to render a `sbb-form-error` inside the `sbb-checkbox-group`.
+ * @slot error - Slot used to render a `sbb-error` inside the `sbb-checkbox-group`.
  */
 @Directive({
   selector: 'sbb-checkbox-group',
@@ -34,7 +34,7 @@ export class SbbCheckboxGroup {
   }
 
   /**
-   * Size variant, either m, s or xs.
+   * Size variant, either xs, s or m.
    */
   @Input()
   public set size(value: SbbCheckboxSize) {

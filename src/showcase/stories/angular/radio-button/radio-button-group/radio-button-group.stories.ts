@@ -50,7 +50,7 @@ const horizontalFrom: InputType = {
   control: {
     type: 'select',
   },
-  options: ['unset', 'zero', 'micro', 'small', 'medium', 'large', 'wide', 'ultra'],
+  options: ['unset', 'zero', 'small', 'large', 'ultra'],
 };
 
 const size: InputType = {
