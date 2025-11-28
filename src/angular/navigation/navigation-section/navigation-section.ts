@@ -1,6 +1,8 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbNavigationSectionElement } from '@sbb-esta/lyne-elements/navigation/navigation-section.js';
-
+import { NEVER, fromEvent } from 'rxjs';
 import '@sbb-esta/lyne-elements/navigation/navigation-section.js';
 
 /**
@@ -69,6 +71,45 @@ export class SbbNavigationSection {
   }
 
   /**
+   * Emits whenever the component starts the opening transition. Can be canceled.
+   */
+  public beforeOpenOutput: OutputRef<Event> = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'beforeopen'),
+    { alias: 'beforeOpen' },
+  );
+
+  protected _openOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'open' });
+  /**
+   * Emits whenever the component is opened.
+   */
+  public openOutput: OutputRef<Event> = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'open'),
+  );
+
+  /**
+   * Emits whenever the component begins the closing transition. Can be canceled.
+   */
+  public beforeCloseOutput: OutputRef<Event> = outputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'beforeclose'),
+    { alias: 'beforeClose' },
+  );
+
+  protected _closeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'close' });
+  /**
+   * Emits whenever the component is closed.
+   */
+  public closeOutput: OutputRef<Event> = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'close'),
+  );
+
+  /**
+   * Whether the element is open.
+   */
+  public get isOpen(): boolean {
+    return this.#element.nativeElement.isOpen;
+  }
+
+  /**
    * Opens the navigation section on trigger click.
    */
   public open(): void {
@@ -80,5 +121,12 @@ export class SbbNavigationSection {
    */
   public close(): void {
     return this.#element.nativeElement.close();
+  }
+
+  /**
+   * The method which is called on escape key press. Defaults to calling close()
+   */
+  public escapeStrategy(): void {
+    return this.#element.nativeElement.escapeStrategy();
   }
 }

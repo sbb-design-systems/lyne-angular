@@ -19,7 +19,7 @@ import {
 } from '@sbb-esta/lyne-angular/core';
 import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
 import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
-import type { SbbPanelSize } from '@sbb-esta/lyne-elements/core/mixins.js';
+import type { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
@@ -56,13 +56,13 @@ export class SbbCheckboxPanel<T = string>
   #focusMonitor = inject(FocusMonitor);
 
   /**
-   * Size variant, either m or s.
+   * Size variant, either xs, s or m.
    */
   @Input()
-  public set size(value: SbbPanelSize) {
+  public set size(value: SbbCheckboxSize) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbPanelSize {
+  public get size(): SbbCheckboxSize {
     return this.#element.nativeElement.size;
   }
 
@@ -208,7 +208,7 @@ export class SbbCheckboxPanel<T = string>
    * Please note that only one message is returned at a time (e.g. if
    * multiple validity states are invalid, only the chronologically first one
    * is returned until it is fixed, at which point the next message might be
-   * returned, if it is still applicable). Also a custom validity message
+   * returned, if it is still applicable). Also, a custom validity message
    * (see below) has precedence over native validation messages.
    */
   public get validationMessage(): string {

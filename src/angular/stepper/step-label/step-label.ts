@@ -3,6 +3,7 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
 import type { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
+import type { SbbStepperElement } from '@sbb-esta/lyne-elements/stepper/stepper.js';
 
 import '@sbb-esta/lyne-elements/stepper/step-label.js';
 
@@ -95,6 +96,10 @@ export class SbbStepLabel {
     return this.#element.nativeElement.step;
   }
 
+  public get stepper(): SbbStepperElement | null {
+    return this.#element.nativeElement.stepper;
+  }
+
   /**
    * Returns the ValidityState object for this element.
    */
@@ -108,7 +113,7 @@ export class SbbStepLabel {
    * Please note that only one message is returned at a time (e.g. if
    * multiple validity states are invalid, only the chronologically first one
    * is returned until it is fixed, at which point the next message might be
-   * returned, if it is still applicable). Also a custom validity message
+   * returned, if it is still applicable). Also, a custom validity message
    * (see below) has precedence over native validation messages.
    */
   public get validationMessage(): string {

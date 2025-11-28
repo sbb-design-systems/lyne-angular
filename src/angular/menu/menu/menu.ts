@@ -96,7 +96,7 @@ export class SbbMenu {
   }
 
   /**
-   * Closes the menu and all related menus  nested and parent menus).
+   * Closes the menu and all related menus (nested and parent menus).
    */
   public closeAll(): void {
     return this.#element.nativeElement.closeAll();

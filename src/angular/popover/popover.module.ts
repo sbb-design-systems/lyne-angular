@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { SbbPopover } from './popover/popover';
+import { SbbPopover } from './popover';
 
 const SBB_POPOVER_EXPORTED_DECLARATIONS = [SbbPopover];
 

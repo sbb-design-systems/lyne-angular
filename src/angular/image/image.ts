@@ -174,9 +174,9 @@ export class SbbImage {
   }
 
   /**
-   * With performance.mark you can log a timestamp associated with
+   * With `performance.mark` you can log a timestamp associated with
    * the name you define in performanceMark when a certain event is
-   * happening. In our case we will log the performance.mark into
+   * happening. In our case we will log the `performance.mark` into
    * the PerformanceEntry API once the image is fully loaded.
    * Performance monitoring tools like SpeedCurve or Lighthouse are
    * then able to grab these entries from the PerformanceEntry API

@@ -3,6 +3,7 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
 import type { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
+import type { SbbStepperElement } from '@sbb-esta/lyne-elements/stepper/stepper.js';
 import type { SbbStepValidateEventDetails } from '@sbb-esta/lyne-elements/stepper.js';
 import { fromEvent, NEVER } from 'rxjs';
 
@@ -25,6 +26,10 @@ export class SbbStep {
    */
   public get label(): SbbStepLabelElement | null {
     return this.#element.nativeElement.label;
+  }
+
+  public get stepper(): SbbStepperElement | null {
+    return this.#element.nativeElement.stepper;
   }
 
   protected _validateOutput: OutputRef<CustomEvent<SbbStepValidateEventDetails>> =

@@ -9,10 +9,10 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover/popover.js';
+import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/popover/popover.js';
+import '@sbb-esta/lyne-elements/popover.js';
 
 /**
  * It displays contextual information within a popover.

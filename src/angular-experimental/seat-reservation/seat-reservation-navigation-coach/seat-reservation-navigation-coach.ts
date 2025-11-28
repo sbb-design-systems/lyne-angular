@@ -85,7 +85,7 @@ export class SbbSeatReservationNavigationCoach {
   }
 
   /**
-   * Representation of places available for selecting, counting seat places and bicycle places separetely
+   * Representation of places available for selecting, counting seat places and bicycle places separately
    */
   @Input()
   public set freePlacesByType(value: CoachNumberOfFreePlaces) {

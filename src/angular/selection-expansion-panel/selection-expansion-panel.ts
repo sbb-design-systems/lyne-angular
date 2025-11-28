@@ -5,6 +5,12 @@ import {
   internalOutputFromObservable,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
+import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
+import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
+import type {
+  SbbRadioButtonGroupElement,
+  SbbRadioButtonPanelElement,
+} from '@sbb-esta/lyne-elements/radio-button.js';
 import type { SbbSelectionExpansionPanelElement } from '@sbb-esta/lyne-elements/selection-expansion-panel.js';
 import { fromEvent, NEVER } from 'rxjs';
 
@@ -13,7 +19,7 @@ import '@sbb-esta/lyne-elements/selection-expansion-panel.js';
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
  *
- * @slot  - Use the unnamed slot to add `sbb-checkbox` or `sbb-radio-button` elements to the `sbb-selection-expansion-panel`.
+ * @slot  - Use the unnamed slot to add `sbb-checkbox-panel` or `sbb-radio-button-panel` elements to the `sbb-selection-expansion-panel`.
  * @slot content - Use this slot to provide custom content for the panel (optional).
  */
 @Directive({
@@ -28,17 +34,6 @@ export class SbbSelectionExpansionPanel {
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * The background color of the panel.
-   */
-  @Input()
-  public set color(value: 'white' | 'milk') {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.color = value));
-  }
-  public get color(): 'white' | 'milk' {
-    return this.#element.nativeElement.color;
-  }
-
-  /**
    * Whether the content section is always visible.
    */
   @Input({ transform: booleanAttribute })
@@ -47,17 +42,6 @@ export class SbbSelectionExpansionPanel {
   }
   public get forceOpen(): boolean {
     return this.#element.nativeElement.forceOpen;
-  }
-
-  /**
-   * Whether the unselected panel has a border.
-   */
-  @Input({ transform: booleanAttribute })
-  public set borderless(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.borderless = value));
-  }
-  public get borderless(): boolean {
-    return this.#element.nativeElement.borderless;
   }
 
   /**
@@ -91,4 +75,18 @@ export class SbbSelectionExpansionPanel {
   public openOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'open'),
   );
+
+  /**
+   * Group element if present
+   */
+  public get group(): SbbRadioButtonGroupElement | SbbCheckboxGroupElement | null {
+    return this.#element.nativeElement.group;
+  }
+
+  /**
+   * Input panel element
+   */
+  public get panel(): SbbCheckboxPanelElement | SbbRadioButtonPanelElement | null {
+    return this.#element.nativeElement.panel;
+  }
 }

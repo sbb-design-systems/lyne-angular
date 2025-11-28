@@ -5,9 +5,11 @@ import {
   internalOutputFromObservable,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbPanelSize } from '@sbb-esta/lyne-elements/core/mixins.js';
 import type { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-panel.js';
-import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button.js';
+import type {
+  SbbRadioButtonGroupElement,
+  SbbRadioButtonSize,
+} from '@sbb-esta/lyne-elements/radio-button.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/radio-button/radio-button-panel.js';
@@ -33,13 +35,13 @@ export class SbbRadioButtonPanel<T = string> {
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either s or m.
+   * Size variant, either xs, s or m.
    */
   @Input()
-  public set size(value: SbbPanelSize) {
+  public set size(value: SbbRadioButtonSize) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbPanelSize {
+  public get size(): SbbRadioButtonSize {
     return this.#element.nativeElement.size;
   }
 
@@ -173,7 +175,7 @@ export class SbbRadioButtonPanel<T = string> {
    * Please note that only one message is returned at a time (e.g. if
    * multiple validity states are invalid, only the chronologically first one
    * is returned until it is fixed, at which point the next message might be
-   * returned, if it is still applicable). Also a custom validity message
+   * returned, if it is still applicable). Also, a custom validity message
    * (see below) has precedence over native validation messages.
    */
   public get validationMessage(): string {

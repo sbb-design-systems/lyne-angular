@@ -1,2 +1,2 @@
-export * from './popover/popover';
+export * from './popover';
 export * from './popover.module';

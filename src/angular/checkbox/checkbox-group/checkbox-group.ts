@@ -34,7 +34,7 @@ export class SbbCheckboxGroup {
   }
 
   /**
-   * Size variant, either m, s or xs.
+   * Size variant, either xs, s or m.
    */
   @Input()
   public set size(value: SbbCheckboxSize) {

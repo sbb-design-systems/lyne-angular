@@ -1,6 +1,7 @@
 import { Component, viewChild, viewChildren } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { SbbAutocompleteTrigger } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 
 import { SbbAutocompleteGrid, SbbAutocompleteGridModule, SbbAutocompleteGridOption } from '..';
@@ -243,7 +244,7 @@ class TestComponent {
       </sbb-autocomplete-grid>
     </sbb-form-field>
   `,
-  imports: [SbbFormField, ReactiveFormsModule, SbbAutocompleteGridModule],
+  imports: [SbbFormField, ReactiveFormsModule, SbbAutocompleteGridModule, SbbAutocompleteTrigger],
 })
 class TestComponentWithComplexValue {
   values = [

@@ -4,11 +4,19 @@ import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import type { InputType, StoryContext } from 'storybook/internal/types';
 
-const size: InputType = {
+const spacing: InputType = {
   control: {
-    type: 'inline-radio',
+    type: 'select',
   },
-  options: ['xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'],
+  options: [
+    'sbb-card-spacing-3x-xxs',
+    'sbb-card-spacing-xxxs-xxs',
+    'sbb-card-spacing-xxxs-s',
+    'sbb-card-spacing-4x-xxs',
+    'sbb-card-spacing-xxs',
+    'sbb-card-spacing-s',
+    'sbb-card-spacing-l',
+  ],
 };
 
 const color: InputType = {
@@ -32,15 +40,15 @@ const meta: Meta = {
         ? 'var(--sbb-background-color-1)'
         : 'var(--sbb-background-color-3)',
   },
-  argTypes: { size, color },
+  argTypes: { spacing, color },
   args: {
-    size: size.options![2],
+    spacing: spacing.options![2],
     color: color.options![0],
   },
-  render: (args: Args) => ({
+  render: ({ spacing, ...args }: Args) => ({
     props: { ...args },
     template: `
-      <sbb-card ${argsToTemplate(args)}>
+      <sbb-card ${argsToTemplate(args)} class="${spacing}">
         <sbb-title level="4">Example text</sbb-title>
         <span class="sbb-text-m">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porttitor blandit odio, ut blandit

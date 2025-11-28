@@ -1,5 +1,4 @@
 import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header';
-import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
@@ -22,7 +21,7 @@ const expandFrom: InputType = {
   control: {
     type: 'inline-radio',
   },
-  options: [...breakpoints],
+  options: ['zero', 'small', 'large', 'ultra'],
 };
 
 const active: InputType = {
