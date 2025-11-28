@@ -9,8 +9,8 @@
     "angular"
   ],
   "peerDependencies": {
-    "@angular/common": "^20.0.0",
-    "@angular/core": "^20.0.0",
+    "@angular/common": "0.0.0-ANGULAR",
+    "@angular/core": "0.0.0-ANGULAR",
     "@sbb-esta/lyne-angular": "0.0.0-PLACEHOLDER",
     "@sbb-esta/lyne-elements-experimental": "0.0.0-LYNE_ELEMENTS"
   },

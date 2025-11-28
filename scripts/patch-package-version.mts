@@ -24,7 +24,12 @@ if (!lyneVersion.startsWith('^')) {
   lyneVersion = `^${lyneVersion}`;
 }
 
+const rootAngularVersion = dependencies['@angular/core'] as string;
+const angularMajorVersion = rootAngularVersion.trim().match(/\d+/)![0];
+const angularVersion = `^${angularMajorVersion}.0.0${rootAngularVersion.includes('-') ? '-0' : ''}`;
+
 const content = readFileSync(packageJsonPath, 'utf8')
   .replaceAll('0.0.0-PLACEHOLDER', version)
-  .replaceAll('0.0.0-LYNE_ELEMENTS', lyneVersion);
+  .replaceAll('0.0.0-LYNE_ELEMENTS', lyneVersion)
+  .replaceAll('0.0.0-ANGULAR', angularVersion);
 writeFileSync(packageJsonPath, content, 'utf8');
