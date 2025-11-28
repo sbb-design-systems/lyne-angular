@@ -1,5 +1,12 @@
 # Changelog
 
+## [21.0.1](https://github.com/sbb-design-systems/lyne-angular/compare/v21.0.0...v21.0.1) (2025-11-28)
+
+
+### Build System
+
+* prepare patch release ([307a79b](https://github.com/sbb-design-systems/lyne-angular/commit/307a79b563a49e825686d64a19c2fb769b250413))
+
 ## [21.0.0](https://github.com/sbb-design-systems/lyne-angular/compare/v20.0.0-rc.11...v21.0.0) (2025-11-28)
 
 
