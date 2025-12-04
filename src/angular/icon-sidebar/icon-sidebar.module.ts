@@ -18,6 +18,12 @@ const SBB_ICON_SIDEBAR_EXPORTED_DECLARATIONS = [
   imports: SBB_ICON_SIDEBAR_EXPORTED_DECLARATIONS,
   exports: SBB_ICON_SIDEBAR_EXPORTED_DECLARATIONS,
 })
-export class SbbSidebarModule {}
+export class SbbIconSidebarModule {}
 
-export { SbbSidebarModule as SbbIconSidebarModule };
+/**
+ * The module has been incorrectly named, so now there are two SbbSidebarModule;
+ * for now an alias export is added to keep compatibility,
+ * and it will be removed in the next iteration.
+ * @deprecated
+ */
+export { SbbIconSidebarModule as SbbSidebarModule };
