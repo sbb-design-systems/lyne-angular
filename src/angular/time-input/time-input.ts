@@ -146,7 +146,7 @@ export class SbbTimeInput extends SbbControlValueAccessorMixin(class {}) impleme
    * Please note that only one message is returned at a time (e.g. if
    * multiple validity states are invalid, only the chronologically first one
    * is returned until it is fixed, at which point the next message might be
-   * returned, if it is still applicable). Also a custom validity message
+   * returned, if it is still applicable). Also, a custom validity message
    * (see below) has precedence over native validation messages.
    */
   public get validationMessage(): string {
@@ -159,13 +159,6 @@ export class SbbTimeInput extends SbbControlValueAccessorMixin(class {}) impleme
    */
   public get willValidate(): boolean {
     return this.#element.nativeElement.willValidate;
-  }
-
-  /**
-   * Whether the input is empty.
-   */
-  public get empty(): boolean {
-    return this.#element.nativeElement.empty;
   }
 
   /** The form control validator for whether the input parses. */

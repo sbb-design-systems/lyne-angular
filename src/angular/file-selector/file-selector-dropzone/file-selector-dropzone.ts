@@ -22,7 +22,7 @@ import '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
 /**
  * It allows to select one or more file from storage devices via button click or drag and drop, and display them.
  *
- * @slot error - Use this to provide a `sbb-form-error` to show an error message.
+ * @slot error - Use this to provide a `sbb-error` to show an error message.
  */
 @Directive({
   selector: 'sbb-file-selector-dropzone',
@@ -187,7 +187,7 @@ export class SbbFileSelectorDropzone extends SbbControlValueAccessorMixin(class 
    * Please note that only one message is returned at a time (e.g. if
    * multiple validity states are invalid, only the chronologically first one
    * is returned until it is fixed, at which point the next message might be
-   * returned, if it is still applicable). Also a custom validity message
+   * returned, if it is still applicable). Also, a custom validity message
    * (see below) has precedence over native validation messages.
    */
   public get validationMessage(): string {

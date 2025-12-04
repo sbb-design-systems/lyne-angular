@@ -80,7 +80,7 @@ export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor 
     this.#element.nativeElement.disabled = isDisabled;
   }
 
-  _handleInput(event: InputEvent): void {
+  _handleInput(event: Event): void {
     const target = event.target as HTMLInputElement;
     let value: number | string | null = target.value;
 

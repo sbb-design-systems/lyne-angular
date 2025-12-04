@@ -33,7 +33,7 @@ export class SbbNavigationLink {
   }
 
   /**
-   * The section that is beign controlled by the action, if any.
+   * The section that is being controlled by the action, if any.
    */
   @Input()
   public set connectedSection(value: SbbNavigationSectionElement | undefined) {

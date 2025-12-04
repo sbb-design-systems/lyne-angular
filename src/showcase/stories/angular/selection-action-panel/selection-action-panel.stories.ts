@@ -82,13 +82,6 @@ const WithinGroupTemplate = (args: Args): string => `
   </sbb-radio-button-group>
 `;
 
-const color: InputType = {
-  control: {
-    type: 'inline-radio',
-  },
-  options: ['white', 'milk'],
-};
-
 const size: InputType = {
   control: {
     type: 'inline-radio',
@@ -118,14 +111,12 @@ const disabledInput: InputType = {
 };
 
 const argTypes: ArgTypes = {
-  color,
   size,
   checkedInput,
   disabledInput,
 };
 
 const args: Args = {
-  color: color.options![0],
   size: size.options![0],
   checkedInput: false,
   disabledInput: false,

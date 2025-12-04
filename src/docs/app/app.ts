@@ -5,10 +5,10 @@ import { Meta } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import { SbbHeader, SbbHeaderLink } from '@sbb-esta/lyne-angular/header';
+import { SbbIconSidebarModule } from '@sbb-esta/lyne-angular/icon-sidebar';
 import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
 import { SbbOption } from '@sbb-esta/lyne-angular/option';
 import { SbbSelect } from '@sbb-esta/lyne-angular/select';
-import { SbbSidebarModule } from '@sbb-esta/lyne-angular/sidebar';
 import { SbbTooltipDirective } from '@sbb-esta/lyne-angular/tooltip';
 
 import { PACKAGES } from './shared/meta';
@@ -28,7 +28,7 @@ import { VariantSwitch } from './variant-switch';
     SbbFormField,
     KeyValuePipe,
     RouterLinkActive,
-    SbbSidebarModule,
+    SbbIconSidebarModule,
     SbbTooltipDirective,
   ],
   providers: [VariantSwitch],

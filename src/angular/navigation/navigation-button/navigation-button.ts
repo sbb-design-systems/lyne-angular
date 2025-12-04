@@ -32,7 +32,7 @@ export class SbbNavigationButton {
   }
 
   /**
-   * The section that is beign controlled by the action, if any.
+   * The section that is being controlled by the action, if any.
    */
   @Input()
   public set connectedSection(value: SbbNavigationSectionElement | undefined) {
@@ -113,7 +113,7 @@ export class SbbNavigationButton {
    * Please note that only one message is returned at a time (e.g. if
    * multiple validity states are invalid, only the chronologically first one
    * is returned until it is fixed, at which point the next message might be
-   * returned, if it is still applicable). Also a custom validity message
+   * returned, if it is still applicable). Also, a custom validity message
    * (see below) has precedence over native validation messages.
    */
   public get validationMessage(): string {

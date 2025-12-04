@@ -2,7 +2,6 @@ import { SbbCardBadge } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckbox } from '@sbb-esta/lyne-angular/checkbox/checkbox';
 import { SbbCheckboxGroup } from '@sbb-esta/lyne-angular/checkbox/checkbox-group';
 import { SbbCheckboxPanel } from '@sbb-esta/lyne-angular/checkbox/checkbox-panel';
-import { breakpoints } from '@sbb-esta/lyne-elements/core/dom.js';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
@@ -82,7 +81,7 @@ const horizontalFrom: InputType = {
   control: {
     type: 'select',
   },
-  options: [...breakpoints],
+  options: ['zero', 'small', 'large', 'ultra'],
 };
 
 const size: InputType = {

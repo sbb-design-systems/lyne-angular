@@ -13,11 +13,8 @@
 
   $columns: (
     'zero': sbb-tokens.$sbb-layout-base-grid-columns-zero,
-    'micro': sbb-tokens.$sbb-layout-base-grid-columns-micro,
     'small': sbb-tokens.$sbb-layout-base-grid-columns-small,
-    'medium': sbb-tokens.$sbb-layout-base-grid-columns-medium,
     'large': sbb-tokens.$sbb-layout-base-grid-columns-large,
-    'wide': sbb-tokens.$sbb-layout-base-grid-columns-wide,
     'ultra': sbb-tokens.$sbb-layout-base-grid-columns-ultra,
   );
 

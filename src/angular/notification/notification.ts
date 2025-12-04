@@ -11,6 +11,7 @@ import '@sbb-esta/lyne-elements/notification.js';
  *
  * @slot  - Use the unnamed slot to add content to the `sbb-notification`. Content should consist of an optional `sbb-title` element and text content.
  * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
+ * @slot icon - Use this slot to display a custom icon by providing an `sbb-icon` component.
  * @cssprop [--sbb-notification-margin=0] - Can be used to modify the margin in order to get a smoother animation. See style section for more information.
  */
 @Directive({
@@ -22,13 +23,26 @@ export class SbbNotification {
   #ngZone: NgZone = inject(NgZone);
 
   /**
+   * The icon name we want to use, choose from the small icon variants
+   * from the ui-icons category from here
+   * https://icons.app.sbb.ch.
+   */
+  @Input()
+  public set iconName(value: string) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
+  }
+  public get iconName(): string {
+    return this.#element.nativeElement.iconName;
+  }
+
+  /**
    * The type of the notification.
    */
   @Input()
-  public set type(value: 'info' | 'success' | 'warn' | 'error') {
+  public set type(value: 'info' | 'note' | 'success' | 'warn' | 'error') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): 'info' | 'success' | 'warn' | 'error' {
+  public get type(): 'info' | 'note' | 'success' | 'warn' | 'error' {
     return this.#element.nativeElement.type;
   }
 

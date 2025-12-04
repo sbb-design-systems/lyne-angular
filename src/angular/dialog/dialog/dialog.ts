@@ -10,10 +10,8 @@ import '@sbb-esta/lyne-elements/dialog/dialog.js';
 /**
  * It displays an interactive overlay element.
  *
- * @slot actions - This slot is used for the actions, the slot is automatically assigned to the `sbb-dialog-actions` element.
  * @slot  - Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`.
  * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
- * @csspart scroll-container - Can be used to change styles of the scroll container of the content.
  */
 @Directive({
   selector: 'sbb-dialog',
@@ -84,7 +82,7 @@ export class SbbDialog {
 
   /**
    * Whether to skip restoring focus to the previously-focused element when the overlay is closed.
-   * Note that automatic focus restoration is an accessibility feature and it is recommended that
+   * Note that automatic focus restoration is an accessibility feature, and it is recommended that
    * you provide your own equivalent, if you decide to turn it off.
    */
   @Input({ transform: booleanAttribute })

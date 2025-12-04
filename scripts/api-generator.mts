@@ -11,14 +11,6 @@ const documentation = JSON.parse(readFileSync(join(root, `/src/docs/documentatio
 const mergeConfigAngular = {
   accordion: ['accordion', 'expansion-panel', 'expansion-panel-header', 'expansion-panel-content'],
   alert: ['alert', 'alert-group'],
-  'autocomplete-grid': [
-    'autocomplete-grid',
-    'autocomplete-grid-row',
-    'autocomplete-grid-optgroup',
-    'autocomplete-grid-option',
-    'autocomplete-grid-cell',
-    'autocomplete-grid-button',
-  ],
   breadcrumb: ['breadcrumb', 'breadcrumb-group'],
   button: [
     'button',
@@ -45,7 +37,7 @@ const mergeConfigAngular = {
   dialog: ['dialog', 'dialog-title', 'dialog-content', 'dialog-actions', 'dialog-close-button'],
   'file-selector': ['file-selector', 'file-selector-dropzone'],
   'flip-card': ['flip-card', 'flip-card-summary', 'flip-card-details'],
-  'form-field': ['form-field', 'form-field-clear', 'form-error'],
+  'form-field': ['form-field', 'form-field-clear', 'error'],
   header: ['header', 'header-button', 'header-link', 'header-environment'],
   'link-list': ['link-list', 'link-list-anchor'],
   link: [
@@ -68,7 +60,6 @@ const mergeConfigAngular = {
   ],
   option: ['option', 'optgroup', 'option-hint'],
   paginator: ['paginator', 'compact-paginator'],
-  popover: ['popover', 'popover-trigger'],
   'radio-button': ['radio-button', 'radio-button-group', 'radio-button-panel'],
   sidebar: [
     'sidebar',
@@ -108,6 +99,14 @@ const mergeConfigAngular = {
  * The configuration object used to merge different `api` files in a single one for the angular-experimental project.
  */
 const mergeConfigAngularExperimental = {
+  'autocomplete-grid': [
+    'autocomplete-grid',
+    'autocomplete-grid-row',
+    'autocomplete-grid-optgroup',
+    'autocomplete-grid-option',
+    'autocomplete-grid-cell',
+    'autocomplete-grid-button',
+  ],
   'seat-reservation': [
     'seat-reservation-area',
     'seat-reservation-graphic',
