@@ -1,3 +1,3 @@
-# Getting started angular-experimental
+# Getting started - package: angular-experimental
 
 TBD

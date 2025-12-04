@@ -1,4 +1,4 @@
-# Getting started doc test
+# Getting started - package: angular
 
 ### HTML Example Test
 
