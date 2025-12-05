@@ -1,5 +1,13 @@
 # Changelog
 
+## [21.0.3](https://github.com/sbb-design-systems/lyne-angular/compare/v21.0.2...v21.0.3) (2025-12-05)
+
+
+### Bug Fixes
+
+* **deps:** update angular ([69def51](https://github.com/sbb-design-systems/lyne-angular/commit/69def514d7408d3f174e6e8adb822d65a01d7621))
+* **sbb-icon-sidebar:** add alias for duplicate module name ([#237](https://github.com/sbb-design-systems/lyne-angular/issues/237)) ([d62ca22](https://github.com/sbb-design-systems/lyne-angular/commit/d62ca22b6d8214352d2100fb69a495adc4502441))
+
 ## [21.0.2](https://github.com/sbb-design-systems/lyne-angular/compare/v21.0.1...v21.0.2) (2025-12-03)
 
 
