@@ -43,3 +43,6 @@ Thumbs.db
 
 *storybook.log
 /src/showcase/.storybook/documentation.json
+/src/docs/documentation.json
+/src/docs/app/angular/api
+/src/docs/app/angular-experimental/api
