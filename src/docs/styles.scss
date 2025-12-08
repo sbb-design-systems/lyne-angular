@@ -1,11 +1,89 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'highlight.js/styles/github';
 
 html,
 body {
   height: 100%;
 }
 
-body {
+pre {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.docs-link {
+  --docs-link-icon-color: initial;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: initial;
+
+  &:hover {
+    --docs-link-icon-color: var(--sbb-color-primary);
+  }
+}
+
+.docs-link-icon {
+  color: var(--docs-link-icon-color);
+}
+
+.docs-toc-container {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 1rem;
+}
+
+.docs-toc-content {
+  height: fit-content;
+  top: 0;
+  position: sticky;
+  border-left: 2px solid var(--sbb-color-primary);
+  margin-block-start: 1rem;
+  padding-inline: 1rem;
+  font-size: 14px;
+
+  h3 {
+    margin: 0;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.docs-heading {
+  list-style: none;
+
+  &.docs-heading-2:first-of-type {
+    padding-block-start: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: initial;
+  }
+
+  &:hover {
+    a {
+      color: var(--sbb-color-primary);
+    }
+  }
+}
+
+.docs-heading-2 {
+  padding-block-start: 0.25rem;
+}
+
+.docs-heading-3 {
+  padding-inline-start: 1rem;
+}
+
+.docs-heading-4 {
+  padding-inline-start: 2rem;
+}
+
+.docs-heading-5 {
+  padding-inline-start: 3rem;
 }

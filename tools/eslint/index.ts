@@ -1,5 +1,7 @@
 import type { ESLintUtils, TSESLint } from '@typescript-eslint/utils';
 
+import exampleModuleRule from './example-module-rule';
+
 const rules = (
   await Promise.all(
     ['angular-generator-rule', 'storybook-generator-rule', 'test-describe-title-rule'].map((name) =>
@@ -14,17 +16,31 @@ const plugin: TSESLint.FlatConfig.Plugin = {
     name: 'lyne',
   },
   configs: {},
-  rules,
+  rules: {
+    ...rules,
+    'example-module-rule': exampleModuleRule,
+  },
 };
 
-plugin.configs!['recommended'] = {
-  plugins: {
-    lyne: plugin,
+plugin.configs!['recommended'] = [
+  {
+    plugins: {
+      lyne: plugin,
+    },
+    rules: Object.keys(rules).reduce(
+      (current, next) => Object.assign(current, { [`lyne/${next}`]: 'error' }),
+      {} as TSESLint.FlatConfig.Rules,
+    ),
   },
-  rules: Object.keys(rules).reduce(
-    (current, next) => Object.assign(current, { [`lyne/${next}`]: 'error' }),
-    {} as TSESLint.FlatConfig.Rules,
-  ),
-};
+  {
+    files: ['**/example-module.ts'],
+    plugins: {
+      lyne: plugin,
+    },
+    rules: {
+      'lyne/example-module-rule': 'error',
+    },
+  },
+];
 
 export default plugin;
