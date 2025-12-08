@@ -61,7 +61,7 @@
     "@storybook/angular": "10.1.4",
     "@types/jasmine": "5.1.13",
     "@types/node": "24.10.1",
-    "angular-eslint": "21.0.1",
+    "angular-eslint": "21.1.0",
     "custom-elements-manifest": "2.1.0",
     "eslint": "9.39.1",
     "eslint-config-prettier": "10.1.8",
@@ -83,7 +83,7 @@
     "storybook": "10.1.4",
     "tsx": "4.21.0",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.48.1"
+    "typescript-eslint": "8.49.0"
   },
   "prettier": {
     "singleQuote": true,
