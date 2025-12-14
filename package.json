@@ -60,7 +60,7 @@
     "@storybook/addon-links": "10.1.8",
     "@storybook/angular": "10.1.8",
     "@types/jasmine": "5.1.13",
-    "@types/node": "24.10.3",
+    "@types/node": "24.10.4",
     "angular-eslint": "21.1.0",
     "custom-elements-manifest": "2.1.0",
     "eslint": "9.39.2",
