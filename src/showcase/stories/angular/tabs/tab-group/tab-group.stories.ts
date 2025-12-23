@@ -1,5 +1,5 @@
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
-import { SbbTab, SbbTabGroup, SbbTabLabel } from '@sbb-esta/lyne-angular/tabs';
+import { SbbTabGroup, SbbTabsModule } from '@sbb-esta/lyne-angular/tabs';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
@@ -73,7 +73,7 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [SbbTab, SbbTabLabel, SbbTitle, SbbBlockLink],
+      imports: [SbbTabsModule, SbbTitle, SbbBlockLink],
     }),
   ],
   title: 'elements/sbb-tab/sbb-tab-group',
@@ -103,12 +103,15 @@ const meta: Meta = {
 
         <sbb-tab-label>Tab title two</sbb-tab-label>
         <sbb-tab>
-          <section>
-            Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
-            elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
-            urna neque viverra justo nec.
-            <sbb-block-link target="_blank" href="https://www.sbb.ch">Visit sbb.ch</sbb-block-link>
-          </section>
+          <ng-template sbbTabContent>
+            <section>
+              Lazy loaded tab.
+              Diam maecenas ultricies mi eget mauris pharetra et ultrices neque ornare aenean euismod
+              elementum nisi quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus mattis rhoncus
+              urna neque viverra justo nec.
+              <sbb-block-link target="_blank" href="https://www.sbb.ch">Visit sbb.ch</sbb-block-link>
+            </section>
+          </ng-template>
         </sbb-tab>
 
         <sbb-tab-label disabled>Tab title three</sbb-tab-label>

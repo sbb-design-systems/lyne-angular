@@ -14,11 +14,12 @@ describe('sbb-tab', () => {
 
   it('should create', async () => {
     expect(component).toBeDefined();
+    expect(fixture.nativeElement.querySelector('#content')).not.toBeNull();
   });
 });
 
 @Component({
-  template: `<sbb-tab></sbb-tab>`,
+  template: `<sbb-tab><span id="content">Content</span></sbb-tab>`,
   imports: [SbbTab],
 })
 class TestComponent {}

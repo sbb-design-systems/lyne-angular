@@ -1,22 +1,24 @@
 import { CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
+import type { InjectionToken, OutputRef } from '@angular/core';
 import {
+  ChangeDetectorRef,
   Component,
-  ContentChild,
+  contentChild,
   ElementRef,
   inject,
-  type OutputRef,
   TemplateRef,
-  ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { outputFromObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs/tab-label.js';
 import type { SbbTabElement } from '@sbb-esta/lyne-elements/tabs/tab.js';
-import { NEVER, fromEvent } from 'rxjs';
+import { filter, fromEvent, map, NEVER, take } from 'rxjs';
+
+import type { SbbTabContent } from './tab-content';
+import { SBB_TAB_CONTENT } from './tab-content';
 
 import '@sbb-esta/lyne-elements/tabs/tab.js';
-import { SBB_TAB_CONTENT } from './tab-content';
 
 @Component({
   selector: 'sbb-tab',
@@ -24,23 +26,23 @@ import { SBB_TAB_CONTENT } from './tab-content';
   imports: [CdkPortalOutlet],
   template: `
     <ng-template [cdkPortalOutlet]="contentPortal"></ng-template>
-    <ng-template #implicitContent>
-      <ng-content></ng-content>
-    </ng-template>
+    <ng-content></ng-content>
   `,
 })
 export class SbbTab {
   #element: ElementRef<SbbTabElement> = inject(ElementRef<SbbTabElement>);
   #viewContainerRef = inject(ViewContainerRef);
+  #changeDetectorRef = inject(ChangeDetectorRef);
+
+  // TODO(breaking-change): make protected instead of public
   public contentPortal: TemplatePortal | null = null;
 
-  @ContentChild(SBB_TAB_CONTENT, { read: TemplateRef, static: true })
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _explicitContent?: TemplateRef<any>;
-
-  @ViewChild('implicitContent', { read: TemplateRef, static: true })
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private _implicitContent?: TemplateRef<any>;
+  private _explicitContent = contentChild<InjectionToken<SbbTabContent>, TemplateRef<unknown>>(
+    SBB_TAB_CONTENT,
+    {
+      read: TemplateRef,
+    },
+  );
 
   public get label(): SbbTabLabelElement | null {
     return this.#element.nativeElement.label;
@@ -54,11 +56,16 @@ export class SbbTab {
   );
 
   constructor() {
-    this.activeOutput.subscribe(() => {
-      this.contentPortal = new TemplatePortal(
-        (this._explicitContent || this._implicitContent)!,
-        this.#viewContainerRef,
-      );
-    });
+    fromEvent<Event>(this.#element.nativeElement, 'active')
+      .pipe(
+        takeUntilDestroyed(),
+        map(() => this._explicitContent()),
+        filter((t) => !!t),
+        take(1),
+      )
+      .subscribe((templateRef) => {
+        this.contentPortal = new TemplatePortal(templateRef, this.#viewContainerRef);
+        this.#changeDetectorRef.markForCheck();
+      });
   }
 }
