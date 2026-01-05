@@ -9,11 +9,11 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { outputFromObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { outputFromObservable, takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs/tab-label.js';
 import type { SbbTabElement } from '@sbb-esta/lyne-elements/tabs/tab.js';
-import { filter, fromEvent, map, NEVER, take } from 'rxjs';
+import { distinctUntilChanged, fromEvent, NEVER, switchMap } from 'rxjs';
 
 import type { SbbTabContent } from './tab-content';
 import { SBB_TAB_CONTENT } from './tab-content';
@@ -56,15 +56,17 @@ export class SbbTab {
   );
 
   constructor() {
+    const contentChildObservable = toObservable(this._explicitContent);
     fromEvent<Event>(this.#element.nativeElement, 'active')
       .pipe(
+        switchMap(() => contentChildObservable),
+        distinctUntilChanged(),
         takeUntilDestroyed(),
-        map(() => this._explicitContent()),
-        filter((t) => !!t),
-        take(1),
       )
       .subscribe((templateRef) => {
-        this.contentPortal = new TemplatePortal(templateRef, this.#viewContainerRef);
+        this.contentPortal = templateRef
+          ? new TemplatePortal(templateRef, this.#viewContainerRef)
+          : null;
         this.#changeDetectorRef.markForCheck();
       });
   }
