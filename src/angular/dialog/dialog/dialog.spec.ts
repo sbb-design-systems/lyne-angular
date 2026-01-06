@@ -117,12 +117,12 @@ describe('sbb-dialog', () => {
       ref.afterClose.subscribe(afterCloseSpy);
       await fixture.whenRenderingDone();
 
-      expect(service.openDialogs[0]).toBe(ref);
+      expect(service.openOverlays[0]).toBe(ref);
       ref.close();
 
       fixture.detectChanges();
       expect(beforeCloseSpy).toHaveBeenCalled();
-      expect(service.openDialogs.length).toBe(0);
+      expect(service.openOverlays.length).toBe(0);
       expect(afterCloseSpy).toHaveBeenCalled();
     });
 
