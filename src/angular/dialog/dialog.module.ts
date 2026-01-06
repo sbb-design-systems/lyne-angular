@@ -4,6 +4,7 @@ import { SbbDialog } from './dialog/dialog';
 import { SbbDialogContainer } from './dialog/dialog-container';
 import { SbbDialogActions } from './dialog-actions/dialog-actions';
 import { SbbDialogCloseButton } from './dialog-close-button/dialog-close-button';
+import { SbbDialogCloseDirective } from './dialog-close-directive/dialog-close-directive';
 import { SbbDialogContent } from './dialog-content/dialog-content';
 import { SbbDialogTitle } from './dialog-title/dialog-title';
 
@@ -11,6 +12,7 @@ const SBB_DIALOG_EXPORTED_DECLARATIONS = [
   SbbDialog,
   SbbDialogActions,
   SbbDialogCloseButton,
+  SbbDialogCloseDirective,
   SbbDialogContent,
   SbbDialogTitle,
   SbbDialogContainer,
