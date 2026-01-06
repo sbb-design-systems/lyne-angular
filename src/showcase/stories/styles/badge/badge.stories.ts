@@ -1,3 +1,4 @@
+import { SbbBadgeDirective } from '@sbb-esta/lyne-angular/badge';
 import { SbbHeaderButton } from '@sbb-esta/lyne-angular/header';
 import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
 import type { Args, Meta, StoryObj } from '@storybook/angular';
@@ -84,7 +85,7 @@ export const BadgeOnHeaderButton: StoryObj = {
 const meta: Meta = {
   decorators: [
     moduleMetadata({
-      imports: [SbbHeaderButton],
+      imports: [SbbHeaderButton, SbbBadgeDirective],
     }),
   ],
   title: 'styles/badge',
