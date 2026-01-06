@@ -1,10 +1,5 @@
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
-import {
-  SbbNavigation,
-  SbbNavigationList,
-  SbbNavigationMarker,
-  SbbNavigationSection,
-} from '@sbb-esta/lyne-angular/navigation';
+import { SbbNavigationModule, SbbNavigationSection } from '@sbb-esta/lyne-angular/navigation';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
@@ -29,14 +24,7 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [
-        SbbSecondaryButton,
-        SbbNavigation,
-        SbbNavigationMarker,
-        SbbNavigationSection,
-        SbbNavigationList,
-        SbbSecondaryButton,
-      ],
+      imports: [SbbSecondaryButton, SbbNavigationModule, SbbSecondaryButton],
     }),
   ],
   title: 'elements/sbb-navigation/sbb-navigation-section',

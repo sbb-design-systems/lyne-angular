@@ -1,12 +1,6 @@
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
-import {
-  SbbDialog,
-  SbbDialogActions,
-  SbbDialogCloseButton,
-  SbbDialogContent,
-  SbbDialogTitle,
-} from '@sbb-esta/lyne-angular/dialog';
+import { SbbDialog, SbbDialogModule } from '@sbb-esta/lyne-angular/dialog';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
@@ -55,15 +49,7 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [
-        SbbDialogTitle,
-        SbbDialogCloseButton,
-        SbbDialogContent,
-        SbbDialogActions,
-        SbbButton,
-        SbbSecondaryButton,
-        SbbBlockLink,
-      ],
+      imports: [SbbDialogModule, SbbButton, SbbSecondaryButton, SbbBlockLink],
     }),
   ],
   title: 'elements/sbb-dialog/sbb-dialog',
