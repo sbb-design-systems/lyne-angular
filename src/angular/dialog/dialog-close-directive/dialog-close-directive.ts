@@ -1,7 +1,9 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  standalone: true,
   selector: '[sbb-dialog-close]',
+  host: {
+    '[attr.sbb-dialog-close]': '""',
+  },
 })
 export class SbbDialogCloseDirective {}
