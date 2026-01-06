@@ -1,7 +1,7 @@
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
 import { SbbCard } from '@sbb-esta/lyne-angular/card';
-import { SbbStep, SbbStepLabel, SbbStepper } from '@sbb-esta/lyne-angular/stepper';
+import { SbbStepper, SbbStepperModule } from '@sbb-esta/lyne-angular/stepper';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import type { ArgTypes, InputType } from 'storybook/internal/types';
@@ -66,7 +66,7 @@ const args: Args = {
 const meta: Meta = {
   decorators: [
     moduleMetadata({
-      imports: [SbbCard, SbbStepLabel, SbbStep, SbbButton, SbbSecondaryButton],
+      imports: [SbbCard, SbbStepperModule, SbbButton, SbbSecondaryButton],
     }),
   ],
   title: 'elements/sbb-step/sbb-stepper',

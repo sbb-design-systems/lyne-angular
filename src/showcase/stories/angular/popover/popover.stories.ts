@@ -1,6 +1,6 @@
 import { SbbMiniButton } from '@sbb-esta/lyne-angular/button/mini-button';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
-import { SbbPopover } from '@sbb-esta/lyne-angular/popover';
+import { SbbPopover, SbbPopoverModule } from '@sbb-esta/lyne-angular/popover';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
@@ -51,7 +51,7 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [SbbTitle, SbbBlockLink, SbbMiniButton],
+      imports: [SbbTitle, SbbBlockLink, SbbMiniButton, SbbPopoverModule],
     }),
   ],
   title: 'elements/sbb-popover/sbb-popover',
