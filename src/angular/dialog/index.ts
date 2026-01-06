@@ -1,3 +1,4 @@
+export * from '@sbb-esta/lyne-angular/core/overlay';
 export * from './dialog/dialog';
 export * from './dialog/dialog-container';
 export * from './dialog/dialog-service';

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { SbbFocusInitialDirective } from '@sbb-esta/lyne-angular/core/overlay';
 
 import { SbbNavigation } from './navigation/navigation';
 import { SbbNavigationButton } from './navigation-button/navigation-button';
@@ -18,6 +19,7 @@ const SBB_NAVIGATION_EXPORTED_DECLARATIONS = [
   SbbNavigationMarker,
   SbbNavigationSection,
   SbbNavigationSectionCloseDirective,
+  SbbFocusInitialDirective,
 ];
 
 @NgModule({

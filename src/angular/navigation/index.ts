@@ -1,3 +1,4 @@
+export * from '@sbb-esta/lyne-angular/core/overlay';
 export * from './navigation/navigation';
 export * from './navigation-button/navigation-button';
 export * from './navigation-close-directive/navigation-close-directive';

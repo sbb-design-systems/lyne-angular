@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { SbbFocusInitialDirective } from '@sbb-esta/lyne-angular/core/overlay';
 
 import { SbbDialog } from './dialog/dialog';
 import { SbbDialogContainer } from './dialog/dialog-container';
@@ -16,6 +17,7 @@ const SBB_DIALOG_EXPORTED_DECLARATIONS = [
   SbbDialogContent,
   SbbDialogTitle,
   SbbDialogContainer,
+  SbbFocusInitialDirective,
 ];
 
 @NgModule({

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { SbbFocusInitialDirective } from '@sbb-esta/lyne-angular/core/overlay';
 
 import { SbbSidebar } from './sidebar/sidebar';
 import { SbbSidebarCloseButton } from './sidebar-close-button/sidebar-close-button';
@@ -12,6 +13,7 @@ const SBB_SIDEBAR_EXPORTED_DECLARATIONS = [
   SbbSidebarContainer,
   SbbSidebarContent,
   SbbSidebarTitle,
+  SbbFocusInitialDirective,
 ];
 
 @NgModule({

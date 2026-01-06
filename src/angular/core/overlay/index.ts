@@ -1,3 +1,4 @@
+export * from './focus-initial-directive';
 export * from './overlay-base';
 export * from './overlay-config';
 export * from './overlay-container-base';
