@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SbbToastCloseDirective } from './toast-close-directive';
+import { SbbToastClose } from './toast-close';
 
-describe(`sbb-toast-close-directive`, () => {
+describe(`sbb-toast-close`, () => {
   describe('attribute usage', () => {
     let fixture: ComponentFixture<TestComponent>, component: TestComponent;
 
@@ -42,14 +42,14 @@ describe(`sbb-toast-close-directive`, () => {
 
 @Component({
   template: `<button sbb-toast-close>Label</button>`,
-  imports: [SbbToastCloseDirective],
+  imports: [SbbToastClose],
 })
 class TestComponent {}
 
 @Component({
   selector: 'sbb-test-button',
   template: `<ng-content></ng-content>`,
-  hostDirectives: [SbbToastCloseDirective],
+  hostDirectives: [SbbToastClose],
 })
 class TestComponentWithHostDirective {}
 

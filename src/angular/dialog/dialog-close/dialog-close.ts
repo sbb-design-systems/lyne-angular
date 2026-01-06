@@ -9,4 +9,4 @@ import { Directive } from '@angular/core';
     '[attr.sbb-dialog-close]': '""',
   },
 })
-export class SbbDialogCloseDirective {}
+export class SbbDialogClose {}

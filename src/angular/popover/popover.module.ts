@@ -1,14 +1,10 @@
 import { NgModule } from '@angular/core';
-import { SbbFocusInitialDirective } from '@sbb-esta/lyne-angular/core/overlay';
+import { SbbFocusInitial } from '@sbb-esta/lyne-angular/core/overlay';
 
 import { SbbPopover } from './popover';
-import { SbbPopoverCloseDirective } from './popover-close-directive/popover-close-directive';
+import { SbbPopoverClose } from './popover-close/popover-close';
 
-const SBB_POPOVER_EXPORTED_DECLARATIONS = [
-  SbbPopover,
-  SbbPopoverCloseDirective,
-  SbbFocusInitialDirective,
-];
+const SBB_POPOVER_EXPORTED_DECLARATIONS = [SbbPopover, SbbPopoverClose, SbbFocusInitial];
 
 @NgModule({
   imports: SBB_POPOVER_EXPORTED_DECLARATIONS,

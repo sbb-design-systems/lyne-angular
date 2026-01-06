@@ -9,4 +9,4 @@ import { Directive } from '@angular/core';
     '[attr.sbb-stepper-previous]': '""',
   },
 })
-export class SbbStepperPreviousDirective {}
+export class SbbStepperPrevious {}

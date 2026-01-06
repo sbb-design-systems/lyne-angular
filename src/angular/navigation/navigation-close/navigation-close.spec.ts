@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SbbNavigationCloseDirective } from './navigation-close-directive';
+import { SbbNavigationClose } from './navigation-close';
 
-describe(`sbb-navigation-close-directive`, () => {
+describe(`sbb-navigation-close`, () => {
   describe('attribute usage', () => {
     let fixture: ComponentFixture<TestComponent>, component: TestComponent;
 
@@ -42,14 +42,14 @@ describe(`sbb-navigation-close-directive`, () => {
 
 @Component({
   template: `<button sbb-navigation-close>Label</button>`,
-  imports: [SbbNavigationCloseDirective],
+  imports: [SbbNavigationClose],
 })
 class TestComponent {}
 
 @Component({
   selector: 'sbb-test-button',
   template: `<ng-content></ng-content>`,
-  hostDirectives: [SbbNavigationCloseDirective],
+  hostDirectives: [SbbNavigationClose],
 })
 class TestComponentWithHostDirective {}
 

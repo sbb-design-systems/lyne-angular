@@ -9,4 +9,4 @@ import { Directive } from '@angular/core';
     '[attr.sbb-toast-close]': '""',
   },
 })
-export class SbbToastCloseDirective {}
+export class SbbToastClose {}

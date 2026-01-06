@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SbbStepperPreviousDirective } from './stepper-previous-directive';
+import { SbbDialogClose } from './dialog-close';
 
-describe(`sbb-stepper-previous-directive`, () => {
+describe(`sbb-dialog-close`, () => {
   describe('attribute usage', () => {
     let fixture: ComponentFixture<TestComponent>, component: TestComponent;
 
@@ -16,7 +16,7 @@ describe(`sbb-stepper-previous-directive`, () => {
     it('should create', async () => {
       expect(component).toBeDefined();
       expect(
-        fixture.nativeElement.querySelector('button').hasAttribute('sbb-stepper-previous'),
+        fixture.nativeElement.querySelector('button').hasAttribute('sbb-dialog-close'),
       ).toBeTrue();
     });
   });
@@ -34,22 +34,22 @@ describe(`sbb-stepper-previous-directive`, () => {
     it('should create', async () => {
       expect(component).toBeDefined();
       expect(
-        fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-stepper-previous'),
+        fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-dialog-close'),
       ).toBeTrue();
     });
   });
 });
 
 @Component({
-  template: `<button sbb-stepper-previous>Label</button>`,
-  imports: [SbbStepperPreviousDirective],
+  template: `<button sbb-dialog-close>Label</button>`,
+  imports: [SbbDialogClose],
 })
 class TestComponent {}
 
 @Component({
   selector: 'sbb-test-button',
   template: `<ng-content></ng-content>`,
-  hostDirectives: [SbbStepperPreviousDirective],
+  hostDirectives: [SbbDialogClose],
 })
 class TestComponentWithHostDirective {}
 

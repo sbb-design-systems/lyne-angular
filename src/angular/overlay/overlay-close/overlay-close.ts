@@ -7,4 +7,4 @@ import { Directive } from '@angular/core';
   selector: '[sbb-overlay-close]',
   host: { '[attr.sbb-overlay-close]': '""' },
 })
-export class SbbOverlayCloseDirective {}
+export class SbbOverlayClose {}

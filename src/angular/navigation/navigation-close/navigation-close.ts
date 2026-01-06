@@ -9,4 +9,4 @@ import { Directive } from '@angular/core';
     '[attr.sbb-navigation-close]': '""',
   },
 })
-export class SbbNavigationCloseDirective {}
+export class SbbNavigationClose {}

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SbbStepperNextDirective } from './stepper-next-directive';
+import { SbbNavigationSectionClose } from './navigation-section-close';
 
-describe(`sbb-stepper-next-directive`, () => {
+describe(`sbb-navigation-section-close`, () => {
   describe('attribute usage', () => {
     let fixture: ComponentFixture<TestComponent>, component: TestComponent;
 
@@ -16,7 +16,7 @@ describe(`sbb-stepper-next-directive`, () => {
     it('should create', async () => {
       expect(component).toBeDefined();
       expect(
-        fixture.nativeElement.querySelector('button').hasAttribute('sbb-stepper-next'),
+        fixture.nativeElement.querySelector('button').hasAttribute('sbb-navigation-section-close'),
       ).toBeTrue();
     });
   });
@@ -34,22 +34,24 @@ describe(`sbb-stepper-next-directive`, () => {
     it('should create', async () => {
       expect(component).toBeDefined();
       expect(
-        fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-stepper-next'),
+        fixture.nativeElement
+          .querySelector('sbb-test-button')
+          .hasAttribute('sbb-navigation-section-close'),
       ).toBeTrue();
     });
   });
 });
 
 @Component({
-  template: `<button sbb-stepper-next>Label</button>`,
-  imports: [SbbStepperNextDirective],
+  template: `<button sbb-navigation-section-close>Label</button>`,
+  imports: [SbbNavigationSectionClose],
 })
 class TestComponent {}
 
 @Component({
   selector: 'sbb-test-button',
   template: `<ng-content></ng-content>`,
-  hostDirectives: [SbbStepperNextDirective],
+  hostDirectives: [SbbNavigationSectionClose],
 })
 class TestComponentWithHostDirective {}
 

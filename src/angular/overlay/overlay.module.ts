@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
-import { SbbFocusInitialDirective } from '@sbb-esta/lyne-angular/core/overlay';
+import { SbbFocusInitial } from '@sbb-esta/lyne-angular/core/overlay';
 
 import { SbbOverlay } from './overlay';
-import { SbbOverlayCloseDirective } from './overlay-close-directive/overlay-close-directive';
+import { SbbOverlayClose } from './overlay-close/overlay-close';
 import { SbbOverlayContainer } from './overlay-container';
 
 const SBB_OVERLAY_EXPORTED_DECLARATIONS = [
   SbbOverlay,
-  SbbOverlayCloseDirective,
+  SbbOverlayClose,
   SbbOverlayContainer,
-  SbbFocusInitialDirective,
+  SbbFocusInitial,
 ];
 
 @NgModule({

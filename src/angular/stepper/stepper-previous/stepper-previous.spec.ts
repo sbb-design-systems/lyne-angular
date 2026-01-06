@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SbbFocusInitialDirective } from './focus-initial-directive';
+import { SbbStepperPrevious } from './stepper-previous';
 
-describe(`sbb-focus-initial-directive`, () => {
+describe(`sbb-stepper-previous`, () => {
   describe('attribute usage', () => {
     let fixture: ComponentFixture<TestComponent>, component: TestComponent;
 
@@ -16,7 +16,7 @@ describe(`sbb-focus-initial-directive`, () => {
     it('should create', async () => {
       expect(component).toBeDefined();
       expect(
-        fixture.nativeElement.querySelector('button').hasAttribute('sbb-focus-initial'),
+        fixture.nativeElement.querySelector('button').hasAttribute('sbb-stepper-previous'),
       ).toBeTrue();
     });
   });
@@ -34,22 +34,22 @@ describe(`sbb-focus-initial-directive`, () => {
     it('should create', async () => {
       expect(component).toBeDefined();
       expect(
-        fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-focus-initial'),
+        fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-stepper-previous'),
       ).toBeTrue();
     });
   });
 });
 
 @Component({
-  template: `<button sbb-focus-initial>Label</button>`,
-  imports: [SbbFocusInitialDirective],
+  template: `<button sbb-stepper-previous>Label</button>`,
+  imports: [SbbStepperPrevious],
 })
 class TestComponent {}
 
 @Component({
   selector: 'sbb-test-button',
   template: `<ng-content></ng-content>`,
-  hostDirectives: [SbbFocusInitialDirective],
+  hostDirectives: [SbbStepperPrevious],
 })
 class TestComponentWithHostDirective {}
 

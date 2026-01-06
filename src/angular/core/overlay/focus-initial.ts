@@ -10,4 +10,4 @@ import { Directive } from '@angular/core';
     '[attr.sbb-focus-initial]': '""',
   },
 })
-export class SbbFocusInitialDirective {}
+export class SbbFocusInitial {}

@@ -11,7 +11,7 @@ import { Directive, ElementRef, inject, Input } from '@angular/core';
 @Directive({
   selector: '[sbb-badge]',
 })
-export class SbbBadgeDirective {
+export class SbbBadge {
   #elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
   /**

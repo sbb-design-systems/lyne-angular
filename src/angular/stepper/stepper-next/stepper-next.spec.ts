@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SbbPopoverCloseDirective } from './popover-close-directive';
+import { SbbStepperNext } from './stepper-next';
 
-describe(`sbb-popover-close-directive`, () => {
+describe(`sbb-stepper-next`, () => {
   describe('attribute usage', () => {
     let fixture: ComponentFixture<TestComponent>, component: TestComponent;
 
@@ -16,7 +16,7 @@ describe(`sbb-popover-close-directive`, () => {
     it('should create', async () => {
       expect(component).toBeDefined();
       expect(
-        fixture.nativeElement.querySelector('button').hasAttribute('sbb-popover-close'),
+        fixture.nativeElement.querySelector('button').hasAttribute('sbb-stepper-next'),
       ).toBeTrue();
     });
   });
@@ -34,22 +34,22 @@ describe(`sbb-popover-close-directive`, () => {
     it('should create', async () => {
       expect(component).toBeDefined();
       expect(
-        fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-popover-close'),
+        fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-stepper-next'),
       ).toBeTrue();
     });
   });
 });
 
 @Component({
-  template: `<button sbb-popover-close>Label</button>`,
-  imports: [SbbPopoverCloseDirective],
+  template: `<button sbb-stepper-next>Label</button>`,
+  imports: [SbbStepperNext],
 })
 class TestComponent {}
 
 @Component({
   selector: 'sbb-test-button',
   template: `<ng-content></ng-content>`,
-  hostDirectives: [SbbPopoverCloseDirective],
+  hostDirectives: [SbbStepperNext],
 })
 class TestComponentWithHostDirective {}
 

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SbbBadgeDirective } from './badge-directive';
+import { SbbBadge } from './badge';
 
-describe(`sbb-badge-directive`, () => {
+describe(`sbb-badge`, () => {
   describe('attribute usage', () => {
     let fixture: ComponentFixture<TestComponent>, component: TestComponent;
 
@@ -43,7 +43,7 @@ describe(`sbb-badge-directive`, () => {
 
 @Component({
   template: `<button sbb-badge="99" sbb-badge-position="before">Label</button>`,
-  imports: [SbbBadgeDirective],
+  imports: [SbbBadge],
 })
 class TestComponent {}
 
@@ -52,7 +52,7 @@ class TestComponent {}
   template: `<ng-content></ng-content>`,
   hostDirectives: [
     {
-      directive: SbbBadgeDirective,
+      directive: SbbBadge,
       inputs: ['sbb-badge: content'],
     },
   ],

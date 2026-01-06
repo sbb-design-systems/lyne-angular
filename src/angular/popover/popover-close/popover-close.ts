@@ -9,4 +9,4 @@ import { Directive } from '@angular/core';
     '[attr.sbb-popover-close]': '""',
   },
 })
-export class SbbPopoverCloseDirective {}
+export class SbbPopoverClose {}

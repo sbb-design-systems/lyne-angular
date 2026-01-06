@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SbbOverlayCloseDirective } from './overlay-close-directive';
+import { SbbFocusInitial } from './focus-initial';
 
-describe(`sbb-overlay-close-directive`, () => {
+describe(`sbb-focus-initial`, () => {
   describe('attribute usage', () => {
     let fixture: ComponentFixture<TestComponent>, component: TestComponent;
 
@@ -16,7 +16,7 @@ describe(`sbb-overlay-close-directive`, () => {
     it('should create', async () => {
       expect(component).toBeDefined();
       expect(
-        fixture.nativeElement.querySelector('button').hasAttribute('sbb-overlay-close'),
+        fixture.nativeElement.querySelector('button').hasAttribute('sbb-focus-initial'),
       ).toBeTrue();
     });
   });
@@ -34,22 +34,22 @@ describe(`sbb-overlay-close-directive`, () => {
     it('should create', async () => {
       expect(component).toBeDefined();
       expect(
-        fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-overlay-close'),
+        fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-focus-initial'),
       ).toBeTrue();
     });
   });
 });
 
 @Component({
-  template: `<button sbb-overlay-close>Label</button>`,
-  imports: [SbbOverlayCloseDirective],
+  template: `<button sbb-focus-initial>Label</button>`,
+  imports: [SbbFocusInitial],
 })
 class TestComponent {}
 
 @Component({
   selector: 'sbb-test-button',
   template: `<ng-content></ng-content>`,
-  hostDirectives: [SbbOverlayCloseDirective],
+  hostDirectives: [SbbFocusInitial],
 })
 class TestComponentWithHostDirective {}
 
