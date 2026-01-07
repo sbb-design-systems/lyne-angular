@@ -26,7 +26,7 @@ let overlayRef = overlayService.open(templateContent, {
 ```
 
 The `SbbOverlayRef` provides a handle on the opened overlay. It can be used to close the overlay and to
-receive notifications when the overlay state changes (`afterOpened`, `beforeClosed`, `afterClosed`).
+receive notifications when the overlay state changes (`afterOpen`, `beforeClosed`, `afterClosed`).
 When closing, an optional result value can be provided. This result value is forwarded as the result of the `afterClosed` Observable.
 
 ```ts

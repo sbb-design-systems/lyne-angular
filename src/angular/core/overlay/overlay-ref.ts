@@ -1,6 +1,6 @@
-import type { OverlayRef } from '@angular/cdk/overlay';
+import type { DomPortalOutlet } from '@angular/cdk/portal';
 import type { ComponentRef } from '@angular/core';
-import { share, take, type Observable } from 'rxjs';
+import { type Observable, share, take } from 'rxjs';
 
 import type { SbbOverlayConfig } from './overlay-config';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
@@ -31,7 +31,7 @@ export class SbbOverlayRef<T = unknown> {
   constructor(
     container: SbbOverlayContainerBase,
     config: SbbOverlayConfig<SbbOverlayContainerBase>,
-    overlayRef: OverlayRef,
+    portalOutlet: DomPortalOutlet,
   ) {
     this.id = config.id;
     this.#container = container;
@@ -41,7 +41,7 @@ export class SbbOverlayRef<T = unknown> {
 
     this.#afterClose.subscribe({
       complete: () => {
-        overlayRef.dispose();
+        portalOutlet.dispose();
       },
     });
   }

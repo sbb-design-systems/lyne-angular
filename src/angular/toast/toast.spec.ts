@@ -81,7 +81,6 @@ describe('sbb-toast', () => {
       expect(ref.componentInstance).toBeUndefined();
     });
 
-    // TODO: understand why next is not called in tests
     it('should emit when toast opening animation is complete', async () => {
       const spy = jasmine.createSpy('afterOpen spy');
       const serviceSpy = jasmine.createSpy('afterOpen spy');
@@ -93,6 +92,8 @@ describe('sbb-toast', () => {
         data: { dummyText: 'test string' },
       });
 
+      // As the animation is disabled in tests, the afterOpen event is emitted immediately.
+      // When subscribing, the stream is already completed.
       toastRef.afterOpen.subscribe({ complete: spy });
 
       await fixture.whenRenderingDone();

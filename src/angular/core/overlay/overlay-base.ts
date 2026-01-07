@@ -1,27 +1,15 @@
 import { _IdGenerator } from '@angular/cdk/a11y';
-import { Directionality } from '@angular/cdk/bidi';
-import {
-  type ComponentType,
-  OverlayConfig,
-  OverlayContainer,
-  OverlayKeyboardDispatcher,
-  OverlayOutsideClickDispatcher,
-  OverlayRef,
-} from '@angular/cdk/overlay';
+import { type ComponentType, OverlayContainer } from '@angular/cdk/overlay';
 import { ComponentPortal, DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
-import { Location } from '@angular/common';
 import {
-  ANIMATION_MODULE_TYPE,
   ApplicationRef,
   type ComponentRef,
   DOCUMENT,
-  EnvironmentInjector,
   inject,
   InjectionToken,
   Injector,
   NgZone,
-  Renderer2,
-  RendererFactory2,
+  type OnDestroy,
   type StaticProvider,
   TemplateRef,
   type Type,
@@ -32,52 +20,6 @@ import { SbbOverlayConfig } from './overlay-config';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
 import type { SbbOverlayRef } from './overlay-ref';
 
-/**
- * Creates an overlay.
- * @param injector Injector to use when resolving the overlay's dependencies.
- * @param config Configuration applied to the overlay.
- * @returns Reference to the created overlay.
- */
-export function createOverlayRef(injector: Injector, config?: OverlayConfig): OverlayRef {
-  const overlayContainer = injector.get(OverlayContainer);
-  const doc = injector.get(DOCUMENT);
-  const idGenerator = injector.get(_IdGenerator);
-  const appRef = injector.get(ApplicationRef);
-  const directionality = injector.get(Directionality);
-
-  const host = doc.createElement('div');
-  const pane = doc.createElement('div');
-
-  pane.id = idGenerator.getId('cdk-overlay-');
-  pane.classList.add('cdk-overlay-pane');
-  host.appendChild(pane);
-  overlayContainer.getContainerElement().appendChild(host);
-
-  const portalOutlet = new DomPortalOutlet(pane, appRef, injector);
-  const overlayConfig = new OverlayConfig(config);
-  const renderer =
-    injector.get(Renderer2, null, { optional: true }) ||
-    injector.get(RendererFactory2).createRenderer(null, null);
-
-  overlayConfig.direction = overlayConfig.direction || directionality.value;
-
-  return new OverlayRef(
-    portalOutlet,
-    host,
-    pane,
-    overlayConfig,
-    injector.get(NgZone),
-    injector.get(OverlayKeyboardDispatcher),
-    doc,
-    injector.get(Location),
-    injector.get(OverlayOutsideClickDispatcher),
-    config?.disableAnimations ??
-      injector.get(ANIMATION_MODULE_TYPE, null, { optional: true }) === 'NoopAnimations',
-    injector.get(EnvironmentInjector),
-    renderer,
-  );
-}
-
 /** Injection token that can be used to access the data that was passed in to an overlay. */
 export const SBB_OVERLAY_DATA = new InjectionToken<unknown>('SbbOverlayData');
 
@@ -87,8 +29,8 @@ export abstract class SbbOverlayBaseService<
   I = unknown,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   R extends SbbOverlayRef<any> = SbbOverlayRef<any>,
-> {
-  readonly #openOverlaysAtThisLevel: R[] = [];
+> implements OnDestroy {
+  #openOverlaysAtThisLevel: R[] = [];
   readonly #afterAllClosedAtThisLevel = new Subject<void>();
   readonly #afterOpenedAtThisLevel = new Subject<R>();
   #idGenerator = inject(_IdGenerator);
@@ -119,25 +61,47 @@ export abstract class SbbOverlayBaseService<
     return Injector.create({ providers, parent: userInjector || fallbackInjector });
   }
 
-  #attachContainer(overlayRef: OverlayRef, config: SbbOverlayConfig<C, I>): C {
+  #attachContainer(portalOutlet: DomPortalOutlet, config: SbbOverlayConfig<C, I>): C {
     const containerType: Type<C> = this.#overlayContainerType;
     const userInjector = config.injector || config.viewContainerRef?.injector;
     const providers: StaticProvider[] = [
       { provide: SbbOverlayConfig, useValue: config },
-      { provide: OverlayRef, useValue: overlayRef },
+      { provide: DomPortalOutlet, useValue: portalOutlet },
     ];
     const containerPortal = new ComponentPortal(
       containerType,
       config.viewContainerRef,
       Injector.create({ parent: userInjector, providers }),
     );
-    const containerRef = overlayRef.attach(containerPortal);
+    const componentRef = portalOutlet.attach(containerPortal);
 
-    if (config.setupContainer) {
-      config.setupContainer(containerRef.instance.elementInstance as I);
+    const ngZone = this.injector.get(NgZone);
+
+    if (typeof componentRef?.onDestroy === 'function') {
+      // In most cases we control the portal and we know when it is being detached so that
+      // we can finish the disposal process. The exception is if the user passes in a custom
+      // `ViewContainerRef` that isn't destroyed through the overlay API. Note that we use
+      // `detach` here instead of `dispose`, because we don't know if the user intends to
+      // reattach the overlay at a later point. It also has the advantage of waiting for animations.
+      componentRef.onDestroy(() => {
+        if (portalOutlet.hasAttached()) {
+          // We have to delay the `detach` call, because detaching immediately prevents
+          // other destroy hooks from running. This is likely a framework bug similar to
+          // https://github.com/angular/angular/issues/46119
+          ngZone.runOutsideAngular(() =>
+            Promise.resolve().then(() => {
+              if (portalOutlet.hasAttached()) {
+                portalOutlet.detach();
+              }
+            }),
+          );
+        }
+      });
     }
 
-    return containerRef.instance;
+    config.setupContainer?.(componentRef.instance.elementInstance as I);
+
+    return componentRef.instance;
   }
 
   #attachContent<D = unknown>(
@@ -190,13 +154,24 @@ export abstract class SbbOverlayBaseService<
       throw Error(`Overlay with id "${config.id}" exists already. The overlay id must be unique.`);
     }
 
-    const overlayRef: OverlayRef = createOverlayRef(this.injector);
-    const overlayContainer = this.#attachContainer(overlayRef, config);
+    const overlayContainerElement = this.injector.get(OverlayContainer).getContainerElement();
+
+    // Additional element is needed as DomPortalOutlet would remove the overlayContainerElement element on
+    // dispose. We must not remove the entire overlay container as it is considered living forever after first instantiation.
+    const host = this.injector.get(DOCUMENT).createElement('div');
+    overlayContainerElement.appendChild(host);
+
+    const portalOutlet = new DomPortalOutlet(
+      host,
+      this.injector.get(ApplicationRef),
+      this.injector,
+    );
+    const overlayContainer = this.#attachContainer(portalOutlet, config);
 
     const overlayRefConstructed = new this.#overlayRefConstructor(
       overlayContainer,
       config,
-      overlayRef,
+      portalOutlet,
     );
 
     this.#attachContent(componentOrTemplateRef, overlayRefConstructed, overlayContainer, config);
@@ -204,19 +179,11 @@ export abstract class SbbOverlayBaseService<
     this.openOverlays.push(overlayRefConstructed);
     this.afterOpened.next(overlayRefConstructed);
 
-    overlayRefConstructed!.afterClose.subscribe((event) => {
+    overlayRefConstructed.afterClose.subscribe((event) => {
       if (!event) {
         return;
       }
-      const index = this.openOverlays.indexOf(overlayRefConstructed);
-
-      if (index > -1) {
-        this.openOverlays.splice(index, 1);
-
-        if (!this.openOverlays.length) {
-          this.#getAfterAllClosed().next();
-        }
-      }
+      this.#removeOpenOverlay(overlayRefConstructed, true);
     });
 
     overlayContainer.open();
@@ -235,10 +202,10 @@ export abstract class SbbOverlayBaseService<
 
   /**
    * Keeps track of the currently-open overlays.
-   *  @deprecated use `openOverlays` instead.
+   * @deprecated use `openOverlays` instead.
    */
   get openDialogs(): R[] {
-    return this.#parentOverlay ? this.#parentOverlay.openOverlays : this.#openOverlaysAtThisLevel;
+    return this.openOverlays;
   }
 
   /**
@@ -258,8 +225,7 @@ export abstract class SbbOverlayBaseService<
    * Closes all currently-open overlays.
    */
   closeAll(): void {
-    const overlays = this.openOverlays;
-    overlays.map((ref: R) => ref.close());
+    this.openOverlays.map((ref: R) => ref.close());
   }
 
   #getAfterAllClosed(): Subject<void> {
@@ -300,5 +266,27 @@ export abstract class SbbOverlayBaseService<
     this.#overlayContainerType = overlayContainerType;
     this.#overlayRefConstructor = overlayRefConstructor;
     this.#overlayDataToken = overlayDataToken;
+  }
+
+  ngOnDestroy() {
+    // Make a second pass and close the remaining dialogs. We do this second pass in order to
+    // correctly dispatch the `afterAllClosed` event in case we have a mixed array of dialogs
+    // that should be closed and dialogs that should not.
+    this.#openOverlaysAtThisLevel.reverse().forEach((dialog) => dialog.close());
+    this.#afterAllClosedAtThisLevel.complete();
+    this.#afterOpenedAtThisLevel.complete();
+    this.#openOverlaysAtThisLevel = [];
+  }
+
+  #removeOpenOverlay(overlayRef: R, emitEvent: boolean): void {
+    const index = this.openOverlays.indexOf(overlayRef);
+
+    if (index > -1) {
+      this.openOverlays.splice(index, 1);
+
+      if (!this.openOverlays.length && emitEvent) {
+        this.#getAfterAllClosed().next();
+      }
+    }
   }
 }
