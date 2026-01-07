@@ -1,7 +1,7 @@
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbTransparentButton } from '@sbb-esta/lyne-angular/button/transparent-button';
 import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
-import { SbbToast } from '@sbb-esta/lyne-angular/toast';
+import { SbbToast, SbbToastModule } from '@sbb-esta/lyne-angular/toast';
 import type { SbbButtonElement } from '@sbb-esta/lyne-elements/button/button.js';
 import type { SbbToastElement } from '@sbb-esta/lyne-elements/toast.js';
 import type { Args, Meta } from '@storybook/angular';
@@ -76,7 +76,7 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [SbbButton, SbbTransparentButton, SbbLink],
+      imports: [SbbButton, SbbTransparentButton, SbbLink, SbbToastModule],
     }),
   ],
   title: 'elements/sbb-toast',

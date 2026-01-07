@@ -1,5 +1,15 @@
 # Changelog
 
+## [21.0.5](https://github.com/sbb-design-systems/lyne-angular/compare/v21.0.4...v21.0.5) (2026-01-06)
+
+
+### Bug Fixes
+
+* **deps:** update esta to v4.0.4 ([#249](https://github.com/sbb-design-systems/lyne-angular/issues/249)) ([5b246d6](https://github.com/sbb-design-systems/lyne-angular/commit/5b246d6cb25887b8bc4675fcbb3c1a7685d31f55))
+* expose simple attributes as directives ([#248](https://github.com/sbb-design-systems/lyne-angular/issues/248)) ([12de459](https://github.com/sbb-design-systems/lyne-angular/commit/12de4593501e3d7cb06861e614355cc46ad3e036))
+* fix dark mode color of sort header ([#247](https://github.com/sbb-design-systems/lyne-angular/issues/247)) ([0f94f34](https://github.com/sbb-design-systems/lyne-angular/commit/0f94f34adbf556969dc67a0ee67e9bc09d20318d))
+* **sbb-tabs:** fix rendering time of tabs ([#242](https://github.com/sbb-design-systems/lyne-angular/issues/242)) ([411cc21](https://github.com/sbb-design-systems/lyne-angular/commit/411cc2163e284d1edf1ca9f9569b8c6ed8b70320))
+
 ## [21.0.4](https://github.com/sbb-design-systems/lyne-angular/compare/v21.0.3...v21.0.4) (2025-12-22)
 
 
