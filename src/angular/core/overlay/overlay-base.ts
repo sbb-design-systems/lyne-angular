@@ -6,6 +6,7 @@ import {
   type ComponentRef,
   DOCUMENT,
   inject,
+  Injectable,
   InjectionToken,
   Injector,
   NgZone,
@@ -23,6 +24,7 @@ import type { SbbOverlayRef } from './overlay-ref';
 /** Injection token that can be used to access the data that was passed in to an overlay. */
 export const SBB_OVERLAY_DATA = new InjectionToken<unknown>('SbbOverlayData');
 
+@Injectable()
 export abstract class SbbOverlayBaseService<
   C extends SbbOverlayContainerBase,
   // Type of Container Instance
@@ -255,6 +257,7 @@ export abstract class SbbOverlayBaseService<
   #overlayRefConstructor: Type<R>;
   #overlayDataToken: InjectionToken<unknown>;
 
+  /* eslint-disable @angular-eslint/prefer-inject */
   constructor(
     public injector: Injector,
     parentOverlay: SbbOverlayBaseService<C, I, R> | null,
@@ -267,6 +270,7 @@ export abstract class SbbOverlayBaseService<
     this.#overlayRefConstructor = overlayRefConstructor;
     this.#overlayDataToken = overlayDataToken;
   }
+  /* eslint-enable @angular-eslint/prefer-inject */
 
   ngOnDestroy() {
     // Make a second pass and close the remaining dialogs. We do this second pass in order to
