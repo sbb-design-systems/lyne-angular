@@ -1,5 +1,35 @@
 # Changelog
 
+## [21.0.5](https://github.com/sbb-design-systems/lyne-angular/compare/v21.0.4...v21.0.5) (2026-01-06)
+
+
+### Bug Fixes
+
+* **deps:** update esta to v4.0.4 ([#249](https://github.com/sbb-design-systems/lyne-angular/issues/249)) ([5b246d6](https://github.com/sbb-design-systems/lyne-angular/commit/5b246d6cb25887b8bc4675fcbb3c1a7685d31f55))
+* expose simple attributes as directives ([#248](https://github.com/sbb-design-systems/lyne-angular/issues/248)) ([12de459](https://github.com/sbb-design-systems/lyne-angular/commit/12de4593501e3d7cb06861e614355cc46ad3e036))
+* fix dark mode color of sort header ([#247](https://github.com/sbb-design-systems/lyne-angular/issues/247)) ([0f94f34](https://github.com/sbb-design-systems/lyne-angular/commit/0f94f34adbf556969dc67a0ee67e9bc09d20318d))
+* **sbb-tabs:** fix rendering time of tabs ([#242](https://github.com/sbb-design-systems/lyne-angular/issues/242)) ([411cc21](https://github.com/sbb-design-systems/lyne-angular/commit/411cc2163e284d1edf1ca9f9569b8c6ed8b70320))
+
+## [21.0.4](https://github.com/sbb-design-systems/lyne-angular/compare/v21.0.3...v21.0.4) (2025-12-22)
+
+
+### Bug Fixes
+
+* **deps:** update angular ([f3e53bc](https://github.com/sbb-design-systems/lyne-angular/commit/f3e53bc4905ea6342a08fc2ab1dc4d77f1af67f4))
+* **deps:** update angular ([c65b7db](https://github.com/sbb-design-systems/lyne-angular/commit/c65b7db1f938fd40835c8aa0037e13072760a12f))
+* **deps:** update angular to v21.0.5 ([a582160](https://github.com/sbb-design-systems/lyne-angular/commit/a5821604cb6832db50ebcf066e0f997b67e66ae2))
+* **deps:** update angular to v21.0.6 ([76993b0](https://github.com/sbb-design-systems/lyne-angular/commit/76993b09fec3c29bb2f15d0c101bcfed33aa572d))
+* **deps:** update esta to v4.0.3 ([#241](https://github.com/sbb-design-systems/lyne-angular/issues/241)) ([450909e](https://github.com/sbb-design-systems/lyne-angular/commit/450909e0c739b7696656c62f576ba7ad89b01d28))
+
+## [21.0.3](https://github.com/sbb-design-systems/lyne-angular/compare/v21.0.2...v21.0.3) (2025-12-08)
+
+
+### Bug Fixes
+
+* **deps:** update angular ([69def51](https://github.com/sbb-design-systems/lyne-angular/commit/69def514d7408d3f174e6e8adb822d65a01d7621))
+* **deps:** update esta to v4.0.2 ([#238](https://github.com/sbb-design-systems/lyne-angular/issues/238)) ([1919530](https://github.com/sbb-design-systems/lyne-angular/commit/191953048908d8c62abe68937fe4187e88f31bac))
+* **sbb-icon-sidebar:** add alias for duplicate module name ([#237](https://github.com/sbb-design-systems/lyne-angular/issues/237)) ([d62ca22](https://github.com/sbb-design-systems/lyne-angular/commit/d62ca22b6d8214352d2100fb69a495adc4502441))
+
 ## [21.0.2](https://github.com/sbb-design-systems/lyne-angular/compare/v21.0.1...v21.0.2) (2025-12-03)
 
 

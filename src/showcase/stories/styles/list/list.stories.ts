@@ -16,7 +16,7 @@ const UnorderedListTemplate = (): string => `
     .map(
       (textSize) => `
       <sbb-title level="5">Text size ${textSize}</sbb-title>
-      <ul class=${`sbb-list sbb-text-${textSize}`}>
+      <ul class="sbb-list sbb-text-${textSize}">
         ${ListContent()}
         <li>
           Nested list
@@ -35,7 +35,7 @@ const OrderedListTemplate = (): string => `
     .map(
       (textSize) => `
       <sbb-title level="5">Text size ${textSize}</sbb-title>
-      <ol class=${`sbb-list sbb-text-${textSize}`}>
+      <ol class="sbb-list sbb-text-${textSize}">
         ${ListContent()}
         <li>
           Nested list
@@ -54,7 +54,7 @@ const StepListTemplate = (): string => `
     .map(
       (textSize) => `
       <sbb-title level="5">Text size ${textSize}</sbb-title>
-      <ol class=${`sbb-step-list sbb-text-${textSize}`}>
+      <ol class="sbb-step-list sbb-text-${textSize}">
         ${ListContent()}
         <li>
           Nested list
@@ -73,7 +73,7 @@ const IconListTemplate = (): string => `
     .map(
       (textSize) => `
       <sbb-title level="5">Text size ${textSize}</sbb-title>
-      <ol class=${`sbb-icon-list sbb-text-${textSize}`}>
+      <ol class="sbb-icon-list sbb-text-${textSize}">
         ${ListContent()}
         <li>
           Nested list
@@ -93,7 +93,7 @@ const IconListCustomIconTemplate = (): string => `
       (textSize) => `
       <sbb-title level="5">Text size ${textSize}</sbb-title>
       <ol
-        class=${`sbb-icon-list sbb-text-${textSize}`}
+        class="sbb-icon-list sbb-text-${textSize}"
         style="--sbb-icon-list-marker-icon-color: var(--sbb-color-primary); --sbb-icon-list-marker-icon: url('https://icons.app.sbb.ch/icons/circle-cross-small.svg')"
       >
         ${ListContent()}
@@ -114,7 +114,7 @@ const IconListCustomColorTemplate = (): string => `
     .map(
       (textSize) => `
       <sbb-title level="5">Text size ${textSize}</sbb-title>
-      <ol class=${`sbb-icon-list sbb-text-${textSize}`} style="color: var(--sbb-color-green);">
+      <ol class="sbb-icon-list sbb-text-${textSize}" style="color: var(--sbb-color-green);">
         ${ListContent()}
         <li>
           Nested list

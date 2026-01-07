@@ -1,7 +1,7 @@
 import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 import { SbbCard } from '@sbb-esta/lyne-angular/card';
 import { SbbImage } from '@sbb-esta/lyne-angular/image';
-import { SbbOverlay } from '@sbb-esta/lyne-angular/overlay';
+import { SbbOverlay, SbbOverlayModule } from '@sbb-esta/lyne-angular/overlay';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
@@ -11,7 +11,7 @@ import readme from './readme.md';
 const meta: Meta = {
   decorators: [
     moduleMetadata({
-      imports: [SbbButton, SbbTitle, SbbImage, SbbCard],
+      imports: [SbbButton, SbbTitle, SbbImage, SbbCard, SbbOverlayModule],
     }),
   ],
   title: 'elements/sbb-overlay',

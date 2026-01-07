@@ -73,7 +73,7 @@ jobs:
     permissions:
       packages: write
     env:
-      IMAGE_REPO_STORYBOOK: ghcr.io/${{ github.repository }}/storybook
+      IMAGE_REPO_DOCS: ghcr.io/${{ github.repository }}/docs
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -103,13 +103,13 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build --tag $IMAGE_REPO_STORYBOOK:dev-fat .
+          docker build --tag $IMAGE_REPO_DOCS:dev-fat .
           mint slim \
-            --target $IMAGE_REPO_STORYBOOK:dev-fat \
-            --tag $IMAGE_REPO_STORYBOOK:dev \
+            --target $IMAGE_REPO_DOCS:dev-fat \
+            --tag $IMAGE_REPO_DOCS:dev \
             --preserve-path /usr/share/nginx/html \
             --include-new false
-          docker push $IMAGE_REPO_STORYBOOK:dev
+          docker push $IMAGE_REPO_DOCS:dev
           docker image list
         env:
           DOCKER_BUILDKIT: 1
