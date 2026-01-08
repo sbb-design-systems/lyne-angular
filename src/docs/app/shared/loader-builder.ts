@@ -6,43 +6,43 @@ import { catchError } from 'rxjs/operators';
 import type { ModuleParams } from './module-params';
 
 export class LoaderBuilder {
-  private _url?: string;
-  private readonly _packageName: string;
-  private readonly _module: string | undefined;
-  private readonly _id: string;
+  #url?: string;
+  readonly #packageName: string;
+  readonly #module: string | undefined;
+  readonly #id: string;
 
   constructor(
     private _http: HttpClient,
     params: ModuleParams,
   ) {
-    this._packageName = params.packageName;
-    this._module = params.module;
-    this._id = params.id;
+    this.#packageName = params.packageName;
+    this.#module = params.module;
+    this.#id = params.id;
   }
 
   fromDocumentation() {
-    this._url = `docs-content/overviews/${this._packageName}/${this._id}.md`;
+    this.#url = `docs-content/overviews/${this.#packageName}/${this.#id}.md`;
     return this;
   }
 
   fromModuleDocumentation() {
-    const modulePath = this._module ? `${this._module}/` : '';
-    this._url = `docs-content/overviews/${this._packageName}/${modulePath}${this._id}/readme.md`;
+    const modulePath = this.#module ? `${this.#module}/` : '';
+    this.#url = `docs-content/overviews/${this.#packageName}/${modulePath}${this.#id}/readme.md`;
     return this;
   }
 
   fromApiDocumentation() {
-    this._url = `docs-content/api/${this._packageName}/${this._id}-api.md`;
+    this.#url = `docs-content/api/${this.#packageName}/${this.#id}-api.md`;
     return this;
   }
 
   fromExamples(name: string, file: string) {
-    const modulePath = this._module ? `${this._module}/` : '';
-    this._url = `docs-content/examples/${this._packageName}/${modulePath}${this._id}/${name}/${file}`;
+    const modulePath = this.#module ? `${this.#module}/` : '';
+    this.#url = `docs-content/examples/${this.#packageName}/${modulePath}${this.#id}/${name}/${file}`;
     return this;
   }
 
   load(): Observable<string> {
-    return this._http.get(this._url!, { responseType: 'text' }).pipe(catchError(() => of('')));
+    return this._http.get(this.#url!, { responseType: 'text' }).pipe(catchError(() => of('')));
   }
 }

@@ -1,11 +1,11 @@
 <sbb-sidebar-container>
   <sbb-sidebar role="navigation" opened>
     <sbb-accordion multi>
-      @for (section of (package | async)?.sections ?? []; track $index) {
+      @for (section of package().sections; track section.name) {
         <sbb-expansion-panel expanded>
           <sbb-expansion-panel-header>{{ section.name }}</sbb-expansion-panel-header>
           <sbb-expansion-panel-content>
-            @for (entry of section.entries; track $index) {
+            @for (entry of section.entries; track entry.label) {
               <sbb-block-link [routerLink]="entry.link" routerLinkActive="sbb-active">{{
                 entry.label
               }}</sbb-block-link>

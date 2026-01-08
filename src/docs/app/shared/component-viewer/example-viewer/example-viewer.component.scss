@@ -1,23 +1,22 @@
-@use '@sbb-esta/lyne-elements' as sbb;
-
 :host {
   display: block;
-  padding: sbb.px-to-rem-build(24);
-  margin-bottom: 1em;
+  padding: var(--sbb-spacing-fixed-6x);
+  margin-bottom: var(--sbb-spacing-fixed-1x);
   position: relative;
-  border: 1px solid var(--sbb-color-silver);
+  border: var(--sbb-border-width-1x) solid var(--sbb-color-silver);
+  border-radius: var(--sbb-border-radius-2x);
 }
 
 .example-viewer-header {
-  border-bottom: 1px solid var(--sbb-color-silver);
+  border-bottom: var(--sbb-border-width-1x) solid var(--sbb-color-silver);
   display: flex;
-  padding-bottom: sbb.px-to-rem-build(20);
-  margin-bottom: 1em;
+  padding-bottom: var(--sbb-spacing-fixed-5x);
+  margin-bottom: var(--sbb-spacing-fixed-1x);
 }
 
 .example-viewer-header-button {
   flex-shrink: 0;
-  margin-left: 0.5em;
+  margin-left: var(--sbb-spacing-fixed-2x);
 }
 
 .example-viewer-title {
@@ -28,13 +27,9 @@
 }
 
 .sbb-example-viewer-tabs {
-  margin-bottom: 2em;
+  margin-bottom: var(--sbb-spacing-fixed-8x);
 
   &[hidden] {
     display: none;
   }
-}
-
-.devmode-notification {
-  margin-bottom: var(--sbb-divider-small);
 }

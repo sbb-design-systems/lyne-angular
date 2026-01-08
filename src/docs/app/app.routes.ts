@@ -1,6 +1,5 @@
 import type { Routes } from '@angular/router';
 
-import { HowToUpdateComponent } from './how-to-update/how-to-update.component';
 import { IntroductionComponent } from './introduction/introduction.component';
 import { VariantSwitch } from './variant-switch';
 
@@ -10,13 +9,14 @@ export const routes: Routes = [
     canActivate: [VariantSwitch],
     children: [
       {
-        path: '',
+        path: 'introduction',
         component: IntroductionComponent,
       },
-      {
-        path: 'how-to-update',
-        component: HowToUpdateComponent,
-      },
+      // TODO: create if needed
+      // {
+      //   path: 'how-to-update',
+      //   component: HowToUpdateComponent,
+      // },
       {
         path: 'angular',
         loadChildren: () => import('./angular/angular.module').then((m) => m.AngularModule),
@@ -32,7 +32,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    redirectTo: 'introduction',
     pathMatch: 'full',
   },
 ];

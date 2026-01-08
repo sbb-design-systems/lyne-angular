@@ -29,13 +29,15 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
         name: 'Introduction',
         entries: [
           { label: 'Getting started', link: './introduction/getting-started' },
-          { label: 'Typography', link: './introduction/typography' },
+          // TODO: create if needed
+          // { label: 'Typography', link: './introduction/typography' },
         ],
       },
-      {
-        name: 'Guides',
-        entries: [{ label: 'TBD', link: './' }],
-      },
+      // TODO: create if needed
+      // {
+      //   name: 'Guides',
+      //   entries: [{ label: 'TBD', link: './' }],
+      // },
       {
         name: 'Components',
         entries: [
@@ -43,7 +45,6 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           { label: 'Action Group', link: './components/action-group' },
           { label: 'Alert', link: './components/alert' },
           { label: 'Autocomplete', link: './components/autocomplete' },
-          { label: 'Autocomplete Grid', link: './components/autocomplete-grid' },
           { label: 'Breadcrumb', link: './components/breadcrumb' },
           { label: 'Button', link: './components/button' },
           { label: 'Calendar', link: './components/calendar' },
@@ -122,6 +123,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
       {
         name: 'Components',
         entries: [
+          { label: 'Autocomplete Grid', link: './components/autocomplete-grid' },
           { label: 'Journey Summary', link: './components/journey-summary' },
           { label: 'Pearl Chain', link: './components/pearl-chain' },
           { label: 'Pearl Chain Time', link: './components/pearl-chain-time' },
@@ -135,14 +137,3 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
     ],
   },
 };
-
-export function findPackageEntry(packageName: string, componentId: string): ShowcaseMetaEntry {
-  for (const section of PACKAGES[packageName].sections) {
-    const foundEntry = section.entries.find((entry) => entry.link.endsWith(componentId));
-    if (foundEntry) {
-      return foundEntry;
-    }
-  }
-
-  return null!;
-}

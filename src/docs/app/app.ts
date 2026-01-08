@@ -33,15 +33,10 @@ import { VariantSwitch } from './variant-switch';
   ],
   providers: [VariantSwitch],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
 })
 export class App {
-  private _variantSwitch = inject(VariantSwitch);
-  sbbVariant = this._variantSwitch.sbbVariant;
+  #variantSwitch = inject(VariantSwitch);
+  sbbVariant = this.#variantSwitch.sbbVariant;
   packages = PACKAGES;
-  version: string = '';
-
-  constructor() {
-    this.version = inject(Meta).getTag('name="sbb-lyne-angular-version"')!.content;
-  }
+  version = inject(Meta).getTag('name="sbb-lyne-angular-version"')!.content;
 }

@@ -1,38 +1,72 @@
-# Getting started - package: angular
+> ⓘ This document only focuses on the Angular wrapper. The stories of the components in this Storybook are very minimal.
+>
+> Please check the [Storybook of Lyne Components](https://lyne-storybook.app.sbb.ch) and
+> [digital.sbb.ch](https://digital.sbb.ch) for full component documentation and getting started guide.
 
-### HTML Example Test
+# Getting Started
 
-```html
-<!-- HTML -->
-<sbb-button icon-name="info"> Button text </sbb-button>
+> ⓘ For simple testing and reproductions, see [Stackblitz starter for @sbb-esta/lyne-angular](https://stackblitz.com/edit/lyne-angular-starter?file=src%2Fmain.ts).
 
-<sbb-button>
-  <sbb-icon slot="icon" name="info"></sbb-icon>
-  Button text
-</sbb-button>
+1.  Install Angular CLI, see [Angular CLI documentation](https://cli.angular.io/)
+2.  Install the `@sbb-esta/lyne-angular`, `@sbb-esta/lyne-elements` and `@angular/cdk` packages:
 
-<sbb-button icon-name="info" aria-label="Click for more information."></sbb-button>
-```
+    ```sh
+      npm install --save @sbb-esta/lyne-angular @sbb-esta/lyne-elements @angular/cdk
+    ```
 
-### Typescript Example Test
+    or, if using yarn:
+
+    ```sh
+      yarn add @sbb-esta/lyne-angular @sbb-esta/lyne-elements @angular/cdk
+    ```
+
+3.  Including global styles is strongly recommended to apply all SBB styles to your application.
+    Importing stylesheets is doable by editing the `styles.(s)css`:
+
+    ```css
+    @import 'node_modules/@sbb-esta/lyne-elements/standard-theme.css';
+    ```
+
+    or editing your `angular.json`:
+
+    ```json
+      ...
+      "styles": [
+        "src/styles.scss",
+        "node_modules/@sbb-esta/lyne-elements/standard-theme.css"
+      ],
+      ...
+    ```
+
+4.  Use the desired Lyne components in your Angular components:
+
+- Add Lyne components to the `imports` array in the `@Component` decorator.
+- Unlike `lyne-elements`, inputs must be used in `camelCase` (check the `iconName` property in the following example).
+
+## Example
 
 ```ts
-// TS
-export class TablePaginatorExampleComponent implements OnInit {
-  dataSource: SbbTableDataSource<any> = new SbbTableDataSource([]);
-  @ViewChild('paginator', { static: true, read: SbbPaginatorComponent })
-  paginator: SbbPaginatorComponent;
+import { Component, Input } from '@angular/core';
+import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
 
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+@Component({
+  selector: 'my-app-example',
+  imports: [SbbButton],
+  template: `
+    <sbb-button [iconName]="icon" (click)="logger($event)">
+      {{ label }}
+    </sbb-button>
+  `,
+})
+export class ExampleComponent {
+  @Input()
+  label: string = 'Button label';
+
+  @Input()
+  icon: string = 'pie-small';
+
+  public logger(e: Event) {
+    console.log(e);
   }
 }
 ```
-
-### Table
-
-| Name         | Attribute     | Privacy | Type                    | Default            | Description                                                                             |
-| ------------ | ------------- | ------- | ----------------------- | ------------------ | --------------------------------------------------------------------------------------- |
-| `multi`      | `multi`       | public  | `boolean`               | `false`            | Whether more than one sbb-expansion-panel can be open at the same time.                 |
-| `size`       | `size`        | public  | `'s' \| 'l'`            | `'l' / 's' (lean)` | Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`. |
-| `titleLevel` | `title-level` | public  | `SbbTitleLevel \| null` | `null`             | The heading level for the sbb-expansion-panel-headers within the component.             |

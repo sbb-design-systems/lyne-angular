@@ -1,4 +1,4 @@
-<div class="example-viewer-header sbb-icon-scaled">
+<div class="example-viewer-header">
   <h3 class="example-viewer-title">{{ this.exampleData.description }}</h3>
   <sbb-secondary-button
     class="example-viewer-header-button"
@@ -9,7 +9,7 @@
   >
   </sbb-secondary-button>
 
-  @if ((stackBlitzEnabled() | async) && exampleData) {
+  @if (stackBlitzEnabled() && exampleData) {
     <sbb-secondary-button
       sbb-stack-blitz-button
       [exampleData]="exampleData"
@@ -25,7 +25,7 @@
 
 <sbb-tab-group [hidden]="!showSource" class="sbb-example-viewer-tabs">
   @for (content of exampleCodes | async; track $index) {
-    <sbb-tab-label>{{ content.label }}</sbb-tab-label>
+    <sbb-tab-label [active]="$index === 0">{{ content.label }}</sbb-tab-label>
     <sbb-tab [innerHtml]="content.code"> </sbb-tab>
   }
 </sbb-tab-group>

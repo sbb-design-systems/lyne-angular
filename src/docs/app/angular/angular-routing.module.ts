@@ -23,6 +23,7 @@ const routes: Routes = [
         redirectTo: 'introduction/getting-started',
         pathMatch: 'full',
       },
+      // TODO: create if needed
       // {
       //   path: 'icon-overview',
       //   component: IconOverviewComponent,
@@ -35,14 +36,15 @@ const routes: Routes = [
             loaderBuilder.fromDocumentation(),
         },
       },
-      {
-        path: 'guides/:id',
-        component: MarkdownViewerComponent,
-        data: {
-          loaderBuilderInterceptor: (loaderBuilder: LoaderBuilder) =>
-            loaderBuilder.fromDocumentation(),
-        },
-      },
+      // TODO: create if needed
+      // {
+      //   path: 'guides/:id',
+      //   component: MarkdownViewerComponent,
+      //   data: {
+      //     loaderBuilderInterceptor: (loaderBuilder: LoaderBuilder) =>
+      //       loaderBuilder.fromDocumentation(),
+      //   },
+      // },
       {
         path: 'components/:id',
         component: ComponentViewerComponent,

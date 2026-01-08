@@ -4,8 +4,7 @@ import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 
 /**
- * @title Basic Alert
- * @order 20
+ * @title Basic sbb-alert
  */
 @Component({
   selector: 'sbb-alert-basic-example',

@@ -1,3 +1,5 @@
+import type { Type } from '@angular/core';
+
 import type { ExampleData } from './example-data';
 
 export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[]> = {
@@ -6,7 +8,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'button/mini-button': ['mini-button-basic'],
 };
 
-export async function loadExample(id: string): Promise<unknown> {
+export async function loadExample(id: string): Promise<Record<string, Type<unknown>> | undefined> {
   switch (id) {
     case 'accordion-basic':
       return import('../angular/examples/accordion');

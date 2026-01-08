@@ -17,7 +17,7 @@ export class ExampleData {
   /** List of files that are part of this example. */
   exampleFiles: string[];
 
-  /** Whether the css has to be added to exampleFiles. */
+  /** Whether the CSS has to be added to exampleFiles. */
   hasStyle = false;
 
   /** Selector name of the example component. */
@@ -44,7 +44,7 @@ export class ExampleData {
 
     this.id = example.id!;
     this.name = example.name ?? exampleName.replace(/-+/g, '') + 'Example';
-    // TODO check these setters
+    // TODO: check these setters
     this.exampleFiles = example.exampleFiles ?? [
       `${example.id}-example.html`,
       `${example.id}-example.ts`,

@@ -10,12 +10,26 @@ pre {
   margin: 0;
 }
 
+blockquote {
+  border-left: var(--sbb-spacing-fixed-1x) solid var(--sbb-color-primary);
+  padding: 0 var(--sbb-spacing-fixed-4x);
+}
+
+code {
+  background-color: var(--sbb-background-color-4);
+  padding: var(--sbb-spacing-fixed-1x);
+}
+
+.hljs {
+  background-color: var(--sbb-background-color-4);
+}
+
 .docs-link {
   --docs-link-icon-color: initial;
 
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--sbb-spacing-fixed-2x);
   text-decoration: none;
   color: initial;
 
@@ -31,17 +45,18 @@ pre {
 .docs-toc-container {
   display: grid;
   grid-template-columns: 4fr 1fr;
-  gap: 1rem;
+  gap: var(--sbb-spacing-fixed-4x);
 }
 
 .docs-toc-content {
   height: fit-content;
   top: 0;
   position: sticky;
-  border-left: 2px solid var(--sbb-color-primary);
-  margin-block-start: 1rem;
-  padding-inline: 1rem;
-  font-size: 14px;
+  border-left: var(--sbb-border-width-2x) solid var(--sbb-color-primary);
+  margin-block-start: var(--sbb-spacing-fixed-4x);
+  padding-inline: var(--sbb-spacing-fixed-4x);
+  font-size: var(--sbb-text-font-size-xs);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 
   h3 {
     margin: 0;
@@ -73,17 +88,17 @@ pre {
 }
 
 .docs-heading-2 {
-  padding-block-start: 0.25rem;
+  padding-block-start: var(--sbb-spacing-fixed-1x);
 }
 
 .docs-heading-3 {
-  padding-inline-start: 1rem;
+  padding-inline-start: var(--sbb-spacing-fixed-4x);
 }
 
 .docs-heading-4 {
-  padding-inline-start: 2rem;
+  padding-inline-start: var(--sbb-spacing-fixed-8x);
 }
 
 .docs-heading-5 {
-  padding-inline-start: 3rem;
+  padding-inline-start: var(--sbb-spacing-fixed-12x);
 }

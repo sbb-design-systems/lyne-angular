@@ -72,8 +72,8 @@ export class StackBlitzWriter {
 
         this._openStackBlitz({
           files,
-          title: `Sbb Angular Library - ${data.description}`,
-          // FIXME the definitive app endpoint must be updated once deployed
+          title: `SBB Lyne Angular Library - ${data.description}`,
+          // TODO: the definitive app endpoint must be updated once deployed.
           description: `${data.description}\n\nAuto-generated from: https://lyne-angular.app.sbb.ch`,
           openFile: exampleMainFile,
         });

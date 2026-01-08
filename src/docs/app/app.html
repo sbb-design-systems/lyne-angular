@@ -1,10 +1,11 @@
-<sbb-header expanded>
+<sbb-header expanded scroll-origin="content">
   <span class="sbb-header-info">
     <strong>Lyne Angular</strong>
     <span>{{version}}</span>
   </span>
-  <sbb-header-link routerLink="/">Introduction</sbb-header-link>
-  <sbb-header-link routerLink="/how-to-update">How to update</sbb-header-link>
+  <sbb-header-link routerLink="/introduction" routerLinkActive="sbb-active"
+    >Introduction</sbb-header-link
+  >
   <div class="sbb-header-spacer"></div>
   <sbb-form-field>
     <sbb-select [formControl]="sbbVariant">
@@ -14,7 +15,7 @@
       <sbb-option [value]="'dark'">Lean (dark mode)</sbb-option>
     </sbb-select>
   </sbb-form-field>
-  <a href="https://www.sbb.ch" class="sbb-header-logo">
+  <a href="/" class="sbb-header-logo">
     <sbb-logo protective-room="none"></sbb-logo>
   </a>
 </sbb-header>

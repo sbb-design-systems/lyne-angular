@@ -1,8 +1,9 @@
 import { AsyncPipe } from '@angular/common';
 import type { OnInit } from '@angular/core';
 import { Component, inject, Input, ViewContainerRef } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { toSignal } from '@angular/core/rxjs-interop';
 import type { SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
 import { SbbTabsModule } from '@sbb-esta/lyne-angular/tabs';
@@ -28,14 +29,16 @@ interface ExampleCode {
   template: '',
 })
 export class ExampleOutletComponent implements OnInit {
+  #viewContainerRef = inject(ViewContainerRef);
+
   @Input() exampleData!: ExampleData;
 
-  private _viewContainerRef = inject(ViewContainerRef);
-
-  async ngOnInit() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const module = (await loadExample(this.exampleData.id)) as any;
-    this._viewContainerRef.createComponent(module[this.exampleData.name]);
+  ngOnInit() {
+    loadExample(this.exampleData.id).then((example) => {
+      if (example) {
+        this.#viewContainerRef.createComponent(example[this.exampleData.name]);
+      }
+    });
   }
 }
 
@@ -55,13 +58,17 @@ export class ExampleOutletComponent implements OnInit {
 export class ExampleViewerComponent implements OnInit {
   @Input() exampleData!: ExampleData;
 
+  #htmlLoader = inject(HtmlLoader);
+  #route = inject(ActivatedRoute);
+  #domSanitizer = inject(DomSanitizer);
+  #defaultExtensionsOrder = ['html', 'ts', 'css', 'scss'];
+
+  stackBlitzEnabled = toSignal(
+    moduleParams(this.#route).pipe(map((params) => params.packageName === 'angular')),
+    { initialValue: false },
+  );
   exampleCodes!: Observable<ExampleCode[]>;
   showSource: boolean = false;
-
-  private _defaultExtensionsOrder = ['html', 'ts', 'css', 'scss'];
-  private _htmlLoader = inject(HtmlLoader);
-  private _route = inject(ActivatedRoute);
-  private _domSanitizer = inject(DomSanitizer);
 
   ngOnInit(): void {
     this.exampleCodes = combineLatest(
@@ -77,27 +84,23 @@ export class ExampleViewerComponent implements OnInit {
       map((exampleCodes: ExampleCode[]) =>
         exampleCodes.sort(
           (a, b) =>
-            this._defaultExtensionsOrder.indexOf(a.label) -
-            this._defaultExtensionsOrder.indexOf(b.label),
+            this.#defaultExtensionsOrder.indexOf(a.label) -
+            this.#defaultExtensionsOrder.indexOf(b.label),
         ),
       ),
     );
   }
 
-  stackBlitzEnabled() {
-    return moduleParams(this._route).pipe(map((params) => params.packageName === 'angular'));
-  }
-
   /** Load, convert and highlight the example file */
   private _createLoader(exampleFile: string) {
-    return moduleParams(this._route).pipe(
+    return moduleParams(this.#route).pipe(
       switchMap((params) =>
-        this._htmlLoader.withParams(params).fromExamples(this.exampleData.id, exampleFile).load(),
+        this.#htmlLoader.withParams(params).fromExamples(this.exampleData.id, exampleFile).load(),
       ),
       switchMap((code) =>
         marked.parse(`\`\`\`${this._getFileExtension(exampleFile)} \n${code}\n\`\`\``),
       ),
-      map((code) => this._domSanitizer.bypassSecurityTrustHtml(code)),
+      map((code) => this.#domSanitizer.bypassSecurityTrustHtml(code)),
     );
   }
 

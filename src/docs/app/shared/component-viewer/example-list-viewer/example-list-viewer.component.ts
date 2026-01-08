@@ -1,8 +1,7 @@
-import { AsyncPipe } from '@angular/common';
-import type { OnInit } from '@angular/core';
+import type { Signal } from '@angular/core';
 import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import type { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ExampleData } from '../../example-data';
@@ -12,20 +11,17 @@ import { ExampleViewerComponent } from '../example-viewer/example-viewer.compone
 @Component({
   selector: 'sbb-example-list-viewer',
   templateUrl: './example-list-viewer.component.html',
-  styleUrls: ['./example-list-viewer.component.scss'],
-  imports: [ExampleViewerComponent, AsyncPipe],
+  imports: [ExampleViewerComponent],
 })
-export class ExampleListViewerComponent implements OnInit {
-  examples!: Observable<ExampleData[] | null>;
-
-  private _route = inject(ActivatedRoute);
-
-  ngOnInit(): void {
-    this.examples = moduleParams(this._route).pipe(
+export class ExampleListViewerComponent {
+  #route = inject(ActivatedRoute);
+  examples: Signal<ExampleData[]> = toSignal(
+    moduleParams(this.#route).pipe(
       map((params) => {
         const examples = ExampleData.find(params.packageName, params.id, params.module);
-        return examples.length === 0 ? null : examples;
+        return examples.length === 0 ? [] : examples;
       }),
-    );
-  }
+    ),
+    { initialValue: [] },
+  );
 }

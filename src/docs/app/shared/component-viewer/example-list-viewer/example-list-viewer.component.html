@@ -1,7 +1,5 @@
-@let _examples = examples | async;
-
-@if (_examples) {
-  @for (exampleData of _examples; track $index) {
+@if (examples().length > 0) {
+  @for (exampleData of examples(); track exampleData.id) {
     <sbb-example-viewer [exampleData]="exampleData" />
   }
 } @else {

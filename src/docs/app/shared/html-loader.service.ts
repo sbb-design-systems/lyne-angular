@@ -8,9 +8,9 @@ import type { ModuleParams } from './module-params';
   providedIn: 'root',
 })
 export class HtmlLoader {
-  private _http = inject(HttpClient);
+  #http: HttpClient = inject(HttpClient);
 
   withParams(moduleParams: ModuleParams): LoaderBuilder {
-    return new LoaderBuilder(this._http, moduleParams);
+    return new LoaderBuilder(this.#http, moduleParams);
   }
 }
