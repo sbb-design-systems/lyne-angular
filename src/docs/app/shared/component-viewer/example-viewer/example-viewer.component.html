@@ -1,5 +1,5 @@
 <div class="example-viewer-header">
-  <h3 class="example-viewer-title">{{ this.exampleData.description }}</h3>
+  <h3 class="example-viewer-title">{{ this.exampleData().description }}</h3>
   <sbb-secondary-button
     class="example-viewer-header-button"
     icon-name="display-binary-code-small"
@@ -9,10 +9,10 @@
   >
   </sbb-secondary-button>
 
-  @if (stackBlitzEnabled() && exampleData) {
+  @if (stackBlitzEnabled() && exampleData()) {
     <sbb-secondary-button
       sbb-stack-blitz-button
-      [exampleData]="exampleData"
+      [exampleData]="exampleData()"
       type="button"
       class="example-viewer-header-button"
       aria-label="Edit example in StackBlitz"
@@ -24,10 +24,10 @@
 </div>
 
 <sbb-tab-group [hidden]="!showSource" class="sbb-example-viewer-tabs">
-  @for (content of exampleCodes | async; track $index) {
+  @for (content of exampleCodes(); track $index) {
     <sbb-tab-label [active]="$index === 0">{{ content.label }}</sbb-tab-label>
     <sbb-tab [innerHtml]="content.code"> </sbb-tab>
   }
 </sbb-tab-group>
 
-<sbb-example-outlet [exampleData]="exampleData" />
+<sbb-example-outlet [exampleData]="exampleData()" />
