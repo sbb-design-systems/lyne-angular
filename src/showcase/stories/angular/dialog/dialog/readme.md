@@ -26,7 +26,7 @@ let dialogRef = dialogService.open(templateContent, {
 ```
 
 The `SbbOverlayRef` provides a handle on the opened dialog. It can be used to close the dialog and to
-receive notifications when the dialog state changes (`afterOpen`, `beforeClosed`, `afterClosed`).
+receive notifications when the dialog state changes (`afterOpened`, `beforeClosed`, `afterClosed`).
 When closing, an optional result value can be provided. This result value is forwarded as the result of the `afterClosed` Observable.
 
 ```ts

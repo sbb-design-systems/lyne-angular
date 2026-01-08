@@ -26,7 +26,7 @@ let toastRef = toastService.open(templateContent, {
 ```
 
 The `SbbOverlayRef` provides a handle on the opened toast. It can be used to close the toast and to
-receive notifications when the toast state changes (`afterOpen`, `beforeClosed`, `afterClosed`).
+receive notifications when the toast state changes (`afterOpened`, `beforeClosed`, `afterClosed`).
 
 ```ts
 toastRef.close();

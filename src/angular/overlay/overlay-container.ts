@@ -4,7 +4,7 @@ import {
   type ComponentRef,
   type EmbeddedViewRef,
   inject,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { outputToObservable } from '@angular/core/rxjs-interop';
 import {
@@ -31,48 +31,47 @@ import { SbbOverlay } from './overlay';
   template: ` <ng-template cdkPortalOutlet></ng-template> `,
 })
 export class SbbOverlayContainer extends SbbOverlayContainerBase<SbbOverlay> {
-  readonly _config: SbbOverlayConfig<SbbOverlayContainer, SbbOverlay, unknown>;
+  readonly _config: SbbOverlayConfig<SbbOverlayContainer, SbbOverlay, unknown> =
+    inject(SbbOverlayConfig, { optional: true }) || {};
 
   /** The portal outlet inside of this container into which the dialog content will be loaded. */
-  elementInstance = inject(SbbOverlay);
+  public elementInstance = inject(SbbOverlay);
 
-  @ViewChild(CdkPortalOutlet, { static: true }) _portalOutlet!: CdkPortalOutlet;
+  public readonly _portalOutlet = viewChild.required(CdkPortalOutlet);
 
-  constructor() {
-    super();
-
-    this._config = inject(SbbOverlayConfig, { optional: true }) || {};
-  }
-
-  override open(): void {
+  public override open(): void {
     this.elementInstance.open();
   }
 
-  override close(result?: unknown, target?: HTMLElement) {
+  public override close(result?: unknown, target?: HTMLElement) {
     this.elementInstance.close(result, target);
   }
 
-  override attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
-    return this._portalOutlet.attachComponentPortal(portal);
+  public override attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
+    return this._portalOutlet().attachComponentPortal(portal);
   }
 
-  override attachTemplatePortal<T>(portal: TemplatePortal<T>): EmbeddedViewRef<T> {
-    return this._portalOutlet.attachTemplatePortal(portal);
+  public override attachTemplatePortal<T>(portal: TemplatePortal<T>): EmbeddedViewRef<T> {
+    return this._portalOutlet().attachTemplatePortal(portal);
   }
 
-  override getState(): SbbOverlayState {
+  public override getState(): SbbOverlayState {
     return this.elementInstance.isOpen ? SbbOverlayState.opened : SbbOverlayState.closed;
   }
 
-  public override afterOpen: Observable<Event | undefined> = outputToObservable(
+  public override afterOpened: Observable<Event | undefined> = outputToObservable(
     this.elementInstance.openOutput,
   );
 
-  public override afterClose: Observable<Event | undefined> = outputToObservable(
+  public override afterClosed: Observable<Event | undefined> = outputToObservable(
     this.elementInstance.closeOutput,
   );
 
-  public override beforeClose: Observable<Event | undefined> = outputToObservable(
+  public override beforeClosed: Observable<Event | undefined> = outputToObservable(
     this.elementInstance.beforeCloseOutput,
   );
+
+  public override afterOpen: Observable<Event | undefined> = this.afterOpened;
+  public override afterClose: Observable<Event | undefined> = this.afterClosed;
+  public override beforeClose: Observable<Event | undefined> = this.beforeClosed;
 }
