@@ -19,7 +19,7 @@ import { defer, type Observable, startWith, Subject } from 'rxjs';
 
 import { SbbOverlayConfig } from './overlay-config';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
-import type { SbbOverlayRef } from './overlay-ref';
+import { SbbOverlayRef } from './overlay-ref';
 
 /** Injection token that can be used to access the data that was passed in to an overlay. */
 export const SBB_OVERLAY_DATA = new InjectionToken<unknown>('SbbOverlayData');
@@ -45,12 +45,12 @@ export abstract class SbbOverlayBaseService<
   ): Injector {
     const userInjector = config.injector || config.viewContainerRef?.injector;
     const providers: StaticProvider[] = [
-      { provide: this.#overlayContainerType, useValue: overlayContainer },
-      { provide: this.#overlayRefConstructor, useValue: overlayRef },
+      { provide: this.containerType, useValue: overlayContainer },
+      { provide: this.overlayRefConstructor, useValue: overlayRef },
     ];
 
     if (config.data) {
-      providers.push({ provide: this.#overlayDataToken, useValue: config.data });
+      providers.push({ provide: this.overlayDataToken, useValue: config.data });
     }
     if (config.providers) {
       if (typeof config.providers === 'function') {
@@ -64,7 +64,7 @@ export abstract class SbbOverlayBaseService<
   }
 
   #attachContainer(portalOutlet: DomPortalOutlet, config: SbbOverlayConfig<C, I>): C {
-    const containerType: Type<C> = this.#overlayContainerType;
+    const containerType: Type<C> = this.containerType;
     const userInjector = config.injector || config.viewContainerRef?.injector;
     const providers: StaticProvider[] = [
       { provide: SbbOverlayConfig, useValue: config },
@@ -170,7 +170,7 @@ export abstract class SbbOverlayBaseService<
     );
     const overlayContainer = this.#attachContainer(portalOutlet, config);
 
-    const overlayRefConstructed = new this.#overlayRefConstructor(
+    const overlayRefConstructed = new this.overlayRefConstructor(
       overlayContainer,
       config,
       portalOutlet,
@@ -220,7 +220,7 @@ export abstract class SbbOverlayBaseService<
 
   /** Keeps track of the currently-open overlays. */
   get openOverlays(): R[] {
-    return this.#parentOverlay ? this.#parentOverlay.openOverlays : this.#openOverlaysAtThisLevel;
+    return this.parentService ? this.parentService.openOverlays : this.#openOverlaysAtThisLevel;
   }
 
   /**
@@ -231,7 +231,7 @@ export abstract class SbbOverlayBaseService<
   }
 
   #getAfterAllClosed(): Subject<void> {
-    const parent = this.#parentOverlay;
+    const parent = this.parentService;
     return parent ? parent.#getAfterAllClosed() : this.#afterAllClosedAtThisLevel;
   }
 
@@ -249,28 +249,26 @@ export abstract class SbbOverlayBaseService<
 
   /** Stream that emits when an overlay has been opened. */
   get afterOpened(): Subject<R> {
-    return this.#parentOverlay ? this.#parentOverlay.afterOpened : this.#afterOpenedAtThisLevel;
+    return this.parentService ? this.parentService.afterOpened : this.#afterOpenedAtThisLevel;
   }
 
-  #parentOverlay: SbbOverlayBaseService<C, I, R> | null;
-  #overlayContainerType: Type<C>;
-  #overlayRefConstructor: Type<R>;
-  #overlayDataToken: InjectionToken<unknown>;
+  protected abstract parentService: SbbOverlayBaseService<C, I, R> | null;
+  protected abstract containerType: Type<C>;
+  protected overlayRefConstructor: Type<R> = SbbOverlayRef as Type<R>;
+  protected overlayDataToken: InjectionToken<unknown> = SBB_OVERLAY_DATA;
 
-  /* eslint-disable @angular-eslint/prefer-inject */
-  constructor(
-    public injector: Injector,
-    parentOverlay: SbbOverlayBaseService<C, I, R> | null,
-    overlayContainerType: Type<C>,
-    overlayRefConstructor: Type<R>,
-    overlayDataToken: InjectionToken<unknown>,
-  ) {
-    this.#parentOverlay = parentOverlay;
-    this.#overlayContainerType = overlayContainerType;
-    this.#overlayRefConstructor = overlayRefConstructor;
-    this.#overlayDataToken = overlayDataToken;
+  // TODO: make private
+  // @breaking-change
+  injector = inject(Injector);
+
+  /*
+   * @breaking-change Remove `...args: unknown[]` and make the constructor private.
+   */
+  // eslint-disable-next-line @angular-eslint/prefer-inject
+  constructor(..._args: unknown[]);
+  constructor() {
+    /* empty */
   }
-  /* eslint-enable @angular-eslint/prefer-inject */
 
   ngOnDestroy() {
     // Make a second pass and close the remaining dialogs. We do this second pass in order to
