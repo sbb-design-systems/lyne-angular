@@ -9,6 +9,11 @@ export const routes: Routes = [
     canActivate: [VariantSwitch],
     children: [
       {
+        path: '',
+        redirectTo: 'introduction',
+        pathMatch: 'full',
+      },
+      {
         path: 'introduction',
         component: IntroductionComponent,
       },

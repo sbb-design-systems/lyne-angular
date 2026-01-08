@@ -1,4 +1,4 @@
-import { Directive, inject, Input, NgZone } from '@angular/core';
+import { Directive, effect, inject, input, NgZone, signal, untracked } from '@angular/core';
 import type { SbbToast } from '@sbb-esta/lyne-angular/toast';
 import { SbbToastService } from '@sbb-esta/lyne-angular/toast';
 
@@ -15,14 +15,10 @@ import { StackBlitzWriter } from './stack-blitz-writer';
   },
 })
 export class StackBlitzButton {
-  @Input()
-  set exampleData(exampleData: ExampleData) {
-    if (exampleData) {
-      this._prepareStackBlitzForExample(exampleData);
-    } else {
-      this._openStackBlitzFn = null;
-    }
-  }
+  #stackBlitzWriter = inject(StackBlitzWriter);
+  #ngZone = inject(NgZone);
+  #variantSwitch = inject(VariantSwitch);
+  #toastService = inject(SbbToastService);
 
   /**
    * Function that can be invoked to open the StackBlitz window synchronously.
@@ -32,29 +28,36 @@ export class StackBlitzButton {
    * form submission (used internally to create the StackBlitz) didn't happen within the
    * same tick as the user interaction.
    */
-  private _openStackBlitzFn: ((isSbbLean: boolean) => void) | null = null;
+  #openStackBlitzFn = signal<((isSbbLean: boolean) => void) | null>(null);
 
-  private _stackBlitzWriter: StackBlitzWriter = inject(StackBlitzWriter);
-  private _ngZone: NgZone = inject(NgZone);
-  private _variantSwitch = inject(VariantSwitch);
-  private _toastService = inject(SbbToastService);
+  exampleData = input.required<ExampleData>();
+
+  constructor() {
+    effect(() => {
+      const data = this.exampleData();
+
+      untracked(() => this.#openStackBlitzFn.set(null));
+
+      if (data) {
+        this.#ngZone.runOutsideAngular(async () => {
+          this.#openStackBlitzFn.set(await this.#stackBlitzWriter.createStackBlitzForExample(data));
+        });
+      }
+    });
+  }
 
   openStackBlitz(): void {
-    if (this._openStackBlitzFn) {
-      this._openStackBlitzFn(this._variantSwitch.sbbVariant.value === 'lean');
+    const openStackBlitzFn = this.#openStackBlitzFn();
+
+    if (openStackBlitzFn) {
+      openStackBlitzFn(this.#variantSwitch.sbbVariant.value === 'lean');
     } else {
-      this._toastService.open(StackBlitzMessage, {
+      this.#toastService.open(StackBlitzMessage, {
         setupContainer: (sbbToast: SbbToast) => {
           sbbToast.readOnly = true;
           sbbToast.timeout = 2000;
         },
       });
     }
-  }
-
-  private _prepareStackBlitzForExample(data: ExampleData): void {
-    this._ngZone.runOutsideAngular(async () => {
-      this._openStackBlitzFn = await this._stackBlitzWriter.createStackBlitzForExample(data);
-    });
   }
 }

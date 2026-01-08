@@ -48,19 +48,19 @@ type FileDictionary = Record<string, string>;
  */
 @Injectable({ providedIn: 'root' })
 export class StackBlitzWriter {
-  private _fileCache = new Map<string, Observable<string>>();
-  private _http: HttpClient = inject(HttpClient);
-  private _ngZone: NgZone = inject(NgZone);
-  private _meta: Meta = inject(Meta);
-  private _version = this._getPatchedTagVersion('name="sbb-lyne-angular-version"');
-  private _lyneVersion = this._getPatchedTagVersion('name="sbb-lyne-components-version"');
-  private _tokenVersion = this._getPatchedTagVersion('name="sbb-lyne-token-version"');
+  #http: HttpClient = inject(HttpClient);
+  #ngZone: NgZone = inject(NgZone);
+  #meta: Meta = inject(Meta);
+  #fileCache = new Map<string, Observable<string>>();
+  #version = this._getPatchedTagVersion('name="sbb-lyne-angular-version"');
+  #lyneVersion = this._getPatchedTagVersion('name="sbb-lyne-components-version"');
+  #tokenVersion = this._getPatchedTagVersion('name="sbb-lyne-token-version"');
 
   /** Opens a StackBlitz for the specified example. */
   createStackBlitzForExample(data: ExampleData): Promise<(isSbbLean: boolean) => void> {
     // Run outside the zone since the creation doesn't interact with Angular
     // and the file requests can cause excessive change detections.
-    return this._ngZone.runOutsideAngular(async () => {
+    return this.#ngZone.runOutsideAngular(async () => {
       const files = await this._buildInMemoryFileDictionary(data);
       const exampleMainFile = `src/app/${data.indexFilename}`;
 
@@ -141,11 +141,11 @@ export class StackBlitzWriter {
    * Loads the specified file and returns a promise resolving to its contents.
    */
   private _loadFile(fileUrl: string): Promise<string> {
-    let stream = this._fileCache.get(fileUrl);
+    let stream = this.#fileCache.get(fileUrl);
 
     if (!stream) {
-      stream = this._http.get(fileUrl, { responseType: 'text' }).pipe(shareReplay(1));
-      this._fileCache.set(fileUrl, stream);
+      stream = this.#http.get(fileUrl, { responseType: 'text' }).pipe(shareReplay(1));
+      this.#fileCache.set(fileUrl, stream);
     }
 
     // The `take(1)` is necessary, because the Promise from `firstValueFrom` resolves on the first emitted value
@@ -169,9 +169,9 @@ export class StackBlitzWriter {
     // seems to be able to partially re-use the lock file to speed up the module tree computation,
     // so providing a lock file is still reasonable while modifying the `package.json`.
     if (fileName === 'src/index.html' || fileName === 'package.json') {
-      fileContent = fileContent.replace(/\{\{angular-version}}/g, this._version);
-      fileContent = fileContent.replace(/\{\{components-version}}/g, this._lyneVersion);
-      fileContent = fileContent.replace(/\{\{token-version}}/g, this._tokenVersion);
+      fileContent = fileContent.replace(/\{\{angular-version}}/g, this.#version);
+      fileContent = fileContent.replace(/\{\{components-version}}/g, this.#lyneVersion);
+      fileContent = fileContent.replace(/\{\{token-version}}/g, this.#tokenVersion);
     }
 
     if (fileName === 'src/index.html') {
@@ -198,7 +198,7 @@ export class StackBlitzWriter {
    * @private
    */
   private _getPatchedTagVersion(tag: string): string {
-    const tagVersion = this._meta.getTag(tag)!.content;
+    const tagVersion = this.#meta.getTag(tag)!.content;
     if (tagVersion.startsWith('0.0.0')) {
       return 'latest';
     }
