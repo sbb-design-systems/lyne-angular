@@ -1,6 +1,9 @@
 body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: 0;
-  padding: 30px;
+  padding: var(--sbb-spacing-fixed-8x);
 }
 
 html,
@@ -9,7 +12,9 @@ body {
 }
 
 .version-info {
-  font-size: 8pt;
-  float: right;
-  margin: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: var(--sbb-text-font-size-xs);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
 }
