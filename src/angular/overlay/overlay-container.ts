@@ -28,7 +28,7 @@ import { SbbOverlay } from './overlay';
   host: {
     '[attr.id]': '_config.id || null',
   },
-  template: ` <ng-template cdkPortalOutlet></ng-template> `,
+  template: `<ng-template cdkPortalOutlet></ng-template>`,
 })
 export class SbbOverlayContainer extends SbbOverlayContainerBase<SbbOverlay> {
   readonly _config: SbbOverlayConfig<SbbOverlayContainer, SbbOverlay, unknown> =

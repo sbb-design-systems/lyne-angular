@@ -28,7 +28,7 @@ import { SbbDialog } from './dialog';
   host: {
     '[attr.id]': '_config.id || null',
   },
-  template: ` <ng-template cdkPortalOutlet></ng-template> `,
+  template: `<ng-template cdkPortalOutlet></ng-template>`,
 })
 export class SbbDialogContainer extends SbbOverlayContainerBase<SbbDialog> {
   readonly _config: SbbOverlayConfig<SbbDialogContainer, SbbDialog, unknown> =

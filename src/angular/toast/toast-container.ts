@@ -28,7 +28,7 @@ import { SbbToast } from './toast';
   host: {
     '[attr.id]': '_config.id || null',
   },
-  template: ` <ng-template cdkPortalOutlet></ng-template> `,
+  template: `<ng-template cdkPortalOutlet></ng-template>`,
 })
 export class SbbToastContainer extends SbbOverlayContainerBase<SbbToast> {
   readonly _config: SbbOverlayConfig<SbbToastContainer, SbbToast, unknown> =
