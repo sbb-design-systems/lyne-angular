@@ -191,7 +191,10 @@ export class SbbSort implements OnInit, OnChanges, OnDestroy {
   }
 }
 
-/** Returns the sort direction cycle to use given the provided parameters of order and clear. */
+/**
+ * Returns the sort direction cycle to use given the provided parameters of order and clear.
+ * @internal
+ */
 function getSortDirectionCycle(start: SbbSortDirection, disableClear: boolean): SbbSortDirection[] {
   const sortOrder: SbbSortDirection[] = ['asc', 'desc'];
   if (start === 'desc') {

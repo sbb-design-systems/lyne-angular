@@ -1,5 +1,39 @@
-<main class="main">Sbb app works!</main>
-
-<sbb-button>Button</sbb-button>
-
-<router-outlet />
+<sbb-header expanded scroll-origin="content">
+  <span class="sbb-header-info">
+    <strong>Lyne Angular</strong>
+    <span>{{version}}</span>
+  </span>
+  <sbb-header-link routerLink="/introduction" routerLinkActive="sbb-active"
+    >Introduction</sbb-header-link
+  >
+  <div class="sbb-header-spacer"></div>
+  <sbb-form-field>
+    <sbb-select [formControl]="sbbVariant">
+      <sbb-option [value]="'standard'">Standard</sbb-option>
+      <sbb-option [value]="'lean'">Lean</sbb-option>
+      <sbb-option [value]="'light'">Lean (light mode)</sbb-option>
+      <sbb-option [value]="'dark'">Lean (dark mode)</sbb-option>
+    </sbb-select>
+  </sbb-form-field>
+  <a href="/" class="sbb-header-logo">
+    <sbb-logo protective-room="none"></sbb-logo>
+  </a>
+</sbb-header>
+<sbb-icon-sidebar-container>
+  <sbb-icon-sidebar color="milk">
+    @for (packageEntry of packages | keyvalue; track $index) {
+    <sbb-icon-sidebar-link
+      [iconName]="packageEntry.value['svgIcon']"
+      [routerLink]="packageEntry.key"
+      routerLinkActive="sbb-active"
+      [style.text-decoration]="packageEntry.value['isDeprecated'] ? 'line-through' : ''"
+      [sbb-tooltip]="packageEntry.value['name']"
+      [accessibilityLabel]="packageEntry.value['name']"
+    >
+    </sbb-icon-sidebar-link>
+    }
+  </sbb-icon-sidebar>
+  <sbb-icon-sidebar-content id="content" role="main">
+    <router-outlet />
+  </sbb-icon-sidebar-content>
+</sbb-icon-sidebar-container>

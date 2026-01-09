@@ -1,0 +1,7 @@
+@if (examples().length > 0) {
+  @for (exampleData of examples(); track exampleData.id) {
+    <sbb-example-viewer [exampleData]="exampleData" />
+  }
+} @else {
+  No Examples found
+}
