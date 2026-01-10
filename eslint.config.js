@@ -57,6 +57,13 @@ export default config(
       '@angular-eslint/no-output-rename': 'off',
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-inferrable-types': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+        },
+      ],
       'import-x/first': 'error',
       'import-x/named': 'off',
       'import-x/no-absolute-path': 'error',

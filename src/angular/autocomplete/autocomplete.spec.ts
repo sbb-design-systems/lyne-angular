@@ -235,7 +235,6 @@ class TestComponentWithComplexValue {
   displayWith: ((value: { property: string; otherProperty: string }) => string) | null = (value) =>
     value ? value.property : value;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   optionSelected(_event: CustomEvent<SbbOption<{ property: string; otherProperty: string }>>) {
     // noop;
   }

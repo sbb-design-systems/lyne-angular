@@ -3,7 +3,7 @@ import { SBB_OVERLAY_DATA, SbbOverlayRef } from '@sbb-esta/lyne-angular/core/ove
 
 @Component({
   selector: 'sbb-dummy-component',
-  template: ` This is a dummy component meant for testing. Dummy string: {{ data.dummyText }} `,
+  template: `This is a dummy component meant for testing. Dummy string: {{ data.dummyText }}`,
 })
 export class SbbDummyComponent {
   readonly data = inject<SampleData>(SBB_OVERLAY_DATA);

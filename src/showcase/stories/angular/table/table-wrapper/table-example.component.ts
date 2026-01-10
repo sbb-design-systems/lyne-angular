@@ -14,7 +14,7 @@ interface FilterType extends SbbTableFilter {
 @Component({
   standalone: true,
   selector: 'sbb-table-example',
-  template: ` <ng-content /> `,
+  template: `<ng-content />`,
 })
 export class SbbTableExampleComponent implements AfterContentInit {
   @Input() datasource?: SbbTableDataSource<unknown, FilterType>;

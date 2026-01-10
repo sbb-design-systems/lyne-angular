@@ -768,7 +768,6 @@ class FakeDataSource extends DataSource<TestData> {
 class SbbTableTestComponent {
   dataSource: FakeDataSource = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isFourthRow = (i: number, _rowData: TestData) => i === 3;
 
   @ViewChild(SbbTable) table!: SbbTable<TestData>;
@@ -899,7 +898,6 @@ class StickyTableTestComponent {
 class SbbTableWithWhenRowTestComponent {
   multiTemplateDataRows = false;
   dataSource: FakeDataSource = new FakeDataSource();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isFourthRow = (i: number, _rowData: TestData) => i === 3;
 
   @ViewChild(SbbTable) table!: SbbTable<TestData>;

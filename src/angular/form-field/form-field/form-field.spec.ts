@@ -155,7 +155,6 @@ class CustomControlComponent implements SbbFormFieldControl, ControlValueAccesso
   onChange: (value: any) => void = () => undefined;
   onTouched: () => void = () => undefined;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onContainerClick(_event: MouseEvent): void {
     this.input()?.nativeElement.focus();
   }

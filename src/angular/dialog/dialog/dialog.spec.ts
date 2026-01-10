@@ -82,7 +82,6 @@ describe('sbb-dialog', () => {
       expect(ref.componentInstance).toBeUndefined();
     });
 
-    // TODO: understand why next is not called in tests
     it('should emit when dialog opening animation is complete', async () => {
       const spy = jasmine.createSpy('afterOpen spy');
       const serviceSpy = jasmine.createSpy('service afterOpened spy');
@@ -94,6 +93,8 @@ describe('sbb-dialog', () => {
         data: { dummyText: 'test string' },
       });
 
+      // As the animation is disabled in tests, the afterOpen event is emitted immediately.
+      // When subscribing, the stream is already completed.
       dialogRef.afterOpen.subscribe({ complete: spy });
 
       await fixture.whenRenderingDone();
@@ -117,12 +118,12 @@ describe('sbb-dialog', () => {
       ref.afterClose.subscribe(afterCloseSpy);
       await fixture.whenRenderingDone();
 
-      expect(service.openDialogs[0]).toBe(ref);
+      expect(service.openOverlays[0]).toBe(ref);
       ref.close();
 
       fixture.detectChanges();
       expect(beforeCloseSpy).toHaveBeenCalled();
-      expect(service.openDialogs.length).toBe(0);
+      expect(service.openOverlays.length).toBe(0);
       expect(afterCloseSpy).toHaveBeenCalled();
     });
 

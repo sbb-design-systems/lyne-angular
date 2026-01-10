@@ -1,6 +1,6 @@
-import type { OverlayRef } from '@angular/cdk/overlay';
+import type { DomPortalOutlet } from '@angular/cdk/portal';
 import type { ComponentRef } from '@angular/core';
-import { share, take, type Observable } from 'rxjs';
+import { type Observable, share, take } from 'rxjs';
 
 import type { SbbOverlayConfig } from './overlay-config';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
@@ -24,24 +24,24 @@ export class SbbOverlayRef<T = unknown> {
   id?: string;
 
   #container: SbbOverlayContainerBase;
-  #afterOpen: Observable<Event | undefined>;
-  #beforeClose: Observable<Event | undefined>;
-  #afterClose: Observable<Event | undefined>;
+  #afterOpened: Observable<Event | undefined>;
+  #beforeClosed: Observable<Event | undefined>;
+  #afterClosed: Observable<Event | undefined>;
 
   constructor(
     container: SbbOverlayContainerBase,
     config: SbbOverlayConfig<SbbOverlayContainerBase>,
-    overlayRef: OverlayRef,
+    portalOutlet: DomPortalOutlet,
   ) {
     this.id = config.id;
     this.#container = container;
-    this.#afterOpen = this.#container.afterOpen.pipe(take(1), share());
-    this.#beforeClose = this.#container.beforeClose.pipe(take(1), share());
-    this.#afterClose = this.#container.afterClose.pipe(take(1), share());
+    this.#afterOpened = this.#container.afterOpened.pipe(take(1), share());
+    this.#beforeClosed = this.#container.beforeClosed.pipe(take(1), share());
+    this.#afterClosed = this.#container.afterClosed.pipe(take(1), share());
 
-    this.#afterClose.subscribe({
+    this.#afterClosed.subscribe({
       complete: () => {
-        overlayRef.dispose();
+        portalOutlet.dispose();
       },
     });
   }
@@ -61,21 +61,45 @@ export class SbbOverlayRef<T = unknown> {
   /**
    * Gets an observable that is notified when the dialog is finished opening.
    */
-  get afterOpen(): Observable<Event | undefined> {
-    return this.#afterOpen;
+  get afterOpened(): Observable<Event | undefined> {
+    return this.#afterOpened;
   }
 
   /**
    * Gets an observable that is notified when the dialog is finished closing.
    */
-  get afterClose(): Observable<Event | undefined> {
-    return this.#afterClose;
+  get afterClosed(): Observable<Event | undefined> {
+    return this.#afterClosed;
   }
 
   /**
    * Gets an observable that is notified when the dialog has started closing.
    */
+  get beforeClosed(): Observable<Event | undefined> {
+    return this.#beforeClosed;
+  }
+
+  /**
+   * Gets an observable that is notified when the dialog is finished opening.
+   * @deprecated use afterOpened instead.
+   */
+  get afterOpen(): Observable<Event | undefined> {
+    return this.#afterOpened;
+  }
+
+  /**
+   * Gets an observable that is notified when the dialog is finished closing.
+   * @deprecated use afterClosed instead.
+   */
+  get afterClose(): Observable<Event | undefined> {
+    return this.#afterClosed;
+  }
+
+  /**
+   * Gets an observable that is notified when the dialog has started closing.
+   * @deprecated use beforeClosed instead.
+   */
   get beforeClose(): Observable<Event | undefined> {
-    return this.#beforeClose;
+    return this.#beforeClosed;
   }
 }

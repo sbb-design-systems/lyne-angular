@@ -81,13 +81,15 @@ describe('sbb-overlay', () => {
       expect(ref.componentInstance).toBeUndefined();
     });
 
-    // TODO: understand why next is not called in tests
     it('should emit when overlay opening animation is complete', async () => {
       const spy = jasmine.createSpy('afterOpen spy');
       const overlayRef = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
+
+      // As the animation is disabled in tests, the afterOpen event is emitted immediately.
+      // When subscribing, the stream is already completed.
       overlayRef.afterOpen.subscribe({ complete: spy });
 
       await fixture.whenRenderingDone();
