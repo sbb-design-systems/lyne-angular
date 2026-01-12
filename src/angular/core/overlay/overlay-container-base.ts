@@ -18,15 +18,15 @@ export abstract class SbbOverlayContainerBase<I = unknown> {
   /**
    * @deprecated Use beforeClosed instead.
    */
-  abstract beforeClose?: Observable<Event | undefined>;
+  abstract beforeClose: Observable<Event | undefined>;
 
   /**
-   * @deprecated Use afterOpened instead.
+   * @deprecated Use after Opened instead.
    */
-  abstract afterOpen?: Observable<Event | undefined>;
+  abstract afterOpen: Observable<Event | undefined>;
 
   /**
    * @deprecated Use afterClosed instead.
    */
-  abstract afterClose?: Observable<Event | undefined>;
+  abstract afterClose: Observable<Event | undefined>;
 }
