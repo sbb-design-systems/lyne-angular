@@ -59,7 +59,7 @@
     "@storybook/addon-interactions": "9.0.0-alpha.10",
     "@storybook/addon-links": "10.1.11",
     "@storybook/angular": "10.1.11",
-    "@types/jasmine": "5.1.14",
+    "@types/jasmine": "5.1.15",
     "@types/node": "24.10.7",
     "angular-eslint": "21.1.0",
     "custom-elements-manifest": "2.1.0",
