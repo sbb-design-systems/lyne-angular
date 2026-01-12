@@ -258,7 +258,6 @@ class TestComponentWithComplexValue {
     value ? value.property : value;
 
   optionSelected(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _event: CustomEvent<SbbAutocompleteGridOption<{ property: string; otherProperty: string }>>,
   ) {
     // noop;
