@@ -1472,10 +1472,10 @@
     "@types/conventional-commits-parser" "^5.0.0"
     chalk "^5.3.0"
 
-"@compodoc/compodoc@1.1.32":
-  version "1.1.32"
-  resolved "https://registry.yarnpkg.com/@compodoc/compodoc/-/compodoc-1.1.32.tgz#a87f8243d956e4554df793bc9e02c406283bc22f"
-  integrity sha512-kaYk5+o4k7GB585iphwV5NE49BKKk8d+gJLNBE8eu2fIRdhnHOWblasRbOBRULfwJ+qxfmgrIqi32K34wCag6A==
+"@compodoc/compodoc@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@compodoc/compodoc/-/compodoc-1.2.0.tgz#c040c174163155f3c0e601b0dca1f1ddf7b519d9"
+  integrity sha512-wRk25NWbje3zDFm/RBk8R4C4lsCmgWQguic29pPkGWHpzJrCCTvHUCBZSJ3+wESyjSXurVlkxB8TmL8KOi+u4w==
   dependencies:
     "@angular-devkit/schematics" "20.3.4"
     "@babel/core" "7.28.4"
@@ -1484,7 +1484,7 @@
     "@compodoc/live-server" "^1.2.3"
     "@compodoc/ngd-transformer" "^2.1.3"
     "@polka/send-type" "^0.5.2"
-    body-parser "^2.2.0"
+    body-parser "^2.2.1"
     bootstrap.native "^5.1.6"
     cheerio "1.1.2"
     chokidar "^4.0.3"
@@ -1496,7 +1496,7 @@
     fancy-log "^2.0.0"
     fast-glob "^3.3.3"
     fs-extra "^11.3.2"
-    glob "^11.0.3"
+    glob "^11.1.0"
     handlebars "^4.7.8"
     html-entities "^2.6.0"
     i18next "25.5.3"
@@ -4330,7 +4330,7 @@ body-parser@^1.19.0, body-parser@~1.20.3:
     type-is "~1.6.18"
     unpipe "~1.0.0"
 
-body-parser@^2.2.0, body-parser@^2.2.1:
+body-parser@^2.2.1:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-2.2.2.tgz#1a32cdb966beaf68de50a9dfbe5b58f83cb8890c"
   integrity sha512-oP5VkATKlNwcgvxi0vM0p/D3n2C3EReYVX+DNYs5TjZFn/oQt2j+4sVJtSMr18pdRr8wjTcBl6LoV+FUwzPmNA==
@@ -6153,7 +6153,7 @@ glob-to-regexp@^0.4.1:
   resolved "https://registry.yarnpkg.com/glob-to-regexp/-/glob-to-regexp-0.4.1.tgz#c75297087c851b9a578bd217dd59a92f59fe546e"
   integrity sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==
 
-glob@^11.0.3:
+glob@^11.1.0:
   version "11.1.0"
   resolved "https://registry.yarnpkg.com/glob/-/glob-11.1.0.tgz#4f826576e4eb99c7dad383793d2f9f08f67e50a6"
   integrity sha512-vuNwKSaKiqm7g0THUBu2x7ckSs3XJLXE+2ssL7/MfTGPLLcrJQ/4Uq1CjPTtO5cCIiRxqvN6Twy1qOwhL0Xjcw==
