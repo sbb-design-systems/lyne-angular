@@ -1,6 +1,6 @@
 {
   "name": "lyne-angular",
-  "version": "21.0.5",
+  "version": "21.1.0",
   "scripts": {
     "postinstall": "yarn playwright install",
     "ng": "ng",

@@ -1,5 +1,26 @@
 # Changelog
 
+## [21.1.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.0.5...v21.1.0) (2026-01-13)
+
+
+### Features
+
+* **sbb-toast:** allow opening toast by passing string ([#253](https://github.com/sbb-design-systems/lyne-angular/issues/253)) ([3a800bb](https://github.com/sbb-design-systems/lyne-angular/commit/3a800bb114d7372b719df236e8f78e07cf882b27))
+
+
+### Bug Fixes
+
+* close overlays on navigation changes ([#255](https://github.com/sbb-design-systems/lyne-angular/issues/255)) ([6448a46](https://github.com/sbb-design-systems/lyne-angular/commit/6448a46848ad4477816496f6190cb9f19b422529))
+* **deps:** update angular ([ae2ff64](https://github.com/sbb-design-systems/lyne-angular/commit/ae2ff648d40fd5cfff7fbc03b74453da8e835f54))
+* **deps:** update angular ([61a9916](https://github.com/sbb-design-systems/lyne-angular/commit/61a991633efce5a71c9143596217771a8e40b2b4))
+* **deps:** update esta to v4.0.5 ([#251](https://github.com/sbb-design-systems/lyne-angular/issues/251)) ([a5dd3c5](https://github.com/sbb-design-systems/lyne-angular/commit/a5dd3c568b4b3f5b8be5cedf9274f15cedd9d144))
+* **deps:** update esta to v4.1.0 ([#254](https://github.com/sbb-design-systems/lyne-angular/issues/254)) ([713a5cb](https://github.com/sbb-design-systems/lyne-angular/commit/713a5cbb58e1fc3996fcf8e384a4f23413bc7a5c))
+
+
+### Code Refactoring
+
+* improve overlay services ([#250](https://github.com/sbb-design-systems/lyne-angular/issues/250)) ([503c4dc](https://github.com/sbb-design-systems/lyne-angular/commit/503c4dcc954b4ccf581d8115d8149f6b90bff5cd))
+
 ## [21.0.5](https://github.com/sbb-design-systems/lyne-angular/compare/v21.0.4...v21.0.5) (2026-01-06)
 
 
