@@ -82,8 +82,8 @@ describe('sbb-toast', () => {
     });
 
     it('should emit when toast opening animation is complete', async () => {
-      const spy = jasmine.createSpy('afterOpen spy');
-      const serviceSpy = jasmine.createSpy('afterOpen spy');
+      const spy = jasmine.createSpy('afterOpened spy');
+      const serviceSpy = jasmine.createSpy('afterOpened spy');
 
       service.afterOpened.subscribe(serviceSpy);
 
@@ -94,7 +94,7 @@ describe('sbb-toast', () => {
 
       // As the animation is disabled in tests, the afterOpen event is emitted immediately.
       // When subscribing, the stream is already completed.
-      toastRef.afterOpen.subscribe({ complete: spy });
+      toastRef.afterOpened.subscribe({ complete: spy });
 
       await fixture.whenRenderingDone();
       fixture.detectChanges();
@@ -109,10 +109,10 @@ describe('sbb-toast', () => {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
-      const beforeCloseSpy = jasmine.createSpy('beforeClose spy');
-      const afterCloseSpy = jasmine.createSpy('afterClose spy');
-      ref.beforeClose.subscribe(beforeCloseSpy);
-      ref.afterClose.subscribe(afterCloseSpy);
+      const beforeCloseSpy = jasmine.createSpy('beforeClosed spy');
+      const afterCloseSpy = jasmine.createSpy('afterClosed spy');
+      ref.beforeClosed.subscribe(beforeCloseSpy);
+      ref.afterClosed.subscribe(afterCloseSpy);
       await fixture.whenRenderingDone();
 
       fixture.detectChanges();
@@ -155,6 +155,30 @@ describe('sbb-toast', () => {
       fixture.destroy();
 
       expect(overlayContainerElement.querySelector('#disposed-toast')).toBeNull();
+    });
+
+    it('should open toast with string', async () => {
+      const spy = jasmine.createSpy('afterOpened spy');
+      const serviceSpy = jasmine.createSpy('afterOpened spy');
+
+      service.afterOpened.subscribe(serviceSpy);
+
+      const toastRef = service.open('Test with string only');
+
+      // As the animation is disabled in tests, the afterOpen event is emitted immediately.
+      // When subscribing, the stream is already completed.
+      toastRef.afterOpened.subscribe({ complete: spy });
+
+      await fixture.whenRenderingDone();
+      fixture.detectChanges();
+
+      expect(document.body.querySelector('.cdk-overlay-container')?.textContent).toEqual(
+        'Test with string only',
+      );
+
+      toastRef.close();
+      fixture.detectChanges();
+      expect(spy).toHaveBeenCalled();
     });
   });
 });
