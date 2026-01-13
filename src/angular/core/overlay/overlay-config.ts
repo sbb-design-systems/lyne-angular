@@ -46,4 +46,11 @@ export class SbbOverlayConfig<C extends SbbOverlayContainerBase, I = unknown, D 
    * A function that can be used to configure the container component.
    */
   setupContainer?: (instance: I) => void;
+
+  /**
+   * Whether the overlay should close when the user goes backwards/forwards in history.
+   * Note that this usually doesn't include clicking on links (unless the user is using
+   * the `HashLocationStrategy`).
+   */
+  closeOnNavigation?: boolean = true;
 }

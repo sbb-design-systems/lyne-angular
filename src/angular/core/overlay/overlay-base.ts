@@ -1,6 +1,7 @@
 import { _IdGenerator } from '@angular/cdk/a11y';
 import { type ComponentType, OverlayContainer } from '@angular/cdk/overlay';
 import { ComponentPortal, DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
+import { Location } from '@angular/common';
 import {
   ApplicationRef,
   type ComponentRef,
@@ -174,6 +175,7 @@ export abstract class SbbOverlayBaseService<
       overlayContainer,
       config,
       portalOutlet,
+      this.injector.get(Location),
     );
 
     this.#attachContent(componentOrTemplateRef, overlayRefConstructed, overlayContainer, config);

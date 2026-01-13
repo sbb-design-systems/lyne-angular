@@ -1,4 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { Location } from '@angular/common';
+import { SpyLocation } from '@angular/common/testing';
 import {
   Component,
   Directive,
@@ -33,17 +35,19 @@ describe('sbb-overlay', () => {
     let fixture: ComponentFixture<ServiceTestComponent>,
       component: ServiceTestComponent,
       service: SbbOverlayService,
-      overlayContainerElement: HTMLElement;
+      overlayContainerElement: HTMLElement,
+      mockLocation: SpyLocation;
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [ServiceTestComponent, SbbDummyComponent, TestComponent],
-        providers: [SbbOverlayService],
+        providers: [{ provide: Location, useClass: SpyLocation }, SbbOverlayService],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ServiceTestComponent);
       overlayContainerElement = TestBed.inject(OverlayContainer).getContainerElement();
       service = TestBed.inject(SbbOverlayService);
+      mockLocation = TestBed.inject(Location) as SpyLocation;
       component = fixture.componentInstance;
       fixture.detectChanges();
     });
@@ -60,7 +64,7 @@ describe('sbb-overlay', () => {
       await fixture.whenRenderingDone();
 
       expect(ref.componentInstance instanceof SbbDummyComponent).toBe(true);
-      expect(ref.componentInstance!.data.dummyText).toMatch('test string');
+      expect(ref.componentInstance!.data!.dummyText).toMatch('test string');
       expect(overlayContainerElement.textContent).toContain('test string');
       expect(ref.componentInstance!.ref).toBe(ref);
 
@@ -111,11 +115,12 @@ describe('sbb-overlay', () => {
       ref.afterClosed.subscribe(afterCloseSpy);
       await fixture.whenRenderingDone();
 
-      fixture.detectChanges();
+      expect(service.openOverlays[0]).toBe(ref);
       ref.close();
 
       fixture.detectChanges();
       expect(beforeCloseSpy).toHaveBeenCalled();
+      expect(service.openOverlays.length).toBe(0);
       expect(afterCloseSpy).toHaveBeenCalled();
     });
 
@@ -151,6 +156,21 @@ describe('sbb-overlay', () => {
       fixture.destroy();
 
       expect(overlayContainerElement.querySelector('#disposed-overlay')).toBeNull();
+    });
+
+    it('should allow the consumer to disable closing a dialog on navigation', async () => {
+      service.open(SbbDummyComponent);
+      service.open(SbbDummyComponent, { closeOnNavigation: false });
+
+      await fixture.whenRenderingDone();
+
+      expect(overlayContainerElement.children.length).toBe(2);
+
+      mockLocation.simulateUrlPop('');
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+
+      expect(overlayContainerElement.children.length).toBe(1);
     });
   });
 });
