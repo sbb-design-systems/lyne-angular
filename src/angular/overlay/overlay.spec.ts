@@ -82,7 +82,7 @@ describe('sbb-overlay', () => {
     });
 
     it('should emit when overlay opening animation is complete', async () => {
-      const spy = jasmine.createSpy('afterOpen spy');
+      const spy = jasmine.createSpy('afterOpened spy');
       const overlayRef = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
@@ -90,7 +90,7 @@ describe('sbb-overlay', () => {
 
       // As the animation is disabled in tests, the afterOpen event is emitted immediately.
       // When subscribing, the stream is already completed.
-      overlayRef.afterOpen.subscribe({ complete: spy });
+      overlayRef.afterOpened.subscribe({ complete: spy });
 
       await fixture.whenRenderingDone();
       fixture.detectChanges();
@@ -101,14 +101,14 @@ describe('sbb-overlay', () => {
     });
 
     it('should emit before and after overlay closing animation', async () => {
-      const beforeCloseSpy = jasmine.createSpy('beforeClose spy');
-      const afterCloseSpy = jasmine.createSpy('afterClose spy');
+      const beforeCloseSpy = jasmine.createSpy('beforeClosed spy');
+      const afterCloseSpy = jasmine.createSpy('afterClosed spy');
       const ref = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
-      ref.beforeClose.subscribe(beforeCloseSpy);
-      ref.afterClose.subscribe(afterCloseSpy);
+      ref.beforeClosed.subscribe(beforeCloseSpy);
+      ref.afterClosed.subscribe(afterCloseSpy);
       await fixture.whenRenderingDone();
 
       fixture.detectChanges();

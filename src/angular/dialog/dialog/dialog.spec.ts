@@ -83,7 +83,7 @@ describe('sbb-dialog', () => {
     });
 
     it('should emit when dialog opening animation is complete', async () => {
-      const spy = jasmine.createSpy('afterOpen spy');
+      const spy = jasmine.createSpy('afterOpened spy');
       const serviceSpy = jasmine.createSpy('service afterOpened spy');
 
       service.afterOpened.subscribe(serviceSpy);
@@ -95,7 +95,7 @@ describe('sbb-dialog', () => {
 
       // As the animation is disabled in tests, the afterOpen event is emitted immediately.
       // When subscribing, the stream is already completed.
-      dialogRef.afterOpen.subscribe({ complete: spy });
+      dialogRef.afterOpened.subscribe({ complete: spy });
 
       await fixture.whenRenderingDone();
       fixture.detectChanges();
@@ -108,14 +108,14 @@ describe('sbb-dialog', () => {
     });
 
     it('should emit before and after dialog closing animation', async () => {
-      const beforeCloseSpy = jasmine.createSpy('beforeClose spy');
-      const afterCloseSpy = jasmine.createSpy('afterClose spy');
+      const beforeCloseSpy = jasmine.createSpy('beforeClosed spy');
+      const afterCloseSpy = jasmine.createSpy('afterClosed spy');
       const ref = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
-      ref.beforeClose.subscribe(beforeCloseSpy);
-      ref.afterClose.subscribe(afterCloseSpy);
+      ref.beforeClosed.subscribe(beforeCloseSpy);
+      ref.afterClosed.subscribe(afterCloseSpy);
       await fixture.whenRenderingDone();
 
       expect(service.openOverlays[0]).toBe(ref);

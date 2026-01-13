@@ -181,7 +181,7 @@ export abstract class SbbOverlayBaseService<
     this.openOverlays.push(overlayRefConstructed);
     this.afterOpened.next(overlayRefConstructed);
 
-    overlayRefConstructed.afterClose.subscribe((event) => {
+    overlayRefConstructed.afterClosed.subscribe((event) => {
       if (!event) {
         return;
       }
