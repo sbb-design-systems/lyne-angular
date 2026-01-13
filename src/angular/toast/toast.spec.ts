@@ -60,7 +60,7 @@ describe('sbb-toast', () => {
       await fixture.whenRenderingDone();
 
       expect(ref.componentInstance instanceof SbbDummyComponent).toBe(true);
-      expect(ref.componentInstance!.data.dummyText).toMatch('test string');
+      expect(ref.componentInstance!.data!.dummyText).toMatch('test string');
       expect(overlayContainerElement.textContent).toContain('test string');
       expect(ref.componentInstance!.ref).toBe(ref);
 

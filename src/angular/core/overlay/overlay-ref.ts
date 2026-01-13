@@ -1,6 +1,8 @@
 import type { DomPortalOutlet } from '@angular/cdk/portal';
+import type { Location } from '@angular/common';
 import type { ComponentRef } from '@angular/core';
-import { type Observable, share, take } from 'rxjs';
+import type { SubscriptionLike, Observable } from 'rxjs';
+import { share, Subscription, take } from 'rxjs';
 
 import type { SbbOverlayConfig } from './overlay-config';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
@@ -32,6 +34,8 @@ export class SbbOverlayRef<T = unknown> {
     container: SbbOverlayContainerBase,
     config: SbbOverlayConfig<SbbOverlayContainerBase>,
     portalOutlet: DomPortalOutlet,
+    // TODO: Make required @breaking-change
+    location?: Location,
   ) {
     this.id = config.id;
     this.#container = container;
@@ -39,8 +43,16 @@ export class SbbOverlayRef<T = unknown> {
     this.#beforeClosed = this.#container.beforeClosed.pipe(take(1), share());
     this.#afterClosed = this.#container.afterClosed.pipe(take(1), share());
 
+    let locationSubscription: SubscriptionLike = Subscription.EMPTY;
+
+    // As closeOnNavigation defaults to true, we check for null or undefined
+    if ((config.closeOnNavigation == null || config.closeOnNavigation) && location) {
+      locationSubscription = location.subscribe(() => portalOutlet.dispose());
+    }
+
     this.#afterClosed.subscribe({
       complete: () => {
+        locationSubscription.unsubscribe();
         portalOutlet.dispose();
       },
     });

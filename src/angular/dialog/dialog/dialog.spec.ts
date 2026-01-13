@@ -1,4 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { Location } from '@angular/common';
+import { SpyLocation } from '@angular/common/testing';
 import {
   Component,
   DestroyRef,
@@ -34,17 +36,19 @@ describe('sbb-dialog', () => {
     let fixture: ComponentFixture<ServiceTestComponent>,
       component: ServiceTestComponent,
       service: SbbDialogService,
-      overlayContainerElement: HTMLElement;
+      overlayContainerElement: HTMLElement,
+      mockLocation: SpyLocation;
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [ServiceTestComponent, SbbDummyComponent, TestComponent],
-        providers: [SbbDialogService, DestroyRef],
+        providers: [{ provide: Location, useClass: SpyLocation }, SbbDialogService, DestroyRef],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ServiceTestComponent);
       overlayContainerElement = TestBed.inject(OverlayContainer).getContainerElement();
       service = TestBed.inject(SbbDialogService);
+      mockLocation = TestBed.inject(Location) as SpyLocation;
       component = fixture.componentInstance;
       fixture.detectChanges();
     });
@@ -61,7 +65,7 @@ describe('sbb-dialog', () => {
       await fixture.whenRenderingDone();
 
       expect(ref.componentInstance instanceof SbbDummyComponent).toBe(true);
-      expect(ref.componentInstance!.data.dummyText).toMatch('test string');
+      expect(ref.componentInstance!.data!.dummyText).toMatch('test string');
       expect(overlayContainerElement.textContent).toContain('test string');
       expect(ref.componentInstance!.ref).toBe(ref);
 
@@ -159,6 +163,21 @@ describe('sbb-dialog', () => {
       fixture.destroy();
 
       expect(overlayContainerElement.querySelector('#disposed-dialog')).toBeNull();
+    });
+
+    it('should allow the consumer to disable closing a dialog on navigation', async () => {
+      service.open(SbbDummyComponent);
+      service.open(SbbDummyComponent, { closeOnNavigation: false });
+
+      await fixture.whenRenderingDone();
+
+      expect(overlayContainerElement.children.length).toBe(2);
+
+      mockLocation.simulateUrlPop('');
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+
+      expect(overlayContainerElement.children.length).toBe(1);
     });
   });
 });
