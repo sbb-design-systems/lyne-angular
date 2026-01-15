@@ -5,15 +5,16 @@ import {
   Component,
   Directive,
   inject,
+  Injector,
   type TemplateRef,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import type { SbbOverlayRef } from '@sbb-esta/lyne-angular/core/overlay';
-import { SbbDummyComponent } from '@sbb-esta/lyne-angular/core/testing';
+import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core/overlay';
 
 import { SbbOverlay } from './overlay';
+import { SbbOverlayRef } from './overlay-ref';
 import { SbbOverlayService } from './overlay-service';
 
 describe('sbb-overlay', () => {
@@ -53,13 +54,10 @@ describe('sbb-overlay', () => {
     });
 
     it('renders component', async () => {
-      const ref: SbbOverlayRef<SbbDummyComponent> = service.open<SbbDummyComponent>(
-        SbbDummyComponent,
-        {
-          data: { dummyText: 'test string' },
-          id: 'overlay-component',
-        },
-      );
+      const ref = service.open<SbbDummyComponent>(SbbDummyComponent, {
+        data: { dummyText: 'test string' },
+        id: 'overlay-component',
+      });
 
       await fixture.whenRenderingDone();
 
@@ -74,7 +72,7 @@ describe('sbb-overlay', () => {
     });
 
     it('renders template', async () => {
-      const ref: SbbOverlayRef = service.open(component.templatePortalContent, {
+      const ref = service.open(component.templatePortalContent, {
         templateContext: { $implicit: 'test string' },
         id: 'overlay-template',
       });
@@ -203,4 +201,18 @@ class ServiceTestComponent {
   get childViewContainer() {
     return this.childWithViewContainer.viewContainerRef;
   }
+}
+
+@Component({
+  selector: 'sbb-dummy-component',
+  template: `This is a dummy component meant for testing. Dummy string: {{ data?.dummyText }}`,
+})
+class SbbDummyComponent {
+  readonly data = inject<SampleData>(SBB_OVERLAY_DATA, { optional: true });
+  readonly ref = inject(SbbOverlayRef);
+  readonly injector = inject(Injector);
+}
+
+export interface SampleData {
+  dummyText: string;
 }
