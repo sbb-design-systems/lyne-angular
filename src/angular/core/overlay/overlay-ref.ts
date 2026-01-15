@@ -26,9 +26,9 @@ export class SbbOverlayRef<T = unknown> {
   id?: string;
 
   #container: SbbOverlayContainerBase;
-  #afterOpened: Observable<Event | undefined>;
-  #beforeClosed: Observable<Event | undefined>;
-  #afterClosed: Observable<Event | undefined>;
+  #afterOpened: Observable<Event>;
+  #beforeClosed: Observable<Event>;
+  #afterClosed: Observable<Event>;
 
   constructor(
     container: SbbOverlayContainerBase,
@@ -73,21 +73,21 @@ export class SbbOverlayRef<T = unknown> {
   /**
    * Gets an observable that is notified when the dialog is finished opening.
    */
-  get afterOpened(): Observable<Event | undefined> {
+  get afterOpened(): Observable<Event> {
     return this.#afterOpened;
   }
 
   /**
    * Gets an observable that is notified when the dialog is finished closing.
    */
-  get afterClosed(): Observable<Event | undefined> {
+  get afterClosed(): Observable<Event> {
     return this.#afterClosed;
   }
 
   /**
    * Gets an observable that is notified when the dialog has started closing.
    */
-  get beforeClosed(): Observable<Event | undefined> {
+  get beforeClosed(): Observable<Event> {
     return this.#beforeClosed;
   }
 
@@ -95,7 +95,7 @@ export class SbbOverlayRef<T = unknown> {
    * Gets an observable that is notified when the dialog is finished opening.
    * @deprecated use afterOpened instead.
    */
-  get afterOpen(): Observable<Event | undefined> {
+  get afterOpen(): Observable<Event> {
     return this.#afterOpened;
   }
 
@@ -103,7 +103,7 @@ export class SbbOverlayRef<T = unknown> {
    * Gets an observable that is notified when the dialog is finished closing.
    * @deprecated use afterClosed instead.
    */
-  get afterClose(): Observable<Event | undefined> {
+  get afterClose(): Observable<Event> {
     return this.#afterClosed;
   }
 
@@ -111,7 +111,7 @@ export class SbbOverlayRef<T = unknown> {
    * Gets an observable that is notified when the dialog has started closing.
    * @deprecated use beforeClosed instead.
    */
-  get beforeClose(): Observable<Event | undefined> {
+  get beforeClose(): Observable<Event> {
     return this.#beforeClosed;
   }
 }

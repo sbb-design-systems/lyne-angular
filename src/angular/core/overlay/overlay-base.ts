@@ -183,12 +183,9 @@ export abstract class SbbOverlayBaseService<
     this.openOverlays.push(overlayRefConstructed);
     this.afterOpened.next(overlayRefConstructed);
 
-    overlayRefConstructed.afterClosed.subscribe((event) => {
-      if (!event) {
-        return;
-      }
-      this.#removeOpenOverlay(overlayRefConstructed, true);
-    });
+    overlayRefConstructed.afterClosed.subscribe(() =>
+      this.#removeOpenOverlay(overlayRefConstructed, true),
+    );
 
     overlayContainer.open();
 

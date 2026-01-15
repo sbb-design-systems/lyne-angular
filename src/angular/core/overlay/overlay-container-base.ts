@@ -11,22 +11,22 @@ export abstract class SbbOverlayContainerBase<I = unknown> {
   abstract close(result?: unknown): void;
   abstract getState(): SbbOverlayState;
   abstract elementInstance: I;
-  abstract beforeClosed: Observable<Event | undefined>;
-  abstract afterOpened: Observable<Event | undefined>;
-  abstract afterClosed: Observable<Event | undefined>;
+  abstract beforeClosed: Observable<Event>;
+  abstract afterOpened: Observable<Event>;
+  abstract afterClosed: Observable<Event>;
 
   /**
    * @deprecated Use beforeClosed instead.
    */
-  abstract beforeClose: Observable<Event | undefined>;
+  abstract beforeClose: Observable<Event>;
 
   /**
    * @deprecated Use after Opened instead.
    */
-  abstract afterOpen: Observable<Event | undefined>;
+  abstract afterOpen: Observable<Event>;
 
   /**
    * @deprecated Use afterClosed instead.
    */
-  abstract afterClose: Observable<Event | undefined>;
+  abstract afterClose: Observable<Event>;
 }
