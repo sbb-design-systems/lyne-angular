@@ -1,9 +1,4 @@
 import {
-  _DisposeViewRepeaterStrategy,
-  _RecycleViewRepeaterStrategy,
-  _VIEW_REPEATER_STRATEGY,
-} from '@angular/cdk/collections';
-import {
   CDK_TABLE,
   CdkTable,
   DataRowOutlet,
@@ -27,10 +22,11 @@ import { debounceTime, Subject } from 'rxjs';
 /**
  * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with
  * tables that animate rows.
+ *
+ * @deprecated This directive is a no-op and will be removed.
  */
 @Directive({
   selector: 'sbb-table[recycleRows], table[sbb-table][recycleRows]',
-  providers: [{ provide: _VIEW_REPEATER_STRATEGY, useClass: _RecycleViewRepeaterStrategy }],
 })
 export class SbbRecycleRows {}
 
@@ -76,9 +72,6 @@ export class SbbRecycleRows {}
     '[class.sbb-table-fixed-layout]': 'fixedLayout',
   },
   providers: [
-    // TODO(michaeljamesparsons) Abstract the view repeater strategy to a directive API so this code
-    //  is only included in the build if used.
-    { provide: _VIEW_REPEATER_STRATEGY, useClass: _DisposeViewRepeaterStrategy },
     { provide: CdkTable, useExisting: SbbTable },
     { provide: CDK_TABLE, useExisting: SbbTable },
     // Prevent nested tables from seeing this table's StickyPositioningListener.
