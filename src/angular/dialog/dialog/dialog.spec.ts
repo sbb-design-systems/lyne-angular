@@ -6,15 +6,16 @@ import {
   DestroyRef,
   Directive,
   inject,
+  Injector,
   type TemplateRef,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { type SbbOverlayRef } from '@sbb-esta/lyne-angular/core/overlay';
-import { SbbDummyComponent } from '@sbb-esta/lyne-angular/core/testing';
+import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core/overlay';
 
 import { SbbDialog } from './dialog';
+import { SbbDialogRef } from './dialog-ref';
 import { SbbDialogService } from './dialog-service';
 
 describe('sbb-dialog', () => {
@@ -54,13 +55,10 @@ describe('sbb-dialog', () => {
     });
 
     it('renders component', async () => {
-      const ref: SbbOverlayRef<SbbDummyComponent> = service.open<SbbDummyComponent>(
-        SbbDummyComponent,
-        {
-          data: { dummyText: 'test string' },
-          id: 'dialog-component',
-        },
-      );
+      const ref = service.open<SbbDummyComponent>(SbbDummyComponent, {
+        data: { dummyText: 'test string' },
+        id: 'dialog-component',
+      });
 
       await fixture.whenRenderingDone();
 
@@ -75,7 +73,7 @@ describe('sbb-dialog', () => {
     });
 
     it('renders template', async () => {
-      const ref: SbbOverlayRef = service.open(component.templatePortalContent, {
+      const ref = service.open(component.templatePortalContent, {
         templateContext: { $implicit: 'test string' },
         id: 'dialog-template',
       });
@@ -214,4 +212,18 @@ class ServiceTestComponent {
   public methodToSpy() {
     return;
   }
+}
+
+@Component({
+  selector: 'sbb-dummy-component',
+  template: `This is a dummy component meant for testing. Dummy string: {{ data?.dummyText }}`,
+})
+class SbbDummyComponent {
+  readonly data = inject<SampleData>(SBB_OVERLAY_DATA, { optional: true });
+  readonly ref = inject(SbbDialogRef);
+  readonly injector = inject(Injector);
+}
+
+export interface SampleData {
+  dummyText: string;
 }

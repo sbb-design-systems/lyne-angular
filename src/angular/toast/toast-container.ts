@@ -59,19 +59,19 @@ export class SbbToastContainer extends SbbOverlayContainerBase<SbbToast> {
     return this.elementInstance.isOpen ? SbbOverlayState.opened : SbbOverlayState.closed;
   }
 
-  public override afterOpened: Observable<Event | undefined> = outputToObservable(
+  public override afterOpened: Observable<Event> = outputToObservable(
     this.elementInstance.openOutput,
   );
 
-  public override afterClosed: Observable<Event | undefined> = outputToObservable(
+  public override afterClosed: Observable<Event> = outputToObservable(
     this.elementInstance.closeOutput,
   );
 
-  public override beforeClosed: Observable<Event | undefined> = outputToObservable(
+  public override beforeClosed: Observable<Event> = outputToObservable(
     this.elementInstance.beforeCloseOutput,
   );
 
-  public override afterOpen: Observable<Event | undefined> = this.afterOpened;
-  public override afterClose: Observable<Event | undefined> = this.afterClosed;
-  public override beforeClose: Observable<Event | undefined> = this.beforeClosed;
+  public override afterOpen: Observable<Event> = this.afterOpened;
+  public override afterClose: Observable<Event> = this.afterClosed;
+  public override beforeClose: Observable<Event> = this.beforeClosed;
 }

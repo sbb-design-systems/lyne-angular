@@ -13,7 +13,7 @@ export enum SbbOverlayState {
   closed,
 }
 
-export class SbbOverlayRef<T = unknown> {
+export class SbbOverlayBaseRef<T = unknown, C extends Event = Event> {
   /** The instance of component opened into the dialog. */
   componentInstance?: T;
 
@@ -25,14 +25,14 @@ export class SbbOverlayRef<T = unknown> {
 
   id?: string;
 
-  #container: SbbOverlayContainerBase;
-  #afterOpened: Observable<Event | undefined>;
-  #beforeClosed: Observable<Event | undefined>;
-  #afterClosed: Observable<Event | undefined>;
+  #container: SbbOverlayContainerBase<unknown, C>;
+  #afterOpened: Observable<Event>;
+  #beforeClosed: Observable<C>;
+  #afterClosed: Observable<C>;
 
   constructor(
-    container: SbbOverlayContainerBase,
-    config: SbbOverlayConfig<SbbOverlayContainerBase>,
+    container: SbbOverlayContainerBase<unknown, C>,
+    config: SbbOverlayConfig<SbbOverlayContainerBase<unknown, C>>,
     portalOutlet: DomPortalOutlet,
     // TODO: Make required @breaking-change
     location?: Location,
@@ -73,21 +73,21 @@ export class SbbOverlayRef<T = unknown> {
   /**
    * Gets an observable that is notified when the dialog is finished opening.
    */
-  get afterOpened(): Observable<Event | undefined> {
+  get afterOpened(): Observable<Event> {
     return this.#afterOpened;
   }
 
   /**
    * Gets an observable that is notified when the dialog is finished closing.
    */
-  get afterClosed(): Observable<Event | undefined> {
+  get afterClosed(): Observable<C> {
     return this.#afterClosed;
   }
 
   /**
    * Gets an observable that is notified when the dialog has started closing.
    */
-  get beforeClosed(): Observable<Event | undefined> {
+  get beforeClosed(): Observable<C> {
     return this.#beforeClosed;
   }
 
@@ -95,7 +95,7 @@ export class SbbOverlayRef<T = unknown> {
    * Gets an observable that is notified when the dialog is finished opening.
    * @deprecated use afterOpened instead.
    */
-  get afterOpen(): Observable<Event | undefined> {
+  get afterOpen(): Observable<Event> {
     return this.#afterOpened;
   }
 
@@ -103,7 +103,7 @@ export class SbbOverlayRef<T = unknown> {
    * Gets an observable that is notified when the dialog is finished closing.
    * @deprecated use afterClosed instead.
    */
-  get afterClose(): Observable<Event | undefined> {
+  get afterClose(): Observable<C> {
     return this.#afterClosed;
   }
 
@@ -111,7 +111,7 @@ export class SbbOverlayRef<T = unknown> {
    * Gets an observable that is notified when the dialog has started closing.
    * @deprecated use beforeClosed instead.
    */
-  get beforeClose(): Observable<Event | undefined> {
+  get beforeClose(): Observable<C> {
     return this.#beforeClosed;
   }
 }
