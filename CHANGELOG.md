@@ -1,5 +1,17 @@
 # Changelog
 
+## [21.2.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.1.0...v21.2.0) (2026-01-19)
+
+
+### Features
+
+* introduce sbb-overlay-close and sbb-dialog-close directives ([#260](https://github.com/sbb-design-systems/lyne-angular/issues/260)) ([08d48c7](https://github.com/sbb-design-systems/lyne-angular/commit/08d48c7ead92f455e7b4a11ac0c3742a6bd89a92))
+
+
+### Bug Fixes
+
+* **deps:** update angular to v21.1.0 ([#257](https://github.com/sbb-design-systems/lyne-angular/issues/257)) ([38c75fa](https://github.com/sbb-design-systems/lyne-angular/commit/38c75fa746fdc0c42cbc8d510ec49f25b2659f9d))
+
 ## [21.1.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.0.5...v21.1.0) (2026-01-13)
 
 
