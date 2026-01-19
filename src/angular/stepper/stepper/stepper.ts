@@ -1,8 +1,13 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
-import type { SbbStepperElement } from '@sbb-esta/lyne-elements/stepper/stepper.js';
+import type {
+  SbbStepChangeEvent,
+  SbbStepperElement,
+} from '@sbb-esta/lyne-elements/stepper/stepper.js';
+import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/stepper/stepper.js';
 
@@ -114,4 +119,13 @@ export class SbbStepper {
   public reset(): void {
     return this.#element.nativeElement.reset();
   }
+
+  protected _stepchangeOutput: OutputRef<SbbStepChangeEvent> =
+    outputFromObservable<SbbStepChangeEvent>(NEVER, { alias: 'stepchange' });
+  /**
+   * Emits whenever a step was changed.
+   */
+  public stepchangeOutput: OutputRef<SbbStepChangeEvent> = internalOutputFromObservable(
+    fromEvent<SbbStepChangeEvent>(this.#element.nativeElement, 'stepchange'),
+  );
 }

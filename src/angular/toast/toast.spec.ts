@@ -3,15 +3,16 @@ import {
   Component,
   Directive,
   inject,
+  Injector,
   type TemplateRef,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import type { SbbOverlayRef } from '@sbb-esta/lyne-angular/core/overlay';
-import { SbbDummyComponent } from '@sbb-esta/lyne-angular/core/testing';
+import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core/overlay';
 
 import { SbbToast } from './toast';
+import { SbbToastRef } from './toast-ref';
 import { SbbToastService } from './toast-service';
 
 describe('sbb-toast', () => {
@@ -49,13 +50,10 @@ describe('sbb-toast', () => {
     });
 
     it('renders component', async () => {
-      const ref: SbbOverlayRef<SbbDummyComponent> = service.open<SbbDummyComponent>(
-        SbbDummyComponent,
-        {
-          data: { dummyText: 'test string' },
-          id: 'toast-component',
-        },
-      );
+      const ref = service.open<SbbDummyComponent>(SbbDummyComponent, {
+        data: { dummyText: 'test string' },
+        id: 'toast-component',
+      });
 
       await fixture.whenRenderingDone();
 
@@ -70,7 +68,7 @@ describe('sbb-toast', () => {
     });
 
     it('renders template', async () => {
-      const ref: SbbOverlayRef = service.open(component.templatePortalContent, {
+      const ref = service.open(component.templatePortalContent, {
         templateContext: { $implicit: 'test string' },
         id: 'toast-template',
       });
@@ -211,4 +209,18 @@ class ServiceTestComponent {
   get childViewContainer() {
     return this.childWithViewContainer.viewContainerRef;
   }
+}
+
+@Component({
+  selector: 'sbb-dummy-component',
+  template: `This is a dummy component meant for testing. Dummy string: {{ data?.dummyText }}`,
+})
+class SbbDummyComponent {
+  readonly data = inject<SampleData>(SBB_OVERLAY_DATA, { optional: true });
+  readonly ref = inject(SbbToastRef);
+  readonly injector = inject(Injector);
+}
+
+export interface SampleData {
+  dummyText: string;
 }

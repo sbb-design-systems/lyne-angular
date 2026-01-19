@@ -110,7 +110,7 @@ const meta: Meta = {
             Link
           </sbb-block-link>
           <sbb-secondary-button sbb-dialog-close> Cancel </sbb-secondary-button>
-          <sbb-button sbb-dialog-close> Confirm </sbb-button>
+          <sbb-button [sbb-dialog-close]="true"> Confirm </sbb-button>
         </sbb-dialog-actions>
       </sbb-dialog>
     `,

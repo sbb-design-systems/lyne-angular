@@ -3,7 +3,7 @@
 The `SbbToastService` service can be used to open `SbbToast`s programmatically.
 
 A toast is opened by calling the `open` method with either a component or a template to be loaded, and an optional
-config object. The `open` method will return an instance of `SbbOverlayRef`:
+config object. The `open` method will return an instance of `SbbToastRef`:
 
 #### Component
 
@@ -25,14 +25,14 @@ let toastRef = toastService.open(templateContent, {
 });
 ```
 
-The `SbbOverlayRef` provides a handle on the opened toast. It can be used to close the toast and to
+The `SbbToastRef` provides a handle on the opened toast. It can be used to close the toast and to
 receive notifications when the toast state changes (`afterOpened`, `beforeClosed`, `afterClosed`).
 
 ```ts
 toastRef.close();
 ```
 
-Components created via `SbbToastService` can _inject_ `SbbOverlayRef` and use it to close the toast
+Components created via `SbbToastService` can _inject_ `SbbToastRef` and use it to close the toast
 in which they are contained.
 
 ```ts
@@ -40,7 +40,7 @@ in which they are contained.
   /* ... */
 })
 export class YourToast {
-  toastRef = inject(SbbOverlayRef);
+  toastRef = inject(SbbToastRef);
 
   closeToast() {
     this.toastRef.close();

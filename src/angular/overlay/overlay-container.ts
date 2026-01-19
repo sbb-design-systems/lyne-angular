@@ -12,6 +12,7 @@ import {
   SbbOverlayContainerBase,
   SbbOverlayState,
 } from '@sbb-esta/lyne-angular/core/overlay';
+import type { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.js';
 import type { Observable } from 'rxjs';
 
 import { SbbOverlay } from './overlay';
@@ -42,8 +43,14 @@ export class SbbOverlayContainer extends SbbOverlayContainerBase<SbbOverlay> {
   public override open(): void {
     this.elementInstance.open();
   }
-
-  public override close(result?: unknown, target?: HTMLElement) {
+  /** Closes the component. */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public close(result?: any): void;
+  /** @deprecated */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public close(result?: any, target?: HTMLElement): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public close(result?: any, target?: HTMLElement): void {
     this.elementInstance.close(result, target);
   }
 
@@ -59,19 +66,19 @@ export class SbbOverlayContainer extends SbbOverlayContainerBase<SbbOverlay> {
     return this.elementInstance.isOpen ? SbbOverlayState.opened : SbbOverlayState.closed;
   }
 
-  public override afterOpened: Observable<Event | undefined> = outputToObservable(
+  public override afterOpened: Observable<Event> = outputToObservable(
     this.elementInstance.openOutput,
   );
 
-  public override afterClosed: Observable<Event | undefined> = outputToObservable(
+  public override afterClosed: Observable<SbbOverlayCloseEvent> = outputToObservable(
     this.elementInstance.closeOutput,
   );
 
-  public override beforeClosed: Observable<Event | undefined> = outputToObservable(
+  public override beforeClosed: Observable<SbbOverlayCloseEvent> = outputToObservable(
     this.elementInstance.beforeCloseOutput,
   );
 
-  public override afterOpen: Observable<Event | undefined> = this.afterOpened;
-  public override afterClose: Observable<Event | undefined> = this.afterClosed;
-  public override beforeClose: Observable<Event | undefined> = this.beforeClosed;
+  public override afterOpen: Observable<Event> = this.afterOpened;
+  public override afterClose: Observable<SbbOverlayCloseEvent> = this.afterClosed;
+  public override beforeClose: Observable<SbbOverlayCloseEvent> = this.beforeClosed;
 }

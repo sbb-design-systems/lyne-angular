@@ -18,9 +18,9 @@ import {
 } from '@angular/core';
 import { defer, type Observable, startWith, Subject } from 'rxjs';
 
+import type { SbbOverlayBaseRef } from './overlay-base-ref';
 import { SbbOverlayConfig } from './overlay-config';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
-import { SbbOverlayRef } from './overlay-ref';
 
 /** Injection token that can be used to access the data that was passed in to an overlay. */
 export const SBB_OVERLAY_DATA = new InjectionToken<unknown>('SbbOverlayData');
@@ -31,7 +31,7 @@ export abstract class SbbOverlayBaseService<
   // Type of Container Instance
   I = unknown,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  R extends SbbOverlayRef<any> = SbbOverlayRef<any>,
+  R extends SbbOverlayBaseRef<any> = SbbOverlayBaseRef<any>,
 > implements OnDestroy {
   #openOverlaysAtThisLevel: R[] = [];
   readonly #afterAllClosedAtThisLevel = new Subject<void>();
@@ -40,7 +40,7 @@ export abstract class SbbOverlayBaseService<
 
   #createInjector<D>(
     config: SbbOverlayConfig<C, I, D>,
-    overlayRef: SbbOverlayRef,
+    overlayRef: R,
     overlayContainer: C,
     fallbackInjector: Injector,
   ): Injector {
@@ -109,7 +109,7 @@ export abstract class SbbOverlayBaseService<
 
   #attachContent<D = unknown>(
     componentOrTemplateRef: ComponentType<D> | TemplateRef<D>,
-    overlayRef: SbbOverlayRef<D>,
+    overlayRef: R,
     overlayContainer: C,
     config: SbbOverlayConfig<C, I, D>,
   ) {
@@ -146,7 +146,7 @@ export abstract class SbbOverlayBaseService<
   open<T = unknown>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     config: SbbOverlayConfig<C, I> = {},
-  ): SbbOverlayRef<T> {
+  ): SbbOverlayBaseRef<T> {
     config.id = config.id || this.#idGenerator.getId('cdk-overlay-');
 
     if (
@@ -183,12 +183,9 @@ export abstract class SbbOverlayBaseService<
     this.openOverlays.push(overlayRefConstructed);
     this.afterOpened.next(overlayRefConstructed);
 
-    overlayRefConstructed.afterClosed.subscribe((event) => {
-      if (!event) {
-        return;
-      }
-      this.#removeOpenOverlay(overlayRefConstructed, true);
-    });
+    overlayRefConstructed.afterClosed.subscribe(() =>
+      this.#removeOpenOverlay(overlayRefConstructed, true),
+    );
 
     overlayContainer.open();
 
@@ -256,7 +253,7 @@ export abstract class SbbOverlayBaseService<
 
   protected abstract parentService: SbbOverlayBaseService<C, I, R> | null;
   protected abstract containerType: Type<C>;
-  protected overlayRefConstructor: Type<R> = SbbOverlayRef as Type<R>;
+  protected abstract overlayRefConstructor: Type<R>;
   protected overlayDataToken: InjectionToken<unknown> = SBB_OVERLAY_DATA;
 
   // TODO: make private
