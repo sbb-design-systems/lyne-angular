@@ -26,7 +26,8 @@ if (!lyneVersion.startsWith('^')) {
 
 const rootAngularVersion = dependencies['@angular/core'] as string;
 const angularMajorVersion = rootAngularVersion.trim().match(/\d+/)![0];
-const angularVersion = `^${angularMajorVersion}.0.0${rootAngularVersion.includes('-') ? '-0' : ''}`;
+// TODO: revert minor version to 0 with next major release
+const angularVersion = `^${angularMajorVersion}.1.0${rootAngularVersion.includes('-') ? '-0' : ''}`;
 
 const content = readFileSync(packageJsonPath, 'utf8')
   .replaceAll('0.0.0-PLACEHOLDER', version)
