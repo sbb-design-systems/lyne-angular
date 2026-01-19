@@ -3,7 +3,7 @@
 The `SbbDialogService` service can be used to open `SbbDialog`s programmatically.
 
 A dialog is opened by calling the `open` method with either a component or a template to be loaded, and an optional
-config object. The `open` method will return an instance of `SbbOverlayRef`:
+config object. The `open` method will return an instance of `SbbDialogRef`:
 
 #### Component
 
@@ -25,7 +25,7 @@ let dialogRef = dialogService.open(templateContent, {
 });
 ```
 
-The `SbbOverlayRef` provides a handle on the opened dialog. It can be used to close the dialog and to
+The `SbbDialogRef` provides a handle on the opened dialog. It can be used to close the dialog and to
 receive notifications when the dialog state changes (`afterOpened`, `beforeClosed`, `afterClosed`).
 When closing, an optional result value can be provided. This result value is forwarded as the result of the `afterClosed` Observable.
 
@@ -37,7 +37,7 @@ dialogRef.afterClosed().subscribe((result) => {
 dialogRef.close('Pizza!');
 ```
 
-Components created via `SbbDialogService` can _inject_ `SbbOverlayRef` and use it to close the dialog
+Components created via `SbbDialogService` can _inject_ `SbbDialogRef` and use it to close the dialog
 in which they are contained.
 
 ```ts
@@ -45,12 +45,59 @@ in which they are contained.
   /* ... */
 })
 export class YourDialog {
-  dialogRef = inject(SbbOverlayRef);
+  dialogRef = inject(SbbDialogRef);
 
   closeDialog() {
     this.dialogRef.close('Pizza!');
   }
 }
+```
+
+Alternatively, you can use the `sbb-dialog-close` directive to close the dialog without explicitly injecting `SbbDialogRef`.
+The directive can be applied to any element (e.g., an `<sbb-button>`) and will automatically close the dialog when clicked:
+
+```ts
+@Component({
+  selector: 'your-dialog',
+  template: `
+    <sbb-dialog>
+      <sbb-dialog-title>Confirmation</sbb-dialog-title>
+      <sbb-dialog-content>
+        <p>Are you sure you want to proceed?</p>
+      </sbb-dialog-content>
+      <sbb-dialog-actions>
+        <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
+        <sbb-button [sbb-dialog-close]="result">Confirm</sbb-button>
+      </sbb-dialog-actions>
+    </sbb-dialog>
+  `,
+})
+export class YourDialog {
+  result = { confirmed: true };
+}
+```
+
+You can optionally pass a value to the directive, which will be returned as the dialog result:
+
+```html
+<!-- Close dialog without result -->
+<sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
+
+<!-- Close dialog with static value -->
+<sbb-button sbb-dialog-close="cancelled">Cancel</sbb-button>
+
+<!-- Close dialog with dynamic value -->
+<sbb-button [sbb-dialog-close]="data">Save</sbb-button>
+```
+
+The passed value will be available through the `afterClosed()` Observable:
+
+```ts
+import { SbbDialogCloseEvent } from '@sbb-esta/lyne-elements/dialog/dialog.js';
+
+dialogRef.afterClosed().subscribe((event: SbbDialogCloseEvent) => {
+  console.log(`Dialog result: ${event.result}`);
+});
 ```
 
 ### Configure your dialog
