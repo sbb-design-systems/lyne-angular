@@ -1,5 +1,13 @@
 # Changelog
 
+## [21.2.1](https://github.com/sbb-design-systems/lyne-angular/compare/v21.2.0...v21.2.1) (2026-01-19)
+
+
+### Bug Fixes
+
+* add ref re-exports ([#265](https://github.com/sbb-design-systems/lyne-angular/issues/265)) ([d7a258e](https://github.com/sbb-design-systems/lyne-angular/commit/d7a258e82be72cad870a257068f42df235e8a8ff))
+* provide SbbOverlayBaseRef as temporary fallback ([#267](https://github.com/sbb-design-systems/lyne-angular/issues/267)) ([8db49b7](https://github.com/sbb-design-systems/lyne-angular/commit/8db49b770a0e6a825aac553525041ee46493d547))
+
 ## [21.2.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.1.0...v21.2.0) (2026-01-19)
 
 
