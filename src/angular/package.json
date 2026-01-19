@@ -9,8 +9,10 @@
     "angular"
   ],
   "peerDependencies": {
+    "@angular/cdk": "0.0.0-ANGULAR",
     "@angular/common": "0.0.0-ANGULAR",
     "@angular/core": "0.0.0-ANGULAR",
+    "@angular/forms": "0.0.0-ANGULAR",
     "@sbb-esta/lyne-elements": "0.0.0-LYNE_ELEMENTS"
   },
   "dependencies": {
