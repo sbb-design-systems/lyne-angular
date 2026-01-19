@@ -18,7 +18,7 @@ import {
 } from '@angular/core';
 import { defer, type Observable, startWith, Subject } from 'rxjs';
 
-import type { SbbOverlayBaseRef } from './overlay-base-ref';
+import { SbbOverlayBaseRef } from './overlay-base-ref';
 import { SbbOverlayConfig } from './overlay-config';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
 
@@ -48,6 +48,8 @@ export abstract class SbbOverlayBaseService<
     const providers: StaticProvider[] = [
       { provide: this.containerType, useValue: overlayContainer },
       { provide: this.overlayRefConstructor, useValue: overlayRef },
+      /** @deprecated, remove with next major release */
+      { provide: SbbOverlayBaseRef, useValue: overlayRef },
     ];
 
     if (config.data) {
