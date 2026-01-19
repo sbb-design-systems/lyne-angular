@@ -115,3 +115,8 @@ export class SbbOverlayBaseRef<T = unknown, C extends Event = Event> {
     return this.#beforeClosed;
   }
 }
+
+export {
+  /** @deprecated use dedicated overlay refs from the corresponding modules (dialog / overlay / toast) */
+  SbbOverlayBaseRef as SbbOverlayRef,
+};
