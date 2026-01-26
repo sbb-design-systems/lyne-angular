@@ -1,6 +1,6 @@
 {
   "name": "lyne-angular",
-  "version": "21.2.1",
+  "version": "21.2.2",
   "scripts": {
     "postinstall": "yarn playwright install",
     "ng": "ng",
@@ -59,7 +59,7 @@
     "@storybook/addon-interactions": "9.0.0-alpha.10",
     "@storybook/addon-links": "10.2.0",
     "@storybook/angular": "10.2.0",
-    "@types/jasmine": "6.0.0",
+    "@types/jasmine": "5.1.15",
     "@types/node": "24.10.9",
     "angular-eslint": "21.1.0",
     "custom-elements-manifest": "2.1.0",
