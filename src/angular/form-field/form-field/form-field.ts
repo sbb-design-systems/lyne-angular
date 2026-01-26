@@ -180,4 +180,11 @@ export class SbbFormField {
   public clear(): void {
     return this.#element.nativeElement.clear();
   }
+
+  /**
+   * Reference to the slotted label.
+   */
+  public get label(): HTMLLabelElement | null {
+    return this.#element.nativeElement.label;
+  }
 }

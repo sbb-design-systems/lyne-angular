@@ -6,7 +6,7 @@ import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.js';
 import '@sbb-esta/lyne-elements/divider.js';
 
 /**
- * It displays a divider between sections.
+ * Displays a divider between sections.
  */
 @Directive({
   selector: 'sbb-divider',
