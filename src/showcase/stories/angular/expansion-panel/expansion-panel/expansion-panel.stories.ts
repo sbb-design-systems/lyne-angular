@@ -1,12 +1,15 @@
 import {
   SbbExpansionPanel,
   SbbExpansionPanelContent,
+  SbbExpansionPanelContentDirective,
   SbbExpansionPanelHeader,
 } from '@sbb-esta/lyne-angular/expansion-panel';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
 import type { ArgTypes, InputType } from 'storybook/internal/types';
+
+import readme from './readme.md';
 
 const longText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in tincidunt
 quis, mattis eu quam. Nulla sit amet lorem fermentum, molestie nunc ut, hendrerit risus. Vestibulum rutrum elit et
@@ -119,13 +122,22 @@ const meta: Meta = {
   decorators: [
     withActions,
     moduleMetadata({
-      imports: [SbbExpansionPanelHeader, SbbExpansionPanelContent],
+      imports: [
+        SbbExpansionPanelHeader,
+        SbbExpansionPanelContent,
+        SbbExpansionPanelContentDirective,
+      ],
     }),
   ],
   title: 'elements/sbb-accordion/sbb-expansion-panel',
   component: SbbExpansionPanel,
   parameters: {
     actions: { handles: ['click'] },
+    docs: {
+      description: {
+        component: readme,
+      },
+    },
   },
   argTypes,
   args,
@@ -144,3 +156,22 @@ const meta: Meta = {
 export default meta;
 
 export const Default = {};
+
+export const LazyLoading = {
+  render: () => ({
+    template: `
+      <sbb-expansion-panel>
+        <sbb-expansion-panel-header>
+          Panel with lazy loaded content
+        </sbb-expansion-panel-header>
+        <sbb-expansion-panel-content>
+          <ng-template sbbExpansionPanelContent>
+            <p>This content is only loaded when the panel is opened for the first time.</p>
+            <p>This is useful for performance optimization when you have heavy content or expensive components.</p>
+            <p>${longText}</p>
+          </ng-template>
+        </sbb-expansion-panel-content>
+      </sbb-expansion-panel>
+    `,
+  }),
+};
