@@ -5,12 +5,13 @@ import {
   Component,
   contentChild,
   ElementRef,
+  forwardRef,
   inject,
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import type { SbbExpansionPanelContentElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-content.js';
+import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
 import { distinctUntilChanged, fromEvent, switchMap } from 'rxjs';
 
 import type { SbbExpansionPanelContentDirective } from './expansion-panel-content-directive';
@@ -33,11 +34,12 @@ import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-content.js';
   `,
 })
 export class SbbExpansionPanelContent {
-  #element: ElementRef<SbbExpansionPanelContentElement> = inject(
-    ElementRef<SbbExpansionPanelContentElement>,
-  );
   #viewContainerRef = inject(ViewContainerRef);
   #changeDetectorRef = inject(ChangeDetectorRef);
+  #expansionPanel = inject<ElementRef<SbbExpansionPanelElement>>(
+    forwardRef(() => ElementRef<SbbExpansionPanelElement>),
+    { optional: true, skipSelf: true },
+  );
 
   protected contentPortal: TemplatePortal | null = null;
 
@@ -50,10 +52,10 @@ export class SbbExpansionPanelContent {
 
   constructor() {
     const contentChildObservable = toObservable(this._explicitContent);
-    const parentExpansionPanel = this.#element.nativeElement.closest('sbb-expansion-panel');
 
-    if (parentExpansionPanel) {
-      fromEvent<Event>(parentExpansionPanel, 'beforeopen')
+    const parentElement = this.#expansionPanel?.nativeElement;
+    if (parentElement && parentElement.localName === 'sbb-expansion-panel') {
+      fromEvent<Event>(parentElement, 'beforeopen')
         .pipe(
           switchMap(() => contentChildObservable),
           distinctUntilChanged(),
