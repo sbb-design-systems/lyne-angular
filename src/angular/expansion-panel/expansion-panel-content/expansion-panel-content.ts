@@ -4,15 +4,14 @@ import {
   ChangeDetectorRef,
   Component,
   contentChild,
-  ElementRef,
-  forwardRef,
   inject,
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
-import { distinctUntilChanged, fromEvent, switchMap } from 'rxjs';
+import { outputToObservable, takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { distinctUntilChanged, switchMap } from 'rxjs';
+
+import { SbbExpansionPanel } from '../expansion-panel/expansion-panel';
 
 import type { SbbExpansionPanelContentDirective } from './expansion-panel-content-directive';
 import { SBB_EXPANSION_PANEL_CONTENT } from './expansion-panel-content-directive';
@@ -36,10 +35,9 @@ import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-content.js';
 export class SbbExpansionPanelContent {
   #viewContainerRef = inject(ViewContainerRef);
   #changeDetectorRef = inject(ChangeDetectorRef);
-  #expansionPanel = inject<ElementRef<SbbExpansionPanelElement>>(
-    forwardRef(() => ElementRef<SbbExpansionPanelElement>),
-    { optional: true, skipSelf: true },
-  );
+  #expansionPanel = inject<SbbExpansionPanel>(SbbExpansionPanel, {
+    optional: true,
+  });
 
   protected contentPortal: TemplatePortal | null = null;
 
@@ -52,31 +50,16 @@ export class SbbExpansionPanelContent {
 
   constructor() {
     const contentChildObservable = toObservable(this._explicitContent);
+    const outputRef = this.#expansionPanel?.beforeOpenOutput;
 
-    const parentElement = this.#expansionPanel?.nativeElement;
-    if (parentElement && parentElement.localName === 'sbb-expansion-panel') {
-      fromEvent<Event>(parentElement, 'beforeopen')
-        .pipe(
-          switchMap(() => contentChildObservable),
-          distinctUntilChanged(),
-          takeUntilDestroyed(),
-        )
-        .subscribe((templateRef) => {
-          this.contentPortal = templateRef
-            ? new TemplatePortal(templateRef, this.#viewContainerRef)
-            : null;
-          this.#changeDetectorRef.markForCheck();
-        });
-    } else {
-      // Fallback: load immediately if not inside an expansion panel
-      contentChildObservable
-        .pipe(distinctUntilChanged(), takeUntilDestroyed())
-        .subscribe((templateRef) => {
-          this.contentPortal = templateRef
-            ? new TemplatePortal(templateRef, this.#viewContainerRef)
-            : null;
-          this.#changeDetectorRef.markForCheck();
-        });
-    }
+    (outputRef
+      ? outputToObservable(outputRef).pipe(switchMap(() => contentChildObservable))
+      : contentChildObservable
+    )
+      .pipe(distinctUntilChanged(), takeUntilDestroyed())
+      .subscribe((ref) => {
+        this.contentPortal = ref ? new TemplatePortal(ref, this.#viewContainerRef) : null;
+        this.#changeDetectorRef.markForCheck();
+      });
   }
 }
