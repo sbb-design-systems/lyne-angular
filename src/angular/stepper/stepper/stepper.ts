@@ -38,7 +38,7 @@ export class SbbStepper {
   }
 
   /**
-   * Overrides the behaviour of `orientation` property.
+   * Overrides the behavior of `orientation` property.
    */
   @Input()
   public set horizontalFrom(value: SbbHorizontalFrom | null) {
