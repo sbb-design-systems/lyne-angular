@@ -1,5 +1,20 @@
 # Changelog
 
+## [21.3.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.2.3...v21.3.0) (2026-02-03)
+
+
+### Features
+
+* **sbb-expansion-panel:** add lazy loading support ([#276](https://github.com/sbb-design-systems/lyne-angular/issues/276)) ([e5c1562](https://github.com/sbb-design-systems/lyne-angular/commit/e5c156248701e23f3d8a8230bbbad4e38f79c49b)), closes [#272](https://github.com/sbb-design-systems/lyne-angular/issues/272)
+
+
+### Bug Fixes
+
+* **deps:** update angular to v21.1.2 ([606284e](https://github.com/sbb-design-systems/lyne-angular/commit/606284ef2ae6e9074004dc5315dabeb8442e21d1))
+* **deps:** update angular to v21.1.2 ([4db934c](https://github.com/sbb-design-systems/lyne-angular/commit/4db934c5e98a71e5e365e50c0b257b31fc01e456))
+* **deps:** update dependency @angular/cdk to v21.1.2 ([2048e8d](https://github.com/sbb-design-systems/lyne-angular/commit/2048e8d49ce6a942da915b5b7d12a4e065878434))
+* **deps:** update esta to v4.3.1 ([#278](https://github.com/sbb-design-systems/lyne-angular/issues/278)) ([87b6378](https://github.com/sbb-design-systems/lyne-angular/commit/87b63786ec871c5f4a436f2fe239fd57b6d66c85))
+
 ## [21.2.3](https://github.com/sbb-design-systems/lyne-angular/compare/v21.2.2...v21.2.3) (2026-01-26)
 
 
