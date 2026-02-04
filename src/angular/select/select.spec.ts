@@ -80,6 +80,49 @@ describe('sbb-select', () => {
 
       expect(component.control.touched).toBeTrue();
     });
+
+    it('should maintain state when detached and reattached to DOM', async () => {
+      // Verify initial state
+      expect(component.select()).toBeDefined();
+      expect(component.select()!.value).toEqual('2');
+      expect(component.control.value).toEqual('2');
+
+      // Select a different option
+      component.select()!.open();
+      fixture.detectChanges();
+
+      (fixture.nativeElement as HTMLElement)
+        .querySelector<SbbOptionElement>('sbb-option[value="3"]')!
+        .click();
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      expect(component.select()!.value).toEqual('3');
+      expect(component.control.value).toEqual('3');
+
+      // Detach from DOM
+      const sbbSelect = fixture.nativeElement.querySelector('sbb-select');
+
+      expect(fixture.nativeElement.querySelector('.sbb-select-trigger')).toBeDefined();
+
+      sbbSelect.remove();
+
+      expect(fixture.nativeElement.querySelector('sbb-select')).toBeNull();
+      expect(fixture.nativeElement.querySelector('.sbb-select-trigger')).toBeNull();
+
+      // Reattach to DOM
+      document.body.appendChild(sbbSelect);
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      // Verify state is maintained
+      expect(fixture.nativeElement.querySelector('sbb-select')).toBeDefined();
+      expect(fixture.nativeElement.querySelector('.sbb-select-trigger')).toBeDefined();
+      expect(component.select()).toBeDefined();
+      expect(component.select()!.value).toEqual('3');
+      expect(component.control.value).toEqual('3');
+      expect(component.select()!.getDisplayValue()).toEqual('Option 3');
+    });
   });
 
   describe('multiple', () => {
