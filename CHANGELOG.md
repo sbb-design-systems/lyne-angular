@@ -1,5 +1,14 @@
 # Changelog
 
+## [21.3.1](https://github.com/sbb-design-systems/lyne-angular/compare/v21.3.0...v21.3.1) (2026-02-09)
+
+
+### Bug Fixes
+
+* **deps:** update angular to v21.1.3 ([d5f109b](https://github.com/sbb-design-systems/lyne-angular/commit/d5f109bc5737e5b222e6c8db97353c3282da0cd0))
+* **deps:** update esta to v4.4.0 ([#283](https://github.com/sbb-design-systems/lyne-angular/issues/283)) ([1b7b545](https://github.com/sbb-design-systems/lyne-angular/commit/1b7b545e288466a339b04f912c597379cf370cdc))
+* **sbb-autocomplete:** correctly link autocomplete if outside sbb-form-field ([#282](https://github.com/sbb-design-systems/lyne-angular/issues/282)) ([9ed6066](https://github.com/sbb-design-systems/lyne-angular/commit/9ed6066cf7bcee68be58789ad6edd1a821908ab1))
+
 ## [21.3.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.2.3...v21.3.0) (2026-02-03)
 
 
