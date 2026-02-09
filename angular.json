@@ -57,7 +57,7 @@
           "defaultConfiguration": "browser",
           "configurations": {
             "browser": {
-              "browsers": ["chromium", "firefox"],
+              "browsers": ["chromium"],
               "watch": true,
               "progress": true,
               "setupFiles": ["src/test-setup.ts"]

@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TestBed } from '@angular/core/testing';
 
 import { SbbSort } from '../sort/sort';
 import { SbbTableModule } from '../table.module';
@@ -10,11 +9,11 @@ import type { SbbTableFilter } from './table-data-source';
 import { SbbTableDataSource } from './table-data-source';
 
 describe('sbb-table-data-source', () => {
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, SbbSortApp],
+      imports: [SbbSortApp],
     });
-  }));
+  });
 
   describe('sort', () => {
     let dataSource: SbbTableDataSource<unknown>;
@@ -33,7 +32,7 @@ describe('sbb-table-data-source', () => {
     function testSortWithValues(values: unknown[]) {
       // The data source and SbbSort expect the list to contain objects with values, where
       // the sort should be performed over a particular key.
-      // Map the values into an array of objects where where each value is keyed by "prop"
+      // Map the values into an array of objects where each value is keyed by "prop"
       // e.g. [0, 1, 2] -> [{prop: 0}, {prop: 1}, {prop: 2}]
       const data = values.map((v) => ({ prop: v }));
 

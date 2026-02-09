@@ -3,8 +3,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { CdkTableModule } from '@angular/cdk/table';
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
-import { fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TestBed } from '@angular/core/testing';
 import {
   createFakeEvent,
   createMouseEvent,
@@ -32,11 +31,11 @@ describe('sbb-sort', () => {
     let fixture: ComponentFixture<SimpleSbbSortApp>;
     let component: SimpleSbbSortApp;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
+        imports: [],
       });
-    }));
+    });
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleSbbSortApp);
@@ -54,13 +53,14 @@ describe('sbb-sort', () => {
       expect(sortables.size).toBe(0);
     });
 
-    it('should mark itself as initialized', fakeAsync(() => {
+    it('should mark itself as initialized', async () => {
       let isMarkedInitialized = false;
       component.sbbSort.initialized.subscribe(() => (isMarkedInitialized = true));
 
-      tick();
+      fixture.detectChanges();
+
       expect(isMarkedInitialized).toBeTruthy();
-    }));
+    });
 
     it('should use the column definition if used within a cdk table', () => {
       const cdkTableSbbSortAppFixture = TestBed.createComponent(CdkTableSbbSortApp);
@@ -390,30 +390,30 @@ describe('sbb-sort', () => {
       expect(sortHeaderElement.getAttribute('aria-sort')).toBe('none');
     });
 
-    it('should not render the arrow if sorting is disabled for that column', fakeAsync(() => {
+    it('should not render the arrow if sorting is disabled for that column', async () => {
       const sortHeaderElement = fixture.nativeElement.querySelector('#defaultA');
 
       // Switch sorting to a different column before asserting.
       component.sort('defaultB');
       fixture.componentInstance.disabledColumnSort = true;
       fixture.detectChanges();
-      tick();
+      await fixture.whenStable();
       fixture.detectChanges();
 
       expect(sortHeaderElement.querySelector('.sbb-sort-header-arrow')).toBeFalsy();
-    }));
+    });
 
-    it('should render the arrow if a disabled column is being sorted by', fakeAsync(() => {
+    it('should render the arrow if a disabled column is being sorted by', async () => {
       const sortHeaderElement = fixture.nativeElement.querySelector('#defaultA');
 
       component.sort('defaultA');
       fixture.componentInstance.disabledColumnSort = true;
       fixture.detectChanges();
-      tick();
+      await fixture.whenStable();
       fixture.detectChanges();
 
       expect(sortHeaderElement.querySelector('.sbb-sort-header-arrow')).toBeTruthy();
-    }));
+    });
 
     it('should add a default aria description to sort buttons', () => {
       const sortButton = fixture.nativeElement.querySelector('.sbb-sort-header-container');
@@ -507,9 +507,9 @@ describe('sbb-sort', () => {
     let fixture: ComponentFixture<SbbSortWithoutExplicitInputs>;
     let component: SbbSortWithoutExplicitInputs;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
+        imports: [],
         providers: [
           {
             provide: SBB_SORT_DEFAULT_OPTIONS,
@@ -519,7 +519,7 @@ describe('sbb-sort', () => {
           },
         ],
       });
-    }));
+    });
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SbbSortWithoutExplicitInputs);
@@ -542,9 +542,9 @@ describe('sbb-sort', () => {
   describe('with default arrowPosition', () => {
     let fixture: ComponentFixture<SbbSortWithoutInputs>;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
+        imports: [],
         providers: [
           {
             provide: SBB_SORT_DEFAULT_OPTIONS,
@@ -555,7 +555,7 @@ describe('sbb-sort', () => {
           },
         ],
       });
-    }));
+    });
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SbbSortWithoutInputs);
