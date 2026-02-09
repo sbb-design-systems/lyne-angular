@@ -279,7 +279,7 @@ export class SbbImage {
 
   protected _loadOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'load' });
   /**
-   * Emits when the image has been loaded.
+   * Emits each time an image loads. E.g. loading image for a different viewport, triggers the load event again.
    */
   public loadOutput: OutputRef<Event> = internalOutputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'load'),

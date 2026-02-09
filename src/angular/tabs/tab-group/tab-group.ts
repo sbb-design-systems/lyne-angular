@@ -8,6 +8,7 @@ import {
   type OutputRef,
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTabGroupElement } from '@sbb-esta/lyne-elements/tabs/tab-group.js';
 import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs/tab-label.js';
 import type { SbbTabElement } from '@sbb-esta/lyne-elements/tabs/tab.js';
@@ -52,6 +53,19 @@ export class SbbTabGroup {
   }
   public get initialSelectedIndex(): number {
     return this.#element.nativeElement.initialSelectedIndex;
+  }
+
+  /**
+   * If set to true, the `sbb-tab` elements take 100% height of the `sbb-tab-group`.
+   * It enables controlling the height on the `sbb-tab-group` element.
+   * The content becomes scrollable on overflow.
+   */
+  @Input({ transform: booleanAttribute })
+  public set fixedHeight(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.fixedHeight = value));
+  }
+  public get fixedHeight(): boolean {
+    return this.#element.nativeElement.fixedHeight;
   }
 
   /**

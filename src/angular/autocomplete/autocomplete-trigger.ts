@@ -1,6 +1,7 @@
 import { Directive, ElementRef, forwardRef, inject, Input } from '@angular/core';
 import type { ControlValueAccessor } from '@angular/forms';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field/form-field.js';
 import type { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option/option.js';
 import { BehaviorSubject } from 'rxjs';
 
@@ -43,6 +44,13 @@ export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor 
   }
   set autocomplete(autocomplete: SbbAutocompleteType<T>) {
     this.#autocomplete = autocomplete;
+    if (this.#autocomplete) {
+      this.#autocomplete.trigger = this.#element.nativeElement;
+      const formField = this.#element.nativeElement.closest<SbbFormFieldElement>('sbb-form-field');
+      if (formField) {
+        this.#autocomplete.origin = formField;
+      }
+    }
   }
   #autocomplete: SbbAutocompleteType<T> | null = null;
 
