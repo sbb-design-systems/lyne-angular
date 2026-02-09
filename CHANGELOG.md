@@ -1,5 +1,12 @@
 # Changelog
 
+## [21.3.2](https://github.com/sbb-design-systems/lyne-angular/compare/v21.3.1...v21.3.2) (2026-02-09)
+
+
+### Miscellaneous Chores
+
+* fix-release 21.3.2 ([ee9e287](https://github.com/sbb-design-systems/lyne-angular/commit/ee9e2877ca9fa5b4fe91e6a2b3965aa6ae0b42f5))
+
 ## [21.3.1](https://github.com/sbb-design-systems/lyne-angular/compare/v21.3.0...v21.3.1) (2026-02-09)
 
 
