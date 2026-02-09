@@ -189,6 +189,32 @@ describe('sbb-autocomplete', () => {
       expect(component.autocomplete().triggerElement!.value).toEqual('value 2');
     });
   });
+
+  describe('with autocomplete outside form-field', () => {
+    let fixture: ComponentFixture<TestComponentWithExternalAutocomplete>,
+      component: TestComponentWithExternalAutocomplete;
+
+    beforeEach(async () => {
+      fixture = TestBed.createComponent(TestComponentWithExternalAutocomplete);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+
+      // Wait for the fixture to stabilize
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
+
+    it('should create and link autocomplete via directive', async () => {
+      expect(component).toBeDefined();
+      const autocomplete = component.autocomplete();
+      expect(autocomplete).toBeDefined();
+      expect(autocomplete.triggerElement).toBe(
+        fixture.debugElement.nativeElement.querySelector('input'),
+      );
+      expect(autocomplete.origin).toBe(
+        fixture.debugElement.nativeElement.querySelector('sbb-form-field'),
+      );
+    });
+  });
 });
 
 @Component({
@@ -235,7 +261,27 @@ class TestComponentWithComplexValue {
   displayWith: ((value: { property: string; otherProperty: string }) => string) | null = (value) =>
     value ? value.property : value;
 
-  optionSelected(_event: CustomEvent<SbbOption<{ property: string; otherProperty: string }>>) {
+  optionSelected(_event: Event) {
     // noop;
   }
+}
+
+@Component({
+  template: `
+    <sbb-form-field>
+      <label for="input">Autocomplete External</label>
+      <input id="input" [formControl]="control" [sbbAutocomplete]="auto" />
+    </sbb-form-field>
+
+    <sbb-autocomplete #auto="sbbAutocomplete">
+      @for (opt of [1, 2, 3]; track opt) {
+        <sbb-option value="external{{ opt }}">External Option {{ opt }}</sbb-option>
+      }
+    </sbb-autocomplete>
+  `,
+  imports: [SbbFormField, SbbAutocompleteModule, SbbOption, ReactiveFormsModule],
+})
+class TestComponentWithExternalAutocomplete {
+  autocomplete = viewChild.required(SbbAutocomplete);
+  control = new FormControl('');
 }
