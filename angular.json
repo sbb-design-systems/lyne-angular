@@ -53,25 +53,21 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "src/angular/tsconfig.spec.json",
-            "include": ["src/angular/**/*.spec.ts", "src/angular/**/*.d.ts"],
-            "polyfills": ["zone.js", "zone.js/testing"],
-            "styles": [
-              "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
-              "node_modules/@sbb-esta/lyne-elements/disable-animation.css"
-            ],
-            "karmaConfig": "src/angular/karma.conf.js"
-          },
+          "builder": "@angular/build:unit-test",
+          "defaultConfiguration": "browser",
           "configurations": {
+            "browser": {
+              "browsers": ["chromium", "firefox"],
+              "watch": true,
+              "progress": true,
+              "setupFiles": ["src/test-setup.ts"]
+            },
             "ci": {
-              "browsers": "ChromiumHeadlessCI,FirefoxHeadless",
-              "codeCoverage": true,
-              "sourceMap": true,
+              "browsers": ["chromiumHeadless", "firefoxHeadless"],
+              "coverage": true,
               "progress": false,
               "watch": false,
-              "reporters": ["dots"]
+              "reporters": ["dot"]
             }
           }
         },
@@ -106,28 +102,21 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "src/angular-experimental/tsconfig.spec.json",
-            "include": [
-              "src/angular-experimental/**/*.spec.ts",
-              "src/angular-experimental/**/*.d.ts"
-            ],
-            "polyfills": ["zone.js", "zone.js/testing"],
-            "styles": [
-              "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
-              "node_modules/@sbb-esta/lyne-elements/disable-animation.css"
-            ],
-            "karmaConfig": "src/angular-experimental/karma.conf.js"
-          },
+          "builder": "@angular/build:unit-test",
+          "defaultConfiguration": "browser",
           "configurations": {
+            "browser": {
+              "browsers": ["chromium", "firefox"],
+              "watch": true,
+              "progress": true,
+              "setupFiles": ["src/test-setup.ts"]
+            },
             "ci": {
-              "browsers": "ChromiumHeadlessCI,FirefoxHeadless",
-              "codeCoverage": true,
-              "sourceMap": true,
+              "browsers": ["chromiumHeadless", "firefoxHeadless"],
+              "coverage": true,
               "progress": false,
               "watch": false,
-              "reporters": ["dots"]
+              "reporters": ["dot"]
             }
           }
         },

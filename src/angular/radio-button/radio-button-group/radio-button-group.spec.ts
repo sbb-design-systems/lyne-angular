@@ -22,7 +22,7 @@ describe('sbb-radio-button-group', () => {
   it('should create', async () => {
     expect(component).toBeDefined();
     expect(component.radioButtonGroup().value).toBe('opt2');
-    expect(component.radioButtons()![1].checked).toBeTrue();
+    expect(component.radioButtons()![1].checked).toBe(true);
   });
 
   it('should update form control', async () => {
@@ -44,7 +44,7 @@ describe('sbb-radio-button-group', () => {
     radioButtonGroupElement.dispatchEvent(new FocusEvent('focusout'));
     fixture.detectChanges();
 
-    expect(component.control.touched).toBeTrue();
+    expect(component.control.touched).toBe(true);
   });
 });
 

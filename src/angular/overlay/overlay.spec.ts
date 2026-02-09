@@ -84,7 +84,7 @@ describe('sbb-overlay', () => {
     });
 
     it('should emit when overlay opening animation is complete', async () => {
-      const spy = jasmine.createSpy('afterOpened spy');
+      const spy = vi.fn();
       const overlayRef = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
@@ -103,8 +103,8 @@ describe('sbb-overlay', () => {
     });
 
     it('should emit before and after overlay closing animation', async () => {
-      const beforeCloseSpy = jasmine.createSpy('beforeClosed spy');
-      const afterCloseSpy = jasmine.createSpy('afterClosed spy');
+      const beforeCloseSpy = vi.fn();
+      const afterCloseSpy = vi.fn();
       const ref = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
@@ -132,11 +132,8 @@ describe('sbb-overlay', () => {
 
       expect(
         ref.componentInstance?.injector.get<DirectiveWithViewContainer>(DirectiveWithViewContainer),
-      )
-        .withContext(
-          'Expected the overlay component to be created with the injector from the viewContainerRef.',
-        )
-        .toBeTruthy();
+        'Expected the overlay component to be created with the injector from the viewContainerRef.',
+      ).toBeTruthy();
     });
 
     it('should dispose of overlay after close', async () => {
@@ -195,8 +192,10 @@ class DirectiveWithViewContainer {
   imports: [DirectiveWithViewContainer],
 })
 class ServiceTestComponent {
-  @ViewChild('templatePortalContent') templatePortalContent!: TemplateRef<unknown>;
-  @ViewChild(DirectiveWithViewContainer) childWithViewContainer!: DirectiveWithViewContainer;
+  @ViewChild('templatePortalContent')
+  templatePortalContent!: TemplateRef<unknown>;
+  @ViewChild(DirectiveWithViewContainer)
+  childWithViewContainer!: DirectiveWithViewContainer;
 
   get childViewContainer() {
     return this.childWithViewContainer.viewContainerRef;

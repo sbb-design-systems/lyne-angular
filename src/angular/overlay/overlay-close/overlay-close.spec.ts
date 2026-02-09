@@ -19,9 +19,9 @@ describe(`sbb-overlay-close`, () => {
 
     it('should create', async () => {
       expect(component).toBeDefined();
-      expect(
-        fixture.nativeElement.querySelector('button').hasAttribute('sbb-overlay-close'),
-      ).toBeTrue();
+      expect(fixture.nativeElement.querySelector('button').hasAttribute('sbb-overlay-close')).toBe(
+        true,
+      );
     });
   });
 
@@ -121,7 +121,7 @@ describe(`sbb-overlay-close`, () => {
       expect(component).toBeDefined();
       expect(
         fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-overlay-close'),
-      ).toBeTrue();
+      ).toBe(true);
     });
   });
 });

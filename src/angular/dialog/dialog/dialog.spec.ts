@@ -85,8 +85,8 @@ describe('sbb-dialog', () => {
     });
 
     it('should emit when dialog opening animation is complete', async () => {
-      const spy = jasmine.createSpy('afterOpened spy');
-      const serviceSpy = jasmine.createSpy('service afterOpened spy');
+      const spy = vi.fn();
+      const serviceSpy = vi.fn();
 
       service.afterOpened.subscribe(serviceSpy);
 
@@ -110,8 +110,8 @@ describe('sbb-dialog', () => {
     });
 
     it('should emit before and after dialog closing animation', async () => {
-      const beforeCloseSpy = jasmine.createSpy('beforeClosed spy');
-      const afterCloseSpy = jasmine.createSpy('afterClosed spy');
+      const beforeCloseSpy = vi.fn();
+      const afterCloseSpy = vi.fn();
       const ref = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
@@ -139,11 +139,8 @@ describe('sbb-dialog', () => {
 
       expect(
         ref.componentInstance?.injector.get<DirectiveWithViewContainer>(DirectiveWithViewContainer),
-      )
-        .withContext(
-          'Expected the dialog component to be created with the injector from the viewContainerRef.',
-        )
-        .toBeTruthy();
+        'Expected the dialog component to be created with the injector from the viewContainerRef.',
+      ).toBeTruthy();
     });
 
     it('should dispose of dialog after close', async () => {
@@ -202,8 +199,10 @@ class DirectiveWithViewContainer {
   imports: [DirectiveWithViewContainer],
 })
 class ServiceTestComponent {
-  @ViewChild('templatePortalContent') templatePortalContent!: TemplateRef<unknown>;
-  @ViewChild(DirectiveWithViewContainer) childWithViewContainer!: DirectiveWithViewContainer;
+  @ViewChild('templatePortalContent')
+  templatePortalContent!: TemplateRef<unknown>;
+  @ViewChild(DirectiveWithViewContainer)
+  childWithViewContainer!: DirectiveWithViewContainer;
 
   get childViewContainer() {
     return this.childWithViewContainer.viewContainerRef;

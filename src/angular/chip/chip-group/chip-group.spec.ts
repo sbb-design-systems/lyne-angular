@@ -42,13 +42,13 @@ describe('sbb-chip-group', () => {
     });
 
     it('should be touched on blur', async () => {
-      expect(component.control.touched).toBeFalse();
+      expect(component.control.touched).toBe(false);
 
       (fixture.nativeElement as HTMLElement)
         .querySelector('sbb-chip-group')!
         .dispatchEvent(new FocusEvent('focusout'));
 
-      expect(component.control.touched).toBeTrue();
+      expect(component.control.touched).toBe(true);
     });
   });
 
@@ -137,7 +137,7 @@ describe('sbb-chip-group', () => {
       <sbb-option value="Option B">Option B</sbb-option>
     </sbb-autocomplete>
   </sbb-form-field>`,
-  imports: [SbbChipGroup, SbbFormField, ReactiveFormsModule],
+  imports: [SbbChipGroup, SbbFormField, ReactiveFormsModule, SbbAutocomplete, SbbOption],
 })
 class TestComponent {
   control = new FormControl(['chip 1']);
@@ -164,13 +164,7 @@ interface Fruit {
       }
     </sbb-autocomplete>
   </sbb-form-field> `,
-  imports: [
-    SbbChipGroup<Fruit>,
-    SbbFormField,
-    ReactiveFormsModule,
-    SbbAutocomplete<Fruit>,
-    SbbOption<Fruit>,
-  ],
+  imports: [SbbChipGroup, SbbFormField, ReactiveFormsModule, SbbAutocomplete, SbbOption],
 })
 export class TestComponentWithComplexValue {
   readonly availableFruits: Fruit[] = [
@@ -187,7 +181,7 @@ export class TestComponentWithComplexValue {
     return this.availableFruits.filter((fruit) => !this.favoriteFruits.value!.includes(fruit));
   }
 
-  add(chipTokenEndEvent: CustomEvent<SbbChipInputTokenEndEventDetails<Fruit>>): void {
+  add(chipTokenEndEvent: CustomEvent<SbbChipInputTokenEndEventDetails<Fruit | string>>): void {
     if (
       chipTokenEndEvent.detail.origin === 'autocomplete' ||
       typeof chipTokenEndEvent.detail.value !== 'string'

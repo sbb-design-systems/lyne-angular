@@ -58,14 +58,14 @@ describe('sbb-table-data-source', () => {
     });
 
     it('should unsubscribe from the re-render stream when disconnected', () => {
-      const spy = spyOn(dataSource._renderChangesSubscription!, 'unsubscribe');
+      const spy = vi.spyOn(dataSource._renderChangesSubscription!, 'unsubscribe');
       dataSource.disconnect();
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('should re-subscribe to the sort stream when re-connecting after being disconnected', () => {
       dataSource.disconnect();
-      const spy = spyOn(fixture.componentInstance.sort.sortChange, 'subscribe');
+      const spy = vi.spyOn(fixture.componentInstance.sort.sortChange, 'subscribe');
       dataSource.connect();
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -119,9 +119,9 @@ describe('sbb-table-data-source', () => {
       ];
 
       params.forEach((param) =>
-        expect(dataTableSource.filterPredicate(testRow, param.filter))
-          .withContext(param.toString())
-          .toBe(param.expected),
+        expect(dataTableSource.filterPredicate(testRow, param.filter), param.toString()).toBe(
+          param.expected,
+        ),
       );
     });
 
@@ -161,9 +161,10 @@ describe('sbb-table-data-source', () => {
       ];
 
       params.forEach((param) =>
-        expect(dataTableSource.filterPredicate(testRowAdvanced, param.filter))
-          .withContext(param.toString())
-          .toBe(param.expected),
+        expect(
+          dataTableSource.filterPredicate(testRowAdvanced, param.filter),
+          param.toString(),
+        ).toBe(param.expected),
       );
     });
 
@@ -191,9 +192,10 @@ describe('sbb-table-data-source', () => {
       ];
 
       params.forEach((param) =>
-        expect(dataTableSource.filterPredicate(testRowAdvanced, param.filter))
-          .withContext(param.toString())
-          .toBe(param.expected),
+        expect(
+          dataTableSource.filterPredicate(testRowAdvanced, param.filter),
+          param.toString(),
+        ).toBe(param.expected),
       );
     });
 
@@ -217,9 +219,9 @@ describe('sbb-table-data-source', () => {
       ];
 
       params.forEach((param) =>
-        expect(dataTableSource.filterPredicate(dataRowWith0, param.filter))
-          .withContext(param.toString())
-          .toBe(param.expected),
+        expect(dataTableSource.filterPredicate(dataRowWith0, param.filter), param.toString()).toBe(
+          param.expected,
+        ),
       );
     });
 
@@ -266,9 +268,10 @@ describe('sbb-table-data-source', () => {
       ];
 
       params.forEach((param) =>
-        expect(dataTableSource.filterPredicate(testRowAdvanced, param.filter))
-          .withContext(param.toString())
-          .toBe(param.expected),
+        expect(
+          dataTableSource.filterPredicate(testRowAdvanced, param.filter),
+          param.toString(),
+        ).toBe(param.expected),
       );
     });
   });
@@ -279,5 +282,6 @@ describe('sbb-table-data-source', () => {
   imports: [SbbTableModule],
 })
 class SbbSortApp {
-  @ViewChild(SbbSort) sort!: SbbSort;
+  @ViewChild(SbbSort)
+  sort!: SbbSort;
 }

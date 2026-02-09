@@ -17,7 +17,7 @@ describe(`sbb-navigation-section-close`, () => {
       expect(component).toBeDefined();
       expect(
         fixture.nativeElement.querySelector('button').hasAttribute('sbb-navigation-section-close'),
-      ).toBeTrue();
+      ).toBe(true);
     });
   });
 
@@ -37,7 +37,7 @@ describe(`sbb-navigation-section-close`, () => {
         fixture.nativeElement
           .querySelector('sbb-test-button')
           .hasAttribute('sbb-navigation-section-close'),
-      ).toBeTrue();
+      ).toBe(true);
     });
   });
 });

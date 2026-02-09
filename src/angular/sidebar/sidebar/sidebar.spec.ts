@@ -27,9 +27,9 @@ describe('sbb-sidebar', () => {
     });
 
     it('should have animation deferred', async () => {
-      expect(containerElement).toHaveClass('sbb-disable-animation');
+      expect(containerElement.classList.contains('sbb-disable-animation')).toBe(true);
       await waitForLitRender(sidebarElement);
-      expect(containerElement).not.toHaveClass('sbb-disable-animation');
+      expect(containerElement.classList.contains('sbb-disable-animation')).toBe(false);
     });
   });
 
@@ -46,9 +46,9 @@ describe('sbb-sidebar', () => {
     });
 
     it('should not remove sbb-disable-animation class if it is already applied', async () => {
-      expect(containerElement).toHaveClass('sbb-disable-animation');
+      expect(containerElement.classList.contains('sbb-disable-animation')).toBe(true);
       await waitForLitRender(sidebarElement);
-      expect(containerElement).toHaveClass('sbb-disable-animation');
+      expect(containerElement.classList.contains('sbb-disable-animation')).toBe(true);
     });
   });
 });

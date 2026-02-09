@@ -610,7 +610,9 @@ describe('sbb-table', () => {
         '.sbb-column-column_c.sbb-table-sticky.sbb-table-sticky-border-elem-right',
       ),
     ).toBeTruthy();
-    expect(tableWrapper.nativeElement).toHaveClass('sbb-table-wrapper-offset-right');
+    expect(tableWrapper.nativeElement.classList.contains('sbb-table-wrapper-offset-right')).toBe(
+      true,
+    );
     expect(tableWrapper.nativeElement.classList.length).toBe(2); // Ensure old state classes were removed
 
     // When scrolling to a middle position
@@ -621,7 +623,9 @@ describe('sbb-table', () => {
     tableWrapper.nativeElement.dispatchEvent(new CustomEvent('scroll'));
 
     // Then it should have offset right and left
-    expect(tableWrapper.nativeElement).toHaveClass('sbb-table-wrapper-offset-both');
+    expect(tableWrapper.nativeElement.classList.contains('sbb-table-wrapper-offset-both')).toBe(
+      true,
+    );
     expect(tableWrapper.nativeElement.classList.length).toBe(2); // Ensure old state classes were removed
 
     // When scrolling to the right position
@@ -630,7 +634,9 @@ describe('sbb-table', () => {
     tableWrapper.nativeElement.dispatchEvent(new CustomEvent('scroll'));
 
     // Then it should have offset left
-    expect(tableWrapper.nativeElement).toHaveClass('sbb-table-wrapper-offset-left');
+    expect(tableWrapper.nativeElement.classList.contains('sbb-table-wrapper-offset-left')).toBe(
+      true,
+    );
     expect(tableWrapper.nativeElement.classList.length).toBe(2); // Ensure old state classes were removed
 
     // When maximizing scroll area
@@ -640,7 +646,9 @@ describe('sbb-table', () => {
     tableWrapper.nativeElement.dispatchEvent(new CustomEvent('scroll'));
 
     // Then it should have offset 'none'
-    expect(tableWrapper.nativeElement).toHaveClass('sbb-table-wrapper-offset-none');
+    expect(tableWrapper.nativeElement.classList.contains('sbb-table-wrapper-offset-none')).toBe(
+      true,
+    );
     expect(tableWrapper.nativeElement.classList.length).toBe(2); // Ensure old state classes were removed
   }));
 
@@ -660,7 +668,7 @@ describe('sbb-table', () => {
   }));
 
   // Ignored as resizeObserver seems not to work in tests
-  xit('should update sticky left offset on viewport change', async () => {
+  it.skip('should update sticky left offset on viewport change', async () => {
     const fixture = TestBed.createComponent(TableWithTwoStickyColumnsTestComponent);
     fixture.detectChanges();
     await fixture.whenStable();
@@ -770,7 +778,8 @@ class SbbTableTestComponent {
   columnsToRender = ['column_a', 'column_b', 'column_c'];
   isFourthRow = (i: number, _rowData: TestData) => i === 3;
 
-  @ViewChild(SbbTable) table!: SbbTable<TestData>;
+  @ViewChild(SbbTable)
+  table!: SbbTable<TestData>;
 }
 
 @Component({
@@ -801,7 +810,8 @@ class NativeHtmlTableTestComponent {
   dataSource: FakeDataSource = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 
-  @ViewChild(SbbTable) table!: SbbTable<TestData>;
+  @ViewChild(SbbTable)
+  table!: SbbTable<TestData>;
 }
 
 @Component({
@@ -871,7 +881,8 @@ class StickyTableTestComponent {
   dataSource = new FakeDataSource();
   columnsToRender = ['column_a'];
 
-  @ViewChild(SbbTable) table!: SbbTable<TestData>;
+  @ViewChild(SbbTable)
+  table!: SbbTable<TestData>;
 }
 
 @Component({
@@ -900,7 +911,8 @@ class SbbTableWithWhenRowTestComponent {
   dataSource: FakeDataSource = new FakeDataSource();
   isFourthRow = (i: number, _rowData: TestData) => i === 3;
 
-  @ViewChild(SbbTable) table!: SbbTable<TestData>;
+  @ViewChild(SbbTable)
+  table!: SbbTable<TestData>;
 }
 
 @Component({
@@ -938,10 +950,14 @@ class ArrayDataSourceSbbTableTestComponent implements AfterViewInit {
   dataSource = new SbbTableDataSource<TestData>();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 
-  @ViewChild(SbbTable) table!: SbbTable<TestData>;
-  @ViewChild(SbbPaginator) paginator!: SbbPaginator;
-  @ViewChild(SbbSort) sort!: SbbSort;
-  @ViewChild(SbbSortHeader) sortHeader!: SbbSortHeader;
+  @ViewChild(SbbTable)
+  table!: SbbTable<TestData>;
+  @ViewChild(SbbPaginator)
+  paginator!: SbbPaginator;
+  @ViewChild(SbbSort)
+  sort!: SbbSort;
+  @ViewChild(SbbSortHeader)
+  sortHeader!: SbbSortHeader;
 
   constructor() {
     this.underlyingDataSource.data = [];
@@ -991,8 +1007,10 @@ class SbbTableWithSortTestComponent implements OnInit {
   dataSource = new SbbTableDataSource<TestData>();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 
-  @ViewChild(SbbTable) table!: SbbTable<TestData>;
-  @ViewChild(SbbSort) sort!: SbbSort;
+  @ViewChild(SbbTable)
+  table!: SbbTable<TestData>;
+  @ViewChild(SbbSort)
+  sort!: SbbSort;
 
   constructor() {
     this.underlyingDataSource.data = [];
@@ -1043,8 +1061,10 @@ class SbbTableWithPaginatorTestComponent implements OnInit {
   dataSource = new SbbTableDataSource<TestData>();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 
-  @ViewChild(SbbTable) table!: SbbTable<TestData>;
-  @ViewChild(SbbPaginator) paginator!: SbbPaginator;
+  @ViewChild(SbbTable)
+  table!: SbbTable<TestData>;
+  @ViewChild(SbbPaginator)
+  paginator!: SbbPaginator;
 
   constructor() {
     this.underlyingDataSource.data = [];
@@ -1241,7 +1261,7 @@ export function expectTableToMatchContent(tableElement: Element, expected: any[]
   // Make sure the number of rows match
   if (actual.length !== expected.length) {
     missedExpectations.push(`Expected ${expected.length} total rows but got ${actual.length}`);
-    fail(missedExpectations.join('\n'));
+    throw new Error(missedExpectations.join('\n'));
   }
 
   actual.forEach((row, rowIndex) => {
@@ -1250,7 +1270,7 @@ export function expectTableToMatchContent(tableElement: Element, expected: any[]
     // Make sure the number of cells match
     if (row.length !== expectedRow.length) {
       missedExpectations.push(`Expected ${expectedRow.length} cells in row but got ${row.length}`);
-      fail(missedExpectations.join('\n'));
+      throw new Error(missedExpectations.join('\n'));
     }
 
     row.forEach((actualCell, cellIndex) => {
@@ -1260,6 +1280,6 @@ export function expectTableToMatchContent(tableElement: Element, expected: any[]
   });
 
   if (missedExpectations.length) {
-    fail(missedExpectations.join('\n'));
+    throw new Error(missedExpectations.join('\n'));
   }
 }

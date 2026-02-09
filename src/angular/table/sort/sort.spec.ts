@@ -803,7 +803,7 @@ class SbbSortableMissingIdApp {}
 
 @Component({
   template: `
-    <div sbbSort sbbSortDirection="ascending">
+    <div sbbSort sbbSortDirection="asc">
       <div sbb-sort-header="a">A</div>
     </div>
   `,
@@ -858,7 +858,7 @@ class SbbSortWithoutExplicitInputs {
   imports: [SbbTableModule],
 })
 class SbbSortWithArrowPosition {
-  arrowPosition?: 'before' | 'after';
+  arrowPosition: 'before' | 'after' = 'before';
   @ViewChild(SbbSort) sbbSort!: SbbSort;
   @ViewChild('defaultA') defaultA!: SbbSortHeader;
   @ViewChild('defaultB') defaultB!: SbbSortHeader;

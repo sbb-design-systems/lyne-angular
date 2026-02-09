@@ -34,13 +34,13 @@ describe('sbb-slider', () => {
   });
 
   it('should be touched on blur', async () => {
-    expect(component.control.touched).toBeFalse();
+    expect(component.control.touched).toBe(false);
 
     (fixture.nativeElement as HTMLElement)
       .querySelector('sbb-slider')!
       .dispatchEvent(new FocusEvent('blur'));
 
-    expect(component.control.touched).toBeTrue();
+    expect(component.control.touched).toBe(true);
   });
 });
 

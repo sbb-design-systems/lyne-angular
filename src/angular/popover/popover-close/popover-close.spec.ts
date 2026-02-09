@@ -15,9 +15,9 @@ describe(`sbb-popover-close`, () => {
 
     it('should create', async () => {
       expect(component).toBeDefined();
-      expect(
-        fixture.nativeElement.querySelector('button').hasAttribute('sbb-popover-close'),
-      ).toBeTrue();
+      expect(fixture.nativeElement.querySelector('button').hasAttribute('sbb-popover-close')).toBe(
+        true,
+      );
     });
   });
 
@@ -35,7 +35,7 @@ describe(`sbb-popover-close`, () => {
       expect(component).toBeDefined();
       expect(
         fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-popover-close'),
-      ).toBeTrue();
+      ).toBe(true);
     });
   });
 });
