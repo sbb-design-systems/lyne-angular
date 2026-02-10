@@ -22,26 +22,26 @@ describe(`sbb-checkbox`, () => {
   });
 
   it('should not be checked', async () => {
-    expect(component.checkbox().checked).toBeFalse();
+    expect(component.checkbox().checked).toBe(false);
   });
 
   it('should be checked', async () => {
     component.control.setValue(true);
 
-    expect(component.checkbox().checked).toBeTrue();
+    expect(component.checkbox().checked).toBe(true);
   });
 
   it('should uncheck', async () => {
     component.control.setValue(true);
-    expect(component.checkbox().checked).toBeTrue();
+    expect(component.checkbox().checked).toBe(true);
 
     component.control.setValue(false);
-    expect(component.checkbox().checked).toBeFalse();
+    expect(component.checkbox().checked).toBe(false);
   });
 
   it('should check by click and update touched and dirty', async () => {
-    expect(component.control.touched).toBeFalse();
-    expect(component.control.dirty).toBeFalse();
+    expect(component.control.touched).toBe(false);
+    expect(component.control.dirty).toBe(false);
 
     lyneElement.focus();
     lyneElement.click();
@@ -49,8 +49,8 @@ describe(`sbb-checkbox`, () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(component.checkbox().checked).toBeTrue();
-    expect(component.control.value).toBeTrue();
+    expect(component.checkbox().checked).toBe(true);
+    expect(component.control.value).toBe(true);
 
     // Simulate click away from checkbox
     lyneElement.dispatchEvent(new FocusEvent('blur'));
@@ -58,8 +58,8 @@ describe(`sbb-checkbox`, () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(component.control.dirty).toBeTrue();
-    expect(component.control.touched).toBeTrue();
+    expect(component.control.dirty).toBe(true);
+    expect(component.control.touched).toBe(true);
   });
 
   it('should be unchecked by click', async () => {
@@ -69,16 +69,16 @@ describe(`sbb-checkbox`, () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(component.checkbox().checked).toBeFalse();
-    expect(component.control.value).toBeFalse();
+    expect(component.checkbox().checked).toBe(false);
+    expect(component.control.value).toBe(false);
   });
 
   it('should handle disabled', async () => {
     component.control.disable();
-    expect(component.checkbox().disabled).toBeTrue();
+    expect(component.checkbox().disabled).toBe(true);
 
     component.control.enable();
-    expect(component.checkbox().disabled).toBeFalse();
+    expect(component.checkbox().disabled).toBe(false);
   });
 
   it('should handle validation', async () => {
@@ -86,13 +86,13 @@ describe(`sbb-checkbox`, () => {
     component.control.setValue(false);
     fixture.detectChanges();
     await fixture.whenStable();
-    expect(lyneElement).toHaveClass('ng-invalid');
+    expect(lyneElement.classList.contains('ng-invalid')).toBe(true);
 
     lyneElement.click();
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(lyneElement).toHaveClass('ng-valid');
+    expect(lyneElement.classList.contains('ng-valid')).toBe(true);
   });
 });
 

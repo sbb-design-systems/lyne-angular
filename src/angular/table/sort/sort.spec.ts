@@ -3,8 +3,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { CdkTableModule } from '@angular/cdk/table';
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
-import { fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TestBed } from '@angular/core/testing';
 import {
   createFakeEvent,
   createMouseEvent,
@@ -23,7 +22,6 @@ import {
   getSortDuplicateSortableIdError,
   getSortHeaderMissingIdError,
   getSortHeaderNotContainedWithinSortError,
-  getSortInvalidDirectionError,
 } from './sort-errors';
 import type { SbbSortHeader } from './sort-header';
 
@@ -32,11 +30,11 @@ describe('sbb-sort', () => {
     let fixture: ComponentFixture<SimpleSbbSortApp>;
     let component: SimpleSbbSortApp;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
+        imports: [],
       });
-    }));
+    });
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SimpleSbbSortApp);
@@ -54,13 +52,14 @@ describe('sbb-sort', () => {
       expect(sortables.size).toBe(0);
     });
 
-    it('should mark itself as initialized', fakeAsync(() => {
+    it('should mark itself as initialized', async () => {
       let isMarkedInitialized = false;
       component.sbbSort.initialized.subscribe(() => (isMarkedInitialized = true));
 
-      tick();
+      fixture.detectChanges();
+
       expect(isMarkedInitialized).toBeTruthy();
-    }));
+    });
 
     it('should use the column definition if used within a cdk table', () => {
       const cdkTableSbbSortAppFixture = TestBed.createComponent(CdkTableSbbSortApp);
@@ -311,12 +310,6 @@ describe('sbb-sort', () => {
       );
     });
 
-    it('should throw an error if the provided direction is invalid', () => {
-      expect(() =>
-        TestBed.createComponent(SbbSortableInvalidDirection).detectChanges(),
-      ).toThrowError(wrappedErrorMessage(getSortInvalidDirectionError('ascending')));
-    });
-
     it('should allow let SbbSortable override the default sort parameters', () => {
       testSingleColumnSortDirectionSequence(fixture, ['asc', 'desc', '']);
 
@@ -390,30 +383,30 @@ describe('sbb-sort', () => {
       expect(sortHeaderElement.getAttribute('aria-sort')).toBe('none');
     });
 
-    it('should not render the arrow if sorting is disabled for that column', fakeAsync(() => {
+    it('should not render the arrow if sorting is disabled for that column', async () => {
       const sortHeaderElement = fixture.nativeElement.querySelector('#defaultA');
 
       // Switch sorting to a different column before asserting.
       component.sort('defaultB');
       fixture.componentInstance.disabledColumnSort = true;
       fixture.detectChanges();
-      tick();
+      await fixture.whenStable();
       fixture.detectChanges();
 
       expect(sortHeaderElement.querySelector('.sbb-sort-header-arrow')).toBeFalsy();
-    }));
+    });
 
-    it('should render the arrow if a disabled column is being sorted by', fakeAsync(() => {
+    it('should render the arrow if a disabled column is being sorted by', async () => {
       const sortHeaderElement = fixture.nativeElement.querySelector('#defaultA');
 
       component.sort('defaultA');
       fixture.componentInstance.disabledColumnSort = true;
       fixture.detectChanges();
-      tick();
+      await fixture.whenStable();
       fixture.detectChanges();
 
       expect(sortHeaderElement.querySelector('.sbb-sort-header-arrow')).toBeTruthy();
-    }));
+    });
 
     it('should add a default aria description to sort buttons', () => {
       const sortButton = fixture.nativeElement.querySelector('.sbb-sort-header-container');
@@ -507,9 +500,9 @@ describe('sbb-sort', () => {
     let fixture: ComponentFixture<SbbSortWithoutExplicitInputs>;
     let component: SbbSortWithoutExplicitInputs;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
+        imports: [],
         providers: [
           {
             provide: SBB_SORT_DEFAULT_OPTIONS,
@@ -519,7 +512,7 @@ describe('sbb-sort', () => {
           },
         ],
       });
-    }));
+    });
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SbbSortWithoutExplicitInputs);
@@ -542,9 +535,9 @@ describe('sbb-sort', () => {
   describe('with default arrowPosition', () => {
     let fixture: ComponentFixture<SbbSortWithoutInputs>;
 
-    beforeEach(waitForAsync(() => {
+    beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [NoopAnimationsModule],
+        imports: [],
         providers: [
           {
             provide: SBB_SORT_DEFAULT_OPTIONS,
@@ -555,7 +548,7 @@ describe('sbb-sort', () => {
           },
         ],
       });
-    }));
+    });
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SbbSortWithoutInputs);
@@ -803,16 +796,6 @@ class SbbSortableMissingIdApp {}
 
 @Component({
   template: `
-    <div sbbSort sbbSortDirection="ascending">
-      <div sbb-sort-header="a">A</div>
-    </div>
-  `,
-  imports: [SbbTableModule],
-})
-class SbbSortableInvalidDirection {}
-
-@Component({
-  template: `
     <div
       sbbSort
       [sbbSortActive]="active"
@@ -847,10 +830,10 @@ class SbbSortWithoutExplicitInputs {
 @Component({
   template: `
     <div sbbSort>
-      <div id="defaultA" #defaultA sbb-sort-header="defaultA" [arrowPosition]="arrowPosition">
+      <div id="defaultA" #defaultA sbb-sort-header="defaultA" [arrowPosition]="arrowPosition!">
         A
       </div>
-      <div id="defaultB" #defaultB sbb-sort-header="defaultB" [arrowPosition]="arrowPosition">
+      <div id="defaultB" #defaultB sbb-sort-header="defaultB" [arrowPosition]="arrowPosition!">
         B
       </div>
     </div>

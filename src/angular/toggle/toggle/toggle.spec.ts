@@ -18,13 +18,13 @@ describe('sbb-toggle', () => {
     expect(component).toBeDefined();
 
     expect(component.toggle().value).toBe('2');
-    expect(component.options().find((o) => o.value === '2')!.checked).toBeTrue();
+    expect(component.options().find((o) => o.value === '2')!.checked).toBe(true);
   });
 
   it('should update state of component on form value change', async () => {
     component.control.setValue('1');
     expect(component.toggle().value).toBe('1');
-    expect(component.options().find((o) => o.value === '1')!.checked).toBeTrue();
+    expect(component.options().find((o) => o.value === '1')!.checked).toBe(true);
   });
 
   it('should update form control when toggling', async () => {
@@ -36,13 +36,13 @@ describe('sbb-toggle', () => {
   });
 
   it('should be touched on blur', async () => {
-    expect(component.control.touched).toBeFalse();
+    expect(component.control.touched).toBe(false);
 
     (fixture.nativeElement as HTMLElement)
       .querySelector('sbb-toggle')!
       .dispatchEvent(new FocusEvent('focusout'));
 
-    expect(component.control.touched).toBeTrue();
+    expect(component.control.touched).toBe(true);
   });
 });
 

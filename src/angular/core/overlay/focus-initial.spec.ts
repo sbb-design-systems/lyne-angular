@@ -15,9 +15,9 @@ describe(`sbb-focus-initial`, () => {
 
     it('should create', async () => {
       expect(component).toBeDefined();
-      expect(
-        fixture.nativeElement.querySelector('button').hasAttribute('sbb-focus-initial'),
-      ).toBeTrue();
+      expect(fixture.nativeElement.querySelector('button').hasAttribute('sbb-focus-initial')).toBe(
+        true,
+      );
     });
   });
 
@@ -35,7 +35,7 @@ describe(`sbb-focus-initial`, () => {
       expect(component).toBeDefined();
       expect(
         fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-focus-initial'),
-      ).toBeTrue();
+      ).toBe(true);
     });
   });
 });

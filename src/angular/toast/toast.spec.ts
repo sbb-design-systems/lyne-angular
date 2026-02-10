@@ -80,8 +80,8 @@ describe('sbb-toast', () => {
     });
 
     it('should emit when toast opening animation is complete', async () => {
-      const spy = jasmine.createSpy('afterOpened spy');
-      const serviceSpy = jasmine.createSpy('afterOpened spy');
+      const spy = vi.fn();
+      const serviceSpy = vi.fn();
 
       service.afterOpened.subscribe(serviceSpy);
 
@@ -107,8 +107,8 @@ describe('sbb-toast', () => {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
-      const beforeCloseSpy = jasmine.createSpy('beforeClosed spy');
-      const afterCloseSpy = jasmine.createSpy('afterClosed spy');
+      const beforeCloseSpy = vi.fn();
+      const afterCloseSpy = vi.fn();
       ref.beforeClosed.subscribe(beforeCloseSpy);
       ref.afterClosed.subscribe(afterCloseSpy);
       await fixture.whenRenderingDone();
@@ -131,11 +131,8 @@ describe('sbb-toast', () => {
 
       expect(
         ref.componentInstance?.injector.get<DirectiveWithViewContainer>(DirectiveWithViewContainer),
-      )
-        .withContext(
-          'Expected the toast component to be created with the injector from the viewContainerRef.',
-        )
-        .toBeTruthy();
+        'Expected the toast component to be created with the injector from the viewContainerRef.',
+      ).toBeTruthy();
     });
 
     it('should dispose of toast after close', async () => {
@@ -156,8 +153,8 @@ describe('sbb-toast', () => {
     });
 
     it('should open toast with string', async () => {
-      const spy = jasmine.createSpy('afterOpened spy');
-      const serviceSpy = jasmine.createSpy('afterOpened spy');
+      const spy = vi.fn();
+      const serviceSpy = vi.fn();
 
       service.afterOpened.subscribe(serviceSpy);
 
@@ -203,8 +200,10 @@ class DirectiveWithViewContainer {
   imports: [DirectiveWithViewContainer],
 })
 class ServiceTestComponent {
-  @ViewChild('templatePortalContent') templatePortalContent!: TemplateRef<unknown>;
-  @ViewChild(DirectiveWithViewContainer) childWithViewContainer!: DirectiveWithViewContainer;
+  @ViewChild('templatePortalContent')
+  templatePortalContent!: TemplateRef<unknown>;
+  @ViewChild(DirectiveWithViewContainer)
+  childWithViewContainer!: DirectiveWithViewContainer;
 
   get childViewContainer() {
     return this.childWithViewContainer.viewContainerRef;

@@ -1,5 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import type { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.js';
 
@@ -19,9 +19,9 @@ describe(`sbb-overlay-close`, () => {
 
     it('should create', async () => {
       expect(component).toBeDefined();
-      expect(
-        fixture.nativeElement.querySelector('button').hasAttribute('sbb-overlay-close'),
-      ).toBeTrue();
+      expect(fixture.nativeElement.querySelector('button').hasAttribute('sbb-overlay-close')).toBe(
+        true,
+      );
     });
   });
 
@@ -69,7 +69,7 @@ describe(`sbb-overlay-close`, () => {
       fixture.detectChanges();
 
       // Update the result value
-      ref.componentInstance!.resultValue = 'updated-result';
+      ref.componentInstance!.resultValue.set('updated-result');
       fixture.detectChanges();
 
       let resultValue: SbbOverlayCloseEvent<string>;
@@ -121,7 +121,7 @@ describe(`sbb-overlay-close`, () => {
       expect(component).toBeDefined();
       expect(
         fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-overlay-close'),
-      ).toBeTrue();
+      ).toBe(true);
     });
   });
 });
@@ -140,13 +140,13 @@ class ServiceTestComponent {}
 @Component({
   template: `
     <button [sbb-overlay-close]="true" class="confirm-button">Confirm</button>
-    <button [sbb-overlay-close]="resultValue" class="dynamic-value">Dynamic value</button>
+    <button [sbb-overlay-close]="resultValue()" class="dynamic-value">Dynamic value</button>
     <button sbb-overlay-close class="cancel-button">Cancel</button>
   `,
   imports: [SbbOverlayClose],
 })
 class OverlayContentWithResultValue {
-  resultValue: string = 'initial-result';
+  resultValue = signal('initial-result');
 }
 
 @Component({

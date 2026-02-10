@@ -15,9 +15,9 @@ describe(`sbb-stepper-next`, () => {
 
     it('should create', async () => {
       expect(component).toBeDefined();
-      expect(
-        fixture.nativeElement.querySelector('button').hasAttribute('sbb-stepper-next'),
-      ).toBeTrue();
+      expect(fixture.nativeElement.querySelector('button').hasAttribute('sbb-stepper-next')).toBe(
+        true,
+      );
     });
   });
 
@@ -35,7 +35,7 @@ describe(`sbb-stepper-next`, () => {
       expect(component).toBeDefined();
       expect(
         fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-stepper-next'),
-      ).toBeTrue();
+      ).toBe(true);
     });
   });
 });

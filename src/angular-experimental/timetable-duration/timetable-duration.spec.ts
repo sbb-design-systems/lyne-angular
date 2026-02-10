@@ -18,7 +18,22 @@ describe('sbb-timetable-duration', () => {
 });
 
 @Component({
-  template: `<sbb-timetable-duration></sbb-timetable-duration>`,
+  template: `<sbb-timetable-duration [config]="config"></sbb-timetable-duration>`,
   imports: [SbbTimetableDuration],
 })
-class TestComponent {}
+class TestComponent {
+  config = JSON.stringify([
+    {
+      hours: 0,
+      minutes: 37,
+    },
+    {
+      hours: 1,
+      minutes: 1,
+    },
+    {
+      hours: 3,
+      minutes: 12,
+    },
+  ]);
+}

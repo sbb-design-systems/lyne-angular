@@ -1,9 +1,10 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import type { SbbDialogCloseEvent } from '@sbb-esta/lyne-elements/dialog/dialog.js';
 
 import { SbbDialogService } from '../dialog/dialog-service';
+import { SbbDialogModule } from '../dialog.module';
 
 import { SbbDialogClose } from './dialog-close';
 
@@ -19,9 +20,9 @@ describe(`sbb-dialog-close`, () => {
 
     it('should create', async () => {
       expect(component).toBeDefined();
-      expect(
-        fixture.nativeElement.querySelector('button').hasAttribute('sbb-dialog-close'),
-      ).toBeTrue();
+      expect(fixture.nativeElement.querySelector('button').hasAttribute('sbb-dialog-close')).toBe(
+        true,
+      );
     });
   });
 
@@ -67,10 +68,11 @@ describe(`sbb-dialog-close`, () => {
 
       await fixture.whenRenderingDone();
       fixture.detectChanges();
+      await fixture.whenStable();
 
       // Update the result value
-      ref.componentInstance!.resultValue = 'updated-result';
-      fixture.detectChanges();
+      ref.componentInstance!.resultValue.set('updated-result');
+      await fixture.whenStable();
 
       let resultValue: SbbDialogCloseEvent<string>;
       ref.afterClosed.subscribe((result: SbbDialogCloseEvent<string>) => (resultValue = result));
@@ -80,7 +82,7 @@ describe(`sbb-dialog-close`, () => {
       ) as HTMLButtonElement;
       dynamicButton.click();
       fixture.detectChanges();
-      await fixture.whenRenderingDone();
+      await fixture.whenStable();
 
       expect(resultValue!.result).toBe('updated-result');
       expect(service.openOverlays.length).toBe(0);
@@ -121,7 +123,7 @@ describe(`sbb-dialog-close`, () => {
       expect(component).toBeDefined();
       expect(
         fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-dialog-close'),
-      ).toBeTrue();
+      ).toBe(true);
     });
   });
 });
@@ -143,14 +145,14 @@ class ServiceTestComponent {}
     <sbb-dialog-content>Choose!</sbb-dialog-content>
     <sbb-dialog-actions>
       <button [sbb-dialog-close]="true" class="confirm-button">Confirm</button>
-      <button [sbb-dialog-close]="resultValue" class="dynamic-value">Dynamic value</button>
+      <button [sbb-dialog-close]="resultValue()" class="dynamic-value">Dynamic value</button>
       <button sbb-dialog-close class="cancel-button">Cancel</button>
     </sbb-dialog-actions>
   `,
-  imports: [SbbDialogClose],
+  imports: [SbbDialogModule],
 })
 class DialogContentWithResultValue {
-  resultValue: string = 'initial-result';
+  resultValue = signal('initial-result');
 }
 
 @Component({
