@@ -22,7 +22,7 @@
       "automergeStrategy": "squash"
     },
     {
-      "matchPackageNames": ["@types/node", "jasmine-core"],
+      "matchPackageNames": ["@types/node"],
       "matchUpdateTypes": ["major"],
       "enabled": false
     },
@@ -42,12 +42,8 @@
       ]
     },
     {
-      "groupName": "karma",
-      "matchPackageNames": ["karma{/,}**"]
-    },
-    {
-      "groupName": "jasmine",
-      "matchPackageNames": ["jasmine{/,}**", "@types/jasmine{/,}**"]
+      "groupName": "vitest",
+      "matchPackageNames": ["@vitest{/,}**", "vitest"]
     },
     {
       "groupName": "eslint",
