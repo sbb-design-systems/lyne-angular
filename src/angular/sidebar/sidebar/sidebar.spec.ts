@@ -29,6 +29,7 @@ describe('sbb-sidebar', () => {
     it('should have animation deferred', async () => {
       expect(containerElement.classList.contains('sbb-disable-animation')).toBe(true);
       await waitForLitRender(sidebarElement);
+      await fixture.whenStable();
       expect(containerElement.classList.contains('sbb-disable-animation')).toBe(false);
     });
   });
