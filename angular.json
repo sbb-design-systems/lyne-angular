@@ -67,7 +67,8 @@
               "coverage": false,
               "progress": false,
               "watch": false,
-              "reporters": ["dot"]
+              "reporters": ["dot"],
+              "setupFiles": ["src/test-setup.ts"]
             }
           }
         },
@@ -116,7 +117,8 @@
               "coverage": false,
               "progress": false,
               "watch": false,
-              "reporters": ["dot"]
+              "reporters": ["dot"],
+              "setupFiles": ["src/test-setup.ts"]
             }
           }
         },
