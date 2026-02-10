@@ -64,7 +64,7 @@
             },
             "ci": {
               "browsers": ["chromiumHeadless", "firefoxHeadless"],
-              "coverage": true,
+              "coverage": false,
               "progress": false,
               "watch": false,
               "reporters": ["dot"]
@@ -106,14 +106,14 @@
           "defaultConfiguration": "browser",
           "configurations": {
             "browser": {
-              "browsers": ["chromium", "firefox"],
+              "browsers": ["chromium"],
               "watch": true,
               "progress": true,
               "setupFiles": ["src/test-setup.ts"]
             },
             "ci": {
               "browsers": ["chromiumHeadless", "firefoxHeadless"],
-              "coverage": true,
+              "coverage": false,
               "progress": false,
               "watch": false,
               "reporters": ["dot"]

@@ -250,14 +250,7 @@ class TestComponentWithComplexValue {
   displayWith: ((value: { property: string; otherProperty: string }) => string) | null = (value) =>
     value ? value.property : value;
 
-  optionSelected(
-    _event: CustomEvent<
-      SbbAutocompleteGridOption<{
-        property: string;
-        otherProperty: string;
-      }>
-    >,
-  ) {
+  optionSelected(_event: Event) {
     // noop;
   }
 }
