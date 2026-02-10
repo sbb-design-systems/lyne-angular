@@ -19,10 +19,10 @@ describe('sbb-sidebar', () => {
         'sbb-sidebar-container',
       )!;
       sidebarElement = (fixture.nativeElement as HTMLElement).querySelector('sbb-sidebar')!;
-      fixture.detectChanges();
     });
 
     it('should create', async () => {
+      fixture.detectChanges();
       expect(component).toBeDefined();
     });
 

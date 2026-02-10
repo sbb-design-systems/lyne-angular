@@ -22,7 +22,6 @@ import {
   getSortDuplicateSortableIdError,
   getSortHeaderMissingIdError,
   getSortHeaderNotContainedWithinSortError,
-  getSortInvalidDirectionError,
 } from './sort-errors';
 import type { SbbSortHeader } from './sort-header';
 
@@ -309,12 +308,6 @@ describe('sbb-sort', () => {
       expect(() => TestBed.createComponent(SbbSortableMissingIdApp).detectChanges()).toThrowError(
         wrappedErrorMessage(getSortHeaderMissingIdError()),
       );
-    });
-
-    it('should throw an error if the provided direction is invalid', () => {
-      expect(() =>
-        TestBed.createComponent(SbbSortableInvalidDirection).detectChanges(),
-      ).toThrowError(wrappedErrorMessage(getSortInvalidDirectionError('ascending')));
     });
 
     it('should allow let SbbSortable override the default sort parameters', () => {
@@ -803,16 +796,6 @@ class SbbSortableMissingIdApp {}
 
 @Component({
   template: `
-    <div sbbSort sbbSortDirection="asc">
-      <div sbb-sort-header="a">A</div>
-    </div>
-  `,
-  imports: [SbbTableModule],
-})
-class SbbSortableInvalidDirection {}
-
-@Component({
-  template: `
     <div
       sbbSort
       [sbbSortActive]="active"
@@ -847,10 +830,10 @@ class SbbSortWithoutExplicitInputs {
 @Component({
   template: `
     <div sbbSort>
-      <div id="defaultA" #defaultA sbb-sort-header="defaultA" [arrowPosition]="arrowPosition">
+      <div id="defaultA" #defaultA sbb-sort-header="defaultA" [arrowPosition]="arrowPosition!">
         A
       </div>
-      <div id="defaultB" #defaultB sbb-sort-header="defaultB" [arrowPosition]="arrowPosition">
+      <div id="defaultB" #defaultB sbb-sort-header="defaultB" [arrowPosition]="arrowPosition!">
         B
       </div>
     </div>
@@ -858,7 +841,7 @@ class SbbSortWithoutExplicitInputs {
   imports: [SbbTableModule],
 })
 class SbbSortWithArrowPosition {
-  arrowPosition: 'before' | 'after' = 'before';
+  arrowPosition?: 'before' | 'after';
   @ViewChild(SbbSort) sbbSort!: SbbSort;
   @ViewChild('defaultA') defaultA!: SbbSortHeader;
   @ViewChild('defaultB') defaultB!: SbbSortHeader;

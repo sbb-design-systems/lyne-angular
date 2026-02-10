@@ -588,9 +588,10 @@ describe('sbb-table', () => {
     ).toBe(4);
   });
 
-  it('should set shadow to sticky columns when scrolling', () => {
+  it('should set shadow to sticky columns when scrolling', async () => {
     const fixture = TestBed.createComponent(TableWithWrapperAndStickyColumnsTestComponent);
     fixture.detectChanges();
+    await fixture.whenStable();
     const tableWrapper = fixture.debugElement.query(By.directive(SbbTableWrapper));
     const allHtml = fixture.nativeElement as HTMLElement;
 
