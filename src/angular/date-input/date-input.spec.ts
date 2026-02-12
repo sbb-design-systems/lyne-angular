@@ -39,22 +39,22 @@ describe('sbb-date-input', () => {
   });
 
   it('should validate on user input', async () => {
-    expect(component.control.valid).toBeTrue();
+    expect(component.control.valid).toBe(true);
 
     lyneElement.textContent = 'invalid';
     lyneElement.dispatchEvent(new InputEvent('beforeinput'));
     lyneElement.dispatchEvent(new InputEvent('input'));
 
-    expect(component.control.valid).toBeFalse();
+    expect(component.control.valid).toBe(false);
   });
 
   it('should validate on invalid event', async () => {
-    expect(component.control.valid).toBeTrue();
+    expect(component.control.valid).toBe(true);
 
     lyneElement.value = 'invalid';
     lyneElement.dispatchEvent(new Event('invalid'));
 
-    expect(component.control.valid).toBeFalse();
+    expect(component.control.valid).toBe(false);
   });
 
   it('should handle parseValidator', async () => {
@@ -140,23 +140,23 @@ describe('sbb-date-input', () => {
   });
 
   it('should be touched on blur', async () => {
-    expect(component.control.touched).toBeFalse();
+    expect(component.control.touched).toBe(false);
 
     (fixture.nativeElement as HTMLElement)
       .querySelector('sbb-date-input')!
       .dispatchEvent(new FocusEvent('blur'));
 
-    expect(component.control.touched).toBeTrue();
+    expect(component.control.touched).toBe(true);
   });
 
   it('should have correct state with user input', async () => {
-    expect(component.control.valid).toBeTrue();
+    expect(component.control.valid).toBe(true);
 
     lyneElement.dispatchEvent(new InputEvent('beforeinput'));
     lyneElement.textContent = '12.12.2025';
     lyneElement.dispatchEvent(new InputEvent('input'));
 
-    expect(component.control.valid).toBeTrue();
+    expect(component.control.valid).toBe(true);
     expect(component.control.value).not.toBeNull();
     expect(component.control.value).toEqual(new Date('2025-12-12T00:00:00'));
   });

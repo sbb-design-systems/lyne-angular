@@ -28,11 +28,11 @@ describe('sbb-paginator', () => {
       });
     await new Promise((resolve) => setTimeout(resolve, 0));
 
-    expect(called).toBeTrue();
+    expect(called).toBe(true);
   });
 
   it('should not emit page event during initialization', async () => {
-    const pageEventSpy = spyOn(component, 'page');
+    const pageEventSpy = vi.spyOn(component, 'page');
 
     // We wait to wait a little bit to capture potential events.
     await new Promise((resolve) => setTimeout(resolve, 10));
@@ -41,7 +41,7 @@ describe('sbb-paginator', () => {
   });
 
   it('should not emit page event when changing length', async () => {
-    const pageEventSpy = spyOn(component, 'page');
+    const pageEventSpy = vi.spyOn(component, 'page');
 
     component.paginator().length = 100;
     fixture.detectChanges();
@@ -51,7 +51,7 @@ describe('sbb-paginator', () => {
   });
 
   it('should emit page event when changing pageSize', async () => {
-    const pageEventSpy = spyOn(component, 'page');
+    const pageEventSpy = vi.spyOn(component, 'page');
 
     component.paginator().pageSize = 1;
     fixture.detectChanges();
@@ -61,7 +61,7 @@ describe('sbb-paginator', () => {
   });
 
   it('should emit page event when changing pageIndex', async () => {
-    const pageEventSpy = spyOn(component, 'page');
+    const pageEventSpy = vi.spyOn(component, 'page');
 
     component.paginator().pageSize = 1;
     fixture.detectChanges();
@@ -72,7 +72,7 @@ describe('sbb-paginator', () => {
 });
 
 @Component({
-  template: `<sbb-paginator (page)="page($event)"></sbb-paginator>`,
+  template: `<sbb-paginator (page)="page()"></sbb-paginator>`,
   imports: [SbbPaginator],
 })
 class TestComponent {

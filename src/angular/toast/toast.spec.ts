@@ -3,15 +3,16 @@ import {
   Component,
   Directive,
   inject,
+  Injector,
   type TemplateRef,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import type { SbbOverlayRef } from '@sbb-esta/lyne-angular/core/overlay';
-import { SbbDummyComponent } from '@sbb-esta/lyne-angular/core/testing';
+import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core/overlay';
 
 import { SbbToast } from './toast';
+import { SbbToastRef } from './toast-ref';
 import { SbbToastService } from './toast-service';
 
 describe('sbb-toast', () => {
@@ -49,18 +50,15 @@ describe('sbb-toast', () => {
     });
 
     it('renders component', async () => {
-      const ref: SbbOverlayRef<SbbDummyComponent> = service.open<SbbDummyComponent>(
-        SbbDummyComponent,
-        {
-          data: { dummyText: 'test string' },
-          id: 'toast-component',
-        },
-      );
+      const ref = service.open<SbbDummyComponent>(SbbDummyComponent, {
+        data: { dummyText: 'test string' },
+        id: 'toast-component',
+      });
 
       await fixture.whenRenderingDone();
 
       expect(ref.componentInstance instanceof SbbDummyComponent).toBe(true);
-      expect(ref.componentInstance!.data.dummyText).toMatch('test string');
+      expect(ref.componentInstance!.data!.dummyText).toMatch('test string');
       expect(overlayContainerElement.textContent).toContain('test string');
       expect(ref.componentInstance!.ref).toBe(ref);
 
@@ -70,7 +68,7 @@ describe('sbb-toast', () => {
     });
 
     it('renders template', async () => {
-      const ref: SbbOverlayRef = service.open(component.templatePortalContent, {
+      const ref = service.open(component.templatePortalContent, {
         templateContext: { $implicit: 'test string' },
         id: 'toast-template',
       });
@@ -81,10 +79,9 @@ describe('sbb-toast', () => {
       expect(ref.componentInstance).toBeUndefined();
     });
 
-    // TODO: understand why next is not called in tests
     it('should emit when toast opening animation is complete', async () => {
-      const spy = jasmine.createSpy('afterOpen spy');
-      const serviceSpy = jasmine.createSpy('afterOpen spy');
+      const spy = vi.fn();
+      const serviceSpy = vi.fn();
 
       service.afterOpened.subscribe(serviceSpy);
 
@@ -93,7 +90,9 @@ describe('sbb-toast', () => {
         data: { dummyText: 'test string' },
       });
 
-      toastRef.afterOpen.subscribe({ complete: spy });
+      // As the animation is disabled in tests, the afterOpen event is emitted immediately.
+      // When subscribing, the stream is already completed.
+      toastRef.afterOpened.subscribe({ complete: spy });
 
       await fixture.whenRenderingDone();
       fixture.detectChanges();
@@ -108,10 +107,10 @@ describe('sbb-toast', () => {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
-      const beforeCloseSpy = jasmine.createSpy('beforeClose spy');
-      const afterCloseSpy = jasmine.createSpy('afterClose spy');
-      ref.beforeClose.subscribe(beforeCloseSpy);
-      ref.afterClose.subscribe(afterCloseSpy);
+      const beforeCloseSpy = vi.fn();
+      const afterCloseSpy = vi.fn();
+      ref.beforeClosed.subscribe(beforeCloseSpy);
+      ref.afterClosed.subscribe(afterCloseSpy);
       await fixture.whenRenderingDone();
 
       fixture.detectChanges();
@@ -132,11 +131,8 @@ describe('sbb-toast', () => {
 
       expect(
         ref.componentInstance?.injector.get<DirectiveWithViewContainer>(DirectiveWithViewContainer),
-      )
-        .withContext(
-          'Expected the toast component to be created with the injector from the viewContainerRef.',
-        )
-        .toBeTruthy();
+        'Expected the toast component to be created with the injector from the viewContainerRef.',
+      ).toBeTruthy();
     });
 
     it('should dispose of toast after close', async () => {
@@ -154,6 +150,30 @@ describe('sbb-toast', () => {
       fixture.destroy();
 
       expect(overlayContainerElement.querySelector('#disposed-toast')).toBeNull();
+    });
+
+    it('should open toast with string', async () => {
+      const spy = vi.fn();
+      const serviceSpy = vi.fn();
+
+      service.afterOpened.subscribe(serviceSpy);
+
+      const toastRef = service.open('Test with string only');
+
+      // As the animation is disabled in tests, the afterOpen event is emitted immediately.
+      // When subscribing, the stream is already completed.
+      toastRef.afterOpened.subscribe({ complete: spy });
+
+      await fixture.whenRenderingDone();
+      fixture.detectChanges();
+
+      expect(document.body.querySelector('.cdk-overlay-container')?.textContent).toEqual(
+        'Test with string only',
+      );
+
+      toastRef.close();
+      fixture.detectChanges();
+      expect(spy).toHaveBeenCalled();
     });
   });
 });
@@ -180,10 +200,26 @@ class DirectiveWithViewContainer {
   imports: [DirectiveWithViewContainer],
 })
 class ServiceTestComponent {
-  @ViewChild('templatePortalContent') templatePortalContent!: TemplateRef<unknown>;
-  @ViewChild(DirectiveWithViewContainer) childWithViewContainer!: DirectiveWithViewContainer;
+  @ViewChild('templatePortalContent')
+  templatePortalContent!: TemplateRef<unknown>;
+  @ViewChild(DirectiveWithViewContainer)
+  childWithViewContainer!: DirectiveWithViewContainer;
 
   get childViewContainer() {
     return this.childWithViewContainer.viewContainerRef;
   }
+}
+
+@Component({
+  selector: 'sbb-dummy-component',
+  template: `This is a dummy component meant for testing. Dummy string: {{ data?.dummyText }}`,
+})
+class SbbDummyComponent {
+  readonly data = inject<SampleData>(SBB_OVERLAY_DATA, { optional: true });
+  readonly ref = inject(SbbToastRef);
+  readonly injector = inject(Injector);
+}
+
+export interface SampleData {
+  dummyText: string;
 }

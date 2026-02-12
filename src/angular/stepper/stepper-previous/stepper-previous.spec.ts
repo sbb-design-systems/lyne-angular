@@ -17,7 +17,7 @@ describe(`sbb-stepper-previous`, () => {
       expect(component).toBeDefined();
       expect(
         fixture.nativeElement.querySelector('button').hasAttribute('sbb-stepper-previous'),
-      ).toBeTrue();
+      ).toBe(true);
     });
   });
 
@@ -35,7 +35,7 @@ describe(`sbb-stepper-previous`, () => {
       expect(component).toBeDefined();
       expect(
         fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-stepper-previous'),
-      ).toBeTrue();
+      ).toBe(true);
     });
   });
 });

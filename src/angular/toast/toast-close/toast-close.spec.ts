@@ -15,9 +15,9 @@ describe(`sbb-toast-close`, () => {
 
     it('should create', async () => {
       expect(component).toBeDefined();
-      expect(
-        fixture.nativeElement.querySelector('button').hasAttribute('sbb-toast-close'),
-      ).toBeTrue();
+      expect(fixture.nativeElement.querySelector('button').hasAttribute('sbb-toast-close')).toBe(
+        true,
+      );
     });
   });
 
@@ -35,7 +35,7 @@ describe(`sbb-toast-close`, () => {
       expect(component).toBeDefined();
       expect(
         fixture.nativeElement.querySelector('sbb-test-button').hasAttribute('sbb-toast-close'),
-      ).toBeTrue();
+      ).toBe(true);
     });
   });
 });

@@ -1,8 +1,10 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbOverlayCloseEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import type { SbbDialogElement } from '@sbb-esta/lyne-elements/dialog/dialog.js';
+import type {
+  SbbDialogCloseEvent,
+  SbbDialogElement,
+} from '@sbb-esta/lyne-elements/dialog/dialog.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/dialog/dialog.js';
@@ -109,11 +111,14 @@ export class SbbDialog {
     return this.#element.nativeElement.open();
   }
 
-  /**
-   * Closes the component.
-   */
+  /** Closes the component. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public close(result?: any, target?: HTMLElement): any {
+  public close(result?: any): void;
+  /** @deprecated */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public close(result?: any, target?: HTMLElement): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public close(result?: any, target?: HTMLElement): void {
     return this.#element.nativeElement.close(result, target);
   }
 
@@ -127,26 +132,21 @@ export class SbbDialog {
   /**
    * Emits whenever the component begins the closing transition. Can be canceled.
    */
-  public beforeCloseOutput: OutputRef<CustomEvent<SbbOverlayCloseEventDetails>> =
-    outputFromObservable(
-      fromEvent<CustomEvent<SbbOverlayCloseEventDetails>>(
-        this.#element.nativeElement,
-        'beforeclose',
-      ),
-      { alias: 'beforeClose' },
-    );
+  public beforeCloseOutput: OutputRef<SbbDialogCloseEvent> = outputFromObservable(
+    fromEvent<SbbDialogCloseEvent>(this.#element.nativeElement, 'beforeclose'),
+    { alias: 'beforeClose' },
+  );
 
-  protected _closeOutput: OutputRef<CustomEvent<SbbOverlayCloseEventDetails>> =
-    outputFromObservable<CustomEvent<SbbOverlayCloseEventDetails>>(NEVER, {
+  protected _closeOutput: OutputRef<SbbDialogCloseEvent> =
+    outputFromObservable<SbbDialogCloseEvent>(NEVER, {
       alias: 'close',
     });
   /**
    * Emits whenever the component is closed.
    */
-  public closeOutput: OutputRef<CustomEvent<SbbOverlayCloseEventDetails>> =
-    internalOutputFromObservable(
-      fromEvent<CustomEvent<SbbOverlayCloseEventDetails>>(this.#element.nativeElement, 'close'),
-    );
+  public closeOutput: OutputRef<SbbDialogCloseEvent> = internalOutputFromObservable(
+    fromEvent<SbbDialogCloseEvent>(this.#element.nativeElement, 'close'),
+  );
 
   /**
    * Emits whenever the component starts the opening transition. Can be canceled.

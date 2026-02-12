@@ -1,5 +1,92 @@
 # Changelog
 
+## [21.3.2](https://github.com/sbb-design-systems/lyne-angular/compare/v21.3.1...v21.3.2) (2026-02-09)
+
+
+### Miscellaneous Chores
+
+* fix-release 21.3.2 ([ee9e287](https://github.com/sbb-design-systems/lyne-angular/commit/ee9e2877ca9fa5b4fe91e6a2b3965aa6ae0b42f5))
+
+## [21.3.1](https://github.com/sbb-design-systems/lyne-angular/compare/v21.3.0...v21.3.1) (2026-02-09)
+
+
+### Bug Fixes
+
+* **deps:** update angular to v21.1.3 ([d5f109b](https://github.com/sbb-design-systems/lyne-angular/commit/d5f109bc5737e5b222e6c8db97353c3282da0cd0))
+* **deps:** update esta to v4.4.0 ([#283](https://github.com/sbb-design-systems/lyne-angular/issues/283)) ([1b7b545](https://github.com/sbb-design-systems/lyne-angular/commit/1b7b545e288466a339b04f912c597379cf370cdc))
+* **sbb-autocomplete:** correctly link autocomplete if outside sbb-form-field ([#282](https://github.com/sbb-design-systems/lyne-angular/issues/282)) ([9ed6066](https://github.com/sbb-design-systems/lyne-angular/commit/9ed6066cf7bcee68be58789ad6edd1a821908ab1))
+
+## [21.3.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.2.3...v21.3.0) (2026-02-03)
+
+
+### Features
+
+* **sbb-expansion-panel:** add lazy loading support ([#276](https://github.com/sbb-design-systems/lyne-angular/issues/276)) ([e5c1562](https://github.com/sbb-design-systems/lyne-angular/commit/e5c156248701e23f3d8a8230bbbad4e38f79c49b)), closes [#272](https://github.com/sbb-design-systems/lyne-angular/issues/272)
+
+
+### Bug Fixes
+
+* **deps:** update angular to v21.1.2 ([606284e](https://github.com/sbb-design-systems/lyne-angular/commit/606284ef2ae6e9074004dc5315dabeb8442e21d1))
+* **deps:** update angular to v21.1.2 ([4db934c](https://github.com/sbb-design-systems/lyne-angular/commit/4db934c5e98a71e5e365e50c0b257b31fc01e456))
+* **deps:** update dependency @angular/cdk to v21.1.2 ([2048e8d](https://github.com/sbb-design-systems/lyne-angular/commit/2048e8d49ce6a942da915b5b7d12a4e065878434))
+* **deps:** update esta to v4.3.1 ([#278](https://github.com/sbb-design-systems/lyne-angular/issues/278)) ([87b6378](https://github.com/sbb-design-systems/lyne-angular/commit/87b63786ec871c5f4a436f2fe239fd57b6d66c85))
+
+## [21.2.3](https://github.com/sbb-design-systems/lyne-angular/compare/v21.2.2...v21.2.3) (2026-01-26)
+
+
+### Bug Fixes
+
+* fix release ([fa70461](https://github.com/sbb-design-systems/lyne-angular/commit/fa704610fca449d5005db4ef9f2054716900d7df))
+
+## [21.2.2](https://github.com/sbb-design-systems/lyne-angular/compare/v21.2.1...v21.2.2) (2026-01-26)
+
+
+### Bug Fixes
+
+* **deps:** update angular to v21.1.1 ([ba4c049](https://github.com/sbb-design-systems/lyne-angular/commit/ba4c0498defaa6411f3f9c521f17cef0d7df0e11))
+* **deps:** update esta to v4.3.0 ([#273](https://github.com/sbb-design-systems/lyne-angular/issues/273)) ([4d9d176](https://github.com/sbb-design-systems/lyne-angular/commit/4d9d176a56de51400b8ac768ebf752ca59f98161))
+
+## [21.2.1](https://github.com/sbb-design-systems/lyne-angular/compare/v21.2.0...v21.2.1) (2026-01-19)
+
+
+### Bug Fixes
+
+* add ref re-exports ([#265](https://github.com/sbb-design-systems/lyne-angular/issues/265)) ([d7a258e](https://github.com/sbb-design-systems/lyne-angular/commit/d7a258e82be72cad870a257068f42df235e8a8ff))
+* provide SbbOverlayBaseRef as temporary fallback ([#267](https://github.com/sbb-design-systems/lyne-angular/issues/267)) ([8db49b7](https://github.com/sbb-design-systems/lyne-angular/commit/8db49b770a0e6a825aac553525041ee46493d547))
+
+## [21.2.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.1.0...v21.2.0) (2026-01-19)
+
+
+### Features
+
+* introduce sbb-overlay-close and sbb-dialog-close directives ([#260](https://github.com/sbb-design-systems/lyne-angular/issues/260)) ([08d48c7](https://github.com/sbb-design-systems/lyne-angular/commit/08d48c7ead92f455e7b4a11ac0c3742a6bd89a92))
+
+
+### Bug Fixes
+
+* **deps:** update angular to v21.1.0 ([#257](https://github.com/sbb-design-systems/lyne-angular/issues/257)) ([38c75fa](https://github.com/sbb-design-systems/lyne-angular/commit/38c75fa746fdc0c42cbc8d510ec49f25b2659f9d))
+
+## [21.1.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.0.5...v21.1.0) (2026-01-13)
+
+
+### Features
+
+* **sbb-toast:** allow opening toast by passing string ([#253](https://github.com/sbb-design-systems/lyne-angular/issues/253)) ([3a800bb](https://github.com/sbb-design-systems/lyne-angular/commit/3a800bb114d7372b719df236e8f78e07cf882b27))
+
+
+### Bug Fixes
+
+* close overlays on navigation changes ([#255](https://github.com/sbb-design-systems/lyne-angular/issues/255)) ([6448a46](https://github.com/sbb-design-systems/lyne-angular/commit/6448a46848ad4477816496f6190cb9f19b422529))
+* **deps:** update angular ([ae2ff64](https://github.com/sbb-design-systems/lyne-angular/commit/ae2ff648d40fd5cfff7fbc03b74453da8e835f54))
+* **deps:** update angular ([61a9916](https://github.com/sbb-design-systems/lyne-angular/commit/61a991633efce5a71c9143596217771a8e40b2b4))
+* **deps:** update esta to v4.0.5 ([#251](https://github.com/sbb-design-systems/lyne-angular/issues/251)) ([a5dd3c5](https://github.com/sbb-design-systems/lyne-angular/commit/a5dd3c568b4b3f5b8be5cedf9274f15cedd9d144))
+* **deps:** update esta to v4.1.0 ([#254](https://github.com/sbb-design-systems/lyne-angular/issues/254)) ([713a5cb](https://github.com/sbb-design-systems/lyne-angular/commit/713a5cbb58e1fc3996fcf8e384a4f23413bc7a5c))
+
+
+### Code Refactoring
+
+* improve overlay services ([#250](https://github.com/sbb-design-systems/lyne-angular/issues/250)) ([503c4dc](https://github.com/sbb-design-systems/lyne-angular/commit/503c4dcc954b4ccf581d8115d8149f6b90bff5cd))
+
 ## [21.0.5](https://github.com/sbb-design-systems/lyne-angular/compare/v21.0.4...v21.0.5) (2026-01-06)
 
 

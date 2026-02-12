@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TestBed } from '@angular/core/testing';
 
 import { SbbSort } from '../sort/sort';
 import { SbbTableModule } from '../table.module';
@@ -10,11 +9,11 @@ import type { SbbTableFilter } from './table-data-source';
 import { SbbTableDataSource } from './table-data-source';
 
 describe('sbb-table-data-source', () => {
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, SbbSortApp],
+      imports: [SbbSortApp],
     });
-  }));
+  });
 
   describe('sort', () => {
     let dataSource: SbbTableDataSource<unknown>;
@@ -33,7 +32,7 @@ describe('sbb-table-data-source', () => {
     function testSortWithValues(values: unknown[]) {
       // The data source and SbbSort expect the list to contain objects with values, where
       // the sort should be performed over a particular key.
-      // Map the values into an array of objects where where each value is keyed by "prop"
+      // Map the values into an array of objects where each value is keyed by "prop"
       // e.g. [0, 1, 2] -> [{prop: 0}, {prop: 1}, {prop: 2}]
       const data = values.map((v) => ({ prop: v }));
 
@@ -58,14 +57,14 @@ describe('sbb-table-data-source', () => {
     });
 
     it('should unsubscribe from the re-render stream when disconnected', () => {
-      const spy = spyOn(dataSource._renderChangesSubscription!, 'unsubscribe');
+      const spy = vi.spyOn(dataSource._renderChangesSubscription!, 'unsubscribe');
       dataSource.disconnect();
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('should re-subscribe to the sort stream when re-connecting after being disconnected', () => {
       dataSource.disconnect();
-      const spy = spyOn(fixture.componentInstance.sort.sortChange, 'subscribe');
+      const spy = vi.spyOn(fixture.componentInstance.sort.sortChange, 'subscribe');
       dataSource.connect();
       expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -119,9 +118,9 @@ describe('sbb-table-data-source', () => {
       ];
 
       params.forEach((param) =>
-        expect(dataTableSource.filterPredicate(testRow, param.filter))
-          .withContext(param.toString())
-          .toBe(param.expected),
+        expect(dataTableSource.filterPredicate(testRow, param.filter), param.toString()).toBe(
+          param.expected,
+        ),
       );
     });
 
@@ -161,9 +160,10 @@ describe('sbb-table-data-source', () => {
       ];
 
       params.forEach((param) =>
-        expect(dataTableSource.filterPredicate(testRowAdvanced, param.filter))
-          .withContext(param.toString())
-          .toBe(param.expected),
+        expect(
+          dataTableSource.filterPredicate(testRowAdvanced, param.filter),
+          param.toString(),
+        ).toBe(param.expected),
       );
     });
 
@@ -191,9 +191,10 @@ describe('sbb-table-data-source', () => {
       ];
 
       params.forEach((param) =>
-        expect(dataTableSource.filterPredicate(testRowAdvanced, param.filter))
-          .withContext(param.toString())
-          .toBe(param.expected),
+        expect(
+          dataTableSource.filterPredicate(testRowAdvanced, param.filter),
+          param.toString(),
+        ).toBe(param.expected),
       );
     });
 
@@ -217,9 +218,9 @@ describe('sbb-table-data-source', () => {
       ];
 
       params.forEach((param) =>
-        expect(dataTableSource.filterPredicate(dataRowWith0, param.filter))
-          .withContext(param.toString())
-          .toBe(param.expected),
+        expect(dataTableSource.filterPredicate(dataRowWith0, param.filter), param.toString()).toBe(
+          param.expected,
+        ),
       );
     });
 
@@ -266,9 +267,10 @@ describe('sbb-table-data-source', () => {
       ];
 
       params.forEach((param) =>
-        expect(dataTableSource.filterPredicate(testRowAdvanced, param.filter))
-          .withContext(param.toString())
-          .toBe(param.expected),
+        expect(
+          dataTableSource.filterPredicate(testRowAdvanced, param.filter),
+          param.toString(),
+        ).toBe(param.expected),
       );
     });
   });
@@ -279,5 +281,6 @@ describe('sbb-table-data-source', () => {
   imports: [SbbTableModule],
 })
 class SbbSortApp {
-  @ViewChild(SbbSort) sort!: SbbSort;
+  @ViewChild(SbbSort)
+  sort!: SbbSort;
 }

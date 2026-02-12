@@ -1,17 +1,20 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { Location } from '@angular/common';
+import { SpyLocation } from '@angular/common/testing';
 import {
   Component,
   Directive,
   inject,
+  Injector,
   type TemplateRef,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import type { SbbOverlayRef } from '@sbb-esta/lyne-angular/core/overlay';
-import { SbbDummyComponent } from '@sbb-esta/lyne-angular/core/testing';
+import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core/overlay';
 
 import { SbbOverlay } from './overlay';
+import { SbbOverlayRef } from './overlay-ref';
 import { SbbOverlayService } from './overlay-service';
 
 describe('sbb-overlay', () => {
@@ -33,34 +36,33 @@ describe('sbb-overlay', () => {
     let fixture: ComponentFixture<ServiceTestComponent>,
       component: ServiceTestComponent,
       service: SbbOverlayService,
-      overlayContainerElement: HTMLElement;
+      overlayContainerElement: HTMLElement,
+      mockLocation: SpyLocation;
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [ServiceTestComponent, SbbDummyComponent, TestComponent],
-        providers: [SbbOverlayService],
+        providers: [{ provide: Location, useClass: SpyLocation }, SbbOverlayService],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ServiceTestComponent);
       overlayContainerElement = TestBed.inject(OverlayContainer).getContainerElement();
       service = TestBed.inject(SbbOverlayService);
+      mockLocation = TestBed.inject(Location) as SpyLocation;
       component = fixture.componentInstance;
       fixture.detectChanges();
     });
 
     it('renders component', async () => {
-      const ref: SbbOverlayRef<SbbDummyComponent> = service.open<SbbDummyComponent>(
-        SbbDummyComponent,
-        {
-          data: { dummyText: 'test string' },
-          id: 'overlay-component',
-        },
-      );
+      const ref = service.open<SbbDummyComponent>(SbbDummyComponent, {
+        data: { dummyText: 'test string' },
+        id: 'overlay-component',
+      });
 
       await fixture.whenRenderingDone();
 
       expect(ref.componentInstance instanceof SbbDummyComponent).toBe(true);
-      expect(ref.componentInstance!.data.dummyText).toMatch('test string');
+      expect(ref.componentInstance!.data!.dummyText).toMatch('test string');
       expect(overlayContainerElement.textContent).toContain('test string');
       expect(ref.componentInstance!.ref).toBe(ref);
 
@@ -70,7 +72,7 @@ describe('sbb-overlay', () => {
     });
 
     it('renders template', async () => {
-      const ref: SbbOverlayRef = service.open(component.templatePortalContent, {
+      const ref = service.open(component.templatePortalContent, {
         templateContext: { $implicit: 'test string' },
         id: 'overlay-template',
       });
@@ -81,14 +83,16 @@ describe('sbb-overlay', () => {
       expect(ref.componentInstance).toBeUndefined();
     });
 
-    // TODO: understand why next is not called in tests
     it('should emit when overlay opening animation is complete', async () => {
-      const spy = jasmine.createSpy('afterOpen spy');
+      const spy = vi.fn();
       const overlayRef = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
-      overlayRef.afterOpen.subscribe({ complete: spy });
+
+      // As the animation is disabled in tests, the afterOpen event is emitted immediately.
+      // When subscribing, the stream is already completed.
+      overlayRef.afterOpened.subscribe({ complete: spy });
 
       await fixture.whenRenderingDone();
       fixture.detectChanges();
@@ -99,21 +103,22 @@ describe('sbb-overlay', () => {
     });
 
     it('should emit before and after overlay closing animation', async () => {
-      const beforeCloseSpy = jasmine.createSpy('beforeClose spy');
-      const afterCloseSpy = jasmine.createSpy('afterClose spy');
+      const beforeCloseSpy = vi.fn();
+      const afterCloseSpy = vi.fn();
       const ref = service.open(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,
         data: { dummyText: 'test string' },
       });
-      ref.beforeClose.subscribe(beforeCloseSpy);
-      ref.afterClose.subscribe(afterCloseSpy);
+      ref.beforeClosed.subscribe(beforeCloseSpy);
+      ref.afterClosed.subscribe(afterCloseSpy);
       await fixture.whenRenderingDone();
 
-      fixture.detectChanges();
+      expect(service.openOverlays[0]).toBe(ref);
       ref.close();
 
       fixture.detectChanges();
       expect(beforeCloseSpy).toHaveBeenCalled();
+      expect(service.openOverlays.length).toBe(0);
       expect(afterCloseSpy).toHaveBeenCalled();
     });
 
@@ -127,11 +132,8 @@ describe('sbb-overlay', () => {
 
       expect(
         ref.componentInstance?.injector.get<DirectiveWithViewContainer>(DirectiveWithViewContainer),
-      )
-        .withContext(
-          'Expected the overlay component to be created with the injector from the viewContainerRef.',
-        )
-        .toBeTruthy();
+        'Expected the overlay component to be created with the injector from the viewContainerRef.',
+      ).toBeTruthy();
     });
 
     it('should dispose of overlay after close', async () => {
@@ -149,6 +151,21 @@ describe('sbb-overlay', () => {
       fixture.destroy();
 
       expect(overlayContainerElement.querySelector('#disposed-overlay')).toBeNull();
+    });
+
+    it('should allow the consumer to disable closing a dialog on navigation', async () => {
+      service.open(SbbDummyComponent);
+      service.open(SbbDummyComponent, { closeOnNavigation: false });
+
+      await fixture.whenRenderingDone();
+
+      expect(overlayContainerElement.children.length).toBe(2);
+
+      mockLocation.simulateUrlPop('');
+      fixture.detectChanges();
+      await fixture.whenRenderingDone();
+
+      expect(overlayContainerElement.children.length).toBe(1);
     });
   });
 });
@@ -175,10 +192,26 @@ class DirectiveWithViewContainer {
   imports: [DirectiveWithViewContainer],
 })
 class ServiceTestComponent {
-  @ViewChild('templatePortalContent') templatePortalContent!: TemplateRef<unknown>;
-  @ViewChild(DirectiveWithViewContainer) childWithViewContainer!: DirectiveWithViewContainer;
+  @ViewChild('templatePortalContent')
+  templatePortalContent!: TemplateRef<unknown>;
+  @ViewChild(DirectiveWithViewContainer)
+  childWithViewContainer!: DirectiveWithViewContainer;
 
   get childViewContainer() {
     return this.childWithViewContainer.viewContainerRef;
   }
+}
+
+@Component({
+  selector: 'sbb-dummy-component',
+  template: `This is a dummy component meant for testing. Dummy string: {{ data?.dummyText }}`,
+})
+class SbbDummyComponent {
+  readonly data = inject<SampleData>(SBB_OVERLAY_DATA, { optional: true });
+  readonly ref = inject(SbbOverlayRef);
+  readonly injector = inject(Injector);
+}
+
+export interface SampleData {
+  dummyText: string;
 }

@@ -22,7 +22,7 @@ describe('sbb-select', () => {
       expect(component).toBeDefined();
       expect(component.select().value).toEqual('2');
       expect(component.select().getDisplayValue()).toEqual('Option 2');
-      expect(component.options().find((o) => o.value === '2')!.selected).toBeTrue();
+      expect(component.options().find((o) => o.value === '2')!.selected).toBe(true);
     });
 
     it('should select an option', async () => {
@@ -35,7 +35,7 @@ describe('sbb-select', () => {
       fixture.detectChanges();
 
       expect(component.select().value).toEqual('1');
-      expect(component.options().find((o) => o.value === '1')!.selected).toBeTrue();
+      expect(component.options().find((o) => o.value === '1')!.selected).toBe(true);
       expect(component.control.value).toEqual('1');
     });
 
@@ -49,7 +49,7 @@ describe('sbb-select', () => {
       await fixture.whenStable();
 
       expect(component.select().value).toEqual('1');
-      expect(component.options().find((o) => o.value === '1')!.selected).toBeTrue();
+      expect(component.options().find((o) => o.value === '1')!.selected).toBe(true);
       expect(component.control.value).toEqual('1');
     });
 
@@ -58,13 +58,13 @@ describe('sbb-select', () => {
       fixture.detectChanges();
       await fixture.whenStable();
 
-      expect(component.control.touched).toBeFalse();
+      expect(component.control.touched).toBe(false);
 
       component.select().close();
       fixture.detectChanges();
       await fixture.whenStable();
 
-      expect(component.control.touched).toBeTrue();
+      expect(component.control.touched).toBe(true);
     });
 
     it('should be touched on blur', async () => {
@@ -72,13 +72,56 @@ describe('sbb-select', () => {
       fixture.detectChanges();
       await fixture.whenStable();
 
-      expect(component.control.touched).toBeFalse();
+      expect(component.control.touched).toBe(false);
 
       (fixture.nativeElement as HTMLElement)
         .querySelector('sbb-select')!
         .dispatchEvent(new FocusEvent('blur'));
 
-      expect(component.control.touched).toBeTrue();
+      expect(component.control.touched).toBe(true);
+    });
+
+    it('should maintain state when detached and reattached to DOM', async () => {
+      // Verify initial state
+      expect(component.select()).toBeDefined();
+      expect(component.select()!.value).toEqual('2');
+      expect(component.control.value).toEqual('2');
+
+      // Select a different option
+      component.select()!.open();
+      fixture.detectChanges();
+
+      (fixture.nativeElement as HTMLElement)
+        .querySelector<SbbOptionElement>('sbb-option[value="3"]')!
+        .click();
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      expect(component.select()!.value).toEqual('3');
+      expect(component.control.value).toEqual('3');
+
+      // Detach from DOM
+      const sbbSelect = fixture.nativeElement.querySelector('sbb-select');
+
+      expect(fixture.nativeElement.querySelector('.sbb-select-trigger')).toBeDefined();
+
+      sbbSelect.remove();
+
+      expect(fixture.nativeElement.querySelector('sbb-select')).toBeNull();
+      expect(fixture.nativeElement.querySelector('.sbb-select-trigger')).toBeNull();
+
+      // Reattach to DOM
+      document.body.appendChild(sbbSelect);
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      // Verify state is maintained
+      expect(fixture.nativeElement.querySelector('sbb-select')).toBeDefined();
+      expect(fixture.nativeElement.querySelector('.sbb-select-trigger')).toBeDefined();
+      expect(component.select()).toBeDefined();
+      expect(component.select()!.value).toEqual('3');
+      expect(component.control.value).toEqual('3');
+      expect(component.select()!.getDisplayValue()).toEqual('Option 3');
     });
   });
 
@@ -138,7 +181,7 @@ describe('sbb-select', () => {
       await fixture.whenStable();
 
       expect(component.select().value).toEqual(component.values[0]);
-      expect(component.options().find((o) => o.value === component.values[0])!.selected).toBeTrue();
+      expect(component.options().find((o) => o.value === component.values[0])!.selected).toBe(true);
       expect(component.control.value).toEqual(component.values[0]);
       expect(component.select().getDisplayValue()).toEqual('Option 1 (test 1)');
     });
@@ -153,7 +196,7 @@ describe('sbb-select', () => {
       await fixture.whenStable();
 
       expect(component.select().value).toEqual(component.values[2]);
-      expect(component.options().find((o) => o.value === component.values[2])!.selected).toBeTrue();
+      expect(component.options().find((o) => o.value === component.values[2])!.selected).toBe(true);
       expect(component.control.value).toEqual(component.values[2]);
       expect(component.select().getDisplayValue()).toEqual('Option 3 (test 3)');
     });

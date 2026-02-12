@@ -4,7 +4,7 @@ import {
   type ComponentRef,
   type EmbeddedViewRef,
   inject,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 import { outputToObservable } from '@angular/core/rxjs-interop';
 import {
@@ -12,6 +12,7 @@ import {
   SbbOverlayContainerBase,
   SbbOverlayState,
 } from '@sbb-esta/lyne-angular/core/overlay';
+import type { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.js';
 import type { Observable } from 'rxjs';
 
 import { SbbOverlay } from './overlay';
@@ -31,51 +32,56 @@ import { SbbOverlay } from './overlay';
   host: {
     '[attr.id]': '_config.id || null',
   },
-  template: ` <ng-template cdkPortalOutlet></ng-template> `,
+  template: `<ng-template cdkPortalOutlet></ng-template>`,
 })
 export class SbbOverlayContainer extends SbbOverlayContainerBase<SbbOverlay> {
-  readonly _config: SbbOverlayConfig<SbbOverlayContainer, SbbOverlay, unknown>;
+  readonly _config: SbbOverlayConfig<SbbOverlayContainer, SbbOverlay, unknown> =
+    inject(SbbOverlayConfig, { optional: true }) || {};
 
   /** The portal outlet inside of this container into which the dialog content will be loaded. */
-  elementInstance = inject(SbbOverlay);
+  public elementInstance = inject(SbbOverlay);
 
-  @ViewChild(CdkPortalOutlet, { static: true }) _portalOutlet!: CdkPortalOutlet;
+  public readonly _portalOutlet = viewChild.required(CdkPortalOutlet);
 
-  constructor() {
-    super();
-
-    this._config = inject(SbbOverlayConfig, { optional: true }) || {};
-  }
-
-  override open(): void {
+  public override open(): void {
     this.elementInstance.open();
   }
-
-  override close(result?: unknown, target?: HTMLElement) {
+  /** Closes the component. */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public close(result?: any): void;
+  /** @deprecated */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public close(result?: any, target?: HTMLElement): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public close(result?: any, target?: HTMLElement): void {
     this.elementInstance.close(result, target);
   }
 
-  override attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
-    return this._portalOutlet.attachComponentPortal(portal);
+  public override attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
+    return this._portalOutlet().attachComponentPortal(portal);
   }
 
-  override attachTemplatePortal<T>(portal: TemplatePortal<T>): EmbeddedViewRef<T> {
-    return this._portalOutlet.attachTemplatePortal(portal);
+  public override attachTemplatePortal<T>(portal: TemplatePortal<T>): EmbeddedViewRef<T> {
+    return this._portalOutlet().attachTemplatePortal(portal);
   }
 
-  override getState(): SbbOverlayState {
+  public override getState(): SbbOverlayState {
     return this.elementInstance.isOpen ? SbbOverlayState.opened : SbbOverlayState.closed;
   }
 
-  public override afterOpen: Observable<Event | undefined> = outputToObservable(
+  public override afterOpened: Observable<Event> = outputToObservable(
     this.elementInstance.openOutput,
   );
 
-  public override afterClose: Observable<Event | undefined> = outputToObservable(
+  public override afterClosed: Observable<SbbOverlayCloseEvent> = outputToObservable(
     this.elementInstance.closeOutput,
   );
 
-  public override beforeClose: Observable<Event | undefined> = outputToObservable(
+  public override beforeClosed: Observable<SbbOverlayCloseEvent> = outputToObservable(
     this.elementInstance.beforeCloseOutput,
   );
+
+  public override afterOpen: Observable<Event> = this.afterOpened;
+  public override afterClose: Observable<SbbOverlayCloseEvent> = this.afterClosed;
+  public override beforeClose: Observable<SbbOverlayCloseEvent> = this.beforeClosed;
 }

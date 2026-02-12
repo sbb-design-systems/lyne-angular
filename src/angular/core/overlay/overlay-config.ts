@@ -1,7 +1,7 @@
 import type { Injector, StaticProvider, ViewContainerRef } from '@angular/core';
 
+import type { SbbOverlayBaseRef } from './overlay-base-ref';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
-import type { SbbOverlayRef } from './overlay-ref';
 
 export class SbbOverlayConfig<C extends SbbOverlayContainerBase, I = unknown, D = unknown> {
   /**
@@ -28,7 +28,7 @@ export class SbbOverlayConfig<C extends SbbOverlayContainerBase, I = unknown, D 
   providers?:
     | StaticProvider[]
     | ((
-        overlayRef: SbbOverlayRef,
+        overlayRef: SbbOverlayBaseRef,
         config: SbbOverlayConfig<C, I>,
         container: C,
       ) => StaticProvider[]);
@@ -46,4 +46,11 @@ export class SbbOverlayConfig<C extends SbbOverlayContainerBase, I = unknown, D 
    * A function that can be used to configure the container component.
    */
   setupContainer?: (instance: I) => void;
+
+  /**
+   * Whether the overlay should close when the user goes backwards/forwards in history.
+   * Note that this usually doesn't include clicking on links (unless the user is using
+   * the `HashLocationStrategy`).
+   */
+  closeOnNavigation?: boolean = true;
 }

@@ -52,6 +52,47 @@ export class YourOverlay {
 }
 ```
 
+Alternatively, you can use the `sbb-overlay-close` directive to close the overlay without explicitly injecting `SbbOverlayRef`.
+The directive can be applied to any element (e.g., an `<sbb-button>`) and will automatically close the overlay when clicked:
+
+```ts
+@Component({
+  selector: 'your-overlay',
+  template: `
+    <sbb-overlay>
+      <sbb-secondary-button sbb-overlay-close>Cancel</sbb-secondary-button>
+      <sbb-button [sbb-overlay-close]="result">Confirm</sbb-button
+    </sbb-overlay>
+  `,
+})
+export class YourOverlay {
+  result = { confirmed: true };
+}
+```
+
+You can optionally pass a value to the directive, which will be returned as the overlay result:
+
+```html
+<!-- Close overlay without result -->
+<sbb-secondary-button sbb-overlay-close>Cancel</sbb-secondary-button>
+
+<!-- Close overlay with static value -->
+<sbb-button sbb-overlay-close="cancelled">Cancel</sbb-button>
+
+<!-- Close overlay with dynamic value -->
+<sbb-button [sbb-overlay-close]="data">Save</sbb-button>
+```
+
+The passed value will be available through the `afterClosed()` Observable:
+
+```ts
+import { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.js';
+
+overlayRef.afterClosed().subscribe((event: SbbOverlayCloseEvent) => {
+  console.log(`Overlay result: ${event.result}`);
+});
+```
+
 ### Configure your overlay
 
 If you want to set any properties on the `SbbOverlay` component, you can use the `setupContainer` function in the configuration object.

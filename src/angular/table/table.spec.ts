@@ -3,9 +3,8 @@ import { ViewportRuler } from '@angular/cdk/scrolling';
 import type { AfterViewInit, OnInit } from '@angular/core';
 import { Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
-import { fakeAsync, flushMicrotasks, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SbbPaginator } from '@sbb-esta/lyne-angular/paginator/paginator';
 import { SbbTableWrapper } from '@sbb-esta/lyne-angular/table';
 import type { Observable } from 'rxjs';
@@ -27,12 +26,12 @@ describe('sbb-table', () => {
     await new Promise((resolve) => setTimeout(resolve, milliseconds));
   }
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
+      imports: [],
       providers: [ViewportRuler, { provide: ViewportRuler, useValue: viewportRulerMock }],
     });
-  }));
+  });
 
   describe('with basic data source', () => {
     it('should be able to create a table with the right content and without when row', () => {
@@ -142,24 +141,24 @@ describe('sbb-table', () => {
     ]);
   });
 
-  it('should apply custom sticky CSS class to sticky cells', fakeAsync(() => {
+  it('should apply custom sticky CSS class to sticky cells', async () => {
     const fixture = TestBed.createComponent(StickyTableTestComponent);
     fixture.detectChanges();
-    flushMicrotasks();
+    await fixture.whenStable();
 
     const stuckCellElement = fixture.nativeElement.querySelector('.sbb-table th')!;
     expect(stuckCellElement.classList).toContain('sbb-table-sticky');
-  }));
+  });
 
   // Note: needs to be fakeAsync so it catches the error.
-  it('should not throw when a row definition is on an ng-container', fakeAsync(() => {
+  it('should not throw when a row definition is on an ng-container', () => {
     const fixture = TestBed.createComponent(TableWithNgContainerRowTestComponent);
 
-    expect(() => {
+    expect(async () => {
       fixture.detectChanges();
-      tick();
+      await fixture.whenStable();
     }).not.toThrow();
-  }));
+  });
 
   describe('with SbbTableDataSource and sort/pagination/filter', () => {
     let tableElement: HTMLElement;
@@ -217,12 +216,12 @@ describe('sbb-table', () => {
       ]);
     });
 
-    it('should update the page index when switching to a smaller data set from a page', fakeAsync(() => {
+    it('should update the page index when switching to a smaller data set from a page', async () => {
       // Add 20 rows so we can switch pages.
       for (let i = 0; i < 20; i++) {
         component.underlyingDataSource.addData();
         fixture.detectChanges();
-        tick();
+        await fixture.whenStable();
         fixture.detectChanges();
       }
 
@@ -233,7 +232,7 @@ describe('sbb-table', () => {
       // Switch to a smaller data set.
       dataSource.data = [{ a: 'a_0', b: 'b_0', c: 'c_0' }];
       fixture.detectChanges();
-      tick();
+      await fixture.whenStable();
       fixture.detectChanges();
 
       expectTableToMatchContent(tableElement, [
@@ -241,13 +240,13 @@ describe('sbb-table', () => {
         ['a_0', 'b_0', 'c_0'],
         ['Footer A', 'Footer B', 'Footer C'],
       ]);
-    }));
+    });
 
-    it('should be able to filter the table contents', fakeAsync(() => {
+    it('should be able to filter the table contents', async () => {
       // Change filter to a_1, should match one row
       dataSource.filter = 'a_1';
-      flushMicrotasks(); // Resolve promise that updates paginator's length
       fixture.detectChanges();
+      await fixture.whenStable();
       expect(dataSource.filteredData.length).toBe(1);
       expect(dataSource.filteredData[0]).toBe(dataSource.data[0]);
       expectTableToMatchContent(tableElement, [
@@ -256,13 +255,13 @@ describe('sbb-table', () => {
         ['Footer A', 'Footer B', 'Footer C'],
       ]);
 
-      flushMicrotasks(); // Resolve promise that updates paginator's length
+      await fixture.whenStable();
       expect(dataSource.paginator!.length).toBe(1);
 
       // Change filter to '  A_2  ', should match one row (ignores case and whitespace)
       dataSource.filter = '  A_2  ';
-      flushMicrotasks();
       fixture.detectChanges();
+      await fixture.whenStable();
       expect(dataSource.filteredData.length).toBe(1);
       expect(dataSource.filteredData[0]).toBe(dataSource.data[1]);
       expectTableToMatchContent(tableElement, [
@@ -273,8 +272,8 @@ describe('sbb-table', () => {
 
       // Change filter to empty string, should match all rows
       dataSource.filter = '';
-      flushMicrotasks();
       fixture.detectChanges();
+      await fixture.whenStable();
       expect(dataSource.filteredData.length).toBe(3);
       expect(dataSource.filteredData[0]).toBe(dataSource.data[0]);
       expect(dataSource.filteredData[1]).toBe(dataSource.data[1]);
@@ -307,8 +306,8 @@ describe('sbb-table', () => {
         return dataStr.indexOf(filter) !== -1;
       };
       dataSource.filter = 'zebra';
-      flushMicrotasks();
       fixture.detectChanges();
+      await fixture.whenStable();
       expectTableToMatchContent(tableElement, [
         ['Column A', 'Column B', 'Column C'],
         ['a_2', 'b_2', 'c_2'],
@@ -317,26 +316,25 @@ describe('sbb-table', () => {
 
       // Change the filter to a falsy value that might come in from the view.
       dataSource.filter = 0 as unknown as string;
-      flushMicrotasks();
       fixture.detectChanges();
+      await fixture.whenStable();
       expectTableToMatchContent(tableElement, [
         ['Column A', 'Column B', 'Column C'],
         ['Footer A', 'Footer B', 'Footer C'],
       ]);
-    }));
+    });
 
-    it('should not match concatenated words', fakeAsync(() => {
+    it('should not match concatenated words', () => {
       // Set the value to the last character of the first
       // column plus the first character of the second column.
       dataSource.filter = '1b';
-      flushMicrotasks();
       fixture.detectChanges();
       expect(dataSource.filteredData.length).toBe(0);
       expectTableToMatchContent(tableElement, [
         ['Column A', 'Column B', 'Column C'],
         ['Footer A', 'Footer B', 'Footer C'],
       ]);
-    }));
+    });
 
     it('should be able to sort the table contents', () => {
       // Activate column A sort
@@ -469,12 +467,12 @@ describe('sbb-table', () => {
       ]);
     });
 
-    it('should be able to page the table contents', fakeAsync(() => {
+    it('should be able to page the table contents', async () => {
       // Add 100 rows, should only display first 5 since page length is 5
       for (let i = 0; i < 100; i++) {
         component.underlyingDataSource.addData();
       }
-      flushMicrotasks(); // Resolve promise that updates paginator's properties
+      await fixture.whenStable();
       fixture.detectChanges();
       expectTableToMatchContent(tableElement, [
         ['Column A', 'Column B', 'Column C'],
@@ -488,7 +486,7 @@ describe('sbb-table', () => {
 
       // Navigate to the next page
       component.paginator.nextPage();
-      flushMicrotasks(); // Resolve promise that updates paginator's properties
+      await fixture.whenStable();
       fixture.detectChanges();
       expectTableToMatchContent(tableElement, [
         ['Column A', 'Column B', 'Column C'],
@@ -499,7 +497,7 @@ describe('sbb-table', () => {
         ['a_10', 'b_10', 'c_10'],
         ['Footer A', 'Footer B', 'Footer C'],
       ]);
-    }));
+    });
 
     it('should sort strings with numbers larger than MAX_SAFE_INTEGER correctly', () => {
       const large = '9563256840123535';
@@ -590,10 +588,10 @@ describe('sbb-table', () => {
     ).toBe(4);
   });
 
-  it('should set shadow to sticky columns when scrolling', fakeAsync(() => {
+  it('should set shadow to sticky columns when scrolling', async () => {
     const fixture = TestBed.createComponent(TableWithWrapperAndStickyColumnsTestComponent);
     fixture.detectChanges();
-    flushMicrotasks(); // Set css sticky classes
+    await fixture.whenStable();
     const tableWrapper = fixture.debugElement.query(By.directive(SbbTableWrapper));
     const allHtml = fixture.nativeElement as HTMLElement;
 
@@ -610,7 +608,9 @@ describe('sbb-table', () => {
         '.sbb-column-column_c.sbb-table-sticky.sbb-table-sticky-border-elem-right',
       ),
     ).toBeTruthy();
-    expect(tableWrapper.nativeElement).toHaveClass('sbb-table-wrapper-offset-right');
+    expect(tableWrapper.nativeElement.classList.contains('sbb-table-wrapper-offset-right')).toBe(
+      true,
+    );
     expect(tableWrapper.nativeElement.classList.length).toBe(2); // Ensure old state classes were removed
 
     // When scrolling to a middle position
@@ -621,7 +621,9 @@ describe('sbb-table', () => {
     tableWrapper.nativeElement.dispatchEvent(new CustomEvent('scroll'));
 
     // Then it should have offset right and left
-    expect(tableWrapper.nativeElement).toHaveClass('sbb-table-wrapper-offset-both');
+    expect(tableWrapper.nativeElement.classList.contains('sbb-table-wrapper-offset-both')).toBe(
+      true,
+    );
     expect(tableWrapper.nativeElement.classList.length).toBe(2); // Ensure old state classes were removed
 
     // When scrolling to the right position
@@ -630,7 +632,9 @@ describe('sbb-table', () => {
     tableWrapper.nativeElement.dispatchEvent(new CustomEvent('scroll'));
 
     // Then it should have offset left
-    expect(tableWrapper.nativeElement).toHaveClass('sbb-table-wrapper-offset-left');
+    expect(tableWrapper.nativeElement.classList.contains('sbb-table-wrapper-offset-left')).toBe(
+      true,
+    );
     expect(tableWrapper.nativeElement.classList.length).toBe(2); // Ensure old state classes were removed
 
     // When maximizing scroll area
@@ -640,15 +644,16 @@ describe('sbb-table', () => {
     tableWrapper.nativeElement.dispatchEvent(new CustomEvent('scroll'));
 
     // Then it should have offset 'none'
-    expect(tableWrapper.nativeElement).toHaveClass('sbb-table-wrapper-offset-none');
+    expect(tableWrapper.nativeElement.classList.contains('sbb-table-wrapper-offset-none')).toBe(
+      true,
+    );
     expect(tableWrapper.nativeElement.classList.length).toBe(2); // Ensure old state classes were removed
-  }));
+  });
 
-  it('should update sticky left offset on data change (initially here)', fakeAsync(() => {
+  it('should update sticky left offset on data change (initially here)', () => {
     const fixture = TestBed.createComponent(TableWithTwoStickyColumnsTestComponent);
     fixture.detectChanges();
     fixture.detectChanges(); // Second change detection needed
-    tick();
 
     const columnAComputedStyles = getComputedStyle(
       fixture.nativeElement.querySelector('.sbb-column-column_a'),
@@ -657,10 +662,10 @@ describe('sbb-table', () => {
       fixture.nativeElement.querySelector('.sbb-column-column_b')!.style.left;
 
     expect(parseInt(columnBLeftOffset, 10)).toBeCloseTo(parseInt(columnAComputedStyles.width, 10));
-  }));
+  });
 
   // Ignored as resizeObserver seems not to work in tests
-  xit('should update sticky left offset on viewport change', async () => {
+  it.skip('should update sticky left offset on viewport change', async () => {
     const fixture = TestBed.createComponent(TableWithTwoStickyColumnsTestComponent);
     fixture.detectChanges();
     await fixture.whenStable();
@@ -768,10 +773,10 @@ class FakeDataSource extends DataSource<TestData> {
 class SbbTableTestComponent {
   dataSource: FakeDataSource = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isFourthRow = (i: number, _rowData: TestData) => i === 3;
 
-  @ViewChild(SbbTable) table!: SbbTable<TestData>;
+  @ViewChild(SbbTable)
+  table!: SbbTable<TestData>;
 }
 
 @Component({
@@ -802,7 +807,8 @@ class NativeHtmlTableTestComponent {
   dataSource: FakeDataSource = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 
-  @ViewChild(SbbTable) table!: SbbTable<TestData>;
+  @ViewChild(SbbTable)
+  table!: SbbTable<TestData>;
 }
 
 @Component({
@@ -872,7 +878,8 @@ class StickyTableTestComponent {
   dataSource = new FakeDataSource();
   columnsToRender = ['column_a'];
 
-  @ViewChild(SbbTable) table!: SbbTable<TestData>;
+  @ViewChild(SbbTable)
+  table!: SbbTable<TestData>;
 }
 
 @Component({
@@ -899,10 +906,10 @@ class StickyTableTestComponent {
 class SbbTableWithWhenRowTestComponent {
   multiTemplateDataRows = false;
   dataSource: FakeDataSource = new FakeDataSource();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isFourthRow = (i: number, _rowData: TestData) => i === 3;
 
-  @ViewChild(SbbTable) table!: SbbTable<TestData>;
+  @ViewChild(SbbTable)
+  table!: SbbTable<TestData>;
 }
 
 @Component({
@@ -940,10 +947,14 @@ class ArrayDataSourceSbbTableTestComponent implements AfterViewInit {
   dataSource = new SbbTableDataSource<TestData>();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 
-  @ViewChild(SbbTable) table!: SbbTable<TestData>;
-  @ViewChild(SbbPaginator) paginator!: SbbPaginator;
-  @ViewChild(SbbSort) sort!: SbbSort;
-  @ViewChild(SbbSortHeader) sortHeader!: SbbSortHeader;
+  @ViewChild(SbbTable)
+  table!: SbbTable<TestData>;
+  @ViewChild(SbbPaginator)
+  paginator!: SbbPaginator;
+  @ViewChild(SbbSort)
+  sort!: SbbSort;
+  @ViewChild(SbbSortHeader)
+  sortHeader!: SbbSortHeader;
 
   constructor() {
     this.underlyingDataSource.data = [];
@@ -993,8 +1004,10 @@ class SbbTableWithSortTestComponent implements OnInit {
   dataSource = new SbbTableDataSource<TestData>();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 
-  @ViewChild(SbbTable) table!: SbbTable<TestData>;
-  @ViewChild(SbbSort) sort!: SbbSort;
+  @ViewChild(SbbTable)
+  table!: SbbTable<TestData>;
+  @ViewChild(SbbSort)
+  sort!: SbbSort;
 
   constructor() {
     this.underlyingDataSource.data = [];
@@ -1045,8 +1058,10 @@ class SbbTableWithPaginatorTestComponent implements OnInit {
   dataSource = new SbbTableDataSource<TestData>();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 
-  @ViewChild(SbbTable) table!: SbbTable<TestData>;
-  @ViewChild(SbbPaginator) paginator!: SbbPaginator;
+  @ViewChild(SbbTable)
+  table!: SbbTable<TestData>;
+  @ViewChild(SbbPaginator)
+  paginator!: SbbPaginator;
 
   constructor() {
     this.underlyingDataSource.data = [];
@@ -1243,7 +1258,7 @@ export function expectTableToMatchContent(tableElement: Element, expected: any[]
   // Make sure the number of rows match
   if (actual.length !== expected.length) {
     missedExpectations.push(`Expected ${expected.length} total rows but got ${actual.length}`);
-    fail(missedExpectations.join('\n'));
+    throw new Error(missedExpectations.join('\n'));
   }
 
   actual.forEach((row, rowIndex) => {
@@ -1252,7 +1267,7 @@ export function expectTableToMatchContent(tableElement: Element, expected: any[]
     // Make sure the number of cells match
     if (row.length !== expectedRow.length) {
       missedExpectations.push(`Expected ${expectedRow.length} cells in row but got ${row.length}`);
-      fail(missedExpectations.join('\n'));
+      throw new Error(missedExpectations.join('\n'));
     }
 
     row.forEach((actualCell, cellIndex) => {
@@ -1262,6 +1277,6 @@ export function expectTableToMatchContent(tableElement: Element, expected: any[]
   });
 
   if (missedExpectations.length) {
-    fail(missedExpectations.join('\n'));
+    throw new Error(missedExpectations.join('\n'));
   }
 }

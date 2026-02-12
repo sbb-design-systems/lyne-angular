@@ -29,10 +29,10 @@ This library supports the most recent two versions of all major browsers: Chrome
 
 We aim for great user experience with the following screen readers:
 
-Windows: NVDA and JAWS with FF / Chrome.
-macOS: VoiceOver with Safari / Chrome.
-iOS: VoiceOver with Safari
-Android: Android Accessibility Suite (formerly TalkBack) with Chrome.
+- Windows: NVDA and JAWS with FF / Chrome.
+- macOS: VoiceOver with Safari / Chrome.
+- iOS: VoiceOver with Safari.
+- Android: Android Accessibility Suite (formerly TalkBack) with Chrome.
 
 ## 🙌 Contributing
 

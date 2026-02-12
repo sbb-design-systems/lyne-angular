@@ -24,7 +24,7 @@ describe('sbb-autocomplete-grid', () => {
       const autocompleteGrid = component.autocomplete();
       autocompleteGrid.open();
 
-      expect(autocompleteGrid.isOpen).toBeTrue();
+      expect(autocompleteGrid.isOpen).toBe(true);
 
       const option1 = (fixture.nativeElement as HTMLElement).querySelector(
         'sbb-autocomplete-grid-option',
@@ -32,7 +32,7 @@ describe('sbb-autocomplete-grid', () => {
       option1.click();
 
       expect(component.control.value).toEqual('option1');
-      expect(autocompleteGrid.isOpen).toBeFalse();
+      expect(autocompleteGrid.isOpen).toBe(false);
     });
   });
 
@@ -50,7 +50,7 @@ describe('sbb-autocomplete-grid', () => {
     });
 
     it('select value', async () => {
-      const optionSelected = spyOn(component, 'optionSelected');
+      const optionSelected = vi.spyOn(component, 'optionSelected');
       const input = component.autocomplete().triggerElement!;
 
       expect(input.value).toEqual('value 1');
@@ -88,7 +88,7 @@ describe('sbb-autocomplete-grid', () => {
     it('should fill the text field with value if displayWith is not set', async () => {
       const autocomplete = component.autocomplete();
       autocomplete.open();
-      expect(autocomplete.isOpen).toBeTrue();
+      expect(autocomplete.isOpen).toBe(true);
 
       component.displayWith = null;
       component.options()[1].value = 'test value';
@@ -101,34 +101,32 @@ describe('sbb-autocomplete-grid', () => {
       options[1].click();
 
       fixture.detectChanges();
-      expect(component.autocomplete().triggerElement!.value)
-        .withContext(`Expected input to fall back to selected option's value.`)
-        .toContain('test value');
+      expect(
+        component.autocomplete().triggerElement!.value,
+        `Expected input to fall back to selected option's value.`,
+      ).toContain('test value');
     });
 
     it('should mark the autocomplete control as dirty as user types', async () => {
-      expect(component.control.dirty)
-        .withContext(`Expected control to start out pristine.`)
-        .toBe(false);
+      expect(component.control.dirty, `Expected control to start out pristine.`).toBe(false);
 
       const input = component.autocomplete().triggerElement!;
       input.value = 'a';
       input.dispatchEvent(new InputEvent('input'));
       fixture.detectChanges();
 
-      expect(component.control.dirty)
-        .withContext(`Expected control to become dirty when the user types into the input.`)
-        .toBe(true);
+      expect(
+        component.control.dirty,
+        `Expected control to become dirty when the user types into the input.`,
+      ).toBe(true);
     });
 
     it('should mark the autocomplete control as dirty when an option is selected', async () => {
-      expect(component.control.dirty)
-        .withContext(`Expected control to start out pristine.`)
-        .toBe(false);
+      expect(component.control.dirty, `Expected control to start out pristine.`).toBe(false);
 
       const autocomplete = component.autocomplete();
       autocomplete.open();
-      expect(autocomplete.isOpen).toBeTrue();
+      expect(autocomplete.isOpen).toBe(true);
 
       const options = (fixture.nativeElement as HTMLElement).querySelectorAll(
         'sbb-autocomplete-grid-option',
@@ -136,47 +134,41 @@ describe('sbb-autocomplete-grid', () => {
       options[1].click();
       fixture.detectChanges();
 
-      expect(component.control.dirty)
-        .withContext(`Expected control to become dirty when an option was selected.`)
-        .toBe(true);
+      expect(
+        component.control.dirty,
+        `Expected control to become dirty when an option was selected.`,
+      ).toBe(true);
     });
 
     it('should not mark the control dirty when the value is set programmatically', () => {
-      expect(component.control.dirty)
-        .withContext(`Expected control to start out pristine.`)
-        .toBe(false);
+      expect(component.control.dirty, `Expected control to start out pristine.`).toBe(false);
 
       component.control.setValue({ property: 'other', otherProp: 'other' });
       fixture.detectChanges();
 
-      expect(component.control.dirty)
-        .withContext(`Expected control to stay pristine if value is set programmatically.`)
-        .toBe(false);
+      expect(
+        component.control.dirty,
+        `Expected control to stay pristine if value is set programmatically.`,
+      ).toBe(false);
     });
 
     it('should mark the autocomplete control as touched on blur', () => {
       const autocomplete = component.autocomplete();
       autocomplete.open();
-      expect(autocomplete.isOpen).toBeTrue();
+      expect(autocomplete.isOpen).toBe(true);
       fixture.detectChanges();
 
-      expect(component.control.touched)
-        .withContext(`Expected control to start out untouched.`)
-        .toBe(false);
+      expect(component.control.touched, `Expected control to start out untouched.`).toBe(false);
 
       const input = component.autocomplete().triggerElement!;
       input.dispatchEvent(new FocusEvent('blur'));
       fixture.detectChanges();
 
-      expect(component.control.touched)
-        .withContext(`Expected control to become touched on blur.`)
-        .toBe(true);
+      expect(component.control.touched, `Expected control to become touched on blur.`).toBe(true);
     });
 
     it('should mark the control dirty when selecting an option from the keyboard', async () => {
-      expect(component.control.dirty)
-        .withContext(`Expected control to start out pristine.`)
-        .toBe(false);
+      expect(component.control.dirty, `Expected control to start out pristine.`).toBe(false);
 
       const input = component.autocomplete().triggerElement!;
 
@@ -187,9 +179,10 @@ describe('sbb-autocomplete-grid', () => {
 
       fixture.detectChanges();
 
-      expect(component.control.dirty)
-        .withContext(`Expected control to become dirty when option was selected by ENTER.`)
-        .toBe(true);
+      expect(
+        component.control.dirty,
+        `Expected control to become dirty when option was selected by ENTER.`,
+      ).toBe(true);
       expect(component.autocomplete().triggerElement!.value).toEqual('value 2');
     });
   });
@@ -257,10 +250,7 @@ class TestComponentWithComplexValue {
   displayWith: ((value: { property: string; otherProperty: string }) => string) | null = (value) =>
     value ? value.property : value;
 
-  optionSelected(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _event: CustomEvent<SbbAutocompleteGridOption<{ property: string; otherProperty: string }>>,
-  ) {
+  optionSelected(_event: Event) {
     // noop;
   }
 }
