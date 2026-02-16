@@ -1,5 +1,13 @@
 # Changelog
 
+## [21.3.3](https://github.com/sbb-design-systems/lyne-angular/compare/v21.3.2...v21.3.3) (2026-02-16)
+
+
+### Bug Fixes
+
+* **deps:** update angular to v21.1.4 ([ee34481](https://github.com/sbb-design-systems/lyne-angular/commit/ee34481e2899ee6d8f1568de6512d32b388be6b2))
+* **deps:** update esta to v4.5.0 ([#288](https://github.com/sbb-design-systems/lyne-angular/issues/288)) ([296bd21](https://github.com/sbb-design-systems/lyne-angular/commit/296bd21c27fb223143934315faeade94bdf63cb3))
+
 ## [21.3.2](https://github.com/sbb-design-systems/lyne-angular/compare/v21.3.1...v21.3.2) (2026-02-09)
 
 
