@@ -1,0 +1,61 @@
+import { EXAMPLE_COMPONENTS } from './example-module';
+
+/**
+ * Example data with information about component name, selector, files used in
+ * the example, and path to examples.
+ */
+export class ExampleData {
+  /** Id */
+  id: string;
+
+  /** Name of the example (matches the component type e.g. "AccordionBasicExample") */
+  name: string;
+
+  /** Description of the example. e.g. "Accordion Basic Example" */
+  description: string;
+
+  /** List of files that are part of this example. */
+  exampleFiles: string[];
+
+  /** Whether the CSS has to be added to exampleFiles. */
+  hasStyle = false;
+
+  /** Selector name of the example component. */
+  selectorName: string;
+
+  /** Name of the file that contains the example component. */
+  indexFilename: string;
+
+  /** Names of the components being used in this example. */
+  componentNames: string[];
+
+  /** Path from which to import the example. */
+  importPath: string;
+
+  static find(library: string, id: string, module?: string): ExampleData[] {
+    return (EXAMPLE_COMPONENTS[module ? `${module}/${id}` : id] || []).map(
+      (example) =>
+        new ExampleData(library, id, typeof example === 'string' ? { id: example } : example),
+    );
+  }
+
+  constructor(library: string, id: string, example: Partial<ExampleData>) {
+    const exampleName = example.id!.replace(/^\w|\b\w/g, (letter) => letter.toUpperCase());
+
+    this.id = example.id!;
+    this.name = example.name ?? exampleName.replace(/-+/g, '') + 'Example';
+    // TODO: check these setters
+    this.exampleFiles = example.exampleFiles ?? [
+      `${example.id}-example.html`,
+      `${example.id}-example.ts`,
+    ];
+    if (example.hasStyle) {
+      this.exampleFiles.push(`${example.id}-example.scss`);
+    }
+    this.selectorName = example.selectorName ?? `sbb-${example.id}-example`;
+    this.indexFilename = example.indexFilename ?? `${example.id}-example.ts`;
+    this.description = example.description ?? exampleName.replace(/-+/g, ' ') + ' Example';
+    this.importPath = `${library}/${id}`;
+    this.componentNames = example.componentNames ?? [this.name];
+  }
+}

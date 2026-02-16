@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": ["src/**/*.spec.ts", "src/angular/core/*.ts", "src/angular/core/testing/*.ts"],
+  "include": [
+    "src/angular/**/*.ts",
+    "src/angular-experimental/**/*.ts",
+    "src/angular/core/overlay/*.ts"
+  ]
+}

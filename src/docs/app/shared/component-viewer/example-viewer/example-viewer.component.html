@@ -1,0 +1,33 @@
+<div class="example-viewer-header">
+  <h3 class="example-viewer-title">{{ this.exampleData().description }}</h3>
+  <sbb-secondary-button
+    class="example-viewer-header-button"
+    icon-name="display-binary-code-small"
+    aria-label="View code"
+    sbb-tooltip="View code"
+    (click)="showSource = !showSource"
+  >
+  </sbb-secondary-button>
+
+  @if (stackBlitzEnabled() && exampleData()) {
+    <sbb-secondary-button
+      sbb-stack-blitz-button
+      [exampleData]="exampleData()"
+      type="button"
+      class="example-viewer-header-button"
+      aria-label="Edit example in StackBlitz"
+      sbb-tooltip="Edit example in StackBlitz"
+      icon-name="link-external-small"
+    >
+    </sbb-secondary-button>
+  }
+</div>
+
+<sbb-tab-group [hidden]="!showSource" class="sbb-example-viewer-tabs">
+  @for (content of exampleCodes(); track $index) {
+    <sbb-tab-label [active]="$index === 0">{{ content.label }}</sbb-tab-label>
+    <sbb-tab [innerHtml]="content.code"> </sbb-tab>
+  }
+</sbb-tab-group>
+
+<sbb-example-outlet [exampleData]="exampleData()" />

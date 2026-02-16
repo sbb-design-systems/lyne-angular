@@ -17,6 +17,9 @@ import type { Observable } from 'rxjs';
 
 import { SbbOverlay } from './overlay';
 
+/**
+ * Container component for `SbbOverlay` components.
+ */
 @Component({
   // Selector should not attribute match as it will be created programmatically
   selector: 'sbb-overlay[sbb-overlay-container]',

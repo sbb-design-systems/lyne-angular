@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  padding: var(--sbb-spacing-fixed-6x);
+}
+
+// FIXME remove the following styles when replacing the nav + sbb-link-buttons with sbb-tab-nav-bar
+nav {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-6x);
+}
+
+sbb-link-button {
+  font-size: var(--sbb-font-size-text-xl);
+}

@@ -209,7 +209,38 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/docs/assets",
+                "output": "assets"
+              },
+              {
+                "glob": "**/*.md",
+                "input": "src/angular/",
+                "output": "docs-content/overviews/angular/"
+              },
+              {
+                "glob": "**/*.md",
+                "input": "src/docs/app/angular/api",
+                "output": "docs-content/api/angular"
+              },
+              {
+                "glob": "**/*.{html,ts,css,scss}",
+                "input": "src/docs/app/angular/examples/",
+                "output": "docs-content/examples/angular/"
+              },
+              {
+                "glob": "**/*.md",
+                "input": "src/angular-experimental/",
+                "output": "docs-content/overviews/angular-experimental/"
+              },
+              {
+                "glob": "**/*.md",
+                "input": "src/docs/app/angular-experimental/api",
+                "output": "docs-content/api/angular-experimental"
+              },
+              {
+                "glob": "**/*.{html,ts,css,scss}",
+                "input": "src/docs/app/angular-experimental/examples/",
+                "output": "docs-content/examples/angular-experimental/"
               }
             ],
             "styles": [
@@ -222,7 +253,8 @@
               "tsConfig": "src/docs/tsconfig.prod.json"
             },
             "development": {
-              "tsConfig": "src/docs/tsconfig.json"
+              "tsConfig": "src/docs/tsconfig.json",
+              "optimization": false
             }
           },
           "defaultConfiguration": "production"
