@@ -143,6 +143,20 @@ export class SbbAutocomplete<T = string> implements SbbAutocompleteType<T> {
   }
 
   /**
+   * When enabled, the active option is automatically selected on blur.
+   * This is an experimental feature. It might be subject to changes.
+   */
+  @Input({ transform: booleanAttribute })
+  public set autoSelectActiveOptionOnBlur(value: boolean) {
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.autoSelectActiveOptionOnBlur = value),
+    );
+  }
+  public get autoSelectActiveOptionOnBlur(): boolean {
+    return this.#element.nativeElement.autoSelectActiveOptionOnBlur;
+  }
+
+  /**
    * Function that maps an option's control value to its display value in the trigger.
    */
   @Input()
@@ -154,7 +168,7 @@ export class SbbAutocomplete<T = string> implements SbbAutocompleteType<T> {
   }
 
   /**
-   * Returns the element where autocomplete overlay is attached to.
+   * Returns the element where the autocomplete overlay is attached to.
    */
   public get originElement(): HTMLElement | null {
     return this.#element.nativeElement.originElement;
