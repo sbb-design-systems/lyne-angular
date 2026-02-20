@@ -16,10 +16,10 @@ export class SbbOverlayService extends SbbOverlayBaseService<
   protected containerType = SbbOverlayContainer;
   protected overlayRefConstructor = SbbOverlayRef;
 
-  public override open<T = unknown>(
+  public override open<T = unknown, R = unknown>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     config?: SbbOverlayConfig<SbbOverlayContainer, SbbOverlay>,
-  ): SbbOverlayRef<T> {
-    return super.open(componentOrTemplateRef, config) as SbbOverlayRef<T>;
+  ): SbbOverlayRef<T, R> {
+    return super.open(componentOrTemplateRef, config) as SbbOverlayRef<T, R>;
   }
 }

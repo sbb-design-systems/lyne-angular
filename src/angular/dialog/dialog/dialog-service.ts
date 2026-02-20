@@ -16,10 +16,10 @@ export class SbbDialogService extends SbbOverlayBaseService<
   protected containerType = SbbDialogContainer;
   protected overlayRefConstructor = SbbDialogRef;
 
-  public override open<T = unknown>(
+  public override open<T = unknown, R = unknown>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     config?: SbbOverlayConfig<SbbDialogContainer, SbbDialog>,
-  ): SbbDialogRef<T> {
-    return super.open(componentOrTemplateRef, config) as SbbDialogRef<T>;
+  ): SbbDialogRef<T, R> {
+    return super.open(componentOrTemplateRef, config) as SbbDialogRef<T, R>;
   }
 }

@@ -9,7 +9,9 @@ config object. The `open` method will return an instance of `SbbOverlayRef`:
 
 ```ts
 const overlayService = inject(SbbOverlayService);
-let overlayRef = overlayService.open(UserProfileComponent, {
+type OverlayResult = { confirmed: boolean };
+
+let overlayRef = overlayService.open<UserProfileComponent, OverlayResult>(UserProfileComponent, {
   // config options
 });
 ```
@@ -30,8 +32,8 @@ receive notifications when the overlay state changes (`afterOpened`, `beforeClos
 When closing, an optional result value can be provided. This result value is forwarded as the result of the `afterClosed` Observable.
 
 ```ts
-overlayRef.afterClosed().subscribe((result) => {
-  console.log(`Overlay result: ${result}`); // Pizza!
+overlayRef.afterClosed.subscribe((event) => {
+  console.log(`Overlay result: ${event.result}`); // Pizza!
 });
 
 overlayRef.close('Pizza!');
@@ -83,12 +85,14 @@ You can optionally pass a value to the directive, which will be returned as the 
 <sbb-button [sbb-overlay-close]="data">Save</sbb-button>
 ```
 
-The passed value will be available through the `afterClosed()` Observable:
+The passed value will be available through the `afterClosed` Observable:
 
 ```ts
-import { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.js';
+type OverlayResult = 'cancelled' | { confirmed: true };
 
-overlayRef.afterClosed().subscribe((event: SbbOverlayCloseEvent) => {
+const overlayRef = overlayService.open<YourOverlay, OverlayResult>(YourOverlay);
+
+overlayRef.afterClosed.subscribe((event) => {
   console.log(`Overlay result: ${event.result}`);
 });
 ```
