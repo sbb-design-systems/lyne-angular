@@ -9,7 +9,9 @@ config object. The `open` method will return an instance of `SbbDialogRef`:
 
 ```ts
 const dialogService = inject(SbbDialogService);
-let dialogRef = dialogService.open(UserProfileComponent, {
+type DialogResult = { confirmed: boolean };
+
+let dialogRef = dialogService.open<UserProfileComponent, DialogResult>(UserProfileComponent, {
   // config options
 });
 ```
@@ -30,8 +32,8 @@ receive notifications when the dialog state changes (`afterOpened`, `beforeClose
 When closing, an optional result value can be provided. This result value is forwarded as the result of the `afterClosed` Observable.
 
 ```ts
-dialogRef.afterClosed().subscribe((result) => {
-  console.log(`Dialog result: ${result}`); // Pizza!
+dialogRef.afterClosed.subscribe((event) => {
+  console.log(`Dialog result: ${event.result}`); // Pizza!
 });
 
 dialogRef.close('Pizza!');
@@ -90,12 +92,14 @@ You can optionally pass a value to the directive, which will be returned as the 
 <sbb-button [sbb-dialog-close]="data">Save</sbb-button>
 ```
 
-The passed value will be available through the `afterClosed()` Observable:
+The passed value will be available through the `afterClosed` Observable:
 
 ```ts
-import { SbbDialogCloseEvent } from '@sbb-esta/lyne-elements/dialog/dialog.js';
+type DialogResult = 'cancelled' | { confirmed: true };
 
-dialogRef.afterClosed().subscribe((event: SbbDialogCloseEvent) => {
+const dialogRef = dialogService.open<YourDialog, DialogResult>(YourDialog);
+
+dialogRef.afterClosed.subscribe((event) => {
   console.log(`Dialog result: ${event.result}`);
 });
 ```
