@@ -7683,10 +7683,10 @@ neotraverse@^0.6.18:
   resolved "https://registry.yarnpkg.com/neotraverse/-/neotraverse-0.6.18.tgz#abcb33dda2e8e713cf6321b29405e822230cdb30"
   integrity sha512-Z4SmBUweYa09+o6pG+eASabEpP6QkQ70yHj351pQoEXIs8uHbaU2DWVmzBANKgflPa47A50PtB2+NgRpQvr7vA==
 
-ng-packagr@21.1.0:
-  version "21.1.0"
-  resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-21.1.0.tgz#9e3eca9a4fe2d5fce1d14069110c6f9146e5048e"
-  integrity sha512-UlQOhH8DRlaYsBGQMjOYvg70J70hD4i/55NV9vAsYvsxEskmp86xjUtZgEeVKeoLq8tYMjMXDgaYjYde153sZQ==
+ng-packagr@21.2.0:
+  version "21.2.0"
+  resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-21.2.0.tgz#7710e2a3bc9cfcbf54e4184edce7099f1efa6385"
+  integrity sha512-ASlXEboqt+ZgKzNPx3YCr924xqQRFA5qgm77GHf0Fm13hx7gVFYVm6WCdYZyeX/p9NJjFWAL+mIMfhsx2SHKoA==
   dependencies:
     "@ampproject/remapping" "^2.3.0"
     "@rollup/plugin-json" "^6.1.0"
