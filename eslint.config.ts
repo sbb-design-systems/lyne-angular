@@ -1,13 +1,13 @@
-// @ts-check
 import 'tsx';
 import eslint from '@eslint/js';
-import globals from 'globals';
-import { config, configs as tseslint } from 'typescript-eslint';
 import { configs as angulareslint, processInlineTemplates } from 'angular-eslint';
+import { defineConfig } from 'eslint/config';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPluginImportX from 'eslint-plugin-import-x';
+import globals from 'globals';
+import { configs as tseslint } from 'typescript-eslint';
 
-const eslintPluginLyne = await import('./tools/eslint/index.ts');
+const eslintPluginLyne = await import('./tools/eslint/index.js');
 
 const ignores = [
   'dist/**/*',
@@ -16,7 +16,7 @@ const ignores = [
   '**/__snapshots__/**/*',
 ];
 
-export default config(
+export default defineConfig([
   {
     languageOptions: {
       globals: { ...globals.browser, ...globals.node },
@@ -88,4 +88,4 @@ export default config(
   // @ts-expect-error The returned config will exist.
   eslintPluginLyne.default.configs.recommended,
   eslintConfigPrettier,
-);
+]);

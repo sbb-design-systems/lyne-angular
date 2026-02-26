@@ -76,7 +76,7 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": ["src/angular/**/*.ts", "src/angular/**/*.html"],
-            "eslintConfig": "src/angular/eslint.config.mjs"
+            "eslintConfig": "src/angular/eslint.config.ts"
           }
         }
       }
@@ -129,7 +129,7 @@
               "src/angular-experimental/**/*.ts",
               "src/angular-experimental/**/*.html"
             ],
-            "eslintConfig": "src/angular-experimental/eslint.config.mjs"
+            "eslintConfig": "src/angular-experimental/eslint.config.ts"
           }
         }
       }
@@ -162,7 +162,7 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": ["src/showcase/**/*.ts", "src/showcase/**/*.html"],
-            "eslintConfig": "src/showcase/eslint.config.mjs"
+            "eslintConfig": "src/showcase/eslint.config.ts"
           }
         },
         "storybook": {
@@ -243,7 +243,7 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": ["src/docs/**/*.ts", "src/docs/**/*.html"],
-            "eslintConfig": "src/docs/eslint.config.mjs"
+            "eslintConfig": "src/docs/eslint.config.ts"
           }
         }
       }
