@@ -89,8 +89,8 @@ const meta: Meta = {
     props: { numberOfBreadcrumbs, text, ...args },
     template: `
       <sbb-breadcrumb-group>
-        <sbb-breadcrumb href="/" icon-name="house-small"></sbb-breadcrumb>
-        ${new Array(numberOfBreadcrumbs - 1)
+        ${numberOfBreadcrumbs > 0 ? '<sbb-breadcrumb href="/" icon-name="house-small"></sbb-breadcrumb>' : ''}
+        ${new Array(Math.max(0, numberOfBreadcrumbs - 1))
           .fill(undefined)
           .map(
             (_, i) => `<sbb-breadcrumb ${argsToTemplate(args)}>${text} ${i + 1}</sbb-breadcrumb>`,

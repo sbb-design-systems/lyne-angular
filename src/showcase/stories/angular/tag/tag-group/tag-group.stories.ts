@@ -61,7 +61,7 @@ const meta: Meta = {
           .fill(null)
           .map(
             (_e, i) =>
-              `<sbb-tag [checked]=${i === 0} value=${label} amount="123" iconName="pie-small">
+              `<sbb-tag [checked]="${i === 0}" value="${label}" amount="123" iconName="pie-small">
               ${label} ${i + 1}
             </sbb-tag>
           `,
