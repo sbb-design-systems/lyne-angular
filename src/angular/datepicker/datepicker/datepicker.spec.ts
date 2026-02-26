@@ -8,6 +8,7 @@ import {
   SbbDatepickerToggle,
 } from '@sbb-esta/lyne-angular/datepicker';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
+import type { SbbCalendarDayElement } from '@sbb-esta/lyne-elements/calendar/calendar-day.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 
@@ -41,7 +42,7 @@ describe('sbb-datepicker', () => {
     // Simulate selecting a date in the calendar
     const calendarDay = datepicker
       .shadowRoot!.querySelector('sbb-calendar')!
-      .shadowRoot!.querySelector<HTMLButtonElement>('button[value="2025-04-01"]')!;
+      .shadowRoot!.querySelector<SbbCalendarDayElement>('sbb-calendar-day[slot="2025-04-01"]')!;
 
     calendarDay.click();
 
