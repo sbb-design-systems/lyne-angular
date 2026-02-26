@@ -77,8 +77,9 @@ const meta: Meta = {
     props: { disabled, ...args },
     template: `
       <sbb-stepper ${argsToTemplate(args)} aria-label="Purpose of this flow">
-        ${['First', 'Second', 'Third', 'Fourth'].map(
-          (element, index, arr) => `
+        ${['First', 'Second', 'Third', 'Fourth']
+          .map(
+            (element, index, arr) => `
               <sbb-step-label [disabled]=${disabled && index === 2}>${element} step</sbb-step-label>
               <sbb-step>
                 <div tabindex="0" class="sbb-focus-outline" style="margin-block-end: var(--sbb-spacing-fixed-4x)">
@@ -89,7 +90,8 @@ const meta: Meta = {
                 ${index === arr.length - 1 ? `<sbb-button size="m" sbb-stepper-next>Submit</sbb-button>` : ''}
               </sbb-step>
           `,
-        )}
+          )
+          .join('')}
       </sbb-stepper>
       <sbb-card color="milk" style="margin-block-start: var(--sbb-spacing-fixed-8x)">
         Page content: lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod

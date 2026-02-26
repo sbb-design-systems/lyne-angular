@@ -57,13 +57,16 @@ const meta: Meta = {
     props: { label, ...args },
     template: `
       <sbb-tag-group ${argsToTemplate(args)}>
-        ${new Array(8).fill(null).map(
-          (_e, i) => `
-          <sbb-tag [checked]=${i === 0} value=${label} amount="123" iconName="pie-small">
-            ${label} ${i + 1}
-          </sbb-tag>
-        `,
-        )}
+        ${new Array(8)
+          .fill(null)
+          .map(
+            (_e, i) =>
+              `<sbb-tag [checked]=${i === 0} value=${label} amount="123" iconName="pie-small">
+              ${label} ${i + 1}
+            </sbb-tag>
+          `,
+          )
+          .join('')}
       </sbb-tag-group>
     `,
   }),

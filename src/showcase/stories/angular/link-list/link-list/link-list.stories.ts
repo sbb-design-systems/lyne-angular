@@ -73,15 +73,14 @@ const meta: Meta = {
     props: { ...args },
     template: `
       <sbb-link-list ${argsToTemplate(args)}>
-        ${links.map((linkTitle) => {
-          return `
-            <sbb-block-link
-              href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html"
-            >
+        ${links
+          .map(
+            (linkTitle) =>
+              `<sbb-block-link href="https://www.sbb.ch/de/hilfe-und-kontakt/erstattung-entschaedigung/rueckerstattung-von-billetten.html">
               ${linkTitle}
-            </sbb-block-link>
-          `;
-        })}
+            </sbb-block-link>`,
+          )
+          .join('')}
       </sbb-link-list>
     `,
   }),

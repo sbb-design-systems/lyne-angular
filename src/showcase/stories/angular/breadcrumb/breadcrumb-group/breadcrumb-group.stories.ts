@@ -94,7 +94,8 @@ const meta: Meta = {
           .fill(undefined)
           .map(
             (_, i) => `<sbb-breadcrumb ${argsToTemplate(args)}>${text} ${i + 1}</sbb-breadcrumb>`,
-          )}
+          )
+          .join('')}
       </sbb-breadcrumb-group>
     `,
   }),
