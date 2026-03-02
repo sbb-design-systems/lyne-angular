@@ -3,7 +3,7 @@ import eslint from '@eslint/js';
 import { configs as angulareslint, processInlineTemplates } from 'angular-eslint';
 import { defineConfig } from 'eslint/config';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import eslintPluginImportX from 'eslint-plugin-import-x';
+import { flatConfigs as importXFlatConfigs } from 'eslint-plugin-import-x';
 import globals from 'globals';
 import { configs as tseslint } from 'typescript-eslint';
 
@@ -27,9 +27,10 @@ export default defineConfig([
     },
   },
   { ignores },
+  // @ts-expect-error The returned config works but has type problems.
   {
     files: ['**/*.ts', '**/*.js'],
-    ...eslintPluginImportX.flatConfigs.recommended,
+    ...importXFlatConfigs.recommended,
   },
   {
     files: ['**/*.ts'],
