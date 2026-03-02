@@ -43,7 +43,9 @@ describe(`sbb-overlay-close`, () => {
     });
 
     it('should pass result value when closing overlay', async () => {
-      const ref = service.open<OverlayContentWithResultValue>(OverlayContentWithResultValue);
+      const ref = service.open<OverlayContentWithResultValue, boolean>(
+        OverlayContentWithResultValue,
+      );
 
       await fixture.whenRenderingDone();
       fixture.detectChanges();
@@ -63,7 +65,9 @@ describe(`sbb-overlay-close`, () => {
     });
 
     it('should pass dynamic result value when closing overlay', async () => {
-      const ref = service.open<OverlayContentWithResultValue>(OverlayContentWithResultValue);
+      const ref = service.open<OverlayContentWithResultValue, string>(
+        OverlayContentWithResultValue,
+      );
 
       await fixture.whenRenderingDone();
       fixture.detectChanges();
@@ -73,7 +77,7 @@ describe(`sbb-overlay-close`, () => {
       fixture.detectChanges();
 
       let resultValue: SbbOverlayCloseEvent<string>;
-      ref.afterClosed.subscribe((result: SbbOverlayCloseEvent<string>) => (resultValue = result));
+      ref.afterClosed.subscribe((result) => (resultValue = result));
 
       const dynamicButton = overlayContainerElement.querySelector(
         'button.dynamic-value',
@@ -87,7 +91,9 @@ describe(`sbb-overlay-close`, () => {
     });
 
     it('should close overlay without result value', async () => {
-      const ref = service.open<OverlayContentWithResultValue>(OverlayContentWithResultValue);
+      const ref = service.open<OverlayContentWithResultValue, string>(
+        OverlayContentWithResultValue,
+      );
 
       await fixture.whenRenderingDone();
       fixture.detectChanges();
