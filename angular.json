@@ -147,6 +147,7 @@
             "browserTarget": "showcase:build",
             "styles": [
               "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
+              "node_modules/@sbb-esta/lyne-elements-experimental/standard-theme.css",
               "src/showcase/stories/styles/layout/layout.scss",
               "src/showcase/stories/styles/scrollbar/scrollbar-internal.scss",
               "src/showcase/stories/styles/typography/typo-internal.scss",
@@ -172,6 +173,7 @@
             "browserTarget": "showcase:build",
             "styles": [
               "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
+              "node_modules/@sbb-esta/lyne-elements-experimental/standard-theme.css",
               "src/showcase/stories/styles/layout/layout.scss",
               "src/showcase/stories/styles/scrollbar/scrollbar-internal.scss",
               "src/showcase/stories/styles/typography/typo-internal.scss",
@@ -214,6 +216,7 @@
             ],
             "styles": [
               "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
+              "node_modules/@sbb-esta/lyne-elements-experimental/standard-theme.css",
               "src/docs/styles.scss"
             ]
           },

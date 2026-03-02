@@ -29,6 +29,9 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
         ```css
           @import 'node_modules/@sbb-esta/lyne-elements/standard-theme.css';
+
+          /** If you are using experimental components */
+          @import 'node_modules/@sbb-esta/lyne-elements-experimental/standard-theme.css';
         ```
 
         or editing your `angular.json`:
@@ -37,7 +40,10 @@ import { Meta } from '@storybook/addon-docs/blocks';
           ...
           "styles": [
             "src/styles.scss",
-            "node_modules/@sbb-esta/lyne-elements/standard-theme.css"
+            "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
+
+            /** If you are using experimental components */
+            "node_modules/@sbb-esta/lyne-elements-experimental/standard-theme.css"
           ],
           ...
         ```
