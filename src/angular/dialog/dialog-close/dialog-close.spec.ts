@@ -44,12 +44,12 @@ describe(`sbb-dialog-close`, () => {
     });
 
     it('should pass result value when closing dialog', async () => {
-      const ref = service.open<DialogContentWithResultValue>(DialogContentWithResultValue);
+      const ref = service.open<DialogContentWithResultValue, boolean>(DialogContentWithResultValue);
 
       await fixture.whenRenderingDone();
       fixture.detectChanges();
 
-      let resultValue: SbbDialogCloseEvent;
+      let resultValue: SbbDialogCloseEvent<boolean>;
       ref.afterClosed.subscribe((result) => (resultValue = result));
 
       const confirmButton = overlayContainerElement.querySelector(
@@ -64,7 +64,7 @@ describe(`sbb-dialog-close`, () => {
     });
 
     it('should pass dynamic result value when closing dialog', async () => {
-      const ref = service.open<DialogContentWithResultValue>(DialogContentWithResultValue);
+      const ref = service.open<DialogContentWithResultValue, string>(DialogContentWithResultValue);
 
       await fixture.whenRenderingDone();
       fixture.detectChanges();
@@ -75,7 +75,7 @@ describe(`sbb-dialog-close`, () => {
       await fixture.whenStable();
 
       let resultValue: SbbDialogCloseEvent<string>;
-      ref.afterClosed.subscribe((result: SbbDialogCloseEvent<string>) => (resultValue = result));
+      ref.afterClosed.subscribe((result) => (resultValue = result));
 
       const dynamicButton = overlayContainerElement.querySelector(
         'button.dynamic-value',
@@ -89,7 +89,7 @@ describe(`sbb-dialog-close`, () => {
     });
 
     it('should close dialog without result value', async () => {
-      const ref = service.open<DialogContentWithResultValue>(DialogContentWithResultValue);
+      const ref = service.open<DialogContentWithResultValue, string>(DialogContentWithResultValue);
 
       await fixture.whenRenderingDone();
       fixture.detectChanges();
