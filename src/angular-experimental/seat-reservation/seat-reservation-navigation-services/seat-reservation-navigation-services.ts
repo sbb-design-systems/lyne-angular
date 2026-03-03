@@ -38,4 +38,15 @@ export class SbbSeatReservationNavigationServices {
   public get vertical(): boolean {
     return this.#element.nativeElement.vertical;
   }
+
+  /**
+   * Disable the mouse over title information
+   */
+  @Input({ transform: booleanAttribute })
+  public set showTitleInfo(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.showTitleInfo = value));
+  }
+  public get showTitleInfo(): boolean {
+    return this.#element.nativeElement.showTitleInfo;
+  }
 }

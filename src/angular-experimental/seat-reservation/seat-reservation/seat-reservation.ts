@@ -14,6 +14,7 @@ import type {
   SeatReservation,
   SeatReservationSelectedCoach,
   SeatReservationSelectedPlaces,
+  TravelDirection,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 import { fromEvent } from 'rxjs';
 
@@ -126,6 +127,28 @@ export class SbbSeatReservation {
   }
   public get height(): number {
     return this.#element.nativeElement.height;
+  }
+
+  /**
+   * Displays an arrow showing what direction does train drive
+   */
+  @Input()
+  public set travelDirection(value: TravelDirection) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.travelDirection = value));
+  }
+  public get travelDirection(): TravelDirection {
+    return this.#element.nativeElement.travelDirection;
+  }
+
+  /**
+   * The seat reservation title information at place-controls, navigation-coaches and navigation-services can be toggled by this property
+   */
+  @Input({ transform: booleanAttribute })
+  public set showTitleInfo(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.showTitleInfo = value));
+  }
+  public get showTitleInfo(): boolean {
+    return this.#element.nativeElement.showTitleInfo;
   }
 
   /**

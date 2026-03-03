@@ -11,8 +11,7 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSeatReservationNavigationCoachElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation-coach.js';
 import type {
-  CoachNumberOfFreePlaces,
-  PlaceTravelClass,
+  CoachItemDetails,
   SelectCoachEventDetails,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 import { fromEvent } from 'rxjs';
@@ -31,28 +30,6 @@ export class SbbSeatReservationNavigationCoach {
     ElementRef<SbbSeatReservationNavigationCoachElement>,
   );
   #ngZone: NgZone = inject(NgZone);
-
-  /**
-   * Coach ID, which is used to identify the coach in the navigation
-   */
-  @Input()
-  public set coachId(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.coachId = value));
-  }
-  public get coachId(): string {
-    return this.#element.nativeElement.coachId;
-  }
-
-  /**
-   * Coach service property ids, which are used to display the services in the navigation
-   */
-  @Input()
-  public set propertyIds(value: string[]) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.propertyIds = value));
-  }
-  public get propertyIds(): string[] {
-    return this.#element.nativeElement.propertyIds;
-  }
 
   /**
    * Select coach property
@@ -82,61 +59,6 @@ export class SbbSeatReservationNavigationCoach {
   }
   public get index(): number {
     return this.#element.nativeElement.index;
-  }
-
-  /**
-   * Representation of places available for selecting, counting seat places and bicycle places separately
-   */
-  @Input()
-  public set freePlacesByType(value: CoachNumberOfFreePlaces) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.freePlacesByType = value));
-  }
-  public get freePlacesByType(): CoachNumberOfFreePlaces {
-    return this.#element.nativeElement.freePlacesByType;
-  }
-
-  /**
-   * Travel class of the coach
-   */
-  @Input()
-  public set travelClass(value: PlaceTravelClass[]) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.travelClass = value));
-  }
-  public get travelClass(): PlaceTravelClass[] {
-    return this.#element.nativeElement.travelClass;
-  }
-
-  /**
-   * If the coach is a driver/restricted area
-   */
-  @Input({ transform: booleanAttribute })
-  public set driverArea(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.driverArea = value));
-  }
-  public get driverArea(): boolean {
-    return this.#element.nativeElement.driverArea;
-  }
-
-  /**
-   * If the coach is the first in the navigation
-   */
-  @Input({ transform: booleanAttribute })
-  public set first(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.first = value));
-  }
-  public get first(): boolean {
-    return this.#element.nativeElement.first;
-  }
-
-  /**
-   * If the coach is the last in the navigation
-   */
-  @Input({ transform: booleanAttribute })
-  public set last(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.last = value));
-  }
-  public get last(): boolean {
-    return this.#element.nativeElement.last;
   }
 
   /**
@@ -197,5 +119,24 @@ export class SbbSeatReservationNavigationCoach {
   }
   public get nativeFocusActive(): boolean {
     return this.#element.nativeElement.nativeFocusActive;
+  }
+
+  @Input()
+  public set coachItemDetails(value: CoachItemDetails) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.coachItemDetails = value));
+  }
+  public get coachItemDetails(): CoachItemDetails {
+    return this.#element.nativeElement.coachItemDetails;
+  }
+
+  /**
+   * Disable the mouse over title information
+   */
+  @Input({ transform: booleanAttribute })
+  public set showTitleInfo(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.showTitleInfo = value));
+  }
+  public get showTitleInfo(): boolean {
+    return this.#element.nativeElement.showTitleInfo;
   }
 }
