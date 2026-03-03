@@ -19,7 +19,7 @@ import '@sbb-esta/lyne-elements/calendar/calendar.js';
   selector: 'sbb-calendar',
   exportAs: 'sbbCalendar',
 })
-export class SbbCalendar<T extends Date = Date> {
+export class SbbCalendar<T = Date> {
   #element: ElementRef<SbbCalendarElement<T>> = inject(ElementRef<SbbCalendarElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
