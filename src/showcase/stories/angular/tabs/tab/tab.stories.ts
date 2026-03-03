@@ -3,7 +3,7 @@ import type { Args, Meta } from '@storybook/angular';
 import { moduleMetadata } from '@storybook/angular';
 import type { ArgTypes, InputType } from 'storybook/internal/types';
 
-import readme from '../../autocomplete/readme.md';
+import readme from './readme.md';
 
 const text: InputType = {
   control: {
