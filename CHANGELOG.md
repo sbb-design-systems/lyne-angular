@@ -1,5 +1,28 @@
 # Changelog
 
+## [21.4.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.3.3...v21.4.0) (2026-03-03)
+
+
+### Features
+
+* add date adapter provider functions ([#295](https://github.com/sbb-design-systems/lyne-angular/issues/295)) ([c7c0f94](https://github.com/sbb-design-systems/lyne-angular/commit/c7c0f94d946697aa856573067dd7cf86e46142ac))
+
+
+### Bug Fixes
+
+* **deps:** update angular to v21.1.5 ([1b415cb](https://github.com/sbb-design-systems/lyne-angular/commit/1b415cb674d7e668cac3d9a6a6ff3e0460fc576c))
+* **deps:** update angular to v21.1.5 ([a8c882f](https://github.com/sbb-design-systems/lyne-angular/commit/a8c882f5cc5e69cdbd4a305797d4a1a25f4bbfa8))
+* **deps:** update angular to v21.2.0 ([#298](https://github.com/sbb-design-systems/lyne-angular/issues/298)) ([9a6b2db](https://github.com/sbb-design-systems/lyne-angular/commit/9a6b2db179d4ea360708ef327037bdf5753c1bbe))
+* **deps:** update dependency @angular/cdk to v21.1.5 ([423c134](https://github.com/sbb-design-systems/lyne-angular/commit/423c1347c669c44098c08d3a6f0d783899dbfc18))
+* **deps:** update esta to v4.5.1 ([#291](https://github.com/sbb-design-systems/lyne-angular/issues/291)) ([d4621cc](https://github.com/sbb-design-systems/lyne-angular/commit/d4621cc18cd0183ba350b88f84c430fbca4d3a57))
+* **deps:** update esta to v4.6.0 ([#300](https://github.com/sbb-design-systems/lyne-angular/issues/300)) ([1514dbf](https://github.com/sbb-design-systems/lyne-angular/commit/1514dbfd50826666dda94b827736b71039113135))
+* **dialog,overlay:** explicit typing for dialog/overlay return types ([#292](https://github.com/sbb-design-systems/lyne-angular/issues/292)) ([32a1346](https://github.com/sbb-design-systems/lyne-angular/commit/32a13466f511fdecadcd7740c6bef757dc747ea8))
+
+
+### Code Refactoring
+
+* use future-proof eslint properties ([#302](https://github.com/sbb-design-systems/lyne-angular/issues/302)) ([eacbd8e](https://github.com/sbb-design-systems/lyne-angular/commit/eacbd8eceb54cc799ffcae150c0000afc2ab3115))
+
 ## [21.3.3](https://github.com/sbb-design-systems/lyne-angular/compare/v21.3.2...v21.3.3) (2026-02-16)
 
 
