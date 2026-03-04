@@ -167,6 +167,30 @@ describe('sbb-overlay', () => {
 
       expect(overlayContainerElement.children.length).toBe(1);
     });
+
+    it('should close all when calling closeAll', async () => {
+      const afterCloseSpy1 = vi.fn();
+      const afterCloseSpy2 = vi.fn();
+
+      const ref1 = service.open(SbbDummyComponent);
+      const ref2 = service.open(SbbDummyComponent);
+
+      ref1.afterClosed.subscribe(afterCloseSpy1);
+      ref2.afterClosed.subscribe(afterCloseSpy2);
+
+      expect(overlayContainerElement.children.length).toBe(2);
+      expect(
+        Array.from(overlayContainerElement.querySelectorAll('sbb-overlay')).every(
+          (overlay) => overlay.isOpen,
+        ),
+      ).toBe(true);
+
+      service.closeAll();
+
+      expect(afterCloseSpy1).toHaveBeenCalled();
+      expect(afterCloseSpy2).toHaveBeenCalled();
+      expect(overlayContainerElement.children.length).toBe(0);
+    });
   });
 });
 
