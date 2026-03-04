@@ -228,7 +228,8 @@ export abstract class SbbOverlayBaseService<
    * Closes all currently-open overlays.
    */
   closeAll(): void {
-    this.openOverlays.map((ref: R) => ref.close());
+    // We have to copy the array first as the array is mutated during the iteration.
+    this.openOverlays.slice().forEach((ref: R) => ref.close());
   }
 
   #getAfterAllClosed(): Subject<void> {
