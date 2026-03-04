@@ -16,7 +16,9 @@ export class SbbOverlayService extends SbbOverlayBaseService<
   protected containerType = SbbOverlayContainer;
   protected overlayRefConstructor = SbbOverlayRef;
 
-  public override open<T = unknown, R = unknown>(
+  // TODO(breaking-change): The default type for R should be `unknown`.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public override open<T = unknown, R = any>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     config?: SbbOverlayConfig<SbbOverlayContainer, SbbOverlay>,
   ): SbbOverlayRef<T, R> {
