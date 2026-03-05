@@ -10,6 +10,9 @@ export interface SbbAutocompleteType<T = string> {
   readonly triggerElement: HTMLInputElement | null | undefined;
   readonly isOpen: boolean;
   autoActiveFirstOption: boolean;
+  autoSelectActiveOption: boolean;
+  autoSelectActiveOptionOnBlur: boolean;
+  requireSelection: boolean;
   displayWith: ((value: T) => string) | null;
   beforeOpenOutput: OutputRef<Event>;
   openOutput: OutputRef<Event | undefined>;

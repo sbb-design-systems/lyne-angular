@@ -1,10 +1,11 @@
-import { Component, viewChild, viewChildren } from '@angular/core';
+import { Component, input, viewChild, viewChildren } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import { SbbOption } from '@sbb-esta/lyne-angular/option';
 
 import { SbbAutocomplete } from './autocomplete';
+import { SbbAutocompleteTrigger } from './autocomplete-trigger';
 import { SbbAutocompleteModule } from './autocomplete.module';
 
 describe('sbb-autocomplete', () => {
@@ -29,6 +30,31 @@ describe('sbb-autocomplete', () => {
       autocomplete.open();
 
       expect(autocomplete.isOpen).toBe(true);
+
+      const option1 = (fixture.nativeElement as HTMLElement).querySelector('sbb-option')!;
+      option1.click();
+
+      expect(component.control.value).toEqual('option1');
+      expect(autocomplete.isOpen).toBe(false);
+    });
+
+    it('should handle "requiredSelection" events', async () => {
+      const autocomplete = component.autocomplete();
+      const input = autocomplete.triggerElement!;
+      autocomplete.requireSelection = true;
+      fixture.detectChanges();
+
+      input.focus();
+      input.value = 'test';
+      input.dispatchEvent(new InputEvent('input'));
+
+      // Ensure the value is not updated
+      expect(autocomplete.requireSelection).toEqual(true);
+      expect(component.control.value).toEqual('');
+
+      input.dispatchEvent(new FocusEvent('blur'));
+      expect(input.value).toEqual('');
+      expect(component.control.value).toEqual('');
 
       const option1 = (fixture.nativeElement as HTMLElement).querySelector('sbb-option')!;
       option1.click();
@@ -213,16 +239,17 @@ describe('sbb-autocomplete', () => {
 @Component({
   template: `<sbb-form-field>
     <label for="input">Autocomplete</label>
-    <input id="input" [formControl]="control" />
-    <sbb-autocomplete>
+    <input id="input" [formControl]="control" [sbbAutocomplete]="auto" />
+    <sbb-autocomplete [requireSelection]="requiredSelection()" #auto="sbbAutocomplete">
       @for (opt of [1, 2, 3]; track opt) {
         <sbb-option value="option{{ opt }}">Option {{ opt }}</sbb-option>
       }
     </sbb-autocomplete>
   </sbb-form-field>`,
-  imports: [SbbFormField, SbbAutocomplete, SbbOption, ReactiveFormsModule],
+  imports: [SbbFormField, SbbAutocomplete, SbbOption, ReactiveFormsModule, SbbAutocompleteTrigger],
 })
 class TestComponent {
+  requiredSelection = input(false);
   autocomplete = viewChild.required(SbbAutocomplete);
   control = new FormControl('');
 }

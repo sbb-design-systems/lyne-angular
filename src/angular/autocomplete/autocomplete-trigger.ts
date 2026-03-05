@@ -20,6 +20,7 @@ import type { SbbAutocompleteType } from './autocomplete-type';
   host: {
     '(blur)': '_onTouched()',
     '(input)': '_handleInput($event)',
+    '(change)': '_handleChange($event)',
     '(inputAutocomplete)': '_handleSelected($event)',
   },
 })
@@ -97,8 +98,26 @@ export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor 
       value = value === '' ? null : parseFloat(value);
     }
 
-    this._onChange(value);
+    if (!this.#autocomplete?.requireSelection) {
+      this._onChange(value);
+    }
     this.#inputValue.next(target.value);
+  }
+
+  _handleChange(event: Event): void {
+    if (!this.#autocomplete?.requireSelection) {
+      return;
+    }
+
+    const target = event.target as HTMLInputElement;
+    let value: number | string | null = target.value;
+
+    // Based on `NumberValueAccessor` from forms.
+    if (target.type === 'number') {
+      value = value === '' ? null : parseFloat(value);
+    }
+
+    this._onChange(value);
   }
 
   _handleSelected(event: CustomEvent<{ option: SbbOptionBaseElement<T> }>): void {
