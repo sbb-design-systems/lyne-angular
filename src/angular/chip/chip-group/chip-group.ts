@@ -113,6 +113,17 @@ export class SbbChipGroup<T = string> extends SbbControlValueAccessorMixin(class
   }
 
   /**
+   * Whether to automatically add a chip when the input loses focus if there's a value.
+   */
+  @Input({ transform: booleanAttribute })
+  public set addOnBlur(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.addOnBlur = value));
+  }
+  public get addOnBlur(): boolean {
+    return this.#element.nativeElement.addOnBlur;
+  }
+
+  /**
    * Returns the form owner of this element.
    */
   public get form(): HTMLFormElement | null {

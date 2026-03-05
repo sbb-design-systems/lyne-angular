@@ -3,6 +3,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    // Due to a bug, vitest/globals are additionally also in this file than just in the spec tsconfig.
+    "types": ["vitest/globals"],
     "paths": {
       "@sbb-esta/lyne-angular": ["./dist/angular"],
       "@sbb-esta/lyne-angular/*": ["./dist/angular/*"],

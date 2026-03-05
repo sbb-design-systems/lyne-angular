@@ -1,8 +1,8 @@
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
-import type { CdkColumnDef } from '@angular/cdk/table';
+import { CdkColumnDef } from '@angular/cdk/table';
 import { NgClass } from '@angular/common';
-import type { AfterViewInit, InjectionToken, OnDestroy, OnInit } from '@angular/core';
+import type { AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 import {
   booleanAttribute,
   ChangeDetectionStrategy,
@@ -46,7 +46,11 @@ export interface SbbArrowViewStateTransition {
   toState?: SbbArrowViewState;
 }
 
-/** Column definition associated with a `SbbSortHeader`. */
+/**
+ * Column definition associated with a `SbbSortHeader`.
+ * @deprecated
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface SbbSortHeaderColumnDef {
   name: string;
 }
@@ -144,17 +148,7 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
   #changeDetectorRef = inject(ChangeDetectorRef);
   #sort = inject(SbbSort, { optional: true });
 
-  // Note that we use a string token for the `_columnDef`, because the value is provided both by
-  // `angular/table` and `cdk/table` and we can't have the CDK depending on Lyne Angular,
-  // and we want to avoid having the sort header depending on the CDK table because
-  // of this single reference.
-  #columnDef = inject(
-    'SBB_SORT_HEADER_COLUMN_DEF' as unknown as InjectionToken<SbbSortHeaderColumnDef>,
-    {
-      optional: true,
-    },
-  );
-  #columnDefCdk = inject('MAT_SORT_HEADER_COLUMN_DEF' as unknown as InjectionToken<CdkColumnDef>, {
+  #columnDef = inject(CdkColumnDef, {
     optional: true,
   });
   #focusMonitor = inject(FocusMonitor);
@@ -178,8 +172,6 @@ export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewI
   ngOnInit() {
     if (!this.id && this.#columnDef) {
       this.id = this.#columnDef.name;
-    } else if (!this.id && this.#columnDefCdk) {
-      this.id = this.#columnDefCdk.name;
     }
 
     // Initialize the direction of the arrow and set the view state to be immediately that state.

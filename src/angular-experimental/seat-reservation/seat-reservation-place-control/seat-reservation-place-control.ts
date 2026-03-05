@@ -14,6 +14,7 @@ import type {
   PlaceSelection,
   PlaceState,
   PlaceType,
+  TravelDirection,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 import { fromEvent } from 'rxjs';
 
@@ -118,6 +119,28 @@ export class SbbSeatReservationPlaceControl {
   }
   public get deckIndex(): number {
     return this.#element.nativeElement.deckIndex;
+  }
+
+  /**
+   * direction of a whole train, used to compute an orientation of a place
+   */
+  @Input()
+  public set travelDirection(value: TravelDirection) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.travelDirection = value));
+  }
+  public get travelDirection(): TravelDirection {
+    return this.#element.nativeElement.travelDirection;
+  }
+
+  /**
+   * Disable the mouse over title information
+   */
+  @Input({ transform: booleanAttribute })
+  public set showTitleInfo(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.showTitleInfo = value));
+  }
+  public get showTitleInfo(): boolean {
+    return this.#element.nativeElement.showTitleInfo;
   }
 
   /**

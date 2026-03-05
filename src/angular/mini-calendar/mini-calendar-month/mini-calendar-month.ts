@@ -19,7 +19,7 @@ export class SbbMiniCalendarMonth<T = Date> {
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Date as ISO string (YYYY-MM-DD)
+   * Date as ISO string (YYYY-MM)
    */
   @Input()
   public set date(value: string) {

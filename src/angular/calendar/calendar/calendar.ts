@@ -1,13 +1,19 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { CalendarView, SbbCalendarElement } from '@sbb-esta/lyne-elements/calendar.js';
-import { fromEvent } from 'rxjs';
+import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
+import type {
+  SbbCalendarElement,
+  SbbMonthChangeEvent,
+  CalendarView,
+} from '@sbb-esta/lyne-elements/calendar/calendar.js';
+import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/calendar.js';
+import '@sbb-esta/lyne-elements/calendar/calendar.js';
 
 /**
  * It displays a calendar which allows choosing a date.
+ *
+ * @slot  - Use the unnamed slot to add customized `sbb-calendar-day` elements.
  */
 @Directive({
   selector: 'sbb-calendar',
@@ -131,5 +137,15 @@ export class SbbCalendar<T = Date> {
   public dateSelectedOutput: OutputRef<CustomEvent<T[] | T>> = outputFromObservable(
     fromEvent<CustomEvent<T | T[]>>(this.#element.nativeElement, 'dateselected'),
     { alias: 'dateSelected' },
+  );
+
+  protected _monthchangeOutput: OutputRef<SbbMonthChangeEvent> =
+    outputFromObservable<SbbMonthChangeEvent>(NEVER, { alias: 'monthchange' });
+  /**
+   * Emits when the month changes.
+   * The `range` property contains the days array of the chosen month.
+   */
+  public monthchangeOutput: OutputRef<SbbMonthChangeEvent> = internalOutputFromObservable(
+    fromEvent<SbbMonthChangeEvent>(this.#element.nativeElement, 'monthchange'),
   );
 }

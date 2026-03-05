@@ -3,7 +3,6 @@ import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import {
   Component,
-  DestroyRef,
   Directive,
   inject,
   Injector,
@@ -43,7 +42,7 @@ describe('sbb-dialog', () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [ServiceTestComponent, SbbDummyComponent, TestComponent],
-        providers: [{ provide: Location, useClass: SpyLocation }, SbbDialogService, DestroyRef],
+        providers: [{ provide: Location, useClass: SpyLocation }, SbbDialogService],
       }).compileComponents();
 
       fixture = TestBed.createComponent(ServiceTestComponent);
@@ -173,6 +172,30 @@ describe('sbb-dialog', () => {
       await fixture.whenRenderingDone();
 
       expect(overlayContainerElement.children.length).toBe(1);
+    });
+
+    it('should close all when calling closeAll', async () => {
+      const afterCloseSpy1 = vi.fn();
+      const afterCloseSpy2 = vi.fn();
+
+      const ref1 = service.open(SbbDummyComponent);
+      const ref2 = service.open(SbbDummyComponent);
+
+      ref1.afterClosed.subscribe(afterCloseSpy1);
+      ref2.afterClosed.subscribe(afterCloseSpy2);
+
+      expect(overlayContainerElement.children.length).toBe(2);
+      expect(
+        Array.from(overlayContainerElement.querySelectorAll('sbb-dialog')).every(
+          (dialog) => dialog.isOpen,
+        ),
+      ).toBe(true);
+
+      service.closeAll();
+
+      expect(afterCloseSpy1).toHaveBeenCalled();
+      expect(afterCloseSpy2).toHaveBeenCalled();
+      expect(overlayContainerElement.children.length).toBe(0);
     });
   });
 });

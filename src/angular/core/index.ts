@@ -1,3 +1,5 @@
+export * from './datetime/provide-native-date-adapter';
+export * from './datetime/provide-temporal-date-adapter';
 export * from './attribute-transform';
 export * from './control-value-accessor-mixin';
 export * from './deferred-animation';

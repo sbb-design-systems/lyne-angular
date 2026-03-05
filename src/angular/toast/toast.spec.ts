@@ -175,6 +175,28 @@ describe('sbb-toast', () => {
       fixture.detectChanges();
       expect(spy).toHaveBeenCalled();
     });
+
+    it('should close all when calling closeAll', async () => {
+      const afterCloseSpy1 = vi.fn();
+
+      service.open(SbbDummyComponent);
+      // The first toast is closed, when the second one is opened
+      const ref1 = service.open(SbbDummyComponent);
+
+      ref1.afterClosed.subscribe(afterCloseSpy1);
+
+      expect(overlayContainerElement.children.length).toBe(1);
+      expect(
+        Array.from(overlayContainerElement.querySelectorAll('sbb-toast')).every(
+          (toast) => toast.isOpen,
+        ),
+      ).toBe(true);
+
+      service.closeAll();
+
+      expect(afterCloseSpy1).toHaveBeenCalled();
+      expect(overlayContainerElement.children.length).toBe(0);
+    });
   });
 });
 
