@@ -1,5 +1,16 @@
 # Changelog
 
+## [21.4.1](https://github.com/sbb-design-systems/lyne-angular/compare/v21.4.0...v21.4.1) (2026-03-07)
+
+
+### Bug Fixes
+
+* **deps:** update angular to v21.2.1 ([61b483c](https://github.com/sbb-design-systems/lyne-angular/commit/61b483c92bfbb15d5e7cb21cbda2946d104a7a17))
+* **deps:** update angular to v21.2.1 ([746deec](https://github.com/sbb-design-systems/lyne-angular/commit/746deec634c890e56f5b8fd39498536f149e857d))
+* **overlay-services:** fix closeAll functionality ([#305](https://github.com/sbb-design-systems/lyne-angular/issues/305)) ([dc6f8a4](https://github.com/sbb-design-systems/lyne-angular/commit/dc6f8a46088ec66475d83decaa03ea3a11fb4428))
+* **overlay-services:** weaken close event type ([#308](https://github.com/sbb-design-systems/lyne-angular/issues/308)) ([2043859](https://github.com/sbb-design-systems/lyne-angular/commit/204385901e097b6c953a76b739e392fa3a147175))
+* **sbb-autocomplete:** fix 'valueChange' when 'requireSelection' is enabled ([#306](https://github.com/sbb-design-systems/lyne-angular/issues/306)) ([d5a759b](https://github.com/sbb-design-systems/lyne-angular/commit/d5a759b5d5c83809b3550ecf4bfa5ca947d7765a))
+
 ## [21.4.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.3.3...v21.4.0) (2026-03-03)
 
 
