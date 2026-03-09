@@ -7180,10 +7180,10 @@ map-stream@0.0.7:
   resolved "https://registry.yarnpkg.com/map-stream/-/map-stream-0.0.7.tgz#8a1f07896d82b10926bd3744a2420009f88974a8"
   integrity sha512-C0X0KQmGm3N2ftbTGBhSyuydQ+vV1LC3f3zPvT3RXHXNZrvfPZcoXp/N5DOa8vedX/rTMm2CjTtivFg2STJMRQ==
 
-marked-highlight@2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/marked-highlight/-/marked-highlight-2.2.2.tgz#2ed092581225a16b16ef9bee7099e66612b6d8b3"
-  integrity sha512-KlHOP31DatbtPPXPaI8nx1KTrG3EW0Z5zewCwpUj65swbtKOTStteK3sNAjBqV75Pgo3fNEVNHeptg18mDuWgw==
+marked-highlight@2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/marked-highlight/-/marked-highlight-2.2.3.tgz#e7e5e7ccfb1699356c3a45d851db8fe983689172"
+  integrity sha512-FCfZRxW/msZAiasCML4isYpxyQWKEEx44vOgdn5Kloae+Qc3q4XR7WjpKKf8oMLk7JP9ZCRd2vhtclJFdwxlWQ==
 
 marked@16.4.2:
   version "16.4.2"
