@@ -24,7 +24,6 @@ export const TEMPLATE_FILES = [
   '.stackblitzrc',
   'angular.json',
   'package.json',
-  'yarn.lock',
   'tsconfig.app.json',
   'tsconfig.json',
   'src/favicon.ico',
