@@ -4,12 +4,12 @@ import { basename, dirname, join, normalize, relative } from 'path';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const documentation = JSON.parse(readFileSync(join(root, `/src/docs/documentation.json`), 'utf8'));
+const modulesWithLegacySubmodules = ['checkbox', 'link-list', 'radio-button'];
 
 /**
  * The configuration object used to merge different `api` files in a single one for the angular project.
  */
 const mergeConfigAngular = {
-  accordion: ['accordion', 'expansion-panel', 'expansion-panel-header', 'expansion-panel-content'],
   alert: ['alert', 'alert-group'],
   breadcrumb: ['breadcrumb', 'breadcrumb-group'],
   button: [
@@ -30,16 +30,15 @@ const mergeConfigAngular = {
   ],
   card: ['card', 'card-button', 'card-link', 'card-badge'],
   carousel: ['carousel', 'carousel-list', 'carousel-item'],
-  checkbox: ['checkbox', 'checkbox-group', 'checkbox-panel'],
   chip: ['chip', 'chip-group'],
   container: ['container', 'sticky-bar'],
   datepicker: ['datepicker', 'datepicker-toggle', 'datepicker-previous-day', 'datepicker-next-day'],
   dialog: ['dialog', 'dialog-title', 'dialog-content', 'dialog-actions', 'dialog-close-button'],
+  'expansion-panel': ['expansion-panel', 'expansion-panel-header', 'expansion-panel-content'],
   'file-selector': ['file-selector', 'file-selector-dropzone'],
   'flip-card': ['flip-card', 'flip-card-summary', 'flip-card-details'],
   'form-field': ['form-field', 'form-field-clear', 'error'],
   header: ['header', 'header-button', 'header-link', 'header-environment'],
-  'link-list': ['link-list', 'link-list-anchor'],
   link: [
     'link',
     'link-button',
@@ -60,7 +59,6 @@ const mergeConfigAngular = {
   ],
   option: ['option', 'optgroup', 'option-hint'],
   paginator: ['paginator', 'compact-paginator'],
-  'radio-button': ['radio-button', 'radio-button-group', 'radio-button-panel'],
   sidebar: [
     'sidebar',
     'sidebar-container',
@@ -155,7 +153,10 @@ const scanFoldersAndWriteFiles = (projectPath: string, apiFolder: string) => {
   const subFolders = folders.filter((e) => e.isDirectory());
 
   // Inner folder reached
-  if (subFolders.length === 0) {
+  if (
+    subFolders.length === 0 ||
+    modulesWithLegacySubmodules.some((m) => projectPath.endsWith(`/${m}`))
+  ) {
     // Scan the documentation file and possibly create the docs file.
     const readmeContent = createReadmeAPI(relative(root, normalize(projectPath)));
     if (readmeContent) {

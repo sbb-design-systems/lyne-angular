@@ -17,7 +17,7 @@ import {
   SbbControlValueAccessorMixin,
 } from '@sbb-esta/lyne-angular/core';
 import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.js';
-import type { SbbCheckboxElement, SbbCheckboxSize  } from '@sbb-esta/lyne-elements/checkbox.js';
+import type { SbbCheckboxElement, SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
 import type { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { fromEvent, NEVER } from 'rxjs';
 

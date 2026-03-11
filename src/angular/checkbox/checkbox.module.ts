@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-
-import { SbbCheckboxGroup } from '../checkbox-group';
+import { SbbCheckboxGroup } from '@sbb-esta/lyne-angular/checkbox-group';
 
 import { SbbCheckbox } from './checkbox';
 

@@ -101,8 +101,21 @@ function mergeReadme(entry: GitTreeEntry) {
       }
     }
   }
-  writeFileSync(localPath, newContent, 'utf-8');
+  writeFileSync(localPath, newContent.trim() + '\n', 'utf-8');
 }
+
+/*
+TODO
+function convertHtmlExamples(content: string) {
+  if (!content.includes('```html')) {
+    return content;
+  }
+
+  return content.replace(/```html\n([\s\S]*?)```/g, (_, html) => {
+
+  });
+}
+*/
 
 interface Package {
   name: string;
