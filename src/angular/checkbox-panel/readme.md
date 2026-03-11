@@ -76,7 +76,5 @@ This component supports any types of values, including complex objects.
 The type can be specified using the generic type parameter `T` of `SbbCheckboxPanel<T>`.
 
 ```html
-<sbb-checkbox-panel [value]="{value: 'value', name: 'name'}" name="name"
-  >Checkbox Panel</sbb-checkbox-panel
->
+<sbb-checkbox-panel [value]="{value: 'value', name: 'name'}" name="name">Checkbox Panel</sbb-checkbox-panel>
 ```

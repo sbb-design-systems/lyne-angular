@@ -52,7 +52,9 @@ The optional property `horizontalFrom` can be used in combination with `orientat
 indicate the minimum breakpoint from which the orientation changes to `horizontal`.
 
 ```html
-<sbb-radio-button-group orientation="vertical" horizontalFrom="large"> ... </sbb-radio-button-group>
+<sbb-radio-button-group orientation="vertical" horizontalFrom="large">
+  ...
+</sbb-radio-button-group>
 ```
 
 ## Events
