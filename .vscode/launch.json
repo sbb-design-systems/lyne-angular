@@ -3,6 +3,14 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "merge readme",
+      "request": "launch",
+      "runtimeArgs": ["run", "merge-readme"],
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
       "name": "test:angular",
       "request": "launch",
       "runtimeArgs": ["run", "test:angular"],

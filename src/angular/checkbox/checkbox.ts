@@ -16,13 +16,12 @@ import {
   internalOutputFromObservable,
   SbbControlValueAccessorMixin,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
-import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkbox.js';
-import type { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
+import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.js';
+import type { SbbCheckboxElement, SbbCheckboxSize  } from '@sbb-esta/lyne-elements/checkbox.js';
 import type { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
+import '@sbb-esta/lyne-elements/checkbox.js';
 
 /**
  * It displays a checkbox enhanced with the SBB Design.

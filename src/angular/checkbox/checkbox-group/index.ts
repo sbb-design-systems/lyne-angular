@@ -1,1 +1,4 @@
-export * from './checkbox-group';
+export * from '../../checkbox-group';
+
+console.warn(`The entrypoint '@sbb-esta/angular/checkbox/checkbox-group' has been deprecated.
+Use '@sbb-esta/angular/checkbox-group' instead.`);

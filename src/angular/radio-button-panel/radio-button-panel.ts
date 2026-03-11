@@ -5,27 +5,32 @@ import {
   internalOutputFromObservable,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbRadioButtonElement } from '@sbb-esta/lyne-elements/radio-button/radio-button.js';
+import type { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button-panel.js';
 import type {
   SbbRadioButtonGroupElement,
   SbbRadioButtonSize,
 } from '@sbb-esta/lyne-elements/radio-button.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/radio-button/radio-button.js';
+import '@sbb-esta/lyne-elements/radio-button-panel.js';
 
 /**
- * It displays a radio button enhanced with the SBB Design.
+ * It displays a radio button enhanced with the panel design.
  *
  * @slot  - Use the unnamed slot to add content to the radio label.
+ * @slot subtext - Slot used to render a subtext under the label.
+ * @slot suffix - Slot used to render additional content after the label.
+ * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  */
 @Directive({
-  selector: 'sbb-radio-button',
-  exportAs: 'sbbRadioButton',
+  selector: 'sbb-radio-button-panel',
+  exportAs: 'sbbRadioButtonPanel',
   hostDirectives: [SbbDeferredAnimation],
 })
-export class SbbRadioButton<T = string> {
-  #element: ElementRef<SbbRadioButtonElement<T>> = inject(ElementRef<SbbRadioButtonElement<T>>);
+export class SbbRadioButtonPanel<T = string> {
+  #element: ElementRef<SbbRadioButtonPanelElement<T>> = inject(
+    ElementRef<SbbRadioButtonPanelElement<T>>,
+  );
   #ngZone: NgZone = inject(NgZone);
 
   /**
@@ -37,6 +42,28 @@ export class SbbRadioButton<T = string> {
   }
   public get size(): SbbRadioButtonSize {
     return this.#element.nativeElement.size;
+  }
+
+  /**
+   * The background color of the panel.
+   */
+  @Input()
+  public set color(value: 'white' | 'milk') {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.color = value));
+  }
+  public get color(): 'white' | 'milk' {
+    return this.#element.nativeElement.color;
+  }
+
+  /**
+   * Whether the unselected panel has a border.
+   */
+  @Input({ transform: booleanAttribute })
+  public set borderless(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.borderless = value));
+  }
+  public get borderless(): boolean {
+    return this.#element.nativeElement.borderless;
   }
 
   /**

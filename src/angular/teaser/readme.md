@@ -1,3 +1,70 @@
-## sbb-teaser
+The `<sbb-teaser>` is a component which can display an image with a caption, and it behaves like a link on user interaction.
 
-WIP
+Simple teaser example:
+
+```html
+<sbb-teaser href="https://www.sbb.ch">
+  <img slot="image" src="..." alt="400x300" />
+  <sbb-chip-label>Chip label</sbb-chip-label>
+  <sbb-title level="2">Title</sbb-title>
+  A brief description.
+</sbb-teaser>
+```
+
+## Slots
+
+The default slot is reserved for the description and,
+optionally, a [sbb-title](/docs/elements-title--docs) and a [sbb-chip-label](/docs/elements-chip-label--docs).
+The component displays the `image` with the self-named slot.
+
+Use the `image` slot to pass a `figure` containing an `<sbb-image>` or an `img` that will be used as background.
+Optionally, you can add an overlapping `<sbb-chip-label>` to the slotted `figure` (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
+
+```html
+<sbb-teaser href="https://www.sbb.ch">
+  <figure slot="image" class="sbb-figure">
+    <img src="..." alt="400x300" />
+    <sbb-chip-label class="sbb-figure-overlap-start-start">AI Generated</sbb-chip-label>
+  </figure>
+  <sbb-chip-label>Chip label</sbb-chip-label>
+  <sbb-title level="2">Title</sbb-title>
+  A brief description.
+</sbb-teaser>
+```
+
+## Style
+
+Using the `alignment` property, it is possible to change the text position respect to the image.
+Possible values are `after-centered` (default), `after` and `below`.
+
+```html
+<sbb-teaser href="https://www.sbb.ch" alignment="below"> ... </sbb-teaser>
+```
+
+By default, the image dimensions are set using the width and the aspect ratio.
+Default values are `300px` and `4/3`. Consumers can change these values on their slotted image element.
+
+### Flexible Layouts
+
+If using the teaser in a flexible layout like CSS grid or flex together with `alignment=below`,
+the CSS variable `--sbb-teaser-align-items` with `stretch` as value can be used
+to achieve the image width taking the full available space. On the image itself, the width must be set to `100%`.
+
+```html
+<div style="display: grid; gap: 1rem; grid-template-rows: repeat(2, 1fr)">
+  <sbb-teaser style="--sbb-teaser-align-items: stretch" href="https://www.sbb.ch" alignment="below">
+    <sbb-image style="width: 100%;" slot="image" image-src="..." alt="description"></sbb-image>
+    ...
+  </sbb-teaser>
+  <sbb-teaser style="--sbb-teaser-align-items: stretch" href="https://www.sbb.ch" alignment="below">
+    <sbb-image style="width: 100%;" slot="image" image-src="..." alt="description"></sbb-image>
+    ...
+  </sbb-teaser>
+</div>
+```
+
+## Accessibility
+
+It's important to set the `accessibilityLabel` on the `<sbb-teaser>`, which describes the `<sbb-teaser>` for screen-reader users.
+
+The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
