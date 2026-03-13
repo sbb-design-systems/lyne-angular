@@ -5,8 +5,8 @@ import {
   internalOutputFromObservable,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
-import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
+import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.js';
+import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox-panel.js';
 import type {
   SbbRadioButtonGroupElement,
   SbbRadioButtonPanelElement,

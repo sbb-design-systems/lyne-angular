@@ -1,3 +1,50 @@
-## sbb-pearl-chain-time
+The `<sbb-pearl-chain-time>` component adds an optional walk icon and a duration in minutes
+before and/or after the [sbb-pearl-chain](/docs/experimental-sbb-pearl-chain--docs).
 
-WIP
+The walk time indicates that the user has to walk to get to the destination, or to the station to begin the journey.
+
+The `legs` property is mandatory.
+
+```json
+[
+  {
+    "__typename": "PTRideLeg",
+    "arrival": {
+      "time": "2022-12-11T12:13:00+01:00"
+    },
+    "departure": {
+      "time": "2022-12-07T12:11:00+01:00"
+    },
+    "serviceJourney": {
+      "serviceAlteration": {
+        "cancelled": false,
+        "delayText": "string",
+        "reachable": true,
+        "unplannedStopPointsText": ""
+      },
+      "notices": [
+        {
+          "name": "CI",
+          "text": {
+            "template": "Extended boarding time (45')"
+          }
+        }
+      ]
+    }
+  }
+]
+```
+
+```html
+<sbb-pearl-chain-time
+  legs="{legs}"
+  departureTime="20:30"
+  arrivalTime="21:30"
+  departureWalk="5"
+  arrivalWalk="3"
+></sbb-pearl-chain-time>
+```
+
+To simulate the current datetime, you can use the `now` property,
+which accepts a `Date` or a timestamp in milliseconds (as number or string).
+This is helpful if you need a specific state of the component.

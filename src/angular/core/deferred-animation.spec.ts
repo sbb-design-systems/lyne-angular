@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { SbbCheckboxPanel } from '@sbb-esta/lyne-angular/checkbox/checkbox-panel';
-import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
+import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox-panel.js';
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 
 // We test the deferred animation directive on the checkbox panel component

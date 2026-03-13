@@ -11,7 +11,7 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button/radio-button-group.js';
+import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.js';
 import type {
   SbbRadioButtonElement,
   SbbRadioButtonPanelElement,
@@ -19,7 +19,7 @@ import type {
 } from '@sbb-esta/lyne-elements/radio-button.js';
 import { fromEvent } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/radio-button/radio-button-group.js';
+import '@sbb-esta/lyne-elements/radio-button-group.js';
 
 /**
  * It can be used as a container for one or more `sbb-radio-button`.
@@ -93,7 +93,7 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
   }
 
   /**
-   * Overrides the behaviour of `orientation` property.
+   * Overrides the behavior of `orientation` property.
    */
   @Input()
   public set horizontalFrom(value: SbbHorizontalFrom | null) {

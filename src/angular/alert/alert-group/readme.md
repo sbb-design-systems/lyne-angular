@@ -1,3 +1,0 @@
-## sbb-alert-group
-
-WIP

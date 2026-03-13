@@ -1,7 +1,7 @@
 import { Component, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkbox.js';
+import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox.js';
 
 import { SbbCheckbox } from './checkbox';
 

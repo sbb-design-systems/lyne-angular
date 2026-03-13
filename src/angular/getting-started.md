@@ -1,8 +1,3 @@
-> ⓘ This document only focuses on the Angular wrapper. The stories of the components in this Storybook are very minimal.
->
-> Please check the [Storybook of Lyne Components](https://lyne-storybook.app.sbb.ch) and
-> [digital.sbb.ch](https://digital.sbb.ch) for full component documentation and getting started guide.
-
 # Getting Started
 
 > ⓘ For simple testing and reproductions, see [Stackblitz starter for @sbb-esta/lyne-angular](https://stackblitz.com/edit/lyne-angular-starter?file=src%2Fmain.ts).

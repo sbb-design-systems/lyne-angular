@@ -1,92 +1,84 @@
-import { FocusMonitor } from '@angular/cdk/a11y';
-import {
-  type AfterViewInit,
-  Directive,
-  ElementRef,
-  forwardRef,
-  inject,
-  Input,
-  NgZone,
-  type OutputRef,
-} from '@angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
   booleanAttribute,
   internalOutputFromObservable,
-  SbbControlValueAccessorMixin,
+  SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
-import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkbox.js';
-import type { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
-import type { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button-panel.js';
+import type {
+  SbbRadioButtonGroupElement,
+  SbbRadioButtonSize,
+} from '@sbb-esta/lyne-elements/radio-button.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
+import '@sbb-esta/lyne-elements/radio-button-panel.js';
 
 /**
- * It displays a checkbox enhanced with the SBB Design.
+ * It displays a radio button enhanced with the panel design.
  *
- * @slot  - Use the unnamed slot to add content to the `sbb-checkbox`.
- * @slot icon - Slot used to render the checkbox icon (disabled inside a selection panel).
+ * @slot  - Use the unnamed slot to add content to the radio label.
+ * @slot subtext - Slot used to render a subtext under the label.
+ * @slot suffix - Slot used to render additional content after the label.
+ * @slot badge - Use this slot to provide a `sbb-card-badge` (optional).
  */
 @Directive({
-  selector: 'sbb-checkbox',
-  exportAs: 'sbbCheckbox',
-  host: {
-    '(change)': 'this.onChangeFn(this.checked)',
-  },
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SbbCheckbox),
-      multi: true,
-    },
-  ],
+  selector: 'sbb-radio-button-panel',
+  exportAs: 'sbbRadioButtonPanel',
+  hostDirectives: [SbbDeferredAnimation],
 })
-export class SbbCheckbox<T = string>
-  extends SbbControlValueAccessorMixin(class {})
-  implements AfterViewInit
-{
-  #element: ElementRef<SbbCheckboxElement<T>> = inject(ElementRef<SbbCheckboxElement<T>>);
+export class SbbRadioButtonPanel<T = string> {
+  #element: ElementRef<SbbRadioButtonPanelElement<T>> = inject(
+    ElementRef<SbbRadioButtonPanelElement<T>>,
+  );
   #ngZone: NgZone = inject(NgZone);
-  #focusMonitor = inject(FocusMonitor);
 
   /**
    * Size variant, either xs, s or m.
    */
   @Input()
-  public set size(value: SbbCheckboxSize) {
+  public set size(value: SbbRadioButtonSize) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbCheckboxSize {
+  public get size(): SbbRadioButtonSize {
     return this.#element.nativeElement.size;
   }
 
   /**
-   * The label position relative to the labelIcon. Defaults to end
+   * The background color of the panel.
    */
   @Input()
-  public set iconPlacement(value: SbbIconPlacement) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconPlacement = value));
+  public set color(value: 'white' | 'milk') {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.color = value));
   }
-  public get iconPlacement(): SbbIconPlacement {
-    return this.#element.nativeElement.iconPlacement;
+  public get color(): 'white' | 'milk' {
+    return this.#element.nativeElement.color;
   }
 
   /**
-   * Whether the checkbox is indeterminate.
+   * Whether the unselected panel has a border.
    */
   @Input({ transform: booleanAttribute })
-  public set indeterminate(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.indeterminate = value));
+  public set borderless(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.borderless = value));
   }
-  public get indeterminate(): boolean {
-    return this.#element.nativeElement.indeterminate;
+  public get borderless(): boolean {
+    return this.#element.nativeElement.borderless;
   }
 
   /**
-   * Whether the checkbox is checked.
+   * Whether the radio can be deselected.
+   */
+  @Input({ transform: booleanAttribute })
+  public set allowEmptySelection(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.allowEmptySelection = value));
+  }
+  public get allowEmptySelection(): boolean {
+    return this.#element.nativeElement.allowEmptySelection;
+  }
+
+  /**
+   * Whether the radio button is checked.
    */
   @Input({ transform: booleanAttribute })
   public set checked(value: boolean) {
@@ -130,7 +122,7 @@ export class SbbCheckbox<T = string>
   }
 
   /**
-   * Value of the form element.
+   * The value of the form element
    */
   @Input()
   public set value(value: T | null) {
@@ -141,22 +133,9 @@ export class SbbCheckbox<T = string>
   }
 
   /**
-   * The icon name we want to use, choose from the small icon variants
-   * from the ui-icons category from here
-   * https://icons.app.sbb.ch.
+   * Reference to the connected radio button group.
    */
-  @Input()
-  public set iconName(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconName = value));
-  }
-  public get iconName(): string {
-    return this.#element.nativeElement.iconName;
-  }
-
-  /**
-   * Reference to the connected checkbox group.
-   */
-  public get group(): SbbCheckboxGroupElement | null {
+  public get group(): SbbRadioButtonGroupElement | null {
     return this.#element.nativeElement.group;
   }
 
@@ -174,24 +153,12 @@ export class SbbCheckbox<T = string>
     return this.#element.nativeElement.form;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  override writeValue(value: any): void {
-    this.checked = !!value;
-  }
-
-  ngAfterViewInit() {
-    this.#focusMonitor.monitor(this.#element, true).subscribe((focusOrigin) => {
-      if (!focusOrigin) {
-        // When a focused element becomes disabled, the browser *immediately* fires a blur event.
-        // Angular does not expect events to be raised during change detection, so any state change
-        // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
-        // See https://github.com/angular/angular/issues/17793. To work around this, we defer
-        // telling the form control it has been touched until the next tick.
-        Promise.resolve().then(() => {
-          this.onTouchedFn();
-        });
-      }
-    });
+  /**
+   * Set the radio-button as 'checked'; if 'allowEmptySelection', toggle the checked property.
+   * In both cases it emits the change events.
+   */
+  public select(): void {
+    return this.#element.nativeElement.select();
   }
 
   /**
