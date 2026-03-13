@@ -146,10 +146,18 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
-"@angular-devkit/architect@0.2102.2", "@angular-devkit/architect@>= 0.2100.0 < 0.2200.0":
+"@angular-devkit/architect@0.2102.2":
   version "0.2102.2"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.2102.2.tgz#e7ac9605cc9b52582090dfcbe446de94a454de3c"
   integrity sha512-CDvFtXwyBtMRkTQnm+LfBNLL0yLV8ZGskrM1T6VkcGwXGFDott1FxUdj96ViodYsYL5fbJr0MNA6TlLcanV3kQ==
+  dependencies:
+    "@angular-devkit/core" "21.2.2"
+    rxjs "7.8.2"
+
+"@angular-devkit/architect@>= 0.2100.0 < 0.2200.0":
+  version "0.2102.1"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.2102.1.tgz#580bba6767a58283fcb1a3fd0246677edc714839"
+  integrity sha512-x2Qqz6oLYvEh9UBUG0AP1A4zROO/VP+k+zM9+4c2uZw1uqoBQFmutqgzncjVU7cR9R0RApgx9JRZHDFtQru68w==
   dependencies:
     "@angular-devkit/core" "21.2.2"
     rxjs "7.8.2"
@@ -248,6 +256,18 @@
     rxjs "7.8.2"
     source-map "0.7.6"
 
+"@angular-devkit/core@21.2.2":
+  version "21.2.2"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-21.2.2.tgz#9c1a138b20c27d73eb8b644446df99319f00ebc5"
+  integrity sha512-xUeKGe4BDQpkz0E6fnAPIJXE0y0nqtap0KhJIBhvN7xi3NenIzTmoi6T9Yv5OOBUdLZbOm4SOel8MhdXiIBpAQ==
+  dependencies:
+    ajv "8.18.0"
+    ajv-formats "3.0.1"
+    jsonc-parser "3.3.1"
+    picomatch "4.0.3"
+    rxjs "7.8.2"
+    source-map "0.7.6"
+
 "@angular-devkit/schematics@21.1.0":
   version "21.1.0"
   resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-21.1.0.tgz#b32352f45720c671d514ec067b444615ce9b610d"
@@ -259,10 +279,21 @@
     ora "9.0.0"
     rxjs "7.8.2"
 
-"@angular-devkit/schematics@21.2.2", "@angular-devkit/schematics@>= 21.0.0 < 22.0.0":
+"@angular-devkit/schematics@21.2.2":
   version "21.2.2"
   resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-21.2.2.tgz#c9895c6ff278949f057d87715c4c74b0aac77801"
   integrity sha512-CCeyQxGUq+oyGnHd7PfcYIVbj9pRnqjQq0rAojoAqs1BJdtInx9weLBCLy+AjM3NHePeZrnwm+wEVr8apED8kg==
+  dependencies:
+    "@angular-devkit/core" "21.2.2"
+    jsonc-parser "3.3.1"
+    magic-string "0.30.21"
+    ora "9.3.0"
+    rxjs "7.8.2"
+
+"@angular-devkit/schematics@>= 21.0.0 < 22.0.0":
+  version "21.2.1"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-21.2.1.tgz#da453125632113597540688fc8ef345d17d0b940"
+  integrity sha512-CWoamHaasAHMjHcYqxbj0tMnoXxdGotcAz2SpiuWtH28Lnf5xfbTaJn/lwdMP8Wdh4tgA+uYh2l45A5auCwmkw==
   dependencies:
     "@angular-devkit/core" "21.2.2"
     jsonc-parser "3.3.1"
@@ -8925,6 +8956,30 @@ rolldown@1.0.0-rc.9:
   version "1.0.0-rc.9"
   resolved "https://registry.yarnpkg.com/rolldown/-/rolldown-1.0.0-rc.9.tgz#5a0d3e194f2bcc7a134870b174042fcaed463689"
   integrity sha512-9EbgWge7ZH+yqb4d2EnELAntgPTWbfL8ajiTW+SyhJEC4qhBbkCKbqFV4Ge4zmu5ziQuVbWxb/XwLZ+RIO7E8Q==
+  dependencies:
+    "@oxc-project/types" "=0.115.0"
+    "@rolldown/pluginutils" "1.0.0-rc.9"
+  optionalDependencies:
+    "@rolldown/binding-android-arm64" "1.0.0-rc.9"
+    "@rolldown/binding-darwin-arm64" "1.0.0-rc.9"
+    "@rolldown/binding-darwin-x64" "1.0.0-rc.9"
+    "@rolldown/binding-freebsd-x64" "1.0.0-rc.9"
+    "@rolldown/binding-linux-arm-gnueabihf" "1.0.0-rc.9"
+    "@rolldown/binding-linux-arm64-gnu" "1.0.0-rc.9"
+    "@rolldown/binding-linux-arm64-musl" "1.0.0-rc.9"
+    "@rolldown/binding-linux-ppc64-gnu" "1.0.0-rc.9"
+    "@rolldown/binding-linux-s390x-gnu" "1.0.0-rc.9"
+    "@rolldown/binding-linux-x64-gnu" "1.0.0-rc.9"
+    "@rolldown/binding-linux-x64-musl" "1.0.0-rc.9"
+    "@rolldown/binding-openharmony-arm64" "1.0.0-rc.9"
+    "@rolldown/binding-wasm32-wasi" "1.0.0-rc.9"
+    "@rolldown/binding-win32-arm64-msvc" "1.0.0-rc.9"
+    "@rolldown/binding-win32-x64-msvc" "1.0.0-rc.9"
+
+rollup-plugin-dts@^6.2.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-dts/-/rollup-plugin-dts-6.3.0.tgz#9de66054358db8325c178f44b2be7e564e27f8d0"
+  integrity sha512-d0UrqxYd8KyZ6i3M2Nx7WOMy708qsV/7fTHMHxCMCBOAe3V/U7OMPu5GkX8hC+cmkHhzGnfeYongl1IgiooddA==
   dependencies:
     "@oxc-project/types" "=0.115.0"
     "@rolldown/pluginutils" "1.0.0-rc.9"
