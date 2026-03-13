@@ -66,5 +66,7 @@ This component supports any types of values, including complex objects.
 The type can be specified using the generic type parameter `T` of `SbbToggleCheck<T>`.
 
 ```html
-<sbb-toggle-check [value]="{value: 'value', name: 'name'}" name="name">Toggle Check</sbb-toggle-check>
+<sbb-toggle-check [value]="{value: 'value', name: 'name'}" name="name"
+  >Toggle Check</sbb-toggle-check
+>
 ```

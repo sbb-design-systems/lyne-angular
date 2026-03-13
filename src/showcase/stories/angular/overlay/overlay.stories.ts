@@ -6,7 +6,7 @@ import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import type { Args, Meta } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 
-import readme from './readme.md';
+const readme = '';
 
 const meta: Meta = {
   decorators: [

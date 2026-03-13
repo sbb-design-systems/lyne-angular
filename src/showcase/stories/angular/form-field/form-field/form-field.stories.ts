@@ -4,7 +4,7 @@ import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { withActions } from 'storybook/actions/decorator';
 import type { InputType, StoryContext } from 'storybook/internal/types';
 
-import readme from './readme.md';
+const readme = '';
 
 const inputStory = ({
   label,

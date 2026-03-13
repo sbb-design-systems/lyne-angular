@@ -66,13 +66,7 @@ if neither the trigger element nor the popover are on hover or if another action
 ```html
 <sbb-mini-button id="popover-trigger"></sbb-mini-button>
 
-<sbb-popover
-  id="popover"
-  trigger="popover-trigger"
-  hoverTrigger
-  openDelay="500"
-  closeDelay="750"
->
+<sbb-popover id="popover" trigger="popover-trigger" hoverTrigger openDelay="500" closeDelay="750">
   <sbb-title level="2" visualLevel="6" style="margin-block-start: 0">Popover Title.</sbb-title>
   <p id="popover-content">Popover content. <sbb-link id="popover-link">Link</sbb-link></p>
 </sbb-popover>

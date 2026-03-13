@@ -3,6 +3,8 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { format, resolveConfig } from 'prettier';
+
 if (process.env['CI']) {
   // We do not update the readmes in CI, as they cannot be committed back to the repository.
   process.exit(0);
@@ -56,7 +58,7 @@ const readmeEntries = tree.tree.filter(
 let changed = false;
 for (const entry of readmeEntries) {
   const result = await updateReadme(entry);
-  mergeReadme(entry);
+  await mergeReadme(entry);
   changed ||= result;
 }
 if (changed) {
@@ -84,7 +86,7 @@ async function updateReadme(entry: GitTreeEntry) {
   return false;
 }
 
-function mergeReadme(entry: GitTreeEntry) {
+async function mergeReadme(entry: GitTreeEntry) {
   const localPath = join(
     projectRoot,
     entry.path
@@ -113,7 +115,12 @@ function mergeReadme(entry: GitTreeEntry) {
     }
   }
   newContent = convertHtmlExamples(newContent);
-  writeFileSync(localPath, newContent.trim() + '\n', 'utf-8');
+  const options = await resolveConfig(localPath);
+  writeFileSync(
+    localPath,
+    await format(newContent.trim() + '\n', { ...options, filepath: localPath }),
+    'utf8',
+  );
 }
 
 function convertHtmlExamples(content: string) {

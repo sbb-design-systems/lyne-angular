@@ -32,11 +32,7 @@ or via custom content using the `icon` slot.
   Help
 </sbb-block-link>
 
-<sbb-block-link
-  href="https://www.sbb.ch"
-  iconName="chevron-small-left-small"
-  iconPlacement="start"
->
+<sbb-block-link href="https://www.sbb.ch" iconName="chevron-small-left-small" iconPlacement="start">
   Contact
 </sbb-block-link>
 ```
