@@ -67,5 +67,7 @@ This component supports any types of values, including complex objects.
 The type can be specified using the generic type parameter `T` of `SbbRadioButtonPanel<T>`.
 
 ```html
-<sbb-radio-button-panel .value=${{value: 'value', name: 'name'}} name="name">Option</sbb-radio-button-panel>
+<sbb-radio-button-panel [value]="{value: 'value', name: 'name'}" name="name"
+  >Option</sbb-radio-button-panel
+>
 ```

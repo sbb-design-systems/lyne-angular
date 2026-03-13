@@ -4,8 +4,8 @@ It is divided into the following components:
 ```html
 <sbb-train-formation>
   <sbb-train>
-    <sbb-wagon></sbb-wagon>
-    <sbb-blocked-passage></sbb-blocked-passage>
+    <sbb-train-wagon></sbb-train-wagon>
+    <sbb-train-blocked-passage></sbb-train-blocked-passage>
   </sbb-train>
 </sbb-train-formation>
 ```
@@ -23,15 +23,15 @@ It is divided into the following components:
 ```html
 <sbb-train-formation>
   <sbb-train
-    direction-label="Direction of travel"
+    directionLabel="Direction of travel"
     station="Bern"
     direction="left"
-    accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction"
+    accessibilityLabel="The top of the train is in Sector A. The train leaves the station in this direction"
   >
     <sbb-train-wagon
       sector="A"
       type="locomotive"
-      additional-accessibility-text="Top of the train"
+      additionalAccessibilityText="Top of the train"
     ></sbb-train-wagon>
     <sbb-train-wagon sector="A" type="closed"> </sbb-train-wagon>
     <sbb-train-blocked-passage></sbb-train-blocked-passage>
@@ -40,8 +40,8 @@ It is divided into the following components:
       type="wagon"
       label="38"
       occupancy="low"
-      wagon-class="1"
-      blocked-passage="previous"
+      wagonClass="1"
+      blockedPassage="previous"
     >
       <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
       <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
@@ -54,10 +54,10 @@ It is divided into the following components:
     ...
   </sbb-train>
   <sbb-train
-    direction-label="Direction of travel"
+    directionLabel="Direction of travel"
     station="Luzern"
     direction="left"
-    accessibility-label="The top of the train is in Sector E. The train leaves the station in this direction"
+    accessibilityLabel="The top of the train is in Sector E. The train leaves the station in this direction"
   >
     ...
   </sbb-train>
@@ -78,11 +78,11 @@ CSS variable `--sbb-train-formation-padding-inline` like `var(--sbb-spacing-fixe
 
 ```html
 <sbb-train
-  direction-label="driving direction"
-  direction-label-level="3"
+  directionLabel="driving direction"
+  directionLabelLevel="3"
   station="Genève-Aéroport"
   direction="left"
-  accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction"
+  accessibilityLabel="The top of the train is in Sector A. The train leaves the station in this direction"
 >
   ...
 </sbb-train>
@@ -120,7 +120,7 @@ it's also possible to display the wagon class at component's end using the `wago
 and a wagon number (property `label`) above the component.
 
 ```html
-<sbb-train-wagon type="wagon" label="38" occupancy="low" wagon-class="1"></sbb-train-wagon>
+<sbb-train-wagon type="wagon" label="38" occupancy="low" wagonClass="1"></sbb-train-wagon>
 ```
 
 **Note:**

@@ -94,7 +94,7 @@ weekday (e.g. `Th, 12.12.2024`).
 To prevent this, set the `weekday-style` attribute to `none`.
 
 ```html
-<sbb-date-input value="2024-12-12" weekday-style="none"></sbb-date-input>
+<sbb-date-input value="2024-12-12" weekdayStyle="none"></sbb-date-input>
 ```
 
 ## Events

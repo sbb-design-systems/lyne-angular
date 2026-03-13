@@ -12,11 +12,11 @@ using the `iconName` property or via custom content using the `icon` slot.
 The icon can be at the component start or end based on the value of the `labelPosition` property (default: `after`).
 
 ```html
-<sbb-toggle-check name="check" value="single-checkbox" icon-name="pie-small">
+<sbb-toggle-check name="check" value="single-checkbox" iconName="pie-small">
   Example
 </sbb-toggle-check>
 
-<sbb-toggle-check name="other" value="single-checkbox" icon-name="pie-small" label-position="start">
+<sbb-toggle-check name="other" value="single-checkbox" iconName="pie-small" labelPosition="start">
   Another example
 </sbb-toggle-check>
 ```
@@ -66,5 +66,7 @@ This component supports any types of values, including complex objects.
 The type can be specified using the generic type parameter `T` of `SbbToggleCheck<T>`.
 
 ```html
-<sbb-toggle-check .value=${{value: 'value', name: 'name'}} name="name">Toggle Check</sbb-toggle-check>
+<sbb-toggle-check [value]="{value: 'value', name: 'name'}" name="name"
+  >Toggle Check</sbb-toggle-check
+>
 ```

@@ -43,7 +43,7 @@ The component can be disabled by using the `disabled` property.
 
 ## Style
 
-The component's label can be displayed in bold using the `<sbb-text--bold>` class on a wrapper tag:
+The component's label can be displayed in bold using the `sbb-text--bold` class on a wrapper tag:
 
 ```html
 <sbb-checkbox-panel value="bold">
@@ -76,5 +76,7 @@ This component supports any types of values, including complex objects.
 The type can be specified using the generic type parameter `T` of `SbbCheckboxPanel<T>`.
 
 ```html
-<sbb-checkbox-panel .value=${{value: 'value', name: 'name'}} name="name">Checkbox Panel</sbb-checkbox-panel>
+<sbb-checkbox-panel [value]="{value: 'value', name: 'name'}" name="name"
+  >Checkbox Panel</sbb-checkbox-panel
+>
 ```

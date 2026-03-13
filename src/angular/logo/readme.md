@@ -22,5 +22,5 @@ The aspect ratio of the logo can be changed using the `protectiveRoom` property.
 Possible values are `ideal` (default), `minimal` and `none`.
 
 ```html
-<sbb-logo protective-room="minimal"></sbb-logo>
+<sbb-logo protectiveRoom="minimal"></sbb-logo>
 ```

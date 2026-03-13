@@ -9,9 +9,9 @@ The icon can be placed before or after the label based on the value of the `icon
 ```html
 <sbb-checkbox value="checkbox">Example</sbb-checkbox>
 
-<sbb-checkbox value="icon" icon-name="tickets-class-small">Icon</sbb-checkbox>
+<sbb-checkbox value="icon" iconName="tickets-class-small">Icon</sbb-checkbox>
 
-<sbb-checkbox value="start-icon" icon-name="tickets-class-small" icon-placement="start"
+<sbb-checkbox value="start-icon" iconName="tickets-class-small" iconPlacement="start"
   >Icon at start</sbb-checkbox
 >
 ```
@@ -51,7 +51,7 @@ The component has three possible `size` values, named `xs`, `s` and `m` (default
 <sbb-checkbox value="size" size="s">Size</sbb-checkbox>
 ```
 
-The component's label can be displayed in bold using the `<sbb-text--bold>` class on a wrapper tag:
+The component's label can be displayed in bold using the `sbb-text--bold` class on a wrapper tag:
 
 ```html
 <sbb-checkbox value="bold">
@@ -83,5 +83,5 @@ This component supports any types of values, including complex objects.
 The type can be specified using the generic type parameter `T` of `SbbCheckbox<T>`.
 
 ```html
-<sbb-checkbox .value=${{value: 'value', name: 'name'}} name="name">Checkbox</sbb-checkbox>
+<sbb-checkbox [value]="{value: 'value', name: 'name'}" name="name">Checkbox</sbb-checkbox>
 ```

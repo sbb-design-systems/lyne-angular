@@ -57,7 +57,7 @@ Consumers can customize or prevent this behavior by listening to the `chipinputt
 
 ```html
 <!-- Preventing the event will stop the chip-group from converting the input value into a chip -->
-<sbb-chip-group name="field-name" @chipinputtokenend="${(ev: Event) => ev.preventDefault()}">
+<sbb-chip-group name="field-name" (chipinputtokenend)="(event) => event.preventDefault()">
   ...
   <input />
 </sbb-chip-group>
@@ -67,10 +67,13 @@ Consumers can customize or prevent this behavior by listening to the `chipinputt
 <!-- Use the event.detail object to override the default behavior -->
 <sbb-chip-group
   name="field-name"
-  @chipinputtokenend=${(ev: CustomEvent<SbbChipInputTokenEndEventDetails>) => {
-    ev.detail.setValue(transformedValue);
-    ev.detail.setLabel('Custom label');
-  }}>
+  (chipinputtokenend)="(event) =>
+    { 
+      event.setValue(transformedValue); 
+      event.setLabel('Custom label');
+    }
+  "
+>
   ...
   <input />
 </sbb-chip-group>
@@ -121,7 +124,7 @@ By default, the `<sbb-chip-group>` creates a new chip on `Enter` key press.
 Consumers can customize the array of [keys](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#special_values) that will trigger the chip creation by using the `separatorKeys` property.
 
 ```html
-<sbb-chip-group name="field-name" separator-keys='["Enter", "Space"]'> ... </sbb-chip-group>
+<sbb-chip-group name="field-name" separatorKeys="['Enter', 'Space']"> ... </sbb-chip-group>
 ```
 
 ### Add on blur
@@ -132,7 +135,7 @@ Consumers can enable this behavior by setting the `addOnBlur` property to `true`
 When enabled, a chip will be automatically created from the input value when the input loses focus.
 
 ```html
-<sbb-chip-group add-on-blur> ... </sbb-chip-group>
+<sbb-chip-group addOnBlur> ... </sbb-chip-group>
 ```
 
 ## Complex Values
@@ -151,14 +154,14 @@ align with the type information.
   <label>Label</label>
   <sbb-chip-group
     name="chip-group-1"
-    .displayWith=${(value) => value.property}
-    .value=${[{property: 'Option 1', otherProp: 'test'}]}
+    [displayWith]="(value) => value.property"
+    [value]="[{property: 'Option 1', otherProp: 'test'}]"
   >
     <input placeholder="Placeholder" />
   </sbb-chip-group>
   <sbb-autocomplete>
-    <sbb-option .value=${{property: 'Option 3', otherProp: 'test'}}>Option 3</sbb-option>
-    <sbb-option .value=${{property: 'Option 4', otherProp: 'test'}}>Option 4</sbb-option>
+    <sbb-option [value]="{property: 'Option 3', otherProp: 'test'}">Option 3</sbb-option>
+    <sbb-option [value]="{property: 'Option 4', otherProp: 'test'}">Option 4</sbb-option>
   </sbb-autocomplete>
 </sbb-form-field>
 ```

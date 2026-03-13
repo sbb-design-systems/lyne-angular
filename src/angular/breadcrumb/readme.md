@@ -4,7 +4,7 @@ The `<sbb-breadcrumb>` is equivalent to a native [anchor (a)](https://developer.
 
 ```html
 <sbb-breadcrumb-group aria-label="You are here:">
-  <sbb-breadcrumb href="/" icon-name="house-small"></sbb-breadcrumb>
+  <sbb-breadcrumb href="/" iconName="house-small"></sbb-breadcrumb>
   <sbb-breadcrumb href="/work-with-us"> Work with us </sbb-breadcrumb>
   <sbb-breadcrumb href="/apply" target="_blank"> Apply </sbb-breadcrumb>
 </sbb-breadcrumb-group>
@@ -19,7 +19,7 @@ Text and icon are not exclusive and can be used together.
 ```html
 <sbb-breadcrumb href="/contact">Contact us</sbb-breadcrumb>
 
-<sbb-breadcrumb href="/book-your-trip" icon-name="travel-backpack-medium"></sbb-breadcrumb>
+<sbb-breadcrumb href="/book-your-trip" iconName="travel-backpack-medium"></sbb-breadcrumb>
 
 <sbb-breadcrumb href="/info">
   Info

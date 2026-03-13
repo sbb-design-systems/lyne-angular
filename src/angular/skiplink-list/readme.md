@@ -7,7 +7,7 @@ It has an optional `<sbb-title>` element, which is visually hidden too, but it's
 and it can be set using the `title-content` property.
 
 ```html
-<sbb-skiplink-list title-level="2" title-content="Title text">
+<sbb-skiplink-list titleLevel="2" titleContent="Title text">
   <sbb-block-link href="https://www.sbb.ch/">Content</sbb-block-link>
   <sbb-block-link href="https://www.sbb.ch/en/help-and-contact.html">Contact</sbb-block-link>
   ...

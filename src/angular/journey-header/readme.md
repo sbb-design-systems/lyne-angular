@@ -8,7 +8,7 @@ the icon is an arrow pointing to the `destination`, otherwise it is a double arr
 ```html
 <sbb-journey-header origin="Point A" destination="Point B"></sbb-journey-header>
 
-<sbb-journey-header origin="Point A" destination="Point B" round-trip></sbb-journey-header>
+<sbb-journey-header origin="Point A" destination="Point B" roundTrip></sbb-journey-header>
 ```
 
 ## Style
@@ -46,5 +46,5 @@ The following example will be read as (locale: ENG): `Connection from Point A to
 The following one will be read as (locale: ENG): `Connection from Point A to Point B and back to Point A.`.
 
 ```html
-<sbb-journey-header origin="Point A" destination="Point B" round-trip="true"></sbb-journey-header>
+<sbb-journey-header origin="Point A" destination="Point B" roundTrip="true"></sbb-journey-header>
 ```

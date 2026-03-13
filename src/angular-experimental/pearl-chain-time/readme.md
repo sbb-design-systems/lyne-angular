@@ -38,10 +38,10 @@ The `legs` property is mandatory.
 ```html
 <sbb-pearl-chain-time
   legs="{legs}"
-  departure-time="20:30"
-  arrival-time="21:30"
-  departure-walk="5"
-  arrival-walk="3"
+  departureTime="20:30"
+  arrivalTime="21:30"
+  departureWalk="5"
+  arrivalWalk="3"
 ></sbb-pearl-chain-time>
 ```
 

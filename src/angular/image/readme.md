@@ -4,7 +4,7 @@ Mainly from cdn.img.sbb.ch (with `imageSrc`), but we can set an external image t
 The size can be set with `pictureSizesConfig`.
 
 ```html
-<sbb-image image-src="..." alt="..."></sbb-image>
+<sbb-image imageSrc="..." alt="..."></sbb-image>
 ```
 
 ## Usage
@@ -36,7 +36,7 @@ You can place overlapping content by using the `sbb-figure-overlap-${horizontal-
 ```
 
 Instead of a `<sbb-chip-label>`, it's also possible to slot images (e.g. logos).
-In that case, the `<sbb-figure-overlap-image>` CSS class needs to be set on the image.
+In that case, the `sbb-figure-overlap-image` CSS class needs to be set on the image.
 
 ```html
 <figure class="sbb-figure">

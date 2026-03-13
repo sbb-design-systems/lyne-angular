@@ -19,9 +19,9 @@ With `panel` value, the component is displayed with a left padding, similar to t
 This is useful, for example, in the `<sbb-header>` with `size='s'`.
 
 ```html
-<sbb-signet protective-room="none"></sbb-signet>
+<sbb-signet protectiveRoom="none"></sbb-signet>
 
-<sbb-signet protective-room="minimal"></sbb-signet>
+<sbb-signet protectiveRoom="minimal"></sbb-signet>
 
-<sbb-signet protective-room="panel"></sbb-signet>
+<sbb-signet protectiveRoom="panel"></sbb-signet>
 ```

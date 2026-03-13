@@ -28,15 +28,11 @@ Block links can optionally display an icon, which can be provided via the `iconN
 or via custom content using the `icon` slot.
 
 ```html
-<sbb-block-link href="https://www.sbb.ch" icon-name="chevron-small-right-small">
+<sbb-block-link href="https://www.sbb.ch" iconName="chevron-small-right-small">
   Help
 </sbb-block-link>
 
-<sbb-block-link
-  href="https://www.sbb.ch"
-  icon-name="chevron-small-left-small"
-  icon-placement="start"
->
+<sbb-block-link href="https://www.sbb.ch" iconName="chevron-small-left-small" iconPlacement="start">
   Contact
 </sbb-block-link>
 ```
@@ -59,9 +55,9 @@ Block links have three sizes (`xs`, `s`, which is the default, and `m`).
 
 ### Active state
 
-To show a currently active link, the CSS class `<sbb-active>` can be placed on the `<sbb-block-link>`.
+To show a currently active link, the CSS class `sbb-active` can be placed on the `<sbb-block-link>`.
 One possible use case would be to use it within the `<sbb-sidebar>`.
 
 ```html
-<sbb-block-link class="sbb-active" accessibility-current="page">Refunds</sbb-block-link>
+<sbb-block-link class="sbb-active" accessibilityCurrent="page">Refunds</sbb-block-link>
 ```

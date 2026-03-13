@@ -9,7 +9,7 @@ or a [sbb-radio-button-panel](/docs/elements-radio-button-panel--docs) and an ac
   </sbb-radio-button-panel>
 
   <!-- action -->
-  <sbb-secondary-button icon-name="arrow-right-small">...</sbb-secondary-button>
+  <sbb-secondary-button iconName="arrow-right-small">...</sbb-secondary-button>
   <!-- or -->
   <button class="sbb-action">...</button>
 </sbb-selection-action-panel>
@@ -27,7 +27,7 @@ It is possible to combine the usage of the `<sbb-selection-action-panel>` and th
       <span slot="subtext">Subtext</span>
     </sbb-radio-button-panel>
 
-    <sbb-secondary-button icon-name="arrow-right-small">...</sbb-secondary-button>
+    <sbb-secondary-button iconName="arrow-right-small">...</sbb-secondary-button>
   </sbb-selection-action-panel>
 
   <!-- inner content -->
@@ -49,7 +49,7 @@ With `<sbb-radio-button-group>`:
       Value
       <span slot="subtext">Subtext</span>
     </sbb-radio-button-panel>
-    <sbb-secondary-button icon-name="arrow-right-small"></sbb-secondary-button>
+    <sbb-secondary-button iconName="arrow-right-small"></sbb-secondary-button>
     <sbb-card-badge>%</sbb-card-badge>
   </sbb-selection-action-panel>
   ...
@@ -65,7 +65,7 @@ With `<sbb-checkbox-group>`:
       Value
       <span slot="subtext">Subtext</span>
     </sbb-checkbox-panel>
-    <sbb-secondary-button icon-name="arrow-right-small"></sbb-secondary-button>
+    <sbb-secondary-button iconName="arrow-right-small"></sbb-secondary-button>
     <sbb-card-badge>%</sbb-card-badge>
   </sbb-selection-action-panel>
   ...

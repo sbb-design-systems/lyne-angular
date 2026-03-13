@@ -60,9 +60,9 @@ it will automatically connect to the native `<input>` as trigger and will displa
   <input placeholder="Trigger element" />
 
   <sbb-autocomplete>
-    <sbb-option icon-name="clock-small" value="Option 1"> Option 1 </sbb-option>
-    <sbb-option icon-name="clock-small" value="Option 2"> Option 2 </sbb-option>
-    <sbb-option icon-name="clock-small" value="Option 3"> Option 3 </sbb-option>
+    <sbb-option iconName="clock-small" value="Option 1"> Option 1 </sbb-option>
+    <sbb-option iconName="clock-small" value="Option 2"> Option 2 </sbb-option>
+    <sbb-option iconName="clock-small" value="Option 3"> Option 3 </sbb-option>
   </sbb-autocomplete>
 </sbb-form-field>
 ```
@@ -87,7 +87,7 @@ The displayed `<sbb-option>` can be collected into groups using `<sbb-optgroup>`
 
   <sbb-autocomplete>
     <sbb-optgroup label="Group 1">
-      <sbb-option icon-name="clock-small" value="Option 1"> Option 1 </sbb-option>
+      <sbb-option iconName="clock-small" value="Option 1"> Option 1 </sbb-option>
       ...
     </sbb-optgroup>
     <sbb-optgroup label="Group 2"> ... </sbb-optgroup>
@@ -109,7 +109,7 @@ The component has no `size` property but, when slotted in a `<sbb-form-field>`, 
 
 ### Ellipsis
 
-It's possible to truncate the label (apply ellipsis) of slotted `<sbb-option>` elements with the `<sbb-options-nowrap>` CSS class.
+It's possible to truncate the label (apply ellipsis) of slotted `<sbb-option>` elements with the `sbb-options-nowrap` CSS class.
 To select which elements should be affected, the consumer can set the class on either the `html` tag, the `<sbb-autocomplete>`, or the single `<sbb-option>`.
 
 ## Events
@@ -171,9 +171,9 @@ const values = [
 ```html
 <sbb-form-field>
   <input />
-  <sbb-autocomplete .displayWith="${(value) => value.name}">
-    <sbb-option .value="${values[0]}">Option 1</sbb-option>
-    <sbb-option .value="${values[1]}">Option 2</sbb-option>
+  <sbb-autocomplete [displayWith]="(value) => value.name">
+    <sbb-option [value]="values[0]">Option 1</sbb-option>
+    <sbb-option [value]="values[1]">Option 2</sbb-option>
   </sbb-autocomplete>
 </sbb-form-field>
 ```

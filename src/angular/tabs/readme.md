@@ -2,8 +2,8 @@ Tabs organize content into separate views where only one view is visible at a ti
 
 There are two variants available:
 
-- **[sbb-tab-group](#sbb-tab-group)**: For switching between different content blocks within the same view. Use this for content-based navigation.
-- **[sbb-tab-nav-bar](#sbb-tab-nav-bar)**: For navigation between routes using anchor links. Use this for page-level navigation.
+- **[<sbb-tab-group>](#sbb-tab-group)**: For switching between different content blocks within the same view. Use this for content-based navigation.
+- **[<sbb-tab-nav-bar>](#sbb-tab-nav-bar)**: For navigation between routes using anchor links. Use this for page-level navigation.
 
 ## sbb-tab-group
 
@@ -41,7 +41,7 @@ It's also possible to display a numeric amount at the component's end using the 
 The label's heading tag can be changed using the `level` property.
 
 ```html
-<sbb-tab-label icon-name="app-icon-small" amount="123"> Tab Label </sbb-tab-label>
+<sbb-tab-label iconName="app-icon-small" amount="123"> Tab Label </sbb-tab-label>
 
 <sbb-tab-label>
   <sbb-icon slot="icon" name="circle-information-small"></sbb-icon>
@@ -82,7 +82,7 @@ and set an explicit (or implicit) height on the element.
 This will make the tab content scrollable if it exceeds the available space.
 
 ```html
-<sbb-tab-group fixed-height style="height: 400px;">
+<sbb-tab-group fixedHeight style="height: 400px;">
   <sbb-tab-label>Tab 1</sbb-tab-label>
   <sbb-tab>Long content that may need scrolling...</sbb-tab>
 
@@ -103,7 +103,7 @@ Disabled tabs cannot be focused and may be invisible to assistive technologies s
 It's possible to set the first selected tab using the `initialSelectedIndex` property.
 
 ```html
-<sbb-tab-group initial-selected-index="1"> ... </sbb-tab-group>
+<sbb-tab-group initialSelectedIndex="1"> ... </sbb-tab-group>
 ```
 
 ## Events

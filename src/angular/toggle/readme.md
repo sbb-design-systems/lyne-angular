@@ -3,8 +3,8 @@ that can be selected by the user; it is useful for switching between views withi
 
 ```html
 <sbb-toggle value="Value 1">
-  <sbb-toggle-option value="Value 1" icon-name="arrow-right-small">Bern</sbb-toggle-option>
-  <sbb-toggle-option value="Value 2" icon-name="arrows-right-left-small">Zürich</sbb-toggle-option>
+  <sbb-toggle-option value="Value 1" iconName="arrow-right-small">Bern</sbb-toggle-option>
+  <sbb-toggle-option value="Value 2" iconName="arrows-right-left-small">Zürich</sbb-toggle-option>
 </sbb-toggle>
 ```
 
@@ -27,9 +27,9 @@ at the component start using the `iconName` property or via custom content using
 Text and icon are not exclusive and can be used together.
 
 ```html
-<sbb-toggle-option value="Value" icon-name="app-icon-small"></sbb-toggle-option>
+<sbb-toggle-option value="Value" iconName="app-icon-small"></sbb-toggle-option>
 
-<sbb-toggle-option value="Value" icon-name="app-icon-small">Option</sbb-toggle-option>
+<sbb-toggle-option value="Value" iconName="app-icon-small">Option</sbb-toggle-option>
 ```
 
 ## Complex Values
@@ -45,8 +45,8 @@ const values = [
 ```
 
 ```html
-<sbb-toggle .value="${values[0]}" name="name">
-  <sbb-toggle-option .value="${values[0]}">Option 1</sbb-toggle-option>
-  <sbb-toggle-option .value="${values[1]}">Option 2</sbb-toggle-option>
+<sbb-toggle [value]="values[0]" name="name">
+  <sbb-toggle-option [value]="values[0]">Option 1</sbb-toggle-option>
+  <sbb-toggle-option [value]="values[1]">Option 2</sbb-toggle-option>
 </sbb-toggle>
 ```

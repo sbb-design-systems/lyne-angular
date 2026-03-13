@@ -59,7 +59,7 @@ The optional property `horizontalFrom` can be used in combination with `orientat
 indicate the minimum breakpoint from which the orientation changes to `horizontal`.
 
 ```html
-<sbb-checkbox-group orientation="vertical" horizontal-from="large"> ... </sbb-checkbox-group>
+<sbb-checkbox-group orientation="vertical" horizontalFrom="large"> ... </sbb-checkbox-group>
 ```
 
 The component has a `size` property, which can be used to change the size

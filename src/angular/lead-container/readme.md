@@ -2,14 +2,14 @@ The `<sbb-lead-container>` can be used for product pages to display a lead image
 
 Please note that the gaps between elements inside the unnamed slot (main content) need to be controlled by the consumer.
 However, consumers can use the predefined classes
-(`<sbb-lead-container-lead-spacing>` and `<sbb-lead-container-lead-text>`) to achieve a correct spacing.
+(`sbb-lead-container-lead-spacing` and `sbb-lead-container-lead-text`) to achieve a correct spacing.
 
 As per design rules, the spacings are defined as following:
 
 ```html
 <sbb-alert-group></sbb-alert-group>
 <!-- var(--sbb-spacing-responsive-m) -->
-<sbb-breadcrump-group></sbb-breadcrump-group>
+<sbb-breadcrumb-group></sbb-breadcrumb-group>
 <!-- var(--sbb-spacing-4x) -->
 <sbb-block-link></sbb-block-link>
 <!-- var(--sbb-spacing-4x) -->
@@ -34,7 +34,7 @@ Full example with applied spacings (CSS classes) in content:
   </style>
   <sbb-image
     slot="image"
-    image-src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Bahnhof-Luzern.jpg"
+    imageSrc="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Bahnhof-Luzern.jpg"
     alt="Station of Lucerne from outside"
   ></sbb-image>
   <sbb-alert-group class="sbb-lead-container-spacing">
@@ -45,12 +45,12 @@ Full example with applied spacings (CSS classes) in content:
     </sbb-alert>
   </sbb-alert-group>
   <sbb-breadcrumb-group class="sbb-lead-container-spacing">
-    <sbb-breadcrumb href="#" icon-name="house-small" id="breadcrumb-0"></sbb-breadcrumb>
+    <sbb-breadcrumb href="#" iconName="house-small" id="breadcrumb-0"></sbb-breadcrumb>
     <sbb-breadcrumb href="#" id="breadcrumb-1">Level 1</sbb-breadcrumb>
   </sbb-breadcrumb-group>
   <sbb-block-link
-    icon-placement="start"
-    icon-name="chevron-small-left-small"
+    iconPlacement="start"
+    iconName="chevron-small-left-small"
     size="xs"
     href="https://www.sbb.ch"
     class="sbb-lead-container-spacing"
@@ -74,7 +74,7 @@ Optionally, you can add an overlapping `<sbb-chip-label>` by wrapping the `<sbb-
 <sbb-lead-container>
   <figure class="sbb-figure" slot="image">
     <sbb-image
-      image-src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Bahnhof-Luzern.jpg"
+      imageSrc="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Bahnhof-Luzern.jpg"
       alt="Station of Lucerne from outside"
     ></sbb-image>
     <sbb-chip-label class="sbb-figure-overlap-start-start">...</sbb-chip-label>

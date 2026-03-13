@@ -23,7 +23,7 @@ and is used as the `aria-labelledby` attribute of the `ul` element.
 The title can be set using the `titleContent` property or, alternatively, can be projected using the `title` slot.
 
 ```html
-<sbb-link-list title-content="Help &amp; Contact"> ... </sbb-link-list>
+<sbb-link-list titleContent="Help &amp; Contact"> ... </sbb-link-list>
 ```
 
 ## Style
@@ -53,7 +53,7 @@ to indicate the minimum breakpoint from which the orientation changes to `horizo
 The title will not be displayed in the horizontal orientation.
 
 ```html
-<sbb-link-list horizontal-from="large">
+<sbb-link-list horizontalFrom="large">
   <sbb-block-link
     href="https://www.sbb.ch/en/help-and-contact/refunds-compensation/ticket-refunds.html"
     >Refunds</sbb-block-link

@@ -8,7 +8,7 @@ or via custom content using the `icon` slot.
 ```html
 <sbb-option>Option label</sbb-option>
 
-<sbb-option icon-name="info">Option label</sbb-option>
+<sbb-option iconName="info">Option label</sbb-option>
 ```
 
 Like the native `option`, the component has a `value` property.

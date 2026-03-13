@@ -12,7 +12,7 @@ Use the `image` slot to pass an `<sbb-image>` or an `img` that will be used as b
 <sbb-teaser-hero href="https://www.sbb.ch">
   Break out and explore castles and palaces.
   <span slot="link-content">Find out more</span>
-  <sbb-image slot="image" image-src="https://path-to-source" alt="SBB CFF FFS Employee"></sbb-image>
+  <sbb-image slot="image" imageSrc="https://path-to-source" alt="SBB CFF FFS Employee"></sbb-image>
 </sbb-teaser-hero>
 ```
 
@@ -27,7 +27,7 @@ Otherwise, it stays behind the red panel.
   Break out and explore castles and palaces.
   <span slot="link-content">Find out more</span>
   <figure slot="image" class="sbb-figure">
-    <sbb-image image-src="https://path-to-source" alt="SBB CFF FFS Employee"></sbb-image>
+    <sbb-image imageSrc="https://path-to-source" alt="SBB CFF FFS Employee"></sbb-image>
     <sbb-chip-label class="sbb-figure-overlap-start-start" style="z-index: 1">
       Chip label
     </sbb-chip-label>

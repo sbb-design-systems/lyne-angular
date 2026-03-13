@@ -37,7 +37,7 @@ to wrap the header of each `<sbb-expansion-panel>` in a heading tag; if the prop
 In the following example, all the `<sbb-expansion-panel-header>` would be wrapped in a `h3` heading tag.
 
 ```html
-<sbb-accordion title-level="3">
+<sbb-accordion titleLevel="3">
   <sbb-expansion-panel>
     <sbb-expansion-panel-header>Header 1</sbb-expansion-panel-header>
     <sbb-expansion-panel-content>Content 1</sbb-expansion-panel-content>

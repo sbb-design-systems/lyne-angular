@@ -16,7 +16,7 @@ be provided.
 ```
 
 The component supports slotting the `<sbb-dialog-title>`, `<sbb-dialog-close-button>`, `<sbb-dialog-content>`
-and an `<sbb-dialog-actions>` elements for structuring the content of a dialog..
+and an `<sbb-dialog-actions>` elements for structuring the content of a dialog.
 
 ```html
 <sbb-dialog>
@@ -121,7 +121,7 @@ You can optionally pass a value to the directive, which will be returned as the 
 <sbb-button sbb-dialog-close="cancelled">Cancel</sbb-button>
 
 <!-- Close dialog with dynamic value -->
-<sbb-button [sbb-dialog-close]="data">Save</sbb-button>
+<sbb-button [sbbDialogClose]="data">Save</sbb-button>
 ```
 
 The passed value will be available through the `afterClosed` Observable:

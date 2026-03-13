@@ -6,7 +6,7 @@ If it has to include more than one interactive element, use the `<sbb-teaser-pro
 
 ```html
 <sbb-teaser-product href="...">
-  <sbb-image slot="image" image-src="..."></sbb-image>
+  <sbb-image slot="image" imageSrc="..."></sbb-image>
 
   <p class="sbb-teaser-product--spacing">Content ...</p>
 
@@ -27,7 +27,7 @@ like the `<sbb-title>` or an interactive element, like a button or a link (needs
 ```html
 <sbb-teaser-product href="...">
   <figure slot="image" class="sbb-figure">
-    <sbb-image image-src="..."></sbb-image>
+    <sbb-image imageSrc="..."></sbb-image>
     <sbb-chip-label class="sbb-figure-overlap-start-start">Chip label</sbb-chip-label>
   </figure>
 
@@ -35,12 +35,12 @@ like the `<sbb-title>` or an interactive element, like a button or a link (needs
 </sbb-teaser-product>
 ```
 
-If paragraphs, title and/or button are used, consumers can apply the helper class `<sbb-teaser-product--spacing>`
+If paragraphs, title and/or button are used, consumers can apply the helper class `sbb-teaser-product--spacing`
 to display the components with the correct spacings.
 
 ```html
 <sbb-teaser-product href="...">
-  <sbb-image slot="image" image-src="..."></sbb-image>
+  <sbb-image slot="image" imageSrc="..."></sbb-image>
   <sbb-title level="3" class="sbb-teaser-product--spacing">
     Benefit from up to 70% discount
   </sbb-title>
@@ -57,7 +57,7 @@ to display the components with the correct spacings.
 Use the `image-alignment` attribute to anchor the content `after` (on the left) or `before` (on the right).
 
 ```html
-<sbb-teaser-product image-alignment="before"> ... </sbb-teaser-product>
+<sbb-teaser-product imageAlignment="before"> ... </sbb-teaser-product>
 ```
 
 Add the `negative` attribute to enable the negative variant.

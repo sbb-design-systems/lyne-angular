@@ -6,7 +6,7 @@ The `<sbb-flip-card>` component displays an informative card that reveals more i
 <sbb-flip-card>
   <sbb-flip-card-summary>
     <sbb-title> Card Title </sbb-title>
-    <sbb-image slot="image" image-src="..." alt="..."></sbb-image>
+    <sbb-image slot="image" imageSrc="..." alt="..."></sbb-image>
   </sbb-flip-card-summary>
   <sbb-flip-card-details> Some additional text. </sbb-flip-card-details>
 </sbb-flip-card>
@@ -21,7 +21,7 @@ With the `<sbb-flip-card-summary>` you can optionally add an overlapping `<sbb-c
     ...
     <figure class="sbb-figure" slot="image">
       <sbb-image
-        image-src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Bahnhof-Luzern.jpg"
+        imageSrc="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Bahnhof-Luzern.jpg"
         alt="Station of Lucerne from outside"
       ></sbb-image>
       <sbb-chip-label class="sbb-figure-overlap-start-start">...</sbb-chip-label>
@@ -41,7 +41,7 @@ The `<sbb-flip-card>` component has a predefined minimum height that can be cust
   <sbb-flip-card>
     <sbb-flip-card-summary>
       <sbb-title> Card Title </sbb-title>
-      <sbb-image slot="image" image-src="..." alt="..."></sbb-image>
+      <sbb-image slot="image" imageSrc="..." alt="..."></sbb-image>
     </sbb-flip-card-summary>
     <sbb-flip-card-details> Some additional text. </sbb-flip-card-details>
   </sbb-flip-card>
@@ -49,7 +49,7 @@ The `<sbb-flip-card>` component has a predefined minimum height that can be cust
   <sbb-flip-card>
     <sbb-flip-card-summary>
       <sbb-title> Card Title </sbb-title>
-      <sbb-image slot="image" image-src="..." alt="..."></sbb-image>
+      <sbb-image slot="image" imageSrc="..." alt="..."></sbb-image>
     </sbb-flip-card-summary>
     <sbb-flip-card-details> Some additional text. </sbb-flip-card-details>
   </sbb-flip-card>

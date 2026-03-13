@@ -44,7 +44,7 @@ All button usages must either provide text content, an icon (for icon only) or b
 
 ```html
 <!-- Buttons with both icon and text -->
-<sbb-button icon-name="info">Button text</sbb-button>
+<sbb-button iconName="info">Button text</sbb-button>
 
 <sbb-button>
   <sbb-icon slot="icon" name="info"></sbb-icon>
@@ -52,7 +52,7 @@ All button usages must either provide text content, an icon (for icon only) or b
 </sbb-button>
 
 <!-- Buttons with only an icon -->
-<sbb-button icon-name="info" aria-label="Click for more information."></sbb-button>
+<sbb-button iconName="info" aria-label="Click for more information."></sbb-button>
 ```
 
 ## Style
@@ -84,12 +84,12 @@ The loading state will be animated after a delay of 300ms, which can be configur
 
 ```html
 <sbb-button
-  @click="${(e: PointerEvent) =>
+  (click)="(e: PointerEvent) =>
   { 
     const button = e.currentTarget as SbbButtonElement;
     button.loading = true;
     setTimeout(() => (button.loading = false), 4000); 
-  }}"
+  }"
 >
   Button
 </sbb-button>
@@ -129,11 +129,11 @@ The `<sbb-mini-button-group>` component displays a set of `<sbb-mini-button>`
 optionally separated by a [sbb-divider](/docs/elements-divider--docs).
 
 ```html
-<sbb-mini-button-group accessibility-label="My group">
-  <sbb-mini-button icon-name="..." aria-label="..."></sbb-mini-button>
-  <sbb-mini-button icon-name="..." aria-label="..."></sbb-mini-button>
+<sbb-mini-button-group accessibilityLabel="My group">
+  <sbb-mini-button iconName="..." aria-label="..."></sbb-mini-button>
+  <sbb-mini-button iconName="..." aria-label="..."></sbb-mini-button>
   <sbb-divider orientation="vertical"></sbb-divider>
-  <sbb-mini-button icon-name="..." aria-label="..."></sbb-mini-button>
+  <sbb-mini-button iconName="..." aria-label="..."></sbb-mini-button>
 </sbb-mini-button-group>
 ```
 

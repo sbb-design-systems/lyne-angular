@@ -14,7 +14,7 @@ and a `<sbb-carousel-list>`, which accepts one or more `<sbb-carousel-item>`.
     </sbb-carousel-item>
     <sbb-carousel-item>
       <sbb-image
-        image-src="../image.jpg"
+        imageSrc="../image.jpg"
         alt="SBB image"
         style="width: 800px; height: 600px;"
       ></sbb-image>

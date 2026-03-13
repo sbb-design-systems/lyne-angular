@@ -52,7 +52,7 @@ Error messages can be shown under the form field by adding `<sbb-error>` element
 The component will automatically assign them to the `slot='error'`.
 
 ```html
-<sbb-form-field floating-label>
+<sbb-form-field floatingLabel>
   <label>Example</label>
   <input required />
   <sbb-error>This field is required!</sbb-error>
@@ -92,7 +92,7 @@ Please note that only this component is correctly supported when slotting button
 <sbb-form-field>
   <label>Example</label>
   <input />
-  <sbb-mini-button slot="suffix" icon-name="pen-small"></sbb-mini-button>
+  <sbb-mini-button slot="suffix" iconName="pen-small"></sbb-mini-button>
 </sbb-form-field>
 ```
 
@@ -165,11 +165,11 @@ and is in an error state. This checks both for the native validity state (which 
 on `<input>`, `<select>` and `<textarea>` via validation attributes like `required` or
 via the `setCustomValidity(message)` method) and for the Angular Forms state classes.
 
-If you want to manually set the error state, you can add the `<sbb-invalid>` CSS class
+If you want to manually set the error state, you can add the `sbb-invalid` CSS class
 to the input element.
 
 If you want to directly show the error state without having had an interaction, you can use the
-`<sbb-show-errors>` class on an ancestor (e.g. `<form>`).
+`sbb-show-errors` class on an ancestor (e.g. `<form>`).
 
 ## Custom form control
 

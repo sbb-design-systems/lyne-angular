@@ -76,7 +76,7 @@ When using the `sbb-tooltip` attribute, you can configure the position by settin
 The value of the attribute is a comma-separated list of positions.
 
 ```html
-<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-position="block-end, block-start, inline-end"
+<sbb-button sbb-tooltip="Tooltip message" sbbTooltipPosition="block-end, block-start, inline-end"
   >Button</sbb-button
 >
 ```

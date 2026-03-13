@@ -17,7 +17,7 @@ is not allowed.
     <sbb-sidebar-close-button></sbb-sidebar-close-button>
     <sbb-link-list>
       <sbb-block-link href="#">Link 1</sbb-block-link>
-      <sbb-block-link href="#" class="sbb-active" accessibility-current="page">
+      <sbb-block-link href="#" class="sbb-active" accessibilityCurrent="page">
         Link 2
       </sbb-block-link>
     </sbb-link-list>
@@ -186,7 +186,7 @@ For link elements, the class `sbb-active` can be used to visually display an act
 <sbb-sidebar role="navigation">
   <sbb-link-list>
     <sbb-block-link>Link 1</sbb-block-link>
-    <sbb-block-link class="sbb-active" accessibility-current="page">Link 2</sbb-block-link>
+    <sbb-block-link class="sbb-active" accessibilityCurrent="page">Link 2</sbb-block-link>
   </sbb-link-list>
 </sbb-sidebar
 ```
@@ -201,13 +201,13 @@ accessibility information on the trigger button should be set.
 - `aria-label` (Describes the toggle action)
 
 ```html
-<sbb-header expanded scroll-origin="content" size="s">
+<sbb-header expanded scrollOrigin="content" size="s">
   <sbb-header-button
     id="toggle-button"
-    icon-name="arrows-right-left-small"
+    iconName="arrows-right-left-small"
     aria-controls="sidebar"
     aria-expanded="true"
-    @click="${() => document.querySelector('#sidebar')?.toggle() }"
+    (click)="() => document.querySelector('#sidebar')?.toggle() "
   >
     Toggle sidebar
   </sbb-header-button>
@@ -216,12 +216,12 @@ accessibility information on the trigger button should be set.
   <sbb-sidebar
     id="sidebar"
     role="navigation"
-    @open="${() => document.querySelector('#toggle-button')?.setAttribute('aria-expanded', 'true') }"
-    @close="${() => document.querySelector('#toggle-button')?.setAttribute('aria-expanded', 'false') }"
+    (open)="() => document.querySelector('#toggle-button')?.setAttribute('aria-expanded', 'true') "
+    (close)="() => document.querySelector('#toggle-button')?.setAttribute('aria-expanded', 'false') "
   >
     <sbb-link-list>
       <sbb-block-link>Link 1</sbb-block-link>
-      <sbb-block-link class="sbb-active" accessibility-current="page">Link 2</sbb-block-link>
+      <sbb-block-link class="sbb-active" accessibilityCurrent="page">Link 2</sbb-block-link>
     </sbb-link-list>
   </sbb-sidebar>
   <sbb-sidebar-content role="main" id="content">Content</sbb-sidebar-content>
@@ -273,7 +273,7 @@ on how e.g. a RouterOutlet (Angular) is used, it may also be necessary to update
 property when the navigation changes.
 
 ```html
-<sbb-header scroll-origin="content">...</sbb-header>
+<sbb-header scrollOrigin="content">...</sbb-header>
 <sbb-sidebar-container>
   <sbb-sidebar role="navigation">...</sbb-sidebar>
   <sbb-sidebar-content id="content" role="main">Content</sbb-sidebar-content>

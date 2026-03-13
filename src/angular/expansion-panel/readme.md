@@ -22,7 +22,7 @@ property or via custom content using the `icon` slot.
 If using the SBB icons, the icon should be a medium size icon.
 
 ```html
-<sbb-expansion-panel-header icon-name="swisspass-medium">Header</sbb-expansion-panel-header>
+<sbb-expansion-panel-header iconName="swisspass-medium">Header</sbb-expansion-panel-header>
 ```
 
 <!-- #region override intro-end -->

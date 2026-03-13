@@ -13,12 +13,12 @@ The optional property `horizontalFrom` can be used in combination with `orientat
 indicate the minimum breakpoint from which the orientation changes to `horizontal`.
 
 ```html
-<sbb-action-group orientation="vertical" horizontal-from="small">
+<sbb-action-group orientation="vertical" horizontalFrom="small">
   <sbb-secondary-button>Action 1</sbb-secondary-button>
   <sbb-button>Action 2</sbb-button>
   <sbb-block-link
     align-self="end"
-    icon-name="chevron-small-left-small"
+    iconName="chevron-small-left-small"
     href="https://github.com/sbb-design-systems/lyne-components"
   >
     Action 3
@@ -32,10 +32,10 @@ The two props `button-size` and `link-size` can be used to override, respectivel
 The accepted values are `s`, `m` and `l` (default) for `<sbb-button>` and `xs`, `s` and `m` (default) for `<sbb-block-link>`.
 
 ```html
-<sbb-action-group button-size="m" link-size="s">
+<sbb-action-group buttonSize="m" linkSize="s">
   <sbb-secondary-button>Action 1</sbb-secondary-button>
   <sbb-block-link
-    icon-name="chevron-small-left-small"
+    iconName="chevron-small-left-small"
     href="https://github.com/sbb-design-systems/lyne-components"
   >
     Action 3
@@ -56,7 +56,7 @@ property with nested `<sbb-block-link>` and the `buttonSize` property with the n
 instances.
 
 ```html
-<sbb-action-group align-group="end">
+<sbb-action-group alignGroup="end">
   <sbb-secondary-button align-self="start">Action 1</sbb-secondary-button>
   <sbb-secondary-button>Action 2</sbb-secondary-button>
   <sbb-button>Action 3</sbb-button>
@@ -75,7 +75,7 @@ and we consider a template like the following one (possibly removing the link fo
   <sbb-button>Button 1</sbb-button>
   <sbb-button>Button 2</sbb-button>
   <sbb-block-link
-    icon-name="chevron-small-left-small"
+    iconName="chevron-small-left-small"
     href="https://github.com/sbb-design-systems/lyne-components"
   >
     Link

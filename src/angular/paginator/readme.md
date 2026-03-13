@@ -1,5 +1,5 @@
 The `<sbb-paginator>` is a component which provides navigation for content split across multiple pages,
-e.g. a table with many rows.
+e.g. a table with many rows. An alternative, more compact variant is available as [`<sbb-compact-paginator>`](#compact-paginator).
 
 It can be controlled via the following properties:
 
@@ -8,7 +8,7 @@ It can be controlled via the following properties:
 - `pageIndex`: the index of the current displayed page (default: `0`).
 
 ```html
-<sbb-paginator length="100" page-size="20"></sbb-paginator>
+<sbb-paginator length="100" pageSize="20"></sbb-paginator>
 ```
 
 By default, a [sbb-mini-button-group](/docs/elements-button--docs) with two buttons is displayed,
@@ -16,7 +16,7 @@ which allows moving to the previous/next pages.
 The positioning of this element relative to the page numbers is set using the `pagerPosition` property (default: `start`):
 
 ```html
-<sbb-paginator length="100" page-size="20" pager-position="end"></sbb-paginator>
+<sbb-paginator length="100" pageSize="20" pagerPosition="end"></sbb-paginator>
 ```
 
 Users have the possibility to dynamically change the page size using a dropdown menu;
@@ -26,15 +26,17 @@ Consumers must be consistent, so the defined `pageSize` must be an element of th
 The dropdown menu and the previous / next buttons are facing each other with the page numbers always in the center.
 
 ```html
-<sbb-paginator length="100" page-size="20" page-size-options="[10, 20, 50]"></sbb-paginator>
+<sbb-paginator length="100" pageSize="20" pageSizeOptions="[10, 20, 50]"></sbb-paginator>
 ```
+
+### Compact Paginator
 
 An alternative, more compact variant with the same functionality is the `<sbb-compact-paginator>`.
 In contrast to the `<sbb-paginator>`, it displays only the current page and the total number of pages
 together with the `<sbb-mini-button-group>` to move to previous or next page.
 
 ```html
-<sbb-compact-paginator length="100" page-size="20"></sbb-compact-paginator>
+<sbb-compact-paginator length="100" pageSize="20"></sbb-compact-paginator>
 ```
 
 ## States
@@ -42,7 +44,7 @@ together with the `<sbb-mini-button-group>` to move to previous or next page.
 The component can be disabled by using the `disabled` property.
 
 ```html
-<sbb-paginator length="100" page-size="20" disabled></sbb-paginator>
+<sbb-paginator length="100" pageSize="20" disabled></sbb-paginator>
 ```
 
 ## Style
@@ -50,7 +52,7 @@ The component can be disabled by using the `disabled` property.
 The component has two `size`, named `s` and `m` (default).
 
 ```html
-<sbb-paginator length="100" page-size="20" size="s"></sbb-paginator>
+<sbb-paginator length="100" pageSize="20" size="s"></sbb-paginator>
 ```
 
 ## Events
@@ -66,5 +68,5 @@ consumers should add an appropriate `aria-label` attribute with a text
 that describes the content controlled by the paginator.
 
 ```html
-<sbb-paginator aria-label="Select page" length="100" page-size="20"></sbb-paginator>
+<sbb-paginator aria-label="Select page" length="100" pageSize="20"></sbb-paginator>
 ```

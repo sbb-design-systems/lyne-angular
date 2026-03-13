@@ -26,7 +26,7 @@ with the position in the `<sbb-stepper>`. This can be overridden via the `iconNa
 <sbb-step-label>Step label</sbb-step-label>
 
 <!-- Displays a tick icon in the prefix circle -->
-<sbb-step-label icon-name="tick-small">Step label</sbb-step-label>
+<sbb-step-label iconName="tick-small">Step label</sbb-step-label>
 ```
 
 ## Interactions

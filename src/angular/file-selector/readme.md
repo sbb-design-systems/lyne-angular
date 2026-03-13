@@ -53,9 +53,9 @@ A single file can be selected by default; this can be changed setting the `multi
 The value of the `multipleMode` property determines whether added files should overwrite existing files (`default`) or be appended to them (`persistent`).
 
 ```html
-<sbb-file-selector multiple multiple-mode="persistent"></sbb-file-selector>
+<sbb-file-selector multiple multipleMode="persistent"></sbb-file-selector>
 
-<sbb-file-selector-dropzone multiple multiple-mode="persistent"></sbb-file-selector-dropzone>
+<sbb-file-selector-dropzone multiple multipleMode="persistent"></sbb-file-selector-dropzone>
 ```
 
 ### Accept
@@ -91,17 +91,17 @@ as `aria-label` of the inner native input and read together with the visible but
 It's suggested to have a different value for each variant, e.g.:
 
 ```html
-<sbb-file-selector accessibility-label="Select a file from hard disk"></sbb-file-selector>
+<sbb-file-selector accessibilityLabel="Select a file from hard disk"></sbb-file-selector>
 <sbb-file-selector
   multiple
-  accessibility-label="Select from hard disk - multiple selection allowed"
+  accessibilityLabel="Select from hard disk - multiple selection allowed"
 ></sbb-file-selector>
 
 <sbb-file-selector-dropzone
-  accessibility-label="Select a file from hard disk"
+  accessibilityLabel="Select a file from hard disk"
 ></sbb-file-selector-dropzone>
 <sbb-file-selector-dropzone
   multiple
-  accessibility-label="Select from hard disk - multiple selection allowed"
+  accessibilityLabel="Select from hard disk - multiple selection allowed"
 ></sbb-file-selector-dropzone>
 ```

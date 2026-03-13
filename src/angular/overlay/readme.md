@@ -97,7 +97,7 @@ You can optionally pass a value to the directive, which will be returned as the 
 <sbb-button sbb-overlay-close="cancelled">Cancel</sbb-button>
 
 <!-- Close overlay with dynamic value -->
-<sbb-button [sbb-overlay-close]="data">Save</sbb-button>
+<sbb-button [sbbOverlayClose]="data">Save</sbb-button>
 ```
 
 The passed value will be available through the `afterClosed` Observable:

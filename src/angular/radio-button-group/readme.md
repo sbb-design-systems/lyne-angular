@@ -42,7 +42,7 @@ you can use the `allowEmptySelection` property, which will be proxied to the inn
 enabling their deselection (by default, a selected `<sbb-radio-button>` cannot be deselected).
 
 ```html
-<sbb-radio-button-group allow-empty-selection> ... </sbb-radio-button-group>
+<sbb-radio-button-group allowEmptySelection> ... </sbb-radio-button-group>
 ```
 
 ## Style
@@ -52,9 +52,7 @@ The optional property `horizontalFrom` can be used in combination with `orientat
 indicate the minimum breakpoint from which the orientation changes to `horizontal`.
 
 ```html
-<sbb-radio-button-group orientation="vertical" horizontal-from="large">
-  ...
-</sbb-radio-button-group>
+<sbb-radio-button-group orientation="vertical" horizontalFrom="large"> ... </sbb-radio-button-group>
 ```
 
 ## Events
@@ -79,8 +77,8 @@ const values = [
 ```
 
 ```html
-<sbb-radio-button-group .value="${values[0]}" name="name">
-  <sbb-radio-button .value="${values[0]}">Option 1</sbb-radio-button>
-  <sbb-radio-button .value="${values[1]}">Option 2</sbb-radio-button>
+<sbb-radio-button-group [value]="values[0]" name="name">
+  <sbb-radio-button [value]="values[0]">Option 1</sbb-radio-button>
+  <sbb-radio-button [value]="values[1]">Option 2</sbb-radio-button>
 </sbb-radio-button-group>
 ```

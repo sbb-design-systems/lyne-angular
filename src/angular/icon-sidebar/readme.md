@@ -16,17 +16,17 @@ and `<sbb-icon-sidebar>` which represents the added side content.
   <sbb-icon-sidebar>
     <sbb-icon-sidebar-link
       sbb-tooltip="Go to the party"
-      accessibility-label="Go to the party"
-      icon-name="glass-cocktail-small"
+      accessibilityLabel="Go to the party"
+      iconName="glass-cocktail-small"
       href="#"
     ></sbb-icon-sidebar-link>
     <sbb-icon-sidebar-link
       sbb-tooltip="Be a unicorn"
-      accessibility-label="Be a unicorn"
-      icon-name="unicorn-small"
+      accessibilityLabel="Be a unicorn"
+      iconName="unicorn-small"
       href="#"
       class="sbb-active"
-      accessibility-current="page"
+      accessibilityCurrent="page"
     ></sbb-icon-sidebar-link>
   </sbb-icon-sidebar>
   <sbb-icon-sidebar-content role="main">
@@ -72,73 +72,47 @@ Technically it's possible to place two icon sidebars, but from UX perspective it
 </sbb-icon-sidebar-container>
 ```
 
-## Icon Sidebar Link
+## Icon Sidebar Actions
 
-The `<sbb-icon-sidebar-link>` component provides the same functionality as a native `<a>`,
-enhanced with the design of the icon sidebar link.
+There are two types of icon sidebar actions: links and buttons, represented by the `<sbb-icon-sidebar-link>`
+and `<sbb-icon-sidebar-button>` components respectively.
 
 ```html
 <sbb-icon-sidebar-link
-  icon-name="glass-cocktail-small"
+  iconName="glass-cocktail-small"
   href="https://www.sbb.ch"
-  accessibility-label="Go to the party"
+  accessibilityLabel="Go to the party"
 ></sbb-icon-sidebar-link>
+
+<sbb-icon-sidebar-button
+  iconName="glass-cocktail-small"
+  aria-label="Go to the party"
+></sbb-icon-sidebar-button>
 ```
 
 As an alternative, the icon can be slotted:
 
 ```html
-<sbb-icon-sidebar-link accessibility-label="Go to the party" href="https://www.sbb.ch">
+<sbb-icon-sidebar-link accessibilityLabel="Go to the party" href="https://www.sbb.ch">
   <sbb-icon name="glass-cocktail-small" slot="icon"></sbb-icon>
 </sbb-icon-sidebar-link>
 ```
 
 ### Active / current state
 
-Use `<sbb-active>` CSS class to visually indicate whether the icon sidebar button is currently selected.
+To indicate an active state, the CSS class `sbb-active` should be used.
+
+From accessibility perspective `accessibility-current="page"` (or `aria-current="page"`
+for `<sbb-icon-sidebar-button>`) should be set whenever the CSS class `sbb-active` is set.
 
 ```html
 <sbb-icon-sidebar-link
   href="https://www.sbb.ch"
-  icon-name="glass-cocktail-small"
-  accessibility-label="Go to the party"
+  iconName="glass-cocktail-small"
+  accessibilityLabel="Go to the party"
   class="sbb-active"
-  accessibility-current="page"
+  accessibilityCurrent="page"
 ></sbb-icon-sidebar-link>
-```
-
-## Icon Sidebar Button
-
-The `<sbb-icon-sidebar-button>` component provides the same functionality as a native `<button>`
-enhanced with the design of the icon sidebar button.
-The `<sbb-icon-sidebar-button>` is intended to be used inside `<sbb-icon-sidebar>`.
-
-```html
-<sbb-icon-sidebar-button
-  icon-name="glass-cocktail-small"
-  aria-label="Go to the party"
-></sbb-icon-sidebar-button>
-```
-
-As an alternative, the icon can be slotted:
-
-```html
-<sbb-icon-sidebar-button aria-label="Go to the party">
-  <sbb-icon name="glass-cocktail-small" slot="icon"></sbb-icon>
-</sbb-icon-sidebar-button>
-```
-
-### Active / current state
-
-Use `<sbb-active>` CSS class to visually indicate whether the icon sidebar button is currently selected.
-
-```html
-<sbb-icon-sidebar-button
-  icon-name="glass-cocktail-small"
-  aria-label="Go to the party"
-  class="sbb-active"
-  aria-current="page"
-></sbb-icon-sidebar-button>
 ```
 
 ## Combine with `<sbb-sidebar>`
@@ -169,7 +143,7 @@ on how e.g. a RouterOutlet (Angular) is used, it may also be necessary to update
 property when the navigation changes.
 
 ```html
-<sbb-header scroll-origin="content">...</sbb-header>
+<sbb-header scrollOrigin="content">...</sbb-header>
 <sbb-icon-sidebar-container>
   <sbb-icon-sidebar>...</sbb-icon-sidebar>
   <sbb-icon-sidebar-content id="content" role="main">Content</sbb-sidebar-content>
@@ -204,6 +178,6 @@ For the `<sbb-icon-sidebar-button>` and `<sbb-icon-sidebar-link>>` the definitio
 `aria-label` or `accessibility-label` (`<sbb-icon-sidebar-link>>`, forwarded as `aria-label` to the
 inner `<a>` element) is mandatory as only an icon is displayed.
 To show the user which entry is active, `accessibility-current='page'` (or `aria-current="page"`
-for `<sbb-icon-sidebar-button>`) should be set whenever `<sbb-active>` class is set.
+for `<sbb-icon-sidebar-button>`) should be set whenever `sbb-active` class is set.
 See https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current for more
 information.

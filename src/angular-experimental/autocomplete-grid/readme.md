@@ -26,13 +26,13 @@ Both accept an id or an element reference.
   <sbb-autocomplete-grid-row>
     <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell>
-      <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+      <sbb-autocomplete-grid-button iconName="pen-small"></sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
   <sbb-autocomplete-grid-row>
     <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
     <sbb-autocomplete-grid-cell>
-      <sbb-autocomplete-grid-button icon-name="trash-small"></sbb-autocomplete-grid-button>
+      <sbb-autocomplete-grid-button iconName="trash-small"></sbb-autocomplete-grid-button>
     </sbb-autocomplete-grid-cell>
   </sbb-autocomplete-grid-row>
 </sbb-autocomplete-grid>
@@ -53,13 +53,13 @@ it will automatically connect to the native `<input>` as trigger and will displa
     <sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
       <sbb-autocomplete-grid-cell>
-        <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+        <sbb-autocomplete-grid-button iconName="pen-small"></sbb-autocomplete-grid-button>
       </sbb-autocomplete-grid-cell>
     </sbb-autocomplete-grid-row>
     <sbb-autocomplete-grid-row>
       <sbb-autocomplete-grid-option value="2">Option 2</sbb-autocomplete-grid-option>
       <sbb-autocomplete-grid-cell>
-        <sbb-autocomplete-grid-button icon-name="trash-small"></sbb-autocomplete-grid-button>
+        <sbb-autocomplete-grid-button iconName="trash-small"></sbb-autocomplete-grid-button>
       </sbb-autocomplete-grid-cell>
     </sbb-autocomplete-grid-row>
   </sbb-autocomplete-grid>
@@ -89,7 +89,7 @@ The displayed `<sbb-autocomplete-grid-option>` can be collected into groups usin
       <sbb-autocomplete-grid-row>
         <sbb-autocomplete-grid-option value="1">Option 1</sbb-autocomplete-grid-option>
         <sbb-autocomplete-grid-cell>
-          <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+          <sbb-autocomplete-grid-button iconName="pen-small"></sbb-autocomplete-grid-button>
         </sbb-autocomplete-grid-cell>
       </sbb-autocomplete-grid-row>
       ...
@@ -98,7 +98,7 @@ The displayed `<sbb-autocomplete-grid-option>` can be collected into groups usin
       <sbb-autocomplete-grid-row>
         <sbb-autocomplete-grid-option value="100">Option 100</sbb-autocomplete-grid-option>
         <sbb-autocomplete-grid-cell>
-          <sbb-autocomplete-grid-button icon-name="pen-small"></sbb-autocomplete-grid-button>
+          <sbb-autocomplete-grid-button iconName="pen-small"></sbb-autocomplete-grid-button>
         </sbb-autocomplete-grid-cell>
       </sbb-autocomplete-grid-row>
       ...
@@ -172,13 +172,13 @@ const values = [
 ```html
 <sbb-form-field>
   <input />
-  <sbb-autocomplete-grid .displayWith="${(value) => value.name}">
+  <sbb-autocomplete-grid [displayWith]="(value) => value.name">
     <sbb-autocomplete-grid-row>
-      <sbb-autocomplete-grid-option .value="${values[0]}">Option 1</sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-option [value]="values[0]">Option 1</sbb-autocomplete-grid-option>
       ...
     </sbb-autocomplete-grid-row>
     <sbb-autocomplete-grid-row>
-      <sbb-autocomplete-grid-option .value="${values[1]}">Option 2</sbb-autocomplete-grid-option>
+      <sbb-autocomplete-grid-option [value]="values[1]">Option 2</sbb-autocomplete-grid-option>
       ...
     </sbb-autocomplete-grid-row>
   </sbb-autocomplete-grid>

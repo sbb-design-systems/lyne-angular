@@ -1,5 +1,5 @@
 The `<sbb-select>` is a component which provides a list of selectable options in an overlay panel,
-emulating the behaviour of a native `<select>`.
+emulating the behavior of a native `<select>`.
 
 ## In `<sbb-form-field>`
 
@@ -150,8 +150,8 @@ const values = [
 For types other than string, the `value` must be set via property.
 
 ```html
-<sbb-select .value="${values[0]}" name="name">
-  <sbb-option .value="${values[0]}">Option 1</sbb-option>
-  <sbb-option .value="${values[1]}">Option 2</sbb-option>
+<sbb-select [value]="values[0]" name="name">
+  <sbb-option [value]="values[0]">Option 1</sbb-option>
+  <sbb-option [value]="values[1]">Option 2</sbb-option>
 </sbb-select>
 ```

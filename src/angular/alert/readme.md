@@ -5,7 +5,7 @@ The group also manages the accessibility of one or multiple alert instances and 
 visual gap between each other.
 
 ```html
-<sbb-alert-group accessibility-title="Disruptions" accessibility-level="2">
+<sbb-alert-group accessibilityTitle="Disruptions" accessibilityLevel="2">
   <sbb-alert size="l">
     <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
     The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
@@ -34,7 +34,7 @@ The unnamed slot is used to project an `<sbb-title>`, text content and one or mo
 The component can optionally display an `<sbb-icon>` at the component start using the `iconName` property or via custom content using the `icon` slot.
 
 ```html
-<sbb-alert icon-name="disruption">
+<sbb-alert iconName="disruption">
   <sbb-title level="3">Interruption between Berne and Olten</sbb-title>
   Between Bern and Olten from 03.11.2021 to 05.12.2022 each time from 22:30 to 06:00 o'clock
   construction work will take place. You have to expect changed travel times and changed

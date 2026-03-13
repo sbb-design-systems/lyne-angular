@@ -86,7 +86,7 @@ at the component start using the `iconName` property or via custom content using
 It's also possible to display a numeric amount at the component's end using the `amount` property or slot.
 
 ```html
-<sbb-tag value="All" icon-name="pie-small" amount="123"> All </sbb-tag>
+<sbb-tag value="All" iconName="pie-small" amount="123"> All </sbb-tag>
 
 <sbb-tag value="None">
   <sbb-icon slot="icon" name="pie-small"></sbb-icon>
@@ -101,7 +101,7 @@ The `<sbb-tag>` element supports any types of values, including complex objects.
 The type can be specified using the generic type parameter `T` of `SbbTag<T>`.
 
 ```html
-<sbb-tag .value=${{value: 'value', name: 'name'}} name="name">Option</sbb-tag>
+<sbb-tag [value]="{value: 'value', name: 'name'}" name="name">Option</sbb-tag>
 ```
 
 ## Events

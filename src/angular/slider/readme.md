@@ -28,7 +28,7 @@ consumers could set one/both of them using the `startIcon` and `endIcon` propert
 or can provide their own using the two slots named `prefix` and `suffix`.
 
 ```html
-<sbb-slider start-icon="circle-minus-small" end-icon="circle-plus-small"></sbb-slider>
+<sbb-slider startIcon="circle-minus-small" endIcon="circle-plus-small"></sbb-slider>
 
 <sbb-slider>
   <sbb-icon slot="prefix" name="battery-level-empty-small"></sbb-icon>
@@ -53,7 +53,7 @@ the current value can be read from `event.target.value` or `event.target.valueAs
 
 ## Keyboard interaction
 
-The `<sbb-slider>` has the following behaviour on keypress when focused:
+The `<sbb-slider>` has the following behavior on keypress when focused:
 
 | Key         | Action                                            |
 | ----------- | ------------------------------------------------- |

@@ -149,7 +149,7 @@ at the component start using the `iconName` property or via custom content using
 
 ```html
 <sbb-button onclick="document.querySelector('sbb-toast').open()">Open toast</sbb-button>
-<sbb-toast icon-name="dog-small">Toast content</sbb-toast>
+<sbb-toast iconName="dog-small">Toast content</sbb-toast>
 ```
 
 A `<sbb-toast>` can also be given a custom action that, if marked with the `sbb-toast-close` attribute, will also dismiss it.
@@ -161,7 +161,7 @@ A `<sbb-toast>` can also be given a custom action that, if marked with the `sbb-
   <!-- Toast action can be a button -->
   <sbb-transparent-button
     slot="action"
-    icon-name="clock-small"
+    iconName="clock-small"
     sbb-toast-close
   ></sbb-transparent-button>
   <!-- Or a link -->
@@ -192,7 +192,7 @@ with the horizontal positions `left`, `start`, `center`, `right` and `end` (defa
 ## Accessibility
 
 The `<sbb-toast>` announces messages via an aria-live region.
-Use the `politeness` property to customize the politeness announcement behaviour.
+Use the `politeness` property to customize the politeness announcement behavior.
 Check [ARIA live regions](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions#live_regions) for further info.
 
 The `<sbb-toast>` does not move focus to the toast element, because it would disrupt users in the middle of a workflow.

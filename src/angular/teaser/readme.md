@@ -53,11 +53,11 @@ to achieve the image width taking the full available space. On the image itself,
 ```html
 <div style="display: grid; gap: 1rem; grid-template-rows: repeat(2, 1fr)">
   <sbb-teaser style="--sbb-teaser-align-items: stretch" href="https://www.sbb.ch" alignment="below">
-    <sbb-image style="width: 100%;" slot="image" image-src="..." alt="description"></sbb-image>
+    <sbb-image style="width: 100%;" slot="image" imageSrc="..." alt="description"></sbb-image>
     ...
   </sbb-teaser>
   <sbb-teaser style="--sbb-teaser-align-items: stretch" href="https://www.sbb.ch" alignment="below">
-    <sbb-image style="width: 100%;" slot="image" image-src="..." alt="description"></sbb-image>
+    <sbb-image style="width: 100%;" slot="image" imageSrc="..." alt="description"></sbb-image>
     ...
   </sbb-teaser>
 </div>
