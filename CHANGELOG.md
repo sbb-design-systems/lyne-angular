@@ -1,5 +1,25 @@
 # Changelog
 
+## [21.5.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.4.0...v21.5.0) (2026-03-15)
+
+
+### Features
+
+* docs app ([#219](https://github.com/sbb-design-systems/lyne-angular/issues/219)) ([eb9de14](https://github.com/sbb-design-systems/lyne-angular/commit/eb9de14d4ad92526ab4145348cda8e24c2286539))
+
+
+### Bug Fixes
+
+* **deps:** update angular ([81c2041](https://github.com/sbb-design-systems/lyne-angular/commit/81c204110990c7afbd54baae9d3d5317081100fa))
+* **deps:** update angular to v21.2.1 ([61b483c](https://github.com/sbb-design-systems/lyne-angular/commit/61b483c92bfbb15d5e7cb21cbda2946d104a7a17))
+* **deps:** update angular to v21.2.1 ([746deec](https://github.com/sbb-design-systems/lyne-angular/commit/746deec634c890e56f5b8fd39498536f149e857d))
+* **deps:** update angular to v21.2.2 ([3aee614](https://github.com/sbb-design-systems/lyne-angular/commit/3aee614411789987340179cdcc73df226f628c68))
+* **deps:** update angular to v21.2.2 ([fc96247](https://github.com/sbb-design-systems/lyne-angular/commit/fc96247730b954caf68ada7f537c9c8933519c0d))
+* **deps:** update angular to v21.2.4 ([76521b2](https://github.com/sbb-design-systems/lyne-angular/commit/76521b257322efebe023afe16cb710ccd78fd887))
+* **overlay-services:** fix closeAll functionality ([#305](https://github.com/sbb-design-systems/lyne-angular/issues/305)) ([dc6f8a4](https://github.com/sbb-design-systems/lyne-angular/commit/dc6f8a46088ec66475d83decaa03ea3a11fb4428))
+* **overlay-services:** weaken close event type ([#308](https://github.com/sbb-design-systems/lyne-angular/issues/308)) ([2043859](https://github.com/sbb-design-systems/lyne-angular/commit/204385901e097b6c953a76b739e392fa3a147175))
+* **sbb-autocomplete:** fix 'valueChange' when 'requireSelection' is enabled ([#306](https://github.com/sbb-design-systems/lyne-angular/issues/306)) ([d5a759b](https://github.com/sbb-design-systems/lyne-angular/commit/d5a759b5d5c83809b3550ecf4bfa5ca947d7765a))
+
 ## [21.4.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.3.3...v21.4.0) (2026-03-03)
 
 
