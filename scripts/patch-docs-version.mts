@@ -2,25 +2,26 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { join, relative } from 'node:path';
 
-const distDir = fileURLToPath(import.meta.resolve('../dist/'));
+const projectRoot = fileURLToPath(new URL('../', import.meta.url));
+const distDir = join(projectRoot, 'dist');
 const indexPath = join(distDir, 'docs/browser/index.html');
 if (!existsSync(indexPath)) {
-  throw new Error(
-    `${relative(fileURLToPath(import.meta.resolve('../')), indexPath)} does not exist!`,
-  );
+  throw new Error(`${relative(projectRoot, indexPath)} does not exist!`);
 }
 
 const { version, dependencies } = JSON.parse(
-  readFileSync(fileURLToPath(import.meta.resolve('../package.json')), 'utf8'),
+  readFileSync(join(projectRoot, 'package.json'), 'utf8'),
 );
-let lyneVersion = dependencies['@sbb-esta/lyne-elements'] as string;
-if (!lyneVersion.startsWith('^')) {
-  lyneVersion = `^${lyneVersion}`;
-}
-let lyneTokenVersion = dependencies['@sbb-esta/lyne-design-tokens'] as string;
-if (!lyneTokenVersion.startsWith('^')) {
-  lyneTokenVersion = `^${lyneTokenVersion}`;
-}
+const lynePkg: { version: string } = JSON.parse(
+  readFileSync(join(projectRoot, 'node_modules/@sbb-esta/lyne-elements/package.json'), 'utf-8'),
+);
+const lyneVersionParts = lynePkg.version.split('-');
+const lyneVersion =
+  lyneVersionParts.length > 2 ? lyneVersionParts.slice(0, 2).join('-') : lyneVersionParts[0];
+const lyneTokenVersion = (dependencies['@sbb-esta/lyne-design-tokens'] as string).replace(
+  /^[\^~]/,
+  '',
+);
 
 const content = readFileSync(indexPath, 'utf8')
   .replaceAll('0.0.0-LYNE-ANGULAR', version)

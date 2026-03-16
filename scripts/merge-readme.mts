@@ -1,5 +1,14 @@
-import { execSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { execSync, type ExecSyncOptions } from 'node:child_process';
+import {
+  existsSync,
+  globSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -10,28 +19,45 @@ if (process.env['CI']) {
   process.exit(0);
 }
 
-const headers: Record<string, string> = {};
-try {
-  // TODO: Add another way to provide a token for environments where the GitHub CLI is not available.
-  const token = execSync('gh auth token', { encoding: 'utf-8' }).trim();
-  headers['Authorization'] = `Bearer ${token}`;
-} catch {
-  /* empty */
-}
-
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
+const gitHubDomain = 'https://github.com/';
 const elementsPackage: Package = JSON.parse(
   readFileSync(join(projectRoot, 'node_modules/@sbb-esta/lyne-elements/package.json'), 'utf-8'),
 );
-const originUrl = elementsPackage.keywords.find((keyword) =>
-  keyword.startsWith('https://github.com/'),
-)!;
+const originUrl = elementsPackage.keywords.find((keyword) => keyword.startsWith(gitHubDomain))!;
 const gitSha = originUrl.match(/\/commit\/(\w+)$/)![1];
 const repoSlug = originUrl.split('/').slice(3, 5).join('/');
-const cachePath = join(projectRoot, 'node_modules/.cache/lyne-elements-readmes/readmes.json');
-const readmeStorage: Record<string, ReadmeEntry> = existsSync(cachePath)
-  ? JSON.parse(readFileSync(cachePath, 'utf-8'))
-  : {};
+const cachePath = join(projectRoot, 'node_modules/.cache/lyne-elements-readmes', gitSha);
+if (!existsSync(cachePath) || !existsSync(join(cachePath, 'package.json'))) {
+  mkdirSync(cachePath, { recursive: true });
+  const options: ExecSyncOptions = { cwd: cachePath, stdio: 'inherit' };
+  execSync('git init', options);
+  execSync(`git remote add origin ${gitHubDomain}${repoSlug}.git`, options);
+  execSync(`git fetch --depth 1 origin ${gitSha}`, options);
+  execSync('git checkout FETCH_HEAD', options);
+}
+
+const aWeekAgo = new Date(Date.now() - 1000 * 60 * 60 * 24 * 7);
+for (const dir of readdirSync(dirname(cachePath), { withFileTypes: true })
+  .filter(
+    (d) =>
+      d.isDirectory() && d.name !== gitSha && statSync(join(d.parentPath, d.name)).ctime < aWeekAgo,
+  )
+  .map((d) => join(d.parentPath, d.name))) {
+  console.log(`Removing old cache directory ${relative(projectRoot, dir)}`);
+  rmSync(dir, { force: true });
+}
+
+const readmeMap = globSync(join(cachePath, '**/readme.md'))
+  .filter((path) => path.includes('src/elements/') || path.includes('src/elements-experimental/'))
+  .reduce(
+    (map, path) =>
+      map.set(
+        relative(cachePath, path),
+        readFileSync(path, 'utf-8').split('<!-- Auto Generated Below -->')[0],
+      ),
+    new Map<string, string>(),
+  );
 const immutableAttributes = [
   'align-self',
   'sbb-badge',
@@ -51,56 +77,17 @@ const immutableAttributes = [
   'sbb-tooltip-position',
 ];
 
-const treeResponse = await fetch(
-  `https://api.github.com/repos/${repoSlug}/git/trees/${gitSha}?recursive=1`,
-  { headers },
-);
-if (!treeResponse.ok) {
-  throw new Error(`Failed to fetch git tree: ${treeResponse.status} ${treeResponse.statusText}`);
-}
-const tree: GitTree = await treeResponse.json();
-const readmeEntries = tree.tree.filter(
-  (e) => e.path.endsWith('/readme.md') && e.path.match(/src\/(elements|elements-experimental)/),
-);
-let changed = false;
-for (const entry of readmeEntries) {
-  const result = await updateReadme(entry);
-  await mergeReadme(entry);
-  changed ||= result;
-}
-if (changed) {
-  mkdirSync(dirname(cachePath), { recursive: true });
-  writeFileSync(cachePath, JSON.stringify(readmeStorage, null, 2), 'utf-8');
+for (const [path, content] of Array.from(readmeMap)) {
+  await mergeReadme(path, content);
 }
 
-async function updateReadme(entry: GitTreeEntry) {
-  if (!readmeStorage[entry.path] || readmeStorage[entry.path].sha !== entry.sha) {
-    const content = await fetch(entry.url!, { headers })
-      .then((res) => res.json())
-      .then(
-        (data) =>
-          Buffer.from(data.content, 'base64')
-            .toString('utf-8')
-            .split('<!-- Auto Generated Below -->')[0],
-      );
-    readmeStorage[entry.path] = {
-      sha: entry.sha,
-      created: new Date().toISOString(),
-      content,
-    };
-    return true;
-  }
-  return false;
-}
-
-async function mergeReadme(entry: GitTreeEntry) {
+async function mergeReadme(path: string, newContent: string) {
   const localPath = join(
     projectRoot,
-    entry.path
+    path
       .replace('src/elements/', 'src/angular/')
       .replace('src/elements-experimental/', 'src/angular-experimental/'),
   );
-  let newContent = readmeStorage[entry.path].content;
   if (existsSync(localPath)) {
     const content = readFileSync(localPath, 'utf-8');
     if (content.match(/<!--\s*#region\s+override\s+/)) {
@@ -246,33 +233,6 @@ interface Package {
   name: string;
   keywords: string[];
   exports: Record<string, unknown>;
-}
-
-interface GitTreeEntry {
-  path: string;
-  mode: string;
-  type: string;
-  sha: string;
-  size?: number;
-  url?: string;
-  [k: string]: unknown;
-}
-
-interface GitTree {
-  sha: string;
-  url?: string;
-  truncated: boolean;
-  /**
-   * Objects specifying a tree structure
-   */
-  tree: GitTreeEntry[];
-  [k: string]: unknown;
-}
-
-interface ReadmeEntry {
-  sha: string;
-  created: string;
-  content: string;
 }
 
 interface ParsedAttribute {
