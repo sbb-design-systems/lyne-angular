@@ -50,7 +50,7 @@ it's also possible to hide the default close button using the `hideCloseButton` 
 <sbb-popover id="popover" trigger="popover-trigger" hideCloseButton>
   <sbb-title level="2" visualLevel="6" style="margin-block-start: 0">Popover Title.</sbb-title>
   <p id="popover-content">
-    Popover content. <sbb-link id="popover-link" sbbPopoverClose>Link</sbb-link>
+    Popover content. <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
   </p>
 </sbb-popover>
 ```

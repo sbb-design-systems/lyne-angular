@@ -1,6 +1,6 @@
 import { execSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { format, resolveConfig } from 'prettier';
@@ -35,13 +35,20 @@ const readmeStorage: Record<string, ReadmeEntry> = existsSync(cachePath)
 const immutableAttributes = [
   'align-self',
   'sbb-badge',
+  'sbb-badge-position',
   'sbb-dialog-close',
   'sbb-focus-initial',
+  'sbb-navigation-close',
+  'sbb-navigation-section-close',
   'sbb-overlay-close',
+  'sbb-popover-close',
   'sbb-toast-close',
+  'sbb-stepper-next',
+  'sbb-stepper-previous',
   'sbb-tooltip',
   'sbb-tooltip-open-delay',
   'sbb-tooltip-close-delay',
+  'sbb-tooltip-position',
 ];
 
 const treeResponse = await fetch(
@@ -108,6 +115,10 @@ async function mergeReadme(entry: GitTreeEntry) {
           };
         });
       for (const { region, content } of overrideRegions) {
+        if (!newContent.match(new RegExp(`<!--\\s*#region\\s+${region}\\s*-->`))) {
+          throw new Error(`Missing region ${region} in ${relative(projectRoot, localPath)}`);
+        }
+
         const [before, after] = newContent.split(new RegExp(`<!--\\s*#region\\s+${region}\\s*-->`));
         const endregion = after.match(/<!--\s*#endregion\s*-->/)!;
         newContent = `${before}<!-- #region override ${region} -->${content}${after.substring(endregion.index!)}`;

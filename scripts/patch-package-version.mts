@@ -2,7 +2,8 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const distDir = fileURLToPath(import.meta.resolve('../dist/'));
+const projectRoot = fileURLToPath(new URL('../', import.meta.url));
+const distDir = join(projectRoot, 'dist');
 
 const packageName = process.env['npm_lifecycle_event']?.split(':')[1];
 if (!packageName) {
@@ -17,12 +18,13 @@ if (!existsSync(packageJsonPath)) {
 }
 
 const { version, dependencies } = JSON.parse(
-  readFileSync(fileURLToPath(import.meta.resolve('../package.json')), 'utf8'),
+  readFileSync(join(projectRoot, 'package.json'), 'utf8'),
 );
-let lyneVersion = dependencies['@sbb-esta/lyne-elements'] as string;
-if (!lyneVersion.startsWith('^')) {
-  lyneVersion = `^${lyneVersion}`;
-}
+const lynePkg: { version: string } = JSON.parse(
+  readFileSync(join(projectRoot, 'node_modules/@sbb-esta/lyne-elements/package.json'), 'utf-8'),
+);
+const lyneVersionParts = lynePkg.version.split('-');
+const lyneVersion = `^${lyneVersionParts.length > 2 ? lyneVersionParts.slice(0, 2).join('-') : lyneVersionParts[0]}`;
 
 const rootAngularVersion = dependencies['@angular/core'] as string;
 const angularMajorVersion = rootAngularVersion.trim().match(/\d+/)![0];
