@@ -1,0 +1,21 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    // Due to a bug, vitest/globals are additionally also in this file than just in the spec tsconfig.
+    "types": ["node"],
+    "outDir": "../dist/out-tsc",
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "nodenext",
+    "importHelpers": true,
+    "module": "nodenext"
+  },
+  "include": ["*.mts"]
+}

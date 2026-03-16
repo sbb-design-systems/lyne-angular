@@ -59,7 +59,7 @@ jobs:
       - name: Run build
         run: yarn build
       - name: Remove files with forbidden extensions
-        run: node ./scripts/clean-docs-files.cjs
+        run: node ./scripts/clean-docs-files.mts
 
       - name: 'Release: Determine npm tag'
         if: ${{ steps.release.outputs.release_created }}
