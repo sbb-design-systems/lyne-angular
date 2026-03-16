@@ -2,7 +2,7 @@ const fs = require('fs'),
   path = require('path'),
   allowedExtensions =
     /^\.(s?css|html?|m?js|json|ts|map|ico|jpe?g|png|svg|woff2|txt|gitignore|gitkeep|stackblitzrc)$/,
-  distDir = path.resolve('dist/storybook');
+  distDir = path.resolve('dist/docs');
 
 // Removes all files not matching allowed extensions from given directory.
 fs.readdirSync(distDir, { withFileTypes: true, recursive: true })
