@@ -1,12 +1,11 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
-import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox/checkbox-panel.js';
-import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkbox.js';
-import type { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
+import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.js';
+import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox-panel.js';
+import type { SbbCheckboxElement, SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
 import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
 
-import '@sbb-esta/lyne-elements/checkbox/checkbox-group.js';
+import '@sbb-esta/lyne-elements/checkbox-group.js';
 
 /**
  * It can be used as a container for one or more `sbb-checkbox`.
@@ -45,7 +44,7 @@ export class SbbCheckboxGroup {
   }
 
   /**
-   * Overrides the behaviour of `orientation` property.
+   * Overrides the behavior of `orientation` property.
    */
   @Input()
   public set horizontalFrom(value: SbbHorizontalFrom | null) {

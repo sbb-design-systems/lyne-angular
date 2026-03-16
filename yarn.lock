@@ -3291,18 +3291,18 @@
   resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-2.0.0.tgz#17521603a3af2bab43a5293fac489cddcfdbbdca"
   integrity sha512-CuKbF6is5eBx6gBOUTEBa5UPrcf+5u05Kr3XdmXYfXysEKHxviHNBXthucw7lkDF3V4MASeFlOcfbgICA9/vZw==
 
-"@sbb-esta/lyne-elements-experimental@4.7.0":
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-experimental/-/lyne-elements-experimental-4.7.0.tgz#01662bc4f38ba9a068d64b1b45de93799c8c0862"
-  integrity sha512-8bvAY1+fdPGwfAq0u/2rrFKle2WjjfFKOuZAl+Xw8Mkp8Um5zD6NKVPSEFfHKKTVa4wxWD6h6PvEm5tY0XfX+g==
+"@sbb-esta/lyne-elements-experimental@npm:@sbb-esta/lyne-elements-experimental-dev@^4":
+  version "4.7.0-dev.1773648663"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-experimental-dev/-/lyne-elements-experimental-dev-4.7.0-dev.1773648663.tgz#5a2620e46a042575a1c13da79b442bad15685481"
+  integrity sha512-ZTstSh9nWtCO5nS5T/irMS+dK5/4aLe9+JBmUS/2pp0cShgOmf5W/Swe6pCl/BUJPJycFerzidCP9U0n+iqAKw==
   dependencies:
     lit "^3.3.2"
     tslib "^2.8.1"
 
-"@sbb-esta/lyne-elements@4.7.0":
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements/-/lyne-elements-4.7.0.tgz#1c59cad833313468769bd284320e95863f0900f9"
-  integrity sha512-NFbtR6zI6KY2lgYf6LL0FGUIu/HSnNVkv5O/syOU0F8ZXhV7PXn+jLBSJt0d7UMbbxB9h7IHP4sw+jRm/AQVyA==
+"@sbb-esta/lyne-elements@npm:@sbb-esta/lyne-elements-dev@^4":
+  version "4.7.0-dev.1773648656"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-dev/-/lyne-elements-dev-4.7.0-dev.1773648656.tgz#38fcc70967245ec03654686ab2ded43f9824190f"
+  integrity sha512-qbzfaj9MiMqTz3hn/VzvZxb+RQiG9FFFpiPcw7McGnNzfw84NY0ZzuEFGFaRqs97jb/g4XxmjPvWxVitVikoCg==
   dependencies:
     "@lit-labs/observers" "^2.1.0"
     lit "^3.3.2"
@@ -9641,10 +9641,20 @@ terser-webpack-plugin@^5.3.14, terser-webpack-plugin@^5.3.16, terser-webpack-plu
     schema-utils "^4.3.0"
     terser "^5.31.1"
 
-terser@5.46.0, terser@^5.10.0, terser@^5.31.1:
+terser@5.46.0:
   version "5.46.0"
   resolved "https://registry.yarnpkg.com/terser/-/terser-5.46.0.tgz#1b81e560d584bbdd74a8ede87b4d9477b0ff9695"
   integrity sha512-jTwoImyr/QbOWFFso3YoU3ik0jBBDJ6JTOQiy/J2YxVJdZCc+5u7skhNwiOR3FQIygFqVUPHl7qbbxtjW2K3Qg==
+  dependencies:
+    "@jridgewell/source-map" "^0.3.3"
+    acorn "^8.15.0"
+    commander "^2.20.0"
+    source-map-support "~0.5.20"
+
+terser@^5.10.0, terser@^5.31.1:
+  version "5.46.1"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-5.46.1.tgz#40e4b1e35d5f13130f82793a8b3eeb7ec3a92eee"
+  integrity sha512-vzCjQO/rgUuK9sf8VJZvjqiqiHFaZLnOiimmUuOKODxWL8mm/xua7viT7aqX7dgPY60otQjUotzFMmCB4VdmqQ==
   dependencies:
     "@jridgewell/source-map" "^0.3.3"
     acorn "^8.15.0"
@@ -9876,9 +9886,9 @@ undici@7.22.0:
   integrity sha512-RqslV2Us5BrllB+JeiZnK4peryVTndy9Dnqq62S3yYRRTj0tFQCwEniUy2167skdGOy3vqRzEvl1Dm4sV2ReDg==
 
 undici@^7.12.0:
-  version "7.24.3"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-7.24.3.tgz#9c26a00b5e6cfbf10c1238471eb4ec0166b0374b"
-  integrity sha512-eJdUmK/Wrx2d+mnWWmwwLRyA7OQCkLap60sk3dOK4ViZR7DKwwptwuIvFBg2HaiP9ESaEdhtpSymQPvytpmkCA==
+  version "7.24.4"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-7.24.4.tgz#873bce680d7c6354c941399fd4e8ea4563de4ea7"
+  integrity sha512-BM/JzwwaRXxrLdElV2Uo6cTLEjhSb3WXboncJamZ15NgUURmvlXvxa6xkwIOILIjPNo9i8ku136ZvWV0Uly8+w==
 
 unicode-canonical-property-names-ecmascript@^2.0.0:
   version "2.0.1"

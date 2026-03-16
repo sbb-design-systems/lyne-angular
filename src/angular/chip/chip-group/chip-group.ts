@@ -16,7 +16,7 @@ import {
 } from '@sbb-esta/lyne-angular/core';
 import type {
   SbbChipGroupElement,
-  SbbChipInputTokenEndEventDetails,
+  SbbChipInputTokenEndEvent,
 } from '@sbb-esta/lyne-elements/chip/chip-group.js';
 import { fromEvent, NEVER } from 'rxjs';
 
@@ -197,14 +197,10 @@ export class SbbChipGroup<T = string> extends SbbControlValueAccessorMixin(class
   /**
    * Notifies that a chip is about to be created. Can be prevented.
    */
-  public chipInputTokenEndOutput: OutputRef<CustomEvent<SbbChipInputTokenEndEventDetails>> =
-    outputFromObservable(
-      fromEvent<CustomEvent<SbbChipInputTokenEndEventDetails>>(
-        this.#element.nativeElement,
-        'chipinputtokenend',
-      ),
-      { alias: 'chipInputTokenEnd' },
-    );
+  public chipInputTokenEndOutput: OutputRef<SbbChipInputTokenEndEvent<T>> = outputFromObservable(
+    fromEvent<SbbChipInputTokenEndEvent<T>>(this.#element.nativeElement, 'chipinputtokenend'),
+    { alias: 'chipInputTokenEnd' },
+  );
 
   protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
     alias: 'input',
