@@ -84,13 +84,11 @@ jobs:
 
       - name: Run build
         run: yarn build
-        env:
-          STORYBOOK_COMPONENTS_VERSION: ${{ github.event.pull_request.head.sha || github.sha }}
-      - name: Store storybook artifacts
+      - name: Store docs artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: storybook
-          path: dist/storybook/
+          name: docs
+          path: dist/docs/
       - name: Store build
         uses: actions/upload-artifact@v4
         with:

@@ -6,9 +6,7 @@ export default defineConfig([
   ...rootConfig,
   {
     files: ['**/*.ts'],
-    rules: {
-      'lyne/storybook-generator-rule': 'off',
-    },
+    rules: {},
   },
   {
     files: ['**/*.html'],

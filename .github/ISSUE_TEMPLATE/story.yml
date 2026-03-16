@@ -20,7 +20,7 @@ body:
         - [ ] Component is implemented
         - [ ] Documentation is provided
         - [ ] Tests are implemented
-        - [ ] Storybook stories are implemented
+        - [ ] Examples are implemented
         - [ ] Navigation via keyboard is tested
         - [ ] Screen reader output is tested
         - [ ] High-contrast is tested

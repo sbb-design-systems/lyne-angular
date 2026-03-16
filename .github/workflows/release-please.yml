@@ -57,7 +57,7 @@ jobs:
       - name: Update npm
         run: npm install --global npm@latest
       - name: Run build
-        run: STORYBOOK_COMPONENTS_VERSION="${{ steps.version.outputs.version }}" yarn build
+        run: yarn build
       - name: Remove files with forbidden extensions
         run: node ./scripts/clean-docs-files.cjs
 

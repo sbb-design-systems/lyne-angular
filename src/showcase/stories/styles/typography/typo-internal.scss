@@ -1,9 +1,0 @@
-@use 'node_modules/@sbb-esta/lyne-elements/core/styles' as sbb;
-
-.sbb-link {
-  @include sbb.link;
-}
-
-.sbb-link-negative {
-  @include sbb.link-negative;
-}
