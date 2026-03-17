@@ -88,6 +88,7 @@ async function mergeReadme(path: string, newContent: string) {
       .replace('src/elements/', 'src/angular/')
       .replace('src/elements-experimental/', 'src/angular-experimental/'),
   );
+  newContent = convertHtmlExamples(newContent);
   if (existsSync(localPath)) {
     const content = readFileSync(localPath, 'utf-8');
     if (content.match(/<!--\s*#region\s+override\s+/)) {
@@ -112,7 +113,6 @@ async function mergeReadme(path: string, newContent: string) {
       }
     }
   }
-  newContent = convertHtmlExamples(newContent);
   const options = await resolveConfig(localPath);
   writeFileSync(
     localPath,
