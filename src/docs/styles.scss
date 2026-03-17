@@ -11,55 +11,58 @@ pre {
 }
 
 blockquote {
-  border-left: var(--sbb-spacing-fixed-1x) solid var(--sbb-color-primary);
+  border-inline-start: var(--sbb-spacing-fixed-1x) solid var(--sbb-color-1);
   padding: 0 var(--sbb-spacing-fixed-4x);
 }
 
 code {
   background-color: var(--sbb-background-color-4);
   padding: var(--sbb-spacing-fixed-1x);
+  border-radius: var(--sbb-border-radius-2x);
 }
 
 .hljs {
+  font-size: var(--sbb-text-font-size-xxs);
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
   background-color: var(--sbb-background-color-4);
+  color-scheme: light;
 }
 
 .docs-link {
-  --docs-link-icon-color: initial;
+  --sbb-link-text-decoration-line: none;
 
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sbb-spacing-fixed-2x);
-  text-decoration: none;
-  color: initial;
-
-  &:hover {
-    --docs-link-icon-color: var(--sbb-color-primary);
+  sbb-icon {
+    margin-inline-end: var(--sbb-spacing-fixed-2x);
   }
-}
-
-.docs-link-icon {
-  color: var(--docs-link-icon-color);
 }
 
 .docs-toc-container {
   display: grid;
   grid-template-columns: 4fr 1fr;
   gap: var(--sbb-spacing-fixed-4x);
+
+  // Reset margin for the first child of the content to avoid unnecessary spacing at the top
+  > div > *:first-child {
+    margin-block-start: 0;
+  }
+
+  table + table {
+    margin-block-start: var(--sbb-spacing-fixed-4x);
+  }
 }
 
 .docs-toc-content {
   height: fit-content;
-  top: 0;
+  inset-block-start: 0;
   position: sticky;
-  border-left: var(--sbb-border-width-2x) solid var(--sbb-color-primary);
+  border-inline-start: var(--sbb-border-width-2x) solid var(--sbb-color-1);
   margin-block-start: var(--sbb-spacing-fixed-4x);
   padding-inline: var(--sbb-spacing-fixed-4x);
   font-size: var(--sbb-text-font-size-xs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
 
-  h3 {
-    margin: 0;
+  sbb-title {
+    margin-block-start: 0;
   }
 
   ul {
@@ -69,22 +72,8 @@ code {
 }
 
 .docs-heading {
+  --sbb-link-text-decoration-line: none;
   list-style: none;
-
-  &.docs-heading-2:first-of-type {
-    padding-block-start: 0;
-  }
-
-  a {
-    text-decoration: none;
-    color: initial;
-  }
-
-  &:hover {
-    a {
-      color: var(--sbb-color-primary);
-    }
-  }
 }
 
 .docs-heading-2 {

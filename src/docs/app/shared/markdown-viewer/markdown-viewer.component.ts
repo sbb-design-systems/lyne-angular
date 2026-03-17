@@ -29,7 +29,19 @@ export class MarkdownViewerComponent {
         switchMap((params) =>
           params.loaderBuilderInterceptor!(this.#htmlLoader.withParams(params)).load(),
         ),
-        switchMap((markdown) => marked.parse(markdown)),
+        switchMap((markdown) =>
+          marked
+            .use({
+              hooks: {
+                postprocess: (html: string) =>
+                  html
+                    .replace(/<a /g, '<sbb-link ')
+                    .replace(/<a>/g, '<sbb-link>')
+                    .replace(/<\/a>/g, '</sbb-link>'),
+              },
+            })
+            .parse(markdown),
+        ),
         takeUntilDestroyed(),
       )
       .subscribe((content) => {

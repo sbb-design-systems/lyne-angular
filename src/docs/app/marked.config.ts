@@ -1,3 +1,4 @@
+import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import GithubSlugger from 'github-slugger';
 import hljs from 'highlight.js';
 import { marked } from 'marked';
@@ -17,14 +18,18 @@ const DocsMarkedRenderer: RendererObject = {
     const headingId = slugger.slug(text);
     const href = `${window.location.origin}${window.location.pathname}#${headingId}`;
     // Create the items for the table of content.
-    toc.push(`<li class='docs-heading docs-heading-${depth}'><a href="${href}">${text}</a></li>`);
+    toc.push(
+      `<li class='docs-heading docs-heading-${depth}'><sbb-link href="${href}">${text}</sbb-link></li>`,
+    );
+
+    const titleLevel = depth.toString() as SbbTitleLevel;
     return `
-      <h${depth} id="${headingId}">
-        <a href="${href}" class="docs-link">
+      <sbb-title level=${titleLevel} id="${headingId}">
+        <sbb-link href="${href}" class="docs-link">
           <sbb-icon name="link-small" class="docs-link-icon"></sbb-icon>
           ${text}
-        </a>
-      </h${depth}>
+        </sbb-link>
+      </sbb-title>
     `;
   },
   table(token: Tokens.Table): string {
@@ -71,9 +76,10 @@ export function setup(): void {
                 ${html}
               </div>
               <aside class="docs-toc-content">
-                <h3>Table of contents</h3>
+                <sbb-title level=${6}>Table of contents</sbb-title>
                 <ul>
-                  ${toc.join('')}
+
+                  ${toc.join('').replace(/<a /g, '<sbb-link ').replace(/<\/a>/g, '</sbb-link>')}
                 </ul>
               </aside>
             </div>`;

@@ -1,8 +1,8 @@
 <div class="example-viewer-header">
-  <h3 class="example-viewer-title">{{ this.exampleData().description }}</h3>
+  <sbb-title level="4" class="example-viewer-title">{{ this.exampleData().description }}</sbb-title>
   <sbb-secondary-button
     class="example-viewer-header-button"
-    icon-name="display-binary-code-small"
+    iconName="display-binary-code-small"
     aria-label="View code"
     sbb-tooltip="View code"
     (click)="showSource = !showSource"
@@ -17,7 +17,7 @@
       class="example-viewer-header-button"
       aria-label="Edit example in StackBlitz"
       sbb-tooltip="Edit example in StackBlitz"
-      icon-name="link-external-small"
+      iconName="link-external-small"
     >
     </sbb-secondary-button>
   }

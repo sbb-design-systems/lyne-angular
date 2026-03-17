@@ -6,6 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
 import { SbbTabsModule } from '@sbb-esta/lyne-angular/tabs';
+import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
 import { marked } from 'marked';
 import { combineLatest, from } from 'rxjs';
@@ -52,6 +53,7 @@ export class ExampleOutletComponent implements OnInit {
     SbbTooltipModule,
     SbbSecondaryButton,
     StackBlitzButton,
+    SbbTitle,
   ],
 })
 export class ExampleViewerComponent {
