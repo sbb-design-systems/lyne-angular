@@ -53,6 +53,10 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           scope: sbb-esta
       - run: yarn install --frozen-lockfile --non-interactive
+      - name: 'Upgrade @sbb-esta/* dependencies for exact release version'
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          yarn update-lyne:upgrade
 
       - name: Update npm
         run: npm install --global npm@latest
