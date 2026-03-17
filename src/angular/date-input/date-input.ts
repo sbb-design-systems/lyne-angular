@@ -19,7 +19,7 @@ import { readConfig } from '@sbb-esta/lyne-elements/core/config.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import type { SbbDateInputAssociated } from '@sbb-esta/lyne-elements/date-input.js';
 import { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
-import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
+import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 /**

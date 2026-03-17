@@ -11,7 +11,7 @@ import {
 import { outputFromObservable, outputToObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import type { SbbCompactPaginatorElement } from '@sbb-esta/lyne-elements/paginator/compact-paginator.js';
+import type { SbbCompactPaginatorElement } from '@sbb-esta/lyne-elements/paginator.js';
 import { AsyncSubject, forkJoin, fromEvent, map, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/paginator.js';

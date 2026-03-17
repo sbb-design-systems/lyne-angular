@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbNavigationElement } from '@sbb-esta/lyne-elements/navigation/navigation.js';
+import type { SbbNavigationElement } from '@sbb-esta/lyne-elements/navigation.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/navigation.js';

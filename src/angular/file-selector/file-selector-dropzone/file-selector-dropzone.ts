@@ -14,7 +14,7 @@ import {
   internalOutputFromObservable,
   SbbControlValueAccessorMixin,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbFileSelectorDropzoneElement } from '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
+import type { SbbFileSelectorDropzoneElement } from '@sbb-esta/lyne-elements/file-selector.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/file-selector.js';

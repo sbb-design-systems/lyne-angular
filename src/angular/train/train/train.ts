@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
-import type { SbbTrainElement } from '@sbb-esta/lyne-elements/train/train.js';
+import type { SbbTrainElement } from '@sbb-esta/lyne-elements/train.js';
 
 import '@sbb-esta/lyne-elements/train.js';
 

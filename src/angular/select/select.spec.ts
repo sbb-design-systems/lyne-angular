@@ -3,7 +3,7 @@ import { Component, viewChild, viewChildren } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SbbOption } from '@sbb-esta/lyne-angular/option';
-import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option/option.js';
+import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option.js';
 
 import { SbbSelect } from './select';
 import { SbbSelectModule } from './select.module';

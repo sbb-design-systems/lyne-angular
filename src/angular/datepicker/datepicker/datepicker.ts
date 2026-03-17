@@ -3,7 +3,7 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { CalendarView } from '@sbb-esta/lyne-elements/calendar.js';
 import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
-import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
+import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/datepicker.js';

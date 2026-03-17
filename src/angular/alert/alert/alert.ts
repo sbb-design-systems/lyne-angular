@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbAlertElement } from '@sbb-esta/lyne-elements/alert/alert.js';
+import type { SbbAlertElement } from '@sbb-esta/lyne-elements/alert.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/alert.js';

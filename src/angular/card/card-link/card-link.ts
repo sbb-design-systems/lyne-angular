@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbCardLinkElement } from '@sbb-esta/lyne-elements/card/card-link.js';
+import type { SbbCardLinkElement } from '@sbb-esta/lyne-elements/card.js';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
 import '@sbb-esta/lyne-elements/card.js';

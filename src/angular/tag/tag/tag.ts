@@ -17,7 +17,7 @@ import {
   SbbControlValueAccessorMixin,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
+import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/tag.js';

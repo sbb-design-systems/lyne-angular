@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbContainerElement } from '@sbb-esta/lyne-elements/container/container.js';
+import type { SbbContainerElement } from '@sbb-esta/lyne-elements/container.js';
 
 import '@sbb-esta/lyne-elements/container.js';
 

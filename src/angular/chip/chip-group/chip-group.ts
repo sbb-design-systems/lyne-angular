@@ -17,7 +17,7 @@ import {
 import type {
   SbbChipGroupElement,
   SbbChipInputTokenEndEvent,
-} from '@sbb-esta/lyne-elements/chip/chip-group.js';
+} from '@sbb-esta/lyne-elements/chip.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/chip.js';

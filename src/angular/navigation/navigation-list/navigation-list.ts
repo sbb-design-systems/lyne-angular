@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbNavigationListElement } from '@sbb-esta/lyne-elements/navigation/navigation-list.js';
+import type { SbbNavigationListElement } from '@sbb-esta/lyne-elements/navigation.js';
 
 import '@sbb-esta/lyne-elements/navigation.js';
 

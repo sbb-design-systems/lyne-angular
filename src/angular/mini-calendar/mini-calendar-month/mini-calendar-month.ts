@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
-import type { SbbMiniCalendarMonthElement } from '@sbb-esta/lyne-elements/mini-calendar/mini-calendar-month.js';
+import type { SbbMiniCalendarMonthElement } from '@sbb-esta/lyne-elements/mini-calendar.js';
 
 import '@sbb-esta/lyne-elements/mini-calendar.js';
 

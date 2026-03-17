@@ -8,7 +8,7 @@ import {
   SbbDatepickerToggle,
 } from '@sbb-esta/lyne-angular/datepicker';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
-import type { SbbCalendarDayElement } from '@sbb-esta/lyne-elements/calendar/calendar-day.js';
+import type { SbbCalendarDayElement } from '@sbb-esta/lyne-elements/calendar.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 

@@ -1,6 +1,6 @@
 import { Component, ElementRef, viewChildren } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import type { SbbBreadcrumbElement } from '@sbb-esta/lyne-elements/breadcrumb/breadcrumb.js';
+import type { SbbBreadcrumbElement } from '@sbb-esta/lyne-elements/breadcrumb.js';
 
 import { SbbBreadcrumbModule } from '..';
 

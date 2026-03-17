@@ -4,7 +4,7 @@ import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type {
   SbbCarouselItemElement,
   SbbCarouselItemEventDetail,
-} from '@sbb-esta/lyne-elements/carousel/carousel-item.js';
+} from '@sbb-esta/lyne-elements/carousel.js';
 import { NEVER, fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/carousel.js';

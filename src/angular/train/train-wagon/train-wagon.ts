@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import type { SbbTrainWagonElement } from '@sbb-esta/lyne-elements/train/train-wagon.js';
+import type { SbbTrainWagonElement } from '@sbb-esta/lyne-elements/train.js';
 
 import '@sbb-esta/lyne-elements/train.js';
 

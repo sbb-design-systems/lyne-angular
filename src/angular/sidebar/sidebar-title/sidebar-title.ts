@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbSidebarTitleElement } from '@sbb-esta/lyne-elements/sidebar/sidebar-title.js';
+import type { SbbSidebarTitleElement } from '@sbb-esta/lyne-elements/sidebar.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 import '@sbb-esta/lyne-elements/sidebar.js';

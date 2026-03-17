@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
-import type { SbbTabNavBarElement } from '@sbb-esta/lyne-elements/tabs/tab-nav-bar.js';
+import type { SbbTabNavBarElement } from '@sbb-esta/lyne-elements/tabs.js';
 import '@sbb-esta/lyne-elements/tabs.js';
 
 /**

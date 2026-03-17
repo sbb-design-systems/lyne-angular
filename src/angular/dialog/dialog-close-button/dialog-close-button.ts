@@ -2,7 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbDialogCloseButtonElement } from '@sbb-esta/lyne-elements/dialog/dialog-close-button.js';
+import type { SbbDialogCloseButtonElement } from '@sbb-esta/lyne-elements/dialog.js';
 
 import '@sbb-esta/lyne-elements/dialog.js';
 

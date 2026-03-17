@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
-import type { SbbSidebarContainerElement } from '@sbb-esta/lyne-elements/sidebar/sidebar-container.js';
-import type { SbbSidebarElement } from '@sbb-esta/lyne-elements/sidebar/sidebar.js';
+import type { SbbSidebarContainerElement, SbbSidebarElement  } from '@sbb-esta/lyne-elements/sidebar.js';
 
 import { SbbSidebarModule } from '..';
 

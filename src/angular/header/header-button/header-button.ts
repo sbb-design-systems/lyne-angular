@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import type { SbbHeaderButtonElement } from '@sbb-esta/lyne-elements/header/header-button.js';
+import type { SbbHeaderButtonElement } from '@sbb-esta/lyne-elements/header.js';
 
 import '@sbb-esta/lyne-elements/header.js';
 

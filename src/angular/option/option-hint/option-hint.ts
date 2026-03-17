@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbOptionHintElement } from '@sbb-esta/lyne-elements/option/option-hint.js';
+import type { SbbOptionHintElement } from '@sbb-esta/lyne-elements/option.js';
 
 import '@sbb-esta/lyne-elements/option.js';
 

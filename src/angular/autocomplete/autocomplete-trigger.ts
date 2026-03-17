@@ -1,8 +1,8 @@
 import { Directive, ElementRef, forwardRef, inject, Input } from '@angular/core';
 import type { ControlValueAccessor } from '@angular/forms';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field/form-field.js';
-import type { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option/option.js';
+import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js';
+import type { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option.js';
 import { BehaviorSubject } from 'rxjs';
 
 import type { SbbAutocompleteType } from './autocomplete-type';

@@ -9,10 +9,7 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbTabGroupElement } from '@sbb-esta/lyne-elements/tabs/tab-group.js';
-import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs/tab-label.js';
-import type { SbbTabElement } from '@sbb-esta/lyne-elements/tabs/tab.js';
-import type { SbbTabChangedEventDetails } from '@sbb-esta/lyne-elements/tabs.js';
+import type { SbbTabGroupElement, SbbTabLabelElement , SbbTabElement , SbbTabChangedEventDetails  } from '@sbb-esta/lyne-elements/tabs.js';
 import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/tabs.js';

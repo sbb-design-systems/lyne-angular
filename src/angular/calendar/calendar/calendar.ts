@@ -5,7 +5,7 @@ import type {
   SbbCalendarElement,
   SbbMonthChangeEvent,
   CalendarView,
-} from '@sbb-esta/lyne-elements/calendar/calendar.js';
+} from '@sbb-esta/lyne-elements/calendar.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/calendar.js';
