@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbTagGroupElement, SbbTagElement, SbbTagSize  } from '@sbb-esta/lyne-elements/tag.js';
+import type { SbbTagGroupElement, SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag.js';
 
 import '@sbb-esta/lyne-elements/tag.js';
 

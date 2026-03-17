@@ -1,7 +1,12 @@
 import { Directive, ElementRef, inject, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbStepLabelElement, SbbStepElement , SbbStepperElement , SbbStepValidateEventDetails  } from '@sbb-esta/lyne-elements/stepper.js';
+import type {
+  SbbStepLabelElement,
+  SbbStepElement,
+  SbbStepperElement,
+  SbbStepValidateEventDetails,
+} from '@sbb-esta/lyne-elements/stepper.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/stepper.js';

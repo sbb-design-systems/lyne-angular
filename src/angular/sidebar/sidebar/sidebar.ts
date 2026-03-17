@@ -9,7 +9,10 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbSidebarContainerElement, SbbSidebarElement  } from '@sbb-esta/lyne-elements/sidebar.js';
+import type {
+  SbbSidebarContainerElement,
+  SbbSidebarElement,
+} from '@sbb-esta/lyne-elements/sidebar.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/sidebar.js';

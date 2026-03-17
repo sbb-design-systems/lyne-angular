@@ -1,7 +1,12 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbNavigationLinkElement, SbbNavigationMarkerElement , SbbNavigationSectionElement , SbbNavigationActionSize  } from '@sbb-esta/lyne-elements/navigation.js';
+import type {
+  SbbNavigationLinkElement,
+  SbbNavigationMarkerElement,
+  SbbNavigationSectionElement,
+  SbbNavigationActionSize,
+} from '@sbb-esta/lyne-elements/navigation.js';
 
 import '@sbb-esta/lyne-elements/navigation.js';
 

@@ -1,5 +1,9 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbNavigationButtonElement, SbbNavigationLinkElement , SbbNavigationMarkerElement  } from '@sbb-esta/lyne-elements/navigation.js';
+import type {
+  SbbNavigationButtonElement,
+  SbbNavigationLinkElement,
+  SbbNavigationMarkerElement,
+} from '@sbb-esta/lyne-elements/navigation.js';
 
 import '@sbb-esta/lyne-elements/navigation.js';
 

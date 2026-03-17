@@ -5,7 +5,10 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SbbAutocomplete } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import { SbbOption } from '@sbb-esta/lyne-angular/option';
-import type { SbbChipInputTokenEndEventDetails, SbbChipElement  } from '@sbb-esta/lyne-elements/chip.js';
+import type {
+  SbbChipInputTokenEndEventDetails,
+  SbbChipElement,
+} from '@sbb-esta/lyne-elements/chip.js';
 
 import { SbbChipGroup } from './chip-group';
 
