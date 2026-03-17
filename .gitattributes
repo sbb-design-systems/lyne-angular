@@ -1,5 +1,3 @@
-# Ensure shell scripts always use LF line endings (fixes issues on Windows/WSL).
-# See: https://github.com/sbb-design-systems/lyne-angular/issues/294
-*.sh text eol=lf
-.husky/* text eol=lf
+# Ensure text files always use lf, even for Windows
+* text eol=lf
 
