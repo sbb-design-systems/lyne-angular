@@ -4,7 +4,6 @@ import type { SbbDialogTitleElement } from '@sbb-esta/lyne-elements/dialog/dialo
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 import '@sbb-esta/lyne-elements/dialog.js';
-import '@sbb-esta/lyne-elements/dialog/dialog-title.js';
 
 /**
  * It displays a title inside a dialog header.

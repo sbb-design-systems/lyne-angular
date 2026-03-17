@@ -4,7 +4,6 @@ import type { SbbNavigationLinkElement } from '@sbb-esta/lyne-elements/navigatio
 import type { SbbNavigationMarkerElement } from '@sbb-esta/lyne-elements/navigation/navigation-marker.js';
 
 import '@sbb-esta/lyne-elements/navigation.js';
-import '@sbb-esta/lyne-elements/navigation/navigation-marker.js';
 
 /**
  * It can be used as a container for one or more `sbb-navigation-button`/`sbb-navigation-link` within a `sbb-navigation`.

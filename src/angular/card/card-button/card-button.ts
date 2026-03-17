@@ -4,7 +4,6 @@ import type { SbbCardButtonElement } from '@sbb-esta/lyne-elements/card/card-but
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
 import '@sbb-esta/lyne-elements/card.js';
-import '@sbb-esta/lyne-elements/card/card-button.js';
 
 /**
  * It turns the `sbb-card` into a button element.

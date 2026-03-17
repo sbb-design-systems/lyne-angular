@@ -8,7 +8,6 @@ import type {
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/dialog.js';
-import '@sbb-esta/lyne-elements/dialog/dialog.js';
 
 /**
  * It displays an interactive overlay element.

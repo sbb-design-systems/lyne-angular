@@ -5,7 +5,6 @@ import type { SbbDialogActionsElement } from '@sbb-esta/lyne-elements/dialog/dia
 import type { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 
 import '@sbb-esta/lyne-elements/dialog.js';
-import '@sbb-esta/lyne-elements/dialog/dialog-actions.js';
 
 /**
  * Use this component to display a footer into an `sbb-dialog` with an action group.

@@ -9,7 +9,6 @@ import type {
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/calendar.js';
-import '@sbb-esta/lyne-elements/calendar/calendar.js';
 
 /**
  * It displays a calendar which allows choosing a date.

@@ -3,7 +3,6 @@ import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.j
 import type { SbbMiniCalendarDayElement } from '@sbb-esta/lyne-elements/mini-calendar/mini-calendar-day.js';
 
 import '@sbb-esta/lyne-elements/mini-calendar.js';
-import '@sbb-esta/lyne-elements/mini-calendar/mini-calendar-day.js';
 
 /**
  * It displays a day in the `sbb-mini-calendar-month`.

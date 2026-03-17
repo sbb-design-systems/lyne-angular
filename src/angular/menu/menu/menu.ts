@@ -5,7 +5,6 @@ import type { SbbMenuElement } from '@sbb-esta/lyne-elements/menu/menu.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/menu.js';
-import '@sbb-esta/lyne-elements/menu/menu.js';
 
 /**
  * It displays a contextual menu with one or more action element.

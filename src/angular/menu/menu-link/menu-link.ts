@@ -4,7 +4,6 @@ import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.
 import type { SbbMenuLinkElement } from '@sbb-esta/lyne-elements/menu/menu-link.js';
 
 import '@sbb-esta/lyne-elements/menu.js';
-import '@sbb-esta/lyne-elements/menu/menu-link.js';
 
 /**
  * It displays a link element that can be used in the `sbb-menu` component.

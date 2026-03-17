@@ -1,7 +1,6 @@
 import { Directive } from '@angular/core';
 
 import '@sbb-esta/lyne-elements/breadcrumb.js';
-import '@sbb-esta/lyne-elements/breadcrumb/breadcrumb-group.js';
 
 /**
  * It can be used as a container for one or more `sbb-breadcrumb` component.

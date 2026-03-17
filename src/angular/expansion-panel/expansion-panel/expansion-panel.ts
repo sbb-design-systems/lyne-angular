@@ -10,7 +10,6 @@ import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/expansion-panel.js';
-import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
 
 /**
  * It displays an expandable summary-details widget.

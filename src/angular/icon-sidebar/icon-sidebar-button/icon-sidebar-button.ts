@@ -3,7 +3,6 @@ import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.j
 import type { SbbIconSidebarButtonElement } from '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar-button.js';
 
 import '@sbb-esta/lyne-elements/icon-sidebar.js';
-import '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar-button.js';
 
 /**
  * Button to be placed inside `sbb-icon-sidebar`.

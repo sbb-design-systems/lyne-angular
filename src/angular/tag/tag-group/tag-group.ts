@@ -4,7 +4,6 @@ import type { SbbTagGroupElement } from '@sbb-esta/lyne-elements/tag/tag-group.j
 import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
 
 import '@sbb-esta/lyne-elements/tag.js';
-import '@sbb-esta/lyne-elements/tag/tag-group.js';
 
 /**
  * It can be used as a container for one or more `sbb-tag`.

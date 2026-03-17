@@ -5,7 +5,6 @@ import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.j
 import type { SbbDialogCloseButtonElement } from '@sbb-esta/lyne-elements/dialog/dialog-close-button.js';
 
 import '@sbb-esta/lyne-elements/dialog.js';
-import '@sbb-esta/lyne-elements/dialog/dialog-close-button.js';
 
 /**
  * Dialog close button, intended to be placed inside sbb-dialog.

@@ -3,7 +3,6 @@ import type { SbbSidebarContainerElement } from '@sbb-esta/lyne-elements/sidebar
 import type { SbbSidebarElement } from '@sbb-esta/lyne-elements/sidebar/sidebar.js';
 
 import '@sbb-esta/lyne-elements/sidebar.js';
-import '@sbb-esta/lyne-elements/sidebar/sidebar-container.js';
 
 /**
  * This is the parent component to one or two `<sbb-sidebar>`s that validates the state internally

@@ -14,7 +14,6 @@ import type { SbbSidebarElement } from '@sbb-esta/lyne-elements/sidebar/sidebar.
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/sidebar.js';
-import '@sbb-esta/lyne-elements/sidebar/sidebar.js';
 
 /**
  * This component corresponds to a sidebar that can be opened on the sidebar container.

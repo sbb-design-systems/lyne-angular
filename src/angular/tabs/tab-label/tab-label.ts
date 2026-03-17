@@ -6,7 +6,6 @@ import type { SbbTabElement } from '@sbb-esta/lyne-elements/tabs/tab.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 import '@sbb-esta/lyne-elements/tabs.js';
-import '@sbb-esta/lyne-elements/tabs/tab-label.js';
 
 /**
  * Combined with a `sbb-tab-group`, it displays a tab's title.

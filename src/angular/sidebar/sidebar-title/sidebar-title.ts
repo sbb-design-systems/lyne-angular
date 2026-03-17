@@ -3,7 +3,6 @@ import type { SbbSidebarTitleElement } from '@sbb-esta/lyne-elements/sidebar/sid
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 import '@sbb-esta/lyne-elements/sidebar.js';
-import '@sbb-esta/lyne-elements/sidebar/sidebar-title.js';
 
 /**
  * It displays the title of the sidebar. It has to be placed inside an `sbb-sidebar` element.

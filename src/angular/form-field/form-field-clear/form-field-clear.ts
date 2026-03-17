@@ -4,7 +4,6 @@ import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.j
 import type { SbbFormFieldClearElement } from '@sbb-esta/lyne-elements/form-field/form-field-clear.js';
 
 import '@sbb-esta/lyne-elements/form-field.js';
-import '@sbb-esta/lyne-elements/form-field/form-field-clear.js';
 
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.

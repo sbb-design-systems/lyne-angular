@@ -2,7 +2,6 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbCardElement } from '@sbb-esta/lyne-elements/card/card.js';
 
 import '@sbb-esta/lyne-elements/card.js';
-import '@sbb-esta/lyne-elements/card/card.js';
 
 /**
  * It displays content related to a single subject.

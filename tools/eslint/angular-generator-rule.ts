@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
-import { dirname, relative, resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
 import { basename, join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -877,6 +877,8 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // Add other imports
         const program = context.sourceCode.ast;
+        /*
+        Disabled, as it currently breaks due to structure change
         const elementPath = relative(root, dirname(context.filename)).replace(
           'src/angular',
           'elements',
@@ -902,6 +904,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport '${elementImport}';`),
           });
         }
+          */
 
         // Angular imports
         const angularCoreImport = program.body.find(
@@ -1065,6 +1068,8 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         }
 
         // Lyne element class
+        /*
+        Disabled, as it currently breaks due to structure change
         if (
           expectedAngularImports.has('ElementRef') &&
           program.body.every(
@@ -1088,6 +1093,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               ),
           });
         }
+        */
       },
     };
   },

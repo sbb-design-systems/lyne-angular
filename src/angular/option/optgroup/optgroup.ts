@@ -3,7 +3,6 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbOptGroupElement } from '@sbb-esta/lyne-elements/option/optgroup.js';
 
 import '@sbb-esta/lyne-elements/option.js';
-import '@sbb-esta/lyne-elements/option/optgroup.js';
 
 /**
  * It can be used as a container for one or more `sbb-option`.

@@ -4,7 +4,6 @@ import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.j
 import type { SbbMenuButtonElement } from '@sbb-esta/lyne-elements/menu/menu-button.js';
 
 import '@sbb-esta/lyne-elements/menu.js';
-import '@sbb-esta/lyne-elements/menu/menu-button.js';
 
 /**
  * It displays a button element that can be used in the `sbb-menu` component.

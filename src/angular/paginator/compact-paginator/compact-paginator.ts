@@ -15,7 +15,6 @@ import type { SbbCompactPaginatorElement } from '@sbb-esta/lyne-elements/paginat
 import { AsyncSubject, forkJoin, fromEvent, map, NEVER, type Observable } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/paginator.js';
-import '@sbb-esta/lyne-elements/paginator/compact-paginator.js';
 
 /**
  * It displays a paginator component in compact mode.

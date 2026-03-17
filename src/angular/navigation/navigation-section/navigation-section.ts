@@ -4,7 +4,6 @@ import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbNavigationSectionElement } from '@sbb-esta/lyne-elements/navigation/navigation-section.js';
 import { NEVER, fromEvent } from 'rxjs';
 import '@sbb-esta/lyne-elements/navigation.js';
-import '@sbb-esta/lyne-elements/navigation/navigation-section.js';
 
 /**
  * It can be used as a container for `sbb-navigation-list` within a `sbb-navigation`.

@@ -10,7 +10,6 @@ import type {
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/stepper.js';
-import '@sbb-esta/lyne-elements/stepper/stepper.js';
 
 /**
  * Provides a structured, step-by-step workflow for user interactions.

@@ -1,7 +1,6 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbTabNavBarElement } from '@sbb-esta/lyne-elements/tabs/tab-nav-bar.js';
 import '@sbb-esta/lyne-elements/tabs.js';
-import '@sbb-esta/lyne-elements/tabs/tab-nav-bar.js';
 
 /**
  * It displays one or more tab-label-like elements, each one is an anchor element.

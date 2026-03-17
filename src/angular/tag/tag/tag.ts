@@ -21,7 +21,6 @@ import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/tag.js';
-import '@sbb-esta/lyne-elements/tag/tag.js';
 
 /**
  * It displays a selectable element which can be used as a filter.

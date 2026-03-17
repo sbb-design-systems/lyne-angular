@@ -8,7 +8,6 @@ import type {
 import { NEVER, fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/carousel.js';
-import '@sbb-esta/lyne-elements/carousel/carousel-item.js';
 
 /**
  * It displays an item contained into the `sbb-carousel` component.

@@ -6,7 +6,6 @@ import type { SbbNavigationSectionElement } from '@sbb-esta/lyne-elements/naviga
 import type { SbbNavigationActionSize } from '@sbb-esta/lyne-elements/navigation.js';
 
 import '@sbb-esta/lyne-elements/navigation.js';
-import '@sbb-esta/lyne-elements/navigation/navigation-button.js';
 
 /**
  * It displays a button element that can be used in the `sbb-navigation` component.

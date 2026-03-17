@@ -5,7 +5,6 @@ import type { SbbStickyBarElement } from '@sbb-esta/lyne-elements/container/stic
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/container.js';
-import '@sbb-esta/lyne-elements/container/sticky-bar.js';
 
 /**
  * A container that sticks to the bottom of the page if slotted into `sbb-container`.

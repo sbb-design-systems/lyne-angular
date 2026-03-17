@@ -3,7 +3,6 @@ import type { SbbIconSidebarContainerElement } from '@sbb-esta/lyne-elements/ico
 import type { SbbIconSidebarElement } from '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar.js';
 
 import '@sbb-esta/lyne-elements/icon-sidebar.js';
-import '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar-container.js';
 
 /**
  * This is the parent component to one or two `<sbb-icon-sidebar>`s and one `<sbb-icon-sidebar-content>` element.

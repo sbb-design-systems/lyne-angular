@@ -7,7 +7,6 @@ import type { SbbFlipCardDetailsElement } from '@sbb-esta/lyne-elements/flip-car
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/flip-card.js';
-import '@sbb-esta/lyne-elements/flip-card/flip-card.js';
 
 /**
  * Displays an informative card that reveals more information upon being clicked.

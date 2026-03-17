@@ -7,7 +7,6 @@ import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/da
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/datepicker.js';
-import '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 
 /**
  * A datepicker component that allows users to select a date from a calendar view.

@@ -4,7 +4,6 @@ import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.
 import type { SbbTeaserProductElement } from '@sbb-esta/lyne-elements/teaser-product/teaser-product.js';
 
 import '@sbb-esta/lyne-elements/teaser-product.js';
-import '@sbb-esta/lyne-elements/teaser-product/teaser-product.js';
 
 /**
  * Displays a text and a footnote, combined with an image, to tease a product

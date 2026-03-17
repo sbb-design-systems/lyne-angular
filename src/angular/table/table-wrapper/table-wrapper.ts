@@ -3,7 +3,6 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTableWrapperElement } from '@sbb-esta/lyne-elements/table/table-wrapper.js';
 
 import '@sbb-esta/lyne-elements/table.js';
-import '@sbb-esta/lyne-elements/table/table-wrapper.js';
 
 /**
  * Wraps a table to enhance its functionality.

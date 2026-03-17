@@ -6,7 +6,6 @@ import type { SbbDatepickerToggleElement } from '@sbb-esta/lyne-elements/datepic
 import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 
 import '@sbb-esta/lyne-elements/datepicker.js';
-import '@sbb-esta/lyne-elements/datepicker/datepicker-toggle.js';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.

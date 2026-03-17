@@ -4,7 +4,6 @@ import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.
 import type { SbbIconSidebarLinkElement } from '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar-link.js';
 
 import '@sbb-esta/lyne-elements/icon-sidebar.js';
-import '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar-link.js';
 
 /**
  * Link to be placed inside `sbb-icon-sidebar`.

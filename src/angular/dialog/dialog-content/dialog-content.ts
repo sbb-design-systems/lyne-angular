@@ -1,7 +1,6 @@
 import { Directive } from '@angular/core';
 
 import '@sbb-esta/lyne-elements/dialog.js';
-import '@sbb-esta/lyne-elements/dialog/dialog-content.js';
 
 /**
  * Use this component to provide a content for an `sbb-dialog`.

@@ -5,7 +5,6 @@ import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option/option.js'
 import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/option.js';
-import '@sbb-esta/lyne-elements/option/option.js';
 
 /**
  * It displays on option item which can be used in `sbb-select` or `sbb-autocomplete`.

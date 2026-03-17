@@ -5,7 +5,6 @@ import type { SbbNavigationElement } from '@sbb-esta/lyne-elements/navigation/na
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/navigation.js';
-import '@sbb-esta/lyne-elements/navigation/navigation.js';
 
 /**
  * It displays a navigation menu, wrapping one or more `sbb-navigation-*` components.

@@ -20,7 +20,6 @@ import type { SbbToggleElement } from '@sbb-esta/lyne-elements/toggle/toggle.js'
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/toggle.js';
-import '@sbb-esta/lyne-elements/toggle/toggle.js';
 
 /**
  * It can be used as a container for two `sbb-toggle-option`, acting as a toggle button.

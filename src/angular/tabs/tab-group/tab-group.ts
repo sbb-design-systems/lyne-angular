@@ -16,7 +16,6 @@ import type { SbbTabChangedEventDetails } from '@sbb-esta/lyne-elements/tabs.js'
 import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/tabs.js';
-import '@sbb-esta/lyne-elements/tabs/tab-group.js';
 
 /**
  * It displays one or more tabs, each one with a label and some content.

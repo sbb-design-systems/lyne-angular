@@ -3,7 +3,6 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbContainerElement } from '@sbb-esta/lyne-elements/container/container.js';
 
 import '@sbb-esta/lyne-elements/container.js';
-import '@sbb-esta/lyne-elements/container/container.js';
 
 /**
  * It displays its content with the default page spacing.

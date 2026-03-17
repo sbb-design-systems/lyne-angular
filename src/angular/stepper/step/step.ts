@@ -8,7 +8,6 @@ import type { SbbStepValidateEventDetails } from '@sbb-esta/lyne-elements/steppe
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/stepper.js';
-import '@sbb-esta/lyne-elements/stepper/step.js';
 
 /**
  * Combined with a `sbb-stepper`, it displays a step's content.

@@ -3,7 +3,6 @@ import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbTrainWagonElement } from '@sbb-esta/lyne-elements/train/train-wagon.js';
 
 import '@sbb-esta/lyne-elements/train.js';
-import '@sbb-esta/lyne-elements/train/train-wagon.js';
 
 /**
  * It displays a train compartment within a `sbb-train` component.

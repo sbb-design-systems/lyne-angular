@@ -5,7 +5,6 @@ import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core/interfaces.
 import type { SbbHeaderLinkElement } from '@sbb-esta/lyne-elements/header/header-link.js';
 
 import '@sbb-esta/lyne-elements/header.js';
-import '@sbb-esta/lyne-elements/header/header-link.js';
 
 /**
  * It displays a link element that can be used in the `sbb-header` component.

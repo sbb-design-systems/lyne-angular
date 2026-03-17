@@ -3,7 +3,6 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbErrorElement } from '@sbb-esta/lyne-elements/form-field/error.js';
 
 import '@sbb-esta/lyne-elements/form-field.js';
-import '@sbb-esta/lyne-elements/form-field/error.js';
 
 /**
  * It displays an error message in the `sbb-form-field`.

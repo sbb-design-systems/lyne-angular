@@ -3,7 +3,6 @@ import type { SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js'
 import type { SbbMiniCalendarElement } from '@sbb-esta/lyne-elements/mini-calendar/mini-calendar.js';
 
 import '@sbb-esta/lyne-elements/mini-calendar.js';
-import '@sbb-esta/lyne-elements/mini-calendar/mini-calendar.js';
 
 /**
  * It displays a minimal calendar, together with the `sbb-mini-calendar-month` and `sbb-mini-calendar-day`.

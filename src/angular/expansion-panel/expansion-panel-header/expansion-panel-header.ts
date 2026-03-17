@@ -6,7 +6,6 @@ import type { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/exp
 import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/expansion-panel.js';
-import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
 
 /**
  * It acts as a native `summary` tag for the `sbb-expansion-panel` component.

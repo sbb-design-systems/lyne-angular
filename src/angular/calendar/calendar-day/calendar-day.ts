@@ -3,7 +3,6 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbCalendarDayElement } from '@sbb-esta/lyne-elements/calendar/calendar-day.js';
 
 import '@sbb-esta/lyne-elements/calendar.js';
-import '@sbb-esta/lyne-elements/calendar/calendar-day.js';
 
 /**
  * It displays a single day cell in the `sbb-calendar` component.

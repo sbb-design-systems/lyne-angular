@@ -5,7 +5,6 @@ import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.j
 import type { SbbSidebarCloseButtonElement } from '@sbb-esta/lyne-elements/sidebar/sidebar-close-button.js';
 
 import '@sbb-esta/lyne-elements/sidebar.js';
-import '@sbb-esta/lyne-elements/sidebar/sidebar-close-button.js';
 
 /**
  * Sidebar close button, intended to be placed inside sbb-sidebar.

@@ -5,7 +5,6 @@ import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js'
 import type { SbbDatepickerNextDayElement } from '@sbb-esta/lyne-elements/datepicker/datepicker-next-day.js';
 
 import '@sbb-esta/lyne-elements/datepicker.js';
-import '@sbb-esta/lyne-elements/datepicker/datepicker-next-day.js';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date ahead.

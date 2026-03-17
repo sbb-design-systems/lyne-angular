@@ -4,7 +4,6 @@ import type { SbbBreadcrumbElement } from '@sbb-esta/lyne-elements/breadcrumb/br
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
 import '@sbb-esta/lyne-elements/breadcrumb.js';
-import '@sbb-esta/lyne-elements/breadcrumb/breadcrumb.js';
 
 /**
  * It displays a link to a page; used within a `sbb-breadcrumb-group` it can display the path to the current page.
