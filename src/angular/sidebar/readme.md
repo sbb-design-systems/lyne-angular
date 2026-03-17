@@ -200,14 +200,16 @@ accessibility information on the trigger button should be set.
 - `aria-expanded="true"` or `aria-expanded="false"` (should be updated to the opened state of the sidebar)
 - `aria-label` (Describes the toggle action)
 
+<!-- #region override trigger-button-example -->
+
 ```html
 <sbb-header expanded scrollOrigin="content" size="s">
   <sbb-header-button
     id="toggle-button"
     iconName="arrows-right-left-small"
     aria-controls="sidebar"
-    aria-expanded="true"
-    (click)="() => document.querySelector('#sidebar')?.toggle() "
+    [attr.aria-expanded]="sidebarOpen()"
+    (click)="toggleSidebar()"
   >
     Toggle sidebar
   </sbb-header-button>
@@ -216,8 +218,8 @@ accessibility information on the trigger button should be set.
   <sbb-sidebar
     id="sidebar"
     role="navigation"
-    (open)="() => document.querySelector('#toggle-button')?.setAttribute('aria-expanded', 'true') "
-    (close)="() => document.querySelector('#toggle-button')?.setAttribute('aria-expanded', 'false') "
+    (open)="sidebarOpen.set(true)"
+    (close)="sidebarOpen.set(false)"
   >
     <sbb-link-list>
       <sbb-block-link>Link 1</sbb-block-link>
@@ -227,6 +229,23 @@ accessibility information on the trigger button should be set.
   <sbb-sidebar-content role="main" id="content">Content</sbb-sidebar-content>
 </sbb-sidebar-container>
 ```
+
+```ts
+@Component({
+  selector: 'example',
+  templateUrl: './example.html',
+})
+export class Example {
+  sidebarOpen = signal(false);
+  sidebar = viewChild.required(SbbSidebar);
+
+  toggleSidebar() {
+    this.sidebar().toggle();
+  }
+}
+```
+
+<!-- #endregion -->
 
 ### Controlling initial focus
 

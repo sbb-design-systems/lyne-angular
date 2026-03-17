@@ -1,10 +1,13 @@
-<!-- FIXME replace the nav + sbb-link-button with sbb-tab-nav-bar when available -->
-<nav>
+<sbb-tab-nav-bar>
   @for (section of sections; track $index) {
-    <sbb-link-button [routerLink]="['.', section.toLowerCase()]" routerLinkActive="sbb-active">
+    <a
+      [routerLink]="['.', section.toLowerCase()]"
+      routerLinkActive="sbb-active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       {{ section }}
-    </sbb-link-button>
+    </a>
   }
-</nav>
+</sbb-tab-nav-bar>
 
 <router-outlet></router-outlet>
