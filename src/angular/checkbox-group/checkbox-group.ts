@@ -8,9 +8,9 @@ import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/
 import '@sbb-esta/lyne-elements/checkbox-group.js';
 
 /**
- * It can be used as a container for one or more `sbb-checkbox`.
+ * It can be used as a container for checkbox elements.
  *
- * @slot  - Use the unnamed slot to add `sbb-checkbox` elements to the `sbb-checkbox-group`.
+ * @slot  - Use the unnamed slot to add `sbb-checkbox`, `sbb-checkbox-panel`, `sbb-selection-action-panel` and `sbb-selection-expansion-panel` elements to the `sbb-checkbox-group`.
  * @slot error - Slot used to render a `sbb-error` inside the `sbb-checkbox-group`.
  */
 @Directive({
@@ -22,7 +22,7 @@ export class SbbCheckboxGroup {
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Whether the checkbox group is required.
+   * Whether the component is required.
    */
   @Input({ transform: booleanAttribute })
   public set required(value: boolean) {
@@ -55,7 +55,7 @@ export class SbbCheckboxGroup {
   }
 
   /**
-   * Indicates the orientation of the checkboxes inside the `<sbb-checkbox-group>`.
+   * Indicates the orientation of the checkboxes or panels inside the group.
    */
   @Input()
   public set orientation(value: SbbOrientation) {

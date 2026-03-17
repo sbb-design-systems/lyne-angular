@@ -22,9 +22,9 @@ import { fromEvent } from 'rxjs';
 import '@sbb-esta/lyne-elements/radio-button-group.js';
 
 /**
- * It can be used as a container for one or more `sbb-radio-button`.
+ * It can be used as a container for radio button elements.
  *
- * @slot  - Use the unnamed slot to add `sbb-radio-button` elements to the `sbb-radio-button-group`.
+ * @slot  - Use the unnamed slot to add `sbb-radio-button`, `sbb-radio-button-panel`, `sbb-selection-action-panel` and `sbb-selection-expansion-panel` elements to the `sbb-radio-button-group`.
  * @slot error - Use this to provide a `sbb-error` to show an error message.
  */
 @Directive({
@@ -60,7 +60,7 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
   }
 
   /**
-   * Whether the radio group is required.
+   * Whether the component is required.
    */
   @Input({ transform: booleanAttribute })
   public set required(value: boolean) {
@@ -104,7 +104,7 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
   }
 
   /**
-   * Radio group's orientation, either horizontal or vertical.
+   * Indicates the orientation of the checkboxes or panels inside the group.
    */
   @Input()
   public set orientation(value: SbbOrientation) {
@@ -114,6 +114,9 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
     return this.#element.nativeElement.orientation;
   }
 
+  /**
+   * Name for the group. Will be propagated to the child radio buttons. Must be unique if multiple groups are used on the same page.
+   */
   @Input()
   public set name(value: string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.name = value));
