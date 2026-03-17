@@ -3,6 +3,7 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbCardLinkElement } from '@sbb-esta/lyne-elements/card/card-link.js';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
+import '@sbb-esta/lyne-elements/card.js';
 import '@sbb-esta/lyne-elements/card/card-link.js';
 
 /**

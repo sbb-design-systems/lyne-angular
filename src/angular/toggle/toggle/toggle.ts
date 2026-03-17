@@ -19,6 +19,7 @@ import type { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle/togg
 import type { SbbToggleElement } from '@sbb-esta/lyne-elements/toggle/toggle.js';
 import { fromEvent, NEVER } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/toggle.js';
 import '@sbb-esta/lyne-elements/toggle/toggle.js';
 
 /**

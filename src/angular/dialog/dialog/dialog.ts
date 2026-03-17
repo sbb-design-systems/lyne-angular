@@ -7,6 +7,7 @@ import type {
 } from '@sbb-esta/lyne-elements/dialog/dialog.js';
 import { fromEvent, NEVER } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/dialog.js';
 import '@sbb-esta/lyne-elements/dialog/dialog.js';
 
 /**

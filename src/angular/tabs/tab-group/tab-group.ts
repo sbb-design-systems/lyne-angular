@@ -15,6 +15,7 @@ import type { SbbTabElement } from '@sbb-esta/lyne-elements/tabs/tab.js';
 import type { SbbTabChangedEventDetails } from '@sbb-esta/lyne-elements/tabs.js';
 import { fromEvent } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/tabs.js';
 import '@sbb-esta/lyne-elements/tabs/tab-group.js';
 
 /**

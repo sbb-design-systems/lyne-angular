@@ -3,6 +3,7 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbTagGroupElement } from '@sbb-esta/lyne-elements/tag/tag-group.js';
 import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
 
+import '@sbb-esta/lyne-elements/tag.js';
 import '@sbb-esta/lyne-elements/tag/tag-group.js';
 
 /**

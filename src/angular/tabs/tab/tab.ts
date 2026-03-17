@@ -18,7 +18,7 @@ import { distinctUntilChanged, fromEvent, NEVER, switchMap } from 'rxjs';
 import type { SbbTabContent } from './tab-content';
 import { SBB_TAB_CONTENT } from './tab-content';
 
-import '@sbb-esta/lyne-elements/tabs/tab.js';
+import '@sbb-esta/lyne-elements/tabs.js';
 
 @Component({
   selector: 'sbb-tab',

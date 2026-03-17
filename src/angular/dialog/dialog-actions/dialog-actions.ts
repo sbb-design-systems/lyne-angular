@@ -4,6 +4,7 @@ import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/
 import type { SbbDialogActionsElement } from '@sbb-esta/lyne-elements/dialog/dialog-actions.js';
 import type { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 
+import '@sbb-esta/lyne-elements/dialog.js';
 import '@sbb-esta/lyne-elements/dialog/dialog-actions.js';
 
 /**

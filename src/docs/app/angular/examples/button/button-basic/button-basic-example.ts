@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
+import { SbbAccentButton } from '@sbb-esta/lyne-angular/button/accent-button';
+import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
+import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
+import { SbbTransparentButton } from '@sbb-esta/lyne-angular/button/transparent-button';
 
 /**
  * @title Basic button
@@ -7,7 +10,7 @@ import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 @Component({
   selector: 'sbb-button-basic-example',
   templateUrl: 'button-basic-example.html',
-  imports: [SbbButtonModule],
+  imports: [SbbButton, SbbSecondaryButton, SbbAccentButton, SbbTransparentButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonBasicExample {}

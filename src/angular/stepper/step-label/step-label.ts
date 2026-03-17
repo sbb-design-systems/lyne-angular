@@ -5,6 +5,7 @@ import type { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-l
 import type { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
 import type { SbbStepperElement } from '@sbb-esta/lyne-elements/stepper/stepper.js';
 
+import '@sbb-esta/lyne-elements/stepper.js';
 import '@sbb-esta/lyne-elements/stepper/step-label.js';
 
 /**

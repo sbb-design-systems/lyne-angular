@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SbbToastModule } from '@sbb-esta/lyne-angular/toast';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
+import { SbbToastModule, SbbToastService } from '@sbb-esta/lyne-angular/toast';
 
 /**
  * @title Basic toast
@@ -7,7 +8,13 @@ import { SbbToastModule } from '@sbb-esta/lyne-angular/toast';
 @Component({
   selector: 'sbb-toast-basic-example',
   templateUrl: 'toast-basic-example.html',
-  imports: [SbbToastModule],
+  imports: [SbbToastModule, SbbButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ToastBasicExample {}
+export class ToastBasicExample {
+  #toastService = inject(SbbToastService);
+
+  openToast(): void {
+    this.#toastService.open('Toast content');
+  }
+}

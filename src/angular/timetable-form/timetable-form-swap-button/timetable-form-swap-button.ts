@@ -4,6 +4,7 @@ import type { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTimetableFormSwapButtonElement } from '@sbb-esta/lyne-elements/timetable-form/timetable-form-swap-button.js';
 
+import '@sbb-esta/lyne-elements/timetable-form.js';
 import '@sbb-esta/lyne-elements/timetable-form/timetable-form-swap-button.js';
 
 /**

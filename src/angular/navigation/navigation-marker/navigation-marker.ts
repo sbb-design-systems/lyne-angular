@@ -3,6 +3,7 @@ import type { SbbNavigationButtonElement } from '@sbb-esta/lyne-elements/navigat
 import type { SbbNavigationLinkElement } from '@sbb-esta/lyne-elements/navigation/navigation-link.js';
 import type { SbbNavigationMarkerElement } from '@sbb-esta/lyne-elements/navigation/navigation-marker.js';
 
+import '@sbb-esta/lyne-elements/navigation.js';
 import '@sbb-esta/lyne-elements/navigation/navigation-marker.js';
 
 /**

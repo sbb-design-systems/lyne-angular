@@ -5,6 +5,7 @@ import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs/tab-label.
 import type { SbbTabElement } from '@sbb-esta/lyne-elements/tabs/tab.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
+import '@sbb-esta/lyne-elements/tabs.js';
 import '@sbb-esta/lyne-elements/tabs/tab-label.js';
 
 /**

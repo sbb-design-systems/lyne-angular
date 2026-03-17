@@ -3,6 +3,7 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbMenuLinkElement } from '@sbb-esta/lyne-elements/menu/menu-link.js';
 
+import '@sbb-esta/lyne-elements/menu.js';
 import '@sbb-esta/lyne-elements/menu/menu-link.js';
 
 /**

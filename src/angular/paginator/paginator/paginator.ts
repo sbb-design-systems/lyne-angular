@@ -14,6 +14,7 @@ import type { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/
 import type { SbbPaginatorElement } from '@sbb-esta/lyne-elements/paginator/paginator.js';
 import { AsyncSubject, forkJoin, fromEvent, map, NEVER, type Observable } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/paginator.js';
 import '@sbb-esta/lyne-elements/paginator/paginator.js';
 
 /**

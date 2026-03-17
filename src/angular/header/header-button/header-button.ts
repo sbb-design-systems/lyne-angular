@@ -3,6 +3,7 @@ import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.j
 import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbHeaderButtonElement } from '@sbb-esta/lyne-elements/header/header-button.js';
 
+import '@sbb-esta/lyne-elements/header.js';
 import '@sbb-esta/lyne-elements/header/header-button.js';
 
 /**

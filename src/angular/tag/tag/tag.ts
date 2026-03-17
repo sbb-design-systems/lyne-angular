@@ -20,6 +20,7 @@ import {
 import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag/tag.js';
 import { fromEvent, NEVER } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/tag.js';
 import '@sbb-esta/lyne-elements/tag/tag.js';
 
 /**

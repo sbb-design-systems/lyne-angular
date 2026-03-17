@@ -4,6 +4,7 @@ import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.
 import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbHeaderLinkElement } from '@sbb-esta/lyne-elements/header/header-link.js';
 
+import '@sbb-esta/lyne-elements/header.js';
 import '@sbb-esta/lyne-elements/header/header-link.js';
 
 /**

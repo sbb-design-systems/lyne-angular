@@ -1,5 +1,6 @@
 import { Directive } from '@angular/core';
 
+import '@sbb-esta/lyne-elements/header.js';
 import '@sbb-esta/lyne-elements/header/header-environment.js';
 
 /**

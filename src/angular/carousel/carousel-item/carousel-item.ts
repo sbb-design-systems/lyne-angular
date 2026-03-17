@@ -7,6 +7,7 @@ import type {
 } from '@sbb-esta/lyne-elements/carousel/carousel-item.js';
 import { NEVER, fromEvent } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/carousel.js';
 import '@sbb-esta/lyne-elements/carousel/carousel-item.js';
 
 /**

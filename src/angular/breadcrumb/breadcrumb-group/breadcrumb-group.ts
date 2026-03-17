@@ -1,5 +1,6 @@
 import { Directive } from '@angular/core';
 
+import '@sbb-esta/lyne-elements/breadcrumb.js';
 import '@sbb-esta/lyne-elements/breadcrumb/breadcrumb-group.js';
 
 /**

@@ -26,7 +26,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'expansion-panel': ['expansion-panel-basic'],
   'file-selector': ['file-selector-basic'],
   'flip-card': ['flip-card-basic'],
-  footer: ['footer-basic'],
+  footer: ['footer-basic', 'footer-clock'],
   'form-field': ['form-field-basic'],
   header: ['header-basic'],
   icon: ['icon-basic'],
@@ -79,14 +79,6 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   tooltip: ['tooltip-basic'],
   train: ['train-basic'],
   'visual-checkbox': ['visual-checkbox-basic'],
-  'autocomplete-grid': ['autocomplete-grid-basic'],
-  'journey-summary': ['journey-summary-basic'],
-  'pearl-chain': ['pearl-chain-basic'],
-  'pearl-chain-time': ['pearl-chain-time-basic'],
-  'pearl-chain-vertical': ['pearl-chain-vertical-basic'],
-  'pearl-chain-vertical-item': ['pearl-chain-vertical-item-basic'],
-  'seat-reservation': ['seat-reservation-basic'],
-  'timetable-row': ['timetable-row-basic'],
 };
 
 export async function loadExample(id: string): Promise<Record<string, Type<unknown>> | undefined> {
@@ -140,6 +132,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'flip-card-basic':
       return import('../angular/examples/flip-card');
     case 'footer-basic':
+      return import('../angular/examples/footer');
+    case 'footer-clock':
       return import('../angular/examples/footer');
     case 'form-field-basic':
       return import('../angular/examples/form-field');
@@ -245,22 +239,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/train');
     case 'visual-checkbox-basic':
       return import('../angular/examples/visual-checkbox');
-    case 'autocomplete-grid-basic':
-      return import('../angular-experimental/examples/autocomplete-grid');
-    case 'journey-summary-basic':
-      return import('../angular-experimental/examples/journey-summary');
-    case 'pearl-chain-basic':
-      return import('../angular-experimental/examples/pearl-chain');
-    case 'pearl-chain-time-basic':
-      return import('../angular-experimental/examples/pearl-chain-time');
-    case 'pearl-chain-vertical-basic':
-      return import('../angular-experimental/examples/pearl-chain-vertical');
-    case 'pearl-chain-vertical-item-basic':
-      return import('../angular-experimental/examples/pearl-chain-vertical-item');
-    case 'seat-reservation-basic':
-      return import('../angular-experimental/examples/seat-reservation');
-    case 'timetable-row-basic':
-      return import('../angular-experimental/examples/timetable-row');
     default:
       console.warn(`No example found for component with id "${id}".`);
       return undefined;

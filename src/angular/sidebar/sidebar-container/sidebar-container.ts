@@ -2,6 +2,7 @@ import { Directive, ElementRef, inject } from '@angular/core';
 import type { SbbSidebarContainerElement } from '@sbb-esta/lyne-elements/sidebar/sidebar-container.js';
 import type { SbbSidebarElement } from '@sbb-esta/lyne-elements/sidebar/sidebar.js';
 
+import '@sbb-esta/lyne-elements/sidebar.js';
 import '@sbb-esta/lyne-elements/sidebar/sidebar-container.js';
 
 /**

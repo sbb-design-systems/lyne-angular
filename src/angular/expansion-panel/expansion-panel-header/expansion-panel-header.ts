@@ -5,6 +5,7 @@ import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.j
 import type { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
 import { fromEvent } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/expansion-panel.js';
 import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
 
 /**

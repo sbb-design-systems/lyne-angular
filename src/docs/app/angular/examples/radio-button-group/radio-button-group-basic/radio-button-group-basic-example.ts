@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SbbRadioButtonGroupModule } from '@sbb-esta/lyne-angular/radio-button-group';
+import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 
 /**
  * @title Basic radio-button-group
@@ -7,7 +7,7 @@ import { SbbRadioButtonGroupModule } from '@sbb-esta/lyne-angular/radio-button-g
 @Component({
   selector: 'sbb-radio-button-group-basic-example',
   templateUrl: 'radio-button-group-basic-example.html',
-  imports: [SbbRadioButtonGroupModule],
+  imports: [SbbRadioButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RadioButtonGroupBasicExample {}

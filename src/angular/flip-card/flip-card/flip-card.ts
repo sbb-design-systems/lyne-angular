@@ -6,6 +6,7 @@ import type { SbbFlipCardElement } from '@sbb-esta/lyne-elements/flip-card/flip-
 import type { SbbFlipCardDetailsElement } from '@sbb-esta/lyne-elements/flip-card.js';
 import { fromEvent, NEVER } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/flip-card.js';
 import '@sbb-esta/lyne-elements/flip-card/flip-card.js';
 
 /**

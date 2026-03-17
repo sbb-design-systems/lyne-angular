@@ -20,6 +20,7 @@ import type {
 } from '@sbb-esta/lyne-elements/chip/chip-group.js';
 import { fromEvent, NEVER } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/chip.js';
 import '@sbb-esta/lyne-elements/chip/chip-group.js';
 
 /**

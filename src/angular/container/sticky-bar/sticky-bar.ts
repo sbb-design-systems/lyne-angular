@@ -4,6 +4,7 @@ import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbStickyBarElement } from '@sbb-esta/lyne-elements/container/sticky-bar.js';
 import { fromEvent, NEVER } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/container.js';
 import '@sbb-esta/lyne-elements/container/sticky-bar.js';
 
 /**

@@ -4,6 +4,7 @@ import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-a
 import type { SbbAlertElement } from '@sbb-esta/lyne-elements/alert/alert.js';
 import { fromEvent, NEVER } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/alert.js';
 import '@sbb-esta/lyne-elements/alert/alert.js';
 
 /**

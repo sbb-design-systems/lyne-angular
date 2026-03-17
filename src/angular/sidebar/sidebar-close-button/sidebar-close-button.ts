@@ -4,6 +4,7 @@ import type { SbbButtonSize } from '@sbb-esta/lyne-elements/button/common.js';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbSidebarCloseButtonElement } from '@sbb-esta/lyne-elements/sidebar/sidebar-close-button.js';
 
+import '@sbb-esta/lyne-elements/sidebar.js';
 import '@sbb-esta/lyne-elements/sidebar/sidebar-close-button.js';
 
 /**

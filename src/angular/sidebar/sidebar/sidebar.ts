@@ -13,6 +13,7 @@ import type { SbbSidebarContainerElement } from '@sbb-esta/lyne-elements/sidebar
 import type { SbbSidebarElement } from '@sbb-esta/lyne-elements/sidebar/sidebar.js';
 import { fromEvent, NEVER } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/sidebar.js';
 import '@sbb-esta/lyne-elements/sidebar/sidebar.js';
 
 /**

@@ -3,6 +3,7 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbMenuButtonElement } from '@sbb-esta/lyne-elements/menu/menu-button.js';
 
+import '@sbb-esta/lyne-elements/menu.js';
 import '@sbb-esta/lyne-elements/menu/menu-button.js';
 
 /**

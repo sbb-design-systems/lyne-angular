@@ -4,6 +4,7 @@ import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbNavigationElement } from '@sbb-esta/lyne-elements/navigation/navigation.js';
 import { fromEvent, NEVER } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/navigation.js';
 import '@sbb-esta/lyne-elements/navigation/navigation.js';
 
 /**

@@ -5,6 +5,7 @@ import type { SbbAlertGroupElement } from '@sbb-esta/lyne-elements/alert/alert-g
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, NEVER } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/alert.js';
 import '@sbb-esta/lyne-elements/alert/alert-group.js';
 
 /**

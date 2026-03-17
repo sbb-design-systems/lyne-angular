@@ -17,6 +17,7 @@ import {
 import type { SbbFileSelectorDropzoneElement } from '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
 import { fromEvent, NEVER } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/file-selector.js';
 import '@sbb-esta/lyne-elements/file-selector/file-selector-dropzone.js';
 
 /**

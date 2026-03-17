@@ -3,6 +3,7 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbIconSidebarLinkElement } from '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar-link.js';
 
+import '@sbb-esta/lyne-elements/icon-sidebar.js';
 import '@sbb-esta/lyne-elements/icon-sidebar/icon-sidebar-link.js';
 
 /**

@@ -9,6 +9,7 @@ import type {
 } from '@sbb-esta/lyne-elements/stepper/stepper.js';
 import { fromEvent, NEVER } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/stepper.js';
 import '@sbb-esta/lyne-elements/stepper/stepper.js';
 
 /**

@@ -5,6 +5,7 @@ import type { SbbNavigationMarkerElement } from '@sbb-esta/lyne-elements/navigat
 import type { SbbNavigationSectionElement } from '@sbb-esta/lyne-elements/navigation/navigation-section.js';
 import type { SbbNavigationActionSize } from '@sbb-esta/lyne-elements/navigation.js';
 
+import '@sbb-esta/lyne-elements/navigation.js';
 import '@sbb-esta/lyne-elements/navigation/navigation-button.js';
 
 /**

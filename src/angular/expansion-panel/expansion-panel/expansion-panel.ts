@@ -9,6 +9,7 @@ import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, NEVER } from 'rxjs';
 
+import '@sbb-esta/lyne-elements/expansion-panel.js';
 import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
 
 /**

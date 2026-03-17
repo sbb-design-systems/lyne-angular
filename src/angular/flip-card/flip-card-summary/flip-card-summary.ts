@@ -4,6 +4,7 @@ import type {
   SbbFlipCardSummaryElement,
 } from '@sbb-esta/lyne-elements/flip-card/flip-card-summary.js';
 
+import '@sbb-esta/lyne-elements/flip-card.js';
 import '@sbb-esta/lyne-elements/flip-card/flip-card-summary.js';
 
 /**

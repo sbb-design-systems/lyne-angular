@@ -15,7 +15,7 @@ import {
   SbbFormFieldControlEvent,
   type SbbFormFieldElement,
 } from '@sbb-esta/lyne-elements/form-field/form-field.js';
-import '@sbb-esta/lyne-elements/form-field/form-field.js';
+import '@sbb-esta/lyne-elements/form-field.js';
 import { of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 

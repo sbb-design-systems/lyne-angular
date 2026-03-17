@@ -16,7 +16,7 @@ import { SbbExpansionPanel } from '../expansion-panel/expansion-panel';
 import type { SbbExpansionPanelContentDirective } from './expansion-panel-content-directive';
 import { SBB_EXPANSION_PANEL_CONTENT } from './expansion-panel-content-directive';
 
-import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-content.js';
+import '@sbb-esta/lyne-elements/expansion-panel.js';
 
 /**
  * It can be used as a container for the content of the `sbb-expansion-panel` component.

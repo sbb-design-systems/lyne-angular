@@ -2,6 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbChipElement } from '@sbb-esta/lyne-elements/chip/chip.js';
 
+import '@sbb-esta/lyne-elements/chip.js';
 import '@sbb-esta/lyne-elements/chip/chip.js';
 
 /**

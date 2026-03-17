@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { SbbChipLabelModule } from '@sbb-esta/lyne-angular/chip-label';
 import { SbbTeaserModule } from '@sbb-esta/lyne-angular/teaser';
+import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title Basic teaser
@@ -7,7 +9,7 @@ import { SbbTeaserModule } from '@sbb-esta/lyne-angular/teaser';
 @Component({
   selector: 'sbb-teaser-basic-example',
   templateUrl: 'teaser-basic-example.html',
-  imports: [SbbTeaserModule],
+  imports: [SbbTeaserModule, SbbChipLabelModule, SbbTitleModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeaserBasicExample {}

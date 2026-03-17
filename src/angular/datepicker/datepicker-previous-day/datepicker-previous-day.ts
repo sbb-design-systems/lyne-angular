@@ -4,6 +4,7 @@ import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.j
 import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
 import type { SbbDatepickerPreviousDayElement } from '@sbb-esta/lyne-elements/datepicker/datepicker-previous-day.js';
 
+import '@sbb-esta/lyne-elements/datepicker.js';
 import '@sbb-esta/lyne-elements/datepicker/datepicker-previous-day.js';
 
 /**

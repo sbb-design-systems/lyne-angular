@@ -5,6 +5,7 @@ import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js'
 import type { SbbDatepickerToggleElement } from '@sbb-esta/lyne-elements/datepicker/datepicker-toggle.js';
 import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
 
+import '@sbb-esta/lyne-elements/datepicker.js';
 import '@sbb-esta/lyne-elements/datepicker/datepicker-toggle.js';
 
 /**

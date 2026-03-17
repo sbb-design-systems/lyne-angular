@@ -3,6 +3,7 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbBreadcrumbElement } from '@sbb-esta/lyne-elements/breadcrumb/breadcrumb.js';
 import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
+import '@sbb-esta/lyne-elements/breadcrumb.js';
 import '@sbb-esta/lyne-elements/breadcrumb/breadcrumb.js';
 
 /**
