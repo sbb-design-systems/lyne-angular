@@ -82,18 +82,28 @@ After receiving the response, the property should be set back to `false`.
 The loading state will be animated after a delay of 300ms, which can be configured with the
 `--sbb-button-loading-delay` CSS variable.
 
+<!-- #region override loading-example -->
+
 ```html
-<sbb-button
-  (click)="(e: PointerEvent) =>
-  { 
-    const button = e.currentTarget as SbbButtonElement;
-    button.loading = true;
-    setTimeout(() => (button.loading = false), 4000); 
-  }"
->
-  Button
-</sbb-button>
+<sbb-button (click)="markAsLoading()"> Button </sbb-button>
 ```
+
+```ts
+@Component({
+  selector: 'example',
+  templateUrl: './example.html',
+})
+export class Example {
+  button = viewChild.required(SbbButton);
+
+  markAsLoading() {
+    this.button().loading = true;
+    setTimeout(() => (this.button().loading = false), 4000);
+  }
+}
+```
+
+<!-- #endregion -->
 
 ### Focus outline
 

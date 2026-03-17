@@ -1,7 +1,6 @@
 The `<sbb-calendar>` component displays a calendar that allows the user to select a date.
 
-This is used internally in the datepicker component,
-but it can be used on its own.
+This is used internally in the datepicker component, but it can be used on its own.
 
 ```html
 <sbb-calendar></sbb-calendar>
@@ -9,8 +8,7 @@ but it can be used on its own.
 
 ## Slots and day customization
 
-The component uses the `<sbb-calendar-day>` component
-to render day cells.
+The component uses the `<sbb-calendar-day>` component to render day cells.
 
 Consumers can override this behavior by slotting their own customized `<sbb-calendar-day>`,
 mainly if some extra content is needed.
@@ -30,6 +28,8 @@ or via selecting a different year and then a month, a `monthchange` event is emi
 The event has a `range: Day[]` property, which can be accessed to have information about the days to render.
 Consumers can listen to this event to dynamically create and slot the `<sbb-calendar-day>`s of the chosen month.
 
+<!-- #region override calendar-day-example -->
+
 ```css
 /* Custom CSS for the extra content */
 .my-custom-content {
@@ -42,39 +42,39 @@ Consumers can listen to this event to dynamically create and slot the `<sbb-cale
 
 ```html
 <!-- Slot days based on the current date, or the selected one if available.-->
-<sbb-calendar selected="2025-01-15" (monthchange)="(e) => monthChangeHandler(e)">
-  <sbb-calendar-day slot="2025-01-01">
-    <span class="sbb-text-xxs my-custom-content"> 19.99 </span>
+<sbb-calendar selected="2025-01-15" (monthchange)="(event) => monthChangeHandler(event)">
+  @for (day of days(); track day) {
+  <sbb-calendar-day [slot]="day">
+    <span class="sbb-text-xxs my-custom-content"> {{ calculateDayText(day) }} </span>
   </sbb-calendar-day>
-  <sbb-calendar-day slot="2025-01-02">
-    <span class="sbb-text-xxs my-custom-content"> 9.99 </span>
-  </sbb-calendar-day>
-  ...
-  <sbb-calendar-day slot="2025-01-31">
-    <span class="sbb-text-xxs my-custom-content"> 99.99 </span>
-  </sbb-calendar-day>
+  }
 </sbb-calendar>
 ```
 
 ```ts
-function monthChangeHandler(e: SbbMonthChangeEvent): void {
-  const calendar = e.target;
-  // Remove slotted days to keep the DOM clean.
-  Array.from(calendar.children).forEach((e) => e.remove());
-  // Add the new days
-  e.range.map((day) => {
-    const child = document.createElement('sbb-calendar-day');
-    // The day.value property is the date in ISO8601 format,
-    // the correct one for the `<sbb-calendar-day>`'s slot property.
-    child.setAttribute('slot', day.value);
-    calendar.appendChild(child);
-  });
+@Component({
+  selector: 'example',
+  templateUrl: './example.html',
+})
+export class Example {
+  days = signal(calculateCurrentDaysAsISOString());
+
+  handleMonthChange(event: SbbMonthChangeEvent) {
+    const newDays = event.range.map((d) => d.value);
+    this.days.set(newDays);
+  }
+
+  calculateDayText(day: string) {
+    return doSomeCalculation(day);
+  }
 }
 ```
 
+<!-- #endregion -->
+
 ### States
 
-The component has a `current` state, which is set if the slot name matches the current day.
+The `<sbb-calendar-day>` component has a `current` state, which is set if the slot name matches the current day.
 
 Also, it has other states based on the properties of the parent `<sbb-calendar>`.
 The disabled and the crossed-out states are based on the value of the `min`, `max` and `dateFilter` properties,
@@ -110,6 +110,10 @@ The `<sbb-calendar>` can be directly displayed in one of these modalities using 
 
 <sbb-calendar selected="1585699200" view="year"></sbb-calendar>
 ```
+
+The `<sbb-calendar>` uses two different components to render years and months in their view,
+named `<sbb-calendar-month>` and `<sbb-calendar-year>`.
+These are 'internal-use-only' components, and they are **not** meant to be used by consumers.
 
 Unwanted dates can be filtered out using the `dateFilter` property.
 Note that the `dateFilter` function should not be used as a replacement for the `min` and `max` properties.
@@ -169,6 +173,10 @@ so on the left side in `horizontal` and on top in `vertical`.
 
 <sbb-calendar orientation="vertical" weekNumbers></sbb-calendar>
 ```
+
+Two more components, named `<sbb-calendar-weeknumber>` and `<sbb-calendar-weekday>`, are used to render
+a single week number and a single week day cell.
+These are 'internal-use-only' components too, and they are **not** meant to be used by consumers.
 
 ## Events
 
