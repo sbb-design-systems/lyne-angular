@@ -2,9 +2,9 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type {
   SbbFlipCardImageAlignment,
   SbbFlipCardSummaryElement,
-} from '@sbb-esta/lyne-elements/flip-card/flip-card-summary.js';
+} from '@sbb-esta/lyne-elements/flip-card.js';
 
-import '@sbb-esta/lyne-elements/flip-card/flip-card-summary.js';
+import '@sbb-esta/lyne-elements/flip-card.js';
 
 /**
  * Combined with a `sbb-flip-card`, it displays its content when the card is not flipped.

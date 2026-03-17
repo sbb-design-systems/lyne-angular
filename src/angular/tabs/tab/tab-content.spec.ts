@@ -3,7 +3,7 @@ import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import type { SbbTab } from '@sbb-esta/lyne-angular/tabs';
-import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs/tab-label.js';
+import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs.js';
 
 import { SbbTabsModule } from '../tabs.module';
 

@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 
-import '@sbb-esta/lyne-elements/timetable-form/timetable-form-details.js';
+import '@sbb-esta/lyne-elements/timetable-form.js';
 
 /**
  * Wraps the details section of the `sbb-timetable-form`.

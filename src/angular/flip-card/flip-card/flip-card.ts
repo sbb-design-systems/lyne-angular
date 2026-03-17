@@ -1,12 +1,14 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbFlipCardSummaryElement } from '@sbb-esta/lyne-elements/flip-card/flip-card-summary.js';
-import type { SbbFlipCardElement } from '@sbb-esta/lyne-elements/flip-card/flip-card.js';
-import type { SbbFlipCardDetailsElement } from '@sbb-esta/lyne-elements/flip-card.js';
+import type {
+  SbbFlipCardSummaryElement,
+  SbbFlipCardElement,
+  SbbFlipCardDetailsElement,
+} from '@sbb-esta/lyne-elements/flip-card.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/flip-card/flip-card.js';
+import '@sbb-esta/lyne-elements/flip-card.js';
 
 /**
  * Displays an informative card that reveals more information upon being clicked.

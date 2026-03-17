@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 
-import '@sbb-esta/lyne-elements/carousel/carousel-list.js';
+import '@sbb-esta/lyne-elements/carousel.js';
 
 /**
  * It displays a list of `sbb-carousel-item` components.

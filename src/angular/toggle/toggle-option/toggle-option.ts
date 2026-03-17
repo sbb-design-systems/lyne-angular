@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle/toggle-option.js';
+import type { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle.js';
 
-import '@sbb-esta/lyne-elements/toggle/toggle-option.js';
+import '@sbb-esta/lyne-elements/toggle.js';
 
 /**
  * It displays a toggle option within a `sbb-toggle`.

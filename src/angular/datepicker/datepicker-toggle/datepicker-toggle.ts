@@ -2,10 +2,12 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
-import type { SbbDatepickerToggleElement } from '@sbb-esta/lyne-elements/datepicker/datepicker-toggle.js';
-import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker/datepicker.js';
+import type {
+  SbbDatepickerToggleElement,
+  SbbDatepickerElement,
+} from '@sbb-esta/lyne-elements/datepicker.js';
 
-import '@sbb-esta/lyne-elements/datepicker/datepicker-toggle.js';
+import '@sbb-esta/lyne-elements/datepicker.js';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.

@@ -1,11 +1,11 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbAlertGroupElement } from '@sbb-esta/lyne-elements/alert/alert-group.js';
+import type { SbbAlertGroupElement } from '@sbb-esta/lyne-elements/alert.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/alert/alert-group.js';
+import '@sbb-esta/lyne-elements/alert.js';
 
 /**
  * It can be used as a container for one or more `sbb-alert` component.

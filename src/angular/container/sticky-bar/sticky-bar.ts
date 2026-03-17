@@ -1,10 +1,10 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbStickyBarElement } from '@sbb-esta/lyne-elements/container/sticky-bar.js';
+import type { SbbStickyBarElement } from '@sbb-esta/lyne-elements/container.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/container/sticky-bar.js';
+import '@sbb-esta/lyne-elements/container.js';
 
 /**
  * A container that sticks to the bottom of the page if slotted into `sbb-container`.

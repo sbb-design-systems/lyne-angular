@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 
-import '@sbb-esta/lyne-elements/header/header-environment.js';
+import '@sbb-esta/lyne-elements/header.js';
 
 /**
  * It displays a ribbon inside the header to indicate the current environment.

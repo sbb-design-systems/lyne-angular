@@ -14,7 +14,7 @@ import {
   internalOutputFromObservable,
   SbbControlValueAccessorMixin,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option/option.js';
+import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option.js';
 import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
 import { fromEvent, NEVER } from 'rxjs';
 

@@ -2,9 +2,9 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
-import type { SbbDatepickerPreviousDayElement } from '@sbb-esta/lyne-elements/datepicker/datepicker-previous-day.js';
+import type { SbbDatepickerPreviousDayElement } from '@sbb-esta/lyne-elements/datepicker.js';
 
-import '@sbb-esta/lyne-elements/datepicker/datepicker-previous-day.js';
+import '@sbb-esta/lyne-elements/datepicker.js';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to move the date back.

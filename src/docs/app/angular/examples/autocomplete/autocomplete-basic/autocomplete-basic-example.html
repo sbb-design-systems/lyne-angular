@@ -1,0 +1,9 @@
+<sbb-form-field>
+  <label>Autocomplete</label>
+  <input [formControl]="control" [sbbAutocomplete]="auto" />
+  <sbb-autocomplete [displayWith]="displayWith" #auto="sbbAutocomplete">
+    @for (value of values; track value) {
+    <sbb-option [value]="value">{{ value.property }}</sbb-option>
+    }
+  </sbb-autocomplete>
+</sbb-form-field>

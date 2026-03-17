@@ -6,5 +6,5 @@
     "strict": true,
     "types": ["node"]
   },
-  "files": ["index.ts"]
+  "include": ["*.ts"]
 }

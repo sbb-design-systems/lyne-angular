@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbTrainFormationElement } from '@sbb-esta/lyne-elements/train/train-formation.js';
+import type { SbbTrainFormationElement } from '@sbb-esta/lyne-elements/train.js';
 
-import '@sbb-esta/lyne-elements/train/train-formation.js';
+import '@sbb-esta/lyne-elements/train.js';
 
 /**
  * It displays a train composition, acting as a container for one or more `sbb-train` component.

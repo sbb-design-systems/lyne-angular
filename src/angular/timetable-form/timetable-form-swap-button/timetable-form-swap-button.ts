@@ -2,9 +2,9 @@ import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbTimetableFormSwapButtonElement } from '@sbb-esta/lyne-elements/timetable-form/timetable-form-swap-button.js';
+import type { SbbTimetableFormSwapButtonElement } from '@sbb-esta/lyne-elements/timetable-form.js';
 
-import '@sbb-esta/lyne-elements/timetable-form/timetable-form-swap-button.js';
+import '@sbb-esta/lyne-elements/timetable-form.js';
 
 /**
  * An extension of `sbb-secondary-button` to be used inside the `sbb-timetable-form`.

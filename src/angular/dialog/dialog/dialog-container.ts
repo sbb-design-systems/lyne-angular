@@ -12,7 +12,7 @@ import {
   SbbOverlayContainerBase,
   SbbOverlayState,
 } from '@sbb-esta/lyne-angular/core/overlay';
-import type { SbbDialogCloseEvent } from '@sbb-esta/lyne-elements/dialog/dialog.js';
+import type { SbbDialogCloseEvent } from '@sbb-esta/lyne-elements/dialog.js';
 import type { Observable } from 'rxjs';
 
 import { SbbDialog } from './dialog';

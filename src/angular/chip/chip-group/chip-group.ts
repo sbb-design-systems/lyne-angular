@@ -17,10 +17,10 @@ import {
 import type {
   SbbChipGroupElement,
   SbbChipInputTokenEndEvent,
-} from '@sbb-esta/lyne-elements/chip/chip-group.js';
+} from '@sbb-esta/lyne-elements/chip.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/chip/chip-group.js';
+import '@sbb-esta/lyne-elements/chip.js';
 
 /**
  * The `sbb-chip-group` component is used as a container for one or multiple `sbb-chip`.

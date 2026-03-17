@@ -11,14 +11,13 @@ import {
 } from '@angular/core';
 import { outputFromObservable, takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs/tab-label.js';
-import type { SbbTabElement } from '@sbb-esta/lyne-elements/tabs/tab.js';
+import type { SbbTabLabelElement, SbbTabElement } from '@sbb-esta/lyne-elements/tabs.js';
 import { distinctUntilChanged, fromEvent, NEVER, switchMap } from 'rxjs';
 
 import type { SbbTabContent } from './tab-content';
 import { SBB_TAB_CONTENT } from './tab-content';
 
-import '@sbb-esta/lyne-elements/tabs/tab.js';
+import '@sbb-esta/lyne-elements/tabs.js';
 
 @Component({
   selector: 'sbb-tab',

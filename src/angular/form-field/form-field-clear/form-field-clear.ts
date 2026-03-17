@@ -1,9 +1,9 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbFormFieldClearElement } from '@sbb-esta/lyne-elements/form-field/form-field-clear.js';
+import type { SbbFormFieldClearElement } from '@sbb-esta/lyne-elements/form-field.js';
 
-import '@sbb-esta/lyne-elements/form-field/form-field-clear.js';
+import '@sbb-esta/lyne-elements/form-field.js';
 
 /**
  * Combined with `sbb-form-field`, it displays a button which clears the input value.

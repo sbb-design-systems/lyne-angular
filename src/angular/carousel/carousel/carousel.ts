@@ -1,8 +1,8 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbCarouselElement } from '@sbb-esta/lyne-elements/carousel/carousel.js';
+import type { SbbCarouselElement } from '@sbb-esta/lyne-elements/carousel.js';
 
-import '@sbb-esta/lyne-elements/carousel/carousel.js';
+import '@sbb-esta/lyne-elements/carousel.js';
 
 /**
  * It displays a carousel component.

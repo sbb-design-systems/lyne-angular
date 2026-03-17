@@ -2,10 +2,10 @@ import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@a
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
+import type { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel.js';
 import { fromEvent } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel-header.js';
+import '@sbb-esta/lyne-elements/expansion-panel.js';
 
 /**
  * It acts as a native `summary` tag for the `sbb-expansion-panel` component.

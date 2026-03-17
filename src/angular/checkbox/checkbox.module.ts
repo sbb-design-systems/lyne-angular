@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { SbbCheckboxGroup } from '@sbb-esta/lyne-angular/checkbox-group';
+import { SbbCheckboxGroupModule } from '@sbb-esta/lyne-angular/checkbox-group';
 
 import { SbbCheckbox } from './checkbox';
 
-const SBB_CHECKBOX_EXPORTED_DECLARATIONS = [SbbCheckbox, SbbCheckboxGroup];
+const SBB_CHECKBOX_EXPORTED_DECLARATIONS = [SbbCheckbox, SbbCheckboxGroupModule];
 
 @NgModule({
   imports: SBB_CHECKBOX_EXPORTED_DECLARATIONS,

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbNavigationListElement } from '@sbb-esta/lyne-elements/navigation/navigation-list.js';
+import type { SbbNavigationListElement } from '@sbb-esta/lyne-elements/navigation.js';
 
-import '@sbb-esta/lyne-elements/navigation/navigation-list.js';
+import '@sbb-esta/lyne-elements/navigation.js';
 
 /**
  * It can be used as a container for one or more `sbb-navigation-button`/`sbb-navigation-link` within a `sbb-navigation-section`.

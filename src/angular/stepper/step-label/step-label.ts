@@ -1,11 +1,13 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
-import type { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
-import type { SbbStepperElement } from '@sbb-esta/lyne-elements/stepper/stepper.js';
+import type {
+  SbbStepLabelElement,
+  SbbStepElement,
+  SbbStepperElement,
+} from '@sbb-esta/lyne-elements/stepper.js';
 
-import '@sbb-esta/lyne-elements/stepper/step-label.js';
+import '@sbb-esta/lyne-elements/stepper.js';
 
 /**
  * Combined with a `sbb-stepper`, it displays a step's label.

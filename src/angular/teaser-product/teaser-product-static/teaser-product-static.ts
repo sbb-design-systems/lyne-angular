@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbTeaserProductStaticElement } from '@sbb-esta/lyne-elements/teaser-product/teaser-product-static.js';
+import type { SbbTeaserProductStaticElement } from '@sbb-esta/lyne-elements/teaser-product.js';
 
-import '@sbb-esta/lyne-elements/teaser-product/teaser-product-static.js';
+import '@sbb-esta/lyne-elements/teaser-product.js';
 
 /**
  * Displays a text and a footnote, combined with an image, to tease a product.

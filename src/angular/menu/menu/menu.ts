@@ -1,10 +1,10 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbMenuElement } from '@sbb-esta/lyne-elements/menu/menu.js';
+import type { SbbMenuElement } from '@sbb-esta/lyne-elements/menu.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/menu/menu.js';
+import '@sbb-esta/lyne-elements/menu.js';
 
 /**
  * It displays a contextual menu with one or more action element.

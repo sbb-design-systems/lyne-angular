@@ -1,8 +1,8 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbTimetableFormFieldElement } from '@sbb-esta/lyne-elements/timetable-form/timetable-form-field.js';
+import type { SbbTimetableFormFieldElement } from '@sbb-esta/lyne-elements/timetable-form.js';
 
-import '@sbb-esta/lyne-elements/timetable-form/timetable-form-field.js';
+import '@sbb-esta/lyne-elements/timetable-form.js';
 
 /**
  * Extends the `sbb-form-field`. Meant to be used inside a `sbb-timetable-form`.

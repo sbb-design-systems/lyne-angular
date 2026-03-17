@@ -14,14 +14,15 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import {
   SbbFormFieldControlEvent,
   type SbbFormFieldElement,
-} from '@sbb-esta/lyne-elements/form-field/form-field.js';
-import '@sbb-esta/lyne-elements/form-field/form-field.js';
+} from '@sbb-esta/lyne-elements/form-field.js';
 import { of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 
 // TODO: Unclear why the below eslint error pops up.
-// eslint-disable-next-line lyne/angular-generator-rule
+
 import { SbbFormFieldControl } from './form-field-control';
+
+import '@sbb-esta/lyne-elements/form-field.js';
 
 /**
  * It wraps an input element adding label, errors, icon, etc.

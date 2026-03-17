@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { SbbDateInputModule } from '@sbb-esta/lyne-angular/date-input';
 
 import { SbbDatepicker } from './datepicker/datepicker';
 import { SbbDatepickerNextDay } from './datepicker-next-day/datepicker-next-day';
@@ -10,6 +11,7 @@ const SBB_DATEPICKER_EXPORTED_DECLARATIONS = [
   SbbDatepickerNextDay,
   SbbDatepickerPreviousDay,
   SbbDatepickerToggle,
+  SbbDateInputModule,
 ];
 
 @NgModule({

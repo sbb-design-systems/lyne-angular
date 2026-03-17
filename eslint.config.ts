@@ -84,7 +84,9 @@ export default defineConfig([
   {
     files: ['**/*.html'],
     extends: [...angulareslint.templateRecommended, ...angulareslint.templateAccessibility],
-    rules: {},
+    rules: {
+      '@angular-eslint/template/label-has-associated-control': 'off',
+    },
   },
   // @ts-expect-error The returned config will exist.
   eslintPluginLyne.default.configs.recommended,

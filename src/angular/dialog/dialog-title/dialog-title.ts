@@ -1,9 +1,9 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbDialogTitleElement } from '@sbb-esta/lyne-elements/dialog/dialog-title.js';
+import type { SbbDialogTitleElement } from '@sbb-esta/lyne-elements/dialog.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
-import '@sbb-esta/lyne-elements/dialog/dialog-title.js';
+import '@sbb-esta/lyne-elements/dialog.js';
 
 /**
  * It displays a title inside a dialog header.

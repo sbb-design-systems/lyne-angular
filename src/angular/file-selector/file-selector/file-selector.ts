@@ -14,10 +14,10 @@ import {
   internalOutputFromObservable,
   SbbControlValueAccessorMixin,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbFileSelectorElement } from '@sbb-esta/lyne-elements/file-selector/file-selector.js';
+import type { SbbFileSelectorElement } from '@sbb-esta/lyne-elements/file-selector.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/file-selector/file-selector.js';
+import '@sbb-esta/lyne-elements/file-selector.js';
 
 /**
  * It allows to select one or more file from storage devices and display them.

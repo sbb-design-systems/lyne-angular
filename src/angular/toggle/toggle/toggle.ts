@@ -15,11 +15,10 @@ import {
   SbbControlValueAccessorMixin,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle/toggle-option.js';
-import type { SbbToggleElement } from '@sbb-esta/lyne-elements/toggle/toggle.js';
+import type { SbbToggleOptionElement, SbbToggleElement } from '@sbb-esta/lyne-elements/toggle.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/toggle/toggle.js';
+import '@sbb-esta/lyne-elements/toggle.js';
 
 /**
  * It can be used as a container for two `sbb-toggle-option`, acting as a toggle button.

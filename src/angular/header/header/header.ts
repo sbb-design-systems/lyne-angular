@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbHeaderElement } from '@sbb-esta/lyne-elements/header/header.js';
+import type { SbbHeaderElement } from '@sbb-esta/lyne-elements/header.js';
 
-import '@sbb-esta/lyne-elements/header/header.js';
+import '@sbb-esta/lyne-elements/header.js';
 
 /**
  * It displays a header section for the page.

@@ -5,11 +5,11 @@ import {
   internalOutputFromObservable,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
+import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel.js';
 import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/expansion-panel/expansion-panel.js';
+import '@sbb-esta/lyne-elements/expansion-panel.js';
 
 /**
  * It displays an expandable summary-details widget.

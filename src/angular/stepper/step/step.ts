@@ -1,13 +1,15 @@
 import { Directive, ElementRef, inject, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbStepLabelElement } from '@sbb-esta/lyne-elements/stepper/step-label.js';
-import type { SbbStepElement } from '@sbb-esta/lyne-elements/stepper/step.js';
-import type { SbbStepperElement } from '@sbb-esta/lyne-elements/stepper/stepper.js';
-import type { SbbStepValidateEventDetails } from '@sbb-esta/lyne-elements/stepper.js';
+import type {
+  SbbStepLabelElement,
+  SbbStepElement,
+  SbbStepperElement,
+  SbbStepValidateEventDetails,
+} from '@sbb-esta/lyne-elements/stepper.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements/stepper/step.js';
+import '@sbb-esta/lyne-elements/stepper.js';
 
 /**
  * Combined with a `sbb-stepper`, it displays a step's content.
