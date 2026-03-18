@@ -82,3 +82,7 @@ The type can be specified using the generic type parameter `T` of `SbbCheckboxPa
   >Checkbox Panel</sbb-checkbox-panel
 >
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-checkbox-panel--docs)

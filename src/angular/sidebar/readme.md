@@ -300,3 +300,7 @@ property when the navigation changes.
   <sbb-sidebar-content id="content" role="main">Content</sbb-sidebar-content>
 </sbb-sidebar-container>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-sidebar--docs)

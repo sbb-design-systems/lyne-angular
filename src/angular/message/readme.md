@@ -19,3 +19,7 @@ and a [sbb-button](/angular/components/button/overview) to provide a custom acti
   <sbb-button slot="action" [...]>Action</sbb-button>
 </sbb-message>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-message--docs)

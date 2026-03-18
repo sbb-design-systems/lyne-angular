@@ -77,3 +77,7 @@ With `<sbb-checkbox-group>`:
 ## Style
 
 The component inherits its style from the slotted panel component (`<sbb-checkbox-panel>` or `<sbb-radio-button-panel>`).
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-selection-action-panel--docs)

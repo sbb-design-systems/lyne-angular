@@ -47,3 +47,7 @@ In the following example, all the `<sbb-expansion-panel-header>` would be wrappe
   ...
 </sbb-accordion>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-accordion--docs)

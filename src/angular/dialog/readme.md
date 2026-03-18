@@ -369,3 +369,7 @@ dialog opened by default. However, focus restoration can be disabled
 by setting the `skipFocusRestoration` property to `true`.
 As this is an accessibility feature, it is recommended to focus
 an alternative element by listening to the `didClose` event.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-dialog--docs)

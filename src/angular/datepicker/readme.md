@@ -87,3 +87,7 @@ todayStub = stub(defaultDateAdapter, 'today').returns(new Date(2022, 4, 1, 0, 0,
 // Restore the original method
 todayStub.restore();
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-datepicker--docs)

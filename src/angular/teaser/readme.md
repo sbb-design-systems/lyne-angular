@@ -70,3 +70,7 @@ to achieve the image width taking the full available space. On the image itself,
 It's important to set the `accessibilityLabel` on the `<sbb-teaser>`, which describes the `<sbb-teaser>` for screen-reader users.
 
 The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-teaser--docs)

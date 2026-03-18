@@ -104,3 +104,7 @@ To prevent this, set the `weekday-style` attribute to `none`.
 Similar to the native `<input>` element, the `<sbb-date-input>` component
 dispatches the usual `input`, `change`, `blur`, `invalid` and keyboard
 and focus related events.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-date-input--docs)

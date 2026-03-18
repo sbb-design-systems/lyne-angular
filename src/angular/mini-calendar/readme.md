@@ -113,3 +113,7 @@ Even though some WCAG rules have been followed
 the component may not be fully accessible due to the small dimensions of `<sbb-mini-calendar-day>`s and
 the usage of a grid implementation for the `<sbb-mini-calendar-month>`
 (differently from the `<sbb-calendar>`, which has a table implementation).
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-mini-calendar--docs)

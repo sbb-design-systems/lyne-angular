@@ -135,3 +135,7 @@ that communicates the collective meaning of all `<sbb-tag>`s.
   <sbb-tag value="laptop">Underline</sbb-tag>
 </sbb-tag-group>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-tag--docs)

@@ -22,3 +22,7 @@ and then append the `<sbb-loading-indicator>` on it after giving it the correct 
   <sbb-loading-indicator size="l" aria-label="Loading, please wait"></sbb-loading-indicator>
 </div>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-loading-indicator--docs)

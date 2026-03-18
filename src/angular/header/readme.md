@@ -262,3 +262,7 @@ sbb-header-environment {
   --sbb-header-environment-background-color: custom-color;
 }
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-header--docs)

@@ -72,3 +72,7 @@ that describes the content controlled by the paginator.
 ```html
 <sbb-paginator aria-label="Select page" length="100" pageSize="20"></sbb-paginator>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-paginator--docs)

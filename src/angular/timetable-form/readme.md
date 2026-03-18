@@ -72,3 +72,7 @@ Example of a details section:
 
 The `<sbb-timetable-form-swap-button>`, when clicked, automatically swaps the values of the `<sbb-timetable-form-field>`
 and dispatches the `input` and `change` events. The default `aria-label` value is 'Swap from and to', localized in the supported languages.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-timetable-form--docs)

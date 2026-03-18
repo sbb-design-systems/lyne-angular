@@ -194,3 +194,7 @@ align with the type information.
 Additionally, when using Angular Forms, the initially passed value of `displayWith` can be `null`.
 
 <!-- #endregion -->
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-autocomplete--docs)

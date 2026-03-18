@@ -67,3 +67,7 @@ The `<sbb-slider>` has the following behavior on keypress when focused:
 | Page down   | Decrement the slider value by ten (or ten steps). |
 | End         | Set the value to the maximum.                     |
 | Home        | Set the value to the minimum.                     |
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-slider--docs)

@@ -65,3 +65,7 @@ The component will display the content slotted in the `summary` slot in the main
 ## States
 
 The `<sbb-flip-card>` will switch to the flipped state after the user clicks on it or after the `toggle` method is called.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-flip-card--docs)

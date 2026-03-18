@@ -72,3 +72,7 @@ to the content where needed (e.g. `<sbb-link-list>`, `<sbb-link>` and `<sbb-divi
   </sbb-link-list>
 </sbb-footer>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-footer--docs)

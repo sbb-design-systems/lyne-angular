@@ -77,3 +77,7 @@ It's important to set the `accessibilityLabel` on the `<sbb-teaser-product>`, wh
 The `<sbb-teaser-product-static>` is a non-interactive version of the `<sbb-teaser-product>` component,
 which can be used to tease a product without making the whole component interactive.
 It should be used if there is more than one interactive action.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-teaser-product--docs)

@@ -201,3 +201,7 @@ Be aware that anchors do not support a `disabled` state. To achieve an equivalen
   <a class="sbb-disabled" aria-disabled="true" role="link"> Nav item 4 </a>
 </sbb-tab-nav-bar>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-tabs--docs)

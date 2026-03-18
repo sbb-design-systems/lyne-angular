@@ -72,3 +72,7 @@ The type can be specified using the generic type parameter `T` of `SbbToggleChec
   >Toggle Check</sbb-toggle-check
 >
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-toggle-check--docs)

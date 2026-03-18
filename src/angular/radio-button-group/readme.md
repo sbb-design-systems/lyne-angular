@@ -84,3 +84,7 @@ const values = [
   <sbb-radio-button [value]="values[1]">Option 2</sbb-radio-button>
 </sbb-radio-button-group>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-radio-button-group--docs)

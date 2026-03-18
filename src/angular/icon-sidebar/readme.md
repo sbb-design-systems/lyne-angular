@@ -183,3 +183,7 @@ To show the user which entry is active, `accessibility-current='page'` (or `aria
 for `<sbb-icon-sidebar-button>`) should be set whenever `sbb-active` class is set.
 See https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current for more
 information.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-icon-sidebar--docs)

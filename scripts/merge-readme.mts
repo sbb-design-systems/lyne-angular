@@ -88,9 +88,11 @@ async function mergeReadme(path: string, newContent: string) {
       .replace('src/elements/', 'src/angular/')
       .replace('src/elements-experimental/', 'src/angular-experimental/'),
   );
-  newContent = `# ${toSpacedPascalCase(basename(dirname(path)))}\n\n${newContent}`;
+  const moduleDirectory = basename(dirname(path));
+  newContent = `# ${toSpacedPascalCase(moduleDirectory)}\n\n${newContent}`;
   newContent = convertHtmlExamples(newContent);
   newContent = convertDocsLinks(newContent);
+
   if (existsSync(localPath)) {
     const content = readFileSync(localPath, 'utf-8');
     if (content.match(/<!--\s*#region\s+override\s+/)) {
@@ -115,12 +117,11 @@ async function mergeReadme(path: string, newContent: string) {
       }
     }
   }
+
+  newContent += `\n\n## @sbb-esta/lyne-elements Docs \n\n[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/${path.includes('elements-experimental/') ? 'experimental' : 'elements'}-${moduleDirectory}--docs)`;
+
   const options = await resolveConfig(localPath);
-  writeFileSync(
-    localPath,
-    await format(newContent.trim() + '\n', { ...options, filepath: localPath }),
-    'utf8',
-  );
+  writeFileSync(localPath, await format(newContent, { ...options, filepath: localPath }), 'utf8');
 }
 
 function convertHtmlExamples(content: string) {
