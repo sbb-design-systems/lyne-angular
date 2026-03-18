@@ -211,7 +211,7 @@ export class ParentComponent {
 
 ## Title
 
-The `<sbb-dialog-title>` component extends the [sbb-title](/docs/elements-title--docs) component.
+The `<sbb-dialog-title>` component extends the [sbb-title](/angular/components/title/overview) component.
 It should be used as a title for a dialog.
 
 ```html
@@ -231,7 +231,7 @@ it is possible to use the `visualLevel` property (default value: `4`).
 
 ## Actions
 
-The `<sbb-dialog-actions>` component extends the [sbb-action-group](/docs/elements-action-group--docs)
+The `<sbb-dialog-actions>` component extends the [sbb-action-group](/angular/components/action-group/overview)
 component. Use it to display a footer with an action group.
 
 ```html
@@ -275,7 +275,7 @@ The dialog can be closed in several ways:
    ```
 
    The `<sbb-dialog-close-button>` component extends the
-   [sbb-secondary-button](/docs/elements-button--docs) component.
+   [sbb-secondary-button](/angular/components/button/overview) component.
    An aria-label is automatically set. It is however possible to override it, if necessary.
 
 2. **sbb-dialog-close attribute**: Add the `sbb-dialog-close` attribute to any element within the dialog

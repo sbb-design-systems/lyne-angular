@@ -1,7 +1,7 @@
 The `<sbb-autocomplete-grid>` is a component that can be used to display a panel of suggested options connected to a text input,
 with each option connected to one or more buttons.
 Use it when you need an autocomplete in which every selectable option in the panel needs one or more related button.
-If you don't need actions, use the [sbb-autocomplete](/docs/elements-autocomplete---docs).
+If you don't need actions, use the [sbb-autocomplete](/angular/components/autocomplete-/overview).
 
 The component is strictly connected to:
 
@@ -40,7 +40,7 @@ Both accept an id or an element reference.
 
 ## In `<sbb-form-field>`
 
-If the component is used within a [sbb-form-field](/docs/elements-form-field--docs),
+If the component is used within a [sbb-form-field](/angular/components/form-field/overview),
 it will automatically connect to the native `<input>` as trigger and will display the option panel above or below the `<sbb-form-field>`.
 
 ```html
@@ -72,7 +72,6 @@ it will automatically connect to the native `<input>` as trigger and will displa
 
 By default, the `<sbb-autocomplete-grid>` will highlight the label of the `<sbb-autocomplete-grid-option>` in the panel,
 if it matches the typed text.
-See the [sbb-autocomplete-grid-option](/docs/experimental-sbb-autocomplete-grid-sbb-autocomplete-grid-option--docs) for more details.
 
 ### Option grouping
 

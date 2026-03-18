@@ -1,5 +1,5 @@
-The `<sbb-selection-action-panel>` component wraps either a [sbb-checkbox-panel](/docs/elements-checkbox-panel--docs)
-or a [sbb-radio-button-panel](/docs/elements-radio-button-panel--docs) and an action element (e.g. an `<sbb-secondary-button>` or a native `button`).
+The `<sbb-selection-action-panel>` component wraps either a [sbb-checkbox-panel](/angular/components/checkbox-panel/overview)
+or a [sbb-radio-button-panel](/angular/components/radio-button-panel/overview) and an action element (e.g. an `<sbb-secondary-button>` or a native `button`).
 
 ```html
 <sbb-selection-action-panel>
@@ -17,7 +17,7 @@ or a [sbb-radio-button-panel](/docs/elements-radio-button-panel--docs) and an ac
 
 ## With expansion panel
 
-It is possible to combine the usage of the `<sbb-selection-action-panel>` and the [sbb-selection-expansion-panel](/docs/elements-selection-expansion-panel--docs).
+It is possible to combine the usage of the `<sbb-selection-action-panel>` and the [sbb-selection-expansion-panel](/angular/components/selection-expansion-panel/overview).
 
 ```html
 <sbb-selection-expansion-panel>
@@ -37,8 +37,8 @@ It is possible to combine the usage of the `<sbb-selection-action-panel>` and th
 
 ## In a group
 
-The selection panel can also be used inside a [sbb-radio-button-group](/docs/elements-radio-button-group--docs)
-or a [sbb-checkbox-group](/docs/elements-checkbox-group--docs).
+The selection panel can also be used inside a [sbb-radio-button-group](/angular/components/radio-button-group/overview)
+or a [sbb-checkbox-group](/angular/components/checkbox-group/overview).
 
 With `<sbb-radio-button-group>`:
 

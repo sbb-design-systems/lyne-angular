@@ -89,6 +89,7 @@ async function mergeReadme(path: string, newContent: string) {
       .replace('src/elements-experimental/', 'src/angular-experimental/'),
   );
   newContent = convertHtmlExamples(newContent);
+  newContent = convertDocsLinks(newContent);
   if (existsSync(localPath)) {
     const content = readFileSync(localPath, 'utf-8');
     if (content.match(/<!--\s*#region\s+override\s+/)) {
@@ -227,6 +228,24 @@ function convertAttributeValue(value: string): string {
     return value.substring(2, value.length - 1);
   }
   return value;
+}
+
+function convertDocsLinks(content: string): string {
+  const prefixMap: Record<string, string> = {
+    experimental: 'angular-experimental',
+    elements: 'angular',
+  };
+  return content.replace(
+    /\(\/docs\/([\w-]+)--docs(#[^)]*)?\)/g,
+    (original, moduleId: string, anchor = '') => {
+      for (const [prefix, pkg] of Object.entries(prefixMap)) {
+        if (moduleId.startsWith(`${prefix}-`)) {
+          return `(/${pkg}/components/${moduleId.slice(prefix.length + 1)}/overview${anchor})`;
+        }
+      }
+      return original;
+    },
+  );
 }
 
 interface Package {

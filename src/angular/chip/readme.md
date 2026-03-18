@@ -83,7 +83,7 @@ Its value is an array of strings.
 
 ### Use with Autocomplete
 
-It is possible to combine the functionalities of `chip-group` and the [sbb-autocomplete](/docs/elements-autocomplete--docs).
+It is possible to combine the functionalities of `chip-group` and the [sbb-autocomplete](/angular/components/autocomplete/overview).
 
 In this scenario, selecting an option will create a new chip using the option value.
 

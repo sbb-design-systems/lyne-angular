@@ -19,7 +19,7 @@ automatically take care of connecting the corresponding components.
 
 ## In `<sbb-form-field>`
 
-If the `<sbb-datepicker>` is used within a [sbb-form-field](/docs/elements-form-field--docs)
+If the `<sbb-datepicker>` is used within a [sbb-form-field](/angular/components/form-field/overview)
 with an `<sbb-date-input>`, they are automatically linked. This also
 applies to the `<sbb-datepicker-previous-day>` and
 `<sbb-datepicker-next-day>` components.
@@ -54,7 +54,7 @@ Same as before, it is recommended to use them in an `<sbb-form-field>`,
 which will automatically take care of connecting the corresponding
 components.
 
-If the two components are used within a [sbb-form-field](/docs/elements-form-field--docs),
+If the two components are used within a [sbb-form-field](/angular/components/form-field/overview),
 they are automatically linked and, depending on the position relative to the
 `<sbb-date-input>`, the `<sbb-datepicker-previous-day>` will be projected in the
 `prefix` slot (if placed before the `<sbb-date-input>`) or the

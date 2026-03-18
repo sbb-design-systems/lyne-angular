@@ -1,6 +1,6 @@
 The `<sbb-autocomplete>` is a component that can be used to display a panel of suggested options connected to a text input.
 Use it when you need a basic autocomplete: a panel with a list of selectable and possibly grouped options.
-If you need buttons connected to the options, use the [sbb-autocomplete-grid](/docs/experimental-sbb-autocomplete-grid-sbb-autocomplete-grid--docs).
+If you need buttons connected to the options, use the [sbb-autocomplete-grid](/angular-experimental/components/autocomplete-grid/overview).
 
 It's possible to set the element to which the component's panel will be attached using the `origin` prop,
 and the input which will work as a trigger using the `trigger` prop.
@@ -49,7 +49,7 @@ This directive is meant to be used if using complex values (other than type stri
 
 ## In `<sbb-form-field>`
 
-If the component is used within a [sbb-form-field](/docs/elements-form-field--docs),
+If the component is used within a [sbb-form-field](/angular/components/form-field/overview),
 it will automatically connect to the native `<input>` as trigger and will display the option panel above or below the `<sbb-form-field>`.
 
 ```html
@@ -72,7 +72,7 @@ it will automatically connect to the native `<input>` as trigger and will displa
 ### Option highlight
 
 By default, the autocomplete will highlight the label of the `<sbb-option>` in the panel, if it matches the typed text.
-See the [sbb-option](/docs/elements-option--docs) for more details.
+See the [sbb-option](/angular/components/option/overview) for more details.
 
 ### Option grouping
 

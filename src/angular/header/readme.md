@@ -3,8 +3,8 @@ The `<sbb-header>` component is a container for actions and a logo, and it is di
 The header can contain:
 
 - one or more actions with `<sbb-header-button>` or `<sbb-header-link>`
-- other action items like [sbb-button](/docs/elements-button--docs) or [sbb-link](/docs/elements-link--docs)
-- a logo or a signet with the `.sbb-header-logo` class (see [sbb-logo](/docs/elements-logo--docs))
+- other action items like [sbb-button](/angular/components/button/overview) or [sbb-link](/angular/components/link/overview)
+- a logo or a signet with the `.sbb-header-logo` class (see [sbb-logo](/angular/components/logo/overview))
 
 Slotted elements are aligned to the left. Use a `<div class="sbb-header-spacer"></div>` to align elements
 after it to the right.

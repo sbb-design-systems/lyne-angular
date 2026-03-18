@@ -19,6 +19,9 @@ import type { ModuleParams } from '../../module-params';
 import { moduleParams } from '../../module-params';
 import { StackBlitzButton } from '../stack-blitz/stack-blitz-button';
 
+import '@sbb-esta/lyne-elements/title.js';
+import '@sbb-esta/lyne-elements/link.js';
+
 interface ExampleCode {
   label: string;
   code: SafeHtml;
