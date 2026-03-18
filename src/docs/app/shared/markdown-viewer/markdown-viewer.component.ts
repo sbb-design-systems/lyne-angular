@@ -37,7 +37,13 @@ export class MarkdownViewerComponent {
             .use({
               hooks: {
                 postprocess: (html: string) =>
-                  html.replace(/<a /g, '<sbb-link ').replace(/<\/a>/g, '</sbb-link>'),
+                  html
+                    .replace(/<a /g, '<sbb-link ')
+                    .replace(/<\/a>/g, '</sbb-link>')
+                    .replaceAll(
+                      'href="#',
+                      `href="${window.location.origin}${window.location.pathname}#`,
+                    ),
               },
             })
             .parse(markdown),
