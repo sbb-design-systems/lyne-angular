@@ -1,3 +1,5 @@
+# Link
+
 The link components from Lyne provide the same functionality as a native `anchor (a)` element
 enhanced with SBB Design, accepting its associated properties (`href`, `target`, `rel` and `download`).
 

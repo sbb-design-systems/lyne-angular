@@ -1,3 +1,5 @@
+# Popover
+
 The `<sbb-popover>` component can be useful for displaying contextual and additional information on mouse hover or click of a trigger element.
 
 The component could be used:
@@ -9,7 +11,7 @@ The component could be used:
 
 The component must be connected with the trigger element using the `trigger` property,
 which accepts the id of the element, or directly its reference;
-the [sbb-menu-button](/docs/elements-button--docs) is meant to be used as trigger.
+the [sbb-menu-button](/angular/components/button/overview) is meant to be used as trigger.
 
 ```html
 <sbb-mini-button iconName="circle-information-small" id="popover-trigger"></sbb-mini-button>

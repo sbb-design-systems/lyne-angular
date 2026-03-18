@@ -1,3 +1,5 @@
+# Divider
+
 The `<sbb-divider>` is used to visually divide sections.
 
 ## Style

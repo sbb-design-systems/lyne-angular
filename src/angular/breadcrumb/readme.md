@@ -1,3 +1,5 @@
+# Breadcrumb
+
 The `<sbb-breadcrumb>` and `<sbb-breadcrumb-group>` components are meant to represent the hierarchy of visited pages before arriving to the current one.
 
 The `<sbb-breadcrumb>` is equivalent to a native [anchor (a)](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a) element.

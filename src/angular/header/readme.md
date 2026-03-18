@@ -1,10 +1,12 @@
+# Header
+
 The `<sbb-header>` component is a container for actions and a logo, and it is displayed at the top of the page.
 
 The header can contain:
 
 - one or more actions with `<sbb-header-button>` or `<sbb-header-link>`
-- other action items like [sbb-button](/docs/elements-button--docs) or [sbb-link](/docs/elements-link--docs)
-- a logo or a signet with the `.sbb-header-logo` class (see [sbb-logo](/docs/elements-logo--docs))
+- other action items like [sbb-button](/angular/components/button/overview) or [sbb-link](/angular/components/link/overview)
+- a logo or a signet with the `.sbb-header-logo` class (see [sbb-logo](/angular/components/logo/overview))
 
 Slotted elements are aligned to the left. Use a `<div class="sbb-header-spacer"></div>` to align elements
 after it to the right.
@@ -70,7 +72,7 @@ using the `scrollOrigin` property, which accepts an `HTMLElement` or the id of t
 Users can customize position and behavior of actions inside the `<sbb-header>` component
 by adding classes to `<sbb-header-button>`/`<sbb-header-link>` elements and then defining their own style rules.
 
-[All the examples in Storybook](/story/elements-header--basic) have the following requirements:
+All the examples have the following requirements:
 
 1. four action items (with custom icons);
 2. the first item is always left aligned and has `expand-from` set to `small`;
@@ -86,8 +88,6 @@ To achieve the alignment requirements, two `div` tags with a CSS class named `sb
 We also need a class (in this example `last-element`) on the last `<sbb-header-button>` to achieve requirement n° 4.
 
 Finally, the following custom CSS has been added(\*).
-
-The result can also be seen in the [home](/story/pages-home--home) and [home-logged-in](/story/pages-home--home-logged-in) stories.
 
 ```css
 .last-element,

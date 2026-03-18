@@ -1,3 +1,5 @@
+# Chip Label
+
 The `<sbb-chip-label>` is a visual component used to display compact information, like a filter's name or a tag.
 
 ```html

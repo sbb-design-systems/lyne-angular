@@ -1,3 +1,5 @@
+# Menu
+
 The `<sbb-menu>` is a component that can be attached to any element to open and display a custom context menu,
 which allows to perform actions relevant to the current task by using the `<sbb-menu-button>`
 or to navigate within or outside the application by using the `<sbb-menu-link>` component along with it.

@@ -1,5 +1,7 @@
+# Footer
+
 The `<sbb-footer>` component is used to display page related information like copyright, contact or other
-content related links; for these, the [sbb-link-list](/docs/elements-link-list--docs) component can be used.
+content related links; for these, the [sbb-link-list](/angular/components/link-list/overview) component can be used.
 
 ## Variants
 

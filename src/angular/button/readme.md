@@ -1,3 +1,5 @@
+# Button
+
 The button components from Lyne provide the same functionality as a native `<button>` element
 enhanced with SBB Design, accepting its associated properties (`type`, `name`, `value` and `form`).
 
@@ -136,7 +138,7 @@ guard against such cases in your component.
 ## Mini Button Group
 
 The `<sbb-mini-button-group>` component displays a set of `<sbb-mini-button>`
-optionally separated by a [sbb-divider](/docs/elements-divider--docs).
+optionally separated by a [sbb-divider](/angular/components/divider/overview).
 
 ```html
 <sbb-mini-button-group accessibilityLabel="My group">

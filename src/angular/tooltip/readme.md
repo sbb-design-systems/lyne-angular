@@ -1,3 +1,5 @@
+# Tooltip
+
 The `<sbb-tooltip>` component displays contextual information related to an element.
 
 The standard way to use it is through the `trigger` property, referencing the element which activate the tooltip.

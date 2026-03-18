@@ -1,4 +1,10 @@
-<sbb-dialog>
+<sbb-secondary-button #trigger>Open Dialog</sbb-secondary-button>
+
+<sbb-dialog [trigger]="trigger">
   <sbb-dialog-title>Title</sbb-dialog-title>
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+  <sbb-dialog-actions>
+    <sbb-secondary-button sbb-dialog-close>Close</sbb-secondary-button>
+    <sbb-button sbb-dialog-close>Confirm</sbb-button>
+  </sbb-dialog-actions>
 </sbb-dialog>

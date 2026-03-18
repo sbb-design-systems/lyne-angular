@@ -1,3 +1,5 @@
+# Form Field
+
 The `<sbb-form-field>` component is intended to be used as a form input wrapper with label and errors.
 
 ```html
@@ -22,11 +24,11 @@ The following components are designed to work inside a `<sbb-form-field>`:
 - `<input>`
 - `<select>`
 - `<textarea>`
-- [sbb-datepicker](/docs/elements-datepicker--docs) and its associated components
-- [sbb-select](/docs/elements-select--docs)
-- [sbb-slider](/docs/elements-slider--docs)
-- [sbb-time-input](/docs/elements-time-input--docs)
-- [sbb-autocomplete](/docs/elements-autocomplete--docs)
+- [sbb-datepicker](/angular/components/datepicker/overview) and its associated components
+- [sbb-select](/angular/components/select/overview)
+- [sbb-slider](/angular/components/slider/overview)
+- [sbb-time-input](/angular/components/time-input/overview)
+- [sbb-autocomplete](/angular/components/autocomplete/overview)
 
 ## Slots
 
@@ -85,7 +87,7 @@ This can be done via the `prefix` and `suffix` slots.
 </sbb-form-field>
 ```
 
-It's also possible to slot an icon-only button using the [sbb-mini-button](/docs/elements-button--docs).
+It's also possible to slot an icon-only button using the [sbb-mini-button](/angular/components/button/overview).
 Please note that only this component is correctly supported when slotting buttons in `negative` mode.
 
 ```html
@@ -96,8 +98,8 @@ Please note that only this component is correctly supported when slotting button
 </sbb-form-field>
 ```
 
-Some components, like the [sbb-form-field-clear](/docs/elements-form-field--docs) or the
-[sbb-slider](/docs/elements-slider--docs), when used within the form field, will automatically occupy
+Some components, like the [sbb-form-field-clear](/angular/components/form-field/overview) or the
+[sbb-slider](/angular/components/slider/overview), when used within the form field, will automatically occupy
 one or both of these slots.
 Please refer to their documentation for more details.
 
@@ -135,7 +137,7 @@ The component has a `size` property, which accepts three different values: `s`, 
 
 By default, the component has a defined width and min-width. However, this behavior can be overridden by setting
 the `width` property to `collapse`: in this way the component adapts its width to the inner slotted input component.
-This is useful, for example, for the [sbb-time-input](/docs/elements-time-input--docs) component.
+This is useful, for example, for the [sbb-time-input](/angular/components/time-input/overview) component.
 However, as the width-styles are exposed to the host,
 it's possible to apply any desired width by setting just the `width` and `min-width` CSS properties.
 

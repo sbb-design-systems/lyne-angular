@@ -1,3 +1,5 @@
+# Journey Summary
+
 The `<sbb-journey-summary>` displays the main information of a journey.
 It contains information about the arrival and departure, the date when the journey takes place and how long the trip will be.
 It also consists of a pearl-chain with arrival and departure time.

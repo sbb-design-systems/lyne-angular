@@ -8,6 +8,9 @@ import { switchMap } from 'rxjs/operators';
 import { HtmlLoader } from '../html-loader.service';
 import { moduleParams } from '../module-params';
 
+import '@sbb-esta/lyne-elements/title.js';
+import '@sbb-esta/lyne-elements/link.js';
+
 /**
  * Load and convert a Markdown file to HTML.
  */
@@ -29,7 +32,22 @@ export class MarkdownViewerComponent {
         switchMap((params) =>
           params.loaderBuilderInterceptor!(this.#htmlLoader.withParams(params)).load(),
         ),
-        switchMap((markdown) => marked.parse(markdown)),
+        switchMap((markdown) =>
+          marked
+            .use({
+              hooks: {
+                postprocess: (html: string) =>
+                  html
+                    .replace(/<a /g, '<sbb-link ')
+                    .replace(/<\/a>/g, '</sbb-link>')
+                    .replaceAll(
+                      'href="#',
+                      `href="${window.location.origin}${window.location.pathname}#`,
+                    ),
+              },
+            })
+            .parse(markdown),
+        ),
         takeUntilDestroyed(),
       )
       .subscribe((content) => {

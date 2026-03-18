@@ -1,3 +1,5 @@
+# Status
+
 The `<sbb-status>` is a component that has the purpose to show the user short messages to update the current status.
 The status element displays a brief text message preceded by the status icon.
 

@@ -1,3 +1,5 @@
+# Card
+
 The `<sbb-card>` component is a generic content container; its task is to present content related to a single subject.
 
 ```html
@@ -16,7 +18,7 @@ To achieve the correct spacing between elements inside the card badge, we recomm
 All content parts are presented with a predefined gap in between.
 
 Note: Additionally to using it in a card, the card badge can also be used
-in the [sbb-selection-expansion-panel](/docs/elements-selection-expansion-panel--docs) component.
+in the [sbb-selection-expansion-panel](/angular/components/selection-expansion-panel/overview) component.
 
 ```html
 <sbb-card color="white">

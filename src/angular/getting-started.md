@@ -1,6 +1,6 @@
 # Getting Started
 
-> ⓘ For simple testing and reproductions, see [Stackblitz starter for @sbb-esta/lyne-angular](https://stackblitz.com/edit/lyne-angular-starter?file=src%2Fmain.ts).
+> ⓘ The full introduction including some guides can be retrieved at [@sbb-esta/lyne-elements documentation](https://lyne-elements.app.sbb.ch).
 
 1.  Install Angular CLI, see [Angular CLI documentation](https://cli.angular.io/)
 2.  Install the `@sbb-esta/lyne-angular`, `@sbb-esta/lyne-elements` and `@angular/cdk` packages:

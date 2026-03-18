@@ -1,3 +1,5 @@
+# Teaser Product
+
 The `<sbb-teaser-product>` is a component that can display a text and a footnote, combined with an image as background, to tease a product.
 The whole component behaves like a link, and it is clickable; on small screens, the content follows the image.
 
@@ -17,7 +19,7 @@ If it has to include more than one interactive element, use the `<sbb-teaser-pro
 ## Slots
 
 Use the `image` slot to pass an `<sbb-image>` or an `img` that will be used as background.
-Optionally, you can add an overlapping `<sbb-chip-label>` by wrapping the `<sbb-image>` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
+Optionally, you can add an overlapping `<sbb-chip-label>` by wrapping the `<sbb-image>` in a `figure` tag (see [sbb-image doc](/angular/components/image/overview#utility-classes)).
 
 Use the optional `footnote` slot to add a text anchored to the bottom-end of the component.
 

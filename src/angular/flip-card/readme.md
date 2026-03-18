@@ -1,3 +1,5 @@
+# Flip Card
+
 ### sbb-flip-card
 
 The `<sbb-flip-card>` component displays an informative card that reveals more information when clicked or toggled programmatically.
@@ -13,7 +15,7 @@ The `<sbb-flip-card>` component displays an informative card that reveals more i
 ```
 
 With the `<sbb-flip-card-summary>` you can optionally add an overlapping `<sbb-chip-label>` by wrapping the
-`<sbb-image>` in a `figure` tag (see [sbb-image doc](/docs/elements-image--docs#utility%classes)).
+`<sbb-image>` in a `figure` tag (see [sbb-image doc](/angular/components/image/overview#utility-classes)).
 
 ```html
 <sbb-flip-card>

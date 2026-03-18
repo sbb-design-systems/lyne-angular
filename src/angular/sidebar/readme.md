@@ -1,3 +1,5 @@
+# Sidebar
+
 The `<sbb-sidebar>` is a component that can display items on the left or right side of the viewport.
 Every slotted content will be displayed, but it's designed to be used for navigation.
 
@@ -33,7 +35,7 @@ is not allowed.
 </sbb-sidebar-container>
 ```
 
-The `<sbb-sidebar-title>` component extends the [sbb-title](/docs/elements-title--docs) component.
+The `<sbb-sidebar-title>` component extends the [sbb-title](/angular/components/title/overview) component.
 
 Use it inside the `<sbb-sidebar>` to display a header in the sidebar with a title.
 The slot `title-section` is automatically assigned to be properly positioned on the `<sbb-sidebar>`.
@@ -46,8 +48,8 @@ the title level, it is possible to use the `visualLevel` property (default value
 </sbb-sidebar>
 ```
 
-The `<sbb-sidebar-close-button>` component extends the [sbb-secondary-button](/docs/elements-button--docs) component.
-Use it in inside the [sbb-sidebar](/docs/elements-sidebar--docs)
+The `<sbb-sidebar-close-button>` component extends the [sbb-secondary-button](/angular/components/button/overview) component.
+Use it in inside the [sbb-sidebar](/angular/components/sidebar/overview)
 to display a close button in the sidebar.
 The slot `title-section` is automatically assigned to be properly positioned on the `<sbb-sidebar>`.
 

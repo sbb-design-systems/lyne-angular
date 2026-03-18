@@ -1,3 +1,5 @@
+# Paginator
+
 The `<sbb-paginator>` is a component which provides navigation for content split across multiple pages,
 e.g. a table with many rows. An alternative, more compact variant is available as [`<sbb-compact-paginator>`](#compact-paginator).
 
@@ -11,7 +13,7 @@ It can be controlled via the following properties:
 <sbb-paginator length="100" pageSize="20"></sbb-paginator>
 ```
 
-By default, a [sbb-mini-button-group](/docs/elements-button--docs) with two buttons is displayed,
+By default, a [sbb-mini-button-group](/angular/components/button/overview) with two buttons is displayed,
 which allows moving to the previous/next pages.
 The positioning of this element relative to the page numbers is set using the `pagerPosition` property (default: `start`):
 

@@ -1,3 +1,5 @@
+# Icon
+
 The `<sbb-icon>` component provides a solid way of rendering registered and named icons.
 
 The component will dynamically load an SVG for each icon, avoiding multiple requests to the same icon.

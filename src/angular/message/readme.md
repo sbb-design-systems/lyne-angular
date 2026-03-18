@@ -1,12 +1,14 @@
+# Message
+
 The `<sbb-message>` component can be used to display a complex message.
 
 ## Slots
 
 The title slot should be used to slot a `<sbb-title>` element.
 Optionally, the user can provide other elements such as a subtitle paragraph via the `subtitle` slot,
-a [sbb-image](/docs/elements-image--docs) to provide an image via the `image` slot,
+a [sbb-image](/angular/components/image/overview) to provide an image via the `image` slot,
 a paragraph to provide an error code via the `legend` slot,
-and a [sbb-button](/docs/elements-button--docs) to provide a custom action via the `action` slot.
+and a [sbb-button](/angular/components/button/overview) to provide a custom action via the `action` slot.
 
 ```html
 <sbb-message>

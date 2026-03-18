@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
 import { SbbNavigationModule } from '@sbb-esta/lyne-angular/navigation';
 
 /**
@@ -7,7 +8,7 @@ import { SbbNavigationModule } from '@sbb-esta/lyne-angular/navigation';
 @Component({
   selector: 'sbb-navigation-basic-example',
   templateUrl: 'navigation-basic-example.html',
-  imports: [SbbNavigationModule],
+  imports: [SbbNavigationModule, SbbSecondaryButton],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationBasicExample {}

@@ -1,3 +1,5 @@
+# Clock
+
 The `<sbb-clock>` component displays an analog clock face in the style of the classic SBB station clock.
 
 It mimics its behavior too, completing a rotation in approximately 58.5 seconds,

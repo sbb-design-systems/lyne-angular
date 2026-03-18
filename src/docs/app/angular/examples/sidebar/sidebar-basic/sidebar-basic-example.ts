@@ -9,6 +9,7 @@ import { SbbSidebarModule } from '@sbb-esta/lyne-angular/sidebar';
 @Component({
   selector: 'sbb-sidebar-basic-example',
   templateUrl: 'sidebar-basic-example.html',
+  styleUrl: 'sidebar-basic-example.scss',
   imports: [SbbSidebarModule, SbbLinkListModule, SbbBlockLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,3 +1,5 @@
+# Timetable Form
+
 The `<sbb-timetable-form>` is a layout and interaction orchestrator for timetable forms.
 
 It arranges related form parts (like origin/destination fields, swap button, and a details section) and provides utility classes for consistent, responsive composition.

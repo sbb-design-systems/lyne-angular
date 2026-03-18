@@ -30,7 +30,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'form-field': ['form-field-basic'],
   header: ['header-basic'],
   icon: ['icon-basic'],
-  'icon-sidebar': ['icon-sidebar-basic'],
+  'icon-sidebar': [{ id: 'icon-sidebar-basic', hasStyle: true }],
   image: ['image-basic'],
   'journey-header': ['journey-header-basic'],
   'lead-container': ['lead-container-basic'],
@@ -57,7 +57,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   select: ['select-basic'],
   'selection-action-panel': ['selection-action-panel-basic'],
   'selection-expansion-panel': ['selection-expansion-panel-basic'],
-  sidebar: ['sidebar-basic'],
+  sidebar: [{ id: 'sidebar-basic', hasStyle: true }],
   signet: ['signet-basic'],
   'skiplink-list': ['skiplink-list-basic'],
   slider: ['slider-basic'],
@@ -71,6 +71,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'teaser-product': ['teaser-product-basic'],
   'time-input': ['time-input-basic'],
   'timetable-form': ['timetable-form-basic'],
+  'timetable-occupancy': ['timetable-occupancy-basic'],
   'timetable-occupancy-icon': ['timetable-occupancy-icon-basic'],
   title: ['title-basic'],
   toast: ['toast-basic'],
@@ -223,6 +224,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/time-input');
     case 'timetable-form-basic':
       return import('../angular/examples/timetable-form');
+    case 'timetable-occupancy-basic':
+      return import('../angular/examples/timetable-occupancy');
     case 'timetable-occupancy-icon-basic':
       return import('../angular/examples/timetable-occupancy-icon');
     case 'title-basic':

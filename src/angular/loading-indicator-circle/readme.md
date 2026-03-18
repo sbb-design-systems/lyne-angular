@@ -1,3 +1,5 @@
+# Loading Indicator Circle
+
 The `<sbb-loading-indicator-circle>` is a component which can be used to indicate progress status
 or an ongoing activity which require some time to complete.
 

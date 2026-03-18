@@ -1,3 +1,5 @@
+# Table
+
 For working with tables, the native `table` and its related elements should be used.
 With the `sbb-table` CSS class, styling the native element is possible.
 
@@ -18,12 +20,12 @@ The `<sbb-table-wrapper>` is a wrapper for a table. Its goal is to enhance/autom
 
 ## Style
 
-See the [Table](/docs/styles-table--docs) style section.
+See the [Table](https://lyne-elements.app.sbb.ch/?path=/docs/styles-table--docs) style section.
 
 ### Sticky Table
 
 The `<sbb-table-wrapper>` provide classes and some utilities to implement a table with sticky header and columns.
-It is the consumer responsibility to set the correct style/classes to the template. (see the [sticky example](/story/elements-table--sticky))
+It is the consumer responsibility to set the correct style/classes to the template.
 
 **Note:** The Angular wrapper takes care of most of the sticky table setup. Please refer to the Lyne Angular examples.
 
