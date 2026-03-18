@@ -18,7 +18,7 @@ The `<sbb-table-wrapper>` is a wrapper for a table. Its goal is to enhance/autom
 
 ## Style
 
-See the [Table](/docs/styles-table--docs) style section.
+See the [Table](https://lyne-elements.app.sbb.ch/?path=/docs/styles-table--docs) style section.
 
 ### Sticky Table
 
