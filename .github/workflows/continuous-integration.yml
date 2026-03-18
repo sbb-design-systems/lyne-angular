@@ -100,6 +100,8 @@ jobs:
       - name: 'Container: Build and publish dev image'
         if: github.ref == 'refs/heads/main'
         run: |
+          node ./scripts/clean-docs-files.mts
+
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
           docker build --tag $IMAGE_REPO_DOCS:dev-fat .
           mint slim \
