@@ -1,5 +1,12 @@
 # Changelog
 
+## [21.5.1](https://github.com/sbb-design-systems/lyne-angular/compare/v21.5.0...v21.5.1) (2026-03-18)
+
+
+### Bug Fixes
+
+* avoid removing necessary files ([#327](https://github.com/sbb-design-systems/lyne-angular/issues/327)) ([a5c902d](https://github.com/sbb-design-systems/lyne-angular/commit/a5c902d326a4c1b6c5a1a7570648bdc08b3b7308))
+
 ## [21.5.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.4.0...v21.5.0) (2026-03-18)
 
 
