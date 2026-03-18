@@ -1,3 +1,5 @@
+# Teaser
+
 The `<sbb-teaser>` is a component which can display an image with a caption, and it behaves like a link on user interaction.
 
 Simple teaser example:

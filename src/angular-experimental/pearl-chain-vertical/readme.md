@@ -1,3 +1,5 @@
+# Pearl Chain Vertical
+
 The `<sbb-pearl-chain-vertical>` is a wrapper component for a
 [sbb-pearl-chain-vertical-item](/angular-experimental/components/pearl-chain-vertical-item/overview) component,
 which is projected within an unnamed slot.

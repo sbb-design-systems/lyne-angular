@@ -1,3 +1,5 @@
+# Selection Expansion Panel
+
 The `<sbb-selection-expansion-panel>` component wraps either a [sbb-checkbox-panel](/angular/components/checkbox-panel/overview)
 or a [sbb-radio-button-panel](/angular/components/radio-button-panel/overview) that can toggle a content section.
 

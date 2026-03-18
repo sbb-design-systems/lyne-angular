@@ -1,3 +1,5 @@
+# Option
+
 The `<sbb-option>` is a component which can be used to display items in components like
 [sbb-autocomplete](/angular/components/autocomplete/overview) or a [sbb-select](/angular/components/select/overview).
 

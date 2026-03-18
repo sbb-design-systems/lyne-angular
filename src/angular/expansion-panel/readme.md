@@ -1,3 +1,5 @@
+# Expansion Panel
+
 The `<sbb-expansion-panel>` is a component which acts as an expandable summary-details widget.
 
 It can be used standalone or inside an [sbb-accordion](/angular/components/accordion/overview).

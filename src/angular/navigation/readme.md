@@ -1,3 +1,5 @@
+# Navigation
+
 The `<sbb-navigation>` component provides a way to present a modal navigation menu.
 It creates a backdrop for disabling interaction behind the navigation and disables scrolling of the page
 content while open.

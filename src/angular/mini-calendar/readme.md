@@ -1,3 +1,5 @@
+# Mini Calendar
+
 The `<sbb-mini-calendar>` is a component used to display a minimal calendar.
 
 It must be used in combination with one or more `<sbb-mini-calendar-month>`,

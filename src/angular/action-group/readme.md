@@ -1,3 +1,5 @@
+# Action Group
+
 The `<sbb-action-group>` component is a generic content container which can contain up to three action items
 ([sbb-button](/angular/components/button/overview) or [sbb-block-link](/angular/components/link/overview) or other HTML elements)
 in various [allocations](#allocations).

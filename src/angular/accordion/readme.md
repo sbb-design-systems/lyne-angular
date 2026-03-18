@@ -1,3 +1,5 @@
+# Accordion
+
 The `<sbb-accordion>` is a component which acts as a container
 for one or more [sbb-expansion-panel](/angular/components/expansion-panel/overview).
 

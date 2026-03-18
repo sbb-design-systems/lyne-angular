@@ -1,3 +1,5 @@
+# Selection Action Panel
+
 The `<sbb-selection-action-panel>` component wraps either a [sbb-checkbox-panel](/angular/components/checkbox-panel/overview)
 or a [sbb-radio-button-panel](/angular/components/radio-button-panel/overview) and an action element (e.g. an `<sbb-secondary-button>` or a native `button`).
 

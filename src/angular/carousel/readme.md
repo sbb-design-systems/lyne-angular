@@ -1,3 +1,5 @@
+# Carousel
+
 The `<sbb-carousel>` is a slideshow component that can be used to display a
 series of items, as images, once at a time, allowing users to cycle
 through them via horizontal scrolling or using controls (e.g. a paginator).

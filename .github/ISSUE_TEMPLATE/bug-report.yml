@@ -111,8 +111,8 @@ body:
     attributes:
       label: Steps to reproduce the issue
       description: |
-        Also tell us, what did you expect to happen? We provide a reproduction template at Stackblitz.
-        [Stackblitz starter for @sbb-esta/lyne-angular](https://stackblitz.com/edit/lyne-angular-starter?file=src%2Fmain.ts)
+        Also tell us, what did you expect to happen? We provide a reproduction template at StackBlitz.
+        [StackBlitz starter for @sbb-esta/lyne-angular](https://stackblitz.com/edit/lyne-angular-starter?file=src%2Fmain.ts)
       placeholder: Tell us what you see!
       value: |
         1. Step one

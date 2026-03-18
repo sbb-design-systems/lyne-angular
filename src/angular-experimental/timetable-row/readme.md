@@ -1,3 +1,5 @@
+# Timetable Row
+
 The `<sbb-timetable-row>` component displays a journey.
 A Journey consists of various icons that display information about the means of transport,
 the occupancy in the first and second class, the most important warning for the trip and travel hints.

@@ -1,3 +1,5 @@
+# Link List
+
 The `<sbb-link-list>` is a component that can be used to collect and display [sbb-block-link](/angular/components/link/overview).
 
 ```html

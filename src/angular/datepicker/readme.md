@@ -1,3 +1,5 @@
+# Datepicker
+
 The `<sbb-datepicker>` is a component which can be used together with
 an `<sbb-date-input>` and an `<sbb-datepicker-toggle>` element to attach
 a dropdown to select a date from a calendar.

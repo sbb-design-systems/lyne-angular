@@ -1,3 +1,5 @@
+# Dialog
+
 The `<sbb-dialog>` component provides a way to present content on top of the app's content mainly to
 interact with the user.
 

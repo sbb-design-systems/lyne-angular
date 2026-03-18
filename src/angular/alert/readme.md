@@ -1,3 +1,5 @@
+# Alert
+
 The `<sbb-alert>` is a component which should be used to display important messages to a client.
 
 Multiple instances of this component can be used within the `<sbb-alert-group>` component.

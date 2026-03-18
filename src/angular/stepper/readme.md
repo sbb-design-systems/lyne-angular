@@ -1,3 +1,5 @@
+# Stepper
+
 The `<sbb-stepper>` is a component that visually guides a user through a sequential, multistep process.
 It breaks down complex forms, flows, or other linear interactions into smaller, easier-to-follow steps.
 The current step is highlighted, and a progress bar connects the steps to visually represent progress.

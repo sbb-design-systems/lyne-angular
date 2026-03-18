@@ -1,3 +1,5 @@
+# Teaser Product
+
 The `<sbb-teaser-product>` is a component that can display a text and a footnote, combined with an image as background, to tease a product.
 The whole component behaves like a link, and it is clickable; on small screens, the content follows the image.
 

@@ -1,3 +1,5 @@
+# Icon Sidebar
+
 The `<sbb-icon-sidebar>` is a component that can display action items with an icon on the left or right side of the viewport.
 
 The `<sbb-icon-sidebar-container>` is a component that holds together the `<sbb-icon-sidebar-content>`

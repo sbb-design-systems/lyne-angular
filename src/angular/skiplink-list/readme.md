@@ -1,3 +1,5 @@
+# Skiplink List
+
 The `<sbb-skiplink-list>` is a component that can be used to collect one or more hidden [sbb-block-link](/angular/components/link/overview)s,
 which become visible only when focused, e.g., using the `Tab` key.
 

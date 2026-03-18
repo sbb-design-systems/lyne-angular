@@ -1,3 +1,5 @@
+# Date Input
+
 The `<sbb-date-input>` is an input component for a date. It is comparable to the
 `<input type="date">` element, however without a datepicker attached (See
 `<sbb-datepicker>` to provide a datepicker dropdown with the

@@ -1,3 +1,5 @@
+# Paginator
+
 The `<sbb-paginator>` is a component which provides navigation for content split across multiple pages,
 e.g. a table with many rows. An alternative, more compact variant is available as [`<sbb-compact-paginator>`](#compact-paginator).
 

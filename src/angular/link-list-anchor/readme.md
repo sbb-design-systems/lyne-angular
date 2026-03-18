@@ -1,3 +1,5 @@
+# Link List Anchor
+
 The `<sbb-link-list-anchor>` is a component that can be used to collect and display [sbb-block-link](/angular/components/link/overview).
 It is mainly intended to be used as a link list for page anchors.
 

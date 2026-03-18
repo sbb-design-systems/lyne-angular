@@ -1,3 +1,5 @@
+# Popover
+
 The `<sbb-popover>` component can be useful for displaying contextual and additional information on mouse hover or click of a trigger element.
 
 The component could be used:

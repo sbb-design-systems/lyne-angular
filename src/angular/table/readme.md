@@ -1,3 +1,5 @@
+# Table
+
 For working with tables, the native `table` and its related elements should be used.
 With the `sbb-table` CSS class, styling the native element is possible.
 

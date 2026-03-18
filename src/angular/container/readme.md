@@ -1,3 +1,5 @@
+# Container
+
 The `<sbb-container>` is a component that displays its content with the default page spacing.
 
 ```html

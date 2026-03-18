@@ -1,3 +1,5 @@
+# Flip Card
+
 ### sbb-flip-card
 
 The `<sbb-flip-card>` component displays an informative card that reveals more information when clicked or toggled programmatically.

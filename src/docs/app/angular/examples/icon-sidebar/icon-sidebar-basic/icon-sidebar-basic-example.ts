@@ -7,6 +7,7 @@ import { SbbTooltipDirective } from '@sbb-esta/lyne-angular/tooltip';
  */
 @Component({
   selector: 'sbb-icon-sidebar-basic-example',
+  styles: 'sbb-icon-sidebar-basic-example.scss',
   templateUrl: 'icon-sidebar-basic-example.html',
   imports: [SbbIconSidebarModule, SbbTooltipDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,

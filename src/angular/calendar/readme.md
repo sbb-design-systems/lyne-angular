@@ -1,3 +1,5 @@
+# Calendar
+
 The `<sbb-calendar>` component displays a calendar that allows the user to select a date.
 
 This is used internally in the datepicker component, but it can be used on its own.

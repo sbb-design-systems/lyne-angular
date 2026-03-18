@@ -1,3 +1,5 @@
+# Toast
+
 The `<sbb-toast>` is a component that can be used to display toast notifications.
 
 It can be shown/dismissed by calling the `open/close` methods.

@@ -1,3 +1,5 @@
+# Sidebar
+
 The `<sbb-sidebar>` is a component that can display items on the left or right side of the viewport.
 Every slotted content will be displayed, but it's designed to be used for navigation.
 

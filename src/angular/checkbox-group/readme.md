@@ -1,3 +1,5 @@
+# Checkbox Group
+
 The `<sbb-checkbox-group>` component is used as a container for a collection of either
 [sbb-checkbox](/angular/components/checkbox/overview)s, [sbb-checkbox-panel](/angular/components/checkbox-panel/overview)s,
 or [sbb-selection-expansion-panel](/angular/components/selection-expansion-panel/overview).

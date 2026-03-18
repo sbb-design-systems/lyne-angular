@@ -1,3 +1,5 @@
+# Visual Checkbox
+
 The `<sbb-visual-checkbox>` is an 'internal-use-only' component used to display a non-interactive checkbox within an interactive component.
 It is used in the [sbb-checkbox](/angular/components/checkbox/overview) component,
 and in the [sbb-option](/angular/components/option/overview) component

@@ -1,3 +1,5 @@
+# Tabs
+
 Tabs organize content into separate views where only one view is visible at a time.
 
 There are two variants available:

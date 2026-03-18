@@ -1,3 +1,5 @@
+# Radio Button
+
 The `<sbb-radio-button>` component provides the same functionality as a native `<input type="radio"/>` enhanced with the SBB Design.
 
 Radio-buttons should typically be placed inside a [sbb-radio-button-group](/angular/components/radio-button-group/overview) component

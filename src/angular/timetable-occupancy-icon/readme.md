@@ -1,3 +1,5 @@
+# Timetable Occupancy Icon
+
 The `<sbb-timetable-occupancy-icon>` displays the wagon occupancy depending on occupancy property
 and the page style (normal, negative, high contrast mode).
 

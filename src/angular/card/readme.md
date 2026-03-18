@@ -1,3 +1,5 @@
+# Card
+
 The `<sbb-card>` component is a generic content container; its task is to present content related to a single subject.
 
 ```html

@@ -9,7 +9,7 @@ import {
   statSync,
   writeFileSync,
 } from 'node:fs';
-import { dirname, join, relative } from 'node:path';
+import { basename, dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { format, resolveConfig } from 'prettier';
@@ -88,6 +88,7 @@ async function mergeReadme(path: string, newContent: string) {
       .replace('src/elements/', 'src/angular/')
       .replace('src/elements-experimental/', 'src/angular-experimental/'),
   );
+  newContent = `# ${toSpacedPascalCase(basename(dirname(path)))}\n\n${newContent}`;
   newContent = convertHtmlExamples(newContent);
   newContent = convertDocsLinks(newContent);
   if (existsSync(localPath)) {
@@ -249,6 +250,10 @@ function convertDocsLinks(content: string): string {
       return original;
     },
   );
+}
+
+function toSpacedPascalCase(text: string) {
+  return text.replace(/(^\w|-\w)/g, (text: string) => text.replace(/-/, ' ').toUpperCase());
 }
 
 interface Package {

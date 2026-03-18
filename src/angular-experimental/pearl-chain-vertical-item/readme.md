@@ -1,3 +1,5 @@
+# Pearl Chain Vertical Item
+
 The `<sbb-pearl-chain-vertical-item>` is intended to be used
 with the [sbb-pearl-chain-vertical](/angular-experimental/components/pearl-chain-vertical/overview) component.
 

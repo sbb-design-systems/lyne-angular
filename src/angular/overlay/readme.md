@@ -1,3 +1,5 @@
+# Overlay
+
 The `<sbb-overlay>` component provides a way to present content on top of the app's content,
 and it's similar to the [sbb-dialog](/angular/components/dialog/overview).
 It offers the following features:

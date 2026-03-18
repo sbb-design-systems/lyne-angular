@@ -1,3 +1,5 @@
+# Notification
+
 The `<sbb-notification>` is a component which purpose is to inform users of updates.
 A notification is an element that displays a brief, important message
 in a way that attracts the user's attention without interrupting the user's task.

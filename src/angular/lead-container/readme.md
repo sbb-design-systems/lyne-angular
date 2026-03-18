@@ -1,3 +1,5 @@
+# Lead Container
+
 The `<sbb-lead-container>` can be used for product pages to display a lead image and following content.
 
 Please note that the gaps between elements inside the unnamed slot (main content) need to be controlled by the consumer.

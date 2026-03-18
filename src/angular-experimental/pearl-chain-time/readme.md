@@ -1,3 +1,5 @@
+# Pearl Chain Time
+
 The `<sbb-pearl-chain-time>` component adds an optional walk icon and a duration in minutes
 before and/or after the [sbb-pearl-chain](/angular-experimental/components/pearl-chain/overview).
 
