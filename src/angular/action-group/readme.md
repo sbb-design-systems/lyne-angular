@@ -117,3 +117,7 @@ The values for `align-group` and `align-self` for the various allocations are as
 |                0-2-0                |   stretch   |       /        |
 |                0-0-3                |   stretch   |  Link: 'end'   |
 |                0-0-2                |   stretch   |       /        |
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-action-group--docs)

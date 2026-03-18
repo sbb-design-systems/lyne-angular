@@ -52,3 +52,7 @@ See the table below for some formatting examples:
 Similar to the native `<input>` element, the `<sbb-time-input>` component
 dispatches the usual `input`, `change`, `blur`, `invalid` and keyboard
 and focus related events.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-time-input--docs)

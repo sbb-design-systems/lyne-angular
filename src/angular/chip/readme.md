@@ -199,3 +199,7 @@ The `<sbb-chip-group>` has a `negative` variant. If within an `<sbb-form-field>`
 ## Accessibility
 
 The `<sbb-chip-group>` follows the `grid` aria pattern.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-chip--docs)

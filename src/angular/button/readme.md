@@ -165,3 +165,7 @@ Use the `accessibility-label` property to describe the purpose of the `<sbb-mini
 
 If `<sbb-divider>` components are used as separators, their `aria-hidden` property is automatically set to `true`
 to ensure that the button list is read by screen readers with the correct size.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-button--docs)

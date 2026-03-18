@@ -194,3 +194,7 @@ This function receives the selected value and should return a string.
 
 Please note that the parameter is the assigned value of the selected option which does not necessarily
 align with the type information.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/experimental-autocomplete-grid--docs)

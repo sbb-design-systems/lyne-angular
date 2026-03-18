@@ -52,3 +52,7 @@ const values = [
   <sbb-toggle-option [value]="values[1]">Option 2</sbb-toggle-option>
 </sbb-toggle>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-toggle--docs)

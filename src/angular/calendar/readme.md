@@ -223,3 +223,7 @@ pressing the `<kbd>Home</kbd>` when the first day of the month is disabled will 
 ## Accessibility
 
 For accessibility purposes, the component is rendered as a native table element and each day is a button.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-calendar--docs)

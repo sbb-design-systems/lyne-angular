@@ -157,3 +157,7 @@ For types other than string, the `value` must be set via property.
   <sbb-option [value]="values[1]">Option 2</sbb-option>
 </sbb-select>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-select--docs)

@@ -89,3 +89,7 @@ Optionally, you can add an overlapping `<sbb-chip-label>` by wrapping the `<sbb-
 
 Please either define the `alt` attribute of your image or set `aria-hidden="true"` to the image
 to hide it from the accessibility tree.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-lead-container--docs)

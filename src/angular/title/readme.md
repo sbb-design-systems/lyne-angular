@@ -28,3 +28,7 @@ This can be removed or customized via simple CSS rules.
 ## Lean design
 
 In `lean` mode, where the `sbb-lean` class is applied to the `<html>` tag, the title is given smaller sizes and spacings.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-title--docs)

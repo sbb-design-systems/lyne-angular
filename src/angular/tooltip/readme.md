@@ -105,3 +105,7 @@ The `<sbb-tooltip>` adds an `ariaDescribedby` reference to an element containing
 
 Avoid interactions that exclusively show a tooltip with pointer events like click and mouseenter.
 Always ensure that keyboard users can perform the same set of actions available to mouse and touch users.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-tooltip--docs)

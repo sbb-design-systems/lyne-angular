@@ -101,3 +101,7 @@ Optionally the user can set the `color` property on the `<sbb-sticky-bar>` in or
 The color is only applied when the sticky bar is sticking, and will become transparent once it settles on the bottom of the container.
 
 The component has two sizes, `m` and `s`, that can be set using the `size` property.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-container--docs)

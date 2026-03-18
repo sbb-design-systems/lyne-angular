@@ -109,3 +109,7 @@ In high contrast mode, all the content of a link or a button receives a specific
 However, as the content of the card is not directly inside the button or link,
 this does not happen when the slotted content has a specific color set.
 To improve coloring, it's needed to manually define styles for Window high contrast mode (setting `LinkText` or `ButtonText`).
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-card--docs)

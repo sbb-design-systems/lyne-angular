@@ -15,3 +15,7 @@ It provides two slots: one unnamed slot for the sidebar content, and one named `
 
 On mobile, the map is sticky above the sidebar, and the sidebar content is scrolling over the map.
 On desktop, the sidebar and the map are shown in a two column layout side by side.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-map-container--docs)

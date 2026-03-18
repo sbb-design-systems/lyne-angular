@@ -24,3 +24,7 @@ Please refer to its documentation for more details.
   <sbb-pearl-chain-vertical-item>
 </sbb-pearl-chain-vertical>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/experimental-pearl-chain-vertical--docs)

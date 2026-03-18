@@ -107,3 +107,7 @@ It's suggested to have a different value for each variant, e.g.:
   accessibilityLabel="Select from hard disk - multiple selection allowed"
 ></sbb-file-selector-dropzone>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-file-selector--docs)

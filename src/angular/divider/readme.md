@@ -13,3 +13,7 @@ It's also possible to display the component in `negative` variant using the self
 
 <sbb-divider negative></sbb-divider>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-divider--docs)

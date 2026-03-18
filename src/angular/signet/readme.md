@@ -27,3 +27,7 @@ This is useful, for example, in the `<sbb-header>` with `size='s'`.
 
 <sbb-signet protectiveRoom="panel"></sbb-signet>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-signet--docs)

@@ -140,3 +140,7 @@ They will be applied internally into a list (using `<ul>` and `<li>`) and requir
   ></sbb-icon>
 </sbb-train-wagon>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-train--docs)

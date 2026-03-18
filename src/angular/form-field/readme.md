@@ -318,3 +318,7 @@ If you like to visually hide a label, but still present it with screen readers, 
 
 When you provide informational text via `<sbb-error>`, it automatically adds these elements' IDs
 to the form element's `ariaErrorMessageElements` property (or `aria-errormessage` attribute as fallback).
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-form-field--docs)

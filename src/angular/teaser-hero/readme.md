@@ -48,3 +48,7 @@ Otherwise, it stays behind the red panel.
 The description text is wrapped into an `p` element to guarantee the semantic meaning.
 
 Avoid slotting block elements (e.g. `div`) as this violates semantic rules and can have negative effects on screen readers.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-teaser-hero--docs)

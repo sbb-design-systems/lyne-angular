@@ -78,3 +78,7 @@ This ensures that users who rely on screen readers are promptly informed of any 
 
 Set the `animation` property to manage which animations are enabled.
 As a base rule, opening animations should be active if a notification arrives after the initial page load.
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-notification--docs)

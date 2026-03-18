@@ -96,3 +96,7 @@ If the attribute is not used, the first focusable element receives focus (recomm
   <sbb-link sbb-focus-initial href="#">Link 2</sbb-link>
 </sbb-popover>
 ```
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-popover--docs)

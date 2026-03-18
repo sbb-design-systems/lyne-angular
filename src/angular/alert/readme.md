@@ -102,3 +102,7 @@ For example, you can set the `role` to `alert` which implicitly sets `aria-live`
 and therefore interrupts screen reader flow, to immediately read out the alert content.
 
 **Note that with role `alert`, in some combinations of screen readers and browsers not every part of the alert is fully read.**
+
+## @sbb-esta/lyne-elements Docs
+
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-alert--docs)
