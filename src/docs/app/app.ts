@@ -13,6 +13,8 @@ import { SbbTooltipDirective } from '@sbb-esta/lyne-angular/tooltip';
 
 import { LightDarkController } from './light-dark-controller';
 import { PACKAGES } from './shared/meta';
+import { ScrollOrigin } from './shared/scroll-origin';
+import { ScrollOriginRegistrar } from './shared/scroll-origin-registrar';
 import { VariantSwitch } from './variant-switch';
 
 @Component({
@@ -32,6 +34,7 @@ import { VariantSwitch } from './variant-switch';
     SbbIconSidebarModule,
     SbbTooltipDirective,
     SbbHeaderButton,
+    ScrollOriginRegistrar,
   ],
   providers: [VariantSwitch],
   templateUrl: './app.html',
@@ -43,4 +46,5 @@ export class App {
   packages = PACKAGES;
   version = inject(Meta).getTag('name="sbb-lyne-angular-version"')?.content ?? 'unknown version';
   lightDarkController = inject(LightDarkController);
+  scrollOrigin = inject(ScrollOrigin).scrollOrigin;
 }

@@ -8,6 +8,7 @@ import { SbbSidebarModule } from '@sbb-esta/lyne-angular/sidebar';
 import { map } from 'rxjs/operators';
 
 import type { ShowcaseMetaPackage } from '../meta';
+import { ScrollOriginRegistrar } from '../scroll-origin-registrar';
 
 @Component({
   selector: 'sbb-package-viewer',
@@ -19,6 +20,7 @@ import type { ShowcaseMetaPackage } from '../meta';
     SbbAccordionModule,
     SbbBlockLink,
     SbbSidebarModule,
+    ScrollOriginRegistrar,
   ],
 })
 export class PackageViewerComponent {
