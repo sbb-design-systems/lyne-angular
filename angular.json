@@ -227,6 +227,26 @@
             "lintFilePatterns": ["src/docs/**/*.ts", "src/docs/**/*.html"],
             "eslintConfig": "src/docs/eslint.config.ts"
           }
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "defaultConfiguration": "browser",
+          "configurations": {
+            "browser": {
+              "browsers": ["chromium"],
+              "watch": true,
+              "progress": true,
+              "setupFiles": ["src/test-setup.ts"]
+            },
+            "ci": {
+              "browsers": ["chromiumHeadless", "firefoxHeadless"],
+              "coverage": false,
+              "progress": false,
+              "watch": false,
+              "reporters": ["dot"],
+              "setupFiles": ["src/test-setup.ts"]
+            }
+          }
         }
       }
     }

@@ -15,7 +15,7 @@ import { startWith } from 'rxjs/operators';
 const variantLocalstorageKey = 'sbbAngularVariant';
 
 // TODO: add 'off-brand' and 'safety'
-type SbbVariant = 'standard' | 'lean' | 'light' | 'dark';
+type SbbVariant = 'standard' | 'lean';
 
 @Injectable({ providedIn: 'root' })
 export class VariantSwitch implements CanActivate {
@@ -37,14 +37,6 @@ export class VariantSwitch implements CanActivate {
           this.#document.documentElement.classList.add(`sbb-lean`);
         }
         localStorage.setItem(variantLocalstorageKey, value);
-
-        // switch between light and dark mode
-        this.#document.documentElement.classList.remove(...['sbb-dark', 'sbb-light']);
-        if (value === 'light') {
-          this.#document.documentElement.classList.add('sbb-light');
-        } else if (value === 'dark') {
-          this.#document.documentElement.classList.add('sbb-dark');
-        }
       });
   }
 

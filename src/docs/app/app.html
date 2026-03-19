@@ -1,13 +1,22 @@
 <sbb-header expanded [scrollOrigin]="content">
-  <span class="sbb-header-info">
+  <span class="sbb-header-info sbb-text-m">
     <strong>Lyne Angular</strong>
-    <span>{{version}}</span>
+    <span class="sbb-text-xxs">{{version}}</span>
   </span>
-  <sbb-header-link routerLink="/introduction" routerLinkActive="sbb-active">
+  <sbb-header-link
+    routerLink="/introduction"
+    routerLinkActive="sbb-active"
+    iconName="circle-information-small"
+  >
     Introduction
   </sbb-header-link>
   <div class="sbb-header-spacer"></div>
-  <sbb-form-field size="s">
+  <sbb-header-button
+    [iconName]="lightDarkController.isDarkMode() ? 'sunshine-small' : 'moon-small'"
+    (click)="lightDarkController.toggle()"
+    sbb-tooltip="Change to {{ lightDarkController.isDarkMode() ? 'light' : 'dark' }} theme"
+  ></sbb-header-button>
+  <sbb-form-field size="s" width="collapse" class="light-dark-select">
     <sbb-select [formControl]="sbbVariant">
       <sbb-option [value]="'standard'">Standard</sbb-option>
       <sbb-option [value]="'lean'">Lean</sbb-option>

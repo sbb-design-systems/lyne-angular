@@ -4,13 +4,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Meta } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
-import { SbbHeader, SbbHeaderLink } from '@sbb-esta/lyne-angular/header';
+import { SbbHeader, SbbHeaderButton, SbbHeaderLink } from '@sbb-esta/lyne-angular/header';
 import { SbbIconSidebarModule } from '@sbb-esta/lyne-angular/icon-sidebar';
 import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
 import { SbbOption } from '@sbb-esta/lyne-angular/option';
 import { SbbSelect } from '@sbb-esta/lyne-angular/select';
 import { SbbTooltipDirective } from '@sbb-esta/lyne-angular/tooltip';
 
+import { LightDarkController } from './light-dark-controller';
 import { PACKAGES } from './shared/meta';
 import { VariantSwitch } from './variant-switch';
 
@@ -30,13 +31,16 @@ import { VariantSwitch } from './variant-switch';
     RouterLinkActive,
     SbbIconSidebarModule,
     SbbTooltipDirective,
+    SbbHeaderButton,
   ],
   providers: [VariantSwitch],
   templateUrl: './app.html',
+  styleUrl: './app.scss',
 })
 export class App {
   #variantSwitch = inject(VariantSwitch);
   sbbVariant = this.#variantSwitch.sbbVariant;
   packages = PACKAGES;
-  version = inject(Meta).getTag('name="sbb-lyne-angular-version"')!.content;
+  version = inject(Meta).getTag('name="sbb-lyne-angular-version"')?.content ?? 'unknown version';
+  lightDarkController = inject(LightDarkController);
 }
