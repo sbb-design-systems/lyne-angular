@@ -5991,10 +5991,10 @@ neotraverse@^0.6.18:
   resolved "https://registry.yarnpkg.com/neotraverse/-/neotraverse-0.6.18.tgz#abcb33dda2e8e713cf6321b29405e822230cdb30"
   integrity sha512-Z4SmBUweYa09+o6pG+eASabEpP6QkQ70yHj351pQoEXIs8uHbaU2DWVmzBANKgflPa47A50PtB2+NgRpQvr7vA==
 
-ng-packagr@21.2.0:
-  version "21.2.0"
-  resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-21.2.0.tgz#7710e2a3bc9cfcbf54e4184edce7099f1efa6385"
-  integrity sha512-ASlXEboqt+ZgKzNPx3YCr924xqQRFA5qgm77GHf0Fm13hx7gVFYVm6WCdYZyeX/p9NJjFWAL+mIMfhsx2SHKoA==
+ng-packagr@21.2.1:
+  version "21.2.1"
+  resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-21.2.1.tgz#c0aea54ed01221ac91477652439751bd58fa9247"
+  integrity sha512-rk0aL0wWkC+FTA4wyzJIfjcUgAKMAEB19ULvP0QkAoAkzjS+3SBEf0n3MS6z7gcOW8SRU9rw1BmsouEAXD+SCw==
   dependencies:
     "@ampproject/remapping" "^2.3.0"
     "@rollup/plugin-json" "^6.1.0"
@@ -6013,7 +6013,7 @@ ng-packagr@21.2.0:
     ora "^9.0.0"
     piscina "^5.0.0"
     postcss "^8.4.47"
-    rollup-plugin-dts "^6.2.0"
+    rollup-plugin-dts "^6.4.0"
     rxjs "^7.8.1"
     sass "^1.81.0"
     tinyglobby "^0.2.12"
@@ -6796,7 +6796,7 @@ rolldown@1.0.0-rc.9:
     "@rolldown/binding-win32-arm64-msvc" "1.0.0-rc.9"
     "@rolldown/binding-win32-x64-msvc" "1.0.0-rc.9"
 
-rollup-plugin-dts@^6.2.0:
+rollup-plugin-dts@^6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/rollup-plugin-dts/-/rollup-plugin-dts-6.4.0.tgz#31503698784d178abd7fec65e3cecb8eb66ea7d1"
   integrity sha512-2i00A5UoPCoDecLEs13Eu105QegSGfrbp1sDeUj/54LKGmv6XFHDxWKC6Wsb4BobGUWYVCWWjmjAc8bXXbXH/Q==
