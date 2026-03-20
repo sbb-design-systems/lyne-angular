@@ -63,7 +63,18 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   slider: ['slider-basic'],
   status: ['status-basic'],
   stepper: ['stepper-basic'],
-  table: ['table-basic'],
+  table: [
+    'simple-table',
+    { id: 'sticky-table', hasStyle: true },
+    'grouped-columns-table',
+    'grouped-rows-and-columns-table',
+    'sortable-table',
+    'paginator-table',
+    'selectable-table',
+    { id: 'filter-sort-paginator-table', hasStyle: true },
+    'native-table',
+    { id: 'expandable-table', hasStyle: true },
+  ],
   tabs: ['tabs-basic'],
   tag: ['tag-basic'],
   teaser: ['teaser-basic'],
@@ -135,9 +146,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/file-selector');
     case 'flip-card-basic':
       return import('../angular/examples/flip-card');
-    case 'footer-basic':
-      return import('../angular/examples/footer');
     case 'footer-clock':
+      return import('../angular/examples/footer');
+    case 'footer-basic':
       return import('../angular/examples/footer');
     case 'form-field-basic':
       return import('../angular/examples/form-field');
@@ -211,7 +222,25 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/status');
     case 'stepper-basic':
       return import('../angular/examples/stepper');
-    case 'table-basic':
+    case 'expandable-table':
+      return import('../angular/examples/table');
+    case 'native-table':
+      return import('../angular/examples/table');
+    case 'filter-sort-paginator-table':
+      return import('../angular/examples/table');
+    case 'selectable-table':
+      return import('../angular/examples/table');
+    case 'paginator-table':
+      return import('../angular/examples/table');
+    case 'sortable-table':
+      return import('../angular/examples/table');
+    case 'grouped-rows-and-columns-table':
+      return import('../angular/examples/table');
+    case 'grouped-columns-table':
+      return import('../angular/examples/table');
+    case 'sticky-table':
+      return import('../angular/examples/table');
+    case 'simple-table':
       return import('../angular/examples/table');
     case 'tabs-basic':
       return import('../angular/examples/tabs');
