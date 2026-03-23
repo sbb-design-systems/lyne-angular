@@ -1,5 +1,5 @@
 import type { Signal } from '@angular/core';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
@@ -22,6 +22,7 @@ import type { ShowcaseMetaPackage } from '../meta';
     SbbSidebarModule,
     SbbHeaderScrollOrigin,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PackageViewerComponent {
   #activatedRoute = inject(ActivatedRoute);

@@ -1,5 +1,5 @@
 import { KeyValuePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Meta } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
@@ -16,8 +16,7 @@ import { SbbTooltipDirective } from '@sbb-esta/lyne-angular/tooltip';
 
 import { LightDarkController } from './light-dark-controller';
 import { PACKAGES } from './shared/meta';
-import type { SbbVariant } from './variant-switch';
-import { VariantSwitch } from './variant-switch';
+import { ThemeSwitch } from './theme-switch';
 
 @Component({
   selector: 'sbb-app',
@@ -36,14 +35,13 @@ import { VariantSwitch } from './variant-switch';
     SbbMenuModule,
     SbbHeaderScrollOrigin,
   ],
-  providers: [VariantSwitch],
   templateUrl: './app.html',
   styleUrl: './app.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  variantSwitch = inject(VariantSwitch);
-  variants = Object.entries(this.variantSwitch.themes) as [SbbVariant, string][];
+  themeSwitch = inject(ThemeSwitch);
+  lightDarkController = inject(LightDarkController);
   packages = PACKAGES;
   version = inject(Meta).getTag('name="sbb-lyne-angular-version"')?.content ?? 'unknown version';
-  lightDarkController = inject(LightDarkController);
 }

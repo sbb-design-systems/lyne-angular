@@ -1,5 +1,5 @@
 import type { Signal } from '@angular/core';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { ExampleViewerComponent } from '../example-viewer/example-viewer.compone
   selector: 'sbb-example-list-viewer',
   templateUrl: './example-list-viewer.component.html',
   imports: [ExampleViewerComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleListViewerComponent {
   #route = inject(ActivatedRoute);
