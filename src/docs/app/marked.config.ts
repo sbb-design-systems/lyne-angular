@@ -77,7 +77,7 @@ export function setup(): void {
               </div>
               <aside class="docs-toc-content">
                 <sbb-title level=${6}>Table of contents</sbb-title>
-                <ul>
+                <ul class="sbb-scrollbar">
 
                   ${toc.join('').replace(/<a /g, '<sbb-link ').replace(/<\/a>/g, '</sbb-link>')}
                 </ul>
