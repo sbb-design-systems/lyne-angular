@@ -1,4 +1,4 @@
-<sbb-header expanded [scrollOrigin]="scrollOrigin()">
+<sbb-header expanded>
   <span class="sbb-header-info sbb-text-m">
     <strong>Lyne Angular</strong>
     <span class="sbb-text-xxs">{{version}}</span>
@@ -16,14 +16,19 @@
     (click)="lightDarkController.toggle()"
     sbb-tooltip="Change to {{ lightDarkController.isDarkMode() ? 'light' : 'dark' }} theme"
   ></sbb-header-button>
-  <sbb-form-field size="s" width="collapse" class="light-dark-select">
-    <sbb-select [formControl]="sbbVariant">
-      <sbb-option [value]="'standard'">Standard</sbb-option>
-      <sbb-option [value]="'lean'">Lean</sbb-option>
-      <sbb-option [value]="'light'">Lean (light mode)</sbb-option>
-      <sbb-option [value]="'dark'">Lean (dark mode)</sbb-option>
-    </sbb-select>
-  </sbb-form-field>
+  <sbb-header-button [expandFrom]="'small'" iconName="colour-palette-brush-small" #themeTrigger>
+    {{ variantSwitch.themes[variantSwitch.sbbVariant.value] }}
+  </sbb-header-button>
+  <sbb-menu [trigger]="themeTrigger">
+    @for (entry of variants; track entry[0]){
+    <sbb-menu-button
+      [iconName]="variantSwitch.sbbVariant.value === entry[0] ? 'tick-small' : null!"
+      (click)="variantSwitch.sbbVariant.setValue(entry[0])"
+    >
+      {{ entry[1] }}
+    </sbb-menu-button>
+    }
+  </sbb-menu>
   <a href="/" class="sbb-header-logo">
     <sbb-logo protectiveRoom="none"></sbb-logo>
   </a>
@@ -42,7 +47,7 @@
     </sbb-icon-sidebar-link>
     }
   </sbb-icon-sidebar>
-  <sbb-icon-sidebar-content role="main">
+  <sbb-icon-sidebar-content role="main" sbb-header-scroll-origin>
     <router-outlet />
   </sbb-icon-sidebar-content>
 </sbb-icon-sidebar-container>

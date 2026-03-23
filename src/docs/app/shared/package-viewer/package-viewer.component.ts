@@ -3,12 +3,12 @@ import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
+import { SbbHeaderScrollOrigin } from '@sbb-esta/lyne-angular/header';
 import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
 import { SbbSidebarModule } from '@sbb-esta/lyne-angular/sidebar';
 import { map } from 'rxjs/operators';
 
 import type { ShowcaseMetaPackage } from '../meta';
-import { ScrollOriginRegistrar } from '../scroll-origin-registrar';
 
 @Component({
   selector: 'sbb-package-viewer',
@@ -20,7 +20,7 @@ import { ScrollOriginRegistrar } from '../scroll-origin-registrar';
     SbbAccordionModule,
     SbbBlockLink,
     SbbSidebarModule,
-    ScrollOriginRegistrar,
+    SbbHeaderScrollOrigin,
   ],
 })
 export class PackageViewerComponent {

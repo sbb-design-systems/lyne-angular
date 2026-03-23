@@ -14,8 +14,13 @@ import { startWith } from 'rxjs/operators';
 
 const variantLocalstorageKey = 'sbbAngularVariant';
 
-// TODO: add 'off-brand' and 'safety'
-type SbbVariant = 'standard' | 'lean';
+export type SbbVariant =
+  | 'standard'
+  | 'standard-off-brand'
+  | 'standard-safety'
+  | 'lean'
+  | 'lean-off-brand'
+  | 'lean-safety';
 
 @Injectable({ providedIn: 'root' })
 export class VariantSwitch implements CanActivate {
@@ -25,6 +30,15 @@ export class VariantSwitch implements CanActivate {
     (localStorage.getItem(variantLocalstorageKey) as SbbVariant) || 'lean',
     { nonNullable: true },
   );
+
+  public themes: Record<SbbVariant, string> = {
+    standard: 'Standard',
+    'standard-off-brand': 'Standard Off-Brand',
+    'standard-safety': 'Standard Safety',
+    lean: 'Lean',
+    'lean-off-brand': 'Lean Off-Brand',
+    'lean-safety': 'Lean Safety',
+  };
 
   constructor() {
     this.sbbVariant.valueChanges

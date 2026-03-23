@@ -1,9 +1,5 @@
-.light-dark-select {
-  width: 14rem;
-}
-
 .sbb-header-info {
   flex-direction: column;
   gap: 0;
-  padding-inline: 0;
+  padding-inline: 0 var(--sbb-spacing-fixed-4x);
 }

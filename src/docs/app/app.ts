@@ -3,18 +3,20 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Meta } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
-import { SbbHeader, SbbHeaderButton, SbbHeaderLink } from '@sbb-esta/lyne-angular/header';
+import {
+  SbbHeader,
+  SbbHeaderButton,
+  SbbHeaderLink,
+  SbbHeaderScrollOrigin,
+} from '@sbb-esta/lyne-angular/header';
 import { SbbIconSidebarModule } from '@sbb-esta/lyne-angular/icon-sidebar';
 import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
-import { SbbOption } from '@sbb-esta/lyne-angular/option';
-import { SbbSelect } from '@sbb-esta/lyne-angular/select';
+import { SbbMenuModule } from '@sbb-esta/lyne-angular/menu';
 import { SbbTooltipDirective } from '@sbb-esta/lyne-angular/tooltip';
 
 import { LightDarkController } from './light-dark-controller';
 import { PACKAGES } from './shared/meta';
-import { ScrollOrigin } from './shared/scroll-origin';
-import { ScrollOriginRegistrar } from './shared/scroll-origin-registrar';
+import type { SbbVariant } from './variant-switch';
 import { VariantSwitch } from './variant-switch';
 
 @Component({
@@ -26,25 +28,22 @@ import { VariantSwitch } from './variant-switch';
     RouterLink,
     RouterOutlet,
     ReactiveFormsModule,
-    SbbSelect,
-    SbbOption,
-    SbbFormField,
     KeyValuePipe,
     RouterLinkActive,
     SbbIconSidebarModule,
     SbbTooltipDirective,
     SbbHeaderButton,
-    ScrollOriginRegistrar,
+    SbbMenuModule,
+    SbbHeaderScrollOrigin,
   ],
   providers: [VariantSwitch],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
-  #variantSwitch = inject(VariantSwitch);
-  sbbVariant = this.#variantSwitch.sbbVariant;
+  variantSwitch = inject(VariantSwitch);
+  variants = Object.entries(this.variantSwitch.themes) as [SbbVariant, string][];
   packages = PACKAGES;
   version = inject(Meta).getTag('name="sbb-lyne-angular-version"')?.content ?? 'unknown version';
   lightDarkController = inject(LightDarkController);
-  scrollOrigin = inject(ScrollOrigin).scrollOrigin;
 }
