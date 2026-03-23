@@ -4,6 +4,7 @@ import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core/overlay';
 /**
  * A component used to open as the default toast, matching digital.sbb.ch spec.
  * This should only be used internally by the notification toast service.
+ * @internal
  */
 @Component({
   selector: 'sbb-simple-toast',

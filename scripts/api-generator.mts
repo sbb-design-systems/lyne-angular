@@ -1,123 +1,26 @@
-import { fileURLToPath } from 'url';
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { basename, dirname, join, normalize, relative } from 'path';
+import { fileURLToPath } from 'url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const documentation = JSON.parse(readFileSync(join(root, `/src/docs/documentation.json`), 'utf8'));
 const modulesWithLegacySubmodules = ['checkbox', 'link-list', 'radio-button'];
+const ignoredFolders = ['core'];
 
 /**
- * The configuration object used to merge different `api` files in a single one for the angular project.
+ * Reads the module names for a given package from meta.ts.
+ * For each module listed in PACKAGES (from meta.ts), all api files are merged into a single file.
  */
-const mergeConfigAngular = {
-  alert: ['alert', 'alert-group'],
-  breadcrumb: ['breadcrumb', 'breadcrumb-group'],
-  button: [
-    'button',
-    'button-link',
-    'button-static',
-    'accent-button',
-    'accent-button-link',
-    'accent-button-static',
-    'secondary-button',
-    'secondary-button-link',
-    'secondary-button-static',
-    'transparent-button',
-    'transparent-button-link',
-    'transparent-button-static',
-    'mini-button',
-    'mini-button-group',
-  ],
-  card: ['card', 'card-button', 'card-link', 'card-badge'],
-  carousel: ['carousel', 'carousel-list', 'carousel-item'],
-  chip: ['chip', 'chip-group'],
-  container: ['container', 'sticky-bar'],
-  datepicker: ['datepicker', 'datepicker-toggle', 'datepicker-previous-day', 'datepicker-next-day'],
-  dialog: ['dialog', 'dialog-title', 'dialog-content', 'dialog-actions', 'dialog-close-button'],
-  'expansion-panel': ['expansion-panel', 'expansion-panel-header', 'expansion-panel-content'],
-  'file-selector': ['file-selector', 'file-selector-dropzone'],
-  'flip-card': ['flip-card', 'flip-card-summary', 'flip-card-details'],
-  'form-field': ['form-field', 'form-field-clear', 'error'],
-  header: ['header', 'header-button', 'header-link', 'header-environment'],
-  link: [
-    'link',
-    'link-button',
-    'link-static',
-    'block-link',
-    'block-link-button',
-    'block-link-static',
-  ],
-  menu: ['menu', 'menu-button', 'menu-link'],
-  'mini-calendar': ['mini-calendar', 'mini-calendar-month', 'mini-calendar-day'],
-  navigation: [
-    'navigation',
-    'navigation-section',
-    'navigation-list',
-    'navigation-marker',
-    'navigation-link',
-    'navigation-button',
-  ],
-  option: ['option', 'optgroup', 'option-hint'],
-  paginator: ['paginator', 'compact-paginator'],
-  sidebar: [
-    'sidebar',
-    'sidebar-container',
-    'sidebar-content',
-    'sidebar-title',
-    'sidebar-close-button',
-    'icon-sidebar',
-    'icon-sidebar-container',
-    'icon-sidebar-content',
-    'icon-sidebar-button',
-    'icon-sidebar-link',
-  ],
-  stepper: ['stepper', 'step', 'step-label'],
-  table: ['table', 'table-wrapper', 'sort'],
-  tab: ['tab', 'tab-group', 'tab-label'],
-  tag: ['tag', 'tag-group'],
-  teaser: ['teaser', 'teaser-hero', 'teaser-product', 'teaser-product-static'],
-  'timetable-form': [
-    'timetable-form',
-    'timetable-form-field',
-    'timetable-form-details',
-    'timetable-form-swap-button',
-  ],
-  timetable: [
-    'train-formation',
-    'train',
-    'train-wagon',
-    'train-blocked-passage',
-    'timetable-occupancy',
-    'timetable-occupancy-icon',
-  ],
-  toggle: ['toggle', 'toggle-option', 'toggle-check'],
-};
-
-/**
- * The configuration object used to merge different `api` files in a single one for the angular-experimental project.
- */
-const mergeConfigAngularExperimental = {
-  'autocomplete-grid': [
-    'autocomplete-grid',
-    'autocomplete-grid-row',
-    'autocomplete-grid-optgroup',
-    'autocomplete-grid-option',
-    'autocomplete-grid-cell',
-    'autocomplete-grid-button',
-  ],
-  'seat-reservation': [
-    'seat-reservation-area',
-    'seat-reservation-graphic',
-    'seat-reservation-navigation-coach',
-    'seat-reservation-navigation-services',
-    'seat-reservation-place-control',
-    'seat-reservation-scoped',
-  ],
-};
-
-const mergeConfig: Record<string, Record<string, string[]>> = {
-  angular: mergeConfigAngular,
-  'angular-experimental': mergeConfigAngularExperimental,
+const getModuleNamesFromMeta = async (projectFolder: string): Promise<string[]> => {
+  const { PACKAGES } = await import('../src/docs/app/shared/meta.js');
+  const pkg = PACKAGES[projectFolder];
+  if (!pkg) {
+    return [];
+  }
+  return pkg.sections
+    .flatMap((s) => s.entries)
+    .map((e) => e.link.split('/').at(-1)!)
+    .filter(Boolean);
 };
 
 /**
@@ -130,68 +33,93 @@ const mergeConfig: Record<string, Record<string, string[]>> = {
  *
  * @param projectFolder the name of the package (angular / angular-experimental / ...)
  */
-const generateApiFiles = (projectFolder: string) => {
+const generateApiFiles = async (projectFolder: string) => {
   const projectPath = join(root, 'src', projectFolder);
   const outputPath = join(root, 'src/docs/app', projectFolder, 'api');
   if (existsSync(outputPath)) {
     rmSync(outputPath, { recursive: true, force: true });
   }
   mkdirSync(outputPath, { recursive: true });
-  scanFoldersAndWriteFiles(projectPath, outputPath);
-  mergeFilesInModule(outputPath, mergeConfig[projectFolder]);
+  await mergeFilesInModule(projectPath, outputPath, projectFolder);
 };
 
 /**
  * Recursive function which reaches the innermost folder and creates a `.md` file
  * with the documentation of the objects from compodoc that matches the final path.
+ * Returns the list of generated api file names.
  *
  * @param projectPath path of the source package
  * @param apiFolder path of the output folder
  */
-const scanFoldersAndWriteFiles = (projectPath: string, apiFolder: string) => {
+const scanFoldersAndWriteFiles = (projectPath: string, apiFolder: string): string[] => {
   const folders = readdirSync(projectPath, { withFileTypes: true });
   const subFolders = folders.filter((e) => e.isDirectory());
+  const currentName = basename(projectPath);
+  const isLegacy = modulesWithLegacySubmodules.some((m) => projectPath.endsWith(`/${m}`));
+  const hasSameNamedSubFolder = subFolders.some((e) => e.name === currentName);
+  const generated: string[] = [];
 
-  // Inner folder reached
-  if (
-    subFolders.length === 0 ||
-    modulesWithLegacySubmodules.some((m) => projectPath.endsWith(`/${m}`))
-  ) {
-    // Scan the documentation file and possibly create the docs file.
+  // Scan the current folder unless it has a same-named sub-folder whose docs would
+  // duplicate it – except for legacy modules which always own their own docs directly.
+  if (isLegacy || !hasSameNamedSubFolder) {
     const readmeContent = createReadmeAPI(relative(root, normalize(projectPath)));
     if (readmeContent) {
-      const apiFileName = `${basename(projectPath)}-api.md`;
-      const outPath = join(apiFolder, apiFileName);
-      writeFileSync(outPath, readmeContent, { encoding: 'utf-8', flag: 'a' });
+      const apiFileName = `${currentName}-api.md`;
+      writeFileSync(join(apiFolder, apiFileName), readmeContent, { encoding: 'utf-8', flag: 'a' });
+      generated.push(apiFileName);
     }
-    return;
   }
 
-  // Inner folder not reached, go deeper recursively
-  for (const sub of subFolders) {
-    const subPath = join(projectPath, sub.name);
-    scanFoldersAndWriteFiles(subPath, apiFolder);
+  // Stop recursion at leaf folders or legacy submodule roots
+  if (subFolders.length === 0 || isLegacy) {
+    return generated;
   }
+
+  // Go deeper recursively into all sub-folders, skipping ignored ones
+  for (const sub of subFolders) {
+    if (!ignoredFolders.includes(sub.name)) {
+      generated.push(...scanFoldersAndWriteFiles(join(projectPath, sub.name), apiFolder));
+    }
+  }
+
+  return generated;
 };
 
 /**
- * Based on the provided `config` object, it creates a single file from several ones.
- * The config's values are mapped as `<config.value[i]>-api.md` files,
- * then these files are read and joined as a single file, named as `<config.key>-api.md`.
- * @param path the project path
- * @param config the key-values object used to generate the file
+ * For each module listed in meta.ts for the given package, merges all generated
+ * `*-api.md` files that belong to that module's folder into a single `<module>-api.md`.
+ *
+ * The belonging files are determined by re-scanning `src/<projectFolder>/<moduleName>/`
+ * – which is identical to what scanFoldersAndWriteFiles already did – so we reuse it
+ * in dry-run mode (no apiFolder writing needed, we only need the file names).
  */
-const mergeFilesInModule = (path: string, config: Record<string, string[]>): void => {
-  Object.entries(config).forEach(([mainFile, subFiles]: [string, string[]]) => {
-    let outputDoc = '';
-    subFiles
-      .map((fileName) => join(path, `${fileName}-api.md`))
-      .forEach((file) => {
-        outputDoc += readFileSync(file, 'utf8');
-        rmSync(file, { force: true });
-        writeFileSync(join(path, `${mainFile}-api.md`), outputDoc, { encoding: 'utf-8' });
-      });
-  });
+const mergeFilesInModule = async (
+  projectPath: string,
+  outputPath: string,
+  projectFolder: string,
+): Promise<void> => {
+  const moduleNames = await getModuleNamesFromMeta(projectFolder);
+
+  for (const moduleName of moduleNames) {
+    const moduleDir = join(projectPath, moduleName);
+    if (!existsSync(moduleDir)) {
+      continue;
+    }
+
+    // Scan this module's folder – writes the individual api files and returns their names
+    const belongingFiles = scanFoldersAndWriteFiles(moduleDir, outputPath);
+
+    if (belongingFiles.length <= 1) {
+      continue; // nothing to merge
+    }
+
+    const outputDoc = belongingFiles.map((f) => readFileSync(join(outputPath, f), 'utf8')).join('');
+
+    for (const f of belongingFiles) {
+      rmSync(join(outputPath, f), { force: true });
+    }
+    writeFileSync(join(outputPath, `${moduleName}-api.md`), outputDoc, { encoding: 'utf-8' });
+  }
 };
 
 /**
@@ -419,5 +347,5 @@ const createParametersForTable = (args: any[]): string => {
   return '-';
 };
 
-generateApiFiles('angular');
-generateApiFiles('angular-experimental');
+await generateApiFiles('angular');
+await generateApiFiles('angular-experimental');
