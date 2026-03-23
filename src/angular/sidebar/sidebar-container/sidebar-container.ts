@@ -8,7 +8,7 @@ import '@sbb-esta/lyne-elements/sidebar.js';
 
 /**
  * This is the parent component to one or two `<sbb-sidebar>`s that validates the state internally
-and coordinates the backdrop and content styling.
+ * and coordinates the backdrop and content styling.
  *
  * @slot  - Use the unnamed slot to add `sbb-sidebar` and `sbb-sidebar-content` elements.
  */
