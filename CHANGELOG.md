@@ -1,5 +1,17 @@
 # Changelog
 
+## [21.5.2](https://github.com/sbb-design-systems/lyne-angular/compare/v21.5.1...v21.5.2) (2026-03-23)
+
+
+### Bug Fixes
+
+* **deps:** update angular ([60a9e2a](https://github.com/sbb-design-systems/lyne-angular/commit/60a9e2aa7f138507287cfdc3d4eade6d6ce6ab3d))
+
+
+### Documentation
+
+* fix api generation ([#332](https://github.com/sbb-design-systems/lyne-angular/issues/332)) ([3619464](https://github.com/sbb-design-systems/lyne-angular/commit/3619464f8c54d6de7cb39a876aa59b5e02a35773))
+
 ## [21.5.1](https://github.com/sbb-design-systems/lyne-angular/compare/v21.5.0...v21.5.1) (2026-03-18)
 
 
