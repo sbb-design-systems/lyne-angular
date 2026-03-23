@@ -21,7 +21,7 @@ type SbbTheme =
   | 'lean-safety';
 
 @Injectable({ providedIn: 'root' })
-export class ThemeSwitch implements CanActivate {
+export class ThemeController implements CanActivate {
   #router = inject(Router);
   #document = inject(DOCUMENT);
 

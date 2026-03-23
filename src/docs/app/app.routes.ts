@@ -1,12 +1,12 @@
 import type { Routes } from '@angular/router';
 
 import { IntroductionComponent } from './introduction/introduction.component';
-import { ThemeSwitch } from './theme-switch';
+import { ThemeController } from './theme-controller';
 
 export const routes: Routes = [
   {
     path: '',
-    canActivate: [ThemeSwitch],
+    canActivate: [ThemeController],
     children: [
       {
         path: '',

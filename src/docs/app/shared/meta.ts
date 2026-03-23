@@ -15,7 +15,6 @@ export interface ShowcaseMetaSection {
 export interface ShowcaseMetaEntry {
   label: string;
   link: string;
-  variantOnly?: 'standard' | 'lean';
 }
 
 export const PACKAGES: Record<string, ShowcaseMetaPackage> = {

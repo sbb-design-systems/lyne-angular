@@ -17,13 +17,13 @@
     sbb-tooltip="Change to {{ lightDarkController.isDarkMode() ? 'light' : 'dark' }} theme"
   ></sbb-header-button>
   <sbb-header-button [expandFrom]="'small'" iconName="colour-palette-brush-small" #themeTrigger>
-    {{ themeSwitch.themeName() }}
+    {{ themeController.themeName() }}
   </sbb-header-button>
   <sbb-menu [trigger]="themeTrigger">
-    @for (entry of themeSwitch.themeEntries; track entry[0]){
+    @for (entry of themeController.themeEntries; track entry[0]){
     <sbb-menu-button
-      [iconName]="themeSwitch.theme() === entry[0] ? 'tick-small' : null!"
-      (click)="themeSwitch.setTheme(entry[0])"
+      [iconName]="themeController.theme() === entry[0] ? 'tick-small' : null!"
+      (click)="themeController.setTheme(entry[0])"
     >
       {{ entry[1] }}
     </sbb-menu-button>

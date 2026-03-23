@@ -16,7 +16,7 @@ import { SbbTooltipDirective } from '@sbb-esta/lyne-angular/tooltip';
 
 import { LightDarkController } from './light-dark-controller';
 import { PACKAGES } from './shared/meta';
-import { ThemeSwitch } from './theme-switch';
+import { ThemeController } from './theme-controller';
 
 @Component({
   selector: 'sbb-app',
@@ -40,7 +40,7 @@ import { ThemeSwitch } from './theme-switch';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  themeSwitch = inject(ThemeSwitch);
+  themeController = inject(ThemeController);
   lightDarkController = inject(LightDarkController);
   packages = PACKAGES;
   version = inject(Meta).getTag('name="sbb-lyne-angular-version"')?.content ?? 'unknown version';
