@@ -12,6 +12,7 @@ import { SbbSidebar, SbbSidebarModule } from '@sbb-esta/lyne-angular/sidebar';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { finalize, map, startWith } from 'rxjs/operators';
 
+import selectorMap from '../../../assets/selector-map.json';
 import type { ShowcaseMetaPackage } from '../meta';
 
 import { SidebarToggle } from './sidebar-toggle';
@@ -49,19 +50,42 @@ export class PackageViewerComponent {
     this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
     { initialValue: '' },
   );
+
   protected filteredSections = computed(() => {
-    const query = this.#searchQuery();
+    const query = this.#searchQuery().trim().toLowerCase();
     const sections = this.package().sections ?? [];
-    return query
-      ? sections
-          .map((section) => ({
-            ...section,
-            entries: section.entries.filter((e) =>
-              e.label.toLowerCase().includes(query.toLowerCase()),
-            ),
-          }))
-          .filter((section) => section.entries.length > 0)
-      : sections;
+    if (!query) {
+      return sections;
+    }
+
+    // Derive package folder key from package name, e.g. "@sbb-esta/angular" -> "angular"
+    const packageName = this.package().name ?? '';
+    const packageKey = packageName.replace('@sbb-esta/', '');
+    const packageSelectors =
+      (selectorMap as Record<string, Record<string, string[]>>)[packageKey] ?? {};
+
+    return sections
+      .map((section) => ({
+        ...section,
+        entries: section.entries.filter((e) => {
+          if (e.label.toLowerCase().trim().includes(query)) {
+            return true;
+          }
+
+          // Look up real selectors for this entry from the generated map
+          const module = e.link.split('/').at(-1) ?? '';
+          const selectors = packageSelectors[module] ?? [];
+
+          // Normalize camelCase selectors (e.g. "sbbAutocomplete") to kebab-case for comparison
+          return selectors.some((sel) => {
+            const normalized = sel.replaceAll('-', '').toLowerCase();
+            const normalizedQuery = query.replaceAll('-', '').toLowerCase();
+            console.log(normalized, normalizedQuery);
+            return normalized.includes(normalizedQuery) || normalizedQuery.startsWith(normalized);
+          });
+        }),
+      }))
+      .filter((section) => section.entries.length > 0);
   });
 
   constructor() {

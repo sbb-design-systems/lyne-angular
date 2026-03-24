@@ -50,7 +50,9 @@ const DocsMarkedRenderer: RendererObject = {
 
       body += this.tablerow({ text: cell });
     });
-    if (body) body = `<tbody>${body}</tbody>`;
+    if (body) {
+      body = `<tbody>${body}</tbody>`;
+    }
 
     return `<table class="sbb-table">\n <thead>\n ${header} </thead>\n ${body} </table>\n`;
   },

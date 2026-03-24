@@ -5,3 +5,9 @@
 sbb-title:first-of-type {
   margin-block-start: var(--sbb-spacing-fixed-4x);
 }
+
+.search-form-field {
+  // Reset title styles applied by sbb-sidebar-title
+  font-weight: normal;
+  line-height: var(--sbb-typo-line-height-text);
+}
