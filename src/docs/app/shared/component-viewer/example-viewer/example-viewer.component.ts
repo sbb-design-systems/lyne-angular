@@ -84,11 +84,12 @@ export class ExampleViewerComponent {
     toObservable(this.exampleData).pipe(
       switchMap((data) => {
         const params = this.#routeParams();
-        if (!params) return [];
 
-        return combineLatest(
-          data.exampleFiles.map((file) => this._createLoader(file, data.id, params)),
-        );
+        return params
+          ? combineLatest(
+              data.exampleFiles.map((file) => this.#createLoader(file, data.id, params)),
+            )
+          : [];
       }),
       map((exampleCodes: ExampleCode[]) =>
         exampleCodes.sort(
@@ -101,8 +102,8 @@ export class ExampleViewerComponent {
     { initialValue: [] as ExampleCode[] },
   );
 
-  private _createLoader(exampleFile: string, id: string, params: ModuleParams) {
-    const extension = this._getFileExtension(exampleFile);
+  #createLoader(exampleFile: string, id: string, params: ModuleParams) {
+    const extension = this.#getFileExtension(exampleFile);
 
     return this.#htmlLoader
       .withParams(params)
@@ -120,7 +121,7 @@ export class ExampleViewerComponent {
   }
 
   /** Extract the file extension from the example file */
-  private _getFileExtension(filePath: string): string {
+  #getFileExtension(filePath: string): string {
     return filePath.split('.').pop()!.toUpperCase();
   }
 }

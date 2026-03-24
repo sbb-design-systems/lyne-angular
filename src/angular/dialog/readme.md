@@ -53,7 +53,7 @@ let dialogRef = dialogService.open<UserProfileComponent, DialogResult>(UserProfi
 #### Template
 
 ```ts
-@ViewChild('template') templateContent!: TemplateRef<unknown>;
+templateContent = viewChild.required('template', { read: TemplateRef });
 
 const dialogService = inject(SbbDialogService);
 let dialogRef = dialogService.open(templateContent, {
@@ -198,7 +198,7 @@ If you want to share data with the component rendered in your dialog, you can us
   template: '<ng-template #template let-text>{{ text }}</ng-template>',
 })
 export class ParentComponent {
-  @ViewChild('template') templateContent!: TemplateRef<unknown>;
+  templateContent = viewChild.required('template', { read: TemplateRef });
   dialogService = inject(SbbDialogService);
 
   openDialog() {

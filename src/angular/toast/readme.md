@@ -30,7 +30,7 @@ let toastRef = toastService.open(UserProfileComponent, {
 #### Template
 
 ```ts
-@ViewChild('template') templateContent!: TemplateRef<unknown>;
+templateContent = viewChild.required('template', { read: TemplateRef });
 
 const toastService = inject(SbbToastService);
 let toastRef = toastService.open(templateContent, {
@@ -120,7 +120,7 @@ If you want to share data with the component rendered in your toast, you can use
   template: '<ng-template #template let-text>{{ text }}</ng-template>',
 })
 export class ParentComponent {
-  @ViewChild('template') templateContent!: TemplateRef<unknown>;
+  templateContent = viewChild.required('template', { read: TemplateRef });
   toastService = inject(SbbToastService);
 
   openToast() {
