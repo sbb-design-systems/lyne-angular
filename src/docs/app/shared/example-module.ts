@@ -7,6 +7,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'action-group': ['action-group-basic'],
   alert: ['alert-basic'],
   autocomplete: ['autocomplete-basic'],
+  badge: [{ id: 'badge-basic', hasStyle: true }, 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
   button: ['button-basic', 'mini-button-basic'],
   calendar: ['calendar-basic'],
@@ -90,6 +91,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/alert');
     case 'autocomplete-basic':
       return import('../angular/examples/autocomplete');
+    case 'badge-basic':
+      return import('../angular/examples/badge');
+    case 'badge-header-button':
+      return import('../angular/examples/badge');
     case 'breadcrumb-basic':
       return import('../angular/examples/breadcrumb');
     case 'button-basic':
