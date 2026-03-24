@@ -5,11 +5,11 @@ on:
 
 jobs:
   add-to-project:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     steps:
       - name: Generate a token
         id: generate-token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.MAINTENANCE_APP_ID }}
           private-key: ${{ secrets.MAINTENANCE_APP_PEM }}
