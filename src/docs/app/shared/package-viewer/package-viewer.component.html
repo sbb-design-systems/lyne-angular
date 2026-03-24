@@ -4,18 +4,20 @@
       <sbb-form-field floatingLabel class="search-form-field">
         <label>Search Components</label>
         <sbb-icon name="magnifying-glass-small" slot="prefix"></sbb-icon>
-        <input [formControl]="searchControl" />
+        <input [formControl]="searchControl" aria-controls="results" aria-label="Search results" />
         <sbb-form-field-clear></sbb-form-field-clear> </sbb-form-field
     ></sbb-sidebar-title>
 
-    @for (section of filteredSections(); track section.name) {
-      <sbb-title visualLevel="4">{{ section.name }}</sbb-title>
-      @for (entry of section.entries; track entry.label) {
-        <sbb-block-link [routerLink]="entry.link" routerLinkActive="sbb-active">{{
-          entry.label
-        }}</sbb-block-link>
+    <ul role="listbox" class="package-sections" id="results" aria-label="Search results">
+      @for (section of filteredSections(); track section.name) {
+        <sbb-title visualLevel="4">{{ section.name }}</sbb-title>
+        @for (entry of section.entries; track entry.label) {
+          <sbb-block-link role="option" [routerLink]="entry.link" routerLinkActive="sbb-active">{{
+            entry.label
+          }}</sbb-block-link>
+        }
       }
-    }
+    </ul>
   </sbb-sidebar>
   <sbb-sidebar-content role="main" sbb-header-scroll-origin class="package-content">
     <router-outlet />
