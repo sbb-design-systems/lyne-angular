@@ -8,7 +8,7 @@ import type {
   UrlTree,
 } from '@angular/router';
 import { Router } from '@angular/router';
-import type { Observable } from 'rxjs';
+import { startWith, type Observable } from 'rxjs';
 
 const themeLocalstorageKey = 'sbbTheme';
 
@@ -40,15 +40,29 @@ export class ThemeController implements CanActivate {
   public themeEntries = Object.entries(this.#themes) as [SbbTheme, string][];
 
   constructor() {
-    toObservable(this.#theme).subscribe((value) => {
-      // switch between lean and standard theme
-      if (value.includes('standard')) {
-        this.#document.documentElement.classList.remove('sbb-lean');
-      } else {
-        this.#document.documentElement.classList.add(`sbb-lean`);
-      }
-      localStorage.setItem(themeLocalstorageKey, value);
-    });
+    toObservable(this.#theme)
+      .pipe(startWith(this.#theme()))
+      .subscribe((value) => {
+        // TODO: replace sbb-lean class with theme file after CSS refactoring
+        if (value.includes('standard')) {
+          this.#document.documentElement.classList.remove('sbb-lean');
+        } else {
+          this.#document.documentElement.classList.add(`sbb-lean`);
+        }
+
+        let cssFileName = value.replace('lean', 'standard').replace('standard-', '');
+        if (cssFileName === 'theme') {
+          cssFileName = 'standard-theme';
+        }
+
+        this.#document.head
+          .querySelector('#theme')
+          ?.setAttribute('href', `assets/themes/angular/${cssFileName}-theme.css`);
+        this.#document.head
+          .querySelector('#theme-experimental')
+          ?.setAttribute('href', `assets/themes/angular-experimental/${cssFileName}-theme.css`);
+        localStorage.setItem(themeLocalstorageKey, value);
+      });
   }
 
   public setTheme(theme: SbbTheme) {

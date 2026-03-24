@@ -162,6 +162,16 @@
                 "output": "assets"
               },
               {
+                "glob": "*-theme.css",
+                "input": "node_modules/@sbb-esta/lyne-elements",
+                "output": "assets/themes/angular/"
+              },
+              {
+                "glob": "*-theme.css",
+                "input": "node_modules/@sbb-esta/lyne-elements-experimental",
+                "output": "assets/themes/angular-experimental/"
+              },
+              {
                 "glob": "**/*.md",
                 "input": "src/angular/",
                 "output": "docs-content/overviews/angular/"
@@ -192,11 +202,7 @@
                 "output": "docs-content/examples/angular-experimental/"
               }
             ],
-            "styles": [
-              "node_modules/@sbb-esta/lyne-elements/standard-theme.css",
-              "node_modules/@sbb-esta/lyne-elements-experimental/standard-theme.css",
-              "src/docs/styles.scss"
-            ]
+            "styles": ["src/docs/styles.scss"]
           },
           "configurations": {
             "production": {
