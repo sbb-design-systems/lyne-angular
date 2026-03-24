@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SbbTabsModule } from '@sbb-esta/lyne-angular/tabs';
 
@@ -7,6 +7,7 @@ import { SbbTabsModule } from '@sbb-esta/lyne-angular/tabs';
   templateUrl: './component-viewer.component.html',
   styleUrls: ['./component-viewer.component.scss'],
   imports: [SbbTabsModule, RouterLink, RouterOutlet, RouterLinkActive],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentViewerComponent {
   sections: string[] = ['Overview', 'API', 'Examples'];

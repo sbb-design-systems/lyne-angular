@@ -1,42 +1,45 @@
 import { KeyValuePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Meta } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
-import { SbbHeader, SbbHeaderLink } from '@sbb-esta/lyne-angular/header';
+import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
+import { SbbHeaderModule } from '@sbb-esta/lyne-angular/header';
 import { SbbIconSidebarModule } from '@sbb-esta/lyne-angular/icon-sidebar';
 import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
-import { SbbOption } from '@sbb-esta/lyne-angular/option';
-import { SbbSelect } from '@sbb-esta/lyne-angular/select';
+import { SbbMenuModule } from '@sbb-esta/lyne-angular/menu';
+import { SbbSignet } from '@sbb-esta/lyne-angular/signet';
 import { SbbTooltipDirective } from '@sbb-esta/lyne-angular/tooltip';
 
+import { LightDarkController } from './light-dark-controller';
 import { PACKAGES } from './shared/meta';
-import { VariantSwitch } from './variant-switch';
+import { SidebarToggle } from './shared/package-viewer/sidebar-toggle';
+import { ThemeController } from './theme-controller';
 
 @Component({
   selector: 'sbb-app',
   imports: [
-    SbbHeader,
-    SbbHeaderLink,
-    SbbLogo,
-    RouterLink,
-    RouterOutlet,
-    ReactiveFormsModule,
-    SbbSelect,
-    SbbOption,
-    SbbFormField,
     KeyValuePipe,
+    ReactiveFormsModule,
+    RouterLink,
     RouterLinkActive,
+    RouterOutlet,
+    SbbDivider,
+    SbbHeaderModule,
     SbbIconSidebarModule,
+    SbbLogo,
+    SbbMenuModule,
+    SbbSignet,
     SbbTooltipDirective,
   ],
-  providers: [VariantSwitch],
   templateUrl: './app.html',
+  styleUrl: './app.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  #variantSwitch = inject(VariantSwitch);
-  sbbVariant = this.#variantSwitch.sbbVariant;
+  themeController = inject(ThemeController);
+  lightDarkController = inject(LightDarkController);
   packages = PACKAGES;
-  version = inject(Meta).getTag('name="sbb-lyne-angular-version"')!.content;
+  version = inject(Meta).getTag('name="sbb-lyne-angular-version"')?.content ?? 'unknown version';
+  sidebarToggle = inject(SidebarToggle);
 }

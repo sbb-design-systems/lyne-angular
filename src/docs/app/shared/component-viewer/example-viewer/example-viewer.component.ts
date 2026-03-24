@@ -1,5 +1,11 @@
-import type { OnInit } from '@angular/core';
-import { Component, computed, inject, input, ViewContainerRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  ViewContainerRef,
+} from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import type { SafeHtml } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -9,7 +15,7 @@ import { SbbTabsModule } from '@sbb-esta/lyne-angular/tabs';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
 import { marked } from 'marked';
-import { combineLatest, from } from 'rxjs';
+import { combineLatest, filter, from } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import type { ExampleData } from '../../example-data';
@@ -30,19 +36,22 @@ interface ExampleCode {
 @Component({
   selector: 'sbb-example-outlet',
   template: '',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExampleOutletComponent implements OnInit {
+export class ExampleOutletComponent {
   #viewContainerRef = inject(ViewContainerRef);
   exampleData = input.required<ExampleData>();
 
-  ngOnInit() {
-    if (this.exampleData()) {
-      loadExample(this.exampleData().id).then((example) => {
-        if (example) {
-          this.#viewContainerRef.createComponent(example[this.exampleData().name]);
-        }
+  constructor() {
+    toObservable(this.exampleData)
+      .pipe(filter((e) => !!e))
+      .subscribe((e) => {
+        loadExample(e.id).then((example) => {
+          if (example) {
+            this.#viewContainerRef.createComponent(example[e.name]);
+          }
+        });
       });
-    }
   }
 }
 
@@ -58,6 +67,7 @@ export class ExampleOutletComponent implements OnInit {
     StackBlitzButton,
     SbbTitle,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleViewerComponent {
   #htmlLoader = inject(HtmlLoader);
@@ -66,18 +76,20 @@ export class ExampleViewerComponent {
   #defaultExtensionsOrder = ['html', 'ts', 'css', 'scss'];
   #routeParams = toSignal(moduleParams(this.#route));
 
+  exampleData = input.required<ExampleData>();
+
   showSource: boolean = false;
   stackBlitzEnabled = computed(() => this.#routeParams()?.packageName === 'angular');
-  exampleData = input.required<ExampleData>();
   exampleCodes = toSignal(
     toObservable(this.exampleData).pipe(
       switchMap((data) => {
         const params = this.#routeParams();
-        if (!params) return [];
 
-        return combineLatest(
-          data.exampleFiles.map((file) => this._createLoader(file, data.id, params)),
-        );
+        return params
+          ? combineLatest(
+              data.exampleFiles.map((file) => this.#createLoader(file, data.id, params)),
+            )
+          : [];
       }),
       map((exampleCodes: ExampleCode[]) =>
         exampleCodes.sort(
@@ -90,8 +102,8 @@ export class ExampleViewerComponent {
     { initialValue: [] as ExampleCode[] },
   );
 
-  private _createLoader(exampleFile: string, id: string, params: ModuleParams) {
-    const extension = this._getFileExtension(exampleFile);
+  #createLoader(exampleFile: string, id: string, params: ModuleParams) {
+    const extension = this.#getFileExtension(exampleFile);
 
     return this.#htmlLoader
       .withParams(params)
@@ -109,7 +121,7 @@ export class ExampleViewerComponent {
   }
 
   /** Extract the file extension from the example file */
-  private _getFileExtension(filePath: string): string {
+  #getFileExtension(filePath: string): string {
     return filePath.split('.').pop()!.toUpperCase();
   }
 }

@@ -1,0 +1,32 @@
+@use '@sbb-esta/lyne-elements' as sbb;
+
+.sbb-header-info {
+  flex-direction: column;
+  gap: 0;
+  padding-inline: 0 var(--sbb-spacing-fixed-4x);
+}
+
+.sidebar-toggle {
+  justify-self: end;
+
+  @include sbb.mq($from: large) {
+    display: none;
+  }
+}
+
+.spacer {
+  height: stretch;
+}
+
+sbb-signet {
+  @include sbb.mq($from: small) {
+    display: none;
+  }
+}
+
+sbb-logo,
+.information-link {
+  @include sbb.mq($to: small) {
+    display: none;
+  }
+}

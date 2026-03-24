@@ -2,7 +2,7 @@ import { Directive, effect, inject, input, NgZone, signal, untracked } from '@an
 import type { SbbToast } from '@sbb-esta/lyne-angular/toast';
 import { SbbToastService } from '@sbb-esta/lyne-angular/toast';
 
-import { VariantSwitch } from '../../../variant-switch';
+import { ThemeController } from '../../../theme-controller';
 import type { ExampleData } from '../../example-data';
 
 import { StackBlitzMessage } from './stack-blitz-message';
@@ -17,7 +17,7 @@ import { StackBlitzWriter } from './stack-blitz-writer';
 export class StackBlitzButton {
   #stackBlitzWriter = inject(StackBlitzWriter);
   #ngZone = inject(NgZone);
-  #variantSwitch = inject(VariantSwitch);
+  #themeController = inject(ThemeController);
   #toastService = inject(SbbToastService);
 
   /**
@@ -50,7 +50,7 @@ export class StackBlitzButton {
     const openStackBlitzFn = this.#openStackBlitzFn();
 
     if (openStackBlitzFn) {
-      openStackBlitzFn(this.#variantSwitch.sbbVariant.value === 'lean');
+      openStackBlitzFn(this.#themeController.theme().includes('lean'));
     } else {
       this.#toastService.open(StackBlitzMessage, {
         setupContainer: (sbbToast: SbbToast) => {

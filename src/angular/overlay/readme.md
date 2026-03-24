@@ -36,7 +36,7 @@ let overlayRef = overlayService.open<UserProfileComponent, OverlayResult>(UserPr
 #### Template
 
 ```ts
-@ViewChild('template') templateContent!: TemplateRef<unknown>;
+templateContent = viewChild.required('template', { read: TemplateRef });
 
 const overlayService = inject(SbbOverlayService);
 let overlayRef = overlayService.open(templateContent, {
@@ -173,7 +173,7 @@ If you want to share data with the component rendered in your overlay, you can u
   template: '<ng-template #template let-text>{{ text }}</ng-template>',
 })
 export class ParentComponent {
-  @ViewChild('template') templateContent!: TemplateRef<unknown>;
+  templateContent = viewChild.required('template', { read: TemplateRef });
   overlayService = inject(SbbOverlayService);
 
   openOverlay() {

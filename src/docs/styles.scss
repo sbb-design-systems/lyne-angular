@@ -68,6 +68,8 @@ code {
   ul {
     margin: 0;
     padding: 0;
+    overflow: auto;
+    max-height: calc(100vh - var(--sbb-header-height) - 2rem);
   }
 }
 

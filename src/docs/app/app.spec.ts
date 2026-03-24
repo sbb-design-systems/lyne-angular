@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { App } from './app';
 
@@ -13,6 +14,7 @@ describe('sbb-app', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App, TestComponentStub],
+      providers: [provideRouter([])],
     }).compileComponents();
   });
 

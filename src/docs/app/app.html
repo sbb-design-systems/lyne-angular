@@ -1,22 +1,38 @@
-<sbb-header expanded [scrollOrigin]="content">
-  <span class="sbb-header-info">
+<sbb-header expanded>
+  <span class="sbb-header-info sbb-text-m">
     <strong>Lyne Angular</strong>
-    <span>{{version}}</span>
+    <span class="sbb-text-xxs">{{version}}</span>
   </span>
-  <sbb-header-link routerLink="/introduction" routerLinkActive="sbb-active">
+  <sbb-header-link
+    routerLink="/introduction"
+    routerLinkActive="sbb-active"
+    iconName="circle-information-small"
+    class="information-link"
+  >
     Introduction
   </sbb-header-link>
   <div class="sbb-header-spacer"></div>
-  <sbb-form-field size="s">
-    <sbb-select [formControl]="sbbVariant">
-      <sbb-option [value]="'standard'">Standard</sbb-option>
-      <sbb-option [value]="'lean'">Lean</sbb-option>
-      <sbb-option [value]="'light'">Lean (light mode)</sbb-option>
-      <sbb-option [value]="'dark'">Lean (dark mode)</sbb-option>
-    </sbb-select>
-  </sbb-form-field>
+  <sbb-header-button
+    [iconName]="lightDarkController.isDarkMode() ? 'sunshine-small' : 'moon-small'"
+    (click)="lightDarkController.toggle()"
+    sbb-tooltip="Change to {{ lightDarkController.isDarkMode() ? 'light' : 'dark' }} theme"
+  ></sbb-header-button>
+  <sbb-header-button [expandFrom]="'small'" iconName="colour-palette-brush-small" #themeTrigger>
+    {{ themeController.themeName() }}
+  </sbb-header-button>
+  <sbb-menu [trigger]="themeTrigger">
+    @for (entry of themeController.themeEntries; track entry[0]){
+    <sbb-menu-button
+      [iconName]="themeController.theme() === entry[0] ? 'tick-small' : null!"
+      (click)="themeController.setTheme(entry[0])"
+    >
+      {{ entry[1] }}
+    </sbb-menu-button>
+    }
+  </sbb-menu>
   <a href="/" class="sbb-header-logo">
     <sbb-logo protectiveRoom="none"></sbb-logo>
+    <sbb-signet protectiveRoom="panel"></sbb-signet>
   </a>
 </sbb-header>
 <sbb-icon-sidebar-container>
@@ -31,9 +47,18 @@
       [accessibilityLabel]="packageEntry.value['name']"
     >
     </sbb-icon-sidebar-link>
+    } @if( this.sidebarToggle.hasToggle()) {
+    <div class="spacer"></div>
+    <sbb-divider></sbb-divider>
+    <sbb-icon-sidebar-button
+      iconName="hamburger-menu-small"
+      sbb-tooltip="Toggle Sidebar"
+      class="sidebar-toggle"
+      (click)="this.sidebarToggle.toggle()"
+    ></sbb-icon-sidebar-button>
     }
   </sbb-icon-sidebar>
-  <sbb-icon-sidebar-content #content role="main">
+  <sbb-icon-sidebar-content role="main" sbb-header-scroll-origin>
     <router-outlet />
   </sbb-icon-sidebar-content>
 </sbb-icon-sidebar-container>

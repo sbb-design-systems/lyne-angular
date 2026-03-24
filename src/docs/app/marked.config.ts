@@ -50,7 +50,9 @@ const DocsMarkedRenderer: RendererObject = {
 
       body += this.tablerow({ text: cell });
     });
-    if (body) body = `<tbody>${body}</tbody>`;
+    if (body) {
+      body = `<tbody>${body}</tbody>`;
+    }
 
     return `<table class="sbb-table">\n <thead>\n ${header} </thead>\n ${body} </table>\n`;
   },
@@ -77,7 +79,7 @@ export function setup(): void {
               </div>
               <aside class="docs-toc-content">
                 <sbb-title level=${6}>Table of contents</sbb-title>
-                <ul>
+                <ul class="sbb-scrollbar">
 
                   ${toc.join('').replace(/<a /g, '<sbb-link ').replace(/<\/a>/g, '</sbb-link>')}
                 </ul>

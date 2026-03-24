@@ -209,8 +209,7 @@ and its interface is not tied to any one specific implementation.
 ```ts
 export class TablePaginatorExampleComponent implements OnInit {
   dataSource: SbbTableDataSource<any> = new SbbTableDataSource([]);
-  @ViewChild('paginator', { static: true, read: SbbPaginatorComponent })
-  paginator: SbbPaginatorComponent;
+  paginator = viewChild.required('paginator', { read: SbbPaginator });
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
@@ -277,8 +276,7 @@ It's also possible to programmatically sort columns by calling `sort()` method o
 ```ts
 export class SortableTableExampleComponent implements AfterViewInit {
   dataSource: SbbTableDataSource<any> = new SbbTableDataSource(['A', '1']);
-
-  @ViewChild(SbbSort) sort: SbbSort;
+  sort = viewChild.required(SbbSort);
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;

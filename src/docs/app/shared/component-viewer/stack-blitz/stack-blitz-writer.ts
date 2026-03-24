@@ -51,16 +51,16 @@ export class StackBlitzWriter {
   #ngZone: NgZone = inject(NgZone);
   #meta: Meta = inject(Meta);
   #fileCache = new Map<string, Observable<string>>();
-  #version = this._getPatchedTagVersion('name="sbb-lyne-angular-version"');
-  #lyneVersion = this._getPatchedTagVersion('name="sbb-lyne-components-version"');
-  #tokenVersion = this._getPatchedTagVersion('name="sbb-lyne-token-version"');
+  #version = this.#getPatchedTagVersion('name="sbb-lyne-angular-version"');
+  #lyneVersion = this.#getPatchedTagVersion('name="sbb-lyne-components-version"');
+  #tokenVersion = this.#getPatchedTagVersion('name="sbb-lyne-token-version"');
 
   /** Opens a StackBlitz for the specified example. */
   createStackBlitzForExample(data: ExampleData): Promise<(isSbbLean: boolean) => void> {
     // Run outside the zone since the creation doesn't interact with Angular
     // and the file requests can cause excessive change detections.
     return this.#ngZone.runOutsideAngular(async () => {
-      const files = await this._buildInMemoryFileDictionary(data);
+      const files = await this.#buildInMemoryFileDictionary(data);
       const exampleMainFile = `src/app/${data.indexFilename}`;
 
       return (isSbbLean: boolean) => {
@@ -69,7 +69,7 @@ export class StackBlitzWriter {
           isSbbLean ? ' class="sbb-lean"' : '',
         );
 
-        this._openStackBlitz({
+        this.#openStackBlitz({
           files,
           title: `SBB Lyne Angular Library - ${data.description}`,
           // TODO: the definitive app endpoint must be updated once deployed.
@@ -81,7 +81,7 @@ export class StackBlitzWriter {
   }
 
   /** Opens a new WebContainer-based StackBlitz for the given files. */
-  private _openStackBlitz({
+  #openStackBlitz({
     title,
     description,
     openFile,
@@ -107,23 +107,23 @@ export class StackBlitzWriter {
    * Builds an in-memory file dictionary representing an CLI project serving
    * the example. The dictionary can then be passed to StackBlitz as project files.
    */
-  private async _buildInMemoryFileDictionary(data: ExampleData): Promise<FileDictionary> {
+  async #buildInMemoryFileDictionary(data: ExampleData): Promise<FileDictionary> {
     const result: FileDictionary = {};
     const tasks: Promise<unknown>[] = [];
     const exampleBaseContentPath = `${DOCS_CONTENT_PATH}/${data.importPath}/${data.id}/`;
 
     for (const relativeFilePath of TEMPLATE_FILES) {
       tasks.push(
-        this._loadFile(TEMPLATE_PATH + relativeFilePath)
+        this.#loadFile(TEMPLATE_PATH + relativeFilePath)
           // Replace example placeholders in the template files.
-          .then((content) => this._replaceExamplePlaceholders(data, relativeFilePath, content))
+          .then((content) => this.#replaceExamplePlaceholders(data, relativeFilePath, content))
           .then((content) => (result[relativeFilePath] = content)),
       );
     }
 
     for (const relativeFilePath of data.exampleFiles) {
       tasks.push(
-        this._loadFile(exampleBaseContentPath + relativeFilePath)
+        this.#loadFile(exampleBaseContentPath + relativeFilePath)
           // Insert a copyright footer for all example files inserted into the project.
           .then((content) => (result[`src/app/${relativeFilePath}`] = content)),
       );
@@ -139,7 +139,7 @@ export class StackBlitzWriter {
   /**
    * Loads the specified file and returns a promise resolving to its contents.
    */
-  private _loadFile(fileUrl: string): Promise<string> {
+  #loadFile(fileUrl: string): Promise<string> {
     let stream = this.#fileCache.get(fileUrl);
 
     if (!stream) {
@@ -157,11 +157,7 @@ export class StackBlitzWriter {
    * This will replace those placeholders with the names from the example metadata,
    * e.g. "<basic-button-example>" and "BasicButtonExample"
    */
-  private _replaceExamplePlaceholders(
-    data: ExampleData,
-    fileName: string,
-    fileContent: string,
-  ): string {
+  #replaceExamplePlaceholders(data: ExampleData, fileName: string, fileContent: string): string {
     // Replaces the version placeholder in the `index.html` and `package.json` file.
     // Technically we invalidate the `package-lock.json` file for the StackBlitz boilerplate
     // by dynamically changing the version in the `package.json`, but the Turbo package manager
@@ -194,9 +190,8 @@ export class StackBlitzWriter {
    * In local environment, the postinstall script which overrides the versions in the index.html is not run,
    * so versions value are still placeholders; since it breaks the stackblitz install, 'latest' is set.
    * @param tag
-   * @private
    */
-  private _getPatchedTagVersion(tag: string): string {
+  #getPatchedTagVersion(tag: string): string {
     const tagVersion = this.#meta.getTag(tag)!.content;
     if (tagVersion.startsWith('0.0.0')) {
       return 'latest';

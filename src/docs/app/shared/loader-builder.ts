@@ -10,11 +10,10 @@ export class LoaderBuilder {
   readonly #packageName: string;
   readonly #module: string | undefined;
   readonly #id: string;
+  readonly #http: HttpClient;
 
-  constructor(
-    private _http: HttpClient,
-    params: ModuleParams,
-  ) {
+  constructor(http: HttpClient, params: ModuleParams) {
+    this.#http = http;
     this.#packageName = params.packageName;
     this.#module = params.module;
     this.#id = params.id;
@@ -43,6 +42,6 @@ export class LoaderBuilder {
   }
 
   load(): Observable<string> {
-    return this._http.get(this.#url!, { responseType: 'text' }).pipe(catchError(() => of('')));
+    return this.#http.get(this.#url!, { responseType: 'text' }).pipe(catchError(() => of('')));
   }
 }

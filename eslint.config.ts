@@ -27,7 +27,7 @@ export default defineConfig([
     },
   },
   { ignores },
-  // @ts-expect-error The returned config works but has type problems.
+  eslintConfigPrettier,
   {
     files: ['**/*.ts', '**/*.js'],
     ...importXFlatConfigs.recommended,
@@ -65,6 +65,7 @@ export default defineConfig([
           argsIgnorePattern: '^_',
         },
       ],
+      curly: ['error', 'all'],
       'import-x/first': 'error',
       'import-x/named': 'off',
       'import-x/no-absolute-path': 'error',
@@ -90,5 +91,4 @@ export default defineConfig([
   },
   // @ts-expect-error The returned config will exist.
   eslintPluginLyne.default.configs.recommended,
-  eslintConfigPrettier,
 ]);
