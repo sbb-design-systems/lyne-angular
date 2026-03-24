@@ -1,19 +1,19 @@
 <sbb-sidebar-container>
   <sbb-sidebar role="navigation" opened>
-    <sbb-accordion multi>
-      @for (section of package().sections; track section.name) {
-        <sbb-expansion-panel expanded>
-          <sbb-expansion-panel-header>{{ section.name }}</sbb-expansion-panel-header>
-          <sbb-expansion-panel-content>
-            @for (entry of section.entries; track entry.label) {
-              <sbb-block-link [routerLink]="entry.link" routerLinkActive="sbb-active">{{
-                entry.label
-              }}</sbb-block-link>
-            }
-          </sbb-expansion-panel-content>
-        </sbb-expansion-panel>
+    <sbb-form-field floatingLabel>
+      <label>Search Module Names</label>
+      <sbb-icon name="magnifying-glass-small" slot="prefix"></sbb-icon>
+      <input [formControl]="searchControl" />
+      <sbb-form-field-clear></sbb-form-field-clear>
+    </sbb-form-field>
+    @for (section of filteredSections(); track section.name) {
+      <sbb-title visualLevel="4">{{ section.name }}</sbb-title>
+      @for (entry of section.entries; track entry.label) {
+        <sbb-block-link [routerLink]="entry.link" routerLinkActive="sbb-active">{{
+          entry.label
+        }}</sbb-block-link>
       }
-    </sbb-accordion>
+    }
   </sbb-sidebar>
   <sbb-sidebar-content role="main" sbb-header-scroll-origin class="package-content">
     <router-outlet />

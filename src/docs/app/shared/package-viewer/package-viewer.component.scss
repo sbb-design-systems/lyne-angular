@@ -1,3 +1,7 @@
 .package-content {
   padding-inline: var(--sbb-spacing-fixed-2x);
 }
+
+sbb-title:first-of-type {
+  margin-block-start: var(--sbb-spacing-fixed-4x);
+}
