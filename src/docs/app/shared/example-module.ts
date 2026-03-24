@@ -53,7 +53,6 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'radio-button': ['radio-button-basic'],
   'radio-button-group': ['radio-button-group-basic'],
   'radio-button-panel': ['radio-button-panel-basic'],
-  'screen-reader-only': ['screen-reader-only-basic'],
   select: ['select-basic'],
   'selection-action-panel': ['selection-action-panel-basic'],
   'selection-expansion-panel': ['selection-expansion-panel-basic'],
@@ -79,7 +78,6 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'toggle-check': ['toggle-check-basic'],
   tooltip: ['tooltip-basic'],
   train: ['train-basic'],
-  'visual-checkbox': ['visual-checkbox-basic'],
 };
 
 export async function loadExample(id: string): Promise<Record<string, Type<unknown>> | undefined> {
@@ -94,8 +92,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/autocomplete');
     case 'breadcrumb-basic':
       return import('../angular/examples/breadcrumb');
-    case 'mini-button-basic':
-      return import('../angular/examples/button');
     case 'button-basic':
       return import('../angular/examples/button');
     case 'calendar-basic':
@@ -152,10 +148,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/lead-container');
     case 'link-basic':
       return import('../angular/examples/link');
-    case 'link-list-basic':
-      return import('../angular/examples/link-list');
     case 'link-list-anchor-basic':
       return import('../angular/examples/link-list-anchor');
+    case 'link-list-basic':
+      return import('../angular/examples/link-list');
     case 'loading-indicator-basic':
       return import('../angular/examples/loading-indicator');
     case 'loading-indicator-circle-basic':
@@ -168,6 +164,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/menu');
     case 'message-basic':
       return import('../angular/examples/message');
+    case 'mini-button-basic':
+      return import('../angular/examples/button');
     case 'mini-calendar-basic':
       return import('../angular/examples/mini-calendar');
     case 'navigation-basic':
@@ -188,8 +186,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/radio-button-group');
     case 'radio-button-panel-basic':
       return import('../angular/examples/radio-button-panel');
-    case 'screen-reader-only-basic':
-      return import('../angular/examples/screen-reader-only');
     case 'select-basic':
       return import('../angular/examples/select');
     case 'selection-action-panel-basic':
@@ -240,8 +236,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/tooltip');
     case 'train-basic':
       return import('../angular/examples/train');
-    case 'visual-checkbox-basic':
-      return import('../angular/examples/visual-checkbox');
     default:
       console.warn(`No example found for component with id "${id}".`);
       return undefined;
