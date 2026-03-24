@@ -80,8 +80,7 @@ export class PackageViewerComponent {
           return selectors.some((sel) => {
             const normalized = sel.replaceAll('-', '').toLowerCase();
             const normalizedQuery = query.replaceAll('-', '').toLowerCase();
-            console.log(normalized, normalizedQuery);
-            return normalized.includes(normalizedQuery) || normalizedQuery.startsWith(normalized);
+            return normalized.includes(normalizedQuery) || normalizedQuery.includes(normalized);
           });
         }),
       }))
