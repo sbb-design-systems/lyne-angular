@@ -7,6 +7,7 @@
     routerLink="/introduction"
     routerLinkActive="sbb-active"
     iconName="circle-information-small"
+    class="information-link"
   >
     Introduction
   </sbb-header-link>
@@ -31,6 +32,7 @@
   </sbb-menu>
   <a href="/" class="sbb-header-logo">
     <sbb-logo protectiveRoom="none"></sbb-logo>
+    <sbb-signet protectiveRoom="panel"></sbb-signet>
   </a>
 </sbb-header>
 <sbb-icon-sidebar-container>
@@ -45,6 +47,15 @@
       [accessibilityLabel]="packageEntry.value['name']"
     >
     </sbb-icon-sidebar-link>
+    } @if( this.sidebarToggle.hasToggle()) {
+    <div class="spacer"></div>
+    <sbb-divider></sbb-divider>
+    <sbb-icon-sidebar-button
+      iconName="hamburger-menu-small"
+      sbb-tooltip="Toggle Sidebar"
+      class="sidebar-toggle"
+      (click)="this.sidebarToggle.toggle()"
+    ></sbb-icon-sidebar-button>
     }
   </sbb-icon-sidebar>
   <sbb-icon-sidebar-content role="main" sbb-header-scroll-origin>
