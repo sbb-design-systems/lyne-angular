@@ -38,15 +38,15 @@ jobs:
 
       - name: Get token
         id: get_token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ secrets.MAINTENANCE_APP_ID }}
           private-key: ${{ secrets.MAINTENANCE_APP_PEM }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ steps.get_token.outputs.token }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: yarn
