@@ -1,5 +1,12 @@
 # Changelog
 
+## [21.5.3](https://github.com/sbb-design-systems/lyne-angular/compare/v21.5.2...v21.5.3) (2026-03-24)
+
+
+### Miscellaneous Chores
+
+* prepare release ([068a94f](https://github.com/sbb-design-systems/lyne-angular/commit/068a94fa32057794512cc44dfa84fd07561c89d0))
+
 ## [21.5.2](https://github.com/sbb-design-systems/lyne-angular/compare/v21.5.1...v21.5.2) (2026-03-23)
 
 
