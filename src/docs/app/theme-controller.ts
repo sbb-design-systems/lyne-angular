@@ -65,11 +65,18 @@ export class ThemeController implements CanActivate {
       });
   }
 
-  public setTheme(theme: SbbTheme) {
+  #setTheme(theme: SbbTheme) {
     if (this.#theme() === theme) {
       return;
     }
     this.#theme.set(theme);
+  }
+
+  public setTheme(theme: SbbTheme) {
+    this.#setTheme(theme);
+
+    // TODO: remove after CSS refactoring
+    window.location.reload();
   }
 
   /**
@@ -84,7 +91,7 @@ export class ThemeController implements CanActivate {
       return true;
     }
 
-    this.setTheme(route.queryParamMap.get('theme') as SbbTheme);
+    this.#setTheme(route.queryParamMap.get('theme') as SbbTheme);
 
     const urlTree = this.#router.parseUrl(state.url);
     delete urlTree.queryParams['theme'];
