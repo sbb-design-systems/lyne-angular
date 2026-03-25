@@ -1,5 +1,6 @@
 import type { ESLintUtils, TSESLint } from '@typescript-eslint/utils';
 
+import exampleIndexRule from './example-index-rule';
 import exampleModuleRule from './example-module-rule';
 
 const rules = (
@@ -19,6 +20,7 @@ const plugin: TSESLint.FlatConfig.Plugin = {
   rules: {
     ...rules,
     'example-module-rule': exampleModuleRule,
+    'example-index-rule': exampleIndexRule,
   },
 };
 
@@ -34,12 +36,13 @@ plugin.configs!['recommended'] = [
   },
   {
     files: ['**/example-module.ts'],
-    plugins: {
-      lyne: plugin,
-    },
-    rules: {
-      'lyne/example-module-rule': 'error',
-    },
+    plugins: { lyne: plugin },
+    rules: { 'lyne/example-module-rule': 'error' },
+  },
+  {
+    files: ['**/examples/**/index.ts'],
+    plugins: { lyne: plugin },
+    rules: { 'lyne/example-index-rule': 'error' },
   },
 ];
 

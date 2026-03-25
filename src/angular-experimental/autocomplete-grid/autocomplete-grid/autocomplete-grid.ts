@@ -5,7 +5,7 @@ import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-a
 import type { SbbAutocompleteGridElement } from '@sbb-esta/lyne-elements-experimental/autocomplete-grid/autocomplete-grid.js';
 import { fromEvent, NEVER } from 'rxjs';
 
-import '@sbb-esta/lyne-elements-experimental/autocomplete-grid/autocomplete-grid.js';
+import '@sbb-esta/lyne-elements-experimental/autocomplete-grid.js';
 
 /**
  * Combined with a native input, it displays a panel with a list of available options with connected buttons.

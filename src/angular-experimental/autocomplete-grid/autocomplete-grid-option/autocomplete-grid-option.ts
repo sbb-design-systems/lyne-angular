@@ -4,7 +4,7 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAutocompleteGridOptionElement } from '@sbb-esta/lyne-elements-experimental/autocomplete-grid/autocomplete-grid-option.js';
 import { fromEvent } from 'rxjs';
 
-import '@sbb-esta/lyne-elements-experimental/autocomplete-grid/autocomplete-grid-option.js';
+import '@sbb-esta/lyne-elements-experimental/autocomplete-grid.js';
 
 /**
  * It displays an option item which can be used in `sbb-autocomplete-grid`.

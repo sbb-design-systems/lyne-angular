@@ -3,10 +3,7 @@ import { Directive, ElementRef, inject, Input } from '@angular/core';
 /**
  * Directive to display a badge for an element.
  *
- * Usage:
- * ```html
- * <button sbb-badge="99" sbb-badge-position="before">Label</button>
- * ```
+ * Usage: `<button sbb-badge="99" sbb-badge-position="before">Label</button>`
  */
 @Directive({
   selector: '[sbb-badge]',

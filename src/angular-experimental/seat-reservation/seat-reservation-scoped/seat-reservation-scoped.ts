@@ -1,6 +1,6 @@
 import { Directive } from '@angular/core';
 
-import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-scoped.js';
+import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 
 /**
  * Wrapper class for scoped elements with similar properties to set.
