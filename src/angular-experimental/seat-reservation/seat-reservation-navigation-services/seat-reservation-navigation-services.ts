@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbSeatReservationNavigationServicesElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation-services.js';
+import type { SbbSeatReservationNavigationServicesElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 
 import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 

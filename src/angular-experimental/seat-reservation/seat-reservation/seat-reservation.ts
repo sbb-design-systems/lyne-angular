@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbSeatReservationElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation.js';
 import type {
+  SbbSeatReservationElement,
   SeatReservation,
   SeatReservationSelectedCoach,
   SeatReservationSelectedPlaces,

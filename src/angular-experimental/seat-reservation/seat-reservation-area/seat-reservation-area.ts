@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbSeatReservationAreaElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-area.js';
+import type { SbbSeatReservationAreaElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 
 import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 

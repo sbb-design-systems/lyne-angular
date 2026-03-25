@@ -9,11 +9,11 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbSeatReservationPlaceControlElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-place-control.js';
 import type {
   PlaceSelection,
   PlaceState,
   PlaceType,
+  SbbSeatReservationPlaceControlElement,
   TravelDirection,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 import { fromEvent } from 'rxjs';

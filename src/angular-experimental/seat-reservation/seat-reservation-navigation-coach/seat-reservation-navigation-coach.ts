@@ -9,9 +9,9 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbSeatReservationNavigationCoachElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation-coach.js';
 import type {
   CoachItemDetails,
+  SbbSeatReservationNavigationCoachElement,
   SelectCoachEventDetails,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 import { fromEvent } from 'rxjs';
