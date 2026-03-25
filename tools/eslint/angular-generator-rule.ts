@@ -44,9 +44,19 @@ const CAMEL_CASE_EVENTS_MAP: Record<string, string> = {
   toggleexpanded: 'toggleExpanded',
 };
 
+const modulesWithoutRootExport = new Set(['button', 'link']);
+
 // Converts camelCase to kebab-case
 function toKebabCase(str: string): string {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+}
+
+/**
+ * Converts a kebab-case filename (without extension) to PascalCase.
+ * e.g. "accordion-basic-example" -> "AccordionBasicExample"
+ */
+function toPascalCase(name: string): string {
+  return name.replace(/(^\w|-\w)/g, (s) => s.replace('-', '').toUpperCase());
 }
 
 // Given a fileName, it finds the corresponding JS module from the custom-manifest
@@ -102,107 +112,137 @@ const generateStructure = (pkg: Package, projectPath: string) => {
       )
     ) {
       const directoryPath = dirname(join(projectPath, module.path));
-      const moduleName = basename(directoryPath);
-      const modulePath = join(directoryPath, `${moduleName}.ts`);
-      const testPath = join(directoryPath, `${moduleName}.spec.ts`);
+      const componentName = basename(directoryPath);
+      const componentPath = join(directoryPath, `${componentName}.ts`);
+      const testPath = join(directoryPath, `${componentName}.spec.ts`);
+      const moduleName =
+        projectPath !== join(directoryPath, '..')
+          ? relative(projectPath, join(directoryPath, '..'))
+          : componentName;
+      const modulePath = join(projectPath, moduleName);
+      const commonIndexPath = join(modulePath, 'index.ts');
+      const ngPackagePath = join(modulePath, 'ng-package.json');
+      const angularModulePath = join(modulePath, `${moduleName}.module.ts`);
+      const relativeComponentPath = relative(modulePath, componentPath).replace('.ts', '');
+      const exportedName = `SBB_${moduleName.toUpperCase().replaceAll('-', '_')}_EXPORTED_DECLARATIONS`;
 
       if (!existsSync(directoryPath)) {
         mkdirSync(directoryPath, { recursive: true });
+      }
 
-        const indexPath = join(directoryPath, 'index.ts');
-        const commonIndexPath = join(directoryPath, '..', 'index.ts');
-        // the root folder has his own index.ts, so it has to be excluded, otherwise all modules are treated as common
-        const hasCommonModule =
-          existsSync(commonIndexPath) && projectPath !== join(directoryPath, '..');
-        const ngPackagePath = join(directoryPath, 'ng-package.json');
+      if (!existsSync(commonIndexPath) && !modulesWithoutRootExport.has(moduleName)) {
+        writeFileSync(commonIndexPath, '', 'utf8');
+      }
 
-        // Only add ng-package.json and index.ts if the module is not already in the common index
-        if (!existsSync(ngPackagePath) && !hasCommonModule) {
-          const ngPackageConfig = `{\n  "lib": {\n    "entryFile": "index.ts"\n  }\n}\n`;
-          writeFileSync(ngPackagePath, ngPackageConfig, 'utf8');
-        }
-        if (!existsSync(indexPath) && !hasCommonModule) {
-          writeFileSync(indexPath, `export * from './${moduleName}';\n`, 'utf8');
-        }
+      if (!existsSync(ngPackagePath) && !modulesWithoutRootExport.has(moduleName)) {
+        const ngPackageConfig = `{\n  "lib": {\n    "entryFile": "index.ts"\n  }\n}\n`;
+        writeFileSync(ngPackagePath, ngPackageConfig, 'utf8');
+      }
 
-        // If there is a common index, we need to add the export statement for the new module
-        // And we need to update the *.module.ts file
-        if (hasCommonModule) {
-          // Edit index.ts in the common directory
-          const indexContent = readFileSync(commonIndexPath, 'utf8');
-          if (!indexContent.includes(`./${moduleName}`)) {
-            const indexLines = indexContent.split('\n').filter((line) => line.trim() !== '');
-            indexLines.push(`export * from './${moduleName}/${moduleName}';`);
-            // Sort exports alphabetically, but keep the *.module.ts at the end
-            indexLines.sort((a, b) => {
-              if (a.includes('.module') && !b.includes('.module')) {
-                return 1; // a is a module, b is not
-              }
-              if (!a.includes('.module') && b.includes('.module')) {
-                return -1; // b is a module, a is not
-              }
-              return a.localeCompare(b); // both are not modules, sort alphabetically
-            });
+      if (!existsSync(angularModulePath) && !modulesWithoutRootExport.has(moduleName)) {
+        writeFileSync(
+          angularModulePath,
+          `import { NgModule } from '@angular/core';
 
-            // Write the updated content back to the index.ts
-            writeFileSync(commonIndexPath, `${indexLines.join('\n')}\n`, 'utf8');
-          }
+const ${exportedName} = [];
 
-          // Add the class to the angular.module.ts if it does not exist
-          const modulePath = join(directoryPath, '..');
-          const angularModulePath = join(modulePath, `${modulePath.split('/').pop()}.module.ts`);
+@NgModule({
+  imports: ${exportedName},
+  exports: ${exportedName},
+})
+export class Sbb${toPascalCase(moduleName)}Module {}
 
-          if (existsSync(angularModulePath)) {
-            let angularModuleContent = readFileSync(angularModulePath, 'utf8');
-            const className = getClassManifestDeclaration(module).name.replace('Element', '');
+              `,
+          'utf8',
+        );
 
-            const importLine = `import { ${className} } from './${moduleName}/${moduleName}';`;
+        let indexContent = readFileSync(commonIndexPath, 'utf8');
 
-            // Read the existing imports and alphabetically add the new import
-            if (!angularModuleContent.includes(`import { ${className} }`)) {
-              const existingImports = angularModuleContent
-                .split('\n')
-                .filter((line) => line.trim().startsWith('import {'))
-                .map((line) => line.trim());
-              existingImports.push(importLine);
-              existingImports.sort();
-
-              const newImportSection = existingImports.join('\n') + '\n';
-
-              const remainingSection = angularModuleContent
-                .split('\n')
-                .filter((line) => !line.trim().startsWith('import {'))
-                .join('\n');
-              angularModuleContent = `${newImportSection}${remainingSection}`;
-            }
-
-            // Read the existing EXPORTED_DECLARATIONS array and alphabetically add the new class
-            const exportedModulesRegex = /const EXPORTED_DECLARATIONS = \[(.*?)\];/s;
-            const exportedDeclarationsMatch = angularModuleContent.match(exportedModulesRegex);
-
-            if (exportedDeclarationsMatch) {
-              const exportedDeclarations = exportedDeclarationsMatch[1]
-                .split(',')
-                .map((d) => d.trim())
-                .filter((d) => d !== '');
-
-              if (!exportedDeclarations.includes(className)) {
-                exportedDeclarations.push(className);
-                exportedDeclarations.sort();
-                angularModuleContent = angularModuleContent.replace(
-                  exportedModulesRegex,
-                  `const EXPORTED_DECLARATIONS = [\n  ${exportedDeclarations.join(',\n  ')},\n];\n`,
-                );
-              }
-            }
-
-            writeFileSync(angularModulePath, angularModuleContent, 'utf8');
-          }
+        if (!indexContent.includes(`./${moduleName}.module`)) {
+          indexContent += `\nexport * from './${moduleName}.module';`;
+          writeFileSync(commonIndexPath, indexContent, 'utf8');
         }
       }
 
-      if (!existsSync(modulePath)) {
-        writeFileSync(modulePath, '', 'utf8');
+      const hasCommonModule = existsSync(commonIndexPath);
+
+      // If there is a common index, we need to add the export statement for the new module
+      // And we need to update the *.module.ts file
+      if (hasCommonModule) {
+        // Edit index.ts in the common directory
+        const indexContent = readFileSync(commonIndexPath, 'utf8');
+        if (
+          !indexContent
+            .replace(`${relativeComponentPath}.module`, '')
+            .includes(`./${relativeComponentPath}`)
+        ) {
+          const indexLines = indexContent.split('\n').filter((line) => line.trim() !== '');
+          indexLines.push(`export * from './${relativeComponentPath}';`);
+          // Sort exports alphabetically, but keep the *.module.ts at the end
+          indexLines.sort((a, b) => {
+            if (a.includes('.module') && !b.includes('.module')) {
+              return 1; // a is a module, b is not
+            }
+            if (!a.includes('.module') && b.includes('.module')) {
+              return -1; // b is a module, a is not
+            }
+            return a.localeCompare(b); // both are not modules, sort alphabetically
+          });
+
+          // Write the updated content back to the index.ts
+          writeFileSync(commonIndexPath, `${indexLines.join('\n')}\n`, 'utf8');
+        }
+
+        if (existsSync(angularModulePath)) {
+          let angularModuleContent = readFileSync(angularModulePath, 'utf8');
+          const className = getClassManifestDeclaration(module).name.replace('Element', '');
+
+          const importLine = `import { ${className} } from './${relativeComponentPath}';`;
+
+          // Read the existing imports and alphabetically add the new import
+          if (!angularModuleContent.includes(`import { ${className} }`)) {
+            const existingImports = angularModuleContent
+              .split('\n')
+              .filter((line) => line.trim().startsWith('import {'))
+              .map((line) => line.trim());
+            existingImports.push(importLine);
+            existingImports.sort();
+
+            const newImportSection = existingImports.join('\n') + '\n';
+
+            const remainingSection = angularModuleContent
+              .split('\n')
+              .filter((line) => !line.trim().startsWith('import {'))
+              .join('\n');
+            angularModuleContent = `${newImportSection}${remainingSection}`;
+          }
+
+          // Read the existing EXPORTED_DECLARATIONS array and alphabetically add the new class
+          const exportedModulesRegex = new RegExp(`const ${exportedName} = \\[(.*)\\];`, 's');
+          const exportedDeclarationsMatch = angularModuleContent.match(exportedModulesRegex);
+
+          if (exportedDeclarationsMatch) {
+            const exportedDeclarations = exportedDeclarationsMatch[1]
+              .split(',')
+              .map((d) => d.trim())
+              .filter((d) => d !== '');
+
+            if (!exportedDeclarations.includes(className)) {
+              exportedDeclarations.push(className);
+              exportedDeclarations.sort();
+              angularModuleContent = angularModuleContent.replace(
+                exportedModulesRegex,
+                `const ${exportedName} = [\n  ${exportedDeclarations.join(',\n  ')},\n];\n`,
+              );
+            }
+          }
+
+          writeFileSync(angularModulePath, angularModuleContent, 'utf8');
+        }
+      }
+
+      if (!existsSync(componentPath)) {
+        writeFileSync(componentPath, '', 'utf8');
       }
       if (!existsSync(testPath)) {
         const testTemplate = readFileSync(
@@ -213,12 +253,12 @@ const generateStructure = (pkg: Package, projectPath: string) => {
         writeFileSync(
           testPath,
           testTemplate
-            .replaceAll('__name__', `sbb-${moduleName}`)
+            .replaceAll('__name__', `sbb-${componentName}`)
             .replaceAll(
               '__className__',
               getClassManifestDeclaration(module).name.replace('Element', ''),
             )
-            .replaceAll('__angularPath__', `./${moduleName}`),
+            .replaceAll('__angularPath__', `./${componentName}`),
           'utf8',
         );
       }
