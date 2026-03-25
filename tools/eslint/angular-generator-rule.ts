@@ -1121,14 +1121,17 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         }
 
         // Lyne element class
-        /*
-        Disabled, as it currently breaks due to structure change
         if (
           expectedAngularImports.has('ElementRef') &&
           program.body.every(
             (n) =>
               n.type !== AST_NODE_TYPES.ImportDeclaration ||
-              n.importKind !== 'type' ||
+              n.specifiers.every(
+                (s) =>
+                  s.type === AST_NODE_TYPES.ImportSpecifier &&
+                  s.imported.type === AST_NODE_TYPES.Identifier &&
+                  s.imported.name !== elementClassName,
+              ) ||
               n.source.value !== elementImport,
           )
         ) {
@@ -1146,7 +1149,6 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
               ),
           });
         }
-        */
       },
     };
   },

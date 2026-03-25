@@ -18,8 +18,6 @@ import {
 import { of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 
-// TODO: Unclear why the below eslint error pops up.
-
 import { SbbFormFieldControl } from './form-field-control';
 
 import '@sbb-esta/lyne-elements/form-field.js';
