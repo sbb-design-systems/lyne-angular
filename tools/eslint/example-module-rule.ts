@@ -19,6 +19,7 @@ interface ExampleMeta {
   exampleFiles?: string[];
   /** relative import path from example-module.ts to the index folder, e.g. '../angular/examples/accordion' */
   importPath: string;
+  order?: number;
 }
 
 type ExampleElement = TSESTree.Literal | TSESTree.ObjectExpression;
@@ -69,7 +70,7 @@ function extractHasStyle(node: TSESTree.Expression): boolean {
   );
 }
 
-/** Serialises an ExampleMeta to its source representation, e.g. `'foo'` or `{ id: 'foo', hasStyle: true }` */
+/** Serializes an ExampleMeta to its source representation, e.g. `'foo'` or `{ id: 'foo', hasStyle: true }` */
 function serializeExampleMeta(meta: ExampleMeta): string {
   const { id, hasStyle, exampleFiles } = meta;
   if (!hasStyle && !exampleFiles) {
@@ -83,6 +84,81 @@ function serializeExampleMeta(meta: ExampleMeta): string {
     parts.push(`exampleFiles: ${JSON.stringify(exampleFiles)}`);
   }
   return `{ ${parts.join(', ')} }`;
+}
+
+/**
+ * Extracts the exampleFiles array from an ExampleElement node.
+ * Returns undefined if no exampleFiles property is set.
+ */
+function extractExampleFiles(node: TSESTree.Expression): string[] | undefined {
+  if (node.type !== 'ObjectExpression') {
+    return undefined;
+  }
+  const prop = node.properties.find(
+    (p): p is TSESTree.Property =>
+      p.type === 'Property' &&
+      !p.computed &&
+      p.key.type === 'Identifier' &&
+      p.key.name === 'exampleFiles',
+  );
+  if (!prop || prop.value.type !== 'ArrayExpression') {
+    return undefined;
+  }
+  const files = prop.value.elements
+    .filter((el): el is TSESTree.Literal => el?.type === 'Literal')
+    .map((el) => el.value as string);
+  return files.length ? files : undefined;
+}
+
+/**
+ * Extracts the order value from an ExampleElement node.
+ * Returns undefined if no order property is set.
+ */
+function extractExampleOrder(node: TSESTree.Expression): number | undefined {
+  if (node.type !== 'ObjectExpression') {
+    return undefined;
+  }
+  const orderProp = node.properties.find(
+    (prop): prop is TSESTree.Property =>
+      prop.type === 'Property' &&
+      !prop.computed &&
+      prop.key.type === 'Identifier' &&
+      prop.key.name === 'order',
+  );
+  if (
+    orderProp &&
+    orderProp.value.type === 'Literal' &&
+    typeof orderProp.value.value === 'number'
+  ) {
+    return orderProp.value.value;
+  }
+  return undefined;
+}
+
+/**
+ * Compares two example elements for sorting:
+ * - Elements with @order come first, sorted ascending by order number.
+ * - Elements without @order follow, sorted alphabetically by id.
+ * onDiskOrder is used as fallback when the AST node has no order property.
+ */
+function compareExampleElements(
+  a: ExampleElement,
+  b: ExampleElement,
+  onDiskOrderA?: number,
+  onDiskOrderB?: number,
+): number {
+  const orderA = extractExampleOrder(a) ?? onDiskOrderA;
+  const orderB = extractExampleOrder(b) ?? onDiskOrderB;
+  if (orderA !== undefined && orderB !== undefined) {
+    return orderA - orderB;
+  }
+  if (orderA !== undefined) {
+    return -1;
+  }
+  if (orderB !== undefined) {
+    return 1;
+  }
+  return (extractExampleId(a) ?? '').localeCompare(extractExampleId(b) ?? '');
 }
 
 /** Extracts the string key from a Property node. */
@@ -129,6 +205,7 @@ function collectExamplesStructure(): Map<string, ExampleMeta[]> {
       const exampleId = entry.name;
       const exampleDir = path.join(dir, exampleId);
       const wellKnownFilePattern = `${exampleId}-example`;
+      const wellKnownFiles = ['.html', '.ts'].map((e) => `${wellKnownFilePattern}${e}`);
 
       const fileSet = new Set(
         readdirSync(exampleDir, { withFileTypes: true, recursive: true })
@@ -145,7 +222,7 @@ function collectExamplesStructure(): Map<string, ExampleMeta[]> {
       if (hasStyle) {
         meta.hasStyle = true;
       }
-      if (fileSet.size > 2) {
+      if ([...fileSet].some((f) => !wellKnownFiles.includes(f))) {
         meta.exampleFiles = Array.from(fileSet);
       }
       metas.push(meta);
@@ -212,6 +289,8 @@ export default ESLintUtils.RuleCreator.withoutDocs({
         'The example "{{example}}" of module "{{module}}" has a style file but is missing "hasStyle: true".',
       hasStyleSuperfluous:
         'The example "{{example}}" of module "{{module}}" has "hasStyle: true" but no style file exists.',
+      exampleFilesMismatch:
+        'The example "{{example}}" of module "{{module}}" has incorrect exampleFiles (expected: {{expected}}).',
     },
   },
   create(context) {
@@ -303,6 +382,26 @@ export default ESLintUtils.RuleCreator.withoutDocs({
                   fix: (fixer) => fixer.replaceText(element, serializeExampleMeta(diskMeta)),
                 });
               }
+
+              // Check exampleFiles correctness against on-disk metadata
+              const configuredFiles = extractExampleFiles(element);
+              const diskFiles = diskMeta.exampleFiles;
+              const configuredSorted = configuredFiles
+                ? [...configuredFiles].sort().join(',')
+                : undefined;
+              const diskSorted = diskFiles ? [...diskFiles].sort().join(',') : undefined;
+              if (configuredSorted !== diskSorted) {
+                context.report({
+                  node: element,
+                  messageId: 'exampleFilesMismatch',
+                  data: {
+                    module: moduleId,
+                    example: id,
+                    expected: diskFiles ? JSON.stringify(diskFiles) : 'none',
+                  },
+                  fix: (fixer) => fixer.replaceText(element, serializeExampleMeta(diskMeta)),
+                });
+              }
             }
           }
 
@@ -335,18 +434,26 @@ export default ESLintUtils.RuleCreator.withoutDocs({
             continue;
           }
 
-          // Check that examples inside the array are sorted alphabetically
+          // Check that examples inside the array are sorted (@order first ascending, then alphabetically)
+          // Use on-disk order as fallback when the AST node has no order property.
+          const getOnDiskOrder = (el: ExampleElement) =>
+            onDiskMetas?.find((m) => m.id === extractExampleId(el))?.order;
+
           for (let i = 1; i < arrayElements.length; i++) {
-            const prevId = extractExampleId(arrayElements[i - 1]) ?? '';
-            const currId = extractExampleId(arrayElements[i]) ?? '';
-            if (prevId.localeCompare(currId) > 0) {
+            const prev = arrayElements[i - 1];
+            const curr = arrayElements[i];
+            if (
+              compareExampleElements(prev, curr, getOnDiskOrder(prev), getOnDiskOrder(curr)) > 0
+            ) {
+              const currId = extractExampleId(curr) ?? '';
+              const prevId = extractExampleId(prev) ?? '';
               context.report({
-                node: arrayElements[i],
+                node: curr,
                 messageId: 'examplesNotSorted',
                 data: { module: moduleId, example: currId, before: prevId },
                 fix: (fixer) => {
                   const sorted = [...arrayElements].sort((a, b) =>
-                    (extractExampleId(a) ?? '').localeCompare(extractExampleId(b) ?? ''),
+                    compareExampleElements(a, b, getOnDiskOrder(a), getOnDiskOrder(b)),
                   );
                   return sorted.map((el, idx) =>
                     fixer.replaceText(arrayElements[idx], context.sourceCode.getText(el)),
@@ -357,25 +464,36 @@ export default ESLintUtils.RuleCreator.withoutDocs({
             }
           }
 
-          // Example exists on disk but is not configured → insert alphabetically
-          const existingIds = arrayElements.map((el) => extractExampleId(el) ?? '');
+          // Example exists on disk but is not configured → insert at correct sorted position
           for (const meta of onDiskMetas) {
             if (!examples.has(meta.id)) {
               const serialized = serializeExampleMeta(meta);
-              const afterIndex = existingIds.findIndex((id) => id.localeCompare(meta.id) > 0);
+              const afterIndex = arrayElements.findIndex((el) => {
+                const elOrder = extractExampleOrder(el) ?? getOnDiskOrder(el);
+                const metaOrder = meta.order;
+                const elId = extractExampleId(el) ?? '';
+                if (metaOrder !== undefined && elOrder !== undefined) {
+                  return elOrder > metaOrder;
+                }
+                if (metaOrder !== undefined) {
+                  return false;
+                }
+                if (elOrder !== undefined) {
+                  return true;
+                }
+                return elId.localeCompare(meta.id) > 0;
+              });
               context.report({
                 node: prop.key,
                 messageId: 'exampleNotConfigured',
                 data: { module: moduleId, example: meta.id },
-                fix: (fixer) => {
-                  if (afterIndex === -1) {
-                    return fixer.insertTextAfterRange(
-                      [prop.value.range[0], prop.value.range[1] - 1],
-                      `, ${serialized}`,
-                    );
-                  }
-                  return fixer.insertTextBefore(arrayElements[afterIndex], `${serialized}, `);
-                },
+                fix: (fixer) =>
+                  afterIndex === -1
+                    ? fixer.insertTextAfterRange(
+                        [prop.value.range[0], prop.value.range[1] - 1],
+                        `, ${serialized}`,
+                      )
+                    : fixer.insertTextBefore(arrayElements[afterIndex], `${serialized}, `),
               });
             }
           }
