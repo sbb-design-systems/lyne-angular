@@ -2,6 +2,8 @@ import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbCalendarWeekdayElement, Weekday } from '@sbb-esta/lyne-elements/calendar.js';
 
+import '@sbb-esta/lyne-elements/calendar.js';
+
 /**
  * It displays a single week day cell in the `sbb-calendar` component.
  */
