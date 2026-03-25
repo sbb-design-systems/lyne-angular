@@ -4,7 +4,7 @@ import type { SbbAutocompleteGridButtonElement } from '@sbb-esta/lyne-elements-e
 import type { SbbAutocompleteGridOptgroupElement } from '@sbb-esta/lyne-elements-experimental/autocomplete-grid/autocomplete-grid-optgroup.js';
 import type { SbbAutocompleteGridOptionElement } from '@sbb-esta/lyne-elements-experimental/autocomplete-grid/autocomplete-grid-option.js';
 
-import '@sbb-esta/lyne-elements-experimental/autocomplete-grid/autocomplete-grid-button.js';
+import '@sbb-esta/lyne-elements-experimental/autocomplete-grid.js';
 
 /**
  * It displays an icon-only button that can be used in `sbb-autocomplete-grid`.
