@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
-import { dirname, resolve } from 'node:path';
+import { dirname, relative, resolve } from 'node:path';
 import { basename, join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -877,12 +877,18 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
 
         // Add other imports
         const program = context.sourceCode.ast;
-        /*
-        Disabled, as it currently breaks due to structure change
-        const elementPath = relative(root, dirname(context.filename)).replace(
+        const fullElementPath = relative(root, dirname(context.filename)).replace(
           'src/angular',
           'elements',
         );
+        // Use the top-level module path (one level after 'elements'/'elements-experimental'),
+        // unless the top-level folder has no index.ts (e.g. button, link) – then keep two levels.
+        const pathParts = fullElementPath.split('/');
+        const srcPackage = pathParts[0].replace('elements', 'src/angular');
+        const topLevelSrcPath = join(root, srcPackage, pathParts[1], 'index.ts');
+        const elementPath = existsSync(topLevelSrcPath)
+          ? pathParts.slice(0, 2).join('/')
+          : pathParts.slice(0, 3).join('/');
         const elementImport = `@sbb-esta/lyne-${elementPath}.js`;
 
         // Lyne element
@@ -904,7 +910,6 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport '${elementImport}';`),
           });
         }
-          */
 
         // Angular imports
         const angularCoreImport = program.body.find(
