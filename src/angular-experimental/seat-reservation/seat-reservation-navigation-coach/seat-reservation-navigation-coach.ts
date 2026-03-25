@@ -16,7 +16,7 @@ import type {
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 import { fromEvent } from 'rxjs';
 
-import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation-coach.js';
+import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 
 /**
  * This component will display the navigation coach item for Seat reservation.

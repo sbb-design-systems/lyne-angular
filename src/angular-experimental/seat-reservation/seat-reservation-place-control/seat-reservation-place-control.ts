@@ -18,7 +18,7 @@ import type {
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 import { fromEvent } from 'rxjs';
 
-import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-place-control.js';
+import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 
 /**
  * Output the graphic of a seat or a bicycle place as a control element.

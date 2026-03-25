@@ -2,7 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbSeatReservationNavigationServicesElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation-services.js';
 
-import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation-navigation-services.js';
+import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 
 /**
  * Component displays the available service icons of one coach.

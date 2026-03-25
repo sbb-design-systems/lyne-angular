@@ -18,7 +18,7 @@ import type {
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 import { fromEvent } from 'rxjs';
 
-import '@sbb-esta/lyne-elements-experimental/seat-reservation/seat-reservation.js';
+import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 
 /**
  * Main component for the seat reservation.
