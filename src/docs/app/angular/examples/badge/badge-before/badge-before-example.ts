@@ -3,13 +3,13 @@ import { SbbBadgeModule } from '@sbb-esta/lyne-angular/badge';
 import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
 
 /**
- * @title Basic badge
- * @order 1
+ * @title Badge position before
+ * @order 2
  */
 @Component({
-  selector: 'sbb-badge-basic-example',
-  templateUrl: 'badge-basic-example.html',
+  selector: 'sbb-badge-before-example',
+  templateUrl: 'badge-before-example.html',
   imports: [SbbBadgeModule, SbbIconModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BadgeBasicExample {}
+export class BadgeBeforeExample {}

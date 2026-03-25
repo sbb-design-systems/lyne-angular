@@ -5,6 +5,7 @@ import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
 
 /**
  * @title Badge on header button
+ * @order 3
  */
 @Component({
   selector: 'sbb-badge-header-button-example',
