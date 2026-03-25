@@ -46,6 +46,14 @@ const CAMEL_CASE_EVENTS_MAP: Record<string, string> = {
 
 const modulesWithoutRootExport = new Set(['button', 'link']);
 
+// TODO: migrate with next major release.
+const modulesWithLegacyExports = new Set([
+  'container',
+  'file-selector',
+  'paginator',
+  'teaser-product',
+]);
+
 // Converts camelCase to kebab-case
 function toKebabCase(str: string): string {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
@@ -168,7 +176,7 @@ export class Sbb${toPascalCase(moduleName)}Module {}
 
       // If there is a common index, we need to add the export statement for the new module
       // And we need to update the *.module.ts file
-      if (hasCommonModule) {
+      if (hasCommonModule && !modulesWithLegacyExports.has(moduleName)) {
         // Edit index.ts in the common directory
         const indexContent = readFileSync(commonIndexPath, 'utf8');
         if (
