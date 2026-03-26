@@ -46,7 +46,7 @@ const appendAdditionalInformation = (documentation: {
             let cssName = name;
             let cssDefault = '';
 
-            const match = name.match(/\[([^\]=]+)=(var\([^)]+\))\]/);
+            const match = name.match(/\[([^\]=]+)=(.+)\]/);
 
             if (match) {
               cssName = match[1]; // "--sbb-dialog-z-index"
