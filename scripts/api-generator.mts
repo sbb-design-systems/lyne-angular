@@ -1,11 +1,84 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'fs';
 import { basename, dirname, join, normalize, relative } from 'path';
 import { fileURLToPath } from 'url';
+import ts from 'typescript';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const documentation = JSON.parse(readFileSync(join(root, `/src/docs/documentation.json`), 'utf8'));
 const modulesWithLegacySubmodules = ['checkbox', 'link-list', 'radio-button'];
 const ignoredFolders = ['core'];
+
+/**
+ * For all directives it collects slots, cssProps and cssParts information and appends it
+ * to the `documentation` object, which is used to create the API docs.
+ */
+const appendAdditionalInformation = (documentation: {
+  directives: {
+    file: string;
+    name: string;
+    slots?: { name: string; description: string }[];
+    cssProps?: { name: string; default?: string; description: string }[];
+    cssParts?: { name: string; description: string }[];
+  }[];
+}): void => {
+  documentation.directives.forEach((d) => {
+    const fileContent = readFileSync(new URL(`../${d.file}`, import.meta.url), 'utf8');
+
+    const sourceFile = ts.createSourceFile('example.ts', fileContent, ts.ScriptTarget.ES2022, true);
+
+    function handleJsDoc(node: ts.Node) {
+      if (ts.isClassDeclaration(node) && node.name && node.name.text === d.name) {
+        const jsDocs = ts.getJSDocTags(node);
+
+        jsDocs?.forEach((doc) => {
+          const tagName = doc.tagName.text;
+          const wholeTag = getCommentText(doc);
+          const parts = ` ${wholeTag}`.split(/\s-\s(.+)/);
+          const name = parts[0].trim();
+          const description = parts[1]?.trim() || '';
+
+          if (tagName === 'slot') {
+            d.slots ??= [];
+            d.slots.push({ name, description });
+          } else if (tagName === 'cssprop') {
+            d.cssProps ??= [];
+
+            let cssName = name;
+            let cssDefault = '';
+
+            const match = name.match(/\[([^\]=]+)=(var\([^)]+\))\]/);
+
+            if (match) {
+              cssName = match[1]; // "--sbb-dialog-z-index"
+              cssDefault = match[2]; // "var(--sbb-overlay-default-z-index)"
+            }
+
+            d.cssProps.push({ name: cssName, default: cssDefault, description });
+          } else if (tagName === 'csspart') {
+            d.cssParts ??= [];
+            d.cssParts.push({ name, description });
+          }
+        });
+      }
+
+      ts.forEachChild(node, handleJsDoc);
+    }
+    handleJsDoc(sourceFile);
+  });
+};
+
+const getCommentText = (doc: ts.JSDocTag): string => {
+  if (!doc.comment) {
+    return '';
+  }
+
+  if (typeof doc.comment === 'string') {
+    return doc.comment;
+  }
+
+  // Falls es ein NodeArray ist
+  return doc.comment.map((part) => part.getText()).join('');
+};
 
 /**
  * Reads the module names for a given package from meta.ts.
@@ -239,7 +312,7 @@ ${entity['rawdescription'] ? `\n${entity['rawdescription']?.replaceAll('\n', ' '
 **Type:** ${type}\n
 **Selector:** \`${entity['selector']}\`
 ${entity['exportAs'] ? `\n**Exported as:** \`${entity['exportAs']}\`\n` : ''}
-${entity['inputsClass']?.length > 0 ? createInputsTable(entity['inputsClass'], entity['accessors']) : ''}${entity['propertiesClass']?.length > 0 ? createOutputTable(entity) : ''}${entity['methodsClass']?.length > 0 ? createMethodsTable(entity['methodsClass']) : ''}`,
+${entity['inputsClass']?.length > 0 ? createInputsTable(entity['inputsClass'], entity['accessors']) : ''}${entity['propertiesClass']?.length > 0 ? createOutputTable(entity) : ''}${entity['methodsClass']?.length > 0 ? createMethodsTable(entity['methodsClass']) : ''}${entity['slots']?.length > 0 ? createSlotsTable(entity['slots']) : ''}${entity['cssProps']?.length > 0 ? createCssPropsTable(entity['cssProps']) : ''}${entity['cssParts']?.length > 0 ? createCssPartsTable(entity['cssParts']) : ''}`,
     )
     .join('');
 };
@@ -326,6 +399,32 @@ ${filteredMethods
   .join('')}\n`;
 };
 
+const createSlotsTable = (slots: { name: string; description: string }[]): string => {
+  return `### Slots
+
+| Name | Description |
+| --- | --- |
+${slots.map((slot) => `| ${slot.name} | ${slot.description} |\n`).join('')}\n`;
+};
+
+const createCssPropsTable = (
+  slots: { name: string; default: string; description: string }[],
+): string => {
+  return `### CSS Properties
+
+| Name | Default | Description |
+| --- | --- | --- |
+${slots.map((slot) => `| ${slot.name} | ${slot.default} | ${slot.description} |\n`).join('')}\n`;
+};
+
+const createCssPartsTable = (slots: { name: string; description: string }[]): string => {
+  return `### CSS Parts
+
+| Name | Description |
+| --- | --- |
+${slots.map((slot) => `| ${slot.name} | ${slot.description} |\n`).join('')}\n`;
+};
+
 const createTypeForTable = (type?: string): string => {
   if (type) {
     return `\`${type.replaceAll('|', '\\\|')}\``;
@@ -347,5 +446,6 @@ const createParametersForTable = (args: any[]): string => {
   return '-';
 };
 
+appendAdditionalInformation(documentation);
 await generateApiFiles('angular');
 await generateApiFiles('angular-experimental');
