@@ -1,0 +1,12 @@
+td.detail {
+  font-style: italic;
+}
+
+td:not(.detail) {
+  cursor: pointer;
+}
+
+td.detail sbb-icon {
+  vertical-align: top;
+  margin-inline-end: var(--sbb-spacing-fixed-1x);
+}

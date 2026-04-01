@@ -63,7 +63,18 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   slider: ['slider-basic'],
   status: ['status-basic'],
   stepper: ['stepper-basic'],
-  table: ['table-basic'],
+  table: [
+    'simple-table',
+    { id: 'sticky-table', hasStyle: true },
+    'grouped-columns-table',
+    'grouped-rows-and-columns-table',
+    'sortable-table',
+    { id: 'paginator-table', hasStyle: true },
+    'selectable-table',
+    { id: 'filter-sort-paginator-table', hasStyle: true },
+    { id: 'native-table', hasStyle: true },
+    { id: 'expandable-table', hasStyle: true },
+  ],
   tabs: ['tabs-basic'],
   tag: ['tag-basic'],
   teaser: ['teaser-basic'],
@@ -129,10 +140,14 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/dialog');
     case 'divider-basic':
       return import('../angular/examples/divider');
+    case 'expandable-table':
+      return import('../angular/examples/table');
     case 'expansion-panel-basic':
       return import('../angular/examples/expansion-panel');
     case 'file-selector-basic':
       return import('../angular/examples/file-selector');
+    case 'filter-sort-paginator-table':
+      return import('../angular/examples/table');
     case 'flip-card-basic':
       return import('../angular/examples/flip-card');
     case 'footer-basic':
@@ -141,6 +156,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/footer');
     case 'form-field-basic':
       return import('../angular/examples/form-field');
+    case 'grouped-columns-table':
+      return import('../angular/examples/table');
+    case 'grouped-rows-and-columns-table':
+      return import('../angular/examples/table');
     case 'header-basic':
       return import('../angular/examples/header');
     case 'icon-basic':
@@ -175,6 +194,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/button');
     case 'mini-calendar-basic':
       return import('../angular/examples/mini-calendar');
+    case 'native-table':
+      return import('../angular/examples/table');
     case 'navigation-basic':
       return import('../angular/examples/navigation');
     case 'notification-basic':
@@ -185,6 +206,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/overlay');
     case 'paginator-basic':
       return import('../angular/examples/paginator');
+    case 'paginator-table':
+      return import('../angular/examples/table');
     case 'popover-basic':
       return import('../angular/examples/popover');
     case 'radio-button-basic':
@@ -195,6 +218,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/radio-button-panel');
     case 'select-basic':
       return import('../angular/examples/select');
+    case 'selectable-table':
+      return import('../angular/examples/table');
     case 'selection-action-panel-basic':
       return import('../angular/examples/selection-action-panel');
     case 'selection-expansion-panel-basic':
@@ -203,15 +228,19 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/sidebar');
     case 'signet-basic':
       return import('../angular/examples/signet');
+    case 'simple-table':
+      return import('../angular/examples/table');
     case 'skiplink-list-basic':
       return import('../angular/examples/skiplink-list');
     case 'slider-basic':
       return import('../angular/examples/slider');
+    case 'sortable-table':
+      return import('../angular/examples/table');
     case 'status-basic':
       return import('../angular/examples/status');
     case 'stepper-basic':
       return import('../angular/examples/stepper');
-    case 'table-basic':
+    case 'sticky-table':
       return import('../angular/examples/table');
     case 'tabs-basic':
       return import('../angular/examples/tabs');
