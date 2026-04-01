@@ -1,4 +1,4 @@
-import { globSync, readdirSync } from 'node:fs';
+import { globSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 
 import type { TSESLint, TSESTree } from '@typescript-eslint/utils';
@@ -161,6 +161,20 @@ function compareExampleElements(
   return (extractExampleId(a) ?? '').localeCompare(extractExampleId(b) ?? '');
 }
 
+/** Reads the @order annotation from an example's .ts file. Returns undefined if not present. */
+function readOnDiskOrder(exampleTsFile: string): number | undefined {
+  try {
+    const tsContent = readFileSync(exampleTsFile, 'utf-8');
+    const orderMatch = tsContent.match(/@order\s+(\d+)/);
+    if (orderMatch) {
+      return parseInt(orderMatch[1], 10);
+    }
+  } catch {
+    // ignore missing files
+  }
+  return undefined;
+}
+
 /** Extracts the string key from a Property node. */
 function getPropertyKey(prop: TSESTree.Property): string {
   if (prop.key.type === 'Identifier' && !prop.computed) {
@@ -218,12 +232,18 @@ function collectExamplesStructure(): Map<string, ExampleMeta[]> {
         fileSet.delete(`${wellKnownFilePattern}.scss`);
       }
 
+      // Read @order annotation from the example's .ts file
+      const order = readOnDiskOrder(path.join(exampleDir, `${wellKnownFilePattern}.ts`));
+
       const meta: ExampleMeta = { id: exampleId, importPath };
       if (hasStyle) {
         meta.hasStyle = true;
       }
       if ([...fileSet].some((f) => !wellKnownFiles.includes(f))) {
         meta.exampleFiles = Array.from(fileSet);
+      }
+      if (order !== undefined) {
+        meta.order = order;
       }
       metas.push(meta);
     }
