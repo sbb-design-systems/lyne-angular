@@ -173,6 +173,46 @@ to the input element.
 If you want to directly show the error state without having had an interaction, you can use the
 `sbb-show-errors` class on an ancestor (e.g. `<form>`).
 
+### Visualization of `required` / optional state
+
+Generally, as an SBB standard, all form elements are considered required and optional inputs are marked with `(optional)` in the label.
+
+| English  | German   | French     | Italian     |
+| -------- | -------- | ---------- | ----------- |
+| optional | optional | facultatif | facoltativo |
+
+```html
+<sbb-form-field>
+  <label>Label (optional)</label>
+  <input />
+</sbb-form-field>
+```
+
+However, some applications need a stronger visual representation of the `required` state.
+
+In such cases it's possible to add the `sbb-form-field-required-highlight` CSS class to the `<sbb-form-field>` element.
+This changes the background color to a subtle peach tint, giving users a clear visual cue.
+It only has an effect as long as the input is empty and neither `readonly` nor `disabled`.
+
+```html
+<sbb-form-field class="sbb-form-field-required-highlight">
+  <label>Required Field</label>
+  <input required />
+</sbb-form-field>
+```
+
+It's also possible to opt in globally by setting the CSS class `sbb-form-field-required-highlight` on the `<html>` element.
+The styling is then applied to all `<sbb-form-field>` elements that contain an input with a `required` attribute.
+
+```html
+<html class="sbb-form-field-required-highlight">
+  ...
+</html>
+```
+
+Please note that with forced colors and `sbb-form-field-required-highlight` CSS class,
+there is an Asterix (\*) added to the label of required fields.
+
 ## Custom form control
 
 The form field looks for native form controls (i.e. `<input>`, `<select>`

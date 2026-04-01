@@ -27,7 +27,7 @@ the [sbb-menu-button](/angular/components/button/overview) is meant to be used a
 The open and close delays can be configured via global configuration. This values will be used as default, unless explicitly set on the element.
 
 ```ts
-import { mergeConfig } from '@sbb-esta/lyne-elements/core/config.js';
+import { mergeConfig } from '@sbb-esta/lyne-elements/core.js';
 
 mergeConfig({
   popover: {
