@@ -189,7 +189,7 @@ If you are using the `SbbTableDataSource` for your table's data source, simply p
 `SbbPaginator` to your data source. It will automatically listen for page changes made by the user
 and send the right paged data to the table.
 
-Otherwise if you are implementing the logic to paginate your data, you will want to listen to the
+Otherwise, if you are implementing the logic to paginate your data, you will want to listen to the
 paginator's `(page)` output and pass the right slice of data to your table.
 
 For more information on using and configuring the `<sbb-paginator>`, check out the sbb-paginator docs.
@@ -211,8 +211,10 @@ export class TablePaginatorExampleComponent implements OnInit {
   dataSource: SbbTableDataSource<any> = new SbbTableDataSource([]);
   paginator = viewChild.required('paginator', { read: SbbPaginator });
 
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+  constructor() {
+    effect(() => {
+      this.dataSource.paginator = this.paginator;
+    });
   }
 }
 ```
@@ -278,9 +280,11 @@ export class SortableTableExampleComponent implements AfterViewInit {
   dataSource: SbbTableDataSource<any> = new SbbTableDataSource(['A', '1']);
   sort = viewChild.required(SbbSort);
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.sort.sort({ id: 'letter', start: 'asc', disableClear: false });
+  constructor() {
+    effect(() => {
+      this.dataSource.sort = this.sort;
+      this.sort.sort({ id: 'letter', start: 'asc', disableClear: false });
+    });
   }
 }
 ```
@@ -496,20 +500,18 @@ so that screen readers can output a meaningful text.
 ```html
 <td>
   <div class="sbb-table-cell-actions" aria-label="Press tab key to access actions.">
-    <a
-      sbb-secondary-button
+    <sbb-secondary-button
       [routerLink]="['./edit', element.id]"
       attr.aria-label="Edit {{element.vehicle}}."
     >
-      <sbb-icon svgIcon="pen-small"></sbb-icon>
-    </a>
-    <button
-      sbb-secondary-button
+      <sbb-icon name="pen-small"></sbb-icon>
+    </sbb-secondary-button>
+    <sbb-secondary-button
       attr.aria-label="Save {{element.vehicle}} as favorite."
       (click)="action()"
     >
-      <sbb-icon svgIcon="star-small"></sbb-icon>
-    </button>
+      <sbb-icon name="star-small"></sbb-icon>
+    </sbb-secondary-button>
   </div>
 </td>
 ```
@@ -553,7 +555,7 @@ To align the text in a cell, the following css classes can be used on your desir
 ### Horizontal Divider With Title
 
 If using horizontal dividers to group content, use the
-css class `sbb-table-divider-title` to style the title correctly.
+CSS class `sbb-table-divider-title` to style the title correctly.
 
 ```html
 <ng-container sbbColumnDef="horizontalTableDivider">

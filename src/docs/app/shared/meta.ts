@@ -1,6 +1,6 @@
 export interface ShowcaseMetaPackage {
   name: string;
-  svgIcon: string;
+  iconName: string;
   image: string;
   description: string;
   sections: ShowcaseMetaSection[];
@@ -20,7 +20,7 @@ export interface ShowcaseMetaEntry {
 export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
   angular: {
     name: '@sbb-esta/angular',
-    svgIcon: 'browser-small',
+    iconName: 'browser-small',
     image: 'assets/websites.jpg',
     description: 'Components which can be used for websites and webapps.',
     sections: [
@@ -122,7 +122,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
   },
   'angular-experimental': {
     name: '@sbb-esta/angular-experimental',
-    svgIcon: 'cloud-lightning-small',
+    iconName: 'cloud-lightning-small',
     image: 'assets/websites.jpg',
     description: 'Experimental components which can be used for websites and webapps.',
     sections: [

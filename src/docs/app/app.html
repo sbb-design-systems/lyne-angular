@@ -39,10 +39,10 @@
   <sbb-icon-sidebar color="milk">
     @for (packageEntry of packages | keyvalue; track $index) {
     <sbb-icon-sidebar-link
-      [iconName]="packageEntry.value['svgIcon']"
+      [iconName]="packageEntry.value.iconName"
       [routerLink]="packageEntry.key"
       routerLinkActive="sbb-active"
-      [style.text-decoration]="packageEntry.value['isDeprecated'] ? 'line-through' : ''"
+      [style.text-decoration]="packageEntry.value.isDeprecated ? 'line-through' : ''"
       [sbb-tooltip]="packageEntry.value['name']"
       [accessibilityLabel]="packageEntry.value['name']"
     >
