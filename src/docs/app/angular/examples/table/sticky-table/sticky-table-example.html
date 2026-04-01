@@ -1,6 +1,4 @@
-<h4>Trains per section of line</h4>
-
-@if (!loading) {
+@if (!loading()) {
 <sbb-table-wrapper class="table-wrapper">
   <table sbb-table sbbSort [dataSource]="dataSource" (sbbSortChange)="announceSortChange($event)">
     <ng-container sbbColumnDef="line" sticky>
@@ -48,13 +46,5 @@
   </table>
 </sbb-table-wrapper>
 } @else {
-<sbb-loading-indicator mode="small"></sbb-loading-indicator>
+<sbb-loading-indicator size="s"></sbb-loading-indicator>
 }
-
-<p>
-  <small>
-    *Switching between standard and lean design in the documentation app does not update sticky
-    styles which can result in wrongly displayed styles. Please refresh your view after switching
-    between standard and lean design.
-  </small>
-</p>

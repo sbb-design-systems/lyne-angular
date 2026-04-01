@@ -1,4 +1,4 @@
-<form [formGroup]="vehicleFilterForm">
+<form [formGroup]="vehicleFilterForm" class="form">
   <sbb-form-field size="s">
     <label>Global Filter</label>
     <input formControlName="_" />
@@ -25,22 +25,18 @@
 
       <ng-container sbbColumnDef="filter-name">
         <th sbb-header-cell *sbbHeaderCellDef class="sbb-table-filter">
-          <sbb-form-field size="s">
-            <input class="sbb-input-element" formControlName="name" />
+          <sbb-form-field size="s" width="collapse">
+            <input formControlName="name" />
           </sbb-form-field>
         </th>
       </ng-container>
       <ng-container sbbColumnDef="filter-description">
         <th sbb-header-cell *sbbHeaderCellDef class="sbb-table-filter">
           <sbb-form-field size="s">
-            <input
-              class="sbb-input-element"
-              formControlName="description"
-              [sbbAutocomplete]="descriptionsAuto"
-            />
+            <input formControlName="description" [sbbAutocomplete]="descriptionsAuto" />
           </sbb-form-field>
           <sbb-autocomplete #descriptionsAuto="sbbAutocomplete">
-            @for (option of descriptions | async; track option) {
+            @for (option of descriptions(); track option) {
             <sbb-option [value]="option">{{ option }}</sbb-option>
             }
           </sbb-autocomplete>
@@ -81,5 +77,5 @@
   <p>No keywords match your filters.</p>
   }
 
-  <sbb-paginator class="sbb-divider-small-top" [pageSize]="5"></sbb-paginator>
+  <sbb-paginator [pageSize]="5"></sbb-paginator>
 </form>

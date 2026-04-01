@@ -1,7 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AsyncPipe } from '@angular/common';
-import { Component, effect, inject, viewChild } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, effect, inject, viewChild } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SbbAutocompleteModule } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
@@ -14,7 +13,6 @@ import {
   SbbTableDataSource,
   SbbTableModule,
 } from '@sbb-esta/lyne-angular/table';
-import type { Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 
 interface VehicleExampleItem {
@@ -47,38 +45,46 @@ interface VehicleFilter extends SbbTableFilter {
     SbbAutocompleteModule,
     SbbSelectModule,
     SbbPaginatorModule,
-    AsyncPipe,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterSortPaginatorTableExample {
-  readonly paginator = viewChild.required(SbbPaginator);
-  readonly sort = viewChild.required(SbbSort);
-  readonly table = viewChild.required(SbbTable);
+  private readonly paginator = viewChild.required(SbbPaginator);
+  private readonly sort = viewChild.required(SbbSort);
+  private readonly table = viewChild.required(SbbTable);
 
-  columns = [
+  protected columns = [
     { title: 'position' },
     { title: 'name', subtitle: 'technical' },
     { title: 'power', subtitle: 'horsepower' },
     { title: 'description', subtitle: 'common name' },
     { title: 'category' },
   ];
-
-  get displayedColumns(): string[] {
-    return this.columns.map((column) => column.title);
-  }
-  dataSource = new SbbTableDataSource<VehicleExampleItem, VehicleFilter>(VEHICLE_EXAMPLE_DATA);
-  categories = new Set(
+  protected displayedColumns = this.columns.map((column) => column.title);
+  protected dataSource = new SbbTableDataSource<VehicleExampleItem, VehicleFilter>(
+    VEHICLE_EXAMPLE_DATA,
+  );
+  protected categories = new Set(
     VEHICLE_EXAMPLE_DATA.map((vehicleExampleItem) => vehicleExampleItem.category),
   );
 
-  vehicleFilterForm = new FormGroup({
+  protected vehicleFilterForm = new FormGroup({
     _: new FormControl(''),
     category: new FormControl([] as string[]),
     name: new FormControl(''),
     description: new FormControl(''),
   });
 
-  descriptions!: Observable<string[]>;
+  protected descriptions = toSignal(
+    this.vehicleFilterForm.get('description')!.valueChanges.pipe(
+      distinctUntilChanged(),
+      map((newValue) =>
+        newValue?.length === 0
+          ? []
+          : [...new Set(this.dataSource.filteredData.map((vehicle) => vehicle.description))].sort(),
+      ),
+    ),
+  );
 
   private _liveAnnouncer = inject(LiveAnnouncer);
 
@@ -88,20 +94,12 @@ export class FilterSortPaginatorTableExample {
       this.dataSource.sort = this.sort();
       this.table().dataSource = this.dataSource;
     });
+
     this.vehicleFilterForm.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe((vehicleFilterForm) => {
         this.dataSource.filter = vehicleFilterForm;
       });
-
-    this.descriptions = this.vehicleFilterForm.get('description')!.valueChanges.pipe(
-      distinctUntilChanged(),
-      map((newValue) =>
-        newValue?.length === 0
-          ? []
-          : [...new Set(this.dataSource.filteredData.map((vehicle) => vehicle.description))].sort(),
-      ),
-    );
   }
 
   /** Announce the change in sort state for assistive technology. */

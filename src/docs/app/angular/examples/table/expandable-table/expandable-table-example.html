@@ -4,7 +4,12 @@
 </p>
 
 <sbb-table-wrapper>
-  <table sbb-table [dataSource]="dataSource" [multiTemplateDataRows]="true">
+  <table
+    sbb-table
+    [dataSource]="dataSource"
+    [multiTemplateDataRows]="true"
+    class="sbb-table--unstriped"
+  >
     <ng-container sbbColumnDef="time">
       <th sbb-header-cell *sbbHeaderCellDef>Time</th>
       <td sbb-cell *sbbCellDef="let element">{{ element.time }}</td>
@@ -29,15 +34,11 @@
     </ng-container>
 
     <tr sbb-header-row *sbbHeaderRowDef="displayedColumns"></tr>
-    <tr
-      sbb-row
-      *sbbRowDef="let row; columns: displayedColumns"
-      (click)="selectedId === row.id ? (selectedId = undefined) : (selectedId = row.id)"
-    ></tr>
+    <tr sbb-row *sbbRowDef="let row; columns: displayedColumns" (click)="rowClicked(row)"></tr>
     <tr
       sbb-row
       *sbbRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
-      [style.display]="row.id === selectedId ? 'table-row' : 'none'"
+      [style.display]="row.id === selectedId() ? 'table-row' : 'none'"
     ></tr>
   </table>
 </sbb-table-wrapper>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
 
 /**
@@ -9,12 +9,19 @@ import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table
   selector: 'sbb-grouped-rows-and-columns-table-example',
   templateUrl: 'grouped-rows-and-columns-table-example.html',
   imports: [SbbTableModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GroupedRowsAndColumnsTableExample {
-  displayedColumns: string[] = ['deviceName', 'orderDate', 'arrivalDate', 'lifecycleEnd', 'status'];
-  dataSource = new SbbTableDataSource(TABLE_EXAMPLE_DATA_GROUPED_ROWS);
+  protected displayedColumns: string[] = [
+    'deviceName',
+    'orderDate',
+    'arrivalDate',
+    'lifecycleEnd',
+    'status',
+  ];
+  protected dataSource = new SbbTableDataSource(TABLE_EXAMPLE_DATA_GROUPED_ROWS);
 
-  isGroup(_index: number, item: { isGroupBy: boolean }): boolean {
+  protected isGroup(_index: number, item: { isGroupBy: boolean }): boolean {
     return item.isGroupBy;
   }
 }

@@ -1,10 +1,9 @@
-import { Component, effect, viewChild } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, effect, viewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbPaginator, SbbPaginatorModule } from '@sbb-esta/lyne-angular/paginator';
 import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
-import { switchMap } from 'rxjs';
 
 interface VehicleExampleItem {
   position: number;
@@ -21,31 +20,31 @@ interface VehicleExampleItem {
 @Component({
   selector: 'sbb-paginator-table-example',
   templateUrl: 'paginator-table-example.html',
-  imports: [SbbTableModule, SbbPaginatorModule, SbbFormFieldModule, FormsModule],
+  styleUrl: 'paginator-table-example.scss',
+  imports: [
+    SbbTableModule,
+    SbbPaginatorModule,
+    SbbFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginatorTableExample {
-  readonly paginator = viewChild.required(SbbPaginator);
-  dataSource = new SbbTableDataSource<VehicleExampleItem>(VEHICLE_EXAMPLE_DATA);
-  displayedColumns: string[] = ['position', 'name', 'power', 'description'];
-  pageSize: number = 5;
+  private readonly paginator = viewChild.required(SbbPaginator);
+  protected dataSource = new SbbTableDataSource<VehicleExampleItem>(VEHICLE_EXAMPLE_DATA);
+  protected displayedColumns: string[] = ['position', 'name', 'power', 'description'];
+  protected pageSize = new FormControl(5);
+  protected rowCount = new FormControl(20);
 
   constructor() {
     effect(() => {
       this.dataSource.paginator = this.paginator();
     });
-    toObservable(this.paginator)
-      .pipe(
-        switchMap((paginator) => paginator.page),
-        takeUntilDestroyed(),
-      )
-      .subscribe((pageEvent) => console.log(pageEvent));
-  }
 
-  rowCount(rowCount: number) {
-    this.dataSource = new SbbTableDataSource<VehicleExampleItem>(
-      VEHICLE_EXAMPLE_DATA.slice(0, rowCount),
-    );
-    this.dataSource.paginator = this.paginator();
+    this.rowCount.valueChanges.pipe(takeUntilDestroyed()).subscribe((rowCount) => {
+      this.dataSource.data = VEHICLE_EXAMPLE_DATA.slice(0, rowCount ?? 0);
+    });
   }
 }
 

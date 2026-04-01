@@ -1,6 +1,13 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { HttpClient } from '@angular/common/http';
-import { Component, effect, inject, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { SbbLoadingIndicatorModule } from '@sbb-esta/lyne-angular/loading-indicator';
 import type { SbbSortState } from '@sbb-esta/lyne-angular/table';
 import { SbbSort, SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
@@ -14,9 +21,10 @@ import { SbbSort, SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angu
   styleUrls: ['sticky-table-example.scss'],
   templateUrl: 'sticky-table-example.html',
   imports: [SbbTableModule, SbbLoadingIndicatorModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StickyTableExample {
-  displayedColumns: string[] = [
+  protected displayedColumns: string[] = [
     'line',
     'from',
     'to',
@@ -27,10 +35,10 @@ export class StickyTableExample {
     'timestamp',
     'recordId',
   ];
-  dataSource = new SbbTableDataSource<TableExampleData>([]);
-  loading: boolean = true;
+  protected dataSource = new SbbTableDataSource<TableExampleData>([]);
+  protected loading = signal(true);
 
-  readonly sort = viewChild(SbbSort);
+  private readonly sort = viewChild(SbbSort);
 
   private _liveAnnouncer = inject(LiveAnnouncer);
 
@@ -38,6 +46,7 @@ export class StickyTableExample {
     effect(() => {
       this.dataSource.sort = this.sort() ?? null;
     });
+
     inject(HttpClient)
       .get<{
         records: DataSetRecord[];
@@ -60,7 +69,7 @@ export class StickyTableExample {
             }) satisfies TableExampleData,
         );
 
-        this.loading = false;
+        this.loading.set(false);
       });
   }
 

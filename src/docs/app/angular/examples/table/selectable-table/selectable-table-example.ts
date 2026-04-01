@@ -1,6 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
 
@@ -20,9 +20,10 @@ interface VehicleExampleItem {
   selector: 'sbb-selectable-table-example',
   templateUrl: 'selectable-table-example.html',
   imports: [SbbTableModule, SbbCheckboxModule, JsonPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectableTableExample {
-  columns = [
+  protected columns = [
     { title: 'select' },
     { title: 'position' },
     { title: 'name', subtitle: 'technical' },
@@ -30,22 +31,21 @@ export class SelectableTableExample {
     { title: 'description', subtitle: 'common name' },
     { title: 'category' },
   ];
-  dataSource = new SbbTableDataSource<VehicleExampleItem>(VEHICLE_EXAMPLE_DATA.slice(0, 7));
-  selection = new SelectionModel<VehicleExampleItem>(true, []);
-
-  get displayedColumns(): string[] {
-    return this.columns.map((column) => column.title);
-  }
+  protected dataSource = new SbbTableDataSource<VehicleExampleItem>(
+    VEHICLE_EXAMPLE_DATA.slice(0, 7),
+  );
+  protected selection = new SelectionModel<VehicleExampleItem>(true, []);
+  protected displayedColumns = this.columns.map((column) => column.title);
 
   /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
+  protected isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.filteredData.length;
     return numSelected === numRows;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
-  parentToggle() {
+  protected parentToggle() {
     if (this.isAllSelected()) {
       this.selection.clear();
     } else {
@@ -54,7 +54,7 @@ export class SelectableTableExample {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: VehicleExampleItem): string {
+  protected checkboxLabel(row?: VehicleExampleItem): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }

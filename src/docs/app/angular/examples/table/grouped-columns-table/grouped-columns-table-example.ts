@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
 
 /**
@@ -9,16 +9,17 @@ import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table
   selector: 'sbb-grouped-columns-table-example',
   templateUrl: 'grouped-columns-table-example.html',
   imports: [SbbTableModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GroupedColumnsTableExample {
-  displayedColumns: string[] = [
+  protected displayedColumns: string[] = [
     'leftAligned',
     'groupedOne',
     'groupedTwo',
     'groupedThree',
     'centerAligned',
   ];
-  dataSource = new SbbTableDataSource(TABLE_EXAMPLE_DATA_GROUPED_COLS);
+  protected dataSource = new SbbTableDataSource(TABLE_EXAMPLE_DATA_GROUPED_COLS);
 }
 
 interface TableExampleDataGroupedCols {
