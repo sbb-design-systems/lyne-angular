@@ -49,7 +49,7 @@ describe(`sbb-dialog-close`, () => {
       await fixture.whenRenderingDone();
       fixture.detectChanges();
 
-      let resultValue: SbbDialogCloseEvent<boolean>;
+      let resultValue: SbbDialogCloseEvent<boolean | null>;
       ref.afterClosed.subscribe((result) => (resultValue = result));
 
       const confirmButton = overlayContainerElement.querySelector(
@@ -74,7 +74,7 @@ describe(`sbb-dialog-close`, () => {
       ref.componentInstance!.resultValue.set('updated-result');
       await fixture.whenStable();
 
-      let resultValue: SbbDialogCloseEvent<string>;
+      let resultValue: SbbDialogCloseEvent<string | null>;
       ref.afterClosed.subscribe((result) => (resultValue = result));
 
       const dynamicButton = overlayContainerElement.querySelector(
@@ -94,7 +94,7 @@ describe(`sbb-dialog-close`, () => {
       await fixture.whenRenderingDone();
       fixture.detectChanges();
 
-      let resultValue: SbbDialogCloseEvent<string>;
+      let resultValue: SbbDialogCloseEvent<string | null>;
       ref.afterClosed.subscribe((result) => (resultValue = result));
 
       const cancelButton = overlayContainerElement.querySelector(

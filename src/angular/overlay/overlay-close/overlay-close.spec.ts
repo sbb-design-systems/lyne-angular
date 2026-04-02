@@ -76,7 +76,7 @@ describe(`sbb-overlay-close`, () => {
       ref.componentInstance!.resultValue.set('updated-result');
       fixture.detectChanges();
 
-      let resultValue: SbbOverlayCloseEvent<string>;
+      let resultValue: SbbOverlayCloseEvent<string | null>;
       ref.afterClosed.subscribe((result) => (resultValue = result));
 
       const dynamicButton = overlayContainerElement.querySelector(
@@ -98,7 +98,7 @@ describe(`sbb-overlay-close`, () => {
       await fixture.whenRenderingDone();
       fixture.detectChanges();
 
-      let resultValue: SbbOverlayCloseEvent<string>;
+      let resultValue: SbbOverlayCloseEvent<string | null>;
       ref.afterClosed.subscribe((result) => (resultValue = result));
 
       const cancelButton = overlayContainerElement.querySelector(

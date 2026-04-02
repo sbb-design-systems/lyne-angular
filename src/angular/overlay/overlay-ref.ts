@@ -5,5 +5,5 @@ import type { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.js';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class SbbOverlayRef<T = unknown, R = any> extends SbbOverlayBaseRef<
   T,
-  SbbOverlayCloseEvent<R>
+  SbbOverlayCloseEvent<R | null>
 > {}
