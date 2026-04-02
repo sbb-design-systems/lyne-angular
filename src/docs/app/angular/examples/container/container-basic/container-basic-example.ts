@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
+import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbContainerModule } from '@sbb-esta/lyne-angular/container';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
@@ -9,7 +9,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 @Component({
   selector: 'sbb-container-basic-example',
   templateUrl: 'container-basic-example.html',
-  imports: [SbbContainerModule, SbbTitleModule, SbbSecondaryButton],
+  imports: [SbbContainerModule, SbbTitleModule, SbbButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContainerBasicExample {}

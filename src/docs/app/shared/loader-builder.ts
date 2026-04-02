@@ -24,6 +24,11 @@ export class LoaderBuilder {
     return this;
   }
 
+  fromGuide() {
+    this.#url = `docs-content/overviews/${this.#packageName}/guide-${this.#id}.md`;
+    return this;
+  }
+
   fromModuleDocumentation() {
     const modulePath = this.#module ? `${this.#module}/` : '';
     this.#url = `docs-content/overviews/${this.#packageName}/${modulePath}${this.#id}/readme.md`;

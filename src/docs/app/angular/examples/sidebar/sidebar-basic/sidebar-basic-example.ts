@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
+import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
 import { SbbLinkListModule } from '@sbb-esta/lyne-angular/link-list';
 import { SbbSidebarModule } from '@sbb-esta/lyne-angular/sidebar';
 
@@ -10,7 +10,7 @@ import { SbbSidebarModule } from '@sbb-esta/lyne-angular/sidebar';
   selector: 'sbb-sidebar-basic-example',
   templateUrl: 'sidebar-basic-example.html',
   styleUrl: 'sidebar-basic-example.scss',
-  imports: [SbbSidebarModule, SbbLinkListModule, SbbBlockLink],
+  imports: [SbbSidebarModule, SbbLinkListModule, SbbLinkModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarBasicExample {}

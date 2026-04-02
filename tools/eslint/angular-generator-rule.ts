@@ -44,8 +44,6 @@ const CAMEL_CASE_EVENTS_MAP: Record<string, string> = {
   toggleexpanded: 'toggleExpanded',
 };
 
-const modulesWithoutRootExport = new Set(['button', 'link']);
-
 // TODO: migrate with next major release.
 const modulesWithLegacyExports = new Set([
   'container',
@@ -138,16 +136,16 @@ const generateStructure = (pkg: Package, projectPath: string) => {
         mkdirSync(directoryPath, { recursive: true });
       }
 
-      if (!existsSync(commonIndexPath) && !modulesWithoutRootExport.has(moduleName)) {
+      if (!existsSync(commonIndexPath)) {
         writeFileSync(commonIndexPath, '', 'utf8');
       }
 
-      if (!existsSync(ngPackagePath) && !modulesWithoutRootExport.has(moduleName)) {
+      if (!existsSync(ngPackagePath)) {
         const ngPackageConfig = `{\n  "lib": {\n    "entryFile": "index.ts"\n  }\n}\n`;
         writeFileSync(ngPackagePath, ngPackageConfig, 'utf8');
       }
 
-      if (!existsSync(angularModulePath) && !modulesWithoutRootExport.has(moduleName)) {
+      if (!existsSync(angularModulePath)) {
         writeFileSync(
           angularModulePath,
           `import { NgModule } from '@angular/core';
@@ -930,7 +928,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           'elements',
         );
         // Use the top-level module path (one level after 'elements'/'elements-experimental'),
-        // unless the top-level folder has no index.ts (e.g. button, link) – then keep two levels.
+        // unless the top-level folder has no index.ts – then keep two levels.
         const pathParts = fullElementPath.split('/');
         const srcPackage = pathParts[0].replace('elements', 'src/angular');
         const topLevelSrcPath = join(root, srcPackage, pathParts[1], 'index.ts');

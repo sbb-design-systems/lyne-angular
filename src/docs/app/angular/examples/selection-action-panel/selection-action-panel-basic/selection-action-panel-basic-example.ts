@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
+import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbRadioButtonPanelModule } from '@sbb-esta/lyne-angular/radio-button-panel';
 import { SbbSelectionActionPanelModule } from '@sbb-esta/lyne-angular/selection-action-panel';
 
@@ -9,7 +9,7 @@ import { SbbSelectionActionPanelModule } from '@sbb-esta/lyne-angular/selection-
 @Component({
   selector: 'sbb-selection-action-panel-basic-example',
   templateUrl: 'selection-action-panel-basic-example.html',
-  imports: [SbbSelectionActionPanelModule, SbbRadioButtonPanelModule, SbbSecondaryButton],
+  imports: [SbbSelectionActionPanelModule, SbbRadioButtonPanelModule, SbbButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectionActionPanelBasicExample {}

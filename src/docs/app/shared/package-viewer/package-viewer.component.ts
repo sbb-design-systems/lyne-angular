@@ -6,10 +6,10 @@ import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@ang
 import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbHeaderScrollOrigin } from '@sbb-esta/lyne-angular/header';
-import { SbbIcon } from '@sbb-esta/lyne-angular/icon';
-import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
+import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
+import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
 import { SbbSidebar, SbbSidebarModule } from '@sbb-esta/lyne-angular/sidebar';
-import { SbbTitle } from '@sbb-esta/lyne-angular/title';
+import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 import { finalize, map, startWith } from 'rxjs/operators';
 
 import selectorMap from '../../../assets/selector-map.json';
@@ -27,12 +27,12 @@ import { SidebarToggle } from './sidebar-toggle';
     RouterLinkActive,
     RouterOutlet,
     SbbAccordionModule,
-    SbbBlockLink,
+    SbbLinkModule,
     SbbFormFieldModule,
     SbbHeaderScrollOrigin,
-    SbbIcon,
+    SbbIconModule,
     SbbSidebarModule,
-    SbbTitle,
+    SbbTitleModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

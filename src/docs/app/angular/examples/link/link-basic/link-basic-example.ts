@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SbbBlockLink } from '@sbb-esta/lyne-angular/link/block-link';
-import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
+import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
 
 /**
  * @title Basic link
@@ -8,7 +7,7 @@ import { SbbLink } from '@sbb-esta/lyne-angular/link/link';
 @Component({
   selector: 'sbb-link-basic-example',
   templateUrl: 'link-basic-example.html',
-  imports: [SbbLink, SbbBlockLink],
+  imports: [SbbLinkModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LinkBasicExample {}
