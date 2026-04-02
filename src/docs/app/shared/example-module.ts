@@ -28,7 +28,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'file-selector': ['file-selector-basic'],
   'flip-card': ['flip-card-basic'],
   footer: ['footer-basic', 'footer-clock'],
-  'form-field': ['form-field-basic'],
+  'form-field': ['form-field-basic', 'form-field-hint', 'form-field-text-counter'],
   header: ['header-basic'],
   icon: ['icon-basic'],
   'icon-sidebar': [{ id: 'icon-sidebar-basic', hasStyle: true }],
@@ -155,6 +155,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'footer-clock':
       return import('../angular/examples/footer');
     case 'form-field-basic':
+      return import('../angular/examples/form-field');
+    case 'form-field-hint':
+      return import('../angular/examples/form-field');
+    case 'form-field-text-counter':
       return import('../angular/examples/form-field');
     case 'grouped-columns-table':
       return import('../angular/examples/table');
