@@ -26,17 +26,16 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
     sections: [
       {
         name: 'Introduction',
+        entries: [{ label: 'Getting started', link: './introduction/getting-started' }],
+      },
+      {
+        name: 'Guides',
         entries: [
-          { label: 'Getting started', link: './introduction/getting-started' },
-          // TODO: create if needed
-          // { label: 'Typography', link: './introduction/typography' },
+          { label: 'Theming', link: './guides/theming' },
+          { label: 'Layout', link: './guides/layout' },
+          { label: 'Datetime', link: './guides/datetime' },
         ],
       },
-      // TODO: create if needed
-      // {
-      //   name: 'Guides',
-      //   entries: [{ label: 'TBD', link: './' }],
-      // },
       {
         name: 'Components',
         entries: [

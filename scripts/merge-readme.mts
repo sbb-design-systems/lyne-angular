@@ -48,6 +48,56 @@ for (const dir of readdirSync(dirname(cachePath), { withFileTypes: true })
   rmSync(dir, { force: true });
 }
 
+const guidesIncludeList = ['datetime', 'layout', 'theming'];
+
+const guidesMap = globSync(join(cachePath, 'src/storybook/guides/**/*.mdx'))
+  .filter((path) => guidesIncludeList.some((guide) => path.includes(`${guide}.mdx`)))
+  .reduce(
+    (map, path) => map.set(relative(cachePath, path), readFileSync(path, 'utf-8')),
+    new Map<string, string>(),
+  );
+
+for (const [path, content] of Array.from(guidesMap)) {
+  await writeGuides(path, content);
+}
+
+async function writeGuides(path: string, newContent: string) {
+  const localPath = join(
+    projectRoot,
+    path.replace('src/storybook/guides/', 'src/angular/guide-').replace('mdx', 'md'),
+  );
+
+  newContent = newContent
+    // Replace Meta tags
+    .replace(/<Meta\b[^>]*\/>/, '')
+
+    // Replace imports
+    .replace(/^import\s+(?:[\s\w{},*]+?\s+from\s+)?['"][^'"]+['"];?/gm, '')
+
+    // Convert inline stories
+    .replace(/(<InlineStory\b[^>]*>)([\s\S]*?)(<\/InlineStory>)/gi, (_, _open, content, _close) => {
+      // Remove completely empty lines as otherwise they are interpreted as html paragraph by markdown.
+      const cleaned = content
+        .split(/\r?\n/) // Split into lines
+        .filter((line) => line.trim()) // Keep lines with content
+        .join('\n') // Join back with line breaks
+
+        // Remove tsx style brackets
+        .replaceAll('{`', '')
+        .replaceAll('`}', '')
+
+        // Remove all whitespaces within style tags to later interpret it correctly
+        .replace(/(<style\b[^>]*>)\s*([\s\S]*?)\s*(<\/style>)/gi, '$1$2$3');
+      return '<div class="sbb-inline-story">' + '\n' + cleaned + '\n' + '</div>';
+    });
+
+  newContent = convertDocsLinks(newContent);
+  newContent = convertHtmlExamples(newContent);
+
+  const options = await resolveConfig(localPath);
+  writeFileSync(localPath, await format(newContent, { ...options, filepath: localPath }), 'utf8');
+}
+
 const readmeMap = globSync(join(cachePath, '**/readme.md'))
   .filter((path) => path.includes('src/elements/') || path.includes('src/elements-experimental/'))
   .reduce(
