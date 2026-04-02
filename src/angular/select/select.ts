@@ -308,4 +308,15 @@ export class SbbSelect<T = string> extends SbbControlValueAccessorMixin(class {}
   public get options(): SbbOptionElement<T>[] {
     return this.#element.nativeElement.options;
   }
+
+  /**
+   * Function used to compare option values.
+   */
+  @Input()
+  public set compareWith(value: (v1: T | null, v2: T | null) => boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.compareWith = value));
+  }
+  public get compareWith(): (v1: T | null, v2: T | null) => boolean {
+    return this.#element.nativeElement.compareWith;
+  }
 }
