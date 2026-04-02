@@ -28,7 +28,11 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'file-selector': ['file-selector-basic'],
   'flip-card': ['flip-card-basic'],
   footer: ['footer-basic', 'footer-clock'],
-  'form-field': ['form-field-basic', 'form-field-hint', 'form-field-text-counter'],
+  'form-field': [
+    { id: 'form-field-basic', hasStyle: true },
+    'form-field-hint',
+    'form-field-text-counter',
+  ],
   header: ['header-basic'],
   icon: ['icon-basic'],
   'icon-sidebar': [{ id: 'icon-sidebar-basic', hasStyle: true }],

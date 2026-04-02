@@ -1,5 +1,44 @@
-<sbb-form-field>
+<sbb-form-field
+  [borderless]="flags.controls.formField.controls.borderless.value"
+  [floatingLabel]="flags.controls.formField.controls.floatingLabel.value"
+  [hiddenLabel]="flags.controls.formField.controls.hiddenLabel.value"
+  [size]="flags.controls.formField.controls.size.value!"
+  [width]="flags.controls.formField.controls.width.value!"
+>
   <label>Example</label>
-  <input required />
+  <input
+    required
+    [disabled]="flags.controls.input.controls.disabled.value"
+    [readOnly]="flags.controls.input.controls.readonly.value || null"
+  />
   <sbb-error>This field is required!</sbb-error>
 </sbb-form-field>
+
+<div class="controls" [formGroup]="flags">
+  <div>
+    <sbb-title class="group-label" level="6">Form field</sbb-title>
+    <sbb-checkbox-group orientation="vertical" formGroupName="formField">
+      <sbb-checkbox formControlName="borderless">Borderless</sbb-checkbox>
+      <sbb-checkbox formControlName="floatingLabel">Floating label</sbb-checkbox>
+      <sbb-checkbox formControlName="hiddenLabel">Hidden label</sbb-checkbox>
+    </sbb-checkbox-group>
+    Size
+    <sbb-radio-button-group [formControl]="flags.controls.formField.controls.size">
+      <sbb-radio-button value="s">S</sbb-radio-button>
+      <sbb-radio-button value="m">M</sbb-radio-button>
+      <sbb-radio-button value="l">L</sbb-radio-button>
+    </sbb-radio-button-group>
+    Width
+    <sbb-radio-button-group [formControl]="flags.controls.formField.controls.width">
+      <sbb-radio-button value="default">Default</sbb-radio-button>
+      <sbb-radio-button value="collapse">Collapse</sbb-radio-button>
+    </sbb-radio-button-group>
+  </div>
+  <div>
+    <sbb-title class="group-label" level="6">Input</sbb-title>
+    <sbb-checkbox-group orientation="vertical" formGroupName="input">
+      <sbb-checkbox formControlName="disabled">Disabled</sbb-checkbox>
+      <sbb-checkbox formControlName="readonly">Readonly</sbb-checkbox>
+    </sbb-checkbox-group>
+  </div>
+</div>
