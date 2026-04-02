@@ -245,7 +245,7 @@ function convertDocsLinks(content: string): string {
           return `(/${pkg}/components/${moduleId.slice(prefix.length + 1)}/overview${anchor})`;
         }
       }
-      if (moduleId.startsWith('styles-')) {
+      if (moduleId.startsWith('guides-')) {
         return `(https://lyne-elements.app.sbb.ch/?path=/docs/${moduleId}--docs${anchor})`;
       }
       return original;
