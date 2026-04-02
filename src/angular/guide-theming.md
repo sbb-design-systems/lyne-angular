@@ -296,7 +296,7 @@ For available Sass mixins, check [Sass Mixins](https://github.com/sbb-design-sys
 As a base rule, styles are included in components. However, there are a few exceptions
 where we provide CSS classes to consumers:
 
-- [Layout styles](https://lyne-elements.app.sbb.ch/?path=/docs/guides-layout--docs)
+- [Layout styles](/angular/guides/layout)
 - [List styles](#lists)
 - [Scrollbar styles](#scrollbar)
 - [Text styles](#text-styles)

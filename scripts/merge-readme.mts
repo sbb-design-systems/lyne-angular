@@ -295,7 +295,11 @@ function convertDocsLinks(content: string): string {
           return `(/${pkg}/components/${moduleId.slice(prefix.length + 1)}/overview${anchor})`;
         }
       }
-      if (moduleId.startsWith('guides-')) {
+
+      const maybeGuideName = moduleId.replace('guides-', '');
+      if (moduleId.startsWith('guides-') && guidesIncludeList.includes(maybeGuideName)) {
+        return `(/angular/guides/${maybeGuideName})`;
+      } else if (moduleId.startsWith('guides-')) {
         return `(https://lyne-elements.app.sbb.ch/?path=/docs/${moduleId}--docs${anchor})`;
       }
       return original;
