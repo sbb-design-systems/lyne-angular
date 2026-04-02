@@ -5,5 +5,5 @@ import type { SbbDialogCloseEvent } from '@sbb-esta/lyne-elements/dialog.js';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class SbbDialogRef<T = unknown, R = any> extends SbbOverlayBaseRef<
   T,
-  SbbDialogCloseEvent<R>
+  SbbDialogCloseEvent<R | null>
 > {}
