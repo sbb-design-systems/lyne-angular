@@ -1,1 +1,4 @@
 export * from './mini-button';
+
+console.warn(`The entrypoint '@sbb-esta/angular/button/mini-button' has been deprecated.
+Use '@sbb-esta/angular/button' instead.`);

@@ -1,10 +1,9 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbAccentButtonElement } from '@sbb-esta/lyne-elements/button/accent-button.js';
-import type { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
+import type { SbbButtonSize, SbbAccentButtonElement } from '@sbb-esta/lyne-elements/button.js';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 
-import '@sbb-esta/lyne-elements/button/accent-button.js';
+import '@sbb-esta/lyne-elements/button.js';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'accent' variant.
