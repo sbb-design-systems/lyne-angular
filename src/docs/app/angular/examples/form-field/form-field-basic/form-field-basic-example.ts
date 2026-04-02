@@ -24,7 +24,7 @@ import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormFieldBasicExample {
-  flags = new FormGroup({
+  protected controls = new FormGroup({
     formField: new FormGroup({
       borderless: new FormControl(false, { nonNullable: true }),
       floatingLabel: new FormControl(false, { nonNullable: true }),

@@ -3,7 +3,7 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
  * @title Form-field with textarea and text counter
- * @order 3
+ * @order 5
  */
 @Component({
   selector: 'sbb-form-field-text-counter-example',

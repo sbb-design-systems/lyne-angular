@@ -3,7 +3,7 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
  * @title Form-field with hint
- * @order 2
+ * @order 4
  */
 @Component({
   selector: 'sbb-form-field-hint-example',
