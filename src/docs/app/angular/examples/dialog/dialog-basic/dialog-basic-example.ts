@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
-import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
+import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbDialogModule } from '@sbb-esta/lyne-angular/dialog';
 
 /**
@@ -9,7 +8,7 @@ import { SbbDialogModule } from '@sbb-esta/lyne-angular/dialog';
 @Component({
   selector: 'sbb-dialog-basic-example',
   templateUrl: 'dialog-basic-example.html',
-  imports: [SbbDialogModule, SbbSecondaryButton, SbbButton],
+  imports: [SbbDialogModule, SbbButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogBasicExample {}

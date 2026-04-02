@@ -10,9 +10,9 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import type { SafeHtml } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { SbbSecondaryButton } from '@sbb-esta/lyne-angular/button/secondary-button';
+import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbTabsModule } from '@sbb-esta/lyne-angular/tabs';
-import { SbbTitle } from '@sbb-esta/lyne-angular/title';
+import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
 import { marked } from 'marked';
 import { combineLatest, filter, from } from 'rxjs';
@@ -63,9 +63,9 @@ export class ExampleOutletComponent {
     ExampleOutletComponent,
     SbbTabsModule,
     SbbTooltipModule,
-    SbbSecondaryButton,
+    SbbButtonModule,
     StackBlitzButton,
-    SbbTitle,
+    SbbTitleModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SbbMiniButton } from '@sbb-esta/lyne-angular/button/mini-button';
+import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbPopoverModule } from '@sbb-esta/lyne-angular/popover';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
@@ -9,7 +9,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 @Component({
   selector: 'sbb-popover-basic-example',
   templateUrl: 'popover-basic-example.html',
-  imports: [SbbPopoverModule, SbbMiniButton, SbbTitleModule],
+  imports: [SbbPopoverModule, SbbButtonModule, SbbTitleModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PopoverBasicExample {}
