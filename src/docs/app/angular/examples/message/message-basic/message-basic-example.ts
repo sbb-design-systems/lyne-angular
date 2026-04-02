@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
+import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbImageModule } from '@sbb-esta/lyne-angular/image';
 import { SbbMessageModule } from '@sbb-esta/lyne-angular/message';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
@@ -10,7 +10,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 @Component({
   selector: 'sbb-message-basic-example',
   templateUrl: 'message-basic-example.html',
-  imports: [SbbMessageModule, SbbImageModule, SbbTitleModule, SbbButton],
+  imports: [SbbMessageModule, SbbImageModule, SbbTitleModule, SbbButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessageBasicExample {}

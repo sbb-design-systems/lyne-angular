@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SbbIconSidebarModule } from '@sbb-esta/lyne-angular/icon-sidebar';
-import { SbbTooltipDirective } from '@sbb-esta/lyne-angular/tooltip';
+import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
 
 /**
  * @title Basic icon-sidebar
@@ -9,7 +9,7 @@ import { SbbTooltipDirective } from '@sbb-esta/lyne-angular/tooltip';
   selector: 'sbb-icon-sidebar-basic-example',
   templateUrl: 'icon-sidebar-basic-example.html',
   styleUrl: 'icon-sidebar-basic-example.scss',
-  imports: [SbbIconSidebarModule, SbbTooltipDirective],
+  imports: [SbbIconSidebarModule, SbbTooltipModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconSidebarBasicExample {}

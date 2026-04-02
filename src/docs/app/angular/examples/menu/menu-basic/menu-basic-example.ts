@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SbbBadge } from '@sbb-esta/lyne-angular/badge';
-import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
+import { SbbBadgeModule } from '@sbb-esta/lyne-angular/badge';
+import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbDividerModule } from '@sbb-esta/lyne-angular/divider';
 import { SbbMenuModule } from '@sbb-esta/lyne-angular/menu';
 
@@ -10,7 +10,7 @@ import { SbbMenuModule } from '@sbb-esta/lyne-angular/menu';
 @Component({
   selector: 'sbb-menu-basic-example',
   templateUrl: 'menu-basic-example.html',
-  imports: [SbbMenuModule, SbbButton, SbbDividerModule, SbbBadge],
+  imports: [SbbMenuModule, SbbButtonModule, SbbDividerModule, SbbBadgeModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuBasicExample {}

@@ -3,13 +3,13 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Meta } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { SbbDivider } from '@sbb-esta/lyne-angular/divider';
+import { SbbDividerModule } from '@sbb-esta/lyne-angular/divider';
 import { SbbHeaderModule } from '@sbb-esta/lyne-angular/header';
 import { SbbIconSidebarModule } from '@sbb-esta/lyne-angular/icon-sidebar';
-import { SbbLogo } from '@sbb-esta/lyne-angular/logo';
+import { SbbLogoModule } from '@sbb-esta/lyne-angular/logo';
 import { SbbMenuModule } from '@sbb-esta/lyne-angular/menu';
-import { SbbSignet } from '@sbb-esta/lyne-angular/signet';
-import { SbbTooltipDirective } from '@sbb-esta/lyne-angular/tooltip';
+import { SbbSignetModule } from '@sbb-esta/lyne-angular/signet';
+import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
 
 import { LightDarkController } from './light-dark-controller';
 import { PACKAGES } from './shared/meta';
@@ -24,13 +24,13 @@ import { ThemeController } from './theme-controller';
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
-    SbbDivider,
+    SbbDividerModule,
     SbbHeaderModule,
     SbbIconSidebarModule,
-    SbbLogo,
+    SbbLogoModule,
     SbbMenuModule,
-    SbbSignet,
-    SbbTooltipDirective,
+    SbbSignetModule,
+    SbbTooltipModule,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',

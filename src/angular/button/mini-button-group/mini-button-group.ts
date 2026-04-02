@@ -3,9 +3,9 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type {
   SbbMiniButtonGroupElement,
   SbbMiniButtonGroupSize,
-} from '@sbb-esta/lyne-elements/button/mini-button-group.js';
+} from '@sbb-esta/lyne-elements/button.js';
 
-import '@sbb-esta/lyne-elements/button/mini-button-group.js';
+import '@sbb-esta/lyne-elements/button.js';
 
 /**
  * Display a list of `sbb-mini-button` elements in a horizontal container,

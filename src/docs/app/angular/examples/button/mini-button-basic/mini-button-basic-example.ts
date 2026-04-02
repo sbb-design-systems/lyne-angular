@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SbbMiniButton } from '@sbb-esta/lyne-angular/button/mini-button';
+import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 
 /**
  * @title Basic sbb-mini-button
@@ -7,7 +7,7 @@ import { SbbMiniButton } from '@sbb-esta/lyne-angular/button/mini-button';
 @Component({
   selector: 'sbb-button-basic-example',
   templateUrl: 'mini-button-basic-example.html',
-  imports: [SbbMiniButton],
+  imports: [SbbButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MiniButtonBasicExample {}

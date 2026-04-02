@@ -2,10 +2,9 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import type { SbbBlockLinkButtonElement } from '@sbb-esta/lyne-elements/link/block-link-button.js';
-import type { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
+import type { SbbBlockLinkButtonElement, SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
 
-import '@sbb-esta/lyne-elements/link/block-link-button.js';
+import '@sbb-esta/lyne-elements/link.js';
 
 /**
  * It displays a link enhanced with the SBB Design, which will behave as a button.

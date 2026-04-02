@@ -19,6 +19,7 @@ code {
   background-color: var(--sbb-background-color-4);
   padding: var(--sbb-spacing-fixed-1x);
   border-radius: var(--sbb-border-radius-2x);
+  font-size: smaller;
 }
 
 .hljs {
@@ -26,6 +27,7 @@ code {
   letter-spacing: var(--sbb-typo-letter-spacing-text);
   background-color: var(--sbb-background-color-4);
   color-scheme: light;
+  white-space: break-spaces;
 }
 
 .docs-link {
@@ -92,4 +94,12 @@ code {
 
 .docs-heading-5 {
   padding-inline-start: var(--sbb-spacing-fixed-12x);
+}
+
+.sbb-inline-story {
+  border: var(--sbb-border-width-1x) solid
+    light-dark(var(--sbb-color-aluminium), var(--sbb-color-anthracite));
+  padding: var(--sbb-spacing-fixed-6x);
+  border-radius: var(--sbb-border-radius-2x);
+  margin-block: var(--sbb-spacing-fixed-6x);
 }

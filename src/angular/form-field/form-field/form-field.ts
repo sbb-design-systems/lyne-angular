@@ -30,6 +30,7 @@ import '@sbb-esta/lyne-elements/form-field.js';
  * @slot prefix - Use this slot to render an icon on the left side of the input.
  * @slot suffix - Use this slot to render an icon on the right side of the input.
  * @slot error - Use this slot to render an error.
+ * @slot hint - Use this slot to render an `<sbb-hint>` or an `<sbb-form-field-text-counter>` element.
  * @cssprop [--sbb-form-field-outline-offset=undefined] - To override the focus outline offset,
  * @cssprop [--sbb-form-field-focus-underline-z-index=undefined] - To override the z-index of the focus underline effect,
  */
@@ -68,7 +69,7 @@ export class SbbFormField {
   }
 
   /**
-   * Whether to reserve space for an error message.
+   * Whether to reserve space for an error message, hint or text-counter.
    * `none` does not reserve any space.
    * `reserve` does reserve one row for an error message.
    */

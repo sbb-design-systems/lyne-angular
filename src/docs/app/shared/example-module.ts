@@ -28,7 +28,14 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'file-selector': ['file-selector-basic'],
   'flip-card': ['flip-card-basic'],
   footer: ['footer-basic', 'footer-clock'],
-  'form-field': ['form-field-basic'],
+  'form-field': [
+    { id: 'form-field-basic', hasStyle: true },
+    'form-field-native-select',
+    'form-field-clear',
+    'form-field-hint',
+    'form-field-text-counter',
+    'form-field-prefix-suffix',
+  ],
   header: ['header-basic'],
   icon: ['icon-basic'],
   'icon-sidebar': [{ id: 'icon-sidebar-basic', hasStyle: true }],
@@ -155,6 +162,16 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'footer-clock':
       return import('../angular/examples/footer');
     case 'form-field-basic':
+      return import('../angular/examples/form-field');
+    case 'form-field-clear':
+      return import('../angular/examples/form-field');
+    case 'form-field-hint':
+      return import('../angular/examples/form-field');
+    case 'form-field-native-select':
+      return import('../angular/examples/form-field');
+    case 'form-field-prefix-suffix':
+      return import('../angular/examples/form-field');
+    case 'form-field-text-counter':
       return import('../angular/examples/form-field');
     case 'grouped-columns-table':
       return import('../angular/examples/table');
