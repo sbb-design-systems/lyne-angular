@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
@@ -24,17 +24,19 @@ import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormFieldBasicExample {
-  protected controls = new FormGroup({
-    formField: new FormGroup({
-      borderless: new FormControl(false, { nonNullable: true }),
-      floatingLabel: new FormControl(false, { nonNullable: true }),
-      hiddenLabel: new FormControl(false, { nonNullable: true }),
-      size: new FormControl<SbbFormFieldElement['size'] | null>(null),
-      width: new FormControl<SbbFormFieldElement['width'] | null>(null),
+  private formBuilder = inject(FormBuilder);
+
+  protected controls = this.formBuilder.group({
+    formField: this.formBuilder.group({
+      borderless: this.formBuilder.control(false),
+      floatingLabel: this.formBuilder.control(false),
+      hiddenLabel: this.formBuilder.control(false),
+      size: this.formBuilder.control<SbbFormFieldElement['size'] | null>(null),
+      width: this.formBuilder.control<SbbFormFieldElement['width'] | null>(null),
     }),
-    input: new FormGroup({
-      disabled: new FormControl(false, { nonNullable: true }),
-      readonly: new FormControl(false, { nonNullable: true }),
+    input: this.formBuilder.group({
+      disabled: this.formBuilder.control(false),
+      readonly: this.formBuilder.control(false),
     }),
   });
 }
