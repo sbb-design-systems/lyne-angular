@@ -928,7 +928,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           'elements',
         );
         // Use the top-level module path (one level after 'elements'/'elements-experimental'),
-        // unless the top-level folder has no index.ts (e.g. button, link) – then keep two levels.
+        // unless the top-level folder has no index.ts – then keep two levels.
         const pathParts = fullElementPath.split('/');
         const srcPackage = pathParts[0].replace('elements', 'src/angular');
         const topLevelSrcPath = join(root, srcPackage, pathParts[1], 'index.ts');
