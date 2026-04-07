@@ -2,6 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@a
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option.js';
+import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
 import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/option.js';
@@ -50,7 +51,27 @@ export class SbbOption<T = string> {
    */
   @Input()
   public set value(value: T) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
+    this.#ngZone.runOutsideAngular(() => {
+      this.#element.nativeElement.value = value;
+
+      // Re-apply the current select value in case Angular writes the form control value
+      // before it finishes binding the option values.
+      queueMicrotask(() => {
+        const select = this.#element.nativeElement.closest<SbbSelectElement<T>>('sbb-select');
+        const selectValue = select?.value;
+
+        if (
+          !select ||
+          selectValue === null ||
+          selectValue === undefined ||
+          (Array.isArray(selectValue) && selectValue.length === 0)
+        ) {
+          return;
+        }
+
+        select.value = selectValue;
+      });
+    });
   }
   public get value(): T {
     return this.#element.nativeElement.value;

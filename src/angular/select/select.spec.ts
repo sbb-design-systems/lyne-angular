@@ -201,6 +201,29 @@ describe('sbb-select', () => {
       expect(component.select().getDisplayValue()).toEqual('Option 3 (test 3)');
     });
   });
+
+  describe('when option string values are bound after the initial form value write', () => {
+    let fixture: ComponentFixture<TestComponentLateBoundStringValue>,
+      component: TestComponentLateBoundStringValue;
+
+    beforeEach(async () => {
+      fixture = TestBed.createComponent(TestComponentLateBoundStringValue);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should update the initial selection once option values are available', async () => {
+      component.options()[0].value = 'option-1';
+      component.options()[1].value = 'option-2';
+      component.options()[2].value = 'option-3';
+      await Promise.resolve();
+
+      expect(component.options().map((o) => o.value)).toEqual(['option-1', 'option-2', 'option-3']);
+      expect(component.select().value).toEqual('option-2');
+      expect(component.select().getDisplayValue()).toEqual('Option 2');
+      expect(component.options().find((o) => o.value === 'option-2')?.selected).toBe(true);
+    });
+  });
 });
 
 @Component({
@@ -248,4 +271,19 @@ class TestComponentComplexValue {
   select: Signal<SbbSelect<(typeof this.values)[0]>> = viewChild.required(SbbSelect);
   options: Signal<readonly SbbOption<(typeof this.values)[0]>[]> = viewChildren(SbbOption);
   control = new FormControl(this.values[1]);
+}
+
+@Component({
+  selector: 'sbb-select-late-bound-string-value-test',
+  template: `<sbb-select [formControl]="control">
+    <sbb-option>Option 1</sbb-option>
+    <sbb-option>Option 2</sbb-option>
+    <sbb-option>Option 3</sbb-option>
+  </sbb-select>`,
+  imports: [SbbSelectModule, ReactiveFormsModule],
+})
+class TestComponentLateBoundStringValue {
+  select = viewChild.required(SbbSelect);
+  options = viewChildren(SbbOption);
+  control = new FormControl('option-2');
 }

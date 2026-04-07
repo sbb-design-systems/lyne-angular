@@ -8,10 +8,13 @@ import {
   Injector,
   type TemplateRef,
   ViewChild,
+  viewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core/overlay';
+import { SbbSelect, SbbSelectModule } from '@sbb-esta/lyne-angular/select';
 
 import { SbbDialog } from './dialog';
 import { SbbDialogRef } from './dialog-ref';
@@ -41,7 +44,7 @@ describe('sbb-dialog', () => {
 
     beforeEach(async () => {
       await TestBed.configureTestingModule({
-        imports: [ServiceTestComponent, SbbDummyComponent, TestComponent],
+        imports: [ServiceTestComponent, SbbDialogSelectComponent, SbbDummyComponent, TestComponent],
         providers: [{ provide: Location, useClass: SpyLocation }, SbbDialogService],
       }).compileComponents();
 
@@ -197,6 +200,17 @@ describe('sbb-dialog', () => {
       expect(afterCloseSpy2).toHaveBeenCalled();
       expect(overlayContainerElement.children.length).toBe(0);
     });
+
+    it('should initialize bound string option values inside a dialog', async () => {
+      const ref = service.open(SbbDialogSelectComponent, {
+        viewContainerRef: component.childViewContainer,
+      });
+
+      await fixture.whenRenderingDone();
+
+      expect(ref.componentInstance?.select().value).toEqual('my-string-value');
+      expect(ref.componentInstance?.select().getDisplayValue()).toEqual('My string value');
+    });
   });
 });
 
@@ -244,6 +258,19 @@ class SbbDummyComponent {
   readonly data = inject<SampleData>(SBB_OVERLAY_DATA, { optional: true });
   readonly ref = inject(SbbDialogRef);
   readonly injector = inject(Injector);
+}
+
+@Component({
+  selector: 'sbb-dialog-select-component',
+  template: `<sbb-select [formControl]="control">
+    <sbb-option [value]="'other-value'">Other value</sbb-option>
+    <sbb-option [value]="'my-string-value'">My string value</sbb-option>
+  </sbb-select>`,
+  imports: [SbbSelectModule, ReactiveFormsModule],
+})
+class SbbDialogSelectComponent {
+  select = viewChild.required(SbbSelect<string>);
+  control = new FormControl('my-string-value');
 }
 
 export interface SampleData {
