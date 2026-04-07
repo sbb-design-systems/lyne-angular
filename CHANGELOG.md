@@ -1,5 +1,26 @@
 # Changelog
 
+## [21.6.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.5.3...v21.6.0) (2026-04-07)
+
+
+### Features
+
+* button & link modules and docs guides ([#341](https://github.com/sbb-design-systems/lyne-angular/issues/341)) ([f597321](https://github.com/sbb-design-systems/lyne-angular/commit/f5973214e5dc8efe69e3a682715fd17afacde598))
+
+
+### Bug Fixes
+
+* **deps:** update angular ([e61531d](https://github.com/sbb-design-systems/lyne-angular/commit/e61531ddd4fb71a24dc980fec66de1a57fd0151c))
+* **deps:** update angular to v21.2.6 ([05e8d79](https://github.com/sbb-design-systems/lyne-angular/commit/05e8d790bbb3c3974a2e0a56f18ed9e0e27b94c8))
+* **deps:** update dependency @angular/cdk to v21.2.4 ([92e3a9e](https://github.com/sbb-design-systems/lyne-angular/commit/92e3a9e09ab350e34adb585cc88ff193aab659f6))
+* **dialog, overlay:** add null to close event result type ([#342](https://github.com/sbb-design-systems/lyne-angular/issues/342)) ([46a4db8](https://github.com/sbb-design-systems/lyne-angular/commit/46a4db886cab8fa7970fc20d091e62575c1bda98))
+
+
+### Documentation
+
+* add slots, cssprops and cssparts information ([#336](https://github.com/sbb-design-systems/lyne-angular/issues/336)) ([eb44400](https://github.com/sbb-design-systems/lyne-angular/commit/eb44400ede651faf729f6f488f5edb8c81d9c32d))
+* improve docs app ([#330](https://github.com/sbb-design-systems/lyne-angular/issues/330)) ([a27e0d1](https://github.com/sbb-design-systems/lyne-angular/commit/a27e0d102a910a91d28b4267521a12b70f6132b1))
+
 ## [21.5.3](https://github.com/sbb-design-systems/lyne-angular/compare/v21.5.2...v21.5.3) (2026-03-24)
 
 
