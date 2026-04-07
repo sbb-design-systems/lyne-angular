@@ -52,7 +52,6 @@ export class StackBlitzWriter {
   #meta: Meta = inject(Meta);
   #fileCache = new Map<string, Observable<string>>();
   #version = this.#getPatchedTagVersion('name="sbb-lyne-angular-version"');
-  #lyneVersion = this.#getPatchedTagVersion('name="sbb-lyne-components-version"');
   #tokenVersion = this.#getPatchedTagVersion('name="sbb-lyne-token-version"');
 
   /** Opens a StackBlitz for the specified example. */
@@ -165,7 +164,6 @@ export class StackBlitzWriter {
     // so providing a lock file is still reasonable while modifying the `package.json`.
     if (fileName === 'src/index.html' || fileName === 'package.json') {
       fileContent = fileContent.replace(/\{\{angular-version}}/g, this.#version);
-      fileContent = fileContent.replace(/\{\{components-version}}/g, this.#lyneVersion);
       fileContent = fileContent.replace(/\{\{token-version}}/g, this.#tokenVersion);
     }
 
