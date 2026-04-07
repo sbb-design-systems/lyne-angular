@@ -41,26 +41,23 @@
 ## Example
 
 ```ts
-import { Component, Input } from '@angular/core';
-import { SbbButton } from '@sbb-esta/lyne-angular/button/button';
+import { Component, input } from '@angular/core';
+import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 
 @Component({
   selector: 'my-app-example',
-  imports: [SbbButton],
+  imports: [SbbButtonModule],
   template: `
-    <sbb-button [iconName]="icon" (click)="logger($event)">
-      {{ label }}
+    <sbb-button [iconName]="iconName()" (click)="logger($event)">
+      {{ label() }}
     </sbb-button>
   `,
 })
 export class ExampleComponent {
-  @Input()
-  label: string = 'Button label';
+  label = input('Button label');
+  iconName = input('pie-small');
 
-  @Input()
-  icon: string = 'pie-small';
-
-  public logger(e: Event) {
+  protected logger(e: Event) {
     console.log(e);
   }
 }
