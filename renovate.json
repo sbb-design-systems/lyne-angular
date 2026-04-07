@@ -1,9 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended",
-    ":semanticCommitTypeAll(chore)"
-  ],
+  "extends": ["config:recommended", ":semanticCommitTypeAll(chore)"],
   "includePaths": ["package.json"],
   "nodenv": {
     "enabled": false
