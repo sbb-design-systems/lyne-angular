@@ -1,5 +1,17 @@
 # Changelog
 
+## [21.6.1](https://github.com/sbb-design-systems/lyne-angular/compare/v21.6.0...v21.6.1) (2026-04-13)
+
+
+### Bug Fixes
+
+* set skipLibCheck to true for StackBlitz examples ([#345](https://github.com/sbb-design-systems/lyne-angular/issues/345)) ([0b1c5ec](https://github.com/sbb-design-systems/lyne-angular/commit/0b1c5ec0dee615d0964eea2fbd6c447fb4f00cdb))
+
+
+### Documentation
+
+* update getting started example ([#344](https://github.com/sbb-design-systems/lyne-angular/issues/344)) ([4e04d05](https://github.com/sbb-design-systems/lyne-angular/commit/4e04d05891faa18050cbc0b7394f878996972e6d))
+
 ## [21.6.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.5.3...v21.6.0) (2026-04-07)
 
 
