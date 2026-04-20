@@ -491,7 +491,9 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         const classManifestDeclaration = getClassManifestDeclaration(module);
         const elementClassName = classManifestDeclaration.name;
         const publicProperties = classManifestDeclaration.members?.filter(isPublicProperties) ?? [];
-        const publicEvents = classManifestDeclaration.events ?? [];
+        const publicEvents = (classManifestDeclaration.events ?? []).filter(
+          (e) => e.name !== 'input' && e.name !== 'change',
+        );
         const publicGetters = classManifestDeclaration.members?.filter(isPublicGetter) ?? [];
         const publicMethods =
           classManifestDeclaration.members

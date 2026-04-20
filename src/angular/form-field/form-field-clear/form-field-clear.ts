@@ -1,9 +1,8 @@
-import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbFormFieldClearElement } from '@sbb-esta/lyne-elements/form-field.js';
-import { NEVER, fromEvent } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/form-field.js';
 
 /**
@@ -124,24 +123,4 @@ export class SbbFormFieldClear {
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
-
-  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'change',
-  });
-  /**
-   * The change event is fired on the component's associated input when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
-   */
-  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'change'),
-  );
-
-  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
-    alias: 'input',
-  });
-  /**
-   * The input event fires on the component's associated input when the value has been changed as a direct result of a user action.
-   */
-  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
-    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
-  );
 }

@@ -1,8 +1,7 @@
-import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbToggleOptionElement } from '@sbb-esta/lyne-elements/toggle.js';
-import { NEVER, fromEvent } from 'rxjs';
+
 import '@sbb-esta/lyne-elements/toggle.js';
 
 /**
@@ -64,14 +63,4 @@ export class SbbToggleOption<T = string> {
   public get iconName(): string {
     return this.#element.nativeElement.iconName;
   }
-
-  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
-    alias: 'input',
-  });
-  /**
-   * The input event fires when the value has been changed as a direct result of a user action.
-   */
-  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
-    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
-  );
 }
