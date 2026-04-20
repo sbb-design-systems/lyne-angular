@@ -1,9 +1,10 @@
-import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, Input, NgZone, inject, type OutputRef } from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTimetableFormSwapButtonElement } from '@sbb-esta/lyne-elements/timetable-form.js';
-
+import { NEVER, fromEvent } from 'rxjs';
 import '@sbb-esta/lyne-elements/timetable-form.js';
 
 /**
@@ -189,4 +190,24 @@ export class SbbTimetableFormSwapButton {
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
+
+  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'change',
+  });
+  /**
+   * The change event is fired on the associated inputs when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
+   */
+  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'change'),
+  );
+
+  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
+    alias: 'input',
+  });
+  /**
+   * The input event fires on the associated inputs when the value has been changed as a direct result of a user action.
+   */
+  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
+    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
+  );
 }
