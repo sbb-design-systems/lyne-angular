@@ -10,6 +10,7 @@ import { moduleParams } from '../module-params';
 
 import '@sbb-esta/lyne-elements/title.js';
 import '@sbb-esta/lyne-elements/link.js';
+import '@sbb-esta/lyne-elements/link-list-anchor.js';
 
 /**
  * Load and convert a Markdown file to HTML.

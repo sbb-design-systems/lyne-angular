@@ -18,15 +18,15 @@ const DocsMarkedRenderer: RendererObject = {
     const headingId = slugger.slug(text);
     const href = `${window.location.origin}${window.location.pathname}#${headingId}`;
     // Create the items for the table of content.
-    toc.push(
-      `<li class='docs-heading docs-heading-${depth}'><sbb-link href="${href}">${text}</sbb-link></li>`,
-    );
+
+    if (depth <= 2) {
+      toc.push(`<sbb-block-link href="${href}">${text}</sbb-block-link>`);
+    }
 
     const titleLevel = depth.toString() as SbbTitleLevel;
     return `
       <sbb-title level=${titleLevel} id="${headingId}">
         <sbb-link href="${href}" class="docs-link">
-          <sbb-icon name="link-small" class="docs-link-icon"></sbb-icon>
           ${text}
         </sbb-link>
       </sbb-title>
@@ -79,10 +79,10 @@ export function setup(): void {
               </div>
               <aside class="docs-toc-content">
                 <sbb-title level=${6}>Table of contents</sbb-title>
-                <ul class="sbb-scrollbar">
+                <sbb-link-list-anchor class="sbb-scrollbar">
 
-                  ${toc.join('').replace(/<a /g, '<sbb-link ').replace(/<\/a>/g, '</sbb-link>')}
-                </ul>
+                  ${toc.join('')}
+                </sbb-link-list-anchor>
               </aside>
             </div>`;
           }

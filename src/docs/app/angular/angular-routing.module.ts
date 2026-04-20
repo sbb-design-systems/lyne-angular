@@ -20,7 +20,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'introduction/getting-started',
+        redirectTo: 'guides/getting-started',
         pathMatch: 'full',
       },
       // TODO: create if needed
@@ -28,14 +28,6 @@ const routes: Routes = [
       //   path: 'icon-overview',
       //   component: IconOverviewComponent,
       // },
-      {
-        path: 'introduction/:id',
-        component: MarkdownViewerComponent,
-        data: {
-          loaderBuilderInterceptor: (loaderBuilder: LoaderBuilder) =>
-            loaderBuilder.fromDocumentation(),
-        },
-      },
       {
         path: 'guides/:id',
         component: MarkdownViewerComponent,

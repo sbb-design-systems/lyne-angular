@@ -19,18 +19,15 @@ export interface ShowcaseMetaEntry {
 
 export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
   angular: {
-    name: '@sbb-esta/angular',
-    iconName: 'browser-small',
+    name: '@sbb-esta/lyne-angular',
+    iconName: 'four-diamonds-small',
     image: 'assets/websites.jpg',
     description: 'Components which can be used for websites and webapps.',
     sections: [
       {
-        name: 'Introduction',
-        entries: [{ label: 'Getting started', link: './introduction/getting-started' }],
-      },
-      {
         name: 'Guides',
         entries: [
+          { label: 'Getting started', link: './guides/getting-started' },
           { label: 'Theming', link: './guides/theming' },
           { label: 'Layout', link: './guides/layout' },
           { label: 'Datetime', link: './guides/datetime' },
@@ -120,14 +117,14 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
     ],
   },
   'angular-experimental': {
-    name: '@sbb-esta/angular-experimental',
-    iconName: 'cloud-lightning-small',
+    name: '@sbb-esta/lyne-angular-experimental',
+    iconName: 'flask-test-tube-small',
     image: 'assets/websites.jpg',
     description: 'Experimental components which can be used for websites and webapps.',
     sections: [
       {
-        name: 'Introduction',
-        entries: [{ label: 'Getting started', link: './introduction/getting-started' }],
+        name: 'Guides',
+        entries: [{ label: 'Getting started', link: './guides/getting-started' }],
       },
       {
         name: 'Components',

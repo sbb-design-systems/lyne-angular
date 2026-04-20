@@ -1,9 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @use 'highlight.js/styles/github';
+@use '@sbb-esta/lyne-elements' as sbb;
 
 html,
 body {
   height: 100%;
+}
+
+sbb-sidebar-content,
+sbb-icon-sidebar-content {
+  padding-inline: var(--sbb-spacing-responsive-s);
+  padding-block-end: var(--sbb-spacing-responsive-s);
+  scroll-behavior: smooth;
+}
+
+sbb-markdown-viewer > sbb-title:first-child {
+  margin-block-start: 0;
 }
 
 pre {
@@ -16,32 +28,41 @@ blockquote {
 }
 
 code {
-  background-color: var(--sbb-background-color-4);
+  background-color: var(--sbb-background-color-3);
   padding: var(--sbb-spacing-fixed-1x);
   border-radius: var(--sbb-border-radius-2x);
   font-size: smaller;
 }
 
+sbb-title,
+sbb-block-link {
+  code {
+    font-family: inherit;
+    font-size: inherit;
+    display: inherit;
+  }
+}
+
 .hljs {
   font-size: var(--sbb-text-font-size-xxs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
-  background-color: var(--sbb-background-color-4);
+  background-color: var(--sbb-background-color-3);
   color-scheme: light;
   white-space: break-spaces;
 }
 
 .docs-link {
   --sbb-link-text-decoration-line: none;
-
-  sbb-icon {
-    margin-inline-end: var(--sbb-spacing-fixed-2x);
-  }
 }
 
 .docs-toc-container {
-  display: grid;
-  grid-template-columns: 4fr 1fr;
+  display: flex;
   gap: var(--sbb-spacing-fixed-4x);
+
+  > div {
+    flex: 1 1 75%;
+    min-width: 0;
+  }
 
   // Reset margin for the first child of the content to avoid unnecessary spacing at the top
   > div > *:first-child {
@@ -55,45 +76,23 @@ code {
 
 .docs-toc-content {
   height: fit-content;
-  inset-block-start: 0;
+  inset-block-start: var(--sbb-spacing-fixed-3x);
   position: sticky;
-  border-inline-start: var(--sbb-border-width-2x) solid var(--sbb-color-1);
-  margin-block-start: var(--sbb-spacing-fixed-4x);
-  padding-inline: var(--sbb-spacing-fixed-4x);
-  font-size: var(--sbb-text-font-size-xs);
-  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  min-width: 8rem;
+  flex: 1 1 25%;
 
   sbb-title {
     margin-block-start: 0;
   }
 
-  ul {
-    margin: 0;
-    padding: 0;
+  sbb-link-list-anchor {
     overflow: auto;
     max-height: calc(100vh - var(--sbb-header-height) - 2rem);
   }
-}
 
-.docs-heading {
-  --sbb-link-text-decoration-line: none;
-  list-style: none;
-}
-
-.docs-heading-2 {
-  padding-block-start: var(--sbb-spacing-fixed-1x);
-}
-
-.docs-heading-3 {
-  padding-inline-start: var(--sbb-spacing-fixed-4x);
-}
-
-.docs-heading-4 {
-  padding-inline-start: var(--sbb-spacing-fixed-8x);
-}
-
-.docs-heading-5 {
-  padding-inline-start: var(--sbb-spacing-fixed-12x);
+  @include sbb.mq($to: small) {
+    display: none;
+  }
 }
 
 .sbb-inline-story {

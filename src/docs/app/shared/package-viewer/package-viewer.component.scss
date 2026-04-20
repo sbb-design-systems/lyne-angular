@@ -1,9 +1,5 @@
 @use '@sbb-esta/lyne-elements' as sbb;
 
-.package-content {
-  padding-inline: var(--sbb-spacing-fixed-2x);
-}
-
 sbb-title:first-of-type {
   margin-block-start: var(--sbb-spacing-fixed-4x);
 }
@@ -16,4 +12,9 @@ sbb-title:first-of-type {
 
 .package-sections {
   @include sbb.list-reset;
+}
+
+.package-name {
+  display: inline-block;
+  margin-block-end: var(--sbb-spacing-fixed-3x);
 }

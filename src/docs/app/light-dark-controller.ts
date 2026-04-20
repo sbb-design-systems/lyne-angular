@@ -5,6 +5,8 @@ import { map, startWith } from 'rxjs/operators';
 
 const LOCAL_STORE_KEY = 'sbbDarkMode';
 
+type ColorScheme = 'dark' | 'light' | 'system';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,6 +23,14 @@ export class LightDarkController {
   public isDarkMode = computed<boolean>(
     () => this.#darkModeOverride() ?? this.#osPreferredState() ?? false,
   );
+
+  public mode = computed<ColorScheme>(() => {
+    const override = this.#darkModeOverride();
+    if (override === undefined) {
+      return 'system';
+    }
+    return override ? 'dark' : 'light';
+  });
 
   constructor() {
     toObservable(this.isDarkMode).subscribe((isDarkMode) => {
@@ -42,8 +52,12 @@ export class LightDarkController {
     });
   }
 
-  toggle() {
-    this.#darkModeOverride.set(!this.isDarkMode());
+  setColorScheme(mode: ColorScheme) {
+    if (mode === 'system') {
+      this.#darkModeOverride.set(undefined);
+    } else {
+      this.#darkModeOverride.set(mode === 'dark');
+    }
   }
 
   #readLocalStorageState() {
