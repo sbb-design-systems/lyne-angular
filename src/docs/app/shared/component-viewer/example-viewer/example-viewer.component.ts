@@ -79,7 +79,7 @@ export class ExampleViewerComponent {
   #defaultExtensionsOrder = ['html', 'ts', 'css', 'scss'];
   #routeParams = toSignal(moduleParams(this.#route));
 
-  protected exampleData = input.required<ExampleData>();
+  exampleData = input.required<ExampleData>();
   protected showSource = signal(false);
   protected stackBlitzEnabled = computed(() => this.#routeParams()?.packageName === 'angular');
   protected exampleCodes = toSignal(
