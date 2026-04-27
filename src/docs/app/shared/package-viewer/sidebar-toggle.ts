@@ -8,20 +8,27 @@ const SESSION_KEY = 'sbbSidebarOpen';
 
 @Injectable({ providedIn: 'root' })
 export class SidebarToggle {
+  #unregister = new Subject<void>();
   #sidebar = signal<SbbSidebar | null>(null);
   hasToggle = computed(() => this.#sidebar() !== null);
-  #unregister = new Subject<void>();
+  opened = signal<boolean>(true);
 
   register(sidebar: SbbSidebar): void {
     this.#sidebar.set(sidebar);
     const stored = sessionStorage.getItem(SESSION_KEY);
     sidebar.opened = stored !== 'false';
+    this.opened.set(sidebar.opened);
 
-    merge(outputToObservable(sidebar.openOutput), outputToObservable(sidebar.closeOutput))
+    merge(
+      outputToObservable(sidebar.beforeOpenOutput),
+      outputToObservable(sidebar.beforeCloseOutput),
+    )
       .pipe(takeUntil(this.#unregister))
-      .subscribe(() => {
+      .subscribe((event) => {
+        const isOpen = event?.type === 'beforeopen';
+        this.opened.set(isOpen);
         try {
-          sessionStorage.setItem(SESSION_KEY, String(this.#sidebar()?.opened ?? true));
+          sessionStorage.setItem(SESSION_KEY, String(isOpen));
         } catch (e) {
           console.error('Error writing to sessionStorage', e);
         }

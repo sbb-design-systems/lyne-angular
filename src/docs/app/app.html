@@ -94,7 +94,7 @@
     <div class="spacer"></div>
     <sbb-divider></sbb-divider>
     <sbb-icon-sidebar-button
-      iconName="hamburger-menu-small"
+      [iconName]="sidebarToggle.opened() ? 'list-arrow-left-small' : 'list-arrow-right-small'"
       sbb-tooltip="Toggle Sidebar"
       class="sidebar-toggle"
       (click)="sidebarToggle.toggle()"
