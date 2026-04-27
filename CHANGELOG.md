@@ -1,5 +1,12 @@
 # Changelog
 
+## [21.6.2](https://github.com/sbb-design-systems/lyne-angular/compare/v21.6.1...v21.6.2) (2026-04-27)
+
+
+### Code Refactoring
+
+* **docs:** ux review ([#357](https://github.com/sbb-design-systems/lyne-angular/issues/357)) ([82dd45f](https://github.com/sbb-design-systems/lyne-angular/commit/82dd45f8829927ec395fe64ba86c18201c0c4865))
+
 ## [21.6.1](https://github.com/sbb-design-systems/lyne-angular/compare/v21.6.0...v21.6.1) (2026-04-13)
 
 
