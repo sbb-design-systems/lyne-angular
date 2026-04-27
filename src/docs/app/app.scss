@@ -1,17 +1,7 @@
 @use '@sbb-esta/lyne-elements' as sbb;
 
-.sbb-header-info {
-  flex-direction: column;
-  gap: 0;
-  padding-inline: 0 var(--sbb-spacing-fixed-4x);
-}
-
 .sidebar-toggle {
   justify-self: end;
-
-  @include sbb.mq($from: large) {
-    display: none;
-  }
 }
 
 .spacer {
@@ -24,8 +14,7 @@ sbb-signet {
   }
 }
 
-sbb-logo,
-.information-link {
+sbb-logo {
   @include sbb.mq($to: small) {
     display: none;
   }

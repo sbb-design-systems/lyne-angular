@@ -10,11 +10,6 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'introduction',
-        pathMatch: 'full',
-      },
-      {
-        path: 'introduction',
         component: IntroductionComponent,
       },
       // TODO: create if needed
@@ -37,7 +32,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'introduction',
+    redirectTo: '',
     pathMatch: 'full',
   },
 ];

@@ -27,17 +27,14 @@ export class ThemeController implements CanActivate {
 
   #theme = signal((localStorage.getItem(themeLocalstorageKey) as SbbTheme) || 'standard');
   theme = this.#theme.asReadonly();
-  themeName = computed(() => this.#themes[this.#theme()]);
-
-  #themes: Record<SbbTheme, string> = {
-    standard: 'Standard',
-    'standard-off-brand': 'Standard Off-Brand',
-    'standard-safety': 'Standard Safety',
-    lean: 'Lean',
-    'lean-off-brand': 'Lean Off-Brand',
-    'lean-safety': 'Lean Safety',
-  };
-  public themeEntries = Object.entries(this.#themes) as [SbbTheme, string][];
+  brand = computed(() =>
+    this.#theme().endsWith('off-brand')
+      ? 'off-brand'
+      : this.#theme().endsWith('safety')
+        ? 'safety'
+        : 'default',
+  );
+  size = computed(() => (this.#theme().startsWith('standard') ? 'standard' : 'lean'));
 
   constructor() {
     toObservable(this.#theme)
@@ -65,6 +62,17 @@ export class ThemeController implements CanActivate {
       });
   }
 
+  setBrand(offBrand: 'default' | 'off-brand' | 'safety') {
+    const newTheme = `${this.size()}${offBrand === 'default' ? '' : '-' + offBrand}` as SbbTheme;
+    this.#setThemeWithReload(newTheme);
+  }
+
+  setSize(size: 'standard' | 'lean') {
+    const brandType = this.brand();
+    const newTheme = `${size}${brandType === 'default' ? '' : '-' + brandType}` as SbbTheme;
+    this.#setThemeWithReload(newTheme);
+  }
+
   #setTheme(theme: SbbTheme) {
     if (this.#theme() === theme) {
       return;
@@ -72,7 +80,7 @@ export class ThemeController implements CanActivate {
     this.#theme.set(theme);
   }
 
-  public setTheme(theme: SbbTheme) {
+  #setThemeWithReload(theme: SbbTheme) {
     this.#setTheme(theme);
 
     // TODO: remove after CSS refactoring

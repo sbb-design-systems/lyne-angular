@@ -1,33 +1,29 @@
-<div class="example-viewer-header">
-  <sbb-title level="4" class="example-viewer-title">{{ this.exampleData().description }}</sbb-title>
-  <sbb-secondary-button
-    class="example-viewer-header-button"
-    iconName="display-binary-code-small"
-    aria-label="View code"
-    sbb-tooltip="View code"
-    (click)="showSource = !showSource"
-  >
-  </sbb-secondary-button>
+<sbb-title level="4" class="example-viewer-title">{{ exampleData().description }}</sbb-title>
 
-  @if (stackBlitzEnabled() && exampleData()) {
-    <sbb-secondary-button
-      sbb-stack-blitz-button
-      [exampleData]="exampleData()"
-      type="button"
-      class="example-viewer-header-button"
-      aria-label="Edit example in StackBlitz"
-      sbb-tooltip="Edit example in StackBlitz"
-      iconName="link-external-small"
-    >
-    </sbb-secondary-button>
-  }
+<div class="example">
+  <div class="container">
+    <sbb-example-outlet [exampleData]="exampleData()" />
+
+    <sbb-tab-group [hidden]="!showSource()" class="sbb-example-viewer-tabs">
+      @for (content of exampleCodes(); track $index) {
+        <sbb-tab-label [active]="$index === 0">{{ content.label }}</sbb-tab-label>
+        <sbb-tab [innerHtml]="content.code"> </sbb-tab>
+      }
+    </sbb-tab-group>
+  </div>
+  <div class="tools container">
+    @if (stackBlitzEnabled() && exampleData()) {
+      <sbb-secondary-button
+        sbb-stack-blitz-button
+        [exampleData]="exampleData()"
+        iconName="link-external-small"
+      >
+        Edit in StackBlitz
+      </sbb-secondary-button>
+    }
+
+    <sbb-toggle-check #codeToggle (change)="showSource.set(codeToggle.checked)">
+      View code
+    </sbb-toggle-check>
+  </div>
 </div>
-
-<sbb-tab-group [hidden]="!showSource" class="sbb-example-viewer-tabs">
-  @for (content of exampleCodes(); track $index) {
-    <sbb-tab-label [active]="$index === 0">{{ content.label }}</sbb-tab-label>
-    <sbb-tab [innerHtml]="content.code"> </sbb-tab>
-  }
-</sbb-tab-group>
-
-<sbb-example-outlet [exampleData]="exampleData()" />

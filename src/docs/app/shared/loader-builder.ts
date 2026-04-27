@@ -19,11 +19,6 @@ export class LoaderBuilder {
     this.#id = params.id;
   }
 
-  fromDocumentation() {
-    this.#url = `docs-content/overviews/${this.#packageName}/${this.#id}.md`;
-    return this;
-  }
-
   fromGuide() {
     this.#url = `docs-content/overviews/${this.#packageName}/guide-${this.#id}.md`;
     return this;

@@ -1,34 +1,70 @@
 <sbb-header expanded>
-  <span class="sbb-header-info sbb-text-m">
+  <span class="sbb-header-info">
     <strong>Lyne Angular</strong>
-    <span class="sbb-text-xxs">{{version}}</span>
+    <span>{{version}}</span>
   </span>
-  <sbb-header-link
-    routerLink="/introduction"
-    routerLinkActive="sbb-active"
-    iconName="circle-information-small"
-    class="information-link"
-  >
-    Introduction
-  </sbb-header-link>
   <div class="sbb-header-spacer"></div>
-  <sbb-header-button
-    [iconName]="lightDarkController.isDarkMode() ? 'sunshine-small' : 'moon-small'"
-    (click)="lightDarkController.toggle()"
-    sbb-tooltip="Change to {{ lightDarkController.isDarkMode() ? 'light' : 'dark' }} theme"
-  ></sbb-header-button>
-  <sbb-header-button [expandFrom]="'small'" iconName="colour-palette-brush-small" #themeTrigger>
-    {{ themeController.themeName() }}
-  </sbb-header-button>
-  <sbb-menu [trigger]="themeTrigger">
-    @for (entry of themeController.themeEntries; track entry[0]){
+  <sbb-header-button iconName="eye-small" #appearanceTrigger>Appearance</sbb-header-button>
+  <sbb-menu [trigger]="appearanceTrigger">
     <sbb-menu-button
-      [iconName]="themeController.theme() === entry[0] ? 'tick-small' : null!"
-      (click)="themeController.setTheme(entry[0])"
+      (click)="lightDarkController.setColorScheme('light')"
+      [iconName]="lightDarkController.mode() === 'light'  ? 'tick-small' : null!"
+      [ariaLabel]="lightDarkController.mode() === 'light'  ? 'Current color scheme: light' : 'Change to light color scheme'"
     >
-      {{ entry[1] }}
+      Light
     </sbb-menu-button>
-    }
+    <sbb-menu-button
+      (click)="lightDarkController.setColorScheme('dark')"
+      [iconName]="lightDarkController.mode() === 'dark'  ? 'tick-small' : null!"
+      [ariaLabel]="lightDarkController.mode() === 'dark'  ? 'Current color scheme: dark' : 'Change to dark color scheme'"
+      aria-label="Change to light theme"
+    >
+      Dark
+    </sbb-menu-button>
+    <sbb-menu-button
+      (click)="lightDarkController.setColorScheme('system')"
+      [iconName]="lightDarkController.mode() === 'system'  ? 'tick-small' : null!"
+      [ariaLabel]="lightDarkController.mode() === 'system'  ? 'Current color scheme: System preference' : 'Change to system preferenced color scheme'"
+    >
+      System Preference
+    </sbb-menu-button>
+    <sbb-divider></sbb-divider>
+    <sbb-menu-button
+      (click)="themeController.setSize('standard')"
+      [iconName]="themeController.size() === 'standard' ? 'tick-small' : null!"
+      [ariaLabel]="themeController.size() === 'standard'  ? 'Current theme: Standard' : 'Change to standard theme'"
+    >
+      Standard-Theme
+    </sbb-menu-button>
+    <sbb-menu-button
+      (click)="themeController.setSize('lean')"
+      [iconName]="themeController.size() === 'lean' ? 'tick-small' : null!"
+      [ariaLabel]="themeController.size() === 'lean'  ? 'Current theme: Lean' : 'Change to lean theme'"
+    >
+      Lean-Theme
+    </sbb-menu-button>
+    <sbb-divider></sbb-divider>
+    <sbb-menu-button
+      (click)="themeController.setBrand('default')"
+      [iconName]="themeController.brand() === 'default' ? 'tick-small' : null!"
+      [ariaLabel]="themeController.brand() === 'default'  ? 'Current brand: Default' : 'Change to default brand'"
+    >
+      Default Brand
+    </sbb-menu-button>
+    <sbb-menu-button
+      (click)="themeController.setBrand('off-brand')"
+      [iconName]="themeController.brand() === 'off-brand' ? 'tick-small' : null!"
+      [ariaLabel]="themeController.brand() === 'off-brand'  ? 'Current brand: Off-Brand' : 'Change to off-brand'"
+    >
+      Off-Brand
+    </sbb-menu-button>
+    <sbb-menu-button
+      (click)="themeController.setBrand('safety')"
+      [iconName]="themeController.brand() === 'safety' ? 'tick-small' : null!"
+      [ariaLabel]="themeController.brand() === 'safety'  ? 'Current brand: Safety' : 'Change to safety-brand'"
+    >
+      Safety-Brand
+    </sbb-menu-button>
   </sbb-menu>
   <a href="/" class="sbb-header-logo">
     <sbb-logo protectiveRoom="none"></sbb-logo>
@@ -36,7 +72,14 @@
   </a>
 </sbb-header>
 <sbb-icon-sidebar-container>
-  <sbb-icon-sidebar color="milk">
+  <sbb-icon-sidebar>
+    <sbb-icon-sidebar-link
+      sbb-tooltip="Home"
+      iconName="house-small"
+      [routerLink]="''"
+      routerLinkActive="sbb-active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    ></sbb-icon-sidebar-link>
     @for (packageEntry of packages | keyvalue; track $index) {
     <sbb-icon-sidebar-link
       [iconName]="packageEntry.value.iconName"
@@ -47,14 +90,14 @@
       [accessibilityLabel]="packageEntry.value['name']"
     >
     </sbb-icon-sidebar-link>
-    } @if( this.sidebarToggle.hasToggle()) {
+    } @if( sidebarToggle.hasToggle()) {
     <div class="spacer"></div>
     <sbb-divider></sbb-divider>
     <sbb-icon-sidebar-button
-      iconName="hamburger-menu-small"
+      [iconName]="sidebarToggle.opened() ? 'list-arrow-left-small' : 'list-arrow-right-small'"
       sbb-tooltip="Toggle Sidebar"
       class="sidebar-toggle"
-      (click)="this.sidebarToggle.toggle()"
+      (click)="sidebarToggle.toggle()"
     ></sbb-icon-sidebar-button>
     }
   </sbb-icon-sidebar>

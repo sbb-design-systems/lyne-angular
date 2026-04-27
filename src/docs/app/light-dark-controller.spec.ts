@@ -83,7 +83,7 @@ describe(`sbb-light-dark-controller`, () => {
       expect(service.isDarkMode()).toBe(false);
       expect(document.documentElement.classList.contains('sbb-light')).toBe(true);
 
-      service.toggle();
+      service.setColorScheme('dark');
 
       // Wait for toggle subscription to apply classes and localStorage changes
       await new Promise((resolve) => setTimeout(resolve, 0));

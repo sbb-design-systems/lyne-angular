@@ -20,15 +20,14 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'introduction/getting-started',
+        redirectTo: 'guides/getting-started',
         pathMatch: 'full',
       },
       {
-        path: 'introduction/:id',
+        path: 'guides/:id',
         component: MarkdownViewerComponent,
         data: {
-          loaderBuilderInterceptor: (loaderBuilder: LoaderBuilder) =>
-            loaderBuilder.fromDocumentation(),
+          loaderBuilderInterceptor: (loaderBuilder: LoaderBuilder) => loaderBuilder.fromGuide(),
         },
       },
       {

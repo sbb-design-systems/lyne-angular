@@ -1,33 +1,30 @@
 :host {
   display: block;
-  padding: var(--sbb-spacing-fixed-6x);
-  margin-block-end: var(--sbb-spacing-fixed-1x);
-  position: relative;
+
+  --border-radius: var(--sbb-border-radius-4x);
+}
+
+.example {
   border: var(--sbb-border-width-1x) solid var(--sbb-color-silver);
-  border-radius: var(--sbb-border-radius-4x);
+  border-radius: var(--border-radius);
 }
 
-.example-viewer-header {
-  border-block-end: var(--sbb-border-width-1x) solid var(--sbb-color-silver);
+.container {
+  padding: var(--sbb-spacing-fixed-6x);
+}
+
+.tools {
+  background-color: var(--sbb-background-color-3);
   display: flex;
-  padding-block-end: var(--sbb-spacing-fixed-5x);
-  margin-block-end: var(--sbb-spacing-fixed-4x);
-}
-
-.example-viewer-header-button {
-  flex-shrink: 0;
-  margin-inline-start: var(--sbb-spacing-fixed-2x);
-}
-
-.example-viewer-title {
-  flex-grow: 1;
-  display: flex;
+  gap: var(--sbb-spacing-fixed-2x);
   align-items: center;
-  margin: 0;
+  flex-wrap: wrap;
+  border-end-start-radius: var(--border-radius);
+  border-end-end-radius: var(--border-radius);
 }
 
 .sbb-example-viewer-tabs {
-  margin-block-end: var(--sbb-spacing-fixed-8x);
+  margin-block-start: var(--sbb-spacing-fixed-8x);
 
   &[hidden] {
     display: none;

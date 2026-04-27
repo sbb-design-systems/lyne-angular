@@ -4,6 +4,7 @@ import {
   computed,
   inject,
   input,
+  signal,
   ViewContainerRef,
 } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -13,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbTabsModule } from '@sbb-esta/lyne-angular/tabs';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
+import { SbbToggleCheck } from '@sbb-esta/lyne-angular/toggle-check';
 import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
 import { marked } from 'marked';
 import { combineLatest, filter, from } from 'rxjs';
@@ -66,6 +68,7 @@ export class ExampleOutletComponent {
     SbbButtonModule,
     StackBlitzButton,
     SbbTitleModule,
+    SbbToggleCheck,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -77,10 +80,9 @@ export class ExampleViewerComponent {
   #routeParams = toSignal(moduleParams(this.#route));
 
   exampleData = input.required<ExampleData>();
-
-  showSource: boolean = false;
-  stackBlitzEnabled = computed(() => this.#routeParams()?.packageName === 'angular');
-  exampleCodes = toSignal(
+  protected showSource = signal(false);
+  protected stackBlitzEnabled = computed(() => this.#routeParams()?.packageName === 'angular');
+  protected exampleCodes = toSignal(
     toObservable(this.exampleData).pipe(
       switchMap((data) => {
         const params = this.#routeParams();
