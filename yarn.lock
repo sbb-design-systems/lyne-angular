@@ -5708,10 +5708,10 @@ marked-highlight@2.2.4:
   resolved "https://registry.yarnpkg.com/marked-highlight/-/marked-highlight-2.2.4.tgz#e8d9a3b9ab8cdba8c255a5bcca9d922716befa5e"
   integrity sha512-PZxisNMJDduSjc0q6uvjsnqqHCXc9s0eyzxDO9sB1eNGJnd/H1/Fu+z6g/liC1dfJdFW4SftMwMlLvsBhUPrqQ==
 
-marked@18.0.2:
-  version "18.0.2"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-18.0.2.tgz#180cb158a2d2dc377821cfb088a10ca1b5630ef0"
-  integrity sha512-NsmlUYBS/Zg57rgDWMYdnre6OTj4e+qq/JS2ot3KrYLSoHLw+sDu0Nm1ZGpRgYAq6c+b1ekaY5NzVchMCQnzcg==
+marked@18.0.3:
+  version "18.0.3"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-18.0.3.tgz#278b5ba89f1c7ccbaf0422f3ee8955928489220b"
+  integrity sha512-7VT90JOkDeaRWpfjOReRGPEKn0ecdARBkDGL+tT1wZY0efPPqkUxLUSmzy/C7TIylQYJC9STISEsCHrqb/7VIA==
 
 marked@7.0.3:
   version "7.0.3"
