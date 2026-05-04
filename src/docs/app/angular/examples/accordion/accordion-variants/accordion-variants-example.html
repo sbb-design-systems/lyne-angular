@@ -1,0 +1,43 @@
+<sbb-accordion [multi]="multi()" [size]="size()">
+  <sbb-expansion-panel [expanded]="true">
+    <sbb-expansion-panel-header>First header</sbb-expansion-panel-header>
+    <sbb-expansion-panel-content>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+      non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </sbb-expansion-panel-content>
+  </sbb-expansion-panel>
+  <sbb-expansion-panel [disabled]="disablePanel()">
+    <sbb-expansion-panel-header>Second header</sbb-expansion-panel-header>
+    <sbb-expansion-panel-content>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+      non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </sbb-expansion-panel-content>
+  </sbb-expansion-panel>
+  <sbb-expansion-panel>
+    <sbb-expansion-panel-header>Third header</sbb-expansion-panel-header>
+    <sbb-expansion-panel-content>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+      non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </sbb-expansion-panel-content>
+  </sbb-expansion-panel>
+</sbb-accordion>
+
+<div class="properties">
+  <sbb-title level="5" class="properties-title">Properties</sbb-title>
+  <sbb-checkbox #multiToggle (change)="multi.set(multiToggle.checked)">
+    Allows for multiple panel opened
+  </sbb-checkbox>
+  <sbb-checkbox #sizeToggle (change)="setSize(sizeToggle.checked)"> Small size </sbb-checkbox>
+  <sbb-checkbox #disabledToggle (change)="disablePanel.set(disabledToggle.checked)">
+    Disable second panel
+  </sbb-checkbox>
+</div>

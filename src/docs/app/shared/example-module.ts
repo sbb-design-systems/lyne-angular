@@ -3,7 +3,7 @@ import type { Type } from '@angular/core';
 import type { ExampleData } from './example-data';
 
 export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[]> = {
-  accordion: [{ id: 'accordion-basic', hasStyle: true }],
+  accordion: ['accordion-basic', { id: 'accordion-variants', hasStyle: true }],
   'action-group': ['action-group-basic'],
   alert: ['alert-basic'],
   autocomplete: ['autocomplete-basic'],
@@ -102,6 +102,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
 export async function loadExample(id: string): Promise<Record<string, Type<unknown>> | undefined> {
   switch (id) {
     case 'accordion-basic':
+    case 'accordion-variants':
       return import('../angular/examples/accordion');
     case 'action-group-basic':
       return import('../angular/examples/action-group');
