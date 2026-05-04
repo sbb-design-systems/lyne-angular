@@ -1,0 +1,27 @@
+<sbb-accordion>
+  <sbb-expansion-panel [expanded]="step() === 0" (open)="setStep(0)">
+    <sbb-expansion-panel-header>
+      <span>I'm a wizard like accordion</span>
+    </sbb-expansion-panel-header>
+    <sbb-expansion-panel-content>
+      <p>I'm conditionally open using [expanded] property and (open) event.</p>
+      <sbb-button (click)="nextStep()">Next</sbb-button>
+    </sbb-expansion-panel-content>
+  </sbb-expansion-panel>
+
+  <sbb-expansion-panel [expanded]="step() === 1" (open)="setStep(1)">
+    <sbb-expansion-panel-header> Step 1</sbb-expansion-panel-header>
+    <sbb-expansion-panel-content>
+      <sbb-secondary-button (click)="prevStep()">Previous</sbb-secondary-button>
+      <sbb-button (click)="nextStep()">Next</sbb-button>
+    </sbb-expansion-panel-content>
+  </sbb-expansion-panel>
+
+  <sbb-expansion-panel [expanded]="step() === 2" (open)="setStep(2)">
+    <sbb-expansion-panel-header> Step 2</sbb-expansion-panel-header>
+    <sbb-expansion-panel-content>
+      <sbb-secondary-button (click)="prevStep()">Previous</sbb-secondary-button>
+      <sbb-button (click)="nextStep()">End</sbb-button>
+    </sbb-expansion-panel-content>
+  </sbb-expansion-panel>
+</sbb-accordion>
