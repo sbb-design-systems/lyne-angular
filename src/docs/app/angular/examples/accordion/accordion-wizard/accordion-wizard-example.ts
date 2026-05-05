@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
-import { SbbButton, SbbSecondaryButton } from '@sbb-esta/lyne-angular/button';
+import { SbbActionGroupModule } from '@sbb-esta/lyne-angular/action-group';
+import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 
 /**
  * @title Wizard-like sbb-accordion
@@ -8,7 +9,7 @@ import { SbbButton, SbbSecondaryButton } from '@sbb-esta/lyne-angular/button';
 @Component({
   selector: 'sbb-accordion-wizard-example',
   templateUrl: 'accordion-wizard-example.html',
-  imports: [SbbAccordionModule, SbbButton, SbbSecondaryButton],
+  imports: [SbbAccordionModule, SbbButtonModule, SbbActionGroupModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccordionWizardExample {
