@@ -1,6 +1,6 @@
-import { computed, ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
@@ -15,19 +15,26 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccordionVariantsExample {
-  form = new FormGroup({
-    multi: new FormControl(false, { nonNullable: true }),
-    smallSize: new FormControl(false, { nonNullable: true }),
-    iconPanel: new FormControl(false, { nonNullable: true }),
-    disablePanel: new FormControl(false, { nonNullable: true }),
+  readonly #fb = inject(FormBuilder);
+
+  protected form = this.#fb.nonNullable.group({
+    multi: false,
+    smallSize: false,
+    iconPanel: false,
+    disablePanel: false,
   });
 
-  readonly #formValue = toSignal(this.form.valueChanges, {
-    initialValue: this.form.getRawValue(),
+  readonly #smallSize = toSignal(this.form.controls.smallSize.valueChanges, {
+    initialValue: false,
   });
-
-  protected readonly multi = computed(() => this.#formValue().multi ?? false);
-  protected readonly iconPanel = computed(() => this.#formValue().iconPanel ?? false);
-  protected readonly disablePanel = computed(() => this.#formValue().disablePanel ?? false);
-  protected readonly size = computed(() => (this.#formValue().smallSize ? 's' : 'l') as 's' | 'l');
+  protected readonly size = computed((): 's' | 'l' => (this.#smallSize() ? 's' : 'l'));
+  protected readonly multi = toSignal(this.form.controls.multi.valueChanges, {
+    initialValue: false,
+  });
+  protected readonly iconPanel = toSignal(this.form.controls.iconPanel.valueChanges, {
+    initialValue: false,
+  });
+  protected readonly disablePanel = toSignal(this.form.controls.disablePanel.valueChanges, {
+    initialValue: false,
+  });
 }
