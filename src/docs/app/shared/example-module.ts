@@ -5,7 +5,12 @@ import type { ExampleData } from './example-data';
 export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[]> = {
   accordion: [{ id: 'accordion-basic', hasStyle: true }],
   'action-group': ['action-group-basic'],
-  alert: ['alert-basic', 'alert-group', 'alert-router-link'],
+  alert: [
+    'alert-basic',
+    'alert-group',
+    'alert-router-link',
+    { id: 'alert-variants', hasStyle: true },
+  ],
   autocomplete: ['autocomplete-basic'],
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
@@ -108,6 +113,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'alert-basic':
     case 'alert-group':
     case 'alert-router-link':
+    case 'alert-variants':
       return import('../angular/examples/alert');
     case 'autocomplete-basic':
       return import('../angular/examples/autocomplete');
