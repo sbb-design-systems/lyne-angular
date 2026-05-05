@@ -1,8 +1,9 @@
-import type { WritableSignal } from '@angular/core';
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { computed, ChangeDetectionStrategy, Component } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
-import { SbbCheckbox } from '@sbb-esta/lyne-angular/checkbox';
-import { SbbTitle } from '@sbb-esta/lyne-angular/title';
+import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
+import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title sbb-accordion with properties
@@ -10,17 +11,23 @@ import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 @Component({
   selector: 'sbb-accordion-variants-example',
   templateUrl: 'accordion-variants-example.html',
-  styleUrls: ['accordion-variants-example.scss'],
-  imports: [SbbAccordionModule, SbbCheckbox, SbbTitle],
+  imports: [SbbAccordionModule, SbbCheckboxModule, SbbTitleModule, ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccordionVariantsExample {
-  multi = signal(false);
-  disablePanel = signal(false);
-  iconPanel = signal(false);
-  size: WritableSignal<'s' | 'l'> = signal('l');
+  form = new FormGroup({
+    multi: new FormControl(false, { nonNullable: true }),
+    smallSize: new FormControl(false, { nonNullable: true }),
+    iconPanel: new FormControl(false, { nonNullable: true }),
+    disablePanel: new FormControl(false, { nonNullable: true }),
+  });
 
-  setSize(x: boolean): void {
-    this.size.set(x ? 's' : 'l');
-  }
+  readonly #formValue = toSignal(this.form.valueChanges, {
+    initialValue: this.form.getRawValue(),
+  });
+
+  protected readonly multi = computed(() => this.#formValue().multi ?? false);
+  protected readonly iconPanel = computed(() => this.#formValue().iconPanel ?? false);
+  protected readonly disablePanel = computed(() => this.#formValue().disablePanel ?? false);
+  protected readonly size = computed(() => (this.#formValue().smallSize ? 's' : 'l') as 's' | 'l');
 }

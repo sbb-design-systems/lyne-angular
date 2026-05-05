@@ -37,16 +37,10 @@
   </sbb-expansion-panel>
 </sbb-accordion>
 
-<div class="properties">
-  <sbb-title level="5" class="properties-title">Properties</sbb-title>
-  <sbb-checkbox #multiToggle (change)="multi.set(multiToggle.checked)">
-    Allows for multiple panel opened
-  </sbb-checkbox>
-  <sbb-checkbox #sizeToggle (change)="setSize(sizeToggle.checked)"> Small size </sbb-checkbox>
-  <sbb-checkbox #iconToggle (change)="iconPanel.set(iconToggle.checked)">
-    Icon on header
-  </sbb-checkbox>
-  <sbb-checkbox #disabledToggle (change)="disablePanel.set(disabledToggle.checked)">
-    Disable second panel
-  </sbb-checkbox>
-</div>
+<sbb-title level="5">Properties</sbb-title>
+<sbb-checkbox-group orientation="vertical" [formGroup]="form">
+  <sbb-checkbox formControlName="multi">Allows for multiple panel opened</sbb-checkbox>
+  <sbb-checkbox formControlName="smallSize">Small size</sbb-checkbox>
+  <sbb-checkbox formControlName="iconPanel">Icon on header</sbb-checkbox>
+  <sbb-checkbox formControlName="disablePanel">Disable second panel</sbb-checkbox>
+</sbb-checkbox-group>
