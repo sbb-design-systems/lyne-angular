@@ -12,17 +12,17 @@ import { SbbButton, SbbSecondaryButton } from '@sbb-esta/lyne-angular/button';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccordionWizardExample {
-  step = signal(0);
+  protected step = signal(0);
 
-  setStep(index: number) {
+  protected setStep(index: number) {
     this.step.set(index);
   }
 
-  nextStep() {
+  protected nextStep() {
     this.step.update((i) => i + 1);
   }
 
-  prevStep() {
+  protected prevStep() {
     this.step.update((i) => i - 1);
   }
 }

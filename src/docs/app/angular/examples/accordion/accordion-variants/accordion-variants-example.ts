@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
+import type { SbbAccordionElement } from '@sbb-esta/lyne-elements/accordion.js';
 import { map } from 'rxjs/operators';
 
 /**
@@ -27,7 +28,9 @@ export class AccordionVariantsExample {
     initialValue: false,
   });
   protected readonly size = toSignal(
-    this.form.controls.smallSize.valueChanges.pipe(map((size): 's' | 'l' => (size ? 's' : 'l'))),
+    this.form.controls.smallSize.valueChanges.pipe(
+      map((size): SbbAccordionElement['size'] => (size ? 's' : 'l')),
+    ),
     { initialValue: 'l' },
   );
   protected readonly iconPanel = toSignal(this.form.controls.iconPanel.valueChanges, {
