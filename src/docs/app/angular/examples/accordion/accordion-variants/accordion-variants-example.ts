@@ -8,7 +8,7 @@ import type { SbbAccordionElement } from '@sbb-esta/lyne-elements/accordion.js';
 import { map } from 'rxjs/operators';
 
 /**
- * @title sbb-accordion with properties
+ * @title sbb-accordion with configurable properties
  */
 @Component({
   selector: 'sbb-accordion-variants-example',
