@@ -1,6 +1,8 @@
 <sbb-accordion [multi]="multi()" [size]="size()">
   <sbb-expansion-panel [expanded]="true">
-    <sbb-expansion-panel-header>First header</sbb-expansion-panel-header>
+    <sbb-expansion-panel-header [iconName]="iconPanel() ? 'pie-small' : ''"
+      >First header</sbb-expansion-panel-header
+    >
     <sbb-expansion-panel-content>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -10,7 +12,9 @@
     </sbb-expansion-panel-content>
   </sbb-expansion-panel>
   <sbb-expansion-panel [disabled]="disablePanel()">
-    <sbb-expansion-panel-header>Second header</sbb-expansion-panel-header>
+    <sbb-expansion-panel-header [iconName]="iconPanel() ? 'dog-small' : ''"
+      >Second header</sbb-expansion-panel-header
+    >
     <sbb-expansion-panel-content>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -20,7 +24,9 @@
     </sbb-expansion-panel-content>
   </sbb-expansion-panel>
   <sbb-expansion-panel>
-    <sbb-expansion-panel-header>Third header</sbb-expansion-panel-header>
+    <sbb-expansion-panel-header [iconName]="iconPanel() ? 'user-small' : ''"
+      >Third header</sbb-expansion-panel-header
+    >
     <sbb-expansion-panel-content>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -37,6 +43,9 @@
     Allows for multiple panel opened
   </sbb-checkbox>
   <sbb-checkbox #sizeToggle (change)="setSize(sizeToggle.checked)"> Small size </sbb-checkbox>
+  <sbb-checkbox #iconToggle (change)="iconPanel.set(iconToggle.checked)">
+    Icon on header
+  </sbb-checkbox>
   <sbb-checkbox #disabledToggle (change)="disablePanel.set(disabledToggle.checked)">
     Disable second panel
   </sbb-checkbox>

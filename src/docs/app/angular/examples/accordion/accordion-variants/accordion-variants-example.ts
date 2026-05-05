@@ -17,6 +17,7 @@ import { SbbTitle } from '@sbb-esta/lyne-angular/title';
 export class AccordionVariantsExample {
   multi = signal(false);
   disablePanel = signal(false);
+  iconPanel = signal(false);
   size: WritableSignal<'s' | 'l'> = signal('l');
 
   setSize(x: boolean): void {
