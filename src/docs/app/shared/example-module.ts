@@ -5,7 +5,7 @@ import type { ExampleData } from './example-data';
 export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[]> = {
   accordion: [{ id: 'accordion-basic', hasStyle: true }],
   'action-group': ['action-group-basic'],
-  alert: ['alert-basic'],
+  alert: ['alert-basic', 'alert-router-link'],
   autocomplete: ['autocomplete-basic'],
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
@@ -106,6 +106,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'action-group-basic':
       return import('../angular/examples/action-group');
     case 'alert-basic':
+    case 'alert-router-link':
       return import('../angular/examples/alert');
     case 'autocomplete-basic':
       return import('../angular/examples/autocomplete');
