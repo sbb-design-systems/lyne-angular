@@ -17,13 +17,13 @@ import type { SbbAlertElement } from '@sbb-esta/lyne-elements/alert.js';
   templateUrl: 'alert-variants-example.html',
   styleUrl: 'alert-variants-example.scss',
   imports: [
-    SbbAlertModule,
-    SbbLinkModule,
-    SbbTitleModule,
     ReactiveFormsModule,
+    SbbAlertModule,
     SbbFormFieldModule,
+    SbbLinkModule,
     SbbSelectModule,
     SbbRadioButtonModule,
+    SbbTitleModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
