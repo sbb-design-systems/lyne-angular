@@ -1,18 +1,10 @@
 import { JsonPipe } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  Renderer2,
-  ViewChild,
-  ViewContainerRef,
-} from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SbbAutocompleteModule } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
-import type { SbbError } from '@sbb-esta/lyne-angular/form-field';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
@@ -37,10 +29,6 @@ import type { SbbAutocompleteElement } from '@sbb-esta/lyne-elements/autocomplet
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteVariantsExample {
-  readonly #renderer = inject(Renderer2);
-  #errorEl: SbbError | null = null;
-  @ViewChild('formField', { read: ViewContainerRef }) private container!: ViewContainerRef;
-
   protected control = new FormControl<string | null>(null);
   protected form = inject(FormBuilder).nonNullable.group({
     borderless: false,
@@ -73,23 +61,4 @@ export class AutocompleteVariantsExample {
     },
   );
   protected readonly size = toSignal(this.form.controls.size.valueChanges, { initialValue: 'm' });
-
-  constructor() {
-    this.control.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => {
-      if (value) {
-        if (this.#errorEl) {
-          this.#renderer.removeChild(this.container.element.nativeElement, this.#errorEl);
-          this.#errorEl = null;
-        }
-      } else {
-        this.#errorEl = this.#renderer.createElement('sbb-error');
-        this.#renderer.setProperty(
-          this.#errorEl,
-          'innerText',
-          'Please enter at least one character',
-        );
-        this.#renderer.appendChild(this.container.element.nativeElement, this.#errorEl);
-      }
-    });
-  }
 }
