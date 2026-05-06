@@ -1,11 +1,12 @@
 <sbb-form-field>
   <label>Autocomplete</label>
   <input [formField]="control" [sbbAutocomplete]="auto" />
-  <sbb-autocomplete [displayWith]="displayWith" #auto="sbbAutocomplete">
+  <sbb-autocomplete #auto="sbbAutocomplete">
     @for (value of values; track value) {
-    <sbb-option [value]="value">{{ value.property }}</sbb-option>
+    <sbb-option [value]="value">{{ value }}</sbb-option>
     }
   </sbb-autocomplete>
 </sbb-form-field>
+<sbb-card class="form-box" color="milk"> {{ control.value | json }} </sbb-card>
 
 <p>Selected Value: <code>{{control().value() | json}}</code></p>
