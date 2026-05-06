@@ -1,0 +1,35 @@
+<sbb-form-field
+  [floatingLabel]="floatingLabel()"
+  [borderless]="borderless()"
+  [size]="size()"
+  #formField
+>
+  <label>Autocomplete</label>
+  <input [formControl]="control" [sbbAutocomplete]="auto" />
+  <sbb-autocomplete
+    [requireSelection]="requireSelection()"
+    [autoSelectActiveOption]="autoSelectActiveOption()"
+    [autoActiveFirstOption]="autoActiveFirstOption()"
+    #auto="sbbAutocomplete"
+  >
+    <sbb-option value="1">Option 1</sbb-option>
+    <sbb-option value="2">Option 2</sbb-option>
+    <sbb-option value="3">Option 3</sbb-option>
+  </sbb-autocomplete>
+</sbb-form-field>
+<sbb-card class="form-box" color="milk"> {{ control.value | json }}</sbb-card>
+<sbb-title level="5">Properties</sbb-title>
+<form [formGroup]="form" class="controls">
+  <sbb-checkbox-group orientation="vertical">
+    <sbb-checkbox formControlName="borderless">Borderless</sbb-checkbox>
+    <sbb-checkbox formControlName="floatingLabel">Floating label</sbb-checkbox>
+    <sbb-checkbox formControlName="requireSelection">"requireSelection"</sbb-checkbox>
+    <sbb-checkbox formControlName="autoSelectActiveOption">"autoSelectActiveOption"</sbb-checkbox>
+    <sbb-checkbox formControlName="autoActiveFirstOption">"autoActiveFirstOption"</sbb-checkbox>
+  </sbb-checkbox-group>
+  <sbb-radio-button-group formControlName="size" orientation="vertical">
+    <label>Size</label>
+    <sbb-radio-button value="s">'s'</sbb-radio-button>
+    <sbb-radio-button value="m">'m'</sbb-radio-button>
+  </sbb-radio-button-group>
+</form>
