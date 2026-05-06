@@ -20,6 +20,6 @@ import { form, FormField } from '@angular/forms/signals';
   ],
 })
 export class AutocompleteBasicExample {
-  values: string[] = ['Value 1', 'Value 2', 'Value 3'];
-  control = form(signal(''));
+  protected readonly options: string[] = ['Value 1', 'Value 2', 'Value 3'];
+  protected control = form(signal(''));
 }
