@@ -8,7 +8,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
  * @title sbb-alert with routerLink
  */
 @Component({
-  selector: 'sbb-router-link-example',
+  selector: 'sbb-alert-router-link-example',
   templateUrl: 'alert-router-link-example.html',
   imports: [SbbAlertModule, SbbLinkModule, SbbTitleModule, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
