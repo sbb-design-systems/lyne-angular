@@ -29,16 +29,16 @@ import type { SbbAlertElement } from '@sbb-esta/lyne-elements/alert.js';
 })
 export class AlertVariantsExample {
   protected form = inject(FormBuilder).nonNullable.group({
-    iconName: null,
+    iconName: 'info',
     readOnly: false,
-    size: 'm' as SbbAlertElement['size'],
+    size: null as SbbAlertElement['size'] | null,
   });
 
   protected readonly iconName = toSignal(this.form.controls.iconName.valueChanges, {
-    initialValue: null,
+    initialValue: 'info',
   });
   protected readonly readOnly = toSignal(this.form.controls.readOnly.valueChanges, {
     initialValue: false,
   });
-  protected readonly size = toSignal(this.form.controls.size.valueChanges, { initialValue: 'm' });
+  protected readonly size = toSignal(this.form.controls.size.valueChanges, { initialValue: null });
 }
