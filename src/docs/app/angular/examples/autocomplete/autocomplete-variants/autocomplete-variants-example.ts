@@ -41,25 +41,27 @@ export class AutocompleteVariantsExample {
   });
 
   protected readonly borderless = toSignal(this.form.controls.borderless.valueChanges, {
-    initialValue: false,
+    initialValue: this.form.controls.borderless.value,
   });
   protected readonly floatingLabel = toSignal(this.form.controls.floatingLabel.valueChanges, {
-    initialValue: false,
+    initialValue: this.form.controls.floatingLabel.value,
   });
   protected readonly requireSelection = toSignal(this.form.controls.requireSelection.valueChanges, {
-    initialValue: false,
+    initialValue: this.form.controls.requireSelection.value,
   });
   protected readonly autoSelectActiveOption = toSignal(
     this.form.controls.autoSelectActiveOption.valueChanges,
     {
-      initialValue: false,
+      initialValue: this.form.controls.autoSelectActiveOption.value,
     },
   );
   protected readonly autoActiveFirstOption = toSignal(
     this.form.controls.autoActiveFirstOption.valueChanges,
     {
-      initialValue: false,
+      initialValue: this.form.controls.autoActiveFirstOption.value,
     },
   );
-  protected readonly size = toSignal(this.form.controls.size.valueChanges, { initialValue: 'm' });
+  protected readonly size = toSignal(this.form.controls.size.valueChanges, {
+    initialValue: this.form.controls.size.value,
+  });
 }

@@ -1,10 +1,11 @@
 <sbb-form-field>
-  <label>Autocomplete</label>
+  <label>Autocomplete with reactive form</label>
   <input [formControl]="control" [sbbAutocomplete]="auto" />
   <sbb-autocomplete #auto="sbbAutocomplete" [displayWith]="displayWith">
-    @for (option of filteredOptions | async; track option) {
+    @for (option of filteredOptions(); track option) {
     <sbb-option [value]="option">{{ option.key }}</sbb-option>
     }
   </sbb-autocomplete>
 </sbb-form-field>
+
 <sbb-card class="form-box" color="milk"> {{ control.value | json }} </sbb-card>

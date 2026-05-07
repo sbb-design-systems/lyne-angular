@@ -1,13 +1,12 @@
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SbbAutocompleteModule } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
-import type { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 /**
  * @title sbb-autocomplete with sbb-optgroup and sbb-option-hint
@@ -20,7 +19,6 @@ import { map, startWith } from 'rxjs/operators';
     SbbAutocompleteModule,
     SbbCardModule,
     SbbFormFieldModule,
-    AsyncPipe,
     JsonPipe,
     ReactiveFormsModule,
   ],
@@ -61,17 +59,17 @@ export class AutocompleteHintOptgroupExample {
   ];
   protected control = new FormControl('one');
   protected readonly staticOptions: string[] = ['static one', 'static two', 'static three'];
-  protected readonly filteredOptions: Observable<string[]> = this.control.valueChanges.pipe(
-    startWith(this.control.value),
-    debounceTime(500),
-    distinctUntilChanged(),
-    map((newValue) =>
-      !newValue || newValue.length < 2
-        ? []
-        : this.#options.filter(
-            (option) => option.toLocaleUpperCase().indexOf(newValue.toLocaleUpperCase()) > -1,
-          ),
+  protected readonly filteredOptions = toSignal(
+    this.control.valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      map((newValue) =>
+        !newValue || newValue.length < 2
+          ? []
+          : this.#options.filter(
+              (option) => option.toLocaleUpperCase().indexOf(newValue.toLocaleUpperCase()) > -1,
+            ),
+      ),
     ),
-    takeUntilDestroyed(),
   );
 }

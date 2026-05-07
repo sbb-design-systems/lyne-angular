@@ -1,8 +1,8 @@
 <sbb-form-field>
-  <label>Autocomplete</label>
-  <input [formControl]="control" [sbbAutocomplete]="auto" />
-  <sbb-autocomplete #auto="sbbAutocomplete">
-    @for (option of filteredOptions | async; track option) {
+  <label>Autocomplete with group and hint</label>
+  <input [formControl]="control" />
+  <sbb-autocomplete>
+    @for (option of filteredOptions(); track option) {
     <sbb-option [value]="option">{{ option }}</sbb-option>
     }
     <sbb-optgroup label="Option group">
@@ -13,4 +13,5 @@
     </sbb-optgroup>
   </sbb-autocomplete>
 </sbb-form-field>
+
 <sbb-card class="form-box" color="milk"> {{ control.value | json }}</sbb-card>
