@@ -1,5 +1,17 @@
 # Changelog
 
+## [21.6.3](https://github.com/sbb-design-systems/lyne-angular/compare/v21.6.2...v21.6.3) (2026-05-07)
+
+
+### Documentation
+
+* **accordion:** add examples ([#362](https://github.com/sbb-design-systems/lyne-angular/issues/362)) ([393f82f](https://github.com/sbb-design-systems/lyne-angular/commit/393f82ff0624711db8ff7a9c139f562f128e5aa7))
+
+
+### Miscellaneous Chores
+
+* prepare release 21.6.3 ([910301f](https://github.com/sbb-design-systems/lyne-angular/commit/910301fc6bcb601bc2f03150b1f48d8869a1e9ff))
+
 ## [21.6.2](https://github.com/sbb-design-systems/lyne-angular/compare/v21.6.1...v21.6.2) (2026-04-27)
 
 
