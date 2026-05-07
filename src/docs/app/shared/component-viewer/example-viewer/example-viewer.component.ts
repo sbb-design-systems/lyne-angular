@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -12,6 +13,7 @@ import type { SafeHtml } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
+import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
 import { SbbTabsModule } from '@sbb-esta/lyne-angular/tabs';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 import { SbbToggleCheck } from '@sbb-esta/lyne-angular/toggle-check';
@@ -41,7 +43,7 @@ interface ExampleCode {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleOutletComponent {
-  #viewContainerRef = inject(ViewContainerRef);
+  readonly #viewContainerRef = inject(ViewContainerRef);
   exampleData = input.required<ExampleData>();
 
   constructor() {
@@ -69,15 +71,17 @@ export class ExampleOutletComponent {
     StackBlitzButton,
     SbbTitleModule,
     SbbToggleCheck,
+    SbbLinkModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleViewerComponent {
-  #htmlLoader = inject(HtmlLoader);
-  #route = inject(ActivatedRoute);
-  #domSanitizer = inject(DomSanitizer);
-  #defaultExtensionsOrder = ['html', 'ts', 'css', 'scss'];
-  #routeParams = toSignal(moduleParams(this.#route));
+  readonly #htmlLoader = inject(HtmlLoader);
+  readonly #route = inject(ActivatedRoute);
+  readonly #domSanitizer = inject(DomSanitizer);
+  readonly #defaultExtensionsOrder = ['html', 'ts', 'css', 'scss'];
+  readonly #routeParams = toSignal(moduleParams(this.#route));
+  protected readonly currentPath = inject(Location).path();
 
   exampleData = input.required<ExampleData>();
   protected showSource = signal(false);
