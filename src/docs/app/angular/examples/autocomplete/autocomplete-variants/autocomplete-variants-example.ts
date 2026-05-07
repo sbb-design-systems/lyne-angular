@@ -31,6 +31,7 @@ import type { SbbAutocompleteElement } from '@sbb-esta/lyne-elements/autocomplet
 })
 export class AutocompleteVariantsExample {
   protected control = new FormControl<string | null>(null);
+  // TODO: support size=null after merge of https://github.com/sbb-design-systems/lyne-components/pull/4865
   protected form = inject(FormBuilder).nonNullable.group({
     borderless: false,
     floatingLabel: false,
