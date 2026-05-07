@@ -35,10 +35,12 @@ export class AlertVariantsExample {
   });
 
   protected readonly iconName = toSignal(this.form.controls.iconName.valueChanges, {
-    initialValue: 'info',
+    initialValue: this.form.controls.iconName.value,
   });
   protected readonly readOnly = toSignal(this.form.controls.readOnly.valueChanges, {
-    initialValue: false,
+    initialValue: this.form.controls.readOnly.value,
   });
-  protected readonly size = toSignal(this.form.controls.size.valueChanges, { initialValue: null });
+  protected readonly size = toSignal(this.form.controls.size.valueChanges, {
+    initialValue: this.form.controls.size.value,
+  });
 }

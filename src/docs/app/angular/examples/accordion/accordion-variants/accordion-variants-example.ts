@@ -25,7 +25,7 @@ export class AccordionVariantsExample {
   });
 
   protected readonly multi = toSignal(this.form.controls.multi.valueChanges, {
-    initialValue: false,
+    initialValue: this.form.controls.multi.value,
   });
   protected readonly size = toSignal(
     this.form.controls.smallSize.valueChanges.pipe(
@@ -34,9 +34,9 @@ export class AccordionVariantsExample {
     { initialValue: 'l' },
   );
   protected readonly iconPanel = toSignal(this.form.controls.iconPanel.valueChanges, {
-    initialValue: false,
+    initialValue: this.form.controls.iconPanel.value,
   });
   protected readonly disablePanel = toSignal(this.form.controls.disablePanel.valueChanges, {
-    initialValue: false,
+    initialValue: this.form.controls.disablePanel.value,
   });
 }
