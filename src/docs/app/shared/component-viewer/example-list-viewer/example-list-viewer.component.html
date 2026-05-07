@@ -1,7 +1,21 @@
 @if (examples().length > 0) {
-  @for (exampleData of examples(); track exampleData.id) {
-    <sbb-example-viewer [exampleData]="exampleData" />
-  }
+  <div class="docs-toc-container">
+    <div>
+      @for (exampleData of examples(); track exampleData.id) {
+        <sbb-example-viewer [exampleData]="exampleData" />
+      }
+    </div>
+    <aside class="docs-toc-content">
+      <sbb-title level="6">Table of contents</sbb-title>
+      <sbb-link-list-anchor class="sbb-scrollbar">
+        @for (exampleData of examples(); track exampleData.id) {
+          <sbb-block-link [href]="currentPath + '#' + exampleData.id">{{
+            exampleData.description
+          }}</sbb-block-link>
+        }
+      </sbb-link-list-anchor>
+    </aside>
+  </div>
 } @else {
   No Examples found
 }
