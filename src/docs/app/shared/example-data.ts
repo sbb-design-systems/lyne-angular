@@ -54,7 +54,7 @@ export class ExampleData {
     }
     this.selectorName = example.selectorName ?? `sbb-${example.id}-example`;
     this.indexFilename = example.indexFilename ?? `${example.id}-example.ts`;
-    this.description = example.description ?? exampleName.replace(/-+/g, ' ') + ' Example';
+    this.description = example.description ?? exampleName.replace(/-+/g, ' ');
     this.importPath = `${library}/${id}`;
     this.componentNames = example.componentNames ?? [this.name];
   }
