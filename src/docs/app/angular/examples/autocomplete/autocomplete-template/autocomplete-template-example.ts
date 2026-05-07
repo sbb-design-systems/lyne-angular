@@ -11,6 +11,7 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 @Component({
   selector: 'sbb-autocomplete-template-example',
   templateUrl: 'autocomplete-template-example.html',
+  styleUrl: 'autocomplete-template-example.scss',
   imports: [SbbAutocompleteModule, SbbCardModule, SbbFormFieldModule, JsonPipe, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

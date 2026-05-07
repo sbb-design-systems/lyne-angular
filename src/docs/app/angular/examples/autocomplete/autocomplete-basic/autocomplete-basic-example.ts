@@ -11,6 +11,7 @@ import { form, FormField } from '@angular/forms/signals';
 @Component({
   selector: 'sbb-autocomplete-basic-example',
   templateUrl: 'autocomplete-basic-example.html',
+  styleUrl: 'autocomplete-basic-example.scss',
   imports: [
     FormField,
     SbbAutocompleteModule,

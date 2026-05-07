@@ -15,6 +15,7 @@ import { map, startWith } from 'rxjs/operators';
 @Component({
   selector: 'sbb-autocomplete-hint-optgroup-example',
   templateUrl: 'autocomplete-hint-optgroup-example.html',
+  styleUrl: 'autocomplete-hint-optgroup-example.scss',
   imports: [
     SbbAutocompleteModule,
     SbbCardModule,

@@ -15,6 +15,7 @@ import { map, startWith } from 'rxjs/operators';
 @Component({
   selector: 'sbb-autocomplete-reactive-example',
   templateUrl: 'autocomplete-reactive-example.html',
+  styleUrl: 'autocomplete-reactive-example.scss',
   imports: [
     SbbAutocompleteModule,
     SbbCardModule,

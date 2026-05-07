@@ -16,6 +16,7 @@ import type { SbbAutocompleteElement } from '@sbb-esta/lyne-elements/autocomplet
 @Component({
   selector: 'sbb-autocomplete-variants-example',
   templateUrl: 'autocomplete-variants-example.html',
+  styleUrl: 'autocomplete-variants-example.scss',
   imports: [
     SbbAutocompleteModule,
     SbbCardModule,
