@@ -1,0 +1,46 @@
+<sbb-accordion [multi]="multi()" [size]="size()">
+  <sbb-expansion-panel [expanded]="true">
+    <sbb-expansion-panel-header [iconName]="iconPanel() ? 'pie-small' : ''"
+      >First header</sbb-expansion-panel-header
+    >
+    <sbb-expansion-panel-content>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+      non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </sbb-expansion-panel-content>
+  </sbb-expansion-panel>
+  <sbb-expansion-panel [disabled]="disablePanel()">
+    <sbb-expansion-panel-header [iconName]="iconPanel() ? 'dog-small' : ''"
+      >Second header</sbb-expansion-panel-header
+    >
+    <sbb-expansion-panel-content>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+      non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </sbb-expansion-panel-content>
+  </sbb-expansion-panel>
+  <sbb-expansion-panel>
+    <sbb-expansion-panel-header [iconName]="iconPanel() ? 'user-small' : ''"
+      >Third header</sbb-expansion-panel-header
+    >
+    <sbb-expansion-panel-content>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+      non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </sbb-expansion-panel-content>
+  </sbb-expansion-panel>
+</sbb-accordion>
+
+<sbb-title level="5">Properties</sbb-title>
+<sbb-checkbox-group orientation="vertical" [formGroup]="form">
+  <sbb-checkbox formControlName="multi">Allows for multiple panel opened</sbb-checkbox>
+  <sbb-checkbox formControlName="smallSize">Small size</sbb-checkbox>
+  <sbb-checkbox formControlName="iconPanel">Icon on header</sbb-checkbox>
+  <sbb-checkbox formControlName="disablePanel">Disable second panel</sbb-checkbox>
+</sbb-checkbox-group>
