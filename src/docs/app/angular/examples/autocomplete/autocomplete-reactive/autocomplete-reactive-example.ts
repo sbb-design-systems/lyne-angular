@@ -6,7 +6,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SbbAutocompleteModule } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 
 /**
  * @title sbb-autocomplete with async reactive form and key-value options mapping
@@ -36,6 +36,7 @@ export class AutocompleteReactiveExample {
   ): string => (v ? v.key : v);
   protected filteredOptions = toSignal(
     this.control.valueChanges.pipe(
+      startWith(''),
       map((value) => {
         const name = typeof value === 'string' ? value : value?.key;
         return name ? this.#filter(name) : this.#options.slice(0);
