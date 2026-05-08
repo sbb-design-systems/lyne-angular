@@ -58,7 +58,7 @@
     "@commitlint/config-conventional": "20.5.3",
     "@compodoc/compodoc": "1.2.1",
     "@eslint/js": "10.0.1",
-    "@types/node": "24.12.2",
+    "@types/node": "24.12.3",
     "@vitest/browser-playwright": "4.1.5",
     "@vitest/coverage-v8": "4.1.5",
     "angular-eslint": "21.3.1",
