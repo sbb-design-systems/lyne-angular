@@ -128,6 +128,34 @@ describe('sbb-dialog', () => {
       expect(afterCloseSpy).toHaveBeenCalled();
     });
 
+    it('should keep beforeClosed active for repeated cancelled close attempts', async () => {
+      const beforeCloseSpy = vi.fn((event: Event) => event.preventDefault());
+      const afterCloseSpy = vi.fn();
+      const ref = service.open(SbbDummyComponent, {
+        viewContainerRef: component.childViewContainer,
+        data: { dummyText: 'test string' },
+      });
+      const beforeCloseSubscription = ref.beforeClosed.subscribe(beforeCloseSpy);
+      ref.afterClosed.subscribe(afterCloseSpy);
+      await fixture.whenRenderingDone();
+
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      fixture.detectChanges();
+
+      const dialogElement = overlayContainerElement.querySelector('sbb-dialog') as HTMLElement & {
+        isOpen: boolean;
+      };
+
+      expect(beforeCloseSpy).toHaveBeenCalledTimes(2);
+      expect(dialogElement.isOpen).toBe(true);
+      expect(service.openOverlays[0]).toBe(ref);
+      expect(afterCloseSpy).not.toHaveBeenCalled();
+
+      beforeCloseSubscription.unsubscribe();
+      ref.close();
+    });
+
     it('should use injector from viewContainerRef', async () => {
       const ref = service.open<SbbDummyComponent>(SbbDummyComponent, {
         viewContainerRef: component.childViewContainer,

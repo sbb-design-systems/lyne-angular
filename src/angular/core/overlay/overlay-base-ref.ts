@@ -2,7 +2,7 @@ import type { DomPortalOutlet } from '@angular/cdk/portal';
 import type { Location } from '@angular/common';
 import type { ComponentRef } from '@angular/core';
 import type { SubscriptionLike, Observable } from 'rxjs';
-import { share, Subscription, take } from 'rxjs';
+import { share, Subscription, take, takeUntil } from 'rxjs';
 
 import type { SbbOverlayConfig } from './overlay-config';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
@@ -40,8 +40,8 @@ export class SbbOverlayBaseRef<T = unknown, C extends Event = Event> {
     this.id = config.id;
     this.#container = container;
     this.#afterOpened = this.#container.afterOpened.pipe(take(1), share());
-    this.#beforeClosed = this.#container.beforeClosed.pipe(take(1), share());
     this.#afterClosed = this.#container.afterClosed.pipe(take(1), share());
+    this.#beforeClosed = this.#container.beforeClosed.pipe(takeUntil(this.#afterClosed), share());
 
     let locationSubscription: SubscriptionLike = Subscription.EMPTY;
 
