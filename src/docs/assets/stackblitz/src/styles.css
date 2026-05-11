@@ -18,3 +18,12 @@ body {
   font-size: var(--sbb-text-font-size-xs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
 }
+
+sbb-card.form-value-box {
+  margin-block-start: var(--sbb-spacing-fixed-6x);
+}
+
+.controls {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-8x);
+}
