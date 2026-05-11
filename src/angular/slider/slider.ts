@@ -9,13 +9,9 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-  booleanAttribute,
-  internalOutputFromObservable,
-  SbbControlValueAccessorMixin,
-} from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbSliderElement } from '@sbb-esta/lyne-elements/slider.js';
-import { fromEvent, NEVER } from 'rxjs';
+import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/slider.js';
 
@@ -211,33 +207,11 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.setCustomValidity(message);
   }
 
-  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'change',
-  });
-  /**
-   * The change event is fired when the user modifies the element's value.
-   * Unlike the input event, the change event is not necessarily fired
-   * for each alteration to an element's value.
-   */
-  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'change'),
-  );
-
   /**
    * Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.
    */
   public didChangeOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'didChange'),
     { alias: 'didChange' },
-  );
-
-  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
-    alias: 'input',
-  });
-  /**
-   * The input event fires when the value has been changed as a direct result of a user action.
-   */
-  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
-    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
   );
 }

@@ -1,26 +1,12 @@
-import {
-  Directive,
-  ElementRef,
-  forwardRef,
-  inject,
-  Input,
-  NgZone,
-  type OutputRef,
-} from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import type { AbstractControl, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import {
-  booleanAttribute,
-  internalOutputFromObservable,
-  SbbControlValueAccessorMixin,
-} from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { readConfig } from '@sbb-esta/lyne-elements/core/config.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
 import type { SbbDateInputAssociated } from '@sbb-esta/lyne-elements/date-input.js';
 import { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
 import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.js';
-import { fromEvent, NEVER } from 'rxjs';
 
 /**
  * Custom input for a date.
@@ -316,26 +302,6 @@ export class SbbDateInput<T = Date>
   public select(): void {
     return this.#element.nativeElement.select();
   }
-
-  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
-    alias: 'input',
-  });
-  /**
-   * The input event fires when the value has been changed as a direct result of a user action.
-   */
-  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
-    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
-  );
-
-  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'change',
-  });
-  /**
-   * The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
-   */
-  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'change'),
-  );
 
   #runWithValidationCheck(action: () => void): void {
     this.#ngZone.runOutsideAngular(() => {
