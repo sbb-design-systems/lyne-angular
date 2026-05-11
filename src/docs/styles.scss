@@ -104,12 +104,12 @@ sbb-block-link {
 }
 
 // Examples only - use this when you want to display the form value in a card.
-sbb-card.form-value-box {
+sbb-card.sbb-example__form-value-box {
   margin-block-start: var(--sbb-spacing-fixed-6x);
 }
 
 // Examples only - use this when you want to display a control panel with the component properties.
-.controls {
+.sbb-example__controls {
   display: flex;
   gap: var(--sbb-spacing-fixed-8x);
 }
