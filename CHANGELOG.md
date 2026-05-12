@@ -1,5 +1,24 @@
 # Changelog
 
+## [21.7.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.6.3...v21.7.0) (2026-05-12)
+
+
+### Features
+
+* **stepper:** add step content directive ([#371](https://github.com/sbb-design-systems/lyne-angular/issues/371)) ([e55df09](https://github.com/sbb-design-systems/lyne-angular/commit/e55df095eac83278bfe32a5ebbe5d5190e7da478))
+
+
+### Bug Fixes
+
+* **dialog:** keep beforeClose active until close ([#374](https://github.com/sbb-design-systems/lyne-angular/issues/374)) ([74df79e](https://github.com/sbb-design-systems/lyne-angular/commit/74df79e3d660eac3cf890b5364a14ce8d0ab235d))
+
+
+### Documentation
+
+* add table-of-contents to examples page ([#368](https://github.com/sbb-design-systems/lyne-angular/issues/368)) ([b9c3f22](https://github.com/sbb-design-systems/lyne-angular/commit/b9c3f22306a1c51aadba60567c45f42aa4aca138))
+* **alert:** fix typo ([#377](https://github.com/sbb-design-systems/lyne-angular/issues/377)) ([d9b121b](https://github.com/sbb-design-systems/lyne-angular/commit/d9b121b968275f38c1d955b4aee41d5ee2ef7ff6))
+* remove 'Example' suffix from description ([#372](https://github.com/sbb-design-systems/lyne-angular/issues/372)) ([ac811c2](https://github.com/sbb-design-systems/lyne-angular/commit/ac811c2293025b73ba2cad8fd49507d246310201))
+
 ## [21.6.3](https://github.com/sbb-design-systems/lyne-angular/compare/v21.6.2...v21.6.3) (2026-05-07)
 
 
