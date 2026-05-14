@@ -9,7 +9,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   autocomplete: ['autocomplete-basic'],
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
-  button: ['button-basic', 'mini-button-basic'],
+  button: ['button-variants', 'mini-button-basic'],
   calendar: ['calendar-basic'],
   card: ['card-basic'],
   carousel: ['carousel-basic'],
@@ -120,7 +120,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/badge');
     case 'breadcrumb-basic':
       return import('../angular/examples/breadcrumb');
-    case 'button-basic':
+    case 'button-variants':
       return import('../angular/examples/button');
     case 'calendar-basic':
       return import('../angular/examples/calendar');
