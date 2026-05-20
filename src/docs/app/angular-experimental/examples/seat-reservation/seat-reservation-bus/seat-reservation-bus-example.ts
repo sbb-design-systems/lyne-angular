@@ -13,7 +13,9 @@ import type { SeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SeatReservationBusExample {
-  readonly seatReservations = signal<SeatReservation[]>([EXAMPLE_DATA_SEAT_RESERVATION_BUS]);
+  protected readonly seatReservations = signal<SeatReservation[]>([
+    EXAMPLE_DATA_SEAT_RESERVATION_BUS,
+  ]);
 }
 
 const EXAMPLE_DATA_SEAT_RESERVATION_BUS: SeatReservation = {

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { SbbSeatReservationModule } from '@sbb-esta/lyne-angular-experimental/seat-reservation';
 import type { SeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
+
 /**
  * @title Multiple Decks Seat Reservation
  * @order 2
@@ -12,10 +13,10 @@ import type { SeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SeatReservationMultipleDecksExample {
-  readonly seatReservations = signal<SeatReservation[]>([
+  protected readonly seatReservations = signal<SeatReservation[]>([
     MOCK_DATA_SEAT_RESERVATION_MULTIPLE_DECKS,
   ]);
-  readonly seatReservationsMultipleDecks = computed(() => {
+  protected readonly seatReservationsMultipleDecks = computed(() => {
     const seatReservationLowerDeck: SeatReservation = {
       ...this.seatReservations()[0],
       deckCoachLevel: 'LOWER_DECK',

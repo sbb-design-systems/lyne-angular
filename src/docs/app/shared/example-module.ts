@@ -64,7 +64,6 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'seat-reservation': [
     'seat-reservation-basic',
     'seat-reservation-multiple-decks',
-    // eslint-disable-next-line lyne/example-module-rule
     'seat-reservation-bus',
   ],
   select: ['select-basic'],
