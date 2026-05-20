@@ -61,6 +61,11 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'radio-button': ['radio-button-basic'],
   'radio-button-group': ['radio-button-group-basic'],
   'radio-button-panel': ['radio-button-panel-basic'],
+  'seat-reservation': [
+    'seat-reservation-basic',
+    'seat-reservation-multiple-decks',
+    'seat-reservation-bus',
+  ],
   select: ['select-basic'],
   'selection-action-panel': ['selection-action-panel-basic'],
   'selection-expansion-panel': ['selection-expansion-panel-basic'],
@@ -236,6 +241,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/radio-button-group');
     case 'radio-button-panel-basic':
       return import('../angular/examples/radio-button-panel');
+    case 'seat-reservation-basic':
+    case 'seat-reservation-bus':
+    case 'seat-reservation-multiple-decks':
+      return import('../angular-experimental/examples/seat-reservation');
     case 'select-basic':
       return import('../angular/examples/select');
     case 'selectable-table':
