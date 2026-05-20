@@ -3,7 +3,9 @@ import { SbbSeatReservationModule } from '@sbb-esta/lyne-angular-experimental/se
 import type { SeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 
 /**
- * @title Basic Seat Reservation */
+ * @title Basic Seat Reservation
+ * @order 1
+ * */
 @Component({
   selector: 'sbb-seat-reservation-basic-example',
   templateUrl: 'seat-reservation-basic-example.html',

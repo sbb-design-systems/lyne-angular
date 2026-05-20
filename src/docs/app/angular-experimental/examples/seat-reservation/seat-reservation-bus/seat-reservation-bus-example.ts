@@ -4,7 +4,8 @@ import type { SeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-
 
 /**
  * @title Bus Seat Reservation
- */
+ * @order 3
+ * */
 @Component({
   selector: 'sbb-seat-reservation-bus-example',
   templateUrl: 'seat-reservation-bus-example.html',

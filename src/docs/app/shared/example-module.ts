@@ -244,8 +244,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/radio-button-panel');
     case 'seat-reservation-basic':
     case 'seat-reservation-bus':
-      return import('../angular-experimental/examples/seat-reservation');
     case 'seat-reservation-multiple-decks':
+      return import('../angular-experimental/examples/seat-reservation');
     case 'select-basic':
       return import('../angular/examples/select');
     case 'selectable-table':

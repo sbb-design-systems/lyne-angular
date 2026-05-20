@@ -3,6 +3,7 @@ import { SbbSeatReservationModule } from '@sbb-esta/lyne-angular-experimental/se
 import type { SeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 /**
  * @title Multiple Decks Seat Reservation
+ * @order 2
  */
 @Component({
   selector: 'sbb-seat-reservation-multiple-decks-example',
