@@ -19,7 +19,6 @@ import {
 } from '@sbb-esta/lyne-angular/core';
 import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.js';
 import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox-panel.js';
-import type { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/checkbox-panel.js';
@@ -56,13 +55,13 @@ export class SbbCheckboxPanel<T = string>
   #focusMonitor = inject(FocusMonitor);
 
   /**
-   * Size variant, either xs, s or m.
+   * Size variant, either xs (lean theme default), s or m (standard theme default).
    */
   @Input()
-  public set size(value: SbbCheckboxSize) {
+  public set size(value: 'xs' | 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbCheckboxSize {
+  public get size(): 'xs' | 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 

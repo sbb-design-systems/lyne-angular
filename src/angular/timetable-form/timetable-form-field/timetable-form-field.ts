@@ -62,13 +62,13 @@ export class SbbTimetableFormField {
   }
 
   /**
-   * Size variant, either l, m or s.
+   * Size variant, either s, m or l (default).
    */
   @Input()
-  public set size(value: 'l' | 'm' | 's') {
+  public set size(value: 'l' | 'm' | 's' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): string {
+  public get size(): 'l' | 'm' | 's' | null {
     return this.#element.nativeElement.size;
   }
 

@@ -1,10 +1,9 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type {
   SbbNavigationButtonElement,
   SbbNavigationMarkerElement,
   SbbNavigationSectionElement,
-  SbbNavigationActionSize,
 } from '@sbb-esta/lyne-elements/navigation.js';
 
 import '@sbb-esta/lyne-elements/navigation.js';
@@ -21,17 +20,6 @@ import '@sbb-esta/lyne-elements/navigation.js';
 export class SbbNavigationButton {
   #element: ElementRef<SbbNavigationButtonElement> = inject(ElementRef<SbbNavigationButtonElement>);
   #ngZone: NgZone = inject(NgZone);
-
-  /**
-   * Action size variant, either s, m or l.
-   */
-  @Input()
-  public set size(value: SbbNavigationActionSize) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
-  }
-  public get size(): SbbNavigationActionSize {
-    return this.#element.nativeElement.size;
-  }
 
   /**
    * The section that is being controlled by the action, if any.
@@ -81,11 +69,22 @@ export class SbbNavigationButton {
    * The type attribute to use for the button.
    */
   @Input()
-  public set type(value: SbbButtonType) {
+  public set type(value: 'button' | 'reset' | 'submit') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): SbbButtonType {
+  public get type(): 'button' | 'reset' | 'submit' {
     return this.#element.nativeElement.type;
+  }
+
+  /**
+   * Whether the component is disabled.
+   */
+  @Input({ transform: booleanAttribute })
+  public set disabled(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabled = value));
+  }
+  public get disabled(): boolean {
+    return this.#element.nativeElement.disabled;
   }
 
   /**

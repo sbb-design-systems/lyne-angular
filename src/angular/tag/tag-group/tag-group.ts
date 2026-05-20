@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbTagGroupElement, SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag.js';
+import type { SbbTagGroupElement, SbbTagElement } from '@sbb-esta/lyne-elements/tag.js';
 
 import '@sbb-esta/lyne-elements/tag.js';
 
@@ -45,13 +45,13 @@ export class SbbTagGroup<T = string> {
   }
 
   /**
-   * Tag group size, either s or m.
+   * Tag group size, either s (lean theme default) or m (standard theme default).
    */
   @Input()
-  public set size(value: SbbTagSize) {
+  public set size(value: 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbTagSize {
+  public get size(): 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 

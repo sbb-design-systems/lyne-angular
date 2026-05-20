@@ -19,7 +19,7 @@ For every variant there is also a link version, equivalent to a native `anchor (
 <sbb-transparent-button-link>Button text</sbb-transparent-button-link>
 ```
 
-Additionally for every variant there is a static version that can be used inside another
+Additionally, for every variant there is a static version that can be used inside another
 interactive element (e.g. an `anchor (a)`).
 
 ```html
@@ -66,7 +66,7 @@ The component can be displayed in `disabled` state using the corresponding prope
 ```html
 <sbb-button negative>Button</sbb-button>
 
-<sbb-button size="m">Button</sbb-button>
+<sbb-button size="l">Button</sbb-button>
 
 <sbb-button disabled>Button</sbb-button>
 ```
@@ -150,7 +150,7 @@ optionally separated by a [sbb-divider](/angular/components/divider/overview).
 
 The component has a negative variant which can be set using the `negative` property.
 
-There are four available sizes: `s`, `m` (default), `l` and `xl`.
+There are four available sizes: `s`, `m`, `l` and `xl`.
 
 ```html
 <sbb-mini-button-group negative size="l"> ... </sbb-mini-button-group>

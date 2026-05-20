@@ -1,8 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type {
-  SbbFlipCardImageAlignment,
-  SbbFlipCardSummaryElement,
-} from '@sbb-esta/lyne-elements/flip-card.js';
+import type { SbbFlipCardSummaryElement } from '@sbb-esta/lyne-elements/flip-card.js';
 
 import '@sbb-esta/lyne-elements/flip-card.js';
 
@@ -24,10 +21,10 @@ export class SbbFlipCardSummary {
    * The position where to render the image.
    */
   @Input()
-  public set imageAlignment(value: SbbFlipCardImageAlignment) {
+  public set imageAlignment(value: 'after' | 'below') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.imageAlignment = value));
   }
-  public get imageAlignment(): SbbFlipCardImageAlignment {
+  public get imageAlignment(): 'after' | 'below' {
     return this.#element.nativeElement.imageAlignment;
   }
 }

@@ -149,7 +149,7 @@ the `sbb-form-field-text-counter` is hidden.
 
 ## Style
 
-The component has a `size` property, which accepts three different values: `s`, `m` (default) and `l`.
+The component has a `size` property, which accepts three different values: `s`, `m` and `l`.
 
 ```html
 <sbb-form-field size="s">

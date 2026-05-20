@@ -1,10 +1,8 @@
 import { Directive, ElementRef, inject } from '@angular/core';
 import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.js';
 import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox-panel.js';
-import type {
-  SbbRadioButtonGroupElement,
-  SbbRadioButtonPanelElement,
-} from '@sbb-esta/lyne-elements/radio-button.js';
+import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.js';
+import type { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button-panel.js';
 import type { SbbSelectionActionPanelElement } from '@sbb-esta/lyne-elements/selection-action-panel.js';
 
 import '@sbb-esta/lyne-elements/selection-action-panel.js';

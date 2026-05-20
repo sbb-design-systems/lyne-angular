@@ -1,5 +1,4 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbIconSidebarButtonElement } from '@sbb-esta/lyne-elements/icon-sidebar.js';
 
 import '@sbb-esta/lyne-elements/icon-sidebar.js';
@@ -69,10 +68,10 @@ export class SbbIconSidebarButton {
    * The type attribute to use for the button.
    */
   @Input()
-  public set type(value: SbbButtonType) {
+  public set type(value: 'button' | 'reset' | 'submit') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): SbbButtonType {
+  public get type(): 'button' | 'reset' | 'submit' {
     return this.#element.nativeElement.type;
   }
 

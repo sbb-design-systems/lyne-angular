@@ -1,7 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbLinkButtonElement, SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
+import type { SbbLinkButtonElement } from '@sbb-esta/lyne-elements/link.js';
 
 import '@sbb-esta/lyne-elements/link.js';
 
@@ -17,18 +16,6 @@ import '@sbb-esta/lyne-elements/link.js';
 export class SbbLinkButton {
   #element: ElementRef<SbbLinkButtonElement> = inject(ElementRef<SbbLinkButtonElement>);
   #ngZone: NgZone = inject(NgZone);
-
-  /**
-   * Text size, the link should get in the non-button variation.
-   * With inline variant, the text size adapts to where it is used.
-   */
-  @Input()
-  public set size(value: SbbLinkSize) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
-  }
-  public get size(): SbbLinkSize {
-    return this.#element.nativeElement.size;
-  }
 
   /**
    * Negative coloring variant flag.
@@ -100,10 +87,10 @@ export class SbbLinkButton {
    * The type attribute to use for the button.
    */
   @Input()
-  public set type(value: SbbButtonType) {
+  public set type(value: 'button' | 'reset' | 'submit') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): SbbButtonType {
+  public get type(): 'button' | 'reset' | 'submit' {
     return this.#element.nativeElement.type;
   }
 

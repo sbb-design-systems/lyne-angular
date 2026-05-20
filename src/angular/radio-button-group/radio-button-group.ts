@@ -10,13 +10,10 @@ import {
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.js';
-import type {
-  SbbRadioButtonElement,
-  SbbRadioButtonPanelElement,
-  SbbRadioButtonSize,
-} from '@sbb-esta/lyne-elements/radio-button.js';
+import type { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button-panel.js';
+import type { SbbRadioButtonElement } from '@sbb-esta/lyne-elements/radio-button.js';
 import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/radio-button-group.js';
@@ -82,13 +79,13 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
   }
 
   /**
-   * Size variant, either xs, s or m.
+   * Size variant, either xs (lean theme default), s or m (standard theme default).
    */
   @Input()
-  public set size(value: SbbRadioButtonSize) {
+  public set size(value: 'xs' | 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbRadioButtonSize {
+  public get size(): 'xs' | 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -107,10 +104,10 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
    * Indicates the orientation of the checkboxes or panels inside the group.
    */
   @Input()
-  public set orientation(value: SbbOrientation) {
+  public set orientation(value: 'horizontal' | 'vertical') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.orientation = value));
   }
-  public get orientation(): SbbOrientation {
+  public get orientation(): 'horizontal' | 'vertical' {
     return this.#element.nativeElement.orientation;
   }
 

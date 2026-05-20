@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbAccordionElement } from '@sbb-esta/lyne-elements/accordion.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
 
 import '@sbb-esta/lyne-elements/accordion.js';
 
@@ -19,13 +19,14 @@ export class SbbAccordion {
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either l or s; overrides the size on any projected `sbb-expansion-panel`.
+   * Size variant, either s (lean theme default) or l (standard theme default).
+   * The property overrides the size on any projected `sbb-expansion-panel`.
    */
   @Input()
-  public set size(value: 's' | 'l') {
+  public set size(value: 's' | 'l' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 's' | 'l' {
+  public get size(): 's' | 'l' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -33,10 +34,10 @@ export class SbbAccordion {
    * The heading level for the sbb-expansion-panel-headers within the component.
    */
   @Input()
-  public set titleLevel(value: SbbTitleLevel | null) {
+  public set titleLevel(value: SbbHeadingLevel | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
   }
-  public get titleLevel(): SbbTitleLevel | null {
+  public get titleLevel(): SbbHeadingLevel | null {
     return this.#element.nativeElement.titleLevel;
   }
 

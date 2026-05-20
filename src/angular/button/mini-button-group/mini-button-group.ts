@@ -1,9 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type {
-  SbbMiniButtonGroupElement,
-  SbbMiniButtonGroupSize,
-} from '@sbb-esta/lyne-elements/button.js';
+import type { SbbMiniButtonGroupElement } from '@sbb-esta/lyne-elements/button.js';
 
 import '@sbb-esta/lyne-elements/button.js';
 
@@ -33,13 +30,13 @@ export class SbbMiniButtonGroup {
   }
 
   /**
-   * Size variant, either s, m, l or xl.
+   * Size variant, either s (lean theme default), m (standard theme default), l or xl.
    */
   @Input()
-  public set size(value: SbbMiniButtonGroupSize) {
+  public set size(value: 's' | 'm' | 'l' | 'xl' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbMiniButtonGroupSize {
+  public get size(): 's' | 'm' | 'l' | 'xl' | null {
     return this.#element.nativeElement.size;
   }
 

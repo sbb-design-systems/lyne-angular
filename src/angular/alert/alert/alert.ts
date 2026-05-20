@@ -33,13 +33,13 @@ export class SbbAlert {
   }
 
   /**
-   * You can choose between `s`, `m` or `l` size.
+   * Size variant, either `s` (lean theme default), `m` (standard theme default) or `l`.
    */
   @Input()
-  public set size(value: 's' | 'm' | 'l') {
+  public set size(value: 's' | 'm' | 'l' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 's' | 'm' | 'l' {
+  public get size(): 's' | 'm' | 'l' | null {
     return this.#element.nativeElement.size;
   }
 

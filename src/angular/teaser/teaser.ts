@@ -1,6 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type { SbbTeaserElement } from '@sbb-esta/lyne-elements/teaser.js';
 
 import '@sbb-esta/lyne-elements/teaser.js';
@@ -47,10 +46,10 @@ export class SbbTeaser {
    * Where to display the linked URL.
    */
   @Input()
-  public set target(value: LinkTargetType | string) {
+  public set target(value: '_blank' | '_self' | '_parent' | '_top' | string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.target = value));
   }
-  public get target(): LinkTargetType | string {
+  public get target(): '_blank' | '_self' | '_parent' | '_top' | string {
     return this.#element.nativeElement.target;
   }
 

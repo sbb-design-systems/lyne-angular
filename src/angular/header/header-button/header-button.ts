@@ -1,6 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbHeaderButtonElement } from '@sbb-esta/lyne-elements/header.js';
 
 import '@sbb-esta/lyne-elements/header.js';
@@ -82,10 +81,10 @@ export class SbbHeaderButton {
    * The type attribute to use for the button.
    */
   @Input()
-  public set type(value: SbbButtonType) {
+  public set type(value: 'button' | 'reset' | 'submit') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): SbbButtonType {
+  public get type(): 'button' | 'reset' | 'submit' {
     return this.#element.nativeElement.type;
   }
 

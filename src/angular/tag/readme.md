@@ -16,7 +16,7 @@ Each `<sbb-tag>` must have a `value` property.
 
 ## Style
 
-The `size` property on `<sbb-tag-group>` (values: `m`, `s`) is applied to all contained `<sbb-tag>` elements.
+The `size` property on `<sbb-tag-group>` (values: `s`, `m`) is applied to all contained `<sbb-tag>` elements.
 
 ```html
 <sbb-tag-group size="m">

@@ -17,8 +17,7 @@ import {
   SbbControlValueAccessorMixin,
 } from '@sbb-esta/lyne-angular/core';
 import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.js';
-import type { SbbCheckboxElement, SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
-import type { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/checkbox.js';
@@ -52,13 +51,13 @@ export class SbbCheckbox<T = string>
   #focusMonitor = inject(FocusMonitor);
 
   /**
-   * Size variant, either xs, s or m.
+   * Size variant, either xs (lean theme default), s or m (standard theme default).
    */
   @Input()
-  public set size(value: SbbCheckboxSize) {
+  public set size(value: 'xs' | 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbCheckboxSize {
+  public get size(): 'xs' | 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -66,10 +65,10 @@ export class SbbCheckbox<T = string>
    * The label position relative to the labelIcon. Defaults to end
    */
   @Input()
-  public set iconPlacement(value: SbbIconPlacement) {
+  public set iconPlacement(value: 'start' | 'end') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconPlacement = value));
   }
-  public get iconPlacement(): SbbIconPlacement {
+  public get iconPlacement(): 'start' | 'end' {
     return this.#element.nativeElement.iconPlacement;
   }
 

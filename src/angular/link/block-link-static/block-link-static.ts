@@ -1,7 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import type { SbbBlockLinkStaticElement, SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
+import type { SbbBlockLinkStaticElement } from '@sbb-esta/lyne-elements/link.js';
 
 import '@sbb-esta/lyne-elements/link.js';
 
@@ -31,22 +30,21 @@ export class SbbBlockLinkStatic {
    * Moves the icon to the end of the component if set to true.
    */
   @Input()
-  public set iconPlacement(value: SbbIconPlacement) {
+  public set iconPlacement(value: 'start' | 'end') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconPlacement = value));
   }
-  public get iconPlacement(): SbbIconPlacement {
+  public get iconPlacement(): 'start' | 'end' {
     return this.#element.nativeElement.iconPlacement;
   }
 
   /**
-   * Text size, the link should get in the non-button variation.
-   * With inline variant, the text size adapts to where it is used.
+   * Size variant, either xs (lean theme default), s (standard theme default) or m.
    */
   @Input()
-  public set size(value: SbbLinkSize) {
+  public set size(value: 'xs' | 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbLinkSize {
+  public get size(): 'xs' | 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 

@@ -4,7 +4,7 @@ import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-a
 import type {
   SbbCalendarElement,
   SbbMonthChangeEvent,
-  CalendarView,
+  SbbDateSelectedEvent,
 } from '@sbb-esta/lyne-elements/calendar.js';
 import { fromEvent, NEVER } from 'rxjs';
 
@@ -38,10 +38,10 @@ export class SbbCalendar<T = Date> {
    * The initial view of the calendar which should be displayed on opening.
    */
   @Input()
-  public set view(value: CalendarView) {
+  public set view(value: 'day' | 'month' | 'year') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.view = value));
   }
-  public get view(): CalendarView {
+  public get view(): 'day' | 'month' | 'year' {
     return this.#element.nativeElement.view;
   }
 
@@ -134,8 +134,8 @@ export class SbbCalendar<T = Date> {
   /**
    * Event emitted on date selection.
    */
-  public dateSelectedOutput: OutputRef<CustomEvent<T[] | T>> = outputFromObservable(
-    fromEvent<CustomEvent<T | T[]>>(this.#element.nativeElement, 'dateselected'),
+  public dateSelectedOutput: OutputRef<SbbDateSelectedEvent<T>> = outputFromObservable(
+    fromEvent<SbbDateSelectedEvent<T>>(this.#element.nativeElement, 'dateselected'),
     { alias: 'dateSelected' },
   );
 

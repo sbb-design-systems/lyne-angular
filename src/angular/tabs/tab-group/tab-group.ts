@@ -13,7 +13,7 @@ import type {
   SbbTabGroupElement,
   SbbTabLabelElement,
   SbbTabElement,
-  SbbTabChangedEventDetails,
+  SbbTabChangeEvent,
 } from '@sbb-esta/lyne-elements/tabs.js';
 import { fromEvent } from 'rxjs';
 
@@ -33,13 +33,13 @@ export class SbbTabGroup {
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either s, l or xl.
+   * Size variant, either s (lean theme default), l (standard theme default) or xl.
    */
   @Input()
-  public set size(value: 's' | 'l' | 'xl') {
+  public set size(value: 's' | 'l' | 'xl' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 's' | 'l' | 'xl' {
+  public get size(): 's' | 'l' | 'xl' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -94,8 +94,8 @@ export class SbbTabGroup {
   /**
    * The tabchange event is dispatched when a tab is selected.
    */
-  public tabChangeOutput: OutputRef<CustomEvent<SbbTabChangedEventDetails>> = outputFromObservable(
-    fromEvent<CustomEvent<SbbTabChangedEventDetails>>(this.#element.nativeElement, 'tabchange'),
+  public tabChangeOutput: OutputRef<SbbTabChangeEvent> = outputFromObservable(
+    fromEvent<SbbTabChangeEvent>(this.#element.nativeElement, 'tabchange'),
     { alias: 'tabChange' },
   );
 

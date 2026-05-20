@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
 import type {
   InterfaceSbbJourneySummaryAttributes,
   SbbJourneySummaryElement,
@@ -58,10 +58,10 @@ export class SbbJourneySummary {
    * Heading level of the journey header element (e.g. h1-h6).
    */
   @Input()
-  public set headerLevel(value: SbbTitleLevel) {
+  public set headerLevel(value: SbbHeadingLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.headerLevel = value));
   }
-  public get headerLevel(): SbbTitleLevel {
+  public get headerLevel(): SbbHeadingLevel {
     return this.#element.nativeElement.headerLevel;
   }
 

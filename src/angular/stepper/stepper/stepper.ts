@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core.js';
 import type {
   SbbStepElement,
   SbbStepChangeEvent,
@@ -52,21 +52,21 @@ export class SbbStepper {
    * Steps orientation, either horizontal or vertical.
    */
   @Input()
-  public set orientation(value: SbbOrientation) {
+  public set orientation(value: 'horizontal' | 'vertical') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.orientation = value));
   }
-  public get orientation(): SbbOrientation {
+  public get orientation(): 'horizontal' | 'vertical' {
     return this.#element.nativeElement.orientation;
   }
 
   /**
-   * Size variant, either s or m.
+   * Size variant, either s (lean theme default) or m (standard theme default).
    */
   @Input()
-  public set size(value: 's' | 'm') {
+  public set size(value: 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 's' | 'm' {
+  public get size(): 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 

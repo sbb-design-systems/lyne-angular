@@ -5,10 +5,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SbbAutocomplete } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import { SbbOption } from '@sbb-esta/lyne-angular/option';
-import type {
-  SbbChipInputTokenEndEventDetails,
-  SbbChipElement,
-} from '@sbb-esta/lyne-elements/chip.js';
+import type { SbbChipInputTokenEndEvent, SbbChipElement } from '@sbb-esta/lyne-elements/chip.js';
 
 import { SbbChipGroup } from './chip-group';
 
@@ -183,16 +180,16 @@ export class TestComponentWithComplexValue {
     return this.availableFruits.filter((fruit) => !this.favoriteFruits.value!.includes(fruit));
   }
 
-  add(chipTokenEndEvent: CustomEvent<SbbChipInputTokenEndEventDetails<Fruit | string>>): void {
+  add(chipTokenEndEvent: SbbChipInputTokenEndEvent<Fruit | string>): void {
     if (
-      chipTokenEndEvent.detail.origin === 'autocomplete' ||
-      typeof chipTokenEndEvent.detail.value !== 'string'
+      chipTokenEndEvent.origin === 'autocomplete' ||
+      typeof chipTokenEndEvent.value !== 'string'
     ) {
       return;
     }
     chipTokenEndEvent.preventDefault();
 
-    const value = (chipTokenEndEvent.detail.value ?? '').trim();
+    const value = (chipTokenEndEvent.value ?? '').trim();
 
     if (!value) {
       return;

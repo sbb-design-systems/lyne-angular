@@ -1,8 +1,8 @@
 import { Directive, ElementRef, forwardRef, inject, Input } from '@angular/core';
 import type { ControlValueAccessor } from '@angular/forms';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { SbbInputAutocompleteEvent } from '@sbb-esta/lyne-elements/autocomplete.js';
 import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js';
-import type { SbbOptionBaseElement } from '@sbb-esta/lyne-elements/option.js';
 import { BehaviorSubject } from 'rxjs';
 
 import type { SbbAutocompleteType } from './autocomplete-type';
@@ -120,11 +120,11 @@ export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor 
     this._onChange(value);
   }
 
-  _handleSelected(event: CustomEvent<{ option: SbbOptionBaseElement<T> }>): void {
+  _handleSelected(event: SbbInputAutocompleteEvent<T>): void {
     // We have to check if the option is selected
     // and if so, we have to set the input value to the display value.
     // This is needed for the autocomplete to work properly
     // and to show the correct value in the input field.
-    this._onChange(event.detail.option.value);
+    this._onChange(event.option.value);
   }
 }

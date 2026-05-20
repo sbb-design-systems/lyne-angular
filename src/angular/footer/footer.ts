@@ -1,7 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbFooterElement } from '@sbb-esta/lyne-elements/footer.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 import '@sbb-esta/lyne-elements/footer.js';
 
@@ -58,12 +58,12 @@ export class SbbFooter {
    * Level of the accessibility title, will be rendered as heading tag (e.g. h1). Defaults to level 1.
    */
   @Input()
-  public set accessibilityTitleLevel(value: SbbTitleLevel) {
+  public set accessibilityTitleLevel(value: SbbHeadingLevel) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityTitleLevel = value),
     );
   }
-  public get accessibilityTitleLevel(): SbbTitleLevel {
+  public get accessibilityTitleLevel(): SbbHeadingLevel {
     return this.#element.nativeElement.accessibilityTitleLevel;
   }
 

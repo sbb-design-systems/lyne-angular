@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbPopoverElement } from '@sbb-esta/lyne-elements/popover.js';
+import type { SbbPopoverElement, SbbPopoverCloseEvent } from '@sbb-esta/lyne-elements/popover.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/popover.js';
@@ -126,29 +126,21 @@ export class SbbPopover {
   /**
    * Emits whenever the component begins the closing transition. Can be canceled.
    */
-  public beforeCloseOutput: OutputRef<CustomEvent<{ closeTarget: HTMLElement | null }>> =
-    outputFromObservable(
-      fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
-        this.#element.nativeElement,
-        'beforeclose',
-      ),
-      { alias: 'beforeClose' },
-    );
+  public beforeCloseOutput: OutputRef<SbbPopoverCloseEvent> = outputFromObservable(
+    fromEvent<SbbPopoverCloseEvent>(this.#element.nativeElement, 'beforeclose'),
+    { alias: 'beforeClose' },
+  );
 
-  protected _closeOutput: OutputRef<CustomEvent<{ closeTarget: HTMLElement | null }>> =
-    outputFromObservable<CustomEvent<{ closeTarget: HTMLElement | null }>>(NEVER, {
+  protected _closeOutput: OutputRef<SbbPopoverCloseEvent> =
+    outputFromObservable<SbbPopoverCloseEvent>(NEVER, {
       alias: 'close',
     });
   /**
    * Emits whenever the component is closed.
    */
-  public closeOutput: OutputRef<CustomEvent<{ closeTarget: HTMLElement | null }>> =
-    internalOutputFromObservable(
-      fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
-        this.#element.nativeElement,
-        'close',
-      ),
-    );
+  public closeOutput: OutputRef<SbbPopoverCloseEvent> = internalOutputFromObservable(
+    fromEvent<SbbPopoverCloseEvent>(this.#element.nativeElement, 'close'),
+  );
 
   /**
    * Emits whenever the component starts the opening transition. Can be canceled.

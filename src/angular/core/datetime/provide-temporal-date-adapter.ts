@@ -1,5 +1,5 @@
 import type { Provider } from '@angular/core';
-import { DateAdapter, TemporalDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
+import { DateAdapter, TemporalDateAdapter } from '@sbb-esta/lyne-elements/core.js';
 
 /**
  * Provides the Temporal date adapter for Angular's dependency injection.

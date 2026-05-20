@@ -1,5 +1,5 @@
 import type { Provider } from '@angular/core';
-import { DateAdapter, NativeDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
+import { DateAdapter, NativeDateAdapter } from '@sbb-esta/lyne-elements/core.js';
 
 /**
  * Provides the native date adapter for Angular's dependency injection.

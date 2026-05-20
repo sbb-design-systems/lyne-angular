@@ -2,7 +2,7 @@ import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@a
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbAlertGroupElement } from '@sbb-esta/lyne-elements/alert.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/alert.js';
@@ -50,12 +50,12 @@ export class SbbAlertGroup {
    * Level of the accessibility title, will be rendered as heading tag (e.g. h2). Defaults to level 2.
    */
   @Input()
-  public set accessibilityTitleLevel(value: SbbTitleLevel) {
+  public set accessibilityTitleLevel(value: SbbHeadingLevel) {
     this.#ngZone.runOutsideAngular(
       () => (this.#element.nativeElement.accessibilityTitleLevel = value),
     );
   }
-  public get accessibilityTitleLevel(): SbbTitleLevel {
+  public get accessibilityTitleLevel(): SbbHeadingLevel {
     return this.#element.nativeElement.accessibilityTitleLevel;
   }
 
