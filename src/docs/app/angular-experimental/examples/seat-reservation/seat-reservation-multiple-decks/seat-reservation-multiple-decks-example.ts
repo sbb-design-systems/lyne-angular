@@ -1,20 +1,34 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { SbbSeatReservationModule } from '@sbb-esta/lyne-angular-experimental/seat-reservation';
 import type { SeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
-
 /**
- * @title Basic Seat Reservation */
+ * @title Multiple Decks Seat Reservation
+ */
 @Component({
-  selector: 'sbb-seat-reservation-basic-example',
-  templateUrl: 'seat-reservation-basic-example.html',
+  selector: 'sbb-seat-reservation-multiple-decks-example',
+  templateUrl: 'seat-reservation-multiple-decks-example.html',
   imports: [SbbSeatReservationModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SeatReservationBasicExample {
-  readonly seatReservations = signal<SeatReservation[]>([EXAMPLE_DATA_SEAT_RESERVATION_BASIC]);
+export class SeatReservationMultipleDecksExample {
+  readonly seatReservations = signal<SeatReservation[]>([
+    MOCK_DATA_SEAT_RESERVATION_MULTIPLE_DECKS,
+  ]);
+  readonly seatReservationsMultipleDecks = computed(() => {
+    const seatReservationLowerDeck: SeatReservation = {
+      ...this.seatReservations()[0],
+      deckCoachLevel: 'LOWER_DECK',
+    };
+    const seatReservationUpperDeck: SeatReservation = {
+      ...(JSON.parse(JSON.stringify(seatReservationLowerDeck)) as SeatReservation),
+      deckCoachLevel: 'UPPER_DECK',
+      deckCoachIndex: 1,
+    };
+    return [seatReservationUpperDeck, seatReservationLowerDeck];
+  });
 }
 
-const EXAMPLE_DATA_SEAT_RESERVATION_BASIC: SeatReservation = {
+const MOCK_DATA_SEAT_RESERVATION_MULTIPLE_DECKS: SeatReservation = {
   vehicleType: 'TRAIN',
   deckCoachIndex: 0,
   deckCoachLevel: 'SINGLE_DECK',

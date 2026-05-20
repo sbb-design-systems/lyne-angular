@@ -85,7 +85,11 @@ export class ExampleViewerComponent {
 
   exampleData = input.required<ExampleData>();
   protected showSource = signal(false);
-  protected stackBlitzEnabled = computed(() => this.#routeParams()?.packageName === 'angular');
+  protected stackBlitzEnabled = computed(
+    () =>
+      this.#routeParams()?.packageName === 'angular' ||
+      this.#routeParams()?.packageName === 'angular-experimental',
+  );
   protected exampleCodes = toSignal(
     toObservable(this.exampleData).pipe(
       switchMap((data) => {

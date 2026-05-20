@@ -61,6 +61,11 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'radio-button': ['radio-button-basic'],
   'radio-button-group': ['radio-button-group-basic'],
   'radio-button-panel': ['radio-button-panel-basic'],
+  'seat-reservation': [
+    'seat-reservation-basic',
+    'seat-reservation-bus',
+    'seat-reservation-multiple-decks'
+  ],
   select: ['select-basic'],
   'selection-action-panel': ['selection-action-panel-basic'],
   'selection-expansion-panel': ['selection-expansion-panel-basic'],
@@ -97,7 +102,6 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'toggle-check': ['toggle-check-basic'],
   tooltip: ['tooltip-basic'],
   train: ['train-basic'],
-  'seat-reservation': ['seat-reservation-basic'],
 };
 
 export async function loadExample(id: string): Promise<Record<string, Type<unknown>> | undefined> {
@@ -237,6 +241,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/radio-button-group');
     case 'radio-button-panel-basic':
       return import('../angular/examples/radio-button-panel');
+    case 'seat-reservation-basic':
+    case 'seat-reservation-bus':
+      return import('../angular-experimental/examples/seat-reservation');
+    case 'seat-reservation-multiple-decks':
     case 'select-basic':
       return import('../angular/examples/select');
     case 'selectable-table':
@@ -293,8 +301,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/tooltip');
     case 'train-basic':
       return import('../angular/examples/train');
-    case 'seat-reservation-basic':
-      return import('../angular-experimental/examples/seat-reservation');
     default:
       console.warn(`No example found for component with id "${id}".`);
       return undefined;
