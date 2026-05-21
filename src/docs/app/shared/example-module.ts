@@ -13,7 +13,8 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'button-link-variants',
     'button-static-variants',
     'button-variants',
-    'mini-button-basic',
+    'mini-button-group',
+    'mini-button-variants',
   ],
   calendar: ['calendar-basic'],
   card: ['card-basic'],
@@ -222,7 +223,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/menu');
     case 'message-basic':
       return import('../angular/examples/message');
-    case 'mini-button-basic':
+    case 'mini-button-group':
+    case 'mini-button-variants':
       return import('../angular/examples/button');
     case 'mini-calendar-basic':
       return import('../angular/examples/mini-calendar');
