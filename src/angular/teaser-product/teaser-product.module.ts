@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { SbbTeaserProduct } from '@sbb-esta/lyne-angular/teaser-product/teaser-product';
-import { SbbTeaserProductStatic } from '@sbb-esta/lyne-angular/teaser-product/teaser-product-static';
+
+import { SbbTeaserProduct } from './teaser-product/teaser-product';
+import { SbbTeaserProductStatic } from './teaser-product-static/teaser-product-static';
 
 const SBB_TEASER_PRODUCT_EXPORTED_DECLARATIONS = [SbbTeaserProduct, SbbTeaserProductStatic];
 
