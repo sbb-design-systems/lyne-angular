@@ -5,15 +5,16 @@ import { Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SbbPaginator } from '@sbb-esta/lyne-angular/paginator/paginator';
-import { SbbTableWrapper } from '@sbb-esta/lyne-angular/table';
 import type { Observable } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';
+
+import { SbbPaginator } from '../paginator';
 
 import { SbbSort } from './sort/sort';
 import { SbbSortHeader } from './sort/sort-header';
 import { SbbTable } from './table/table';
 import { SbbTableDataSource } from './table/table-data-source';
+import { SbbTableWrapper } from './table-wrapper/table-wrapper';
 import { SbbTableModule } from './table.module';
 
 describe('sbb-table', () => {
