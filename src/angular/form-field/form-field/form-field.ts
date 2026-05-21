@@ -82,17 +82,6 @@ export class SbbFormField {
   }
 
   /**
-   * Indicates whether the input is optional.
-   */
-  @Input({ transform: booleanAttribute })
-  public set optional(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.optional = value));
-  }
-  public get optional(): boolean {
-    return this.#element.nativeElement.optional;
-  }
-
-  /**
    * Size variant, either s (lean theme default), m (standard theme default) or l.
    */
   @Input()

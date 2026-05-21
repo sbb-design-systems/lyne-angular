@@ -97,17 +97,6 @@ export class SbbTimetableFormField {
   }
 
   /**
-   * Indicates whether the input is optional.
-   */
-  @Input({ transform: booleanAttribute })
-  public set optional(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.optional = value));
-  }
-  public get optional(): boolean {
-    return this.#element.nativeElement.optional;
-  }
-
-  /**
    * Whether to visually hide the label. If hidden, screen readers will still read it.
    */
   @Input({ transform: booleanAttribute })

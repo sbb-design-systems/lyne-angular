@@ -49,13 +49,8 @@ export class SbbDialogContainer extends SbbOverlayContainerBase<SbbDialog> {
 
   /** Closes the component. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public override close(result?: any): void;
-  /** @deprecated */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public override close(result?: any, target?: HTMLElement): void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public override close(result?: any, target?: HTMLElement): void {
-    this.elementInstance.close(result, target);
+  public override close(result?: any): void {
+    this.elementInstance.close(result);
   }
 
   /**
