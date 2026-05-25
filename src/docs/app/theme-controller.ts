@@ -40,14 +40,7 @@ export class ThemeController implements CanActivate {
     toObservable(this.#theme)
       .pipe(startWith(this.#theme()))
       .subscribe((value) => {
-        // TODO: replace sbb-lean class with theme file after CSS refactoring
-        if (value.includes('standard')) {
-          this.#document.documentElement.classList.remove('sbb-lean');
-        } else {
-          this.#document.documentElement.classList.add(`sbb-lean`);
-        }
-
-        let cssFileName = value.replace('lean', 'standard').replace('standard-', '');
+        let cssFileName = value.replace('standard-', '');
         if (cssFileName === 'theme') {
           cssFileName = 'standard-theme';
         }
@@ -64,13 +57,13 @@ export class ThemeController implements CanActivate {
 
   setBrand(offBrand: 'default' | 'off-brand' | 'safety') {
     const newTheme = `${this.size()}${offBrand === 'default' ? '' : '-' + offBrand}` as SbbTheme;
-    this.#setThemeWithReload(newTheme);
+    this.#setTheme(newTheme);
   }
 
   setSize(size: 'standard' | 'lean') {
     const brandType = this.brand();
     const newTheme = `${size}${brandType === 'default' ? '' : '-' + brandType}` as SbbTheme;
-    this.#setThemeWithReload(newTheme);
+    this.#setTheme(newTheme);
   }
 
   #setTheme(theme: SbbTheme) {
@@ -78,13 +71,6 @@ export class ThemeController implements CanActivate {
       return;
     }
     this.#theme.set(theme);
-  }
-
-  #setThemeWithReload(theme: SbbTheme) {
-    this.#setTheme(theme);
-
-    // TODO: remove after CSS refactoring
-    window.location.reload();
   }
 
   /**
