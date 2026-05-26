@@ -28,7 +28,7 @@ export class StackBlitzButton {
    * form submission (used internally to create the StackBlitz) didn't happen within the
    * same tick as the user interaction.
    */
-  #openStackBlitzFn = signal<((isSbbLean: boolean) => void) | null>(null);
+  #openStackBlitzFn = signal<((theme: string) => void) | null>(null);
 
   exampleData = input.required<ExampleData>();
 
@@ -48,9 +48,10 @@ export class StackBlitzButton {
 
   openStackBlitz(): void {
     const openStackBlitzFn = this.#openStackBlitzFn();
+    const theme = this.#themeController.theme().replace('standard-', '').concat('-theme');
 
     if (openStackBlitzFn) {
-      openStackBlitzFn(this.#themeController.theme().includes('lean'));
+      openStackBlitzFn(theme);
     } else {
       this.#toastService.open(StackBlitzMessage, {
         setupContainer: (sbbToast: SbbToast) => {
