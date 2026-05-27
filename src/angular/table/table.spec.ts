@@ -5,10 +5,9 @@ import { Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { SbbPaginator } from '@sbb-esta/lyne-angular/paginator';
 import type { Observable } from 'rxjs';
 import { BehaviorSubject, Subject } from 'rxjs';
-
-import { SbbPaginator } from '../paginator';
 
 import { SbbSort } from './sort/sort';
 import { SbbSortHeader } from './sort/sort-header';
