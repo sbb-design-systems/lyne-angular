@@ -12,8 +12,8 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type {
   SbbSeatReservationElement,
   SeatReservation,
-  SbbSeatReservationSelectedCoachEvent,
-  SbbSeatReservationSelectedPlacesEvent,
+  SeatReservationSelectedCoach,
+  SeatReservationSelectedPlaces,
   TravelDirection,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 import { fromEvent } from 'rxjs';
@@ -152,23 +152,26 @@ export class SbbSeatReservation {
   }
 
   /**
-   * Emits when a coach was selected and returns a CoachSelection
-   */
-  public selectedCoachOutput: OutputRef<SbbSeatReservationSelectedCoachEvent> =
-    outputFromObservable(
-      fromEvent<SbbSeatReservationSelectedCoachEvent>(this.#element.nativeElement, 'selectedcoach'),
-      { alias: 'selectedCoach' },
-    );
-
-  /**
    * Emits when a place was selected and returns a Place array with all selected places.
    */
-  public selectedPlacesOutput: OutputRef<SbbSeatReservationSelectedPlacesEvent> =
+  public selectedPlacesOutput: OutputRef<CustomEvent<SeatReservationSelectedPlaces>> =
     outputFromObservable(
-      fromEvent<SbbSeatReservationSelectedPlacesEvent>(
+      fromEvent<CustomEvent<SeatReservationSelectedPlaces>>(
         this.#element.nativeElement,
         'selectedplaces',
       ),
       { alias: 'selectedPlaces' },
+    );
+
+  /**
+   * Emits when a coach was selected and returns a CoachSelection
+   */
+  public selectedCoachOutput: OutputRef<CustomEvent<SeatReservationSelectedCoach>> =
+    outputFromObservable(
+      fromEvent<CustomEvent<SeatReservationSelectedCoach>>(
+        this.#element.nativeElement,
+        'selectedcoach',
+      ),
+      { alias: 'selectedCoach' },
     );
 }

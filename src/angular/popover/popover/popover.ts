@@ -17,7 +17,7 @@ import '@sbb-esta/lyne-elements/popover.js';
 /**
  * It displays contextual information within a popover.
  *
- * @slot  - Use the unnamed slot to add content into the popover.
+ * @slot  - Use the unnamed slot to add the `sbb-popover-close-button` and content into the popover.
  * @cssprop [--sbb-popover-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @Directive({
@@ -41,17 +41,6 @@ export class SbbPopover {
   }
   public get trigger(): HTMLElement | null {
     return this.#element.nativeElement.trigger;
-  }
-
-  /**
-   * Whether the close button should be hidden.
-   */
-  @Input({ transform: booleanAttribute })
-  public set hideCloseButton(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hideCloseButton = value));
-  }
-  public get hideCloseButton(): boolean {
-    return this.#element.nativeElement.hideCloseButton;
   }
 
   /**
@@ -87,19 +76,6 @@ export class SbbPopover {
   }
   public get closeDelay(): number {
     return this.#element.nativeElement.closeDelay;
-  }
-
-  /**
-   * This will be forwarded as aria-label to the close button element.
-   */
-  @Input()
-  public set accessibilityCloseLabel(value: string) {
-    this.#ngZone.runOutsideAngular(
-      () => (this.#element.nativeElement.accessibilityCloseLabel = value),
-    );
-  }
-  public get accessibilityCloseLabel(): string {
-    return this.#element.nativeElement.accessibilityCloseLabel;
   }
 
   /**

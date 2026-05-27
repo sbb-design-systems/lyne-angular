@@ -12,8 +12,8 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type {
   PlaceState,
   PlaceType,
+  PlaceSelection,
   SbbSeatReservationPlaceControlElement,
-  SbbPlaceSelectionEvent,
   TravelDirection,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 import { fromEvent } from 'rxjs';
@@ -147,8 +147,8 @@ export class SbbSeatReservationPlaceControl {
    * Emits when a place was selected via user interaction and returns a
    * PlaceSelection object with necessary place information.
    */
-  public selectPlaceOutput: OutputRef<SbbPlaceSelectionEvent> = outputFromObservable(
-    fromEvent<SbbPlaceSelectionEvent>(this.#element.nativeElement, 'selectplace'),
+  public selectPlaceOutput: OutputRef<CustomEvent<PlaceSelection>> = outputFromObservable(
+    fromEvent<CustomEvent<PlaceSelection>>(this.#element.nativeElement, 'selectplace'),
     { alias: 'selectPlace' },
   );
 }

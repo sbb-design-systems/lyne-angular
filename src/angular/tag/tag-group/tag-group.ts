@@ -21,13 +21,11 @@ export class SbbTagGroup<T = string> {
    * This will be forwarded as aria-label to the inner list.
    */
   @Input()
-  public set listAccessibilityLabel(value: string) {
-    this.#ngZone.runOutsideAngular(
-      () => (this.#element.nativeElement.listAccessibilityLabel = value),
-    );
+  public set accessibilityLabel(value: string) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.accessibilityLabel = value));
   }
-  public get listAccessibilityLabel(): string {
-    return this.#element.nativeElement.listAccessibilityLabel;
+  public get accessibilityLabel(): string {
+    return this.#element.nativeElement.accessibilityLabel;
   }
 
   /**
