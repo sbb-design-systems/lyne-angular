@@ -20,6 +20,7 @@ import {
 
 const THEME_PATH_PREFIX = 'node_modules/@sbb-esta/lyne-elements';
 const LYNE_ELEMENTS_FALLBACK_VERSION = 'latest';
+const LYNE_ELEMENTS_FALLBACK_THEME = 'standard';
 
 /**
  * Adds lyne-elements as dependency.
@@ -33,7 +34,7 @@ function addLyneElementsDependencies(): Rule {
       if (!pkgBuffer) {
         throw new SchematicsException(`Could not find ${pkgPath}. Are you in an Angular project?`);
       }
-      const pkg: Package = JSON.parse(pkgBuffer.toString('utf-8'));
+      const pkg: Package = JSON.parse(pkgBuffer!.toString('utf-8'));
       if (!pkg.dependencies) {
         pkg.dependencies = {};
       }
@@ -68,7 +69,7 @@ function installDependencies(): Rule {
 function addSelectedTheme(options: NgAddOptionsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     const workspace: WorkspaceDefinition = await getWorkspace(tree);
-    const themePath = `${THEME_PATH_PREFIX}/${options.theme}-theme.css`;
+    const themePath = `${THEME_PATH_PREFIX}/${options.theme || LYNE_ELEMENTS_FALLBACK_THEME}-theme.css`;
     return chain([
       addThemeToProject(getProjectName(options, workspace), 'build', themePath, context.logger),
       // If karma is used as test runner, the theme is added in its configuration target.
