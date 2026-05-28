@@ -1,3 +1,4 @@
+import { getProjectFromWorkspace } from '@angular/cdk/schematics';
 import type { logging } from '@angular-devkit/core';
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { SchematicsException } from '@angular-devkit/schematics';
@@ -127,10 +128,7 @@ export function addThemeToProject(
   logger: logging.LoggerApi,
 ): Rule {
   return updateWorkspace((workspace: WorkspaceDefinition) => {
-    const project: ProjectDefinition | undefined = workspace.projects.get(projectName);
-    if (!project) {
-      throw new SchematicsException(`Project ${projectName} does not exist.`);
-    }
+    const project: ProjectDefinition = getProjectFromWorkspace(workspace, projectName);
     if (!validateDefaultTargetBuilder(project, targetName, logger)) {
       return;
     }
