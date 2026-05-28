@@ -2,7 +2,7 @@
   "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
     "ng-add": {
-      "description": "Add lyne-angular to the project.",
+      "description": "Adds @sbb-esta/lyne-angular to your Angular project.",
       "factory": "./ng-add/index.cjs#ngAdd",
       "schema": "./ng-add/schema.json"
     }
