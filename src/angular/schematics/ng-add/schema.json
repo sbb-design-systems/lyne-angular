@@ -5,6 +5,13 @@
   "description": "Adds @sbb-esta/lyne-angular to an Angular project",
   "type": "object",
   "properties": {
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
     "theme": {
       "type": "string",
       "description": "The theme to apply to your application",

@@ -52,6 +52,7 @@
     "zone.js": "0.16.0"
   },
   "devDependencies": {
+    "@angular-devkit/core": "21.2.12",
     "@angular-devkit/schematics": "21.2.12",
     "@angular/build": "21.2.11",
     "@angular/cli": "21.2.11",
@@ -60,6 +61,7 @@
     "@commitlint/config-conventional": "21.0.1",
     "@compodoc/compodoc": "1.2.1",
     "@eslint/js": "10.0.1",
+    "@schematics/angular": "21.2.12",
     "@types/node": "24.12.4",
     "@vitest/browser-playwright": "4.1.6",
     "@vitest/coverage-v8": "4.1.6",
