@@ -10,5 +10,5 @@
     "rootDir": "src/angular/schematics",
     "types": ["node"]
   },
-  "include": ["src/angular/schematics/**/*.ts"]
+  "include": ["src/angular/schematics/**/*.cts"]
 }
