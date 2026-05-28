@@ -10,12 +10,10 @@ import { updateWorkspace } from '@schematics/angular/utility/workspace';
 
 import type { NgAddOptionsSchema } from './schema';
 
-export interface Package {
+interface Package {
   dependencies?: Record<string, string>;
   peerDependencies?: Record<string, string>;
 }
-
-export const LYNE_ELEMENTS = '@sbb-esta/lyne-elements';
 
 /**
  * Gets the project name: takes the default name from cli, if not found gets it from the angular.json.
@@ -31,19 +29,46 @@ export function getProjectName(options: NgAddOptionsSchema, workspace: Workspace
 /**
  * Gets the lyne-elements version from the lyne-angular package.json, where it's listed as peerDependency
  */
-export function getLyneElementsVersion(tree: Tree, context: SchematicContext) {
+export function getPackageVersion(tree: Tree, context: SchematicContext, packageName: string) {
   const lyneAngularPackage = tree.read('node_modules/@sbb-esta/lyne-angular/package.json');
   if (!lyneAngularPackage) {
     throw new SchematicsException(`@sbb-esta/lyne-angular has no package.json to read from.`);
   }
   const lyneAngularPackageJson: Package = JSON.parse(lyneAngularPackage.toString('utf-8'));
-  const lyneElementsVersion = lyneAngularPackageJson.peerDependencies?.[LYNE_ELEMENTS];
-  if (!lyneElementsVersion) {
-    context.logger.warn(`${LYNE_ELEMENTS} not found. Latest version will be installed.`);
+  const packageVersion = lyneAngularPackageJson.peerDependencies?.[packageName];
+  if (!packageVersion) {
+    context.logger.warn(`${packageName} not found. Latest version will be installed.`);
   } else {
-    context.logger.info(`Found ${LYNE_ELEMENTS} with version: ${lyneElementsVersion}`);
+    context.logger.info(`Found ${packageName} with version: ${packageVersion}`);
   }
-  return lyneElementsVersion;
+  return packageVersion;
+}
+
+/** Adds a package to the package.json in the given host tree. */
+export function addPackageToPackageJson(
+  tree: Tree,
+  depName: string,
+  version: string,
+  logger: logging.LoggerApi,
+): void {
+  if (tree.exists('package.json')) {
+    const pkgBuffer = tree.read('package.json');
+    if (!pkgBuffer) {
+      throw new SchematicsException(`Could not find package.json. Are you in an Angular project?`);
+    }
+    const pkg: Package = JSON.parse(pkgBuffer.toString('utf-8'));
+    if (!pkg.dependencies) {
+      pkg.dependencies = {};
+    }
+    if (!pkg.dependencies[depName]) {
+      pkg.dependencies[depName] = version;
+      pkg.dependencies = sortDependencies(pkg);
+      tree.overwrite('package.json', JSON.stringify(pkg, null, 2));
+      logger.info(`Added ${depName} to dependencies with version ${version}.`);
+    } else {
+      logger.info(`${depName} already in dependencies, skipping.`);
+    }
+  }
 }
 
 /**
