@@ -255,8 +255,11 @@ export class SbbDateInput<T = Date>
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   override writeValue(value: any): void {
-    if (this.#dateAdapter.isDateInstance(value) && this.#dateAdapter.isValid(value)) {
-      this.valueAsDate = value;
+    if (
+      value == null ||
+      (this.#dateAdapter.isDateInstance(value) && this.#dateAdapter.isValid(value))
+    ) {
+      this.valueAsDate = value ?? null;
     } else {
       this.valueAsDate = this.#dateAdapter.parse(value);
       if (!this.valueAsDate) {

@@ -174,8 +174,8 @@ export class SbbTimeInput extends SbbControlValueAccessorMixin(class {}) impleme
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   override writeValue(value: any): void {
-    if (value instanceof Date) {
-      this.valueAsDate = value;
+    if (value instanceof Date || value == null) {
+      this.valueAsDate = value ?? null;
     } else {
       this.value = value;
     }
