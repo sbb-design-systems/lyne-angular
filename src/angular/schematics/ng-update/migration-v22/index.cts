@@ -1,11 +1,13 @@
+import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { createMigrationSchematicRule, TargetVersion } from '@angular/cdk/schematics';
-import type { Rule, SchematicContext } from '@angular-devkit/schematics';
+import { addFixmeTypes } from './add-fixme-types.cjs';
 
-export function migrate(context: SchematicContext): Rule {
-  return () => {
+export function migrate(): Rule {
+  return (_: Tree, context: SchematicContext) => {
     const a = createMigrationSchematicRule;
     const b = TargetVersion.V22;
-    context.logger.info('Running @sbb-esta/lyne-angular migration to v21.');
+    context.logger.info('Running @sbb-esta/lyne-angular migration to v22.');
+    return chain([addFixmeTypes()]);
   };
 }
 
