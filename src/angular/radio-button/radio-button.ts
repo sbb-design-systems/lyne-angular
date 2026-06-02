@@ -1,16 +1,10 @@
-import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
-import {
-  booleanAttribute,
-  internalOutputFromObservable,
-  SbbDeferredAnimation,
-} from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { booleanAttribute, SbbDeferredAnimation } from '@sbb-esta/lyne-angular/core';
 import type {
   SbbRadioButtonElement,
   SbbRadioButtonGroupElement,
   SbbRadioButtonSize,
 } from '@sbb-esta/lyne-elements/radio-button.js';
-import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/radio-button.js';
 
@@ -186,24 +180,4 @@ export class SbbRadioButton<T = string> {
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
-
-  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'change',
-  });
-  /**
-   * The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
-   */
-  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'change'),
-  );
-
-  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
-    alias: 'input',
-  });
-  /**
-   * The input event fires when the value has been changed as a direct result of a user action.
-   */
-  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
-    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
-  );
 }
