@@ -2,6 +2,19 @@
 
 > ⓘ The full introduction including some guides can be retrieved at [@sbb-esta/lyne-elements documentation](https://lyne-elements.app.sbb.ch).
 
+## Automatic installation
+
+1.  Install Angular CLI, see [Angular CLI documentation](https://cli.angular.io/)
+2.  Add the `@sbb-esta/lyne-elements` package to your project
+
+    ```sh
+      ng add @sbb-esta/lyne-elements
+    ```
+
+3.  Follow instructions in the terminal to complete the setup.
+
+## Manual installation
+
 1.  Install Angular CLI, see [Angular CLI documentation](https://cli.angular.io/)
 2.  Install the `@sbb-esta/lyne-angular`, `@sbb-esta/lyne-elements` and `@angular/cdk` packages:
 
@@ -33,12 +46,14 @@
       ...
     ```
 
-4.  Use the desired Lyne components in your Angular components:
+## Import and use Lyne components
+
+Use the desired Lyne components in your Angular components:
 
 - Add Lyne components to the `imports` array in the `@Component` decorator.
 - Unlike `lyne-elements`, inputs must be used in `camelCase` (check the `iconName` property in the following example).
 
-## Example
+### Example
 
 ```ts
 import { Component, input } from '@angular/core';
