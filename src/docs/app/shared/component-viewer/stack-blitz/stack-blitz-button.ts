@@ -48,7 +48,7 @@ export class StackBlitzButton {
 
   openStackBlitz(): void {
     const openStackBlitzFn = this.#openStackBlitzFn();
-    const theme = this.#themeController.theme().replace('standard-', '').concat('-theme');
+    const theme = this.#themeController.fileName();
 
     if (openStackBlitzFn) {
       openStackBlitzFn(theme);
