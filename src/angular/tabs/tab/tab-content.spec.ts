@@ -76,7 +76,7 @@ describe(`sbb-tab-content`, () => {
     lazyTabLabelElement.click();
     fixture.detectChanges();
     expect(lazyTabElement.textContent).toEqual('Lazy content');
-    const contentPortal = (lazyTab.componentInstance as SbbTab).contentPortal;
+    const contentPortal = (lazyTab.componentInstance as SbbTab)['contentPortal'];
 
     const eagerTabLabel = (fixture.nativeElement as HTMLElement).querySelector<SbbTabLabelElement>(
       '#eager-label',
@@ -87,7 +87,7 @@ describe(`sbb-tab-content`, () => {
     lazyTabLabelElement.click();
     fixture.detectChanges();
 
-    expect((lazyTab.componentInstance as SbbTab).contentPortal).toBe(contentPortal);
+    expect((lazyTab.componentInstance as SbbTab)['contentPortal']).toBe(contentPortal);
   });
 
   it('should update template changed of lazy tabs', async () => {

@@ -73,8 +73,4 @@ export class SbbToastContainer extends SbbOverlayContainerBase<SbbToast> {
   public override beforeClosed: Observable<Event> = outputToObservable(
     this.elementInstance.beforeCloseOutput,
   );
-
-  public override afterOpen: Observable<Event> = this.afterOpened;
-  public override afterClose: Observable<Event> = this.afterClosed;
-  public override beforeClose: Observable<Event> = this.beforeClosed;
 }

@@ -84,8 +84,4 @@ export class SbbDialogContainer extends SbbOverlayContainerBase<SbbDialog> {
   public override beforeClosed: Observable<SbbDialogCloseEvent> = outputToObservable(
     this.elementInstance.beforeCloseOutput,
   );
-
-  public override afterOpen: Observable<Event> = this.afterOpened;
-  public override afterClose: Observable<SbbDialogCloseEvent> = this.afterClosed;
-  public override beforeClose: Observable<SbbDialogCloseEvent> = this.beforeClosed;
 }

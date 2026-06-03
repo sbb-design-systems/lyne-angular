@@ -33,8 +33,7 @@ export class SbbTab {
   #viewContainerRef = inject(ViewContainerRef);
   #changeDetectorRef = inject(ChangeDetectorRef);
 
-  // TODO(breaking-change): make protected instead of public
-  public contentPortal: TemplatePortal | null = null;
+  protected contentPortal: TemplatePortal | null = null;
 
   private _explicitContent = contentChild<InjectionToken<SbbTabContent>, TemplateRef<unknown>>(
     SBB_TAB_CONTENT,
