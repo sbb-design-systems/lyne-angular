@@ -48,13 +48,8 @@ export class SbbOverlayContainer extends SbbOverlayContainerBase<SbbOverlay> {
   }
   /** Closes the component. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public close(result?: any): void;
-  /** @deprecated */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public close(result?: any, target?: HTMLElement): void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public close(result?: any, target?: HTMLElement): void {
-    this.elementInstance.close(result, target);
+  public close(result?: any): void {
+    this.elementInstance.close(result);
   }
 
   public override attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {

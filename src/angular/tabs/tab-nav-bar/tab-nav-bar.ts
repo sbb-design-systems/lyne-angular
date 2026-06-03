@@ -16,13 +16,13 @@ export class SbbTabNavBar {
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either s, l or xl.
+   * Size variant, either s (lean theme default), l (standard theme default) or xl.
    */
   @Input()
-  public set size(value: 's' | 'l' | 'xl') {
+  public set size(value: 's' | 'l' | 'xl' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 's' | 'l' | 'xl' {
+  public get size(): 's' | 'l' | 'xl' | null {
     return this.#element.nativeElement.size;
   }
 }

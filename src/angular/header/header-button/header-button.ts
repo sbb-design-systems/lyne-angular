@@ -1,6 +1,4 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core/interfaces.js';
 import type { SbbHeaderButtonElement } from '@sbb-esta/lyne-elements/header.js';
 
 import '@sbb-esta/lyne-elements/header.js';
@@ -20,16 +18,16 @@ export class SbbHeaderButton {
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Used to set the minimum breakpoint from which the text is displayed.
+   * Used to set the maximum breakpoint (not including) to which the text is displayed.
    * E.g. if set to 'large', the text will be visible for breakpoints large and ultra,
    * and hidden for all the others. Ignored if no icon is set.
    */
   @Input()
-  public set expandFrom(value: SbbHorizontalFrom) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.expandFrom = value));
+  public set hideLabelBelow(value: 'small' | 'large' | 'ultra' | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hideLabelBelow = value));
   }
-  public get expandFrom(): SbbHorizontalFrom {
-    return this.#element.nativeElement.expandFrom;
+  public get hideLabelBelow(): 'small' | 'large' | 'ultra' | null {
+    return this.#element.nativeElement.hideLabelBelow;
   }
 
   /**
@@ -82,10 +80,10 @@ export class SbbHeaderButton {
    * The type attribute to use for the button.
    */
   @Input()
-  public set type(value: SbbButtonType) {
+  public set type(value: 'button' | 'reset' | 'submit') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): SbbButtonType {
+  public get type(): 'button' | 'reset' | 'submit' {
     return this.#element.nativeElement.type;
   }
 

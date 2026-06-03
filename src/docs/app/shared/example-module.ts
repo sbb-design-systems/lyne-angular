@@ -91,6 +91,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   tag: ['tag-basic'],
   teaser: ['teaser-basic'],
   'teaser-hero': ['teaser-hero-basic'],
+  'teaser-panel': ['teaser-panel-basic'],
   'teaser-product': ['teaser-product-basic'],
   'time-input': ['time-input-basic'],
   'timetable-form': ['timetable-form-basic'],
@@ -279,6 +280,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/teaser');
     case 'teaser-hero-basic':
       return import('../angular/examples/teaser-hero');
+    case 'teaser-panel-basic':
+      return import('../angular/examples/teaser-panel');
     case 'teaser-product-basic':
       return import('../angular/examples/teaser-product');
     case 'time-input-basic':

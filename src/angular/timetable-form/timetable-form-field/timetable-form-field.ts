@@ -62,13 +62,13 @@ export class SbbTimetableFormField {
   }
 
   /**
-   * Size variant, either l, m or s.
+   * Size variant, either s, m or l (default).
    */
   @Input()
-  public set size(value: 'l' | 'm' | 's') {
+  public set size(value: 'l' | 'm' | 's' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): string {
+  public get size(): 'l' | 'm' | 's' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -94,17 +94,6 @@ export class SbbTimetableFormField {
   }
   public get errorSpace(): 'none' | 'reserve' {
     return this.#element.nativeElement.errorSpace;
-  }
-
-  /**
-   * Indicates whether the input is optional.
-   */
-  @Input({ transform: booleanAttribute })
-  public set optional(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.optional = value));
-  }
-  public get optional(): boolean {
-    return this.#element.nativeElement.optional;
   }
 
   /**

@@ -26,27 +26,14 @@ This guide provides an overview of the theming capabilities in the Lyne Design S
 
 Without any additional configuration, the standard theme is applied.
 
-The lean theme uses a more compact design by defaulting the `size` property to the smallest available value.
+The lean theme uses a more compact design by defaulting the `size` property to smaller available values.
 Components that do not have a `size` property remain unchanged.
-To enable lean mode, add the CSS class `sbb-lean` to the `<html>` tag.
-
-```html
-<html lang="en" class="sbb-lean">
-  <head>
-    <title>Lyne Design System - Lean example</title>
-  </head>
-  <body>
-    ...
-  </body>
-</html>
-```
+To enable the lean theme, use the `lean-theme.css` theme file.
 
 ### Theme variants
 
-- `off-brand`: for non SBB applications, where the primary color is set to an alternative color (blue).
-- `safety`: for safety relevant applications, where the primary and brand colors are set to an alternative color (gray).
-
-`off-brand`and `safety` themes can also be combined with the lean theme.
+- `off-brand` / `lean-off-brand`: for non SBB applications, where the primary color is set to an alternative color (blue).
+- `safety` / `lean-safety`: for safety relevant applications, where the primary and brand colors are set to an alternative color (gray).
 
 #### Safety relevant theme
 
@@ -75,30 +62,19 @@ In certain safety relevant applications, it might be necessary to change the cur
 ### Exposed CSS files
 
 Basically, all our styles are included in the theme files (e.g. `standard-theme.css`) which should be included in your application.
-However, if you would like to more specifically pick what you need, consider the following CSS files available.
+For more fine-grained control over which styles are included, a custom theme file can be created that imports only the required features from our Sass API.
 
-| File name                       | Description                                                                                   |
-| ------------------------------- | --------------------------------------------------------------------------------------------- |
-| `standard-theme.css`            | Contains normalizing, core styles and available CSS classes.                                  |
-| `off-brand-theme.css`           | Contains the standard theme with primary color set to an alternative color (blue).            |
-| `safety-theme.css`              | Contains the standard theme with primary and brand colors set to an alternative color (gray). |
-|                                 |                                                                                               |
-| `font-characters-extension.css` | Provides full character set of SBB fonts, needs larger files to load.                         |
-|                                 |                                                                                               |
-| `normalize.css`                 | Contains general browser resetting styles which can be useful for your application.           |
-|                                 |                                                                                               |
-| `core.css`                      | Contains mandatory basics to use lyne-components (including design tokens).                   |
-|                                 |                                                                                               |
-| `a11y.css`                      | Provides accessibility related CSS classes.                                                   |
-| `animation.css`                 | Provides CSS classes to disable animation (e.g. for testing) on any level.                    |
-| `badge.css`                     | Provides badge styling.                                                                       |
-| `disable-animation.css`         | Disables animations on root level, ideally for a global test setup.                           |
-| `layout.css`                    | Provides layout related CSS classes (e.g. page spacing, grid).                                |
-| `lists.css`                     | Provides CSS classes to style lists.                                                          |
-| `scrollbar.css`                 | Provides CSS classes to style a scrollbar.                                                    |
-| `table.css`                     | Provides CSS classes to style a table.                                                        |
-| `timetable-form.css`            | Provides CSS classes to style a timetable form.                                               |
-| `typography.css`                | Provides typography related CSS classes.                                                      |
+| File name                         | Description                                                                                           |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `standard-theme.css`              | Contains normalizing, core styles and available CSS classes.                                          |
+| `off-brand-theme.css`             | Contains the standard theme with primary color set to an alternative color (blue).                    |
+| `safety-theme.css`                | Contains the standard theme with primary and brand colors set to an alternative color (gray).         |
+| `lean-theme.css`                  | Contains normalizing, core styles and available CSS classes with smaller default sizes of components. |
+| `lean-off-brand-theme.css`        | Contains the lean theme with primary color set to an alternative color (blue).                        |
+| `lean-safety-theme.css`           | Contains the lean theme with primary and brand colors set to an alternative color (gray).             |
+|                                   |                                                                                                       |
+| `font-characters-extension.css`   | Provides full character set of SBB fonts, needs larger files to load.                                 |
+| `disable-animation-extension.css` | Disables animations on root level, ideally for a global test setup.                                   |
 
 ### Full Font
 
@@ -167,6 +143,8 @@ Add the `sbb-disable-animation` CSS class to disable animations and transition e
 
 Sometimes, you might need to disable animations only for a specific element.
 To achieve that, you can add the `sbb-disable-animation-locally` class or re-enable animations using the `sbb-enable-animation` CSS class.
+
+For a global configuration, you can also import the `disable-animation-extension.css` file which deactivates animations on root level.
 
 ```html
 <sbb-component class="sbb-disable-animation-locally">
@@ -300,6 +278,39 @@ where we provide CSS classes to consumers:
 - [List styles](#lists)
 - [Scrollbar styles](#scrollbar)
 - [Text styles](#text-styles)
+- [Accessibility classes](#accessibility-classes)
+
+#### Accessibility classes
+
+##### sbb-screen-reader-only
+
+The `sbb-screen-reader-only` class visually hides an element while keeping it accessible to screen readers.
+Use it to provide additional context or labels that are only meant for assistive technologies.
+
+```html
+<span class="sbb-screen-reader-only">Additional context for screen readers only</span>
+```
+
+##### sbb-focus-outline
+
+The `sbb-focus-outline` class applies the standard Lyne focus outline to an element when it receives keyboard focus (`:focus-visible`).
+Use it on custom interactive elements that need to match the Lyne focus style.
+
+```html
+<button class="sbb-focus-outline">Custom button</button>
+```
+
+##### sbb-focus-outline-dark
+
+The `sbb-focus-outline-dark` class is a variant of `sbb-focus-outline` that always uses the dark (white) outline color.
+Use it on interactive elements placed on dark backgrounds where the default focus outline color would not have enough contrast.
+
+```html
+<button class="sbb-focus-outline-dark">Custom button on dark background</button>
+```
+
+> Alternatively, you can set `--sbb-focus-outline-color: var(--sbb-focus-outline-color-dark)` on a container
+> to apply the dark focus outline to all descendant Lyne components and elements using the `sbb-focus-outline` class.
 
 ## Design Tokens
 
@@ -442,14 +453,14 @@ It also includes line-height, letter-spacing and font-family.
 The native browser margins (1em) between paragraph elements `<p>` correctly corresponds
 to the defined paragraph spacing. Due to this there are no additional rules for paragraph spacing.
 
-| CSS class      | CSS class bold                | Sass mixin          | Sass mixin bold  |
-| -------------- | ----------------------------- | ------------------- | ---------------- |
-| `sbb-text-xxs` | `sbb-text-xxs sbb-text--bold` | `text-xxs--regular` | `text-xxs--bold` |
-| `sbb-text-xs`  | `sbb-text-xs sbb-text--bold`  | `text-xs--regular`  | `text-xs--bold`  |
-| `sbb-text-s`   | `sbb-text-s sbb-text--bold`   | `text-s--regular`   | `text-s--bold`   |
-| `sbb-text-m`   | `sbb-text-m sbb-text--bold`   | `text-m--regular`   | `text-m--bold`   |
-| `sbb-text-l`   | `sbb-text-l sbb-text--bold`   | `text-l--regular`   | `text-l--bold`   |
-| `sbb-text-xl`  | `sbb-text-xl sbb-text--bold`  | `text-xl--regular`  | `text-xl--bold`  |
+| CSS class      | CSS class bold                | Sass mixin |
+| -------------- | ----------------------------- | ---------- |
+| `sbb-text-xxs` | `sbb-text-xxs sbb-text--bold` | `text-xxs` |
+| `sbb-text-xs`  | `sbb-text-xs sbb-text--bold`  | `text-xs`  |
+| `sbb-text-s`   | `sbb-text-s sbb-text--bold`   | `text-s`   |
+| `sbb-text-m`   | `sbb-text-m sbb-text--bold`   | `text-m`   |
+| `sbb-text-l`   | `sbb-text-l sbb-text--bold`   | `text-l`   |
+| `sbb-text-xl`  | `sbb-text-xl sbb-text--bold`  | `text-xl`  |
 
 #### Usage
 

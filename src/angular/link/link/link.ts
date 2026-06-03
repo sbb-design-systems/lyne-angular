@@ -1,7 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbLinkElement, SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
+import type { SbbLinkElement } from '@sbb-esta/lyne-elements/link.js';
 
 import '@sbb-esta/lyne-elements/link.js';
 
@@ -17,18 +16,6 @@ import '@sbb-esta/lyne-elements/link.js';
 export class SbbLink {
   #element: ElementRef<SbbLinkElement> = inject(ElementRef<SbbLinkElement>);
   #ngZone: NgZone = inject(NgZone);
-
-  /**
-   * Text size, the link should get in the non-button variation.
-   * With inline variant, the text size adapts to where it is used.
-   */
-  @Input()
-  public set size(value: SbbLinkSize) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
-  }
-  public get size(): SbbLinkSize {
-    return this.#element.nativeElement.size;
-  }
 
   /**
    * Negative coloring variant flag.
@@ -67,10 +54,10 @@ export class SbbLink {
    * Where to display the linked URL.
    */
   @Input()
-  public set target(value: LinkTargetType | string) {
+  public set target(value: '_blank' | '_self' | '_parent' | '_top' | string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.target = value));
   }
-  public get target(): LinkTargetType | string {
+  public get target(): '_blank' | '_self' | '_parent' | '_top' | string {
     return this.#element.nativeElement.target;
   }
 

@@ -74,7 +74,7 @@ the selected values will be displayed in selection order, separated by a comma.
 
 ## Style
 
-The component has no `size` property but, when slotted in a `<sbb-form-field>`, it adapts to the parent `size`.
+The component has a `size` property with two sizes available. When slotted in a `<sbb-form-field>` element, it adapts to the `<sbb-form-field>` element `size`.
 
 ```html
 <sbb-form-field size="s">

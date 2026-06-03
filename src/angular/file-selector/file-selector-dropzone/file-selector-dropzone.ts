@@ -10,7 +10,10 @@ import {
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import type { SbbFileSelectorDropzoneElement } from '@sbb-esta/lyne-elements/file-selector.js';
+import type {
+  SbbFileSelectorDropzoneElement,
+  SbbFileChangeEvent,
+} from '@sbb-esta/lyne-elements/file-selector.js';
 import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/file-selector.js';
@@ -53,13 +56,13 @@ export class SbbFileSelectorDropzone extends SbbControlValueAccessorMixin(class 
   }
 
   /**
-   * Size variant, either s or m.
+   * Size variant, either s (lean theme default) or m (standard theme default).
    */
   @Input()
-  public set size(value: 's' | 'm') {
+  public set size(value: 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 's' | 'm' {
+  public get size(): 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -226,8 +229,8 @@ export class SbbFileSelectorDropzone extends SbbControlValueAccessorMixin(class 
   /**
    * An event which is emitted each time the file list changes.
    */
-  public fileChangedOutput: OutputRef<CustomEvent<Readonly<File>[]>> = outputFromObservable(
-    fromEvent<CustomEvent<Readonly<File>[]>>(this.#element.nativeElement, 'filechanged'),
+  public fileChangedOutput: OutputRef<SbbFileChangeEvent> = outputFromObservable(
+    fromEvent<SbbFileChangeEvent>(this.#element.nativeElement, 'filechanged'),
     { alias: 'fileChanged' },
   );
 }

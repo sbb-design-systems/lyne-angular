@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbTimetableOccupancyIconElement } from '@sbb-esta/lyne-elements/timetable-occupancy-icon.js';
 
 import '@sbb-esta/lyne-elements/timetable-occupancy-icon.js';

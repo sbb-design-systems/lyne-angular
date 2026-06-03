@@ -1,8 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbLinkListAnchorElement } from '@sbb-esta/lyne-elements/link-list-anchor.js';
-import type { SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
 
 import '@sbb-esta/lyne-elements/link-list-anchor.js';
 
@@ -46,22 +45,22 @@ export class SbbLinkListAnchor {
    * The semantic level of the title, e.g. 2 = h2.
    */
   @Input()
-  public set titleLevel(value: SbbTitleLevel) {
+  public set titleLevel(value: SbbHeadingLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
   }
-  public get titleLevel(): SbbTitleLevel {
+  public get titleLevel(): SbbHeadingLevel {
     return this.#element.nativeElement.titleLevel;
   }
 
   /**
-   * Text size of the nested sbb-block-link instances.
+   * Text size of the nested sbb-block-link instances, either xs (lean theme default), s (standard theme default) or m
    * This will overwrite the size attribute of nested sbb-block-link instances.
    */
   @Input()
-  public set size(value: SbbLinkSize) {
+  public set size(value: 'xs' | 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbLinkSize {
+  public get size(): 'xs' | 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 }

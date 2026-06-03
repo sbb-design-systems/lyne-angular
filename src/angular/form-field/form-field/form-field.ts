@@ -82,24 +82,13 @@ export class SbbFormField {
   }
 
   /**
-   * Indicates whether the input is optional.
-   */
-  @Input({ transform: booleanAttribute })
-  public set optional(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.optional = value));
-  }
-  public get optional(): boolean {
-    return this.#element.nativeElement.optional;
-  }
-
-  /**
-   * Size variant, either l, m or s.
+   * Size variant, either s (lean theme default), m (standard theme default) or l.
    */
   @Input()
-  public set size(value: 'l' | 'm' | 's') {
+  public set size(value: 'l' | 'm' | 's' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 'l' | 'm' | 's' {
+  public get size(): 'l' | 'm' | 's' | null {
     return this.#element.nativeElement.size;
   }
 

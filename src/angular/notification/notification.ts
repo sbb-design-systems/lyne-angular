@@ -58,13 +58,13 @@ export class SbbNotification {
   }
 
   /**
-   * Size variant, either s or m.
+   * Size variant, either s (lean theme default) or m (standard theme default).
    */
   @Input()
-  public set size(value: 'm' | 's') {
+  public set size(value: 'm' | 's' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 'm' | 's' {
+  public get size(): 'm' | 's' | null {
     return this.#element.nativeElement.size;
   }
 

@@ -2,8 +2,7 @@ import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angul
 import type { AbstractControl, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import { readConfig } from '@sbb-esta/lyne-elements/core/config.js';
-import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core/datetime.js';
+import { readConfig, defaultDateAdapter } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbDateInputAssociated } from '@sbb-esta/lyne-elements/date-input.js';
 import { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
 import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.js';

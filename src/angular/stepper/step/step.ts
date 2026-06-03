@@ -16,7 +16,7 @@ import type {
   SbbStepLabelElement,
   SbbStepElement,
   SbbStepperElement,
-  SbbStepValidateEventDetails,
+  SbbStepValidateEvent,
 } from '@sbb-esta/lyne-elements/stepper.js';
 import { fromEvent, NEVER } from 'rxjs';
 import { distinctUntilChanged, switchMap } from 'rxjs/operators';
@@ -65,16 +65,15 @@ export class SbbStep {
     return this.#element.nativeElement.stepper;
   }
 
-  protected _validateOutput: OutputRef<CustomEvent<SbbStepValidateEventDetails>> =
-    outputFromObservable<CustomEvent<SbbStepValidateEventDetails>>(NEVER, { alias: 'validate' });
+  protected _validateOutput: OutputRef<SbbStepValidateEvent> =
+    outputFromObservable<SbbStepValidateEvent>(NEVER, { alias: 'validate' });
 
   /**
    * The validate event is dispatched when a step change is triggered. Can be canceled to abort the step change.
    */
-  public validateOutput: OutputRef<CustomEvent<SbbStepValidateEventDetails>> =
-    internalOutputFromObservable(
-      fromEvent<CustomEvent<SbbStepValidateEventDetails>>(this.#element.nativeElement, 'validate'),
-    );
+  public validateOutput: OutputRef<SbbStepValidateEvent> = internalOutputFromObservable(
+    fromEvent<SbbStepValidateEvent>(this.#element.nativeElement, 'validate'),
+  );
 
   constructor() {
     const contentChildObservable = toObservable(this._explicitContent);

@@ -56,17 +56,17 @@ export class StackBlitzWriter {
   #tokenVersion = this.#getPatchedTagVersion('name="sbb-lyne-token-version"');
 
   /** Opens a StackBlitz for the specified example. */
-  createStackBlitzForExample(data: ExampleData): Promise<(isSbbLean: boolean) => void> {
+  createStackBlitzForExample(data: ExampleData): Promise<(theme: string) => void> {
     // Run outside the zone since the creation doesn't interact with Angular
     // and the file requests can cause excessive change detections.
     return this.#ngZone.runOutsideAngular(async () => {
       const files = await this.#buildInMemoryFileDictionary(data);
       const exampleMainFile = `src/app/${data.indexFilename}`;
 
-      return (isSbbLean: boolean) => {
-        files['src/index.html'] = files['src/index.html'].replace(
-          /\${sbbLean}/g,
-          isSbbLean ? ' class="sbb-lean"' : '',
+      return (theme: string) => {
+        files['angular.json'] = files['angular.json'].replace(
+          /\${theme}/g,
+          `node_modules/@sbb-esta/lyne-elements/${theme}.css`,
         );
 
         this.#openStackBlitz({

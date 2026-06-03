@@ -58,13 +58,13 @@ export class SbbToggle<T = string> extends SbbControlValueAccessorMixin(class {}
   }
 
   /**
-   * Size variant, either m or s.
+   * Size variant, either s (lean theme default) or m (standard theme default).
    */
   @Input()
-  public set size(value: 's' | 'm') {
+  public set size(value: 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 's' | 'm' {
+  public get size(): 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 

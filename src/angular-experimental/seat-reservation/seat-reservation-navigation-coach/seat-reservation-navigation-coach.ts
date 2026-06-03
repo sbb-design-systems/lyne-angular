@@ -12,7 +12,7 @@ import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type {
   CoachItemDetails,
   SbbSeatReservationNavigationCoachElement,
-  SelectCoachEventDetails,
+  SbbSelectCoachEvent,
 } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 import { fromEvent } from 'rxjs';
 
@@ -94,8 +94,8 @@ export class SbbSeatReservationNavigationCoach {
   /**
    * Emits when a coach within the navigation was selected and returns the clicked coach nav index.
    */
-  public selectCoachOutput: OutputRef<CustomEvent<SelectCoachEventDetails>> = outputFromObservable(
-    fromEvent<CustomEvent<SelectCoachEventDetails>>(this.#element.nativeElement, 'selectcoach'),
+  public selectCoachOutput: OutputRef<SbbSelectCoachEvent> = outputFromObservable(
+    fromEvent<SbbSelectCoachEvent>(this.#element.nativeElement, 'selectcoach'),
     { alias: 'selectCoach' },
   );
 

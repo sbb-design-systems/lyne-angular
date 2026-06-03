@@ -3,5 +3,6 @@
   "dest": "../../dist/angular",
   "lib": {
     "entryFile": "public-api.ts"
-  }
+  },
+  "assets": ["schematics/**/*.json"]
 }

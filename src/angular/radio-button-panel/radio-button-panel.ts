@@ -1,10 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute, SbbDeferredAnimation } from '@sbb-esta/lyne-angular/core';
+import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.js';
 import type { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button-panel.js';
-import type {
-  SbbRadioButtonGroupElement,
-  SbbRadioButtonSize,
-} from '@sbb-esta/lyne-elements/radio-button.js';
 
 import '@sbb-esta/lyne-elements/radio-button-panel.js';
 
@@ -28,13 +25,13 @@ export class SbbRadioButtonPanel<T = string> {
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either xs, s or m.
+   * Size variant, either xs (lean theme default), s or m (standard theme default).
    */
   @Input()
-  public set size(value: SbbRadioButtonSize) {
+  public set size(value: 'xs' | 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbRadioButtonSize {
+  public get size(): 'xs' | 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 

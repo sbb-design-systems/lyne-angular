@@ -30,5 +30,17 @@
   "bugs": {
     "url": "https://github.com/sbb-design-systems/lyne-angular/issues"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "schematics": "./schematics/collection.json",
+  "ng-add": {
+    "save": "dependencies"
+  },
+  "ng-update": {
+    "migrations": "./schematics/migration.json",
+    "packageGroup": [
+      "@sbb-esta/lyne-angular",
+      "@sbb-esta/lyne-angular-experimental"
+    ],
+    "packageGroupName": "@sbb-esta/lyne-angular"
+  }
 }

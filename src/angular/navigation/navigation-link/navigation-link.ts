@@ -1,11 +1,9 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
 import type {
   SbbNavigationLinkElement,
   SbbNavigationMarkerElement,
   SbbNavigationSectionElement,
-  SbbNavigationActionSize,
 } from '@sbb-esta/lyne-elements/navigation.js';
 
 import '@sbb-esta/lyne-elements/navigation.js';
@@ -22,17 +20,6 @@ import '@sbb-esta/lyne-elements/navigation.js';
 export class SbbNavigationLink {
   #element: ElementRef<SbbNavigationLinkElement> = inject(ElementRef<SbbNavigationLinkElement>);
   #ngZone: NgZone = inject(NgZone);
-
-  /**
-   * Action size variant, either s, m or l.
-   */
-  @Input()
-  public set size(value: SbbNavigationActionSize) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
-  }
-  public get size(): SbbNavigationActionSize {
-    return this.#element.nativeElement.size;
-  }
 
   /**
    * The section that is being controlled by the action, if any.
@@ -60,10 +47,10 @@ export class SbbNavigationLink {
    * Where to display the linked URL.
    */
   @Input()
-  public set target(value: LinkTargetType | string) {
+  public set target(value: '_blank' | '_self' | '_parent' | '_top' | string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.target = value));
   }
-  public get target(): LinkTargetType | string {
+  public get target(): '_blank' | '_self' | '_parent' | '_top' | string {
     return this.#element.nativeElement.target;
   }
 
@@ -125,5 +112,16 @@ export class SbbNavigationLink {
   }
   public get accessibilityCurrent(): string {
     return this.#element.nativeElement.accessibilityCurrent;
+  }
+
+  /**
+   * Whether the component is disabled.
+   */
+  @Input({ transform: booleanAttribute })
+  public set disabled(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.disabled = value));
+  }
+  public get disabled(): boolean {
+    return this.#element.nativeElement.disabled;
   }
 }

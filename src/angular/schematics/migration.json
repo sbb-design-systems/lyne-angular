@@ -1,0 +1,9 @@
+{
+  "schematics": {
+    "migration-v22": {
+      "version": "22.0.0",
+      "description": "Migration to v22",
+      "factory": "./ng-update/migration-v22/index.cjs#migrate"
+    }
+  }
+}

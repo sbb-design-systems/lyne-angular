@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { DataSource } from '@angular/cdk/table';
-import type { SbbCompactPaginator } from '@sbb-esta/lyne-angular/paginator/compact-paginator';
-import type { SbbPaginator } from '@sbb-esta/lyne-angular/paginator/paginator';
-import type { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbCompactPaginator, SbbPaginator } from '@sbb-esta/lyne-angular/paginator';
+import type { SbbPaginatorPageEvent } from '@sbb-esta/lyne-elements/paginator.js';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, merge, of as observableOf, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,7 +13,7 @@ import type { SbbSort } from '../sort/sort';
  * Interface that matches the required API parts of the SbbPaginator.
  */
 export interface SbbTableDataSourcePaginator {
-  page: Observable<CustomEvent<SbbPaginatorPageEventDetails> | undefined>;
+  page: Observable<SbbPaginatorPageEvent | undefined>;
   pageIndex: number;
   initialized: Observable<void>;
   pageSize: number;

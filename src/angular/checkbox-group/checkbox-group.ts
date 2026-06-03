@@ -2,8 +2,8 @@ import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.js';
 import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox-panel.js';
-import type { SbbCheckboxElement, SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
-import type { SbbHorizontalFrom, SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox.js';
+import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core.js';
 
 import '@sbb-esta/lyne-elements/checkbox-group.js';
 
@@ -33,13 +33,13 @@ export class SbbCheckboxGroup {
   }
 
   /**
-   * Size variant, either xs, s or m.
+   * Size variant, either xs (lean theme default), s or m (standard theme default).
    */
   @Input()
-  public set size(value: SbbCheckboxSize) {
+  public set size(value: 'xs' | 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbCheckboxSize {
+  public get size(): 'xs' | 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -58,10 +58,10 @@ export class SbbCheckboxGroup {
    * Indicates the orientation of the checkboxes or panels inside the group.
    */
   @Input()
-  public set orientation(value: SbbOrientation) {
+  public set orientation(value: 'horizontal' | 'vertical') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.orientation = value));
   }
-  public get orientation(): SbbOrientation {
+  public get orientation(): 'horizontal' | 'vertical' {
     return this.#element.nativeElement.orientation;
   }
 

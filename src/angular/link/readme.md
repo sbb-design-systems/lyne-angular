@@ -15,7 +15,7 @@ For every variant there is also a button version, equivalent to a native `button
 <sbb-block-link-button href="http://www.sbb.ch">Link text</sbb-block-link-button>
 ```
 
-Additionally for every variant there is a static version that can be used inside another
+Additionally, for every variant there is a static version that can be used inside another
 interactive element (e.g. an `anchor (a)`).
 
 ```html
@@ -46,7 +46,7 @@ The component can be displayed in `disabled` state using the corresponding prope
 
 ## Style
 
-Block links have three sizes (`xs`, `s`, which is the default, and `m`).
+Block links have three sizes (`xs`, `s` and `m`).
 
 ```html
 <sbb-block-link href="https://www.sbb.ch" size="m">Refunds</sbb-block-link>

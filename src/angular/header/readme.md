@@ -32,8 +32,8 @@ To avoid that tabbed/focused elements get hidden behind the header,
 it's recommended to set on the `<html>` tag the CSS property `scroll-padding-top` to `var(--sbb-header-height)` or to a greater value.
 With this, it's ensured that content will be visible all the time.
 
-The component has two sizes, named `m` (default) and `s`.
-For the latter, the usage of the `<sbb-signet>` with `protective-room='panel'` is suggested.
+The component has two sizes `s` and `m`.
+For size `s`, the usage of the `<sbb-signet>` with `protective-room='panel'` is suggested.
 
 ```html
 <sbb-header size="s">
@@ -139,7 +139,7 @@ by adding classes to `<sbb-header-button>`/`<sbb-header-link>` elements and then
 All the examples have the following requirements:
 
 1. four action items (with custom icons);
-2. the first item is always left aligned and has `expand-from` set to `small`;
+2. the first item is always left aligned and has `hide-label-below` set to `small`;
 3. the other three items are left aligned in breakpoints zero to large, and right aligned from large to ultra;
 4. the last item is not visible in breakpoints zero to small;
 5. the logo is always aligned to the right.
@@ -178,7 +178,7 @@ Finally, the following custom CSS has been added(\*).
 
 ```html
 <sbb-header>
-  <sbb-header-button iconName="..." expandFrom="small"> ... </sbb-header-button>
+  <sbb-header-button iconName="..." hideLabelBelow="small"> ... </sbb-header-button>
 
   <!-- Will be hidden on small screen sizes -->
   <div class="sbb-header-spacer"></div>
@@ -260,13 +260,13 @@ property or via custom content using the `icon` slot.
 <sbb-header-button><sbb-icon slot="icon" name="pie-small" />Another text</sbb-header-button>
 ```
 
-If the component's icon is set, the property `expandFrom` can be used to define the minimum breakpoint
-from which the label is displayed; below that, only the icon is visible.
-Without an icon, the label is always displayed.
+If the component's icon and label are set, the property `hideLabelBelow` can be used to define the maximum (not including) breakpoint
+to which the label is displayed. Below that breakpoint, only the icon is visible.
+Without an icon, the label is always displayed and the property is ignored.
 
 ```html
-<sbb-header-link href="#" expandFrom="large" iconName="pie-small">Text</sbb-header-link>
-<sbb-header-button expandFrom="large" iconName="pie-small">Text</sbb-header-button>
+<sbb-header-link href="#" hideLabelBelow="large" iconName="pie-small">Text</sbb-header-link>
+<sbb-header-button hideLabelBelow="large" iconName="pie-small">Text</sbb-header-button>
 ```
 
 To indicate an active state, the CSS class `sbb-active` should be used.

@@ -1,5 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core/interfaces.js';
+import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbTrainWagonElement } from '@sbb-esta/lyne-elements/train.js';
 
 import '@sbb-esta/lyne-elements/train.js';
@@ -7,7 +7,7 @@ import '@sbb-esta/lyne-elements/train.js';
 /**
  * It displays a train compartment within a `sbb-train` component.
  *
- * @slot  - Use the unnamed slot to add one or more `sbb-icon` for meta-information of the `sbb-train-wagon`.
+ * @slot  - Use the unnamed slot to add one or more `sbb-icon` for meta-information of the wagon.
  */
 @Directive({
   selector: 'sbb-train-wagon',
@@ -22,7 +22,7 @@ export class SbbTrainWagon {
    * For `wagon-end-left` and `wagon-end-right`, please set the corresponding value of the `blockedPassage` property.
    */
   @Input()
-  public set type(
+  public set wagonType(
     value:
       | 'wagon'
       | 'wagon-end-left'
@@ -33,9 +33,9 @@ export class SbbTrainWagon {
       | 'locomotive'
       | 'closed',
   ) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.wagonType = value));
   }
-  public get type():
+  public get wagonType():
     | 'wagon'
     | 'wagon-end-left'
     | 'wagon-end-right'
@@ -44,7 +44,7 @@ export class SbbTrainWagon {
     | 'restaurant'
     | 'locomotive'
     | 'closed' {
-    return this.#element.nativeElement.type;
+    return this.#element.nativeElement.wagonType;
   }
 
   /**
@@ -84,10 +84,10 @@ export class SbbTrainWagon {
    * Class label
    */
   @Input()
-  public set wagonClass(value: '1' | '2' | null) {
+  public set wagonClass(value: '1' | '2' | '1-2' | '2-1' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.wagonClass = value));
   }
-  public get wagonClass(): '1' | '2' | null {
+  public get wagonClass(): '1' | '2' | '1-2' | '2-1' | null {
     return this.#element.nativeElement.wagonClass;
   }
 

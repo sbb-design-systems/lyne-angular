@@ -48,13 +48,13 @@ export class SbbToggleCheck<T = string>
   #focusMonitor = inject(FocusMonitor);
 
   /**
-   * Size variant, either m, s or xs.
+   * Size variant, either xs (lean theme default), s (standard theme default) or m.
    */
   @Input()
-  public set size(value: 'xs' | 's' | 'm') {
+  public set size(value: 'xs' | 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 'xs' | 's' | 'm' {
+  public get size(): 'xs' | 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 

@@ -149,7 +149,7 @@ the `sbb-form-field-text-counter` is hidden.
 
 ## Style
 
-The component has a `size` property, which accepts three different values: `s`, `m` (default) and `l`.
+The component has a `size` property, which accepts three different values: `s`, `m` and `l`.
 
 ```html
 <sbb-form-field size="s">
@@ -179,7 +179,7 @@ it's possible to apply any desired width by setting just the `width` and `min-wi
 ### Reflected state from input
 
 The form field reflects certain states as custom states. This includes `focus`, `disabled`,
-`readonly`, `empty`, `has-error`, `has-popup-open` and `input-type-{tag name of the input}`.
+`readonly`, `empty`, `has-error`, `has-popup-open` and `input-element-{tag name of the input}`.
 
 This can be targeted via CSS via the `:state()` pseudo-class:
 
@@ -204,7 +204,7 @@ If you want to directly show the error state without having had an interaction, 
 
 ### Visualization of `required` / optional state
 
-Generally, as an SBB standard, all form elements are considered required and optional inputs are marked with `(optional)` in the label.
+Generally, as an SBB standard, all form elements are considered required and optional inputs should be marked with `(optional)` in the label.
 
 | English  | German   | French     | Italian     |
 | -------- | -------- | ---------- | ----------- |

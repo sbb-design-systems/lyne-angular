@@ -110,13 +110,8 @@ export class SbbDialog {
 
   /** Closes the component. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public close(result?: any): void;
-  /** @deprecated */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public close(result?: any, target?: HTMLElement): void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public close(result?: any, target?: HTMLElement): void {
-    return this.#element.nativeElement.close(result, target);
+  public close(result?: any): void {
+    return this.#element.nativeElement.close(result);
   }
 
   /**

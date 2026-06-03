@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { ITripItem } from '@sbb-esta/lyne-elements-experimental/core/timetable.js';
+import type { ITripItem } from '@sbb-esta/lyne-elements-experimental/core.js';
 import type {
   Boarding,
   Price,

@@ -16,7 +16,7 @@ import {
   SbbControlValueAccessorMixin,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag.js';
+import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag.js';
 import { fromEvent } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/tag.js';
@@ -74,13 +74,14 @@ export class SbbTag<T = string>
   }
 
   /**
-   * Tag size, either s or m.
+   * Tag size, either s (lean theme default) or m (standard theme default).
+   * The value is inherited from the closest `<sbb-tag-group>`.
    */
   @Input()
-  public set size(value: SbbTagSize) {
+  public set size(value: 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbTagSize {
+  public get size(): 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 

@@ -1,15 +1,11 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type {
-  SbbButtonSize,
-  SbbSecondaryButtonLinkElement,
-} from '@sbb-esta/lyne-elements/button.js';
-import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
+import type { SbbSecondaryButtonLinkElement } from '@sbb-esta/lyne-elements/button.js';
 
 import '@sbb-esta/lyne-elements/button.js';
 
 /**
- * It displays a button enhanced with the SBB Design in the 'primary' variant, which will behave as a link.
+ * It displays a button enhanced with the SBB Design in the 'secondary' variant, which will behave as a link.
  *
  * @slot  - Use the unnamed slot to add content to the secondary-button-link.
  * @slot icon - Slot used to display the icon, if one is set.
@@ -26,13 +22,13 @@ export class SbbSecondaryButtonLink {
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either l, m or s.
+   * Size variant, either s (lean theme default), m (standard theme default) or l.
    */
   @Input()
-  public set size(value: SbbButtonSize) {
+  public set size(value: 's' | 'm' | 'l' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbButtonSize {
+  public get size(): 's' | 'm' | 'l' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -97,10 +93,10 @@ export class SbbSecondaryButtonLink {
    * Where to display the linked URL.
    */
   @Input()
-  public set target(value: LinkTargetType | string) {
+  public set target(value: '_blank' | '_self' | '_parent' | '_top' | string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.target = value));
   }
-  public get target(): LinkTargetType | string {
+  public get target(): '_blank' | '_self' | '_parent' | '_top' | string {
     return this.#element.nativeElement.target;
   }
 
