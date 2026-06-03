@@ -5,10 +5,10 @@
 ## Automatic installation
 
 1.  Install Angular CLI, see [Angular CLI documentation](https://cli.angular.io/)
-2.  Add the `@sbb-esta/lyne-elements` package to your project
+2.  Add the `@sbb-esta/lyne-angular` package to your project
 
     ```sh
-      ng add @sbb-esta/lyne-elements
+      ng add @sbb-esta/lyne-angular
     ```
 
 3.  Follow instructions in the terminal to complete the setup.
