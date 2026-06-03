@@ -47,15 +47,6 @@ export interface SbbArrowViewStateTransition {
 }
 
 /**
- * Column definition associated with a `SbbSortHeader`.
- * @deprecated
- */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface SbbSortHeaderColumnDef {
-  name: string;
-}
-
-/**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
  *

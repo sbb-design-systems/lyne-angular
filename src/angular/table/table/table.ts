@@ -11,24 +11,12 @@ import type { OnDestroy, OnInit } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
-  Directive,
   ElementRef,
   inject,
   ViewEncapsulation,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { debounceTime, Subject } from 'rxjs';
-
-/**
- * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with
- * tables that animate rows.
- *
- * @deprecated This directive is a no-op and will be removed.
- */
-@Directive({
-  selector: 'sbb-table[recycleRows], table[sbb-table][recycleRows]',
-})
-export class SbbRecycleRows {}
 
 /**
  * Wrapper for the CdkTable with Sbb design styles.
