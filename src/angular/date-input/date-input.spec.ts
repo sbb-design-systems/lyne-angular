@@ -136,7 +136,7 @@ describe('sbb-date-input', () => {
     // Test with undefined
     control.setValue(undefined as unknown as Date);
     expect(dateInput.valueAsDate).toBeNull();
-    expect(dateInput.value).toEqual('undefined');
+    expect(dateInput.value).toEqual('');
   });
 
   it('should be touched on blur', async () => {

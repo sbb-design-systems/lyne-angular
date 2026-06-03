@@ -1,22 +1,11 @@
-import {
-  Directive,
-  ElementRef,
-  forwardRef,
-  inject,
-  Input,
-  NgZone,
-  type OutputRef,
-} from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
   booleanAttribute,
-  internalOutputFromObservable,
   SbbControlValueAccessorMixin,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
 import type { SbbToggleOptionElement, SbbToggleElement } from '@sbb-esta/lyne-elements/toggle.js';
-import { fromEvent, NEVER } from 'rxjs';
 
 import '@sbb-esta/lyne-elements/toggle.js';
 
@@ -168,16 +157,4 @@ export class SbbToggle<T = string> extends SbbControlValueAccessorMixin(class {}
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
-
-  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'change',
-  });
-  /**
-   * The change event is fired when the user modifies the element's value.
-   * Unlike the input event, the change event is not necessarily fired
-   * for each alteration to an element's value.
-   */
-  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'change'),
-  );
 }

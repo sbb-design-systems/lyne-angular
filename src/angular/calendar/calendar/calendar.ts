@@ -1,10 +1,18 @@
-import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  inject,
+  Input,
+  NgZone,
+  type OutputRef,
+  numberAttribute,
+} from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type {
   SbbCalendarElement,
-  SbbMonthChangeEvent,
   SbbDateSelectedEvent,
+  SbbMonthChangeEvent,
 } from '@sbb-esta/lyne-elements/calendar.js';
 import { fromEvent, NEVER } from 'rxjs';
 
@@ -24,14 +32,14 @@ export class SbbCalendar<T = Date> {
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * If set to true, two months are displayed
+   * The amount of months to display in this calendar.
    */
-  @Input({ transform: booleanAttribute })
-  public set wide(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.wide = value));
+  @Input({ transform: numberAttribute })
+  public set amount(value: number) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.amount = value));
   }
-  public get wide(): boolean {
-    return this.#element.nativeElement.wide;
+  public get amount(): number {
+    return this.#element.nativeElement.amount;
   }
 
   /**
@@ -73,11 +81,11 @@ export class SbbCalendar<T = Date> {
    * The selected date: accepts a date object, or, if `multiple`, an array of dates.
    */
   @Input()
-  public set selected(value: T | T[] | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.selected = value));
+  public set value(value: T | T[] | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get selected(): T | T[] | null {
-    return this.#element.nativeElement.selected;
+  public get value(): T | T[] | null {
+    return this.#element.nativeElement.value;
   }
 
   /**
@@ -122,6 +130,74 @@ export class SbbCalendar<T = Date> {
   }
   public get weekNumbers(): boolean {
     return this.#element.nativeElement.weekNumbers;
+  }
+
+  /**
+   * Name of the form element. Will be read from name attribute.
+   */
+  @Input()
+  public set name(value: string) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.name = value));
+  }
+  public get name(): string {
+    return this.#element.nativeElement.name;
+  }
+
+  /**
+   * Returns the form owner of this element.
+   */
+  public get form(): HTMLFormElement | null {
+    return this.#element.nativeElement.form;
+  }
+
+  /**
+   * Returns the ValidityState object for this element.
+   */
+  public get validity(): ValidityState {
+    return this.#element.nativeElement.validity;
+  }
+
+  /**
+   * Returns the current error message, if available, which corresponds
+   * to the current validation state.
+   * Please note that only one message is returned at a time (e.g. if
+   * multiple validity states are invalid, only the chronologically first one
+   * is returned until it is fixed, at which point the next message might be
+   * returned, if it is still applicable). Also, a custom validity message
+   * (see below) has precedence over native validation messages.
+   */
+  public get validationMessage(): string {
+    return this.#element.nativeElement.validationMessage;
+  }
+
+  /**
+   * Returns true if this element will be validated
+   * when the form is submitted; false otherwise.
+   */
+  public get willValidate(): boolean {
+    return this.#element.nativeElement.willValidate;
+  }
+  /**
+   * Returns true if this element has no validity problems; false otherwise.
+   * Fires an invalid event at the element in the latter case.
+   */
+  public checkValidity(): boolean {
+    return this.#element.nativeElement.checkValidity();
+  }
+  /**
+   * Returns true if this element has no validity problems; otherwise,
+   * returns false, fires an invalid event at the element,
+   * and (if the event isn't canceled) reports the problem to the user.
+   */
+  public reportValidity(): boolean {
+    return this.#element.nativeElement.reportValidity();
+  }
+  /**
+   * Sets the custom validity message for this element. Use the empty string
+   * to indicate that the element does not have a custom validity error.
+   */
+  public setCustomValidity(message: string): void {
+    return this.#element.nativeElement.setCustomValidity(message);
   }
 
   /**
