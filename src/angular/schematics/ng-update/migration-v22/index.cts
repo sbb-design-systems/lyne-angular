@@ -7,6 +7,7 @@ import {
 import { chain, Rule, SchematicContext } from '@angular-devkit/schematics';
 
 import { TypeFixmeMigration } from './add-fixme-removed-types.cjs';
+import { MigrateImportPaths } from './migrate-import-paths.cjs';
 
 const sbbUpgradeData: UpgradeData = {
   attributeSelectors: {},
@@ -52,7 +53,7 @@ const sbbUpgradeData: UpgradeData = {
   symbolRemoval: {},
 };
 
-const migrations: NullableDevkitMigration[] = [TypeFixmeMigration];
+const migrations: NullableDevkitMigration[] = [TypeFixmeMigration, MigrateImportPaths];
 
 export function migrate(): Rule {
   return chain([
