@@ -1,7 +1,7 @@
 import { DataSource } from '@angular/cdk/collections';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import type { AfterViewInit, OnInit } from '@angular/core';
-import { Component, ViewChild } from '@angular/core';
+import { signal, Component, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -638,7 +638,7 @@ describe('sbb-table', () => {
     expect(tableWrapper.nativeElement.classList.length).toBe(2); // Ensure old state classes were removed
 
     // When maximizing scroll area
-    fixture.componentInstance.wrapperWidth = 400;
+    fixture.componentInstance.wrapperWidth.set(600);
     fixture.detectChanges();
     // We trigger the class update
     tableWrapper.nativeElement.dispatchEvent(new CustomEvent('scroll'));
@@ -1125,7 +1125,7 @@ class TableWithColumnGroupingTestComponent {
 
 @Component({
   template: `
-    <sbb-table-wrapper [style.width]="wrapperWidth + 'px'">
+    <sbb-table-wrapper [style.width]="wrapperWidth() + 'px'">
       <table sbb-table [dataSource]="dataSource">
         <ng-container sbbColumnDef="column_a" sticky>
           <th sbb-header-cell *sbbHeaderCellDef>Column A with a very wide width</th>
@@ -1149,7 +1149,7 @@ class TableWithColumnGroupingTestComponent {
 class TableWithWrapperAndStickyColumnsTestComponent {
   dataSource: FakeDataSource = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
-  wrapperWidth = 200;
+  wrapperWidth = signal(200);
 }
 
 @Component({
