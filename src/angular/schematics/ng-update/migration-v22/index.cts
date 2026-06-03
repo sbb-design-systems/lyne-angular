@@ -1,14 +1,31 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { createMigrationSchematicRule, TargetVersion } from '@angular/cdk/schematics';
-import { addFixmeTypes } from './add-fixme-types.cjs';
+import { createMigrationSchematicRule, TargetVersion, UpgradeData } from '@angular/cdk/schematics';
+import { chain, Rule, SchematicContext } from '@angular-devkit/schematics';
+
+import { TypeFixmeMigration } from './add-fixme-removed-types.cjs';
+
+const sbbUpgradeData: UpgradeData = {
+  attributeSelectors: {},
+  classNames: {},
+  cssTokens: {},
+  constructorChecks: {},
+  cssSelectors: {},
+  elementSelectors: {},
+  inputNames: {},
+  methodCallChecks: {},
+  outputNames: {},
+  propertyNames: {},
+  symbolRemoval: {},
+};
 
 export function migrate(): Rule {
-  return (_: Tree, context: SchematicContext) => {
-    const a = createMigrationSchematicRule;
-    const b = TargetVersion.V22;
-    context.logger.info('Running @sbb-esta/lyne-angular migration to v22.');
-    return chain([addFixmeTypes()]);
-  };
+  return chain([
+    createMigrationSchematicRule(
+      TargetVersion.V22,
+      [TypeFixmeMigration],
+      sbbUpgradeData,
+      onMigrationComplete,
+    ),
+  ]);
 }
 
 /** Function that will be called when the migration completed. */
