@@ -27,8 +27,7 @@ export class TypeFixmeMigration extends Migration<null> {
     SbbTagSize: "'s' | 'm'",
     SbbTime: '`${number}:${number}:${number}`',
     SbbTitleLevel: 'SbbHeadingLevel',
-    SbbToastPosition:
-      "'top-left' | 'top-start' | 'top-center' | 'top-right' | 'top-end' | 'bottom-left' | 'bottom-start' | 'bottom-center' | 'bottom-right' | 'bottom-end'",
+    SbbToastPosition: "`${'top' | 'bottom'}-${'left' | 'start' | 'center' | 'right' | 'end'}`",
     TravelDirection: "'LEFT' | 'RIGHT' | 'NONE'",
   };
 

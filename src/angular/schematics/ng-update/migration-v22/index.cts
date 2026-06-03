@@ -1,14 +1,28 @@
-import { createMigrationSchematicRule, TargetVersion } from '@angular/cdk/schematics';
+import { createMigrationSchematicRule, TargetVersion, UpgradeData } from '@angular/cdk/schematics';
 import { chain, Rule, SchematicContext } from '@angular-devkit/schematics';
 
 import { TypeFixmeMigration } from './add-fixme-removed-types.cjs';
+
+const sbbUpgradeData: UpgradeData = {
+  attributeSelectors: {},
+  classNames: {},
+  cssTokens: {},
+  constructorChecks: {},
+  cssSelectors: {},
+  elementSelectors: {},
+  inputNames: {},
+  methodCallChecks: {},
+  outputNames: {},
+  propertyNames: {},
+  symbolRemoval: {},
+};
 
 export function migrate(): Rule {
   return chain([
     createMigrationSchematicRule(
       TargetVersion.V22,
       [TypeFixmeMigration],
-      {} as any,
+      sbbUpgradeData,
       onMigrationComplete,
     ),
   ]);
