@@ -31,8 +31,7 @@ export class TypeFixmeMigration extends Migration<null> {
     TravelDirection: "'LEFT' | 'RIGHT' | 'NONE'",
   };
 
-  // enabled = this.targetVersion === TargetVersion.V22;
-  enabled = true;
+  enabled = this.targetVersion === TargetVersion.V22;
 
   private readonly PULL_REQUEST_URL =
     'https://github.com/sbb-design-systems/lyne-components/pull/4864';
