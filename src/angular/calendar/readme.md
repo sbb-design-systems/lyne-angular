@@ -158,6 +158,18 @@ all the days in the week.
 <sbb-calendar multiple weekNumbers></sbb-calendar>
 ```
 
+### Fixed month
+
+In the case where a fixed month (or months with `amount`) should be displayed,
+the `fixedMonth` property should be used.
+With this configuration, the currently displayed month cannot be changed by the user.
+
+The value must be provided as a valid ISO format with `YYYY-MM`.
+
+```html
+<sbb-calendar fixedMonth="2025-01"></sbb-calendar>
+```
+
 ## Style
 
 The component displays by default a single month in the `day` view, a list of twenty-four years

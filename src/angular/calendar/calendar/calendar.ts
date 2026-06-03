@@ -144,6 +144,18 @@ export class SbbCalendar<T = Date> {
   }
 
   /**
+   * Set this with the format `YYYY-MM` to limit the calendar to a specific month,
+   * and prevent navigation to other months.
+   */
+  @Input()
+  public set fixedMonth(value: string) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.fixedMonth = value));
+  }
+  public get fixedMonth(): string {
+    return this.#element.nativeElement.fixedMonth;
+  }
+
+  /**
    * Returns the form owner of this element.
    */
   public get form(): HTMLFormElement | null {
