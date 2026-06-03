@@ -141,7 +141,9 @@ export function addThemeToProject(
       target.builder === '@angular/build:unit-test' ||
       target.builder === '@angular-devkit/build-angular:jest'
     ) {
-      logger.info(`Modern test builder detected. Skipping 'styles' array injection.`);
+      logger.info(
+        `Modern test builder detected. Skipping 'styles' array injection for 'test' setup.`,
+      );
     } else {
       if (!target.options) {
         target.options = {};

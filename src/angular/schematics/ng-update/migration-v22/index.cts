@@ -18,7 +18,7 @@ function onMigrationComplete(
   hasFailures: boolean,
 ) {
   context.logger.info('');
-  context.logger.info(`  ✓  Updated Sbb Angular to ${targetVersion}`);
+  context.logger.info(`  ✓  Updated Lyne Angular to ${targetVersion}`);
   context.logger.info('');
 
   if (hasFailures) {
