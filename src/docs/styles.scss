@@ -87,7 +87,7 @@ sbb-block-link {
 
   sbb-link-list-anchor {
     overflow: auto;
-    max-height: calc(100vh - var(--sbb-header-height) - 2rem);
+    max-height: calc(100vh - var(--sbb-header-vertical-spacing) - 2rem);
   }
 
   @include sbb.mq($to: small) {
