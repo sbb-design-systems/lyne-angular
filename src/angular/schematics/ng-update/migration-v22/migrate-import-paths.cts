@@ -51,11 +51,6 @@ const IMPORT_PATH_MIGRATIONS: Record<string, string> = {
 export class MigrateImportPaths extends Migration<null> {
   enabled = true;
 
-  override init() {
-    super.init();
-    this.logger.info('### Start migrating imports path ###');
-  }
-
   override visitNode(node: ts.Node): void {
     if (
       (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) &&
@@ -85,6 +80,6 @@ export class MigrateImportPaths extends Migration<null> {
     recorder.remove(pos, end - pos);
     recorder.insertLeft(pos, `${quote}${newPath}${quote}`);
 
-    this.logger.info(`  → '${oldPath}' → '${newPath}' in ${filePath}`);
+    this.logger.info(`  → Fix import '${oldPath}' → '${newPath}' in ${filePath}`);
   }
 }
