@@ -1,4 +1,9 @@
-import { createMigrationSchematicRule, TargetVersion, UpgradeData } from '@angular/cdk/schematics';
+import {
+  createMigrationSchematicRule,
+  NullableDevkitMigration,
+  TargetVersion,
+  UpgradeData,
+} from '@angular/cdk/schematics';
 import { chain, Rule, SchematicContext } from '@angular-devkit/schematics';
 
 import { TypeFixmeMigration } from './add-fixme-removed-types.cjs';
@@ -10,18 +15,50 @@ const sbbUpgradeData: UpgradeData = {
   constructorChecks: {},
   cssSelectors: {},
   elementSelectors: {},
-  inputNames: {},
+  inputNames: {
+    [TargetVersion.V22]: [
+      {
+        pr: 'https://github.com/sbb-design-systems/lyne-components/pull/4916',
+        changes: [
+          {
+            replace: 'listAccessibilityLabel',
+            replaceWith: 'accessibilityLabel',
+            limitedTo: {
+              elements: ['sbb-tag-group'],
+            },
+          },
+        ],
+      },
+    ],
+  },
   methodCallChecks: {},
   outputNames: {},
-  propertyNames: {},
+  propertyNames: {
+    [TargetVersion.V22]: [
+      {
+        pr: 'https://github.com/sbb-design-systems/lyne-components/pull/4916',
+        changes: [
+          {
+            replace: 'listAccessibilityLabel',
+            replaceWith: 'accessibilityLabel',
+            limitedTo: {
+              classes: ['SbbTagGroup'],
+            },
+          },
+        ],
+      },
+    ],
+  },
   symbolRemoval: {},
 };
+
+const migrations: NullableDevkitMigration[] = [TypeFixmeMigration];
 
 export function migrate(): Rule {
   return chain([
     createMigrationSchematicRule(
       TargetVersion.V22,
-      [TypeFixmeMigration],
+      migrations,
       sbbUpgradeData,
       onMigrationComplete,
     ),
