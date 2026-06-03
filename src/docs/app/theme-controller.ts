@@ -35,23 +35,22 @@ export class ThemeController implements CanActivate {
         : 'default',
   );
   size = computed(() => (this.#theme().startsWith('standard') ? 'standard' : 'lean'));
+  fileName = computed(() => {
+    const fileName = this.#theme().replace('standard-', '');
+    return fileName === 'theme' ? 'standard-theme' : fileName;
+  });
 
   constructor() {
-    toObservable(this.#theme)
-      .pipe(startWith(this.#theme()))
-      .subscribe((value) => {
-        let cssFileName = value.replace('standard-', '');
-        if (cssFileName === 'theme') {
-          cssFileName = 'standard-theme';
-        }
-
+    toObservable(this.fileName)
+      .pipe(startWith(this.fileName()))
+      .subscribe((cssFileName) => {
         this.#document.head
           .querySelector('#theme')
           ?.setAttribute('href', `assets/themes/angular/${cssFileName}-theme.css`);
         this.#document.head
           .querySelector('#theme-experimental')
           ?.setAttribute('href', `assets/themes/angular-experimental/${cssFileName}-theme.css`);
-        localStorage.setItem(themeLocalstorageKey, value);
+        localStorage.setItem(themeLocalstorageKey, this.#theme());
       });
   }
 
