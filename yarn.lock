@@ -5681,10 +5681,10 @@ marked-highlight@2.2.4:
   resolved "https://registry.yarnpkg.com/marked-highlight/-/marked-highlight-2.2.4.tgz#e8d9a3b9ab8cdba8c255a5bcca9d922716befa5e"
   integrity sha512-PZxisNMJDduSjc0q6uvjsnqqHCXc9s0eyzxDO9sB1eNGJnd/H1/Fu+z6g/liC1dfJdFW4SftMwMlLvsBhUPrqQ==
 
-marked@18.0.4:
-  version "18.0.4"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-18.0.4.tgz#7a54421f506c8729db32f852719972d2f939a77b"
-  integrity sha512-c/BTaKzg0G6ezQx97DAkYU7k0HM6ys0FqYeKBL6hlBByZwy+ycA1+f0vDdjMHKKeEjdgkx0GOv9Il6D+85cOqA==
+marked@18.0.5:
+  version "18.0.5"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-18.0.5.tgz#c229c0ac6ad1e275ae8e5037c6168f76d2f42e61"
+  integrity sha512-S6GcvALHg6K4ohtu4E7x0a1AqhAjp6cV8KhLSyN9qVapnzJkusVBxZRcIU9AeYsbe6P1hKDusSbEOzGyyuce6w==
 
 marked@7.0.3:
   version "7.0.3"

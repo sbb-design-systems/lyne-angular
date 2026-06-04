@@ -74,7 +74,7 @@
     "highlight.js": "11.11.1",
     "husky": "9.1.7",
     "lint-staged": "17.0.7",
-    "marked": "18.0.4",
+    "marked": "18.0.5",
     "marked-highlight": "2.2.4",
     "ng-packagr": "22.0.0",
     "npm-run-all2": "9.0.1",
