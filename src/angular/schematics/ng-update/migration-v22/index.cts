@@ -15,6 +15,8 @@ import { CalendarWideMigration } from './calendar-wide.cjs';
 import { MigrateNavigationActionSize } from './migrate-navigation-action-size.cjs';
 import { MigrateJourneyHeaderSize } from './migrate-journey-header-size.cjs';
 import { MigrateHeaderActionExpandFrom } from './migrate-header-action-expand-from.cjs';
+import { MigrateActionGroupProperties } from './migrate-action-group-properties.cjs';
+
 import { SBB_UPGRADE_DATA } from './sbb-upgrade-data.cjs';
 
 const migrations: NullableDevkitMigration[] = [
@@ -27,6 +29,7 @@ const migrations: NullableDevkitMigration[] = [
   MigrateNavigationActionSize,
   MigrateJourneyHeaderSize,
   MigrateHeaderActionExpandFrom,
+  MigrateActionGroupProperties,
 ];
 
 export function migrate(): Rule {
