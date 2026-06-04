@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Component, signal } from '@angular/core';
+import { form, FormField } from '@angular/forms/signals';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
@@ -14,28 +14,22 @@ import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js'
   selector: 'sbb-form-field-basic-example',
   templateUrl: 'form-field-basic-example.html',
   styleUrl: 'form-field-basic-example.scss',
-  imports: [
-    ReactiveFormsModule,
-    SbbCheckboxModule,
-    SbbFormFieldModule,
-    SbbRadioButtonModule,
-    SbbTitleModule,
-  ],
+  imports: [SbbCheckboxModule, SbbFormFieldModule, SbbRadioButtonModule, SbbTitleModule, FormField],
 })
 export class FormFieldBasicExample {
-  private formBuilder = inject(FormBuilder);
-
-  protected controls = this.formBuilder.group({
-    formField: this.formBuilder.group({
-      borderless: this.formBuilder.control(false),
-      floatingLabel: this.formBuilder.control(false),
-      hiddenLabel: this.formBuilder.control(false),
-      size: this.formBuilder.control<SbbFormFieldElement['size'] | null>(null),
-      width: this.formBuilder.control<SbbFormFieldElement['width'] | null>(null),
+  protected controls = form(
+    signal({
+      formField: {
+        borderless: false,
+        floatingLabel: false,
+        hiddenLabel: false,
+        size: null as SbbFormFieldElement['size'],
+        width: null as SbbFormFieldElement['width'] | null,
+      },
+      input: {
+        disabled: false,
+        readonly: false,
+      },
     }),
-    input: this.formBuilder.group({
-      disabled: this.formBuilder.control(false),
-      readonly: this.formBuilder.control(false),
-    }),
-  });
+  );
 }
