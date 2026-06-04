@@ -1,6 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { Component, computed, effect, inject, signal, viewChild } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbAutocompleteModule } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
@@ -38,7 +37,6 @@ interface VehicleFilter extends SbbTableFilter {
   templateUrl: 'filter-sort-paginator-table-example.html',
   imports: [
     FormField,
-    ReactiveFormsModule,
     SbbFormFieldModule,
     SbbTableModule,
     SbbAutocompleteModule,
