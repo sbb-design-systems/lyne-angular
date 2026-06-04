@@ -214,6 +214,9 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "defaultConfiguration": "browser",
+          "options": {
+            "tsConfig": "src/docs/tsconfig.spec.json"
+          },
           "configurations": {
             "browser": {
               "browsers": ["chromium"],
