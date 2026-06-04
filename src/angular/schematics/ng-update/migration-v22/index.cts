@@ -13,84 +13,8 @@ import { TitleMarginBlockMigration } from './title-margin-block.cjs';
 import { RemoveTypesMigration } from './removed-types.cjs';
 import { CalendarWideMigration } from './calendar-wide.cjs';
 import { MigrateNavigationActionSize } from './migrate-navigation-action-size.cjs';
-
-const sbbUpgradeData: UpgradeData = {
-  attributeSelectors: {},
-  classNames: {},
-  cssTokens: {},
-  constructorChecks: {},
-  cssSelectors: {
-    [TargetVersion.V22]: [
-      {
-        pr: 'https://github.com/sbb-design-systems/lyne-components/issues/4847',
-        changes: [
-          { replace: '--sbb-title-text-color-normal', replaceWith: '--sbb-title-color' },
-          { replace: '--sbb-title-text-color-normal-override', replaceWith: '--sbb-title-color' },
-        ],
-      },
-    ],
-  },
-  elementSelectors: {},
-  inputNames: {
-    [TargetVersion.V22]: [
-      {
-        pr: 'https://github.com/sbb-design-systems/lyne-components/pull/4916',
-        changes: [
-          {
-            replace: 'listAccessibilityLabel',
-            replaceWith: 'accessibilityLabel',
-            limitedTo: {
-              elements: ['sbb-tag-group'],
-            },
-          },
-        ],
-      },
-      {
-        pr: 'https://github.com/sbb-design-systems/lyne-components/issues/4940',
-        changes: [
-          {
-            replace: 'selected',
-            replaceWith: 'value',
-            limitedTo: {
-              elements: ['sbb-calendar'],
-            },
-          },
-        ],
-      },
-    ],
-  },
-  methodCallChecks: {},
-  outputNames: {},
-  propertyNames: {
-    [TargetVersion.V22]: [
-      {
-        pr: 'https://github.com/sbb-design-systems/lyne-components/pull/4916',
-        changes: [
-          {
-            replace: 'listAccessibilityLabel',
-            replaceWith: 'accessibilityLabel',
-            limitedTo: {
-              classes: ['SbbTagGroup'],
-            },
-          },
-        ],
-      },
-      {
-        pr: 'https://github.com/sbb-design-systems/lyne-components/pull/4940',
-        changes: [
-          {
-            replace: 'selected',
-            replaceWith: 'value',
-            limitedTo: {
-              classes: ['SbbCalendar'],
-            },
-          },
-        ],
-      },
-    ],
-  },
-  symbolRemoval: {},
-};
+import { MigrateJourneyHeaderSize } from './migrate-journey-header-size.cjs';
+import { SBB_UPGRADE_DATA } from './sbb-upgrade-data.cjs';
 
 const migrations: NullableDevkitMigration[] = [
   FormFieldOptionalMigration,
@@ -100,6 +24,7 @@ const migrations: NullableDevkitMigration[] = [
   MigrateImportPaths,
   MigrateTableStriped,
   MigrateNavigationActionSize,
+  MigrateJourneyHeaderSize,
 ];
 
 export function migrate(): Rule {
@@ -107,7 +32,7 @@ export function migrate(): Rule {
     createMigrationSchematicRule(
       TargetVersion.V22,
       migrations,
-      sbbUpgradeData,
+      SBB_UPGRADE_DATA,
       onMigrationComplete,
     ),
   ]);
@@ -120,12 +45,12 @@ function onMigrationComplete(
   hasFailures: boolean,
 ) {
   context.logger.info('');
-  context.logger.info(`  ✓  Updated Lyne Angular to ${targetVersion}`);
+  context.logger.info(`  ✓ Updated Lyne Angular to ${targetVersion}`);
   context.logger.info('');
 
   if (hasFailures) {
     context.logger.warn(
-      '  ⚠  Some issues were detected but could not be fixed automatically. Please check the ' +
+      '  ⚠ Some issues were detected but could not be fixed automatically. Please check the ' +
         'output above and fix these issues manually.',
     );
   }

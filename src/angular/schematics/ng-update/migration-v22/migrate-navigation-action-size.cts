@@ -13,34 +13,26 @@ export class MigrateNavigationActionSize extends Migration<null> {
     'gi',
   );
 
-  private readonly ATTR_PATTERN = /(?<=\s|^)(?:\[?\(?size\)?\]?)\s*(?:=\s*(?:"[^"]*"|'[^']*'))?/gi;
+  private readonly ATTR_PATTERN = /(?<=\s|^)(?:\[?\(?size\)?\]?)\s*(?:=\s*(?:"[^"]*"|'[^']*'))?/i;
 
   override visitTemplate(template: ResolvedResource): void {
-    let changed = false;
+    const editor = this.fileSystem.edit(template.filePath);
 
-    const updated = template.content.replace(
-      this.TAG_PATTERN,
-      (_match, tagName: string, attrs: string, selfClose: string) => {
-        const cleaned = attrs.replace(this.ATTR_PATTERN, '');
-        if (cleaned === attrs) {
-          return _match;
-        }
+    let tagMatch: RegExpExecArray | null;
+    this.TAG_PATTERN.lastIndex = 0;
 
-        changed = true;
-        const attrsOut = cleaned.trim();
-        const gap = attrsOut.length > 0 ? ' ' : '';
+    while ((tagMatch = this.TAG_PATTERN.exec(template.content)) !== null) {
+      const [, tagName, attrs] = tagMatch;
 
-        this.logger.info(`    Removed 'size' attribute from \`<${tagName}>\``);
+      const attrMatch = this.ATTR_PATTERN.exec(attrs);
+      if (!attrMatch) {
+        continue; // no size attribute present, nothing to do
+      }
 
-        return `<${tagName}${gap}${attrsOut}${selfClose}>`;
-      },
-    );
-
-    if (changed) {
-      this.fileSystem
-        .edit(template.filePath)
-        .remove(template.start, template.content.length)
-        .insertRight(template.start, updated);
+      const attrFileOffset =
+        template.start + tagMatch.index + '<'.length + tagName.length + attrMatch.index - 1;
+      editor.remove(attrFileOffset, attrMatch[0].length + 1);
+      this.logger.info(`    Removed 'size' attribute from \`<${tagName}>\``);
     }
   }
 }
