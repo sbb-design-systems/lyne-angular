@@ -1,5 +1,5 @@
 import type { Signal } from '@angular/core';
-import { ChangeDetectionStrategy, Component, computed, inject, viewChild } from '@angular/core';
+import { Component, computed, inject, viewChild } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
@@ -34,7 +34,6 @@ import { SidebarToggle } from './sidebar-toggle';
     SbbSidebarModule,
     SbbTitleModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PackageViewerComponent {
   #activatedRoute = inject(ActivatedRoute);

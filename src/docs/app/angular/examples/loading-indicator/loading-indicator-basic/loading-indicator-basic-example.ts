@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbLoadingIndicatorModule } from '@sbb-esta/lyne-angular/loading-indicator';
 
 /**
@@ -8,6 +8,5 @@ import { SbbLoadingIndicatorModule } from '@sbb-esta/lyne-angular/loading-indica
   selector: 'sbb-loading-indicator-basic-example',
   templateUrl: 'loading-indicator-basic-example.html',
   imports: [SbbLoadingIndicatorModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoadingIndicatorBasicExample {}

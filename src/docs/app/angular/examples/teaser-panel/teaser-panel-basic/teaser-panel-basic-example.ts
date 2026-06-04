@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbTeaserPanelModule } from '@sbb-esta/lyne-angular/teaser-panel';
 
 /**
@@ -8,6 +8,5 @@ import { SbbTeaserPanelModule } from '@sbb-esta/lyne-angular/teaser-panel';
   selector: 'sbb-teaser-panel-basic-example',
   templateUrl: 'teaser-panel-basic-example.html',
   imports: [SbbTeaserPanelModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeaserPanelBasicExample {}

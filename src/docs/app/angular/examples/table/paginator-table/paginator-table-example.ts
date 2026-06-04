@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, viewChild } from '@angular/core';
+import { Component, effect, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
@@ -28,7 +28,6 @@ interface VehicleExampleItem {
     FormsModule,
     ReactiveFormsModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginatorTableExample {
   private readonly paginator = viewChild.required(SbbPaginator);

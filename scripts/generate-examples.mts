@@ -37,7 +37,6 @@ import { Sbb${toPascalCase(moduleName)}Module } from '@sbb-esta/lyne-${packageNa
   selector: 'sbb-${componentName}',
   templateUrl: '${componentName}.html',
   imports: [Sbb${toPascalCase(moduleName)}Module],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ${classNam} {}
 `;

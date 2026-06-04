@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
 import { SbbTableModule } from '@sbb-esta/lyne-angular/table';
 
@@ -11,7 +11,6 @@ import { SbbTableModule } from '@sbb-esta/lyne-angular/table';
   templateUrl: 'expandable-table-example.html',
   styleUrls: ['expandable-table-example.scss'],
   imports: [SbbTableModule, SbbIconModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExpandableTableExample {
   protected displayedColumns: string[] = ['connection', 'time', 'duration'];

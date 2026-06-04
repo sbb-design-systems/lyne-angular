@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 
 /**
@@ -8,6 +8,5 @@ import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
   selector: 'sbb-checkbox-group-basic-example',
   templateUrl: 'checkbox-group-basic-example.html',
   imports: [SbbCheckboxModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckboxGroupBasicExample {}

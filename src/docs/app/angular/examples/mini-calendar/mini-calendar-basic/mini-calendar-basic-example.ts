@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbMiniCalendarModule } from '@sbb-esta/lyne-angular/mini-calendar';
 
 /**
@@ -8,6 +8,5 @@ import { SbbMiniCalendarModule } from '@sbb-esta/lyne-angular/mini-calendar';
   selector: 'sbb-mini-calendar-basic-example',
   templateUrl: 'mini-calendar-basic-example.html',
   imports: [SbbMiniCalendarModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MiniCalendarBasicExample {}

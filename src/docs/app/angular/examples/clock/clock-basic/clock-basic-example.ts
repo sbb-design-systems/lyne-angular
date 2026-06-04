@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbClockModule } from '@sbb-esta/lyne-angular/clock';
 
 /**
@@ -8,6 +8,5 @@ import { SbbClockModule } from '@sbb-esta/lyne-angular/clock';
   selector: 'sbb-clock-basic-example',
   templateUrl: 'clock-basic-example.html',
   imports: [SbbClockModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClockBasicExample {}

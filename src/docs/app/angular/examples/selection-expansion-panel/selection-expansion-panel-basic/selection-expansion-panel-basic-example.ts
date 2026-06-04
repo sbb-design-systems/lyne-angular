@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
 import { SbbRadioButtonPanelModule } from '@sbb-esta/lyne-angular/radio-button-panel';
@@ -16,6 +16,5 @@ import { SbbSelectionExpansionPanelModule } from '@sbb-esta/lyne-angular/selecti
     SbbCardModule,
     SbbIconModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectionExpansionPanelBasicExample {}

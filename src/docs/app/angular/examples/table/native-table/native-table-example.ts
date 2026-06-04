@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
@@ -23,7 +23,6 @@ interface RowEntry {
   templateUrl: 'native-table-example.html',
   styleUrl: 'native-table-example.scss',
   imports: [SbbTableModule, SbbFormFieldModule, FormsModule, ReactiveFormsModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NativeTableExample {
   protected filterControl: FormControl = new FormControl('');

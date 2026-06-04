@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
@@ -14,7 +14,6 @@ import { map } from 'rxjs/operators';
   selector: 'sbb-accordion-variants-example',
   templateUrl: 'accordion-variants-example.html',
   imports: [SbbAccordionModule, SbbCheckboxModule, SbbTitleModule, ReactiveFormsModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccordionVariantsExample {
   protected form = inject(FormBuilder).nonNullable.group({

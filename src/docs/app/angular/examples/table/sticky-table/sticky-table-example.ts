@@ -1,13 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { HttpClient } from '@angular/common/http';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  signal,
-  viewChild,
-} from '@angular/core';
+import { Component, effect, inject, signal, viewChild } from '@angular/core';
 import { SbbLoadingIndicatorModule } from '@sbb-esta/lyne-angular/loading-indicator';
 import type { SbbSortState } from '@sbb-esta/lyne-angular/table';
 import { SbbSort, SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
@@ -21,7 +14,6 @@ import { SbbSort, SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angu
   styleUrls: ['sticky-table-example.scss'],
   templateUrl: 'sticky-table-example.html',
   imports: [SbbTableModule, SbbLoadingIndicatorModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StickyTableExample {
   protected displayedColumns: string[] = [

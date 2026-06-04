@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 
 /**
@@ -8,6 +8,5 @@ import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
   selector: 'sbb-card-basic-example',
   templateUrl: 'card-basic-example.html',
   imports: [SbbCardModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardBasicExample {}

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbStepperModule } from '@sbb-esta/lyne-angular/stepper';
 
 /**
@@ -8,6 +8,5 @@ import { SbbStepperModule } from '@sbb-esta/lyne-angular/stepper';
   selector: 'sbb-stepper-basic-example',
   templateUrl: 'stepper-basic-example.html',
   imports: [SbbStepperModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StepperBasicExample {}

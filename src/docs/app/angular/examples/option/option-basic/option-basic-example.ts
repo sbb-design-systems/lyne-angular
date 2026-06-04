@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbOptionModule } from '@sbb-esta/lyne-angular/option';
 
 /**
@@ -8,6 +8,5 @@ import { SbbOptionModule } from '@sbb-esta/lyne-angular/option';
   selector: 'sbb-option-basic-example',
   templateUrl: 'option-basic-example.html',
   imports: [SbbOptionModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OptionBasicExample {}

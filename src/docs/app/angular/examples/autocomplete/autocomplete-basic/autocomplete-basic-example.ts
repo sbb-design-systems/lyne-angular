@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SbbAutocompleteModule } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
@@ -10,7 +10,6 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
   selector: 'sbb-autocomplete-basic-example',
   templateUrl: 'autocomplete-basic-example.html',
   imports: [SbbAutocompleteModule, SbbFormFieldModule, ReactiveFormsModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteBasicExample {
   values: { property: string; otherProp: string }[] = [

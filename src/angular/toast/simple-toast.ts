@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core/overlay';
 
 /**
@@ -10,7 +10,6 @@ import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core/overlay';
   selector: 'sbb-simple-toast',
   template: '<span>{{ data.message }}</span>',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SbbSimpleToast {
   /** Data that was injected into the notification toast. */

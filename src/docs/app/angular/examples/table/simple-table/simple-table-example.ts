@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
 
 /**
@@ -9,7 +9,6 @@ import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table
   selector: 'sbb-simple-table-example',
   templateUrl: 'simple-table-example.html',
   imports: [SbbTableModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SimpleTableExample {
   protected displayedColumns: string[] = [
