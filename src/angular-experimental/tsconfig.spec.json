@@ -10,5 +10,6 @@
       "@sbb-esta/lyne-angular-experimental/*": ["./*"]
     }
   },
-  "include": ["**/*.spec.ts", "**/*.d.ts"]
+  "files": ["../test-setup.ts"],
+  "include": ["**/*.spec.ts", "**/*.d.ts", "../typings.d.ts"]
 }
