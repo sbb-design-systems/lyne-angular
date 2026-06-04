@@ -7,12 +7,7 @@ import { MigrationEdit } from './migration-utils.cjs';
 export class MigrateNavigationActionSize extends Migration<null> {
   enabled = true;
 
-  private readonly TARGET_TAGS = ['sbb-navigation-button', 'sbb-navigation-link'];
-
-  private readonly TAG_PATTERN = new RegExp(
-    `<(${this.TARGET_TAGS.join('|')})(\\b[^>]*?)(\\/?)>`,
-    'gi',
-  );
+  private readonly TAG_PATTERN = /<(sbb-navigation-button|sbb-navigation-link)(\b[^>]*?)(\/?)>/gi;
 
   /**
    * Matches size attribute variations, capturing leading whitespace.
@@ -57,9 +52,6 @@ export class MigrateNavigationActionSize extends Migration<null> {
 
     for (const edit of edits) {
       editor.remove(edit.offset, edit.length);
-      if (edit.insertion) {
-        editor.insertLeft(edit.offset, edit.insertion);
-      }
       edit.log?.();
     }
   }
