@@ -1,13 +1,15 @@
-import { Migration, ResolvedResource } from '@angular/cdk/schematics';
-import { MigrationEdit, queueFixmeComment } from './migration-utils.cjs';
+import { ResolvedResource } from '@angular/cdk/schematics';
+import {
+  AttributeMigrationBase,
+  MigrationEdit,
+  queueFixmeComment,
+} from './attribute-migration-base.cjs';
 
 /**
  * Migration that manages the transition of the `expandFrom` attribute to `hideLabelBelow`
  * on <sbb-header-button> and <sbb-header-link> components.
  */
-export class MigrateHeaderActionExpandFrom extends Migration<null> {
-  enabled = true;
-
+export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
   private readonly TAG_PATTERN = /<(sbb-header-button|sbb-header-link)(\b[^>]*?)(\/?)>/gi;
 
   /** Matches ONLY strictly static expandFrom="value" (capturing leading whitespace). */
@@ -22,11 +24,11 @@ export class MigrateHeaderActionExpandFrom extends Migration<null> {
   private readonly ANY_EXPAND_FROM_PATTERN =
     /\[?\(?(?:attr\.)?expandFrom\)?\]?\s*=\s*(?:"[^"]*"|'[^']*')/i;
 
-  override visitTemplate(template: ResolvedResource): void {
-    const editor = this.fileSystem.edit(template.filePath);
-    const edits: MigrationEdit[] = [];
-    let editCounter = 0;
-
+  protected override collectEdits(
+    template: ResolvedResource,
+    edits: MigrationEdit[],
+    nextIndex: () => number,
+  ): void {
     let tagMatch: RegExpExecArray | null;
     this.TAG_PATTERN.lastIndex = 0;
 
@@ -41,7 +43,7 @@ export class MigrateHeaderActionExpandFrom extends Migration<null> {
         const insertionOffset = tagFileOffset + tagName.length + 1;
         edits.push({
           offset: insertionOffset,
-          index: editCounter++,
+          index: nextIndex(),
           length: 0,
           insertion: ` hideLabelBelow="large"`,
           log: () =>
@@ -60,7 +62,7 @@ export class MigrateHeaderActionExpandFrom extends Migration<null> {
         queueFixmeComment(
           this.fileSystem,
           edits,
-          editCounter++,
+          nextIndex(),
           template,
           tagFileOffset,
           `FIXME: bound \`expandFrom\` on \`<${tagName}>\` must be migrated manually to \`hideLabelBelow\``,
@@ -86,7 +88,7 @@ export class MigrateHeaderActionExpandFrom extends Migration<null> {
         // Rule #3a: value is exactly "zero" -> remove expandFrom completely
         edits.push({
           offset: attrFileOffset,
-          index: editCounter++,
+          index: nextIndex(),
           length: staticMatch[0].length,
           log: () =>
             this.logger.info(
@@ -98,7 +100,7 @@ export class MigrateHeaderActionExpandFrom extends Migration<null> {
         const insertion = `${leadingSpace}hideLabelBelow="${expandFromValue}"`;
         edits.push({
           offset: attrFileOffset,
-          index: editCounter++,
+          index: nextIndex(),
           length: staticMatch[0].length,
           insertion,
           log: () =>
@@ -107,22 +109,6 @@ export class MigrateHeaderActionExpandFrom extends Migration<null> {
             ),
         });
       }
-    }
-
-    // Apply accumulated edits in reverse order to prevent index drifting.
-    edits.sort((a, b) => {
-      if (b.offset !== a.offset) {
-        return b.offset - a.offset;
-      }
-      return b.index - a.index;
-    });
-
-    for (const edit of edits) {
-      editor.remove(edit.offset, edit.length);
-      if (edit.insertion) {
-        editor.insertLeft(edit.offset, edit.insertion);
-      }
-      edit.log?.();
     }
   }
 }

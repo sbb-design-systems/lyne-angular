@@ -1,12 +1,11 @@
-import { Migration, ResolvedResource } from '@angular/cdk/schematics';
-import { MigrationEdit } from './migration-utils.cjs';
+import { ResolvedResource } from '@angular/cdk/schematics';
+
+import { AttributeMigrationBase, MigrationEdit } from './attribute-migration-base.cjs';
 
 /**
  * Migration that removes the `size` property from `sbb-navigation-button` and `sbb-navigation-link`.
  */
-export class MigrateNavigationActionSize extends Migration<null> {
-  enabled = true;
-
+export class MigrateNavigationActionSize extends AttributeMigrationBase {
   private readonly TAG_PATTERN = /<(sbb-navigation-button|sbb-navigation-link)(\b[^>]*?)(\/?)>/gi;
 
   /**
@@ -16,11 +15,11 @@ export class MigrateNavigationActionSize extends Migration<null> {
   private readonly ATTR_PATTERN =
     /(\s+)(?:\[?\(?(?:attr\.)?size\)?\]?)\s*(?:=\s*(?:"[^"]*"|'[^']*'))?/i;
 
-  override visitTemplate(template: ResolvedResource): void {
-    const editor = this.fileSystem.edit(template.filePath);
-    const edits: MigrationEdit[] = [];
-    let editCounter = 0;
-
+  protected override collectEdits(
+    template: ResolvedResource,
+    edits: MigrationEdit[],
+    nextIndex: () => number,
+  ): void {
     let tagMatch: RegExpExecArray | null;
     this.TAG_PATTERN.lastIndex = 0;
 
@@ -36,23 +35,10 @@ export class MigrateNavigationActionSize extends Migration<null> {
 
       edits.push({
         offset: attrFileOffset,
-        index: editCounter++,
+        index: nextIndex(),
         length: attrMatch[0].length,
         log: () => this.logger.info(`    Removed 'size' attribute from \`<${tagName}>\``),
       });
-    }
-
-    // Apply accumulated edits in reverse order to prevent index drifting.
-    edits.sort((a, b) => {
-      if (b.offset !== a.offset) {
-        return b.offset - a.offset;
-      }
-      return b.index - a.index;
-    });
-
-    for (const edit of edits) {
-      editor.remove(edit.offset, edit.length);
-      edit.log?.();
     }
   }
 }

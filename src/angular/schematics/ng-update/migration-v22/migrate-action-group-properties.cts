@@ -1,13 +1,12 @@
-import { Migration, ResolvedResource } from '@angular/cdk/schematics';
-import { MigrationEdit } from './migration-utils.cjs';
+import { ResolvedResource } from '@angular/cdk/schematics';
+
+import { AttributeMigrationBase, MigrationEdit } from './attribute-migration-base.cjs';
 
 /**
  * Migration that removes `orientation`, `alignGroup`, `horizontalFrom`, `buttonSize and `linkSize` properties
  * from `sbb-action-group` and `sbb-dialog-actions`.
  */
-export class MigrateActionGroupProperties extends Migration<null> {
-  enabled = true;
-
+export class MigrateActionGroupProperties extends AttributeMigrationBase {
   private readonly TAG_PATTERN = /<(sbb-action-group|sbb-dialog-actions)(\b[^>]*?)(\/?)>/gi;
 
   /**
@@ -16,11 +15,11 @@ export class MigrateActionGroupProperties extends Migration<null> {
   private readonly ATTR_PATTERN =
     /(\s+)(?:\[?\(?(?:attr\.)?(?:orientation|alignGroup|horizontalFrom|buttonSize|linkSize)\)?\]?)(?=\s|=|>|\/)\s*(?:=\s*(?:"[^"]*"|'[^']*'))?/gi;
 
-  override visitTemplate(template: ResolvedResource): void {
-    const editor = this.fileSystem.edit(template.filePath);
-    const edits: MigrationEdit[] = [];
-    let editCounter = 0;
-
+  protected override collectEdits(
+    template: ResolvedResource,
+    edits: MigrationEdit[],
+    nextIndex: () => number,
+  ): void {
     let tagMatch: RegExpExecArray | null;
     this.TAG_PATTERN.lastIndex = 0;
 
@@ -44,25 +43,12 @@ export class MigrateActionGroupProperties extends Migration<null> {
 
         edits.push({
           offset: attrFileOffset,
-          index: editCounter++,
+          index: nextIndex(),
           length: attrMatch[0].length,
           log: () =>
             this.logger.info(`    Removed \`${attrName}\` attribute from \`<${tagName}>\``),
         });
       }
-    }
-
-    // Apply accumulated edits in reverse order to prevent index drifting.
-    edits.sort((a, b) => {
-      if (b.offset !== a.offset) {
-        return b.offset - a.offset;
-      }
-      return b.index - a.index;
-    });
-
-    for (const edit of edits) {
-      editor.remove(edit.offset, edit.length);
-      edit.log?.();
     }
   }
 }

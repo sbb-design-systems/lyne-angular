@@ -1,5 +1,9 @@
-import { Migration, ResolvedResource } from '@angular/cdk/schematics';
-import { MigrationEdit, queueFixmeComment } from './migration-utils.cjs';
+import { ResolvedResource } from '@angular/cdk/schematics';
+import {
+  AttributeMigrationBase,
+  MigrationEdit,
+  queueFixmeComment,
+} from './attribute-migration-base.cjs';
 
 const SIZE_TO_VISUAL_LEVEL: Record<string, string> = {
   s: '6',
@@ -10,9 +14,7 @@ const SIZE_TO_VISUAL_LEVEL: Record<string, string> = {
 /**
  * Migration that replaces the `size` property with `visualLevel` on `sbb-journey-header`.
  */
-export class MigrateJourneyHeaderSize extends Migration<null> {
-  enabled = true;
-
+export class MigrateJourneyHeaderSize extends AttributeMigrationBase {
   private readonly TAG_PATTERN = /<(sbb-journey-header)(\b[^>]*?)(\/?)>/gi;
 
   /** Matches a static size attribute, capturing leading whitespace to avoid manual offset math. */
@@ -27,11 +29,11 @@ export class MigrateJourneyHeaderSize extends Migration<null> {
   /** Matches any visualLevel attribute (static or bound). */
   private readonly VISUAL_LEVEL_PRESENT_PATTERN = /\bvisualLevel\b/i;
 
-  override visitTemplate(template: ResolvedResource): void {
-    const editor = this.fileSystem.edit(template.filePath);
-    const edits: MigrationEdit[] = [];
-    let editCounter = 0;
-
+  protected override collectEdits(
+    template: ResolvedResource,
+    edits: MigrationEdit[],
+    nextIndex: () => number,
+  ): void {
     let tagMatch: RegExpExecArray | null;
     this.TAG_PATTERN.lastIndex = 0;
 
@@ -49,7 +51,7 @@ export class MigrateJourneyHeaderSize extends Migration<null> {
 
         edits.push({
           offset: attrFileOffset,
-          index: editCounter++,
+          index: nextIndex(),
           length: sizeMatch[0].length,
           log: () =>
             this.logger.info(
@@ -67,7 +69,7 @@ export class MigrateJourneyHeaderSize extends Migration<null> {
         queueFixmeComment(
           this.fileSystem,
           edits,
-          editCounter++,
+          nextIndex(),
           template,
           tagFileOffset,
           `FIXME: bound \`size\` on \`<${tagName}>\` must be migrated manually to \`visualLevel\``,
@@ -89,7 +91,7 @@ export class MigrateJourneyHeaderSize extends Migration<null> {
 
       edits.push({
         offset: attrFileOffset,
-        index: editCounter++,
+        index: nextIndex(),
         length: staticMatch[0].length,
         insertion,
         log: () =>
@@ -97,22 +99,6 @@ export class MigrateJourneyHeaderSize extends Migration<null> {
             `    Replaced \`size="${sizeValue}"\` with \`visualLevel="${mappedLevel}"\` on \`<${tagName}>\`.`,
           ),
       });
-    }
-
-    // Apply accumulated edits in reverse order to prevent index drifting.
-    edits.sort((a, b) => {
-      if (b.offset !== a.offset) {
-        return b.offset - a.offset;
-      }
-      return b.index - a.index;
-    });
-
-    for (const edit of edits) {
-      editor.remove(edit.offset, edit.length);
-      if (edit.insertion) {
-        editor.insertLeft(edit.offset, edit.insertion);
-      }
-      edit.log?.();
     }
   }
 }
