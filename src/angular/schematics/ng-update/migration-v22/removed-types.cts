@@ -1,9 +1,15 @@
 import { TargetVersion } from '@angular/cdk/schematics';
 import * as ts from 'typescript';
 
-import { AddCommentBase, AddCommentMigrationConfig } from './add-comment-base.cjs';
+import {
+  AddCommentBase,
+  AddCommentMigrationConfig,
+  ReplaceTokenAction,
+} from './add-comment-base.cjs';
 
-const PULL_REQUEST_URL = 'https://github.com/sbb-design-systems/lyne-components/pull/4864';
+const TYPE_PULL_REQUEST_URL = 'https://github.com/sbb-design-systems/lyne-components/pull/4864';
+const EVENTS_PULL_REQUEST_URL = 'https://github.com/sbb-design-systems/lyne-components/pull/4918';
+
 const TYPE_REPLACEMENTS: Record<string, string> = {
   CalendarView: "'day' | 'month' | 'year'",
   LinkTargetType: "'_blank' | '_self' | '_parent' | '_top'",
@@ -33,6 +39,30 @@ const TYPE_REPLACEMENTS: Record<string, string> = {
   TravelDirection: "'LEFT' | 'RIGHT' | 'NONE'",
 };
 
+const EVENT_REPLACEMENTS: Record<string, string> = {
+  'CustomEvent<{ option: SbbOptionBaseElement<T> }>': 'SbbInputAutocompleteEvent<T>',
+  'CustomEvent<T[] | T>': 'SbbDateSelectedEvent<T>',
+  'CustomEvent<SbbCarouselItemEventDetail>': 'SbbCarouselItemShowEvent',
+  'CustomEvent<SbbChipInputTokenEndEventDetails>': 'SbbChipInputTokenEndEvent',
+  'CustomEvent<{ closeTarget: HTMLElement | null }>': 'SbbPopoverCloseEvent',
+  'CustomEvent<Readonly<File>[]>': 'SbbFileChangeEvent',
+  'CustomEvent<SbbPaginatorPageEventDetails>': 'SbbPaginatorPageEvent',
+  'CustomEvent<SbbStepValidateEventDetails>': 'SbbStepValidateEvent',
+  'CustomEvent<SbbTabChangedEventDetails>': 'SbbTabChangeEvent',
+};
+
+function toReplaceActions(
+  replacements: Record<string, string>,
+  prUrl: string,
+): Record<string, ReplaceTokenAction> {
+  return Object.fromEntries(
+    Object.entries(replacements).map(([token, replacement]): [string, ReplaceTokenAction] => [
+      token,
+      { type: 'replace', replacement, prUrl },
+    ]),
+  );
+}
+
 export class RemoveTypesMigration extends AddCommentBase {
   protected override readonly config: AddCommentMigrationConfig = {
     targetVersion: TargetVersion.V22,
@@ -41,12 +71,10 @@ export class RemoveTypesMigration extends AddCommentBase {
         kind: 'token',
         name: 'remove-types',
         tsKinds: [ts.SyntaxKind.TypeReference],
-        ts: Object.fromEntries(
-          Object.entries(TYPE_REPLACEMENTS).map(([token, replacement]) => [
-            token,
-            { type: 'replace', replacement, prUrl: PULL_REQUEST_URL },
-          ]),
-        ),
+        ts: {
+          ...toReplaceActions(TYPE_REPLACEMENTS, TYPE_PULL_REQUEST_URL),
+          ...toReplaceActions(EVENT_REPLACEMENTS, EVENTS_PULL_REQUEST_URL),
+        },
       },
     ],
   };

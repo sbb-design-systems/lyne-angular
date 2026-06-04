@@ -53,9 +53,7 @@ export type DeleteTokenAction = {
   prUrl: string;
 };
 
-/**
- * Used to define elements to be replaced or removed.
- */
+/** Used to define elements to be replaced or removed. */
 export type TokenAction = ReplaceTokenAction | DeleteTokenAction;
 
 /** Rule used for batch modifications. */
@@ -65,15 +63,9 @@ export interface TokenRule {
   ts?: Record<string, TokenAction>;
   template?: Record<string, TokenAction>;
   stylesheet?: Record<string, TokenAction>;
-  /**
-   * Optional list of TS SyntaxKinds to match against the identifier's
-   * **ancestor** nodes (not just the immediate parent).
-   */
+  /** Optional list of TS SyntaxKinds to match against the identifier's ancestor nodes. */
   tsKinds?: ts.SyntaxKind[];
-  /**
-   * How many ancestor levels to walk when evaluating `tsKinds`.
-   * Defaults to 4. Increase only if your target patterns nest deeper.
-   */
+  /** How many ancestor levels to walk when evaluating `tsKinds`. Defaults to 4. */
   tsKindsDepth?: number;
 }
 
@@ -311,18 +303,29 @@ export abstract class AddCommentBase extends Migration<null> {
       return;
     }
 
-    const action = rule.ts[node.text];
-    if (!action) {
-      return;
-    }
-
-    // Skip declaration sites — only flag usages.
     if (this._isDeclarationSite(node)) {
       return;
     }
 
-    // If the rule restricts to specific ancestor SyntaxKinds, walk up the
-    // tree (bounded by tsKindsDepth) and check whether any ancestor matches.
+    let matchKey = node.text;
+    let targetNode: ts.Node = node;
+
+    if (node.parent && ts.isTypeReferenceNode(node.parent) && node.parent.typeName === node) {
+      const sourceFile = node.getSourceFile();
+      const rawTypeText = sourceFile.text.slice(node.parent.getStart(), node.parent.getEnd());
+      const normalizedTypeText = rawTypeText.replace(/\s+/g, ' ');
+
+      if (rule.ts[normalizedTypeText]) {
+        matchKey = normalizedTypeText;
+        targetNode = node.parent;
+      }
+    }
+
+    const action = rule.ts[matchKey];
+    if (!action) {
+      return;
+    }
+
     if (rule.tsKinds) {
       const depth = rule.tsKindsDepth ?? 4;
       if (!this._ancestorMatchesKind(node, rule.tsKinds, depth)) {
@@ -330,7 +333,7 @@ export abstract class AddCommentBase extends Migration<null> {
       }
     }
 
-    this._addCommentAboveTsNode(node, this._generateMessage(node.text, action), rule.name);
+    this._addCommentAboveTsNode(targetNode, this._generateMessage(matchKey, action), rule.name);
   }
 
   /**
