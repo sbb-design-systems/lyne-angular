@@ -1,9 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone, numberAttribute } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { Leg, PtRideLeg } from '@sbb-esta/lyne-elements-experimental/core.js';
-import type { SbbPearlChainTimeElement } from '@sbb-esta/lyne-elements-experimental/pearl-chain-time.js';
-
-import '@sbb-esta/lyne-elements-experimental/pearl-chain-time.js';
+import { SbbPearlChainTimeElement } from '@sbb-esta/lyne-elements-experimental/pearl-chain-time.pure.js';
 
 /**
  * Combined with `sbb-pearl-chain`, it displays walk time information.
@@ -13,6 +11,10 @@ import '@sbb-esta/lyne-elements-experimental/pearl-chain-time.js';
   exportAs: 'sbbPearlChainTime',
 })
 export class SbbPearlChainTime {
+  static {
+    SbbPearlChainTimeElement.define();
+  }
+
   #element: ElementRef<SbbPearlChainTimeElement> = inject(ElementRef<SbbPearlChainTimeElement>);
   #ngZone: NgZone = inject(NgZone);
 

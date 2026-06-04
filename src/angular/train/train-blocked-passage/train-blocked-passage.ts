@@ -1,6 +1,5 @@
 import { Directive } from '@angular/core';
-
-import '@sbb-esta/lyne-elements/train.js';
+import { SbbTrainBlockedPassageElement } from '@sbb-esta/lyne-elements/train.pure.js';
 
 /**
  * It visually displays a blocked passage between train wagons.
@@ -9,4 +8,8 @@ import '@sbb-esta/lyne-elements/train.js';
   selector: 'sbb-train-blocked-passage',
   exportAs: 'sbbTrainBlockedPassage',
 })
-export class SbbTrainBlockedPassage {}
+export class SbbTrainBlockedPassage {
+  static {
+    SbbTrainBlockedPassageElement.define();
+  }
+}

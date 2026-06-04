@@ -3,12 +3,10 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type {
   SbbFlipCardSummaryElement,
-  SbbFlipCardElement,
   SbbFlipCardDetailsElement,
-} from '@sbb-esta/lyne-elements/flip-card.js';
+} from '@sbb-esta/lyne-elements/flip-card.pure.js';
+import { SbbFlipCardElement } from '@sbb-esta/lyne-elements/flip-card.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/flip-card.js';
 
 /**
  * Displays an informative card that reveals more information upon being clicked.
@@ -20,6 +18,10 @@ import '@sbb-esta/lyne-elements/flip-card.js';
   exportAs: 'sbbFlipCard',
 })
 export class SbbFlipCard {
+  static {
+    SbbFlipCardElement.define();
+  }
+
   #element: ElementRef<SbbFlipCardElement> = inject(ElementRef<SbbFlipCardElement>);
   #ngZone: NgZone = inject(NgZone);
 

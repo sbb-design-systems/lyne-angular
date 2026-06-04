@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbIconElement } from '@sbb-esta/lyne-elements/icon.js';
-
-import '@sbb-esta/lyne-elements/icon.js';
+import { SbbIconElement } from '@sbb-esta/lyne-elements/icon.pure.js';
 
 /**
  * Displays an icon loaded from a registered namespace.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/icon.js';
   exportAs: 'sbbIcon',
 })
 export class SbbIcon {
+  static {
+    SbbIconElement.define();
+  }
+
   #element: ElementRef<SbbIconElement> = inject(ElementRef<SbbIconElement>);
   #ngZone: NgZone = inject(NgZone);
 

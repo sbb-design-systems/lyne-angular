@@ -1,6 +1,5 @@
 import { Directive } from '@angular/core';
-
-import '@sbb-esta/lyne-elements/action-group.js';
+import { SbbActionGroupElement } from '@sbb-esta/lyne-elements/action-group.pure.js';
 
 /**
  * It can be used as a container for one or more action element, like `sbb-button` or `sbb-block-link`.
@@ -11,4 +10,8 @@ import '@sbb-esta/lyne-elements/action-group.js';
   selector: 'sbb-action-group',
   exportAs: 'sbbActionGroup',
 })
-export class SbbActionGroup {}
+export class SbbActionGroup {
+  static {
+    SbbActionGroupElement.define();
+  }
+}

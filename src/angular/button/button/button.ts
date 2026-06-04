@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbButtonElement } from '@sbb-esta/lyne-elements/button.js';
-
-import '@sbb-esta/lyne-elements/button.js';
+import { SbbButtonElement } from '@sbb-esta/lyne-elements/button.pure.js';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'primary' variant.
@@ -16,6 +14,10 @@ import '@sbb-esta/lyne-elements/button.js';
   exportAs: 'sbbButton',
 })
 export class SbbButton {
+  static {
+    SbbButtonElement.define();
+  }
+
   #element: ElementRef<SbbButtonElement> = inject(ElementRef<SbbButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 

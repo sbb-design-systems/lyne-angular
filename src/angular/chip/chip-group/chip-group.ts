@@ -10,13 +10,9 @@ import {
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import type {
-  SbbChipGroupElement,
-  SbbChipInputTokenEndEvent,
-} from '@sbb-esta/lyne-elements/chip.js';
+import type { SbbChipInputTokenEndEvent } from '@sbb-esta/lyne-elements/chip.pure.js';
+import { SbbChipGroupElement } from '@sbb-esta/lyne-elements/chip.pure.js';
 import { fromEvent } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/chip.js';
 
 /**
  * The `sbb-chip-group` component is used as a container for one or multiple `sbb-chip`.
@@ -39,6 +35,10 @@ import '@sbb-esta/lyne-elements/chip.js';
   ],
 })
 export class SbbChipGroup<T = string> extends SbbControlValueAccessorMixin(class {}) {
+  static {
+    SbbChipGroupElement.define();
+  }
+
   #element: ElementRef<SbbChipGroupElement<T>> = inject(ElementRef<SbbChipGroupElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 

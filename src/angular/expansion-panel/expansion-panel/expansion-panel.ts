@@ -6,10 +6,8 @@ import {
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
 import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
-import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel.js';
+import { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/expansion-panel.js';
 
 /**
  * It displays an expandable summary-details widget.
@@ -22,6 +20,10 @@ import '@sbb-esta/lyne-elements/expansion-panel.js';
   hostDirectives: [SbbDeferredAnimation],
 })
 export class SbbExpansionPanel {
+  static {
+    SbbExpansionPanelElement.define();
+  }
+
   #element: ElementRef<SbbExpansionPanelElement> = inject(ElementRef<SbbExpansionPanelElement>);
   #ngZone: NgZone = inject(NgZone);
 

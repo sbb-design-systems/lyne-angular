@@ -1,4 +1,4 @@
-import type { SbbFormFieldElementControl } from '@sbb-esta/lyne-elements/form-field.js';
+import type { SbbFormFieldElementControl } from '@sbb-esta/lyne-elements/form-field.pure.js';
 import type { Observable } from 'rxjs';
 
 /** An interface which allows a control to work inside of an `SbbFormField`. */

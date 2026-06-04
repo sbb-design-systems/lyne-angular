@@ -1,10 +1,8 @@
 import { Directive, ElementRef, inject } from '@angular/core';
-import type {
+import {
   SbbSidebarContainerElement,
-  SbbSidebarElement,
-} from '@sbb-esta/lyne-elements/sidebar.js';
-
-import '@sbb-esta/lyne-elements/sidebar.js';
+  type SbbSidebarElement,
+} from '@sbb-esta/lyne-elements/sidebar.pure.js';
 
 /**
  * This is the parent component to one or two `<sbb-sidebar>`s that validates the state internally
@@ -17,6 +15,10 @@ import '@sbb-esta/lyne-elements/sidebar.js';
   exportAs: 'sbbSidebarContainer',
 })
 export class SbbSidebarContainer {
+  static {
+    SbbSidebarContainerElement.define();
+  }
+
   #element: ElementRef<SbbSidebarContainerElement> = inject(ElementRef<SbbSidebarContainerElement>);
 
   /**

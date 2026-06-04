@@ -5,9 +5,10 @@ import {
   SbbControlValueAccessorMixin,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbToggleOptionElement, SbbToggleElement } from '@sbb-esta/lyne-elements/toggle.js';
-
-import '@sbb-esta/lyne-elements/toggle.js';
+import {
+  type SbbToggleOptionElement,
+  SbbToggleElement,
+} from '@sbb-esta/lyne-elements/toggle.pure.js';
 
 /**
  * It can be used as a container for two `sbb-toggle-option`, acting as a toggle button.
@@ -31,6 +32,10 @@ import '@sbb-esta/lyne-elements/toggle.js';
   hostDirectives: [SbbDeferredAnimation],
 })
 export class SbbToggle<T = string> extends SbbControlValueAccessorMixin(class {}) {
+  static {
+    SbbToggleElement.define();
+  }
+
   #element: ElementRef<SbbToggleElement<T>> = inject(ElementRef<SbbToggleElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 

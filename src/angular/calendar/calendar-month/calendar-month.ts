@@ -1,8 +1,6 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbCalendarMonthElement } from '@sbb-esta/lyne-elements/calendar.js';
-
-import '@sbb-esta/lyne-elements/calendar.js';
+import { SbbCalendarMonthElement } from '@sbb-esta/lyne-elements/calendar.pure.js';
 
 /**
  * It displays a single month cell in the `sbb-calendar` months view.
@@ -12,6 +10,10 @@ import '@sbb-esta/lyne-elements/calendar.js';
   exportAs: 'sbbCalendarMonth',
 })
 export class SbbCalendarMonth<T = Date> {
+  static {
+    SbbCalendarMonthElement.define();
+  }
+
   #element: ElementRef<SbbCalendarMonthElement<T>> = inject(ElementRef<SbbCalendarMonthElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 

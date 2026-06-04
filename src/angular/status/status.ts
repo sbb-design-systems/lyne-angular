@@ -1,7 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbStatusElement } from '@sbb-esta/lyne-elements/status.js';
-
-import '@sbb-esta/lyne-elements/status.js';
+import { SbbStatusElement } from '@sbb-esta/lyne-elements/status.pure.js';
 
 /**
  * Displays a message to the user's attention.
@@ -17,6 +15,10 @@ import '@sbb-esta/lyne-elements/status.js';
   exportAs: 'sbbStatus',
 })
 export class SbbStatus {
+  static {
+    SbbStatusElement.define();
+  }
+
   #element: ElementRef<SbbStatusElement> = inject(ElementRef<SbbStatusElement>);
   #ngZone: NgZone = inject(NgZone);
 

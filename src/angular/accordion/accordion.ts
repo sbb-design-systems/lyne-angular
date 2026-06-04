@@ -1,9 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbAccordionElement } from '@sbb-esta/lyne-elements/accordion.js';
+import { SbbAccordionElement } from '@sbb-esta/lyne-elements/accordion.pure.js';
 import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
-
-import '@sbb-esta/lyne-elements/accordion.js';
 
 /**
  * It can be used as a container for one or more `sbb-expansion-panel` component.
@@ -15,6 +13,10 @@ import '@sbb-esta/lyne-elements/accordion.js';
   exportAs: 'sbbAccordion',
 })
 export class SbbAccordion {
+  static {
+    SbbAccordionElement.define();
+  }
+
   #element: ElementRef<SbbAccordionElement> = inject(ElementRef<SbbAccordionElement>);
   #ngZone: NgZone = inject(NgZone);
 

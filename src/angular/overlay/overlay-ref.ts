@@ -1,5 +1,5 @@
 import { SbbOverlayBaseRef } from '@sbb-esta/lyne-angular/core/overlay';
-import type { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.js';
+import type { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.pure.js';
 
 export class SbbOverlayRef<T = unknown, R = unknown> extends SbbOverlayBaseRef<
   T,

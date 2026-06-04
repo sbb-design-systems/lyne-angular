@@ -1,7 +1,5 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
-import type { SbbMiniCalendarElement } from '@sbb-esta/lyne-elements/mini-calendar.js';
-
-import '@sbb-esta/lyne-elements/mini-calendar.js';
+import { SbbMiniCalendarElement } from '@sbb-esta/lyne-elements/mini-calendar.pure.js';
 
 /**
  * It displays a minimal calendar, together with the `sbb-mini-calendar-month` and `sbb-mini-calendar-day`.
@@ -13,6 +11,10 @@ import '@sbb-esta/lyne-elements/mini-calendar.js';
   exportAs: 'sbbMiniCalendar',
 })
 export class SbbMiniCalendar<T = Date> {
+  static {
+    SbbMiniCalendarElement.define();
+  }
+
   #element: ElementRef<SbbMiniCalendarElement<T>> = inject(ElementRef<SbbMiniCalendarElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbChipElement } from '@sbb-esta/lyne-elements/chip.js';
-
-import '@sbb-esta/lyne-elements/chip.js';
+import { SbbChipElement } from '@sbb-esta/lyne-elements/chip.pure.js';
 
 /**
  * It displays a chip. Usually used in combination with `sbb-chip-group`.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/chip.js';
   exportAs: 'sbbChip',
 })
 export class SbbChip<T = string> {
+  static {
+    SbbChipElement.define();
+  }
+
   #element: ElementRef<SbbChipElement<T>> = inject(ElementRef<SbbChipElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbSeatReservationGraphicElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
-
-import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
+import { SbbSeatReservationGraphicElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation.pure.js';
 
 /**
  * Output one of the SVG graphics based on its code.
@@ -12,6 +10,10 @@ import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
   exportAs: 'sbbSeatReservationGraphic',
 })
 export class SbbSeatReservationGraphic {
+  static {
+    SbbSeatReservationGraphicElement.define();
+  }
+
   #element: ElementRef<SbbSeatReservationGraphicElement> = inject(
     ElementRef<SbbSeatReservationGraphicElement>,
   );

@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbMapContainerElement } from '@sbb-esta/lyne-elements/map-container.js';
-
-import '@sbb-esta/lyne-elements/map-container.js';
+import { SbbMapContainerElement } from '@sbb-esta/lyne-elements/map-container.pure.js';
 
 /**
  * It can be used as a container for maps.
@@ -18,6 +16,10 @@ import '@sbb-esta/lyne-elements/map-container.js';
   exportAs: 'sbbMapContainer',
 })
 export class SbbMapContainer {
+  static {
+    SbbMapContainerElement.define();
+  }
+
   #element: ElementRef<SbbMapContainerElement> = inject(ElementRef<SbbMapContainerElement>);
   #ngZone: NgZone = inject(NgZone);
 

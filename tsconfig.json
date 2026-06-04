@@ -12,14 +12,12 @@
       "@sbb-esta/lyne-angular-experimental/*": ["./dist/angular-experimental/*"]
     },
     "outDir": "./dist/out-tsc",
-    "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "esModuleInterop": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2023",
@@ -30,6 +28,7 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true
   },
+  "files": [],
   "references": [
     {
       "path": "./tsconfig.app.json"

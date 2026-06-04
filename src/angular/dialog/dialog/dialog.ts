@@ -1,10 +1,9 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbDialogCloseEvent, SbbDialogElement } from '@sbb-esta/lyne-elements/dialog.js';
+import type { SbbDialogCloseEvent } from '@sbb-esta/lyne-elements/dialog.pure.js';
+import { SbbDialogElement } from '@sbb-esta/lyne-elements/dialog.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/dialog.js';
 
 /**
  * It displays an interactive overlay element.
@@ -17,6 +16,10 @@ import '@sbb-esta/lyne-elements/dialog.js';
   exportAs: 'sbbDialog',
 })
 export class SbbDialog {
+  static {
+    SbbDialogElement.define();
+  }
+
   #element: ElementRef<SbbDialogElement> = inject(ElementRef<SbbDialogElement>);
   #ngZone: NgZone = inject(NgZone);
 

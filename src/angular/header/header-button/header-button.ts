@@ -1,7 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbHeaderButtonElement } from '@sbb-esta/lyne-elements/header.js';
-
-import '@sbb-esta/lyne-elements/header.js';
+import { SbbHeaderButtonElement } from '@sbb-esta/lyne-elements/header.pure.js';
 
 /**
  * It displays a button element that can be used in the `sbb-header` component.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/header.js';
   exportAs: 'sbbHeaderButton',
 })
 export class SbbHeaderButton {
+  static {
+    SbbHeaderButtonElement.define();
+  }
+
   #element: ElementRef<SbbHeaderButtonElement> = inject(ElementRef<SbbHeaderButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 

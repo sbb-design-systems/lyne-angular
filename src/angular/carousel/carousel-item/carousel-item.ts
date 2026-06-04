@@ -1,13 +1,9 @@
 import { Directive, ElementRef, inject, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type {
-  SbbCarouselItemElement,
-  SbbCarouselItemShowEvent,
-} from '@sbb-esta/lyne-elements/carousel.js';
+import type { SbbCarouselItemShowEvent } from '@sbb-esta/lyne-elements/carousel.pure.js';
+import { SbbCarouselItemElement } from '@sbb-esta/lyne-elements/carousel.pure.js';
 import { NEVER, fromEvent } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/carousel.js';
 
 /**
  * It displays an item contained into the `sbb-carousel` component.
@@ -19,6 +15,10 @@ import '@sbb-esta/lyne-elements/carousel.js';
   exportAs: 'sbbCarouselItem',
 })
 export class SbbCarouselItem {
+  static {
+    SbbCarouselItemElement.define();
+  }
+
   #element: ElementRef<SbbCarouselItemElement> = inject(ElementRef<SbbCarouselItemElement>);
 
   protected _beforeshowOutput: OutputRef<SbbCarouselItemShowEvent> =

@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
-import type { SbbSidebarTitleElement } from '@sbb-esta/lyne-elements/sidebar.js';
-
-import '@sbb-esta/lyne-elements/sidebar.js';
+import { SbbSidebarTitleElement } from '@sbb-esta/lyne-elements/sidebar.pure.js';
 
 /**
  * It displays the title of the sidebar. It has to be placed inside an `sbb-sidebar` element.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/sidebar.js';
   exportAs: 'sbbSidebarTitle',
 })
 export class SbbSidebarTitle {
+  static {
+    SbbSidebarTitleElement.define();
+  }
+
   #element: ElementRef<SbbSidebarTitleElement> = inject(ElementRef<SbbSidebarTitleElement>);
   #ngZone: NgZone = inject(NgZone);
 

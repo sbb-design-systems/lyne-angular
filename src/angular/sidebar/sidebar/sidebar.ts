@@ -9,13 +9,11 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type {
-  SbbSidebarContainerElement,
+import {
+  type SbbSidebarContainerElement,
   SbbSidebarElement,
-} from '@sbb-esta/lyne-elements/sidebar.js';
+} from '@sbb-esta/lyne-elements/sidebar.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/sidebar.js';
 
 /**
  * This component corresponds to a sidebar that can be opened on the sidebar container.
@@ -28,6 +26,10 @@ import '@sbb-esta/lyne-elements/sidebar.js';
   exportAs: 'sbbSidebar',
 })
 export class SbbSidebar implements OnInit {
+  static {
+    SbbSidebarElement.define();
+  }
+
   #element: ElementRef<SbbSidebarElement> = inject(ElementRef<SbbSidebarElement>);
   #ngZone: NgZone = inject(NgZone);
   #disabledAnimationClassSet: boolean = false;

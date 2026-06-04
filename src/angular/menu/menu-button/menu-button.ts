@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbMenuButtonElement } from '@sbb-esta/lyne-elements/menu.js';
-
-import '@sbb-esta/lyne-elements/menu.js';
+import { SbbMenuButtonElement } from '@sbb-esta/lyne-elements/menu.pure.js';
 
 /**
  * It displays a button element that can be used in the `sbb-menu` component.
@@ -16,6 +14,10 @@ import '@sbb-esta/lyne-elements/menu.js';
   exportAs: 'sbbMenuButton',
 })
 export class SbbMenuButton {
+  static {
+    SbbMenuButtonElement.define();
+  }
+
   #element: ElementRef<SbbMenuButtonElement> = inject(ElementRef<SbbMenuButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 

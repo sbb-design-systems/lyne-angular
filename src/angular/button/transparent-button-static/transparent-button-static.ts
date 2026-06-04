@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbTransparentButtonStaticElement } from '@sbb-esta/lyne-elements/button.js';
-
-import '@sbb-esta/lyne-elements/button.js';
+import { SbbTransparentButtonStaticElement } from '@sbb-esta/lyne-elements/button.pure.js';
 
 /**
  * It displays a static button enhanced with the SBB Design in the 'transparent' variant.
@@ -16,6 +14,10 @@ import '@sbb-esta/lyne-elements/button.js';
   exportAs: 'sbbTransparentButtonStatic',
 })
 export class SbbTransparentButtonStatic {
+  static {
+    SbbTransparentButtonStaticElement.define();
+  }
+
   #element: ElementRef<SbbTransparentButtonStaticElement> = inject(
     ElementRef<SbbTransparentButtonStaticElement>,
   );

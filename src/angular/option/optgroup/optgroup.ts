@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbOptGroupElement } from '@sbb-esta/lyne-elements/option.js';
-
-import '@sbb-esta/lyne-elements/option.js';
+import { SbbOptGroupElement } from '@sbb-esta/lyne-elements/option.pure.js';
 
 /**
  * It can be used as a container for one or more `sbb-option`.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/option.js';
   exportAs: 'sbbOptGroup',
 })
 export class SbbOptGroup {
+  static {
+    SbbOptGroupElement.define();
+  }
+
   #element: ElementRef<SbbOptGroupElement> = inject(ElementRef<SbbOptGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 

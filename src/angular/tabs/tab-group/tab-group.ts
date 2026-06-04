@@ -9,15 +9,13 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type {
+import {
   SbbTabGroupElement,
-  SbbTabLabelElement,
-  SbbTabElement,
-  SbbTabChangeEvent,
-} from '@sbb-esta/lyne-elements/tabs.js';
+  type SbbTabLabelElement,
+  type SbbTabElement,
+  type SbbTabChangeEvent,
+} from '@sbb-esta/lyne-elements/tabs.pure.js';
 import { fromEvent } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/tabs.js';
 
 /**
  * It displays one or more tabs, each one with a label and some content.
@@ -29,6 +27,10 @@ import '@sbb-esta/lyne-elements/tabs.js';
   exportAs: 'sbbTabGroup',
 })
 export class SbbTabGroup {
+  static {
+    SbbTabGroupElement.define();
+  }
+
   #element: ElementRef<SbbTabGroupElement> = inject(ElementRef<SbbTabGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 

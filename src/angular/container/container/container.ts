@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbContainerElement } from '@sbb-esta/lyne-elements/container.js';
-
-import '@sbb-esta/lyne-elements/container.js';
+import { SbbContainerElement } from '@sbb-esta/lyne-elements/container.pure.js';
 
 /**
  * It displays its content with the default page spacing.
@@ -17,6 +15,10 @@ import '@sbb-esta/lyne-elements/container.js';
   exportAs: 'sbbContainer',
 })
 export class SbbContainer {
+  static {
+    SbbContainerElement.define();
+  }
+
   #element: ElementRef<SbbContainerElement> = inject(ElementRef<SbbContainerElement>);
   #ngZone: NgZone = inject(NgZone);
 

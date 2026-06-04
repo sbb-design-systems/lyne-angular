@@ -2,8 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/eslint-plugin",
-    "esModuleInterop": true,
-    "strict": true,
+    "erasableSyntaxOnly": true,
+    "rewriteRelativeImportExtensions": true,
     "types": ["node"]
   },
   "include": ["*.ts"]

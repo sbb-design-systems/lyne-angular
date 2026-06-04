@@ -3,6 +3,14 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Lint",
+      "request": "launch",
+      "runtimeArgs": ["eslint"],
+      "runtimeExecutable": "yarn",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
       "name": "merge readme",
       "request": "launch",
       "runtimeArgs": ["run", "postinstall:merge-readme"],
