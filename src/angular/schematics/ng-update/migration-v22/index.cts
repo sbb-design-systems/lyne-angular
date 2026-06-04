@@ -5,8 +5,9 @@ import {
   UpgradeData,
 } from '@angular/cdk/schematics';
 import { chain, Rule, SchematicContext } from '@angular-devkit/schematics';
-
-import { TypeFixmeMigration } from './add-fixme-removed-types.cjs';
+import { FormFieldOptionalMigration } from './form-field-optional.cjs';
+import { TitleMarginBlockMigration } from './title-margin-block.cjs';
+import { RemoveTypesMigration } from './removed-types.cjs';
 
 const sbbUpgradeData: UpgradeData = {
   attributeSelectors: {},
@@ -52,7 +53,11 @@ const sbbUpgradeData: UpgradeData = {
   symbolRemoval: {},
 };
 
-const migrations: NullableDevkitMigration[] = [TypeFixmeMigration];
+const migrations: NullableDevkitMigration[] = [
+  FormFieldOptionalMigration,
+  RemoveTypesMigration,
+  TitleMarginBlockMigration,
+];
 
 export function migrate(): Rule {
   return chain([
