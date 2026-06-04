@@ -8,7 +8,7 @@ import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
 import { SbbTabsModule } from '@sbb-esta/lyne-angular/tabs';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
-import { SbbToggleCheck } from '@sbb-esta/lyne-angular/toggle-check';
+import { SbbToggleCheckModule } from '@sbb-esta/lyne-angular/toggle-check';
 import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
 import { marked } from 'marked';
 import { combineLatest, filter, from } from 'rxjs';
@@ -61,7 +61,7 @@ export class ExampleOutletComponent {
     SbbButtonModule,
     StackBlitzButton,
     SbbTitleModule,
-    SbbToggleCheck,
+    SbbToggleCheckModule,
     SbbLinkModule,
   ],
 })

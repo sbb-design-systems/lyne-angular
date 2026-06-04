@@ -1,7 +1,7 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { Component, effect, inject, viewChild } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, computed, effect, inject, signal, viewChild } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { form, FormField } from '@angular/forms/signals';
 import { SbbAutocompleteModule } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbPaginator, SbbPaginatorModule } from '@sbb-esta/lyne-angular/paginator';
@@ -13,7 +13,6 @@ import {
   SbbTableDataSource,
   SbbTableModule,
 } from '@sbb-esta/lyne-angular/table';
-import { distinctUntilChanged, map } from 'rxjs/operators';
 
 interface VehicleExampleItem {
   position: number;
@@ -38,7 +37,7 @@ interface VehicleFilter extends SbbTableFilter {
   styleUrls: ['filter-sort-paginator-table-example.scss'],
   templateUrl: 'filter-sort-paginator-table-example.html',
   imports: [
-    FormsModule,
+    FormField,
     ReactiveFormsModule,
     SbbFormFieldModule,
     SbbTableModule,
@@ -67,22 +66,18 @@ export class FilterSortPaginatorTableExample {
     VEHICLE_EXAMPLE_DATA.map((vehicleExampleItem) => vehicleExampleItem.category),
   );
 
-  protected vehicleFilterForm = new FormGroup({
-    _: new FormControl(''),
-    category: new FormControl([] as string[]),
-    name: new FormControl(''),
-    description: new FormControl(''),
+  #vehicleFilter = signal({
+    _: '',
+    category: [] as string[],
+    name: '',
+    description: '',
   });
+  protected vehicleFilterForm = form(this.#vehicleFilter);
 
-  protected descriptions = toSignal(
-    this.vehicleFilterForm.get('description')!.valueChanges.pipe(
-      distinctUntilChanged(),
-      map((newValue) =>
-        newValue?.length === 0
-          ? []
-          : [...new Set(this.dataSource.filteredData.map((vehicle) => vehicle.description))].sort(),
-      ),
-    ),
+  protected descriptions = computed(() =>
+    this.vehicleFilterForm.description().value().length === 0
+      ? []
+      : [...new Set(this.dataSource.filteredData.map((vehicle) => vehicle.description))].sort(),
   );
 
   private _liveAnnouncer = inject(LiveAnnouncer);
@@ -93,12 +88,9 @@ export class FilterSortPaginatorTableExample {
       this.dataSource.sort = this.sort();
       this.table().dataSource = this.dataSource;
     });
-
-    this.vehicleFilterForm.valueChanges
-      .pipe(takeUntilDestroyed())
-      .subscribe((vehicleFilterForm) => {
-        this.dataSource.filter = vehicleFilterForm;
-      });
+    effect(() => {
+      this.dataSource.filter = this.#vehicleFilter();
+    });
   }
 
   /** Announce the change in sort state for assistive technology. */
