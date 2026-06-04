@@ -1,4 +1,4 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, Service, signal } from '@angular/core';
 import { outputToObservable } from '@angular/core/rxjs-interop';
 import type { SbbSidebar } from '@sbb-esta/lyne-angular/sidebar';
 import { merge, Subject } from 'rxjs';
@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 
 const SESSION_KEY = 'sbbSidebarOpen';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class SidebarToggle {
   #unregister = new Subject<void>();
   #sidebar = signal<SbbSidebar | null>(null);
