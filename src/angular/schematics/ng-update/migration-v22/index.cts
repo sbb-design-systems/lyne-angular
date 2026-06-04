@@ -14,6 +14,7 @@ import { RemoveTypesMigration } from './removed-types.cjs';
 import { CalendarWideMigration } from './calendar-wide.cjs';
 import { MigrateNavigationActionSize } from './migrate-navigation-action-size.cjs';
 import { MigrateJourneyHeaderSize } from './migrate-journey-header-size.cjs';
+import { MigrateHeaderActionExpandFrom } from './migrate-header-action-expand-from.cjs';
 import { SBB_UPGRADE_DATA } from './sbb-upgrade-data.cjs';
 
 const migrations: NullableDevkitMigration[] = [
@@ -25,6 +26,7 @@ const migrations: NullableDevkitMigration[] = [
   MigrateTableStriped,
   MigrateNavigationActionSize,
   MigrateJourneyHeaderSize,
+  MigrateHeaderActionExpandFrom,
 ];
 
 export function migrate(): Rule {

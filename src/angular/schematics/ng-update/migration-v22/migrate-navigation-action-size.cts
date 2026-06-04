@@ -1,10 +1,5 @@
 import { Migration, ResolvedResource } from '@angular/cdk/schematics';
-
-interface MigrationEdit {
-  offset: number;
-  length: number;
-  log: () => void;
-}
+import { MigrationEdit } from './migration-utils.cjs';
 
 /**
  * Migration that removes the `size` property from `sbb-navigation-button` and `sbb-navigation-link`.
@@ -29,6 +24,7 @@ export class MigrateNavigationActionSize extends Migration<null> {
   override visitTemplate(template: ResolvedResource): void {
     const editor = this.fileSystem.edit(template.filePath);
     const edits: MigrationEdit[] = [];
+    let editCounter = 0;
 
     let tagMatch: RegExpExecArray | null;
     this.TAG_PATTERN.lastIndex = 0;
@@ -41,21 +37,30 @@ export class MigrateNavigationActionSize extends Migration<null> {
         continue;
       }
 
-      const attrFileOffset =
-        template.start + tagMatch.index + '<'.length + tagName.length + attrMatch.index;
+      const attrFileOffset = template.start + tagMatch.index + tagName.length + attrMatch.index + 1;
 
       edits.push({
         offset: attrFileOffset,
+        index: editCounter++,
         length: attrMatch[0].length,
         log: () => this.logger.info(`    Removed 'size' attribute from \`<${tagName}>\``),
       });
     }
 
-    // Apply accumulated edits in reverse order to prevent index drifting
-    edits.sort((a, b) => b.offset - a.offset);
+    // Apply accumulated edits in reverse order to prevent index drifting.
+    edits.sort((a, b) => {
+      if (b.offset !== a.offset) {
+        return b.offset - a.offset;
+      }
+      return b.index - a.index;
+    });
+
     for (const edit of edits) {
       editor.remove(edit.offset, edit.length);
-      edit.log();
+      if (edit.insertion) {
+        editor.insertLeft(edit.offset, edit.insertion);
+      }
+      edit.log?.();
     }
   }
 }

@@ -1,18 +1,11 @@
 import { Migration, ResolvedResource } from '@angular/cdk/schematics';
+import { MigrationEdit, queueFixmeComment } from './migration-utils.cjs';
 
 const SIZE_TO_VISUAL_LEVEL: Record<string, string> = {
   s: '6',
   m: '5',
   l: '4',
 };
-
-interface MigrationEdit {
-  offset: number;
-  index: number; // Tracking discovery order to preserve top-to-bottom stacking
-  length: number;
-  insertion?: string;
-  log: () => void;
-}
 
 /**
  * Migration that replaces the `size` property with `visualLevel` on `sbb-journey-header`.
@@ -71,7 +64,8 @@ export class MigrateJourneyHeaderSize extends Migration<null> {
         this.logger.warn(
           `    FIXME: bound \`size\` attribute on \`<${tagName}>\` could not be migrated automatically.`,
         );
-        this._queueFixmeComment(
+        queueFixmeComment(
+          this.fileSystem,
           edits,
           editCounter++,
           template,
@@ -81,7 +75,7 @@ export class MigrateJourneyHeaderSize extends Migration<null> {
         continue;
       }
 
-      // Rule #3: static size, no visualLevel
+      // Rule #3: static size, no visualLevel -> remove size, insert mapped visualLevel
       const staticMatch = this.STATIC_SIZE_PATTERN.exec(attrs);
       if (!staticMatch) {
         continue;
@@ -89,23 +83,6 @@ export class MigrateJourneyHeaderSize extends Migration<null> {
 
       const sizeValue = (staticMatch.groups?.['dq'] ?? staticMatch.groups?.['sq'] ?? '').trim();
       const mappedLevel = SIZE_TO_VISUAL_LEVEL[sizeValue];
-
-      // Rule #3b: unknown value -> add FIXME message
-      if (!mappedLevel) {
-        this.logger.warn(
-          `    FIXME: \`size="${sizeValue}"\` on \`<${tagName}>\` could not be mapped to \`visualLevel\` automatically.`,
-        );
-        this._queueFixmeComment(
-          edits,
-          editCounter++,
-          template,
-          tagFileOffset,
-          `FIXME: \`size="${sizeValue}"\` on \`<${tagName}>\` could not be mapped to \`visualLevel\` automatically`,
-        );
-        continue;
-      }
-
-      // Rule 3a: known value -> remove size, insert mapped visualLevel
       const attrFileOffset = tagFileOffset + tagName.length + staticMatch.index + 1;
       const leadingSpace = staticMatch[1];
       const insertion = `${leadingSpace}visualLevel="${mappedLevel}"`;
@@ -135,52 +112,7 @@ export class MigrateJourneyHeaderSize extends Migration<null> {
       if (edit.insertion) {
         editor.insertLeft(edit.offset, edit.insertion);
       }
-      edit.log();
-    }
-  }
-
-  /**
-   * Queues a FIXME comment.
-   * Places it above the `template:` property for inline templates,
-   * or directly above the HTML element for external template files.
-   */
-  private _queueFixmeComment(
-    edits: MigrationEdit[],
-    index: number,
-    template: ResolvedResource,
-    tagFileOffset: number,
-    message: string,
-  ): void {
-    const fullSource = this.fileSystem.read(template.filePath)?.toString() ?? '';
-
-    if (template.inline) {
-      let lineStart = template.start;
-      while (lineStart > 0 && fullSource[lineStart - 1] !== '\n') {
-        lineStart--;
-      }
-
-      const indentation = fullSource.slice(lineStart, template.start).match(/^\s*/)?.[0] ?? '  ';
-      edits.push({
-        offset: lineStart,
-        index,
-        length: 0,
-        insertion: `${indentation}// ${message}\n`,
-        log: () => {},
-      });
-    } else {
-      let lineStart = tagFileOffset;
-      while (lineStart > 0 && fullSource[lineStart - 1] !== '\n') {
-        lineStart--;
-      }
-
-      const indentation = fullSource.slice(lineStart, tagFileOffset).match(/^\s*/)?.[0] ?? '';
-      edits.push({
-        offset: lineStart,
-        index,
-        length: 0,
-        insertion: `${indentation}<!-- ${message} -->\n`,
-        log: () => {},
-      });
+      edit.log?.();
     }
   }
 }
