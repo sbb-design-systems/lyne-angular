@@ -8,13 +8,13 @@ import {
   visitElements,
 } from './add-comment-base.cjs';
 
-export class FormFieldOptionalMigration extends AddCommentBase {
+export class CalendarWideMigration extends AddCommentBase {
   protected override readonly config: AddCommentMigrationConfig = {
     targetVersion: TargetVersion.V22,
     rules: [
       {
         kind: 'custom',
-        name: 'sbb-form-field[optional]',
+        name: 'calendar[wide]',
         templateMatcher(content: string): ResourceMatch[] {
           const ast = parseTemplate(content, '', {
             preserveWhitespaces: true,
@@ -22,15 +22,15 @@ export class FormFieldOptionalMigration extends AddCommentBase {
             leadingTriviaChars: [],
           });
           const matches: ResourceMatch[] = [];
-          const commentText = `FIXME: The "optional" attribute on \`<sbb-form-field>\` has been removed. Check: https://github.com/sbb-design-systems/lyne-components/pull/4931`;
+          const commentText = `FIXME: The "wide" attribute on \`<sbb-calendar>\` has been removed. Check: https://github.com/sbb-design-systems/lyne-components/pull/4940`;
 
           visitElements(ast.nodes, (el) => {
-            if (el.name !== 'sbb-form-field') {
+            if (el.name !== 'sbb-calendar') {
               return;
             }
 
-            const hasStaticAttr = el.attributes.some((a) => a.name === 'optional');
-            const hasBoundAttr = el.inputs.some((i) => i.name === 'optional');
+            const hasStaticAttr = el.attributes.some((a) => a.name === 'wide');
+            const hasBoundAttr = el.inputs.some((i) => i.name === 'wide');
 
             if (hasStaticAttr || hasBoundAttr) {
               matches.push({ index: el.sourceSpan.start.offset, commentText });

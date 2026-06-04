@@ -11,6 +11,7 @@ import { MigrateTableStriped } from './migrate-table-striped.cjs';
 import { FormFieldOptionalMigration } from './form-field-optional.cjs';
 import { TitleMarginBlockMigration } from './title-margin-block.cjs';
 import { RemoveTypesMigration } from './removed-types.cjs';
+import { CalendarWideMigration } from './calendar-wide.cjs';
 
 const sbbUpgradeData: UpgradeData = {
   attributeSelectors: {},
@@ -60,6 +61,7 @@ const migrations: NullableDevkitMigration[] = [
   FormFieldOptionalMigration,
   RemoveTypesMigration,
   TitleMarginBlockMigration,
+  CalendarWideMigration,
   MigrateImportPaths,
   MigrateTableStriped,
 ];
