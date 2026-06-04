@@ -2,34 +2,6 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "src",
-  "schematics": {
-    "@schematics/angular:component": {
-      "style": "scss",
-      "prefix": "sbb",
-      "type": "component"
-    },
-    "@schematics/angular:directive": {
-      "type": "directive"
-    },
-    "@schematics/angular:service": {
-      "type": "service"
-    },
-    "@schematics/angular:guard": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:interceptor": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:module": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:pipe": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:resolver": {
-      "typeSeparator": "."
-    }
-  },
   "projects": {
     "angular": {
       "projectType": "library",
@@ -136,6 +108,11 @@
     },
     "docs": {
       "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src/docs",
       "prefix": "app",
@@ -209,7 +186,8 @@
             },
             "development": {
               "tsConfig": "src/docs/tsconfig.json",
-              "optimization": false
+              "optimization": false,
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
