@@ -152,7 +152,6 @@
             "outputPath": "dist/docs",
             "index": "src/docs/index.html",
             "browser": "src/docs/main.ts",
-            "polyfills": ["zone.js"],
             "tsConfig": "src/docs/tsconfig.json",
             "inlineStyleLanguage": "scss",
             "assets": [
