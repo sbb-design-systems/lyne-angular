@@ -17,7 +17,17 @@ const sbbUpgradeData: UpgradeData = {
   classNames: {},
   cssTokens: {},
   constructorChecks: {},
-  cssSelectors: {},
+  cssSelectors: {
+    [TargetVersion.V22]: [
+      {
+        pr: 'https://github.com/sbb-design-systems/lyne-components/issues/4847',
+        changes: [
+          { replace: '--sbb-title-text-color-normal', replaceWith: '--sbb-title-color' },
+          { replace: '--sbb-title-text-color-normal-override', replaceWith: '--sbb-title-color' },
+        ],
+      },
+    ],
+  },
   elementSelectors: {},
   inputNames: {
     [TargetVersion.V22]: [
