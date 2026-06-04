@@ -5,6 +5,9 @@ import {
   UpgradeData,
 } from '@angular/cdk/schematics';
 import { chain, Rule, SchematicContext } from '@angular-devkit/schematics';
+
+import { MigrateImportPaths } from './migrate-import-paths.cjs';
+import { MigrateTableStriped } from './migrate-table-striped.cjs';
 import { FormFieldOptionalMigration } from './form-field-optional.cjs';
 import { TitleMarginBlockMigration } from './title-margin-block.cjs';
 import { RemoveTypesMigration } from './removed-types.cjs';
@@ -57,6 +60,8 @@ const migrations: NullableDevkitMigration[] = [
   FormFieldOptionalMigration,
   RemoveTypesMigration,
   TitleMarginBlockMigration,
+  MigrateImportPaths,
+  MigrateTableStriped,
 ];
 
 export function migrate(): Rule {
