@@ -6,8 +6,10 @@
     "outDir": "../../out-tsc/spec",
     "types": ["vitest/globals"],
     "paths": {
+      "@sbb-esta/lyne-angular": ["../angular"],
       "@sbb-esta/lyne-angular/*": ["../angular/*"],
-      "@sbb-esta/lyne-angular-experimental/*": ["./*"]
+      "@sbb-esta/lyne-angular-experimental": ["../angular-experimental"],
+      "@sbb-esta/lyne-angular-experimental/*": ["../angular-experimental/*"]
     }
   },
   "files": ["../test-setup.ts"],

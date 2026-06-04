@@ -5,7 +5,6 @@ import { NgClass } from '@angular/common';
 import type { AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 import {
   booleanAttribute,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -71,7 +70,6 @@ export interface SbbArrowViewStateTransition {
     '[class.sbb-sort-header-disabled]': '_isDisabled()',
   },
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgClass],
 })
 export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewInit {

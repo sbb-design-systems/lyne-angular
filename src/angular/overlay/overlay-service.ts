@@ -1,12 +1,12 @@
 import type { ComponentType } from '@angular/cdk/overlay';
-import { inject, Injectable, type TemplateRef } from '@angular/core';
+import { inject, Service, type TemplateRef } from '@angular/core';
 import { SbbOverlayBaseService, type SbbOverlayConfig } from '@sbb-esta/lyne-angular/core/overlay';
 
 import type { SbbOverlay } from './overlay';
 import { SbbOverlayContainer } from './overlay-container';
 import { SbbOverlayRef } from './overlay-ref';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class SbbOverlayService extends SbbOverlayBaseService<
   SbbOverlayContainer,
   SbbOverlay,

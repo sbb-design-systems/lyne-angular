@@ -67,7 +67,7 @@ import { debounceTime, Subject } from 'rxjs';
   ],
   encapsulation: ViewEncapsulation.None,
   // See note on CdkTable for explanation on why this uses the default change detection strategy.
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [HeaderRowOutlet, DataRowOutlet, NoDataRowOutlet, FooterRowOutlet],
 })
 export class SbbTable<T> extends CdkTable<T> implements OnInit, OnDestroy {

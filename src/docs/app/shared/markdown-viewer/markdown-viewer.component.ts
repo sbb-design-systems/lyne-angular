@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -21,7 +21,6 @@ import '@sbb-esta/lyne-elements/link-list-anchor.js';
   host: {
     '[innerHTML]': 'content()',
   },
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MarkdownViewerComponent {
   #htmlLoader = inject(HtmlLoader);

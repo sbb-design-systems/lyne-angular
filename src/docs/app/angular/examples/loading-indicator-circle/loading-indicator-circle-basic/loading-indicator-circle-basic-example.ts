@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbLoadingIndicatorCircleModule } from '@sbb-esta/lyne-angular/loading-indicator-circle';
 
 /**
@@ -8,6 +8,5 @@ import { SbbLoadingIndicatorCircleModule } from '@sbb-esta/lyne-angular/loading-
   selector: 'sbb-loading-indicator-circle-basic-example',
   templateUrl: 'loading-indicator-circle-basic-example.html',
   imports: [SbbLoadingIndicatorCircleModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoadingIndicatorCircleBasicExample {}

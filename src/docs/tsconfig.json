@@ -5,7 +5,6 @@
   "compilerOptions": {
     "outDir": "../../out-tsc/app",
     "types": [],
-    "resolveJsonModule": true,
     "paths": {
       "@sbb-esta/lyne-angular": ["../angular"],
       "@sbb-esta/lyne-angular/*": ["../angular/*"],

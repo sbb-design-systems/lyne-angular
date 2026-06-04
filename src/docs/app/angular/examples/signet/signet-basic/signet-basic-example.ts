@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbSignetModule } from '@sbb-esta/lyne-angular/signet';
 
 /**
@@ -8,6 +8,5 @@ import { SbbSignetModule } from '@sbb-esta/lyne-angular/signet';
   selector: 'sbb-signet-basic-example',
   templateUrl: 'signet-basic-example.html',
   imports: [SbbSignetModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignetBasicExample {}

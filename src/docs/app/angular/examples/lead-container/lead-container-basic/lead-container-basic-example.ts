@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbAlertModule } from '@sbb-esta/lyne-angular/alert';
 import { SbbBreadcrumbModule } from '@sbb-esta/lyne-angular/breadcrumb';
 import { SbbImageModule } from '@sbb-esta/lyne-angular/image';
@@ -22,6 +22,5 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbBreadcrumbModule,
     SbbNotificationModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LeadContainerBasicExample {}

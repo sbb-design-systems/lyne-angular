@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbLogoModule } from '@sbb-esta/lyne-angular/logo';
 
 /**
@@ -8,6 +8,5 @@ import { SbbLogoModule } from '@sbb-esta/lyne-angular/logo';
   selector: 'sbb-logo-basic-example',
   templateUrl: 'logo-basic-example.html',
   imports: [SbbLogoModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogoBasicExample {}

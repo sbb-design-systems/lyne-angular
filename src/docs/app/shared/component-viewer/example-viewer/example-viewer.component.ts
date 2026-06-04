@@ -1,13 +1,5 @@
 import { Location } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  input,
-  signal,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, computed, inject, input, signal, ViewContainerRef } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import type { SafeHtml } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -40,7 +32,6 @@ interface ExampleCode {
 @Component({
   selector: 'sbb-example-outlet',
   template: '',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleOutletComponent {
   readonly #viewContainerRef = inject(ViewContainerRef);
@@ -73,7 +64,6 @@ export class ExampleOutletComponent {
     SbbToggleCheck,
     SbbLinkModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleViewerComponent {
   readonly #htmlLoader = inject(HtmlLoader);

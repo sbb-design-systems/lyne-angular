@@ -1,5 +1,6 @@
+import { httpResource } from '@angular/common/http';
 import type { Signal } from '@angular/core';
-import { ChangeDetectionStrategy, Component, computed, inject, viewChild } from '@angular/core';
+import { Component, computed, inject, viewChild } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
@@ -12,7 +13,6 @@ import { SbbSidebar, SbbSidebarModule } from '@sbb-esta/lyne-angular/sidebar';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 import { finalize, map, startWith } from 'rxjs/operators';
 
-import selectorMap from '../../../assets/selector-map.json';
 import type { ShowcaseMetaPackage } from '../meta';
 
 import { SidebarToggle } from './sidebar-toggle';
@@ -34,7 +34,6 @@ import { SidebarToggle } from './sidebar-toggle';
     SbbSidebarModule,
     SbbTitleModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PackageViewerComponent {
   #activatedRoute = inject(ActivatedRoute);
@@ -44,6 +43,10 @@ export class PackageViewerComponent {
     { initialValue: {} as ShowcaseMetaPackage },
   );
   private _sidebar = viewChild.required(SbbSidebar);
+
+  #selectorMapResource = httpResource<Record<string, Record<string, string[]>>>(
+    () => 'assets/selector-map.json',
+  );
 
   protected searchControl = new FormControl('', { nonNullable: true });
   #searchQuery = toSignal(
@@ -60,9 +63,8 @@ export class PackageViewerComponent {
 
     // Derive package folder key from package name, e.g. "@sbb-esta/angular" -> "angular"
     const packageName = this.package().name ?? '';
-    const packageKey = packageName.replace('@sbb-esta/', '');
-    const packageSelectors =
-      (selectorMap as Record<string, Record<string, string[]>>)[packageKey] ?? {};
+    const packageKey = packageName.replace('@sbb-esta/lyne-', '');
+    const packageSelectors = (this.#selectorMapResource.value() ?? {})[packageKey] ?? {};
 
     return sections
       .map((section) => ({

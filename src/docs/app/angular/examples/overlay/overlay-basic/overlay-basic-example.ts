@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbOverlayModule } from '@sbb-esta/lyne-angular/overlay';
 
@@ -9,6 +9,5 @@ import { SbbOverlayModule } from '@sbb-esta/lyne-angular/overlay';
   selector: 'sbb-overlay-basic-example',
   templateUrl: 'overlay-basic-example.html',
   imports: [SbbOverlayModule, SbbButtonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OverlayBasicExample {}

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbExpansionPanelModule } from '@sbb-esta/lyne-angular/expansion-panel';
 
 /**
@@ -8,6 +8,5 @@ import { SbbExpansionPanelModule } from '@sbb-esta/lyne-angular/expansion-panel'
   selector: 'sbb-expansion-panel-basic-example',
   templateUrl: 'expansion-panel-basic-example.html',
   imports: [SbbExpansionPanelModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExpansionPanelBasicExample {}

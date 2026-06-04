@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Service, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import type {
   ActivatedRouteSnapshot,
@@ -8,7 +8,7 @@ import type {
   UrlTree,
 } from '@angular/router';
 import { Router } from '@angular/router';
-import { startWith, type Observable } from 'rxjs';
+import { type Observable, startWith } from 'rxjs';
 
 const themeLocalstorageKey = 'sbbTheme';
 
@@ -20,7 +20,7 @@ type SbbTheme =
   | 'lean-off-brand'
   | 'lean-safety';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class ThemeController implements CanActivate {
   #router = inject(Router);
   #document = inject(DOCUMENT);

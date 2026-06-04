@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
@@ -21,7 +21,6 @@ import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js'
     SbbRadioButtonModule,
     SbbTitleModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormFieldBasicExample {
   private formBuilder = inject(FormBuilder);

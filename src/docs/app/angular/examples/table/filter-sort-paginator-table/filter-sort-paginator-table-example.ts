@@ -1,5 +1,5 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, Component, effect, inject, viewChild } from '@angular/core';
+import { Component, effect, inject, viewChild } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SbbAutocompleteModule } from '@sbb-esta/lyne-angular/autocomplete';
@@ -46,7 +46,6 @@ interface VehicleFilter extends SbbTableFilter {
     SbbSelectModule,
     SbbPaginatorModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterSortPaginatorTableExample {
   private readonly paginator = viewChild.required(SbbPaginator);

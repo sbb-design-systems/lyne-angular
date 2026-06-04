@@ -1,12 +1,12 @@
 import type { ComponentType } from '@angular/cdk/overlay';
-import { type TemplateRef, inject, Injectable } from '@angular/core';
-import { type SbbOverlayConfig, SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core/overlay';
+import { inject, Service, type TemplateRef } from '@angular/core';
+import { SbbOverlayBaseService, type SbbOverlayConfig } from '@sbb-esta/lyne-angular/core/overlay';
 
 import type { SbbDialog } from './dialog';
 import { SbbDialogContainer } from './dialog-container';
 import { SbbDialogRef } from './dialog-ref';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class SbbDialogService extends SbbOverlayBaseService<
   SbbDialogContainer,
   SbbDialog,
