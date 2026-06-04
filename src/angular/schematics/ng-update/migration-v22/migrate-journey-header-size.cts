@@ -6,35 +6,38 @@ const SIZE_TO_VISUAL_LEVEL: Record<string, string> = {
   l: '4',
 };
 
+interface MigrationEdit {
+  offset: number;
+  index: number; // Tracking discovery order to preserve top-to-bottom stacking
+  length: number;
+  insertion?: string;
+  log: () => void;
+}
+
 /**
  * Migration that replaces the `size` property with `visualLevel` on `sbb-journey-header`.
- *
- * Rules:
- * 1. `visualLevel` present: remove `size` unconditionally
- * 2. bound `size`: add FIXME message for manual update, leave untouched
- * 3. static `size`, no `visualLevel`:
- *    a. known value: remove `size`, insert mapped `visualLevel`
- *    b. unknown value: add FIXME message for manual update, leave untouched
  */
 export class MigrateJourneyHeaderSize extends Migration<null> {
   enabled = true;
 
   private readonly TAG_PATTERN = /<(sbb-journey-header)(\b[^>]*?)(\/?)>/gi;
 
-  /** Matches a static size attribute: size="value" or size='value', anchored by whitespace or start of string. */
-  private readonly STATIC_SIZE_PATTERN = /(?<=\s|^)size\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
+  /** Matches a static size attribute, capturing leading whitespace to avoid manual offset math. */
+  private readonly STATIC_SIZE_PATTERN = /(\s+)size\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
 
-  /** Matches any size attribute, static or bound: size="value", [size]="value", [(size)]="value". */
-  private readonly ANY_SIZE_PATTERN = /(?<=\s|^)\[?\(?size\)?\]?\s*=\s*(?:"[^"]*"|'[^']*')/i;
+  /** Matches any size attribute (including attr.size variants), capturing leading whitespace. */
+  private readonly ANY_SIZE_PATTERN = /(\s+)\[?\(?(?:attr\.)?size\)?\]?\s*=\s*(?:"[^"]*"|'[^']*')/i;
 
-  /** Matches a bound size attribute: [size]="value" or [(size)]="value". */
-  private readonly BOUND_SIZE_PATTERN = /\[(?:\(size\)|size)\]\s*=\s*(?:"[^"]*"|'[^']*')/i;
+  /** Matches a bound size attribute, including [attr.size] and [(attr.size)]. */
+  private readonly BOUND_SIZE_PATTERN = /\[\(?(?:attr\.)?size\)?\]\s*=\s*(?:"[^"]*"|'[^']*')/i;
 
   /** Matches any visualLevel attribute (static or bound). */
   private readonly VISUAL_LEVEL_PRESENT_PATTERN = /\bvisualLevel\b/i;
 
   override visitTemplate(template: ResolvedResource): void {
     const editor = this.fileSystem.edit(template.filePath);
+    const edits: MigrationEdit[] = [];
+    let editCounter = 0;
 
     let tagMatch: RegExpExecArray | null;
     this.TAG_PATTERN.lastIndex = 0;
@@ -43,27 +46,34 @@ export class MigrateJourneyHeaderSize extends Migration<null> {
       const [, tagName, attrs] = tagMatch;
       const tagFileOffset = template.start + tagMatch.index;
 
-      // Rule #1
+      // Rule #1: visualLevel present -> remove size unconditionally
       if (this.VISUAL_LEVEL_PRESENT_PATTERN.test(attrs)) {
         const sizeMatch = this.ANY_SIZE_PATTERN.exec(attrs);
         if (!sizeMatch) {
-          continue; // no size attribute present, nothing to do
+          continue;
         }
-        const attrFileOffset = tagFileOffset + '<'.length + tagName.length + sizeMatch.index - 1;
-        editor.remove(attrFileOffset, sizeMatch[0].length + 1);
-        this.logger.info(
-          `    Removed \`size\` attribute from \`<${tagName}>\` (visualLevel already present).`,
-        );
+        const attrFileOffset = tagFileOffset + tagName.length + sizeMatch.index + 1;
+
+        edits.push({
+          offset: attrFileOffset,
+          index: editCounter++,
+          length: sizeMatch[0].length,
+          log: () =>
+            this.logger.info(
+              `    Removed \`size\` attribute from \`<${tagName}>\` (visualLevel already present).`,
+            ),
+        });
         continue;
       }
 
-      // Rule #2
+      // Rule #2: bound size -> add FIXME message for manual update, leave untouched
       if (this.BOUND_SIZE_PATTERN.test(attrs)) {
         this.logger.warn(
           `    FIXME: bound \`size\` attribute on \`<${tagName}>\` could not be migrated automatically.`,
         );
-        this._insertFixmeComment(
-          editor,
+        this._queueFixmeComment(
+          edits,
+          editCounter++,
           template,
           tagFileOffset,
           `FIXME: bound \`size\` on \`<${tagName}>\` must be migrated manually to \`visualLevel\``,
@@ -71,22 +81,23 @@ export class MigrateJourneyHeaderSize extends Migration<null> {
         continue;
       }
 
-      // Rule #3
+      // Rule #3: static size, no visualLevel
       const staticMatch = this.STATIC_SIZE_PATTERN.exec(attrs);
       if (!staticMatch) {
-        continue; // no size attribute present, nothing to do
+        continue;
       }
 
       const sizeValue = (staticMatch.groups?.['dq'] ?? staticMatch.groups?.['sq'] ?? '').trim();
       const mappedLevel = SIZE_TO_VISUAL_LEVEL[sizeValue];
 
-      // Rule #3b
+      // Rule #3b: unknown value -> add FIXME message
       if (!mappedLevel) {
         this.logger.warn(
           `    FIXME: \`size="${sizeValue}"\` on \`<${tagName}>\` could not be mapped to \`visualLevel\` automatically.`,
         );
-        this._insertFixmeComment(
-          editor,
+        this._queueFixmeComment(
+          edits,
+          editCounter++,
           template,
           tagFileOffset,
           `FIXME: \`size="${sizeValue}"\` on \`<${tagName}>\` could not be mapped to \`visualLevel\` automatically`,
@@ -94,38 +105,82 @@ export class MigrateJourneyHeaderSize extends Migration<null> {
         continue;
       }
 
-      // Rule 3a
-      const attrFileOffset = tagFileOffset + '<'.length + tagName.length + staticMatch.index;
-      const insertion = `visualLevel="${mappedLevel}"`;
+      // Rule 3a: known value -> remove size, insert mapped visualLevel
+      const attrFileOffset = tagFileOffset + tagName.length + staticMatch.index + 1;
+      const leadingSpace = staticMatch[1];
+      const insertion = `${leadingSpace}visualLevel="${mappedLevel}"`;
 
-      editor.remove(attrFileOffset, staticMatch[0].length);
-      editor.insertLeft(attrFileOffset, insertion);
+      edits.push({
+        offset: attrFileOffset,
+        index: editCounter++,
+        length: staticMatch[0].length,
+        insertion,
+        log: () =>
+          this.logger.info(
+            `    Replaced \`size="${sizeValue}"\` with \`visualLevel="${mappedLevel}"\` on \`<${tagName}>\`.`,
+          ),
+      });
+    }
 
-      this.logger.info(
-        `    Replaced \`size="${sizeValue}"\` with \`${insertion}\` on \`<${tagName}>\`.`,
-      );
+    // Apply accumulated edits in reverse order to prevent index drifting.
+    edits.sort((a, b) => {
+      if (b.offset !== a.offset) {
+        return b.offset - a.offset;
+      }
+      return b.index - a.index;
+    });
+
+    for (const edit of edits) {
+      editor.remove(edit.offset, edit.length);
+      if (edit.insertion) {
+        editor.insertLeft(edit.offset, edit.insertion);
+      }
+      edit.log();
     }
   }
 
   /**
-   * Inserts a FIXME message for manual update when the size is bound or unmapped.
-   * Handles both inline and external templates.
+   * Queues a FIXME comment.
+   * Places it above the `template:` property for inline templates,
+   * or directly above the HTML element for external template files.
    */
-  private _insertFixmeComment(
-    editor: ReturnType<typeof this.fileSystem.edit>,
+  private _queueFixmeComment(
+    edits: MigrationEdit[],
+    index: number,
     template: ResolvedResource,
     tagFileOffset: number,
     message: string,
   ): void {
+    const fullSource = this.fileSystem.read(template.filePath)?.toString() ?? '';
+
     if (template.inline) {
-      const fullSource = this.fileSystem.read(template.filePath) ?? '';
       let lineStart = template.start;
       while (lineStart > 0 && fullSource[lineStart - 1] !== '\n') {
         lineStart--;
       }
-      editor.insertLeft(lineStart, `  // ${message}\n`);
+
+      const indentation = fullSource.slice(lineStart, template.start).match(/^\s*/)?.[0] ?? '  ';
+      edits.push({
+        offset: lineStart,
+        index,
+        length: 0,
+        insertion: `${indentation}// ${message}\n`,
+        log: () => {},
+      });
     } else {
-      editor.insertLeft(tagFileOffset, `<!-- ${message} -->\n`);
+      let lineStart = tagFileOffset;
+      while (lineStart > 0 && fullSource[lineStart - 1] !== '\n') {
+        lineStart--;
+      }
+
+      const indentation = fullSource.slice(lineStart, tagFileOffset).match(/^\s*/)?.[0] ?? '';
+      edits.push({
+        offset: lineStart,
+        index,
+        length: 0,
+        insertion: `${indentation}<!-- ${message} -->\n`,
+        log: () => {},
+      });
     }
   }
 }

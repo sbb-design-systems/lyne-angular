@@ -22,7 +22,7 @@ export class CalendarWideMigration extends AddCommentBase {
             leadingTriviaChars: [],
           });
           const matches: ResourceMatch[] = [];
-          const commentText = `FIXME: The "wide" attribute on \`<sbb-calendar>\` has been removed. Check: https://github.com/sbb-design-systems/lyne-components/pull/4940`;
+          const commentText = `FIXME: The "wide" attribute on \`<sbb-calendar>\` is not allowed anymore. Check: https://github.com/sbb-design-systems/lyne-components/pull/4940`;
 
           visitElements(ast.nodes, (el) => {
             if (el.name !== 'sbb-calendar') {
