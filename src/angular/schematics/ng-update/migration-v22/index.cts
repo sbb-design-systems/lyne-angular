@@ -45,6 +45,18 @@ const sbbUpgradeData: UpgradeData = {
           },
         ],
       },
+      {
+        pr: 'https://github.com/sbb-design-systems/lyne-components/issues/4940',
+        changes: [
+          {
+            replace: 'selected',
+            replaceWith: 'value',
+            limitedTo: {
+              elements: ['sbb-calendar'],
+            },
+          },
+        ],
+      },
     ],
   },
   methodCallChecks: {},
@@ -59,6 +71,18 @@ const sbbUpgradeData: UpgradeData = {
             replaceWith: 'accessibilityLabel',
             limitedTo: {
               classes: ['SbbTagGroup'],
+            },
+          },
+        ],
+      },
+      {
+        pr: 'https://github.com/sbb-design-systems/lyne-components/pull/4940',
+        changes: [
+          {
+            replace: 'selected',
+            replaceWith: 'value',
+            limitedTo: {
+              classes: ['SbbCalendar'],
             },
           },
         ],
