@@ -239,10 +239,10 @@ export abstract class AddCommentBase extends Migration<null> {
 
   override visitStylesheet(stylesheet: ResolvedResource): void {
     if (isInlineResource(stylesheet)) {
-      this._processInlineResource(stylesheet, 'stylesheet');
+      this._processInlineResource(stylesheet, 'style');
       return;
     }
-    this._processResource(stylesheet, CSS_DELIMITERS, 'stylesheet');
+    this._processResource(stylesheet, CSS_DELIMITERS, 'style');
   }
 
   /**
@@ -252,10 +252,7 @@ export abstract class AddCommentBase extends Migration<null> {
    * every matched token's comment text and insert a block of `//` comments above the decorator
    * property line (e.g. the `styles: [...]` line) in the host `.ts` file.
    */
-  private _processInlineResource(
-    resource: ResolvedResource,
-    type: 'template' | 'stylesheet',
-  ): void {
+  private _processInlineResource(resource: ResolvedResource, type: 'template' | 'style'): void {
     const { content, filePath, start } = resource;
 
     // Collect unique comment texts for all tokens found in this inline resource.
@@ -305,7 +302,7 @@ export abstract class AddCommentBase extends Migration<null> {
     this._markAsProcessed(filePath, hostLineStart);
 
     this.logger.info(
-      `  → ${filePath} (inline ${type})\n    ${commentTexts.size} comment(s) added above ${type} property`,
+      `  → ${filePath}\n    Added ${commentTexts.size} comment(s) above '${type}' property`,
     );
   }
 
@@ -344,7 +341,6 @@ export abstract class AddCommentBase extends Migration<null> {
     if (!parent) {
       return false;
     }
-
     return (
       !!parent &&
       DECLARATION_KINDS.has(parent.kind) &&
@@ -367,10 +363,11 @@ export abstract class AddCommentBase extends Migration<null> {
     return false;
   }
 
+  /** Process external templates and stylesheets */
   private _processResource(
     resource: ResolvedResource,
     delimiters: CommentDelimiters,
-    type: 'template' | 'stylesheet',
+    type: 'template' | 'style',
   ): void {
     const { content, filePath, start } = resource;
     const recorder = this.fileSystem.edit(filePath);
@@ -414,7 +411,7 @@ export abstract class AddCommentBase extends Migration<null> {
         inserted++;
         this._markAsProcessed(filePath, lineStart);
       }
-      fileLog.push(this._formatRuleLog(rule, inserted, skipped));
+      fileLog.push(this._formatRuleLog(rule.name, inserted, skipped));
     }
 
     if (fileLog.length > 0) {
@@ -484,9 +481,7 @@ export abstract class AddCommentBase extends Migration<null> {
     for (const [filePath, ruleMap] of this._tsLog) {
       const lines: string[] = [];
       for (const [ruleName, { inserted, skipped }] of ruleMap) {
-        const parts = [`[${ruleName}]`, `${inserted} added`];
-        if (skipped > 0) parts.push(`${skipped} skipped`);
-        lines.push(parts.join(' '));
+        lines.push(this._formatRuleLog(ruleName, inserted, skipped));
       }
       if (lines.length > 0) {
         this.logger.info(`  → ${filePath}\n${lines.map((l) => `    ${l}`).join('\n')}`);
@@ -494,10 +489,12 @@ export abstract class AddCommentBase extends Migration<null> {
     }
   }
 
-  /** Formats a single per-rule log line: "[rule.name] N added[, M skipped]". */
-  private _formatRuleLog(rule: MigrationRule, inserted: number, skipped: number): string {
-    const parts = [`[${rule.name}]`, `${inserted} added`];
-    if (skipped > 0) parts.push(`${skipped} skipped`);
+  /** Formats a single per-rule log line. */
+  private _formatRuleLog(ruleName: string, inserted: number, skipped: number): string {
+    const parts = [`Added ${inserted} comment(s) for rule '${ruleName}'`];
+    if (skipped > 0) {
+      parts.push(`${skipped} skipped`);
+    }
     return parts.join(' ');
   }
 
@@ -505,7 +502,6 @@ export abstract class AddCommentBase extends Migration<null> {
     if (action.type === 'replace') {
       return `FIXME: "${token}" has been replaced by "${action.replacement}". Check: ${action.prUrl}`;
     }
-
     return `FIXME: "${token}" has been removed. Check: ${action.prUrl}`;
   }
 
