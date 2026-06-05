@@ -15,7 +15,9 @@ const SIZE_TO_VISUAL_LEVEL: Record<string, string> = {
  * Migration that replaces the `size` property with `visualLevel` on `sbb-journey-header`.
  */
 export class MigrateJourneyHeaderSize extends AttributeMigrationBase {
-  private readonly TAG_PATTERN = /<(sbb-journey-header)(\b[^>]*?)(\/?)>/gi;
+  private get TAG_PATTERN(): RegExp {
+    return /<(sbb-journey-header)(\b[^>]*?)(\/?)>/gi;
+  }
 
   /** Matches a static size attribute, capturing leading whitespace to avoid manual offset math. */
   private readonly STATIC_SIZE_PATTERN = /(\s+)size\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
@@ -24,7 +26,7 @@ export class MigrateJourneyHeaderSize extends AttributeMigrationBase {
   private readonly ANY_SIZE_PATTERN = /(\s+)\[?\(?(?:attr\.)?size\)?\]?\s*=\s*(?:"[^"]*"|'[^']*')/i;
 
   /** Matches a bound size attribute, including [attr.size] and [(attr.size)]. */
-  private readonly BOUND_SIZE_PATTERN = /\[\(?(?:attr\.)?size\)?\]\s*=\s*(?:"[^"]*"|'[^']*')/i;
+  private readonly BOUND_SIZE_PATTERN = /(\s+)\[\(?(?:attr\.)?size\)?\]\s*=\s*(?:"[^"]*"|'[^']*')/i;
 
   /** Matches any visualLevel attribute (static or bound). */
   private readonly VISUAL_LEVEL_PRESENT_PATTERN = /\bvisualLevel\b/i;
@@ -33,24 +35,24 @@ export class MigrateJourneyHeaderSize extends AttributeMigrationBase {
     template: ResolvedResource,
     edits: MigrationEdit[],
     nextIndex: () => number,
+    fullSource: string,
   ): void {
-    let tagMatch: RegExpExecArray | null;
-    this.TAG_PATTERN.lastIndex = 0;
+    const tagPattern = this.TAG_PATTERN;
 
-    while ((tagMatch = this.TAG_PATTERN.exec(template.content)) !== null) {
+    let tagMatch: RegExpExecArray | null;
+    while ((tagMatch = tagPattern.exec(template.content)) !== null) {
       const [, tagName, attrs] = tagMatch;
       const tagFileOffset = template.start + tagMatch.index;
+      const tagNameEndOffset = tagFileOffset + 1 + tagName.length;
 
-      // Rule #1: visualLevel present -> remove size unconditionally
+      // Rule #1: visualLevel present -> remove size unconditionally.
       if (this.VISUAL_LEVEL_PRESENT_PATTERN.test(attrs)) {
         const sizeMatch = this.ANY_SIZE_PATTERN.exec(attrs);
         if (!sizeMatch) {
           continue;
         }
-        const attrFileOffset = tagFileOffset + tagName.length + sizeMatch.index + 1;
-
         edits.push({
-          offset: attrFileOffset,
+          offset: tagNameEndOffset + sizeMatch.index,
           index: nextIndex(),
           length: sizeMatch[0].length,
           log: () =>
@@ -61,13 +63,13 @@ export class MigrateJourneyHeaderSize extends AttributeMigrationBase {
         continue;
       }
 
-      // Rule #2: bound size -> add FIXME message for manual update, leave untouched
+      // Rule #2: bound size -> add FIXME message for manual update, leave untouched.
       if (this.BOUND_SIZE_PATTERN.test(attrs)) {
         this.logger.warn(
           `    FIXME: bound \`size\` attribute on \`<${tagName}>\` could not be migrated automatically.`,
         );
         queueFixmeComment(
-          this.fileSystem,
+          fullSource,
           edits,
           nextIndex(),
           template,
@@ -77,7 +79,7 @@ export class MigrateJourneyHeaderSize extends AttributeMigrationBase {
         continue;
       }
 
-      // Rule #3: static size, no visualLevel -> remove size, insert mapped visualLevel
+      // Rule #3: static size, no visualLevel.
       const staticMatch = this.STATIC_SIZE_PATTERN.exec(attrs);
       if (!staticMatch) {
         continue;
@@ -85,15 +87,12 @@ export class MigrateJourneyHeaderSize extends AttributeMigrationBase {
 
       const sizeValue = (staticMatch.groups?.['dq'] ?? staticMatch.groups?.['sq'] ?? '').trim();
       const mappedLevel = SIZE_TO_VISUAL_LEVEL[sizeValue];
-      const attrFileOffset = tagFileOffset + tagName.length + staticMatch.index + 1;
       const leadingSpace = staticMatch[1];
-      const insertion = `${leadingSpace}visualLevel="${mappedLevel}"`;
-
       edits.push({
-        offset: attrFileOffset,
+        offset: tagNameEndOffset + staticMatch.index,
         index: nextIndex(),
         length: staticMatch[0].length,
-        insertion,
+        insertion: `${leadingSpace}visualLevel="${mappedLevel}"`,
         log: () =>
           this.logger.info(
             `    Replaced \`size="${sizeValue}"\` with \`visualLevel="${mappedLevel}"\` on \`<${tagName}>\`.`,

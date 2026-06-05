@@ -10,39 +10,49 @@ import {
  * on <sbb-header-button> and <sbb-header-link> components.
  */
 export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
-  private readonly TAG_PATTERN = /<(sbb-header-button|sbb-header-link)(\b[^>]*?)(\/?)>/gi;
+  private get TAG_PATTERN(): RegExp {
+    return /<(sbb-header-button|sbb-header-link)(\b[^>]*?)(\/?)>/gi;
+  }
 
   /** Matches ONLY strictly static expandFrom="value" (capturing leading whitespace). */
   private readonly STATIC_EXPAND_FROM_PATTERN =
     /(\s+)expandFrom\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
 
-  /** Matches bound expandFrom forms, now explicitly including [attr.expandFrom] variants. */
+  /**
+   * Matches bound expandFrom forms (capturing leading whitespace for boundary consistency).
+   * Includes [attr.expandFrom] and [(attr.expandFrom)] variants.
+   */
   private readonly BOUND_EXPAND_FROM_PATTERN =
-    /\[\(?(?:attr\.)?expandFrom\)?\]\s*=\s*(?:"[^"]*"|'[^']*')/i;
+    /(\s+)\[\(?(?:attr\.)?expandFrom\)?\]\s*=\s*(?:"[^"]*"|'[^']*')/i;
 
-  /** Matches any form of expandFrom to identify its presence. */
+  /**
+   * Matches any form of expandFrom to identify its presence (capturing leading whitespace).
+   * Leading \s+ ensures we don't match 'expandFrom' inside an attribute value string,
+   * and prevents false positives if the file is re-processed after partial migration.
+   */
   private readonly ANY_EXPAND_FROM_PATTERN =
-    /\[?\(?(?:attr\.)?expandFrom\)?\]?\s*=\s*(?:"[^"]*"|'[^']*')/i;
+    /(\s+)\[?\(?(?:attr\.)?expandFrom\)?\]?\s*=\s*(?:"[^"]*"|'[^']*')/i;
 
   protected override collectEdits(
     template: ResolvedResource,
     edits: MigrationEdit[],
     nextIndex: () => number,
+    fullSource: string,
   ): void {
-    let tagMatch: RegExpExecArray | null;
-    this.TAG_PATTERN.lastIndex = 0;
+    const tagPattern = this.TAG_PATTERN;
 
-    while ((tagMatch = this.TAG_PATTERN.exec(template.content)) !== null) {
+    let tagMatch: RegExpExecArray | null;
+    while ((tagMatch = tagPattern.exec(template.content)) !== null) {
       const [, tagName, attrs] = tagMatch;
       const tagFileOffset = template.start + tagMatch.index;
+      const tagNameEndOffset = tagFileOffset + 1 + tagName.length;
 
       const hasExpandFrom = this.ANY_EXPAND_FROM_PATTERN.test(attrs);
 
-      // Rule #1: no expandFrom -> add hideLabelBelow
+      // Rule #1: no expandFrom -> insert hideLabelBelow immediately after tag name.
       if (!hasExpandFrom) {
-        const insertionOffset = tagFileOffset + tagName.length + 1;
         edits.push({
-          offset: insertionOffset,
+          offset: tagNameEndOffset,
           index: nextIndex(),
           length: 0,
           insertion: ` hideLabelBelow="large"`,
@@ -54,13 +64,13 @@ export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
         continue;
       }
 
-      // Rule #2: bound expandFrom -> add FIXME message for manual update, leave untouched
+      // Rule #2: bound expandFrom -> add FIXME message for manual update, leave untouched.
       if (this.BOUND_EXPAND_FROM_PATTERN.test(attrs)) {
         this.logger.warn(
           `    FIXME: bound or attribute-bound \`expandFrom\` on \`<${tagName}>\` could not be migrated automatically.`,
         );
         queueFixmeComment(
-          this.fileSystem,
+          fullSource,
           edits,
           nextIndex(),
           template,
@@ -70,13 +80,13 @@ export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
         continue;
       }
 
-      // Rule #3: static expandFrom
+      // Rule #3: static expandFrom.
       const staticMatch = this.STATIC_EXPAND_FROM_PATTERN.exec(attrs);
       if (!staticMatch) {
         continue;
       }
 
-      const attrFileOffset = tagFileOffset + tagName.length + staticMatch.index + 1;
+      const attrFileOffset = tagNameEndOffset + staticMatch.index;
       const leadingSpace = staticMatch[1];
       const expandFromValue = (
         staticMatch.groups?.['dq'] ??
@@ -85,7 +95,7 @@ export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
       ).trim();
 
       if (expandFromValue === 'zero') {
-        // Rule #3a: value is exactly "zero" -> remove expandFrom completely
+        // Rule #3a: value is "zero" -> remove expandFrom completely.
         edits.push({
           offset: attrFileOffset,
           index: nextIndex(),
@@ -97,12 +107,11 @@ export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
         });
       } else {
         // Rule #3b: value is not "zero" -> remove expandFrom, add hideLabelBelow with same value
-        const insertion = `${leadingSpace}hideLabelBelow="${expandFromValue}"`;
         edits.push({
           offset: attrFileOffset,
           index: nextIndex(),
           length: staticMatch[0].length,
-          insertion,
+          insertion: `${leadingSpace}hideLabelBelow="${expandFromValue}"`,
           log: () =>
             this.logger.info(
               `    Migrated \`expandFrom="${expandFromValue}"\` to \`hideLabelBelow="${expandFromValue}"\` on \`<${tagName}>\`.`,

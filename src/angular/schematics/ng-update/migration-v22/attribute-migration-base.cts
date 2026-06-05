@@ -21,11 +21,13 @@ export abstract class AttributeMigrationBase extends Migration<null> {
   /**
    * Inspect `template` and push any required edits into `edits`.
    * Use `nextIndex()` to obtain a stable sort-tiebreaker for each edit.
+   * `fullSource` is the raw file content, pre-read once for the template's file.
    */
   protected abstract collectEdits(
     template: ResolvedResource,
     edits: MigrationEdit[],
     nextIndex: () => number,
+    fullSource: string,
   ): void;
 
   override visitTemplate(template: ResolvedResource): void {
@@ -34,7 +36,11 @@ export abstract class AttributeMigrationBase extends Migration<null> {
     let editCounter = 0;
     const nextIndex = (): number => editCounter++;
 
-    this.collectEdits(template, edits, nextIndex);
+    // Read once here; passed to collectEdits and queueFixmeComment to avoid
+    // repeated disk reads when multiple tags in the same template trigger FIXMEs.
+    const fullSource = this.fileSystem.read(template.filePath)?.toString() ?? '';
+
+    this.collectEdits(template, edits, nextIndex, fullSource);
 
     // Apply in reverse offset order to prevent earlier removals from shifting
     // the byte positions of later edits in the same file.
@@ -49,21 +55,20 @@ export abstract class AttributeMigrationBase extends Migration<null> {
     }
   }
 }
+
 /**
  * Queues a FIXME comment.
  * Places it above the `template:` property for inline templates,
  * or directly above the HTML element for external template files.
  */
 export function queueFixmeComment(
-  fileSystem: FileSystem,
+  fullSource: string,
   edits: MigrationEdit[],
   index: number,
   template: ResolvedResource,
   tagFileOffset: number,
   message: string,
 ): void {
-  const fullSource = fileSystem.read(template.filePath)?.toString() ?? '';
-
   if (template.inline) {
     let lineStart = template.start;
     while (lineStart > 0 && fullSource[lineStart - 1] !== '\n') {
