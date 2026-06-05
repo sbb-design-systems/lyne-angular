@@ -16,6 +16,7 @@ import { MigrateNavigationActionSize } from './migrate-navigation-action-size.cj
 import { MigrateJourneyHeaderSize } from './migrate-journey-header-size.cjs';
 import { MigrateHeaderActionExpandFrom } from './migrate-header-action-expand-from.cjs';
 import { MigrateActionGroupProperties } from './migrate-action-group-properties.cjs';
+import { MigratePopoverCloseButton } from './migrate-popover-close-button.cjs';
 
 import { SBB_UPGRADE_DATA } from './sbb-upgrade-data.cjs';
 
@@ -30,6 +31,7 @@ const migrations: NullableDevkitMigration[] = [
   MigrateJourneyHeaderSize,
   MigrateHeaderActionExpandFrom,
   MigrateActionGroupProperties,
+  MigratePopoverCloseButton,
 ];
 
 export function migrate(): Rule {
