@@ -12,9 +12,10 @@ export class MigrateNavigationActionSize extends AttributeMigrationBase {
 
   /**
    * Matches size attribute variations, capturing leading whitespace.
-   * Handles: size, [size], [(size)], and [attr.size] variants.
+   * Handles: size, [size] and [attr.size] variants.
    */
-  private readonly ATTR_PATTERN = /(\s+)(?:\[?\(?(?:attr\.)?size\)?\]?)\s*=\s*(?:"[^"]*"|'[^']*')/i;
+  private readonly ATTR_PATTERN =
+    /(\s+)(?:\[size\]|\[attr\.size\]|size)(?:\s*=\s*(?:"[^"]*"|'[^']*'))?(?=\s|$)/i;
 
   protected override collectEdits(
     template: ResolvedResource,

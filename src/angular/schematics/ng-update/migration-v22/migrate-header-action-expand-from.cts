@@ -19,19 +19,18 @@ export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
     /(\s+)expandFrom\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
 
   /**
-   * Matches bound expandFrom forms (capturing leading whitespace for boundary consistency).
-   * Includes [attr.expandFrom] and [(attr.expandFrom)] variants.
+   * Matches valid bound expandFrom forms (capturing leading whitespace for boundary consistency).
+   * Targets [expandFrom] and [attr.expandFrom].
    */
   private readonly BOUND_EXPAND_FROM_PATTERN =
-    /(\s+)\[\(?(?:attr\.)?expandFrom\)?\]\s*=\s*(?:"[^"]*"|'[^']*')/i;
+    /(\s+)(?:\[\(?expandFrom\)?\]|\[attr\.expandFrom\])\s*=\s*(?:"[^"]*"|'[^']*')/i;
 
   /**
-   * Matches any form of expandFrom to identify its presence (capturing leading whitespace).
-   * Leading \s+ ensures we don't match 'expandFrom' inside an attribute value string,
-   * and prevents false positives if the file is re-processed after partial migration.
+   * Matches any valid form of expandFrom (static or bound) to identify its presence.
+   * Leading \s+ ensures we don't match 'expandFrom' inside an attribute value string.
    */
   private readonly ANY_EXPAND_FROM_PATTERN =
-    /(\s+)\[?\(?(?:attr\.)?expandFrom\)?\]?\s*=\s*(?:"[^"]*"|'[^']*')/i;
+    /(\s+)(?:\[\(?expandFrom\)?\]|\[attr\.expandFrom\]|expandFrom)\s*=\s*(?:"[^"]*"|'[^']*')/i;
 
   protected override collectEdits(
     template: ResolvedResource,

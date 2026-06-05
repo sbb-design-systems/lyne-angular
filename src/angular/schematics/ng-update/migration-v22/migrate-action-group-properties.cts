@@ -31,23 +31,37 @@ export class MigrateActionGroupProperties extends AttributeMigrationBase {
   }
 
   private get OTHER_ATTRS_PATTERN(): RegExp {
-    return /(\s+)(?:\[?\(?(?:attr\.)?(?:orientation|alignGroup|horizontalFrom)\)?\]?)(?=\s|=|>|\/)(?:\s*=\s*(?:"[^"]*"|'[^']*'))?/gi;
+    return /(\s+)(?:\[\(?(?:orientation|alignGroup|horizontalFrom)\)?\]|\[attr\.(?:orientation|alignGroup|horizontalFrom)\]|(?:orientation|alignGroup|horizontalFrom))(?=\s|=|\$)(?:\s*=\s*(?:"[^"]*"|'[^']*'))?/gi;
   }
 
+  /** Matches ONLY strictly static buttonSize="value" (capturing leading whitespace). */
   private readonly STATIC_BUTTON_SIZE_PATTERN =
-    /(\s+)(?:attr\.)?buttonSize\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
+    /(\s+)buttonSize\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
 
+  /**
+   * Matches valid bound buttonSize forms (capturing leading whitespace for boundary consistency).
+   * Targets [buttonSize] and [attr.buttonSize].
+   */
   private readonly BOUND_BUTTON_SIZE_PATTERN =
-    /(\s+)\[(?:attr\.buttonSize|buttonSize)\]\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
+    /(\s+)(?:\[\(?buttonSize\)?\]|\[attr\.buttonSize\])\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
 
+  /** Matches ONLY strictly static linkSize="value" (capturing leading whitespace). */
   private readonly STATIC_LINK_SIZE_PATTERN =
-    /(\s+)(?:attr\.)?linkSize\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
+    /(\s+)linkSize\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
 
+  /**
+   * Matches valid bound buttonSize forms (capturing leading whitespace for boundary consistency).
+   * Targets [linkSize] and [attr.linkSize].
+   */
   private readonly BOUND_LINK_SIZE_PATTERN =
-    /(\s+)\[(?:attr\.linkSize|linkSize)\]\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
+    /(\s+)(?:\[\(?linkSize\)?\]|\[attr\.linkSize\])\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
 
+  /**
+   * Matches any valid form of size (static or bound) to identify its presence.
+   * Leading \s+ ensures we don't match 'size' inside an attribute value string.
+   */
   private readonly EXISTING_SIZE_PATTERN =
-    /(\s+)\[?\(?(?:attr\.)?size\)?\]?\s*=\s*(?:"[^"]*"|'[^']*')/i;
+    /(\s+)(?:\[\(?size\)?\]|\[attr\.size\]|size)\s*=\s*(?:"[^"]*"|'[^']*')/i;
 
   protected override collectEdits(
     template: ResolvedResource,
@@ -92,7 +106,7 @@ export class MigrateActionGroupProperties extends AttributeMigrationBase {
 
         if (sizeMatch && innerContent !== null) {
           const sizeValue = (sizeMatch.groups?.['dq'] ?? sizeMatch.groups?.['sq'] ?? '').trim();
-          const sizeAttr = boundMatch ? `[size]="${sizeValue}"` : `size="${sizeValue}"`;
+          const sizeAttr = `${boundMatch ? '[size]' : 'size'}="${sizeValue}"`;
 
           this._propagateSizeToChildren(
             config.tags,
@@ -181,7 +195,7 @@ export class MigrateActionGroupProperties extends AttributeMigrationBase {
     edits: MigrationEdit[],
     nextIndex: () => number,
   ): void {
-    // FIX: Sort tags by length descending so longer tags match before substring counterparts
+    // Sort tags by length descending so longer tags match before substring counterparts
     const sortedTags = [...targetTags].sort((a, b) => b.length - a.length);
     const childTagPattern = new RegExp(`<(${sortedTags.join('|')})(\\b[^>]*?)(?:\/?)>`, 'gi');
     let childMatch: RegExpExecArray | null;

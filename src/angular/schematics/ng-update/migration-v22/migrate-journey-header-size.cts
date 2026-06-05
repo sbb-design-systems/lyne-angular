@@ -19,14 +19,22 @@ export class MigrateJourneyHeaderSize extends AttributeMigrationBase {
     return /<(sbb-journey-header)(\b[^>]*?)(\/?)>/gi;
   }
 
-  /** Matches a static size attribute, capturing leading whitespace to avoid manual offset math. */
+  /** Matches ONLY strictly static size="value" (capturing leading whitespace). */
   private readonly STATIC_SIZE_PATTERN = /(\s+)size\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
 
-  /** Matches any size attribute (including attr.size variants), capturing leading whitespace. */
-  private readonly ANY_SIZE_PATTERN = /(\s+)\[?\(?(?:attr\.)?size\)?\]?\s*=\s*(?:"[^"]*"|'[^']*')/i;
+  /**
+   * Matches valid bound size forms (capturing leading whitespace for boundary consistency).
+   * Targets [size] and [attr.size].
+   */
+  private readonly BOUND_SIZE_PATTERN =
+    /(\s+)(?:\[\(?size\)?\]|\[attr\.size\])\s*=\s*(?:"[^"]*"|'[^']*')/i;
 
-  /** Matches a bound size attribute, including [attr.size] and [(attr.size)]. */
-  private readonly BOUND_SIZE_PATTERN = /(\s+)\[\(?(?:attr\.)?size\)?\]\s*=\s*(?:"[^"]*"|'[^']*')/i;
+  /**
+   * Matches any valid form of size (static or bound) to identify its presence.
+   * Leading \s+ ensures we don't match 'size' inside an attribute value string.
+   */
+  private readonly ANY_SIZE_PATTERN =
+    /(\s+)(?:\[\(?size\)?\]|\[attr\.size\]|size)\s*=\s*(?:"[^"]*"|'[^']*')/i;
 
   /** Matches any visualLevel attribute (static or bound). */
   private readonly VISUAL_LEVEL_PRESENT_PATTERN = /\bvisualLevel\b/i;
