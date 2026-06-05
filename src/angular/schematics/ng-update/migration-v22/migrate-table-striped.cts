@@ -1,4 +1,4 @@
-import { Migration, ResolvedResource } from '@angular/cdk/schematics';
+import { Migration, ResolvedResource, TargetVersion } from '@angular/cdk/schematics';
 
 /**
  * Matches the class `sbb-table` but not `sbb-table--*` modifier classes, so we
@@ -12,7 +12,7 @@ const SBB_TABLE_PATTERN = /\bsbb-table(?!-)/g;
  * table default was changed to unstriped.
  */
 export class MigrateTableStriped extends Migration<null> {
-  enabled = true;
+  enabled = this.targetVersion === TargetVersion.V22;
 
   override visitTemplate(template: ResolvedResource): void {
     const content = template.content;

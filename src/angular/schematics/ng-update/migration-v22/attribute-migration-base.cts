@@ -1,4 +1,4 @@
-import { FileSystem, Migration, ResolvedResource } from '@angular/cdk/schematics';
+import { Migration, ResolvedResource, TargetVersion } from '@angular/cdk/schematics';
 
 export interface MigrationEdit {
   offset: number;
@@ -16,7 +16,7 @@ export interface MigrationEdit {
  * editor, sorting edits in reverse-offset order, and applying them.
  */
 export abstract class AttributeMigrationBase extends Migration<null> {
-  enabled = true;
+  enabled = this.targetVersion === TargetVersion.V22;
 
   /**
    * Inspect `template` and push any required edits into `edits`.

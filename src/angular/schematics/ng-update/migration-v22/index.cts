@@ -2,7 +2,6 @@ import {
   createMigrationSchematicRule,
   NullableDevkitMigration,
   TargetVersion,
-  UpgradeData,
 } from '@angular/cdk/schematics';
 import { chain, Rule, SchematicContext } from '@angular-devkit/schematics';
 
@@ -12,6 +11,7 @@ import { FormFieldOptionalMigration } from './form-field-optional.cjs';
 import { TitleMarginBlockMigration } from './title-margin-block.cjs';
 import { RemoveTypesMigration } from './removed-types.cjs';
 import { CalendarWideMigration } from './calendar-wide.cjs';
+import { handleLeanThemeConfiguration, LeanClassMigration } from './migrate-lean-theme.cjs';
 import { MigrateNavigationActionSize } from './migrate-navigation-action-size.cjs';
 import { MigrateJourneyHeaderSize } from './migrate-journey-header-size.cjs';
 import { MigrateHeaderActionExpandFrom } from './migrate-header-action-expand-from.cjs';
@@ -25,6 +25,7 @@ const migrations: NullableDevkitMigration[] = [
   RemoveTypesMigration,
   TitleMarginBlockMigration,
   CalendarWideMigration,
+  LeanClassMigration,
   MigrateImportPaths,
   MigrateTableStriped,
   MigrateNavigationActionSize,
@@ -36,6 +37,7 @@ const migrations: NullableDevkitMigration[] = [
 
 export function migrate(): Rule {
   return chain([
+    handleLeanThemeConfiguration(),
     createMigrationSchematicRule(
       TargetVersion.V22,
       migrations,

@@ -1,4 +1,4 @@
-import { Migration } from '@angular/cdk/schematics';
+import { Migration, TargetVersion } from '@angular/cdk/schematics';
 import * as ts from 'typescript';
 
 /**
@@ -49,7 +49,7 @@ const IMPORT_PATH_MIGRATIONS: Record<string, string> = {
 };
 
 export class MigrateImportPaths extends Migration<null> {
-  enabled = true;
+  enabled = this.targetVersion === TargetVersion.V22;
 
   override visitNode(node: ts.Node): void {
     if (

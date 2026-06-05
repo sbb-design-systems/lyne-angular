@@ -1,13 +1,4 @@
 import { Migration, ResolvedResource, TargetVersion } from '@angular/cdk/schematics';
-import {
-  TmplAstDeferredBlock,
-  TmplAstElement,
-  TmplAstForLoopBlock,
-  TmplAstIfBlock,
-  TmplAstNode,
-  TmplAstSwitchBlock,
-  TmplAstTemplate,
-} from '@angular/compiler';
 import * as ts from 'typescript';
 
 /** Used to specify different comment delimiters for different file extensions. */
@@ -135,51 +126,6 @@ function formatComment(indent: string, delimiters: CommentDelimiters, commentTex
  */
 function isInlineResource(resource: ResolvedResource): boolean {
   return resource.filePath.endsWith('.ts');
-}
-
-/**
- * Recursively walks Angular template AST nodes and invokes `cb` for every
- * `TmplAstElement` found, descending into:
- *
- * - `TmplAstTemplate`      — hosts of `*ngIf`, `*ngFor`, `*ngSwitch` structural directives
- * - `TmplAstIfBlock`       — `@if` / `@else if` / `@else` branches
- * - `TmplAstForLoopBlock`  — `@for` body and `@empty` fallback
- * - `TmplAstSwitchBlock`   — `@switch` cases
- * - `TmplAstDeferredBlock` — `@defer` primary body, `@placeholder`, `@loading`, `@error`
- */
-export function visitElements(nodes: TmplAstNode[], cb: (el: TmplAstElement) => void): void {
-  for (const node of nodes) {
-    if (node instanceof TmplAstElement) {
-      cb(node);
-      visitElements(node.children, cb);
-    } else if (node instanceof TmplAstTemplate) {
-      // Structural-directive host: *ngIf, *ngFor, *ngSwitch, etc.
-      visitElements(node.children, cb);
-    } else if (node instanceof TmplAstIfBlock) {
-      // @if / @else if / @else — each branch has its own children array.
-      for (const branch of node.branches) {
-        visitElements(branch.children, cb);
-      }
-    } else if (node instanceof TmplAstForLoopBlock) {
-      // @for body + optional @empty fallback.
-      visitElements(node.children, cb);
-      if (node.empty) {
-        visitElements(node.empty.children, cb);
-      }
-    } else if (node instanceof TmplAstSwitchBlock) {
-      // @switch — groups hold one or more consecutive @case/@default expressions
-      // that share a single body; descend into each group's children.
-      for (const group of node.groups) {
-        visitElements(group.children, cb);
-      }
-    } else if (node instanceof TmplAstDeferredBlock) {
-      // @defer primary body + placeholder / loading / error blocks.
-      visitElements(node.children, cb);
-      if (node.placeholder) visitElements(node.placeholder.children, cb);
-      if (node.loading) visitElements(node.loading.children, cb);
-      if (node.error) visitElements(node.error.children, cb);
-    }
-  }
 }
 
 export abstract class AddCommentBase extends Migration<null> {

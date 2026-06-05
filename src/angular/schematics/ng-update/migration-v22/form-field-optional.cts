@@ -1,12 +1,8 @@
 import { TargetVersion } from '@angular/cdk/schematics';
 import { parseTemplate } from '@angular/compiler';
 
-import {
-  AddCommentBase,
-  AddCommentMigrationConfig,
-  ResourceMatch,
-  visitElements,
-} from './add-comment-base.cjs';
+import { AddCommentBase, AddCommentMigrationConfig, ResourceMatch } from './add-comment-base.cjs';
+import { visitElements } from '../../utils.cjs';
 
 export class FormFieldOptionalMigration extends AddCommentBase {
   protected override readonly config: AddCommentMigrationConfig = {

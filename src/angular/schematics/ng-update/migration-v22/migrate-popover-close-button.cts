@@ -6,7 +6,7 @@ import {
   MigrationEdit,
   queueFixmeComment,
 } from './attribute-migration-base.cjs';
-import { visitElements } from './add-comment-base.cjs';
+import { visitElements } from '../../utils.cjs';
 
 const PR_URL = 'https://github.com/sbb-design-systems/lyne-components/pull/4937';
 
