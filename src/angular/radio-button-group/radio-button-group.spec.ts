@@ -10,10 +10,10 @@ import { SbbRadioButtonGroup } from './radio-button-group';
 
 describe('sbb-radio-button-group', () => {
   describe('signal forms', () => {
-    let fixture: ComponentFixture<TestComponentSignalForms>, component: TestComponentSignalForms;
+    let fixture: ComponentFixture<SignalTestComponent>, component: SignalTestComponent;
 
     beforeEach(async () => {
-      fixture = TestBed.createComponent(TestComponentSignalForms);
+      fixture = TestBed.createComponent(SignalTestComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
     });
@@ -75,11 +75,10 @@ describe('sbb-radio-button-group', () => {
   });
 
   describe('reactive forms', () => {
-    let fixture: ComponentFixture<TestComponentReactiveForms>,
-      component: TestComponentReactiveForms;
+    let fixture: ComponentFixture<ReactiveTestComponent>, component: ReactiveTestComponent;
 
     beforeEach(async () => {
-      fixture = TestBed.createComponent(TestComponentReactiveForms);
+      fixture = TestBed.createComponent(ReactiveTestComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
     });
@@ -149,7 +148,7 @@ describe('sbb-radio-button-group', () => {
   </sbb-radio-button-group>`,
   imports: [SbbRadioButtonGroup, FormField, SbbRadioButton],
 })
-class TestComponentSignalForms {
+class SignalTestComponent {
   control = form(signal('opt2'));
   radioButtonGroup = viewChild.required(SbbRadioButtonGroup);
   radioButtons = viewChildren(SbbRadioButton);
@@ -163,7 +162,7 @@ class TestComponentSignalForms {
   </sbb-radio-button-group>`,
   imports: [SbbRadioButtonGroup, ReactiveFormsModule, SbbRadioButton],
 })
-class TestComponentReactiveForms {
+class ReactiveTestComponent {
   control = new FormControl('opt2');
   radioButtonGroup = viewChild.required(SbbRadioButtonGroup);
   radioButtons = viewChildren(SbbRadioButton);
