@@ -1,4 +1,4 @@
-import { Component, inject, linkedSignal, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
@@ -18,13 +18,13 @@ import { UPDATE_STEPS } from './update-steps';
 export class HowToUpdateComponent {
   readonly #domSanitizer = inject(DomSanitizer);
 
-  protected versionForm = form(signal({ from: 2100, to: 2200 }));
-
   protected versions: number[] = [
     ...new Set([...UPDATE_STEPS.map((s) => s.from), ...UPDATE_STEPS.map((s) => s.to)]),
   ].sort();
 
-  protected updateSteps = linkedSignal(() =>
+  protected versionForm = form(signal({ from: this.versions.at(-2)!, to: this.versions.at(-1)! }));
+
+  protected updateSteps = computed(() =>
     UPDATE_STEPS.filter(
       (s) => this.versionForm.from().value() <= s.from && s.to <= this.versionForm.to().value(),
     ),

@@ -1,7 +1,8 @@
 export interface UpdateStep {
   from: number;
   to: number;
-  changelog: string;
+  lyneChangelog: string;
+  ngChangelog: string;
   actions: string[];
 }
 
@@ -9,7 +10,8 @@ export const UPDATE_STEPS: UpdateStep[] = [
   {
     from: 2100,
     to: 2200,
-    changelog: 'https://github.com/sbb-design-systems/lyne-components/releases/tag/v5.0.0',
+    lyneChangelog: 'https://github.com/sbb-design-systems/lyne-components/releases/tag/v5.0.0',
+    ngChangelog: 'https://github.com/sbb-design-systems/lyne-angular/releases/tag/v22.0.0',
     actions: [
       `<p>
         Update your Angular dependencies to version 22.x.x with "--force" flag (due to unmet peer dependencies).<br/>
