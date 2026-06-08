@@ -10,10 +10,10 @@ import { SbbRadioButtonGroup } from './radio-button-group';
 
 describe('sbb-radio-button-group', () => {
   describe('signal forms', () => {
-    let fixture: ComponentFixture<TestComponent>, component: TestComponent;
+    let fixture: ComponentFixture<TestComponentSignalForms>, component: TestComponentSignalForms;
 
     beforeEach(async () => {
-      fixture = TestBed.createComponent(TestComponent);
+      fixture = TestBed.createComponent(TestComponentSignalForms);
       component = fixture.componentInstance;
       fixture.detectChanges();
     });
@@ -149,7 +149,7 @@ describe('sbb-radio-button-group', () => {
   </sbb-radio-button-group>`,
   imports: [SbbRadioButtonGroup, FormField, SbbRadioButton],
 })
-class TestComponent {
+class TestComponentSignalForms {
   control = form(signal('opt2'));
   radioButtonGroup = viewChild.required(SbbRadioButtonGroup);
   radioButtons = viewChildren(SbbRadioButton);
