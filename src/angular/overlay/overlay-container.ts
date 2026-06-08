@@ -7,15 +7,12 @@ import {
   viewChild,
 } from '@angular/core';
 import { outputToObservable } from '@angular/core/rxjs-interop';
-import {
-  SbbOverlayConfig,
-  SbbOverlayContainerBase,
-  SbbOverlayState,
-} from '@sbb-esta/lyne-angular/core/overlay';
+import { SbbOverlayContainerBase, SbbOverlayState } from '@sbb-esta/lyne-angular/core/overlay';
 import type { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.pure.js';
 import type { Observable } from 'rxjs';
 
 import { SbbOverlay } from './overlay';
+import { SbbOverlayConfig } from './overlay-config';
 
 /**
  * Container component for `SbbOverlay` components.
@@ -35,7 +32,7 @@ import { SbbOverlay } from './overlay';
   template: `<ng-template cdkPortalOutlet></ng-template>`,
 })
 export class SbbOverlayContainer extends SbbOverlayContainerBase<SbbOverlay> {
-  readonly _config: SbbOverlayConfig<SbbOverlayContainer, SbbOverlay, unknown> =
+  readonly _config: SbbOverlayConfig<SbbOverlayContainer> =
     inject(SbbOverlayConfig, { optional: true }) || {};
 
   /** The portal outlet inside of this container into which the dialog content will be loaded. */

@@ -3,7 +3,7 @@ import type { Injector, StaticProvider, ViewContainerRef } from '@angular/core';
 import type { SbbOverlayBaseRef } from './overlay-base-ref';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
 
-export class SbbOverlayConfig<C extends SbbOverlayContainerBase, I = unknown, D = unknown> {
+export class SbbOverlayBaseConfig<C extends SbbOverlayContainerBase, I = unknown, D = unknown> {
   /**
    * Where the attached component should live in Angular's *logical* component tree.
    * This affects what is available for injection and the change detection order for the
@@ -29,7 +29,7 @@ export class SbbOverlayConfig<C extends SbbOverlayContainerBase, I = unknown, D 
     | StaticProvider[]
     | ((
         overlayRef: SbbOverlayBaseRef,
-        config: SbbOverlayConfig<C, I>,
+        config: SbbOverlayBaseConfig<C, I>,
         container: C,
       ) => StaticProvider[]);
 

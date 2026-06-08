@@ -1,8 +1,9 @@
 import type { ComponentType } from '@angular/cdk/overlay';
 import { inject, Service, type TemplateRef } from '@angular/core';
-import { SbbOverlayBaseService, type SbbOverlayConfig } from '@sbb-esta/lyne-angular/core/overlay';
+import { SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core/overlay';
 
 import type { SbbOverlay } from './overlay';
+import type { SbbOverlayConfig } from './overlay-config';
 import { SbbOverlayContainer } from './overlay-container';
 import { SbbOverlayRef } from './overlay-ref';
 
@@ -18,7 +19,7 @@ export class SbbOverlayService extends SbbOverlayBaseService<
 
   public override open<T = unknown, R = unknown>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-    config?: SbbOverlayConfig<SbbOverlayContainer, SbbOverlay>,
+    config?: SbbOverlayConfig<SbbOverlayContainer>,
   ): SbbOverlayRef<T, R> {
     return super.open(componentOrTemplateRef, config) as SbbOverlayRef<T, R>;
   }

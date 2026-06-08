@@ -19,7 +19,7 @@ import {
 import { defer, type Observable, startWith, Subject } from 'rxjs';
 
 import type { SbbOverlayBaseRef } from './overlay-base-ref';
-import { SbbOverlayConfig } from './overlay-config';
+import { SbbOverlayBaseConfig } from './overlay-config';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
 
 /** Injection token that can be used to access the data that was passed in to an overlay. */
@@ -39,7 +39,7 @@ export abstract class SbbOverlayBaseService<
   #idGenerator = inject(_IdGenerator);
 
   #createInjector<D>(
-    config: SbbOverlayConfig<C, I, D>,
+    config: SbbOverlayBaseConfig<C, I, D>,
     overlayRef: R,
     overlayContainer: C,
     fallbackInjector: Injector,
@@ -64,11 +64,11 @@ export abstract class SbbOverlayBaseService<
     return Injector.create({ providers, parent: userInjector || fallbackInjector });
   }
 
-  #attachContainer(portalOutlet: DomPortalOutlet, config: SbbOverlayConfig<C, I>): C {
+  #attachContainer(portalOutlet: DomPortalOutlet, config: SbbOverlayBaseConfig<C, I>): C {
     const containerType: Type<C> = this.containerType;
     const userInjector = config.injector || config.viewContainerRef?.injector;
     const providers: StaticProvider[] = [
-      { provide: SbbOverlayConfig, useValue: config },
+      { provide: SbbOverlayBaseConfig, useValue: config },
       { provide: DomPortalOutlet, useValue: portalOutlet },
     ];
     const containerPortal = new ComponentPortal(
@@ -111,7 +111,7 @@ export abstract class SbbOverlayBaseService<
     componentOrTemplateRef: ComponentType<D> | TemplateRef<D>,
     overlayRef: R,
     overlayContainer: C,
-    config: SbbOverlayConfig<C, I, D>,
+    config: SbbOverlayBaseConfig<C, I, D>,
   ) {
     const injector = this.#createInjector(config, overlayRef, overlayContainer, this.#injector);
     if (componentOrTemplateRef instanceof TemplateRef) {
@@ -145,7 +145,7 @@ export abstract class SbbOverlayBaseService<
 
   open<T = unknown>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-    config: SbbOverlayConfig<C, I> = {},
+    config: SbbOverlayBaseConfig<C, I> = {},
   ): SbbOverlayBaseRef<T> {
     config.id = config.id || this.#idGenerator.getId('cdk-overlay-');
 
