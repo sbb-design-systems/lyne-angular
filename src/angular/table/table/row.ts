@@ -70,6 +70,7 @@ export class SbbRowDef<T> extends CdkRowDef<T> {}
     role: 'row',
   },
   // See note on CdkTable for explanation on why this uses the default change detection strategy.
+   
   changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'sbbHeaderRow',
@@ -87,6 +88,7 @@ export class SbbHeaderRow extends CdkHeaderRow {}
     role: 'row',
   },
   // See note on CdkTable for explanation on why this uses the default change detection strategy.
+   
   changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'sbbFooterRow',
@@ -104,6 +106,7 @@ export class SbbFooterRow extends CdkFooterRow {}
     role: 'row',
   },
   // See note on CdkTable for explanation on why this uses the default change detection strategy.
+   
   changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'sbbRow',

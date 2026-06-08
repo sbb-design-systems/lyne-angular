@@ -9,6 +9,7 @@ import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 @Component({
   selector: 'sbb-accordion-wizard-example',
   templateUrl: 'accordion-wizard-example.html',
+  styleUrl: 'accordion-wizard-example.scss',
   imports: [SbbAccordionModule, SbbButtonModule, SbbActionGroupModule],
 })
 export class AccordionWizardExample {
