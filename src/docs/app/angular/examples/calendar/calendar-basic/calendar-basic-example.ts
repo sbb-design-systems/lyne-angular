@@ -12,5 +12,5 @@ import { SbbCalendarModule } from '@sbb-esta/lyne-angular/calendar';
   imports: [SbbCalendarModule, FormField],
 })
 export class CalendarBasicExample {
-  protected form = form(signal({ calendar: new Date(Date.now()) }));
+  protected form = form(signal({ calendar: new Date() }));
 }

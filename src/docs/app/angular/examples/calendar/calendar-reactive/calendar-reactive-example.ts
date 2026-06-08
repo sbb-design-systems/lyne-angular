@@ -12,5 +12,5 @@ import { SbbCalendarModule } from '@sbb-esta/lyne-angular/calendar';
   imports: [SbbCalendarModule, ReactiveFormsModule],
 })
 export class CalendarReactiveExample {
-  protected control = new FormControl(new Date(Date.now()), { nonNullable: true });
+  protected control = new FormControl(new Date(), { nonNullable: true });
 }
