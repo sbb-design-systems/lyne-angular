@@ -15,7 +15,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
   button: ['button-basic', 'mini-button-basic'],
-  calendar: ['calendar-basic', 'calendar-fixed-month'],
+  calendar: ['calendar-basic', 'calendar-reactive', 'calendar-fixed-month'],
   card: ['card-basic'],
   carousel: ['carousel-basic'],
   checkbox: ['checkbox-basic'],
@@ -135,8 +135,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'button-basic':
       return import('../angular/examples/button');
     case 'calendar-basic':
-      return import('../angular/examples/calendar');
     case 'calendar-fixed-month':
+      return import('../angular/examples/calendar');
+    case 'calendar-reactive':
       return import('../angular/examples/calendar');
     case 'card-basic':
       return import('../angular/examples/card');

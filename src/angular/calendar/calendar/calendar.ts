@@ -6,9 +6,15 @@ import {
   NgZone,
   type OutputRef,
   numberAttribute,
+  forwardRef,
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  booleanAttribute,
+  internalOutputFromObservable,
+  SbbControlValueAccessorMixin,
+} from '@sbb-esta/lyne-angular/core';
 import type {
   SbbDateSelectedEvent,
   SbbMonthChangeEvent,
@@ -24,8 +30,19 @@ import { fromEvent, NEVER } from 'rxjs';
 @Directive({
   selector: 'sbb-calendar',
   exportAs: 'sbbCalendar',
+  host: {
+    '(change)': 'this.onChangeFn(this.value); this.onTouchedFn();',
+    '(blur)': 'this.onTouchedFn()',
+  },
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SbbCalendar),
+      multi: true,
+    },
+  ],
 })
-export class SbbCalendar<T = Date> {
+export class SbbCalendar<T = Date> extends SbbControlValueAccessorMixin(class {}) {
   static {
     SbbCalendarElement.define();
   }
@@ -89,6 +106,9 @@ export class SbbCalendar<T = Date> {
   public get value(): T | T[] | null {
     return this.#element.nativeElement.value;
   }
+
+  // public valueSig = input();
+  // public aa = computed()
 
   /**
    * A function used to filter out dates.
@@ -158,6 +178,24 @@ export class SbbCalendar<T = Date> {
   }
 
   /**
+   * Event emitted on date selection.
+   */
+  public dateSelectedOutput: OutputRef<SbbDateSelectedEvent<T>> = outputFromObservable(
+    fromEvent<SbbDateSelectedEvent<T>>(this.#element.nativeElement, 'dateselected'),
+    { alias: 'dateSelected' },
+  );
+
+  protected _monthchangeOutput: OutputRef<SbbMonthChangeEvent> =
+    outputFromObservable<SbbMonthChangeEvent>(NEVER, { alias: 'monthchange' });
+  /**
+   * Emits when the month changes.
+   * The `range` property contains the days array of the chosen month.
+   */
+  public monthchangeOutput: OutputRef<SbbMonthChangeEvent> = internalOutputFromObservable(
+    fromEvent<SbbMonthChangeEvent>(this.#element.nativeElement, 'monthchange'),
+  );
+
+  /**
    * Returns the form owner of this element.
    */
   public get form(): HTMLFormElement | null {
@@ -220,22 +258,4 @@ export class SbbCalendar<T = Date> {
   public resetPosition(): void {
     return this.#element.nativeElement.resetPosition();
   }
-
-  /**
-   * Event emitted on date selection.
-   */
-  public dateSelectedOutput: OutputRef<SbbDateSelectedEvent<T>> = outputFromObservable(
-    fromEvent<SbbDateSelectedEvent<T>>(this.#element.nativeElement, 'dateselected'),
-    { alias: 'dateSelected' },
-  );
-
-  protected _monthchangeOutput: OutputRef<SbbMonthChangeEvent> =
-    outputFromObservable<SbbMonthChangeEvent>(NEVER, { alias: 'monthchange' });
-  /**
-   * Emits when the month changes.
-   * The `range` property contains the days array of the chosen month.
-   */
-  public monthchangeOutput: OutputRef<SbbMonthChangeEvent> = internalOutputFromObservable(
-    fromEvent<SbbMonthChangeEvent>(this.#element.nativeElement, 'monthchange'),
-  );
 }

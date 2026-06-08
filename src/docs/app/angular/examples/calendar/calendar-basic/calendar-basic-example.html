@@ -1,1 +1,6 @@
-<sbb-calendar></sbb-calendar>
+<sbb-calendar [formField]="form.calendar"></sbb-calendar>
+
+<p>
+  <span class="sbb-text--bold">Value:</span>
+  {{ form.calendar().value().toDateString() }}
+</p>
