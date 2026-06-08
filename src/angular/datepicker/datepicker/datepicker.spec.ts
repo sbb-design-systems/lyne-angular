@@ -21,9 +21,6 @@ describe('sbb-datepicker', () => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    // Wait for the custom elements to be defined
-    await Promise.resolve();
   });
 
   it('should create', async () => {
