@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import type { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
 
+import { HowToUpdateComponent } from '../how-to-update/how-to-update';
 import { componentViewerSubnavigation } from '../shared/component-viewer/component-viewer/component-viewer-subnavigation';
 import { ComponentViewerComponent } from '../shared/component-viewer/component-viewer/component-viewer.component';
 import type { LoaderBuilder } from '../shared/loader-builder';
@@ -28,6 +29,10 @@ const routes: Routes = [
       //   path: 'icon-overview',
       //   component: IconOverviewComponent,
       // },
+      {
+        path: 'guides/how-to-update',
+        component: HowToUpdateComponent,
+      },
       {
         path: 'guides/:id',
         component: MarkdownViewerComponent,
