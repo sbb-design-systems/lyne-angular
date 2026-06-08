@@ -1,7 +1,7 @@
-<form [formGroup]="vehicleFilterForm" class="form">
+<form class="form">
   <sbb-form-field size="s">
     <label>Global Filter</label>
-    <input formControlName="_" />
+    <input [formField]="vehicleFilterForm._" />
   </sbb-form-field>
 
   <sbb-table-wrapper>
@@ -26,14 +26,17 @@
       <ng-container sbbColumnDef="filter-name">
         <th sbb-header-cell *sbbHeaderCellDef class="sbb-table-filter">
           <sbb-form-field size="s" width="collapse">
-            <input formControlName="name" />
+            <input [formField]="vehicleFilterForm.name" />
           </sbb-form-field>
         </th>
       </ng-container>
       <ng-container sbbColumnDef="filter-description">
         <th sbb-header-cell *sbbHeaderCellDef class="sbb-table-filter">
           <sbb-form-field size="s">
-            <input formControlName="description" [sbbAutocomplete]="descriptionsAuto" />
+            <input
+              [formField]="vehicleFilterForm.description"
+              [sbbAutocomplete]="descriptionsAuto"
+            />
           </sbb-form-field>
           <sbb-autocomplete #descriptionsAuto="sbbAutocomplete">
             @for (option of descriptions(); track option) {
@@ -45,7 +48,11 @@
       <ng-container sbbColumnDef="filter-category">
         <th sbb-header-cell *sbbHeaderCellDef class="sbb-table-filter">
           <sbb-form-field size="s">
-            <sbb-select formControlName="category" multiple placeholder="Select category...">
+            <sbb-select
+              [formField]="vehicleFilterForm.category"
+              multiple
+              placeholder="Select category..."
+            >
               @for (category of categories; track category) {
               <sbb-option [value]="category">{{ category }}</sbb-option>
               }
