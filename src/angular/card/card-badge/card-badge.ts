@@ -1,7 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbCardBadgeElement } from '@sbb-esta/lyne-elements/card.js';
-
-import '@sbb-esta/lyne-elements/card.js';
+import { SbbCardBadgeElement } from '@sbb-esta/lyne-elements/card.pure.js';
 
 /**
  * It displays content within a badge.
@@ -13,6 +11,10 @@ import '@sbb-esta/lyne-elements/card.js';
   exportAs: 'sbbCardBadge',
 })
 export class SbbCardBadge {
+  static {
+    SbbCardBadgeElement.define();
+  }
+
   #element: ElementRef<SbbCardBadgeElement> = inject(ElementRef<SbbCardBadgeElement>);
   #ngZone: NgZone = inject(NgZone);
 

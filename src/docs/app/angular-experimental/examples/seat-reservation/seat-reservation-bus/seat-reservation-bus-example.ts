@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { SbbSeatReservationModule } from '@sbb-esta/lyne-angular-experimental/seat-reservation';
-import type { SeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
+import type { SeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation.pure.js';
 
 /**
  * @title Bus Seat Reservation
@@ -10,7 +10,6 @@ import type { SeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-
   selector: 'sbb-seat-reservation-bus-example',
   templateUrl: 'seat-reservation-bus-example.html',
   imports: [SbbSeatReservationModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SeatReservationBusExample {
   protected readonly seatReservations = signal<SeatReservation[]>([

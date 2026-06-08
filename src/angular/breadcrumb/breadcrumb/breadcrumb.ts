@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbBreadcrumbElement } from '@sbb-esta/lyne-elements/breadcrumb.js';
-
-import '@sbb-esta/lyne-elements/breadcrumb.js';
+import { SbbBreadcrumbElement } from '@sbb-esta/lyne-elements/breadcrumb.pure.js';
 
 /**
  * It displays a link to a page; used within a `sbb-breadcrumb-group` it can display the path to the current page.
@@ -15,6 +13,10 @@ import '@sbb-esta/lyne-elements/breadcrumb.js';
   exportAs: 'sbbBreadcrumb',
 })
 export class SbbBreadcrumb {
+  static {
+    SbbBreadcrumbElement.define();
+  }
+
   #element: ElementRef<SbbBreadcrumbElement> = inject(ElementRef<SbbBreadcrumbElement>);
   #ngZone: NgZone = inject(NgZone);
 

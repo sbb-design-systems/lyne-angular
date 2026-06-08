@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbStatusModule } from '@sbb-esta/lyne-angular/status';
 
 /**
@@ -8,6 +8,5 @@ import { SbbStatusModule } from '@sbb-esta/lyne-angular/status';
   selector: 'sbb-status-basic-example',
   templateUrl: 'status-basic-example.html',
   imports: [SbbStatusModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusBasicExample {}

@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbCardButtonElement } from '@sbb-esta/lyne-elements/card.js';
-
-import '@sbb-esta/lyne-elements/card.js';
+import { SbbCardButtonElement } from '@sbb-esta/lyne-elements/card.pure.js';
 
 /**
  * It turns the `sbb-card` into a button element.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/card.js';
   exportAs: 'sbbCardButton',
 })
 export class SbbCardButton {
+  static {
+    SbbCardButtonElement.define();
+  }
+
   #element: ElementRef<SbbCardButtonElement> = inject(ElementRef<SbbCardButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 

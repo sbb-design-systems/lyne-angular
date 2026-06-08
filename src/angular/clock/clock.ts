@@ -1,7 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbClockElement } from '@sbb-esta/lyne-elements/clock.js';
-
-import '@sbb-esta/lyne-elements/clock.js';
+import { SbbClockElement } from '@sbb-esta/lyne-elements/clock.pure.js';
 
 /**
  * It displays an analog clock with the classic SBB face.
@@ -11,6 +9,10 @@ import '@sbb-esta/lyne-elements/clock.js';
   exportAs: 'sbbClock',
 })
 export class SbbClock {
+  static {
+    SbbClockElement.define();
+  }
+
   #element: ElementRef<SbbClockElement> = inject(ElementRef<SbbClockElement>);
   #ngZone: NgZone = inject(NgZone);
 

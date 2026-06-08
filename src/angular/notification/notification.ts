@@ -1,10 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbNotificationElement } from '@sbb-esta/lyne-elements/notification.js';
+import { SbbNotificationElement } from '@sbb-esta/lyne-elements/notification.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/notification.js';
 
 /**
  * It displays messages which require a user's attention without interrupting its tasks.
@@ -19,6 +17,10 @@ import '@sbb-esta/lyne-elements/notification.js';
   exportAs: 'sbbNotification',
 })
 export class SbbNotification {
+  static {
+    SbbNotificationElement.define();
+  }
+
   #element: ElementRef<SbbNotificationElement> = inject(ElementRef<SbbNotificationElement>);
   #ngZone: NgZone = inject(NgZone);
 

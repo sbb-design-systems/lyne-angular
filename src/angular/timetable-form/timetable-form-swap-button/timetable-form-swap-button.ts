@@ -1,8 +1,6 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbTimetableFormSwapButtonElement } from '@sbb-esta/lyne-elements/timetable-form.js';
-
-import '@sbb-esta/lyne-elements/timetable-form.js';
+import { SbbTimetableFormSwapButtonElement } from '@sbb-esta/lyne-elements/timetable-form.pure.js';
 
 /**
  * An extension of `sbb-secondary-button` to be used inside the `sbb-timetable-form`.
@@ -17,6 +15,10 @@ When placed between two `sbb-timetable-form-field`, the 'click' swaps the value 
   exportAs: 'sbbTimetableFormSwapButton',
 })
 export class SbbTimetableFormSwapButton {
+  static {
+    SbbTimetableFormSwapButtonElement.define();
+  }
+
   #element: ElementRef<SbbTimetableFormSwapButtonElement> = inject(
     ElementRef<SbbTimetableFormSwapButtonElement>,
   );

@@ -1,7 +1,7 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, signal, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import type { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.js';
+import type { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.pure.js';
 
 import { SbbOverlayService } from '../overlay-service';
 

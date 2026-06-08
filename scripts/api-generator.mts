@@ -24,7 +24,7 @@ const appendAdditionalInformation = (documentation: {
   documentation.directives.forEach((d) => {
     const fileContent = readFileSync(new URL(`../${d.file}`, import.meta.url), 'utf8');
 
-    const sourceFile = ts.createSourceFile('example.ts', fileContent, ts.ScriptTarget.ES2022, true);
+    const sourceFile = ts.createSourceFile('example.ts', fileContent, ts.ScriptTarget.ES2023, true);
 
     function handleJsDoc(node: ts.Node) {
       if (ts.isClassDeclaration(node) && node.name && node.name.text === d.name) {

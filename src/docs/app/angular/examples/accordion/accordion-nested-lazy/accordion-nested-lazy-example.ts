@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
 
 /**
@@ -8,6 +8,5 @@ import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
   selector: 'sbb-accordion-nested-lazy-example',
   templateUrl: 'accordion-nested-lazy-example.html',
   imports: [SbbAccordionModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccordionNestedLazyExample {}

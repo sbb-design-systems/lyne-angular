@@ -1,5 +1,5 @@
 import { Directive } from '@angular/core';
-import '@sbb-esta/lyne-elements/teaser-panel.js';
+import { SbbTeaserPanelElement } from '@sbb-esta/lyne-elements/teaser-panel.pure.js';
 
 /**
  * It displays the content in a vertically centered trapezoidal shape.
@@ -11,4 +11,8 @@ import '@sbb-esta/lyne-elements/teaser-panel.js';
   selector: 'sbb-teaser-panel',
   exportAs: 'sbbTeaserPanel',
 })
-export class SbbTeaserPanel {}
+export class SbbTeaserPanel {
+  static {
+    SbbTeaserPanelElement.define();
+  }
+}

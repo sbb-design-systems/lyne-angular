@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbTagGroupElement, SbbTagElement } from '@sbb-esta/lyne-elements/tag.js';
-
-import '@sbb-esta/lyne-elements/tag.js';
+import { SbbTagGroupElement, type SbbTagElement } from '@sbb-esta/lyne-elements/tag.pure.js';
 
 /**
  * It can be used as a container for one or more `sbb-tag`.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/tag.js';
   exportAs: 'sbbTagGroup',
 })
 export class SbbTagGroup<T = string> {
+  static {
+    SbbTagGroupElement.define();
+  }
+
   #element: ElementRef<SbbTagGroupElement<T>> = inject(ElementRef<SbbTagGroupElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 

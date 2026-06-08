@@ -1,9 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
-import type { SbbFooterElement } from '@sbb-esta/lyne-elements/footer.js';
-
-import '@sbb-esta/lyne-elements/footer.js';
+import { SbbFooterElement } from '@sbb-esta/lyne-elements/footer.pure.js';
 
 /**
  * It displays a footer section for the page.
@@ -15,6 +13,10 @@ import '@sbb-esta/lyne-elements/footer.js';
   exportAs: 'sbbFooter',
 })
 export class SbbFooter {
+  static {
+    SbbFooterElement.define();
+  }
+
   #element: ElementRef<SbbFooterElement> = inject(ElementRef<SbbFooterElement>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, computed, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { form, FormField } from '@angular/forms/signals';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbTableModule } from '@sbb-esta/lyne-angular/table';
-import { map } from 'rxjs/operators';
 
 interface RowEntry {
   col1: string;
@@ -22,23 +21,19 @@ interface RowEntry {
   selector: 'sbb-native-table-example',
   templateUrl: 'native-table-example.html',
   styleUrl: 'native-table-example.scss',
-  imports: [SbbTableModule, SbbFormFieldModule, FormsModule, ReactiveFormsModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [SbbTableModule, SbbFormFieldModule, FormsModule, FormField],
 })
 export class NativeTableExample {
-  protected filterControl: FormControl = new FormControl('');
+  protected filter = form(signal(''));
 
-  protected rows = toSignal(
-    this.filterControl.valueChanges.pipe(
-      map((value: string) =>
-        ROW_DATA.filter((row) =>
-          (['col1', 'col2', 'col3', 'col4', 'col5'] satisfies (keyof RowEntry)[]).some(
-            (prop) => row[prop].toUpperCase().includes(value.toUpperCase()) || value === '',
-          ),
-        ),
+  protected rows = computed(() =>
+    ROW_DATA.filter((row) =>
+      (['col1', 'col2', 'col3', 'col4', 'col5'] satisfies (keyof RowEntry)[]).some(
+        (prop) =>
+          row[prop].toUpperCase().includes(this.filter().value().toUpperCase()) ||
+          this.filter().value() === '',
       ),
     ),
-    { initialValue: ROW_DATA },
   );
 }
 

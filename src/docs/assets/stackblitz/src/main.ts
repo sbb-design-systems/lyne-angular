@@ -1,5 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, provideZonelessChangeDetection } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 
@@ -11,5 +11,5 @@ if (environment.production) {
 }
 
 bootstrapApplication(SbbAngularDocsExample, {
-  providers: [provideHttpClient(), provideRouter([])],
+  providers: [provideHttpClient(), provideRouter([]), provideZonelessChangeDetection()],
 }).catch((err) => console.error(err));

@@ -10,13 +10,11 @@ import {
 } from '@angular/core';
 import { outputFromObservable, outputToObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type {
+import {
   SbbCompactPaginatorElement,
-  SbbPaginatorPageEvent,
-} from '@sbb-esta/lyne-elements/paginator.js';
+  type SbbPaginatorPageEvent,
+} from '@sbb-esta/lyne-elements/paginator.pure.js';
 import { AsyncSubject, forkJoin, fromEvent, map, NEVER, type Observable } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/paginator.js';
 
 /**
  * It displays a paginator component in compact mode.
@@ -26,6 +24,10 @@ import '@sbb-esta/lyne-elements/paginator.js';
   exportAs: 'sbbCompactPaginator',
 })
 export class SbbCompactPaginator implements OnInit {
+  static {
+    SbbCompactPaginatorElement.define();
+  }
+
   #element: ElementRef<SbbCompactPaginatorElement> = inject(ElementRef<SbbCompactPaginatorElement>);
   #ngZone: NgZone = inject(NgZone);
   #initialized = new AsyncSubject<void>();

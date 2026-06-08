@@ -3,14 +3,19 @@ import type { Type } from '@angular/core';
 import type { ExampleData } from './example-data';
 
 export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[]> = {
-  accordion: ['accordion-basic', 'accordion-nested-lazy', 'accordion-variants', 'accordion-wizard'],
-  'action-group': ['action-group-basic'],
+  accordion: [
+    'accordion-basic',
+    'accordion-nested-lazy',
+    'accordion-variants',
+    { id: 'accordion-wizard', hasStyle: true },
+  ],
+  'action-group': ['action-group-basic', { id: 'action-group-complex', hasStyle: true }],
   alert: ['alert-basic'],
   autocomplete: ['autocomplete-basic'],
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
   button: ['button-basic', 'mini-button-basic'],
-  calendar: ['calendar-basic'],
+  calendar: ['calendar-basic', 'calendar-reactive', 'calendar-fixed-month'],
   card: ['card-basic'],
   carousel: ['carousel-basic'],
   checkbox: ['checkbox-basic'],
@@ -113,6 +118,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'accordion-wizard':
       return import('../angular/examples/accordion');
     case 'action-group-basic':
+    case 'action-group-complex':
       return import('../angular/examples/action-group');
     case 'alert-basic':
       return import('../angular/examples/alert');
@@ -129,6 +135,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'button-basic':
       return import('../angular/examples/button');
     case 'calendar-basic':
+    case 'calendar-fixed-month':
+      return import('../angular/examples/calendar');
+    case 'calendar-reactive':
       return import('../angular/examples/calendar');
     case 'card-basic':
       return import('../angular/examples/card');

@@ -70,7 +70,8 @@ export class SbbRowDef<T> extends CdkRowDef<T> {}
     role: 'row',
   },
   // See note on CdkTable for explanation on why this uses the default change detection strategy.
-  changeDetection: ChangeDetectionStrategy.Default,
+  // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'sbbHeaderRow',
   providers: [{ provide: CdkHeaderRow, useExisting: SbbHeaderRow }],
@@ -87,7 +88,8 @@ export class SbbHeaderRow extends CdkHeaderRow {}
     role: 'row',
   },
   // See note on CdkTable for explanation on why this uses the default change detection strategy.
-  changeDetection: ChangeDetectionStrategy.Default,
+  // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'sbbFooterRow',
   providers: [{ provide: CdkFooterRow, useExisting: SbbFooterRow }],
@@ -104,7 +106,8 @@ export class SbbFooterRow extends CdkFooterRow {}
     role: 'row',
   },
   // See note on CdkTable for explanation on why this uses the default change detection strategy.
-  changeDetection: ChangeDetectionStrategy.Default,
+  // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'sbbRow',
   providers: [{ provide: CdkRow, useExisting: SbbRow }],

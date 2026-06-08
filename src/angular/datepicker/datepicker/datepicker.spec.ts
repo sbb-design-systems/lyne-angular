@@ -8,7 +8,7 @@ import {
   SbbDatepickerToggle,
 } from '@sbb-esta/lyne-angular/datepicker';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
-import type { SbbCalendarDayElement } from '@sbb-esta/lyne-elements/calendar.js';
+import type { SbbCalendarDayElement } from '@sbb-esta/lyne-elements/calendar.pure.js';
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core.js';
 
@@ -21,9 +21,6 @@ describe('sbb-datepicker', () => {
     fixture = TestBed.createComponent(TestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    // Wait for the custom elements to be defined
-    await Promise.resolve();
   });
 
   it('should create', async () => {

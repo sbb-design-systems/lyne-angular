@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
 import { SbbActionGroupModule } from '@sbb-esta/lyne-angular/action-group';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
@@ -9,8 +9,8 @@ import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 @Component({
   selector: 'sbb-accordion-wizard-example',
   templateUrl: 'accordion-wizard-example.html',
+  styleUrl: 'accordion-wizard-example.scss',
   imports: [SbbAccordionModule, SbbButtonModule, SbbActionGroupModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccordionWizardExample {
   protected step = signal(0);

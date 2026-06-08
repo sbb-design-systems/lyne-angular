@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbMapContainerModule } from '@sbb-esta/lyne-angular/map-container';
 
 /**
@@ -8,6 +8,5 @@ import { SbbMapContainerModule } from '@sbb-esta/lyne-angular/map-container';
   selector: 'sbb-map-container-basic-example',
   templateUrl: 'map-container-basic-example.html',
   imports: [SbbMapContainerModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapContainerBasicExample {}

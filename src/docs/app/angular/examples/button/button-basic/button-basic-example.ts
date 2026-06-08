@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 
 /**
@@ -8,6 +8,5 @@ import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
   selector: 'sbb-button-basic-example',
   templateUrl: 'button-basic-example.html',
   imports: [SbbButtonModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonBasicExample {}

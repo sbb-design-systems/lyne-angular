@@ -10,13 +10,9 @@ import {
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import type {
-  SbbFileSelectorDropzoneElement,
-  SbbFileChangeEvent,
-} from '@sbb-esta/lyne-elements/file-selector.js';
+import type { SbbFileChangeEvent } from '@sbb-esta/lyne-elements/file-selector.pure.js';
+import { SbbFileSelectorDropzoneElement } from '@sbb-esta/lyne-elements/file-selector.pure.js';
 import { fromEvent } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/file-selector.js';
 
 /**
  * It allows to select one or more file from storage devices via button click or drag and drop, and display them.
@@ -39,6 +35,10 @@ import '@sbb-esta/lyne-elements/file-selector.js';
   ],
 })
 export class SbbFileSelectorDropzone extends SbbControlValueAccessorMixin(class {}) {
+  static {
+    SbbFileSelectorDropzoneElement.define();
+  }
+
   #element: ElementRef<SbbFileSelectorDropzoneElement> = inject(
     ElementRef<SbbFileSelectorDropzoneElement>,
   );

@@ -1,207 +1,420 @@
 import type { Signal } from '@angular/core';
-import { Component, viewChild, viewChildren } from '@angular/core';
+import { Component, signal, viewChild, viewChildren } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { form, FormField } from '@angular/forms/signals';
 import { SbbOption } from '@sbb-esta/lyne-angular/option';
-import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option.js';
+import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option.pure.js';
 
 import { SbbSelect } from './select';
 import { SbbSelectModule } from './select.module';
 
 describe('sbb-select', () => {
-  describe('single', () => {
-    let fixture: ComponentFixture<TestComponent>, component: TestComponent;
+  describe('signal forms', () => {
+    describe('single', () => {
+      let fixture: ComponentFixture<SignalTestComponent>, component: SignalTestComponent;
 
-    beforeEach(async () => {
-      fixture = TestBed.createComponent(TestComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
+      beforeEach(async () => {
+        fixture = TestBed.createComponent(SignalTestComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
+
+      it('should create', async () => {
+        expect(component).toBeDefined();
+        expect(component.select().value).toEqual('2');
+        expect(component.select().getDisplayValue()).toEqual('Option 2');
+        expect(component.options().find((o) => o.value === '2')!.selected).toBe(true);
+      });
+
+      it('should select an option', async () => {
+        component.select()!.open();
+        fixture.detectChanges();
+
+        (fixture.nativeElement as HTMLElement)
+          .querySelector<SbbOptionElement>('sbb-option[value="1"]')!
+          .click();
+        fixture.detectChanges();
+
+        expect(component.select().value).toEqual('1');
+        expect(component.options().find((o) => o.value === '1')!.selected).toBe(true);
+        expect(component.control().value()).toEqual('1');
+      });
+
+      it('should react to signal value change', async () => {
+        component.select().open();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        component.control().value.set('1');
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.select().value).toEqual('1');
+        expect(component.options().find((o) => o.value === '1')!.selected).toBe(true);
+        expect(component.control().value()).toEqual('1');
+      });
+
+      it('should be touched on close', async () => {
+        component.select().open();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.control().touched()).toBe(false);
+
+        component.select().close();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.control().touched()).toBe(true);
+      });
+
+      it('should be touched on blur', async () => {
+        component.select().open();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.control().touched()).toBe(false);
+
+        (fixture.nativeElement as HTMLElement)
+          .querySelector('sbb-select')!
+          .dispatchEvent(new FocusEvent('blur'));
+
+        expect(component.control().touched()).toBe(true);
+      });
     });
 
-    it('should create', async () => {
-      expect(component).toBeDefined();
-      expect(component.select().value).toEqual('2');
-      expect(component.select().getDisplayValue()).toEqual('Option 2');
-      expect(component.options().find((o) => o.value === '2')!.selected).toBe(true);
+    describe('multiple', () => {
+      let fixture: ComponentFixture<TestComponentMultipleSignalForms>,
+        component: TestComponentMultipleSignalForms;
+
+      beforeEach(async () => {
+        fixture = TestBed.createComponent(TestComponentMultipleSignalForms);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
+
+      it('should handle multiple initialization', async () => {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(component.select().value).toEqual(['1', '2']);
+        expect(component.options().filter((o) => o.selected).length).toBe(2);
+
+        component.select().open();
+        fixture.detectChanges();
+
+        (fixture.nativeElement as HTMLElement)
+          .querySelector<SbbOptionElement>('sbb-option[value="1"]')!
+          .click();
+        fixture.detectChanges();
+
+        expect(component.select().value).toEqual(['2']);
+        expect(component.control().value()).toEqual(['2']);
+      });
     });
 
-    it('should select an option', async () => {
-      component.select()!.open();
-      fixture.detectChanges();
+    describe('with complex value', () => {
+      let fixture: ComponentFixture<TestComponentComplexValueSignalForms>,
+        component: TestComponentComplexValueSignalForms;
 
-      (fixture.nativeElement as HTMLElement)
-        .querySelector<SbbOptionElement>('sbb-option[value="1"]')!
-        .click();
-      fixture.detectChanges();
+      beforeEach(async () => {
+        fixture = TestBed.createComponent(TestComponentComplexValueSignalForms);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
 
-      expect(component.select().value).toEqual('1');
-      expect(component.options().find((o) => o.value === '1')!.selected).toBe(true);
-      expect(component.control.value).toEqual('1');
-    });
+      it('should create', async () => {
+        expect(component).toBeDefined();
+        expect(component.select().value).toEqual(component.values[1]);
+        expect(component.select().getDisplayValue()).toEqual('Option 2 (test 2)');
+      });
 
-    it('should react to form control change', async () => {
-      component.select().open();
-      fixture.detectChanges();
-      await fixture.whenStable();
+      it('should select an option', async () => {
+        component.select()!.open();
+        fixture.detectChanges();
 
-      component.control.setValue('1');
-      fixture.detectChanges();
-      await fixture.whenStable();
+        const option1 = (fixture.nativeElement as HTMLElement).querySelector<SbbOptionElement>(
+          'sbb-option',
+        )!;
 
-      expect(component.select().value).toEqual('1');
-      expect(component.options().find((o) => o.value === '1')!.selected).toBe(true);
-      expect(component.control.value).toEqual('1');
-    });
+        option1.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
 
-    it('should be touched on close', async () => {
-      component.select().open();
-      fixture.detectChanges();
-      await fixture.whenStable();
+        expect(component.select().value).toEqual(component.values[0]);
+        expect(component.options().find((o) => o.value === component.values[0])!.selected).toBe(
+          true,
+        );
+        expect(component.control().value()).toEqual(component.values[0]);
+        expect(component.select().getDisplayValue()).toEqual('Option 1 (test 1)');
+      });
 
-      expect(component.control.touched).toBe(false);
+      it('should react to signal value change', async () => {
+        component.select().open();
+        fixture.detectChanges();
+        await fixture.whenStable();
 
-      component.select().close();
-      fixture.detectChanges();
-      await fixture.whenStable();
+        component.control().value.set(component.values[2]);
+        fixture.detectChanges();
+        await fixture.whenStable();
 
-      expect(component.control.touched).toBe(true);
-    });
-
-    it('should be touched on blur', async () => {
-      component.select().open();
-      fixture.detectChanges();
-      await fixture.whenStable();
-
-      expect(component.control.touched).toBe(false);
-
-      (fixture.nativeElement as HTMLElement)
-        .querySelector('sbb-select')!
-        .dispatchEvent(new FocusEvent('blur'));
-
-      expect(component.control.touched).toBe(true);
-    });
-
-    it('should maintain state when detached and reattached to DOM', async () => {
-      // Verify initial state
-      expect(component.select()).toBeDefined();
-      expect(component.select()!.value).toEqual('2');
-      expect(component.control.value).toEqual('2');
-
-      // Select a different option
-      component.select()!.open();
-      fixture.detectChanges();
-
-      (fixture.nativeElement as HTMLElement)
-        .querySelector<SbbOptionElement>('sbb-option[value="3"]')!
-        .click();
-      fixture.detectChanges();
-      await fixture.whenStable();
-
-      expect(component.select()!.value).toEqual('3');
-      expect(component.control.value).toEqual('3');
-
-      // Detach from DOM
-      const sbbSelect = fixture.nativeElement.querySelector('sbb-select');
-
-      expect(fixture.nativeElement.querySelector('.sbb-select-trigger')).toBeDefined();
-
-      sbbSelect.remove();
-
-      expect(fixture.nativeElement.querySelector('sbb-select')).toBeNull();
-      expect(fixture.nativeElement.querySelector('.sbb-select-trigger')).toBeNull();
-
-      // Reattach to DOM
-      document.body.appendChild(sbbSelect);
-      fixture.detectChanges();
-      await fixture.whenStable();
-
-      // Verify state is maintained
-      expect(fixture.nativeElement.querySelector('sbb-select')).toBeDefined();
-      expect(fixture.nativeElement.querySelector('.sbb-select-trigger')).toBeDefined();
-      expect(component.select()).toBeDefined();
-      expect(component.select()!.value).toEqual('3');
-      expect(component.control.value).toEqual('3');
-      expect(component.select()!.getDisplayValue()).toEqual('Option 3');
+        expect(component.select().value).toEqual(component.values[2]);
+        expect(component.options().find((o) => o.value === component.values[2])!.selected).toBe(
+          true,
+        );
+        expect(component.control().value()).toEqual(component.values[2]);
+        expect(component.select().getDisplayValue()).toEqual('Option 3 (test 3)');
+      });
     });
   });
 
-  describe('multiple', () => {
-    let fixture: ComponentFixture<TestComponentMultiple>, component: TestComponentMultiple;
+  describe('reactive forms', () => {
+    describe('single', () => {
+      let fixture: ComponentFixture<TestComponent>, component: TestComponent;
 
-    beforeEach(async () => {
-      fixture = TestBed.createComponent(TestComponentMultiple);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
+      beforeEach(async () => {
+        fixture = TestBed.createComponent(TestComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
+
+      it('should create', async () => {
+        expect(component).toBeDefined();
+        expect(component.select().value).toEqual('2');
+        expect(component.select().getDisplayValue()).toEqual('Option 2');
+        expect(component.options().find((o) => o.value === '2')!.selected).toBe(true);
+      });
+
+      it('should select an option', async () => {
+        component.select()!.open();
+        fixture.detectChanges();
+
+        (fixture.nativeElement as HTMLElement)
+          .querySelector<SbbOptionElement>('sbb-option[value="1"]')!
+          .click();
+        fixture.detectChanges();
+
+        expect(component.select().value).toEqual('1');
+        expect(component.options().find((o) => o.value === '1')!.selected).toBe(true);
+        expect(component.control.value).toEqual('1');
+      });
+
+      it('should react to form control change', async () => {
+        component.select().open();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        component.control.setValue('1');
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.select().value).toEqual('1');
+        expect(component.options().find((o) => o.value === '1')!.selected).toBe(true);
+        expect(component.control.value).toEqual('1');
+      });
+
+      it('should be touched on close', async () => {
+        component.select().open();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.control.touched).toBe(false);
+
+        component.select().close();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.control.touched).toBe(true);
+      });
+
+      it('should be touched on blur', async () => {
+        component.select().open();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.control.touched).toBe(false);
+
+        (fixture.nativeElement as HTMLElement)
+          .querySelector('sbb-select')!
+          .dispatchEvent(new FocusEvent('blur'));
+
+        expect(component.control.touched).toBe(true);
+      });
+
+      it('should maintain state when detached and reattached to DOM', async () => {
+        // Verify initial state
+        expect(component.select()).toBeDefined();
+        expect(component.select()!.value).toEqual('2');
+        expect(component.control.value).toEqual('2');
+
+        // Select a different option
+        component.select()!.open();
+        fixture.detectChanges();
+
+        (fixture.nativeElement as HTMLElement)
+          .querySelector<SbbOptionElement>('sbb-option[value="3"]')!
+          .click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.select()!.value).toEqual('3');
+        expect(component.control.value).toEqual('3');
+
+        // Detach from DOM
+        const sbbSelect = fixture.nativeElement.querySelector('sbb-select');
+
+        expect(fixture.nativeElement.querySelector('.sbb-select-trigger')).toBeDefined();
+
+        sbbSelect.remove();
+
+        expect(fixture.nativeElement.querySelector('sbb-select')).toBeNull();
+        expect(fixture.nativeElement.querySelector('.sbb-select-trigger')).toBeNull();
+
+        // Reattach to DOM
+        document.body.appendChild(sbbSelect);
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        // Verify state is maintained
+        expect(fixture.nativeElement.querySelector('sbb-select')).toBeDefined();
+        expect(fixture.nativeElement.querySelector('.sbb-select-trigger')).toBeDefined();
+        expect(component.select()).toBeDefined();
+        expect(component.select()!.value).toEqual('3');
+        expect(component.control.value).toEqual('3');
+        expect(component.select()!.getDisplayValue()).toEqual('Option 3');
+      });
     });
 
-    it('should handle multiple initialization', async () => {
-      fixture.detectChanges();
-      await fixture.whenStable();
-      expect(component.select().value).toEqual(['1', '2']);
-      expect(component.options().filter((o) => o.selected).length).toBe(2);
+    describe('multiple', () => {
+      let fixture: ComponentFixture<TestComponentMultiple>, component: TestComponentMultiple;
 
-      component.select().open();
-      fixture.detectChanges();
+      beforeEach(async () => {
+        fixture = TestBed.createComponent(TestComponentMultiple);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
 
-      (fixture.nativeElement as HTMLElement)
-        .querySelector<SbbOptionElement>('sbb-option[value="1"]')!
-        .click();
-      fixture.detectChanges();
+      it('should handle multiple initialization', async () => {
+        fixture.detectChanges();
+        await fixture.whenStable();
+        expect(component.select().value).toEqual(['1', '2']);
+        expect(component.options().filter((o) => o.selected).length).toBe(2);
 
-      expect(component.select().value).toEqual(['2']);
-      expect(component.control.value).toEqual(['2']);
-    });
-  });
+        component.select().open();
+        fixture.detectChanges();
 
-  describe('with complex value', () => {
-    let fixture: ComponentFixture<TestComponentComplexValue>, component: TestComponentComplexValue;
+        (fixture.nativeElement as HTMLElement)
+          .querySelector<SbbOptionElement>('sbb-option[value="1"]')!
+          .click();
+        fixture.detectChanges();
 
-    beforeEach(async () => {
-      fixture = TestBed.createComponent(TestComponentComplexValue);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    });
-
-    it('should create', async () => {
-      expect(component).toBeDefined();
-      expect(component.select().value).toEqual(component.values[1]);
-      expect(component.select().getDisplayValue()).toEqual('Option 2 (test 2)');
+        expect(component.select().value).toEqual(['2']);
+        expect(component.control.value).toEqual(['2']);
+      });
     });
 
-    it('should select an option', async () => {
-      component.select()!.open();
-      fixture.detectChanges();
+    describe('with complex value', () => {
+      let fixture: ComponentFixture<TestComponentComplexValue>,
+        component: TestComponentComplexValue;
 
-      const option1 = (fixture.nativeElement as HTMLElement).querySelector<SbbOptionElement>(
-        'sbb-option',
-      )!;
+      beforeEach(async () => {
+        fixture = TestBed.createComponent(TestComponentComplexValue);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
 
-      option1.click();
-      fixture.detectChanges();
-      await fixture.whenStable();
+      it('should create', async () => {
+        expect(component).toBeDefined();
+        expect(component.select().value).toEqual(component.values[1]);
+        expect(component.select().getDisplayValue()).toEqual('Option 2 (test 2)');
+      });
 
-      expect(component.select().value).toEqual(component.values[0]);
-      expect(component.options().find((o) => o.value === component.values[0])!.selected).toBe(true);
-      expect(component.control.value).toEqual(component.values[0]);
-      expect(component.select().getDisplayValue()).toEqual('Option 1 (test 1)');
-    });
+      it('should select an option', async () => {
+        component.select()!.open();
+        fixture.detectChanges();
 
-    it('should react to form control change', async () => {
-      component.select().open();
-      fixture.detectChanges();
-      await fixture.whenStable();
+        const option1 = (fixture.nativeElement as HTMLElement).querySelector<SbbOptionElement>(
+          'sbb-option',
+        )!;
 
-      component.control.setValue(component.values[2]);
-      fixture.detectChanges();
-      await fixture.whenStable();
+        option1.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
 
-      expect(component.select().value).toEqual(component.values[2]);
-      expect(component.options().find((o) => o.value === component.values[2])!.selected).toBe(true);
-      expect(component.control.value).toEqual(component.values[2]);
-      expect(component.select().getDisplayValue()).toEqual('Option 3 (test 3)');
+        expect(component.select().value).toEqual(component.values[0]);
+        expect(component.options().find((o) => o.value === component.values[0])!.selected).toBe(
+          true,
+        );
+        expect(component.control.value).toEqual(component.values[0]);
+        expect(component.select().getDisplayValue()).toEqual('Option 1 (test 1)');
+      });
+
+      it('should react to form control change', async () => {
+        component.select().open();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        component.control.setValue(component.values[2]);
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.select().value).toEqual(component.values[2]);
+        expect(component.options().find((o) => o.value === component.values[2])!.selected).toBe(
+          true,
+        );
+        expect(component.control.value).toEqual(component.values[2]);
+        expect(component.select().getDisplayValue()).toEqual('Option 3 (test 3)');
+      });
     });
   });
 });
+
+@Component({
+  template: `<sbb-select [formField]="control">
+    @for (opt of [1, 2, 3]; track opt) {
+      <sbb-option value="{{ opt }}">Option {{ opt }}</sbb-option>
+    }
+  </sbb-select>`,
+  imports: [SbbSelectModule, FormField],
+})
+class SignalTestComponent {
+  select = viewChild.required(SbbSelect);
+  options = viewChildren(SbbOption);
+  control = form(signal('2'));
+}
+
+@Component({
+  template: `<sbb-select [formField]="control" multiple>
+    @for (opt of [1, 2, 3]; track opt) {
+      <sbb-option value="{{ opt }}">Option {{ opt }}</sbb-option>
+    }
+  </sbb-select>`,
+  imports: [SbbSelectModule, FormField],
+})
+class TestComponentMultipleSignalForms {
+  select = viewChild.required(SbbSelect);
+  options = viewChildren(SbbOption);
+  control = form(signal(['1', '2']));
+}
+
+@Component({
+  template: `<sbb-select [formField]="control">
+    @for (opt of values; track opt) {
+      <sbb-option [value]="opt">{{ opt.property }} ({{ opt.otherProperty }})</sbb-option>
+    }
+  </sbb-select>`,
+  imports: [SbbSelectModule, FormField],
+})
+class TestComponentComplexValueSignalForms {
+  values = [
+    { property: 'Option 1', otherProperty: 'test 1' },
+    { property: 'Option 2', otherProperty: 'test 2' },
+    { property: 'Option 3', otherProperty: 'test 3' },
+  ];
+  select: Signal<SbbSelect<(typeof this.values)[0]>> = viewChild.required(SbbSelect);
+  options: Signal<readonly SbbOption<(typeof this.values)[0]>[]> = viewChildren(SbbOption);
+  control = form(signal(this.values[1]));
+}
 
 @Component({
   template: `<sbb-select [formControl]="control">

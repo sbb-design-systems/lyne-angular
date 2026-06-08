@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbIconSidebarLinkElement } from '@sbb-esta/lyne-elements/icon-sidebar.js';
-
-import '@sbb-esta/lyne-elements/icon-sidebar.js';
+import { SbbIconSidebarLinkElement } from '@sbb-esta/lyne-elements/icon-sidebar.pure.js';
 
 /**
  * Link to be placed inside `sbb-icon-sidebar`.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/icon-sidebar.js';
   exportAs: 'sbbIconSidebarLink',
 })
 export class SbbIconSidebarLink {
+  static {
+    SbbIconSidebarLinkElement.define();
+  }
+
   #element: ElementRef<SbbIconSidebarLinkElement> = inject(ElementRef<SbbIconSidebarLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 

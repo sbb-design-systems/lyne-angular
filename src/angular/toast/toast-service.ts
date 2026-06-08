@@ -1,6 +1,5 @@
 import type { ComponentType } from '@angular/cdk/overlay';
-import type { TemplateRef } from '@angular/core';
-import { inject, Injectable } from '@angular/core';
+import { inject, Service, type TemplateRef } from '@angular/core';
 import type { SbbOverlayConfig } from '@sbb-esta/lyne-angular/core/overlay';
 import { SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core/overlay';
 
@@ -9,7 +8,7 @@ import type { SbbToast } from './toast';
 import { SbbToastContainer } from './toast-container';
 import { SbbToastRef } from './toast-ref';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class SbbToastService extends SbbOverlayBaseService<
   SbbToastContainer,
   SbbToast,

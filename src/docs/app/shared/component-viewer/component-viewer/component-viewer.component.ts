@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SbbTabsModule } from '@sbb-esta/lyne-angular/tabs';
@@ -10,7 +10,6 @@ import { map } from 'rxjs';
   templateUrl: './component-viewer.component.html',
   styleUrls: ['./component-viewer.component.scss'],
   imports: [SbbTabsModule, RouterLink, RouterOutlet, RouterLinkActive, SbbTitle],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentViewerComponent {
   protected sections: string[] = ['Overview', 'API', 'Examples'];

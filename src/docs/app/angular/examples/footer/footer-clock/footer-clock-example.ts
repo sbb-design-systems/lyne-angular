@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbClockModule } from '@sbb-esta/lyne-angular/clock';
 import { SbbDividerModule } from '@sbb-esta/lyne-angular/divider';
@@ -22,6 +22,5 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbClockModule,
     SbbTitleModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterClockExample {}

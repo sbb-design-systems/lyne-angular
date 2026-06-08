@@ -33,7 +33,8 @@ import { SbbCell, SbbCellDef, SbbColumnDef, SbbHeaderCell, SbbHeaderCellDef } fr
   // the bindings in this template will be evaluated _after_ the table's view is evaluated, which
   // mean's the template in the table's view will not have the updated value (and in fact will cause
   // an ExpressionChangedAfterItHasBeenCheckedError).
-  changeDetection: ChangeDetectionStrategy.Default,
+  // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [SbbColumnDef, SbbHeaderCellDef, SbbHeaderCell, SbbCellDef, SbbCell],
 })
 export class SbbTextColumn<T> extends CdkTextColumn<T> implements OnInit {

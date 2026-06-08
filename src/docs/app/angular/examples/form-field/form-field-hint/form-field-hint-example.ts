@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
@@ -9,6 +9,5 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
   selector: 'sbb-form-field-hint-example',
   templateUrl: 'form-field-hint-example.html',
   imports: [SbbFormFieldModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormFieldHintExample {}

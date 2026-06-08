@@ -1,129 +1,332 @@
 import type { ElementRef, Signal } from '@angular/core';
-import { Component, viewChild } from '@angular/core';
+import { Component, signal, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { form, FormField } from '@angular/forms/signals';
 import { SbbAutocomplete } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import { SbbOption } from '@sbb-esta/lyne-angular/option';
-import type { SbbChipInputTokenEndEvent, SbbChipElement } from '@sbb-esta/lyne-elements/chip.js';
+import type {
+  SbbChipInputTokenEndEvent,
+  SbbChipElement,
+} from '@sbb-esta/lyne-elements/chip.pure.js';
 
 import { SbbChipGroup } from './chip-group';
 
 describe('sbb-chip-group', () => {
-  describe('with string value', () => {
-    let fixture: ComponentFixture<TestComponent>, component: TestComponent;
+  describe('signal forms', () => {
+    describe('with string value', () => {
+      let fixture: ComponentFixture<SignalTestComponent>, component: SignalTestComponent;
 
-    beforeEach(async () => {
-      fixture = TestBed.createComponent(TestComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
+      beforeEach(async () => {
+        fixture = TestBed.createComponent(SignalTestComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
+
+      it('should create', async () => {
+        expect(component).toBeDefined();
+
+        const nativeElement = fixture.nativeElement as HTMLElement;
+        const input = nativeElement.querySelector('input')!;
+
+        // Simulate user typing in the input
+        input.value = 'Option';
+        input.dispatchEvent(new InputEvent('input'));
+        fixture.detectChanges();
+        await fixture.whenStable();
+        await new Promise((resolve) => setTimeout(resolve, 0));
+
+        // Select an option from the autocomplete
+        nativeElement.querySelector('sbb-option')!.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.control().value()).toEqual(['chip 1', 'Option A']);
+      });
+
+      it('should be touched on blur', async () => {
+        expect(component.control().touched()).toBe(false);
+
+        (fixture.nativeElement as HTMLElement)
+          .querySelector('sbb-chip-group')!
+          .dispatchEvent(new FocusEvent('focusout'));
+
+        expect(component.control().touched()).toBe(true);
+      });
     });
 
-    it('should create', async () => {
-      expect(component).toBeDefined();
+    describe('with complex value', () => {
+      let fixture: ComponentFixture<SignalTestComponentWithComplexValue>,
+        component: SignalTestComponentWithComplexValue,
+        input: HTMLInputElement;
 
-      const nativeElement = fixture.nativeElement as HTMLElement;
-      const input = nativeElement.querySelector('input')!;
+      beforeEach(async () => {
+        fixture = TestBed.createComponent(SignalTestComponentWithComplexValue);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+        await new Promise((resolve) => setTimeout(resolve, 0));
 
-      // Simulate user typing in the input
-      input.value = 'Option';
-      input.dispatchEvent(new InputEvent('input'));
-      fixture.detectChanges();
-      await fixture.whenStable();
-      await new Promise((resolve) => setTimeout(resolve, 0));
+        input = fixture.nativeElement.querySelector('input')!;
 
-      // Select an option from the autocomplete
-      nativeElement.querySelector('sbb-option')!.click();
-      fixture.detectChanges();
-      await fixture.whenStable();
+        expect(component).toBeDefined();
+      });
 
-      expect(component.control.value).toEqual(['chip 1', 'Option A']);
-    });
+      it('should select from autocomplete', async () => {
+        const nativeElement = fixture.nativeElement as HTMLElement;
 
-    it('should be touched on blur', async () => {
-      expect(component.control.touched).toBe(false);
+        // Simulate user typing in the input
+        input.value = 'Lemon';
+        input.dispatchEvent(new InputEvent('input'));
+        fixture.detectChanges();
+        await fixture.whenStable();
+        await new Promise((resolve) => setTimeout(resolve, 0));
 
-      (fixture.nativeElement as HTMLElement)
-        .querySelector('sbb-chip-group')!
-        .dispatchEvent(new FocusEvent('focusout'));
+        // Select an option from the autocomplete
+        nativeElement.querySelector('sbb-option')!.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+        await new Promise((resolve) => setTimeout(resolve, 0));
 
-      expect(component.control.touched).toBe(true);
+        expect(component.favoriteFruits().value().length).toBe(1);
+        expect(component.chipGroup().value!.length).toBe(1);
+        expect(component.favoriteFruits().value()).contains(component.availableFruits[0]);
+      });
+
+      it('should create from user input', async () => {
+        // Simulate user typing in the input
+        input.value = 'Lemon';
+        input.dispatchEvent(new InputEvent('input'));
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+        fixture.detectChanges();
+        await fixture.whenStable();
+        await new Promise((resolve) => setTimeout(resolve, 0));
+
+        expect(component.favoriteFruits().value().length).toBe(1);
+        expect(component.chipGroup().value!.length).toBe(1);
+        expect(component.favoriteFruits().value()).contains(component.availableFruits[0]);
+      });
+
+      it('should handle deletion', async () => {
+        component.favoriteFruits().value.set(component.availableFruits);
+        await fixture.whenStable();
+        expect(component.favoriteFruits().value().length).toBe(3);
+        expect(component.chipGroup().value!.length).toBe(3);
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const chipToDelete = (fixture.nativeElement as HTMLElement).querySelector<
+          SbbChipElement<Fruit>
+        >('sbb-chip')!;
+        chipToDelete.focus();
+        chipToDelete.dispatchEvent(
+          new KeyboardEvent('keydown', { key: 'Backspace', bubbles: true, composed: true }),
+        );
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.favoriteFruits().value().length).toBe(2);
+        expect(component.chipGroup().value!.length).toBe(2);
+      });
     });
   });
 
-  describe('with complex value', () => {
-    let fixture: ComponentFixture<TestComponentWithComplexValue>,
-      component: TestComponentWithComplexValue,
-      input: HTMLInputElement;
+  describe('reactive forms', () => {
+    describe('with string value', () => {
+      let fixture: ComponentFixture<ReactiveTestComponent>, component: ReactiveTestComponent;
 
-    beforeEach(async () => {
-      fixture = TestBed.createComponent(TestComponentWithComplexValue);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-      await new Promise((resolve) => setTimeout(resolve, 0));
+      beforeEach(async () => {
+        fixture = TestBed.createComponent(ReactiveTestComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+      });
 
-      input = fixture.nativeElement.querySelector('input')!;
+      it('should create', async () => {
+        expect(component).toBeDefined();
 
-      expect(component).toBeDefined();
+        const nativeElement = fixture.nativeElement as HTMLElement;
+        const input = nativeElement.querySelector('input')!;
+
+        // Simulate user typing in the input
+        input.value = 'Option';
+        input.dispatchEvent(new InputEvent('input'));
+        fixture.detectChanges();
+        await fixture.whenStable();
+        await new Promise((resolve) => setTimeout(resolve, 0));
+
+        // Select an option from the autocomplete
+        nativeElement.querySelector('sbb-option')!.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.control.value).toEqual(['chip 1', 'Option A']);
+      });
+
+      it('should be touched on blur', async () => {
+        expect(component.control.touched).toBe(false);
+
+        (fixture.nativeElement as HTMLElement)
+          .querySelector('sbb-chip-group')!
+          .dispatchEvent(new FocusEvent('focusout'));
+
+        expect(component.control.touched).toBe(true);
+      });
     });
 
-    it('should select from autocomplete', async () => {
-      const nativeElement = fixture.nativeElement as HTMLElement;
+    describe('with complex value', () => {
+      let fixture: ComponentFixture<TestComponentWithComplexValue>,
+        component: TestComponentWithComplexValue,
+        input: HTMLInputElement;
 
-      // Simulate user typing in the input
-      input.value = 'Lemon';
-      input.dispatchEvent(new InputEvent('input'));
-      fixture.detectChanges();
-      await fixture.whenStable();
-      await new Promise((resolve) => setTimeout(resolve, 0));
+      beforeEach(async () => {
+        fixture = TestBed.createComponent(TestComponentWithComplexValue);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+        await new Promise((resolve) => setTimeout(resolve, 0));
 
-      // Select an option from the autocomplete
-      nativeElement.querySelector('sbb-option')!.click();
-      fixture.detectChanges();
-      await fixture.whenStable();
-      await new Promise((resolve) => setTimeout(resolve, 0));
+        input = fixture.nativeElement.querySelector('input')!;
 
-      expect(component.favoriteFruits.value.length).toBe(1);
-      expect(component.chipGroup().value!.length).toBe(1);
-      expect(component.favoriteFruits.value).toEqual([{ name: 'Lemon', color: 'yellow' }]);
-    });
+        expect(component).toBeDefined();
+      });
 
-    it('should create from user input', async () => {
-      // Simulate user typing in the input
-      input.value = 'Lemon';
-      input.dispatchEvent(new InputEvent('input'));
-      input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
-      fixture.detectChanges();
-      await fixture.whenStable();
-      await new Promise((resolve) => setTimeout(resolve, 0));
+      it('should select from autocomplete', async () => {
+        const nativeElement = fixture.nativeElement as HTMLElement;
 
-      expect(component.favoriteFruits.value.length).toBe(1);
-      expect(component.chipGroup().value!.length).toBe(1);
-      expect(component.favoriteFruits.value).toEqual([{ name: 'Lemon', color: 'yellow' }]);
-    });
+        // Simulate user typing in the input
+        input.value = 'Lemon';
+        input.dispatchEvent(new InputEvent('input'));
+        fixture.detectChanges();
+        await fixture.whenStable();
+        await new Promise((resolve) => setTimeout(resolve, 0));
 
-    it('should handle deletion', async () => {
-      component.favoriteFruits.setValue(component.availableFruits);
-      expect(component.favoriteFruits.value.length).toBe(3);
-      expect(component.chipGroup().value!.length).toBe(3);
-      fixture.detectChanges();
-      await fixture.whenStable();
+        // Select an option from the autocomplete
+        nativeElement.querySelector('sbb-option')!.click();
+        fixture.detectChanges();
+        await fixture.whenStable();
+        await new Promise((resolve) => setTimeout(resolve, 0));
 
-      const chipToDelete = (fixture.nativeElement as HTMLElement).querySelector<
-        SbbChipElement<Fruit>
-      >('sbb-chip')!;
-      chipToDelete.focus();
-      chipToDelete.dispatchEvent(
-        new KeyboardEvent('keydown', { key: 'Backspace', bubbles: true, composed: true }),
-      );
-      fixture.detectChanges();
-      await fixture.whenStable();
+        expect(component.favoriteFruits.value.length).toBe(1);
+        expect(component.chipGroup().value!.length).toBe(1);
+        expect(component.favoriteFruits.value).contains(component.availableFruits[0]);
+      });
 
-      expect(component.favoriteFruits.value.length).toBe(2);
-      expect(component.chipGroup().value!.length).toBe(2);
+      it('should create from user input', async () => {
+        // Simulate user typing in the input
+        input.value = 'Lemon';
+        input.dispatchEvent(new InputEvent('input'));
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+        fixture.detectChanges();
+        await fixture.whenStable();
+        await new Promise((resolve) => setTimeout(resolve, 0));
+
+        expect(component.favoriteFruits.value.length).toBe(1);
+        expect(component.chipGroup().value!.length).toBe(1);
+        expect(component.favoriteFruits.value).contains(component.availableFruits[0]);
+      });
+
+      it('should handle deletion', async () => {
+        component.favoriteFruits.setValue(component.availableFruits);
+        expect(component.favoriteFruits.value.length).toBe(3);
+        expect(component.chipGroup().value!.length).toBe(3);
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const chipToDelete = (fixture.nativeElement as HTMLElement).querySelector<
+          SbbChipElement<Fruit>
+        >('sbb-chip')!;
+        chipToDelete.focus();
+        chipToDelete.dispatchEvent(
+          new KeyboardEvent('keydown', { key: 'Backspace', bubbles: true, composed: true }),
+        );
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        expect(component.favoriteFruits.value.length).toBe(2);
+        expect(component.chipGroup().value!.length).toBe(2);
+      });
     });
   });
 });
+
+@Component({
+  template: `<sbb-form-field>
+    <label for="input">Label</label>
+    <sbb-chip-group [formField]="control">
+      <input id="input" placeholder="Placeholder" />
+    </sbb-chip-group>
+    <sbb-autocomplete>
+      <sbb-option value="Option A">Option A</sbb-option>
+      <sbb-option value="Option B">Option B</sbb-option>
+    </sbb-autocomplete>
+  </sbb-form-field>`,
+  imports: [SbbChipGroup, SbbFormField, FormField, SbbAutocomplete, SbbOption],
+})
+class SignalTestComponent {
+  control = form(signal(['chip 1']));
+}
+
+@Component({
+  template: `<sbb-form-field>
+    <label for="input">Favorite fruits</label>
+    <sbb-chip-group
+      [formField]="favoriteFruits"
+      (chipInputTokenEnd)="add($event)"
+      [displayWith]="formatFruit"
+    >
+      <input id="input" #input />
+    </sbb-chip-group>
+    <sbb-autocomplete>
+      @for (fruit of remainingFruits; track fruit) {
+        <sbb-option [value]="fruit">{{ formatFruit(fruit) }}</sbb-option>
+      }
+    </sbb-autocomplete>
+  </sbb-form-field>`,
+  imports: [SbbChipGroup, SbbFormField, FormField, SbbAutocomplete, SbbOption],
+})
+export class SignalTestComponentWithComplexValue {
+  readonly availableFruits: Fruit[] = [
+    { name: 'Lemon', color: 'yellow' },
+    { name: 'Lime', color: 'green' },
+    { name: 'Apple', color: 'red' },
+  ];
+
+  chipGroup: Signal<SbbChipGroup<Fruit>> = viewChild.required(SbbChipGroup);
+  input: Signal<ElementRef<HTMLInputElement>> = viewChild.required('input');
+
+  favoriteFruits = form(signal<Fruit[]>([]));
+  get remainingFruits() {
+    return this.availableFruits.filter((fruit) => !this.favoriteFruits().value()!.includes(fruit));
+  }
+
+  add(chipTokenEndEvent: SbbChipInputTokenEndEvent<Fruit | string>): void {
+    if (
+      chipTokenEndEvent.origin === 'autocomplete' ||
+      typeof chipTokenEndEvent.value !== 'string'
+    ) {
+      return;
+    }
+    chipTokenEndEvent.preventDefault();
+
+    const value = (chipTokenEndEvent.value ?? '').trim();
+
+    if (!value) {
+      return;
+    }
+    const foundFruit = this.availableFruits.find(
+      (fruit) => fruit.name.toUpperCase() === value.toUpperCase(),
+    );
+
+    if (foundFruit) {
+      this.favoriteFruits().value.set([...this.favoriteFruits().value(), foundFruit]);
+      // Clear input
+      this.input().nativeElement.value = '';
+    }
+  }
+
+  formatFruit = (value: Fruit): string => {
+    return `${value.name} (${value.color})`;
+  };
+}
 
 @Component({
   template: `<sbb-form-field>
@@ -138,7 +341,7 @@ describe('sbb-chip-group', () => {
   </sbb-form-field>`,
   imports: [SbbChipGroup, SbbFormField, ReactiveFormsModule, SbbAutocomplete, SbbOption],
 })
-class TestComponent {
+class ReactiveTestComponent {
   control = new FormControl(['chip 1']);
 }
 

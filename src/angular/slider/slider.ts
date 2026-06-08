@@ -10,10 +10,8 @@ import {
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import type { SbbSliderElement } from '@sbb-esta/lyne-elements/slider.js';
+import { SbbSliderElement } from '@sbb-esta/lyne-elements/slider.pure.js';
 import { fromEvent } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/slider.js';
 
 /**
  * It displays an input knob that can be moved in a range.
@@ -25,7 +23,7 @@ import '@sbb-esta/lyne-elements/slider.js';
   selector: 'sbb-slider',
   exportAs: 'sbbSlider',
   host: {
-    '(change)': 'this.onChangeFn(this.value)',
+    '(input)': 'this.onChangeFn(this.value)',
     '(blur)': 'this.onTouchedFn()',
   },
   providers: [
@@ -37,6 +35,10 @@ import '@sbb-esta/lyne-elements/slider.js';
   ],
 })
 export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
+  static {
+    SbbSliderElement.define();
+  }
+
   #element: ElementRef<SbbSliderElement> = inject(ElementRef<SbbSliderElement>);
   #ngZone: NgZone = inject(NgZone);
 

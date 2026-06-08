@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbTimetableOccupancyModule } from '@sbb-esta/lyne-angular/timetable-occupancy';
 
 /**
@@ -8,6 +8,5 @@ import { SbbTimetableOccupancyModule } from '@sbb-esta/lyne-angular/timetable-oc
   selector: 'sbb-timetable-occupancy-basic-example',
   templateUrl: 'timetable-occupancy-basic-example.html',
   imports: [SbbTimetableOccupancyModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimetableOccupancyBasicExample {}

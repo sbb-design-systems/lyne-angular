@@ -1,106 +1,185 @@
-import { Component, viewChild } from '@angular/core';
+import { Component, signal, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag.js';
+import { form, FormField } from '@angular/forms/signals';
+import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag.pure.js';
 
 import { SbbTag } from './tag';
 
 describe(`sbb-tag`, () => {
-  let fixture: ComponentFixture<TestComponent>,
-    component: TestComponent,
-    lyneElement: SbbTagElement;
+  describe('signal forms', () => {
+    let fixture: ComponentFixture<SignalTestComponent>,
+      component: SignalTestComponent,
+      lyneElement: SbbTagElement;
 
-  beforeEach(async () => {
-    fixture = TestBed.createComponent(TestComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-    lyneElement = (fixture.nativeElement as HTMLElement).querySelector('sbb-tag')!;
+    beforeEach(async () => {
+      fixture = TestBed.createComponent(SignalTestComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+      lyneElement = (fixture.nativeElement as HTMLElement).querySelector('sbb-tag')!;
+    });
+
+    it('should create', async () => {
+      expect(component).toBeDefined();
+      expect(component.checkbox().checked).toBe(false);
+    });
+
+    it('should be checked', async () => {
+      component.control().value.set(true);
+      await fixture.whenStable();
+
+      expect(component.checkbox().checked).toBe(true);
+    });
+
+    it('should uncheck', async () => {
+      component.control().value.set(true);
+      await fixture.whenStable();
+      expect(component.checkbox().checked).toBe(true);
+
+      component.control().value.set(false);
+      await fixture.whenStable();
+      expect(component.checkbox().checked).toBe(false);
+    });
+
+    it('should check by click and update form control', async () => {
+      lyneElement.focus();
+      lyneElement.click();
+
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      expect(component.checkbox().checked).toBe(true);
+      expect(component.control().value()).toBe(true);
+    });
+
+    it('should be unchecked by click', async () => {
+      component.control().value.set(true);
+      await fixture.whenStable();
+
+      lyneElement.click();
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      expect(component.checkbox().checked).toBe(false);
+      expect(component.control().value()).toBe(false);
+    });
+
+    it('should be touched', async () => {
+      lyneElement.dispatchEvent(new FocusEvent('blur'));
+
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      expect(component.control().touched()).toBe(true);
+    });
   });
 
-  it('should create', async () => {
-    expect(component).toBeDefined();
-  });
+  describe('reactive forms', () => {
+    let fixture: ComponentFixture<ReactiveTestComponent>,
+      component: ReactiveTestComponent,
+      lyneElement: SbbTagElement;
 
-  it('should not be checked', async () => {
-    expect(component.checkbox().checked).toBe(false);
-  });
+    beforeEach(async () => {
+      fixture = TestBed.createComponent(ReactiveTestComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+      lyneElement = (fixture.nativeElement as HTMLElement).querySelector('sbb-tag')!;
+    });
 
-  it('should be checked', async () => {
-    component.control.setValue(true);
+    it('should create', async () => {
+      expect(component).toBeDefined();
+    });
 
-    expect(component.checkbox().checked).toBe(true);
-  });
+    it('should not be checked', async () => {
+      expect(component.checkbox().checked).toBe(false);
+    });
 
-  it('should uncheck', async () => {
-    component.control.setValue(true);
-    expect(component.checkbox().checked).toBe(true);
+    it('should be checked', async () => {
+      component.control.setValue(true);
 
-    component.control.setValue(false);
-    expect(component.checkbox().checked).toBe(false);
-  });
+      expect(component.checkbox().checked).toBe(true);
+    });
 
-  it('should check by click and update touched and dirty', async () => {
-    expect(component.control.touched).toBe(false);
-    expect(component.control.dirty).toBe(false);
+    it('should uncheck', async () => {
+      component.control.setValue(true);
+      expect(component.checkbox().checked).toBe(true);
 
-    lyneElement.focus();
-    lyneElement.click();
+      component.control.setValue(false);
+      expect(component.checkbox().checked).toBe(false);
+    });
 
-    fixture.detectChanges();
-    await fixture.whenStable();
+    it('should check by click and update touched and dirty', async () => {
+      expect(component.control.touched).toBe(false);
+      expect(component.control.dirty).toBe(false);
 
-    expect(component.checkbox().checked).toBe(true);
-    expect(component.control.value).toBe(true);
+      lyneElement.focus();
+      lyneElement.click();
 
-    // Simulate click away from checkbox
-    lyneElement.dispatchEvent(new FocusEvent('blur'));
+      fixture.detectChanges();
+      await fixture.whenStable();
 
-    fixture.detectChanges();
-    await fixture.whenStable();
+      expect(component.checkbox().checked).toBe(true);
+      expect(component.control.value).toBe(true);
 
-    expect(component.control.dirty).toBe(true);
-    expect(component.control.touched).toBe(true);
-  });
+      // Simulate click away from checkbox
+      lyneElement.dispatchEvent(new FocusEvent('blur'));
 
-  it('should be unchecked by click', async () => {
-    component.control.setValue(true);
+      fixture.detectChanges();
+      await fixture.whenStable();
 
-    lyneElement.click();
-    fixture.detectChanges();
-    await fixture.whenStable();
+      expect(component.control.dirty).toBe(true);
+      expect(component.control.touched).toBe(true);
+    });
 
-    expect(component.checkbox().checked).toBe(false);
-    expect(component.control.value).toBe(false);
-  });
+    it('should be unchecked by click', async () => {
+      component.control.setValue(true);
 
-  it('should handle disabled', async () => {
-    component.control.disable();
-    expect(component.checkbox().disabled).toBe(true);
+      lyneElement.click();
+      fixture.detectChanges();
+      await fixture.whenStable();
 
-    component.control.enable();
-    expect(component.checkbox().disabled).toBe(false);
-  });
+      expect(component.checkbox().checked).toBe(false);
+      expect(component.control.value).toBe(false);
+    });
 
-  it('should handle validation', async () => {
-    component.control.addValidators(Validators.requiredTrue);
-    component.control.setValue(false);
-    fixture.detectChanges();
-    await fixture.whenStable();
-    expect(lyneElement.classList.contains('ng-invalid')).toBe(true);
+    it('should handle disabled', async () => {
+      component.control.disable();
+      expect(component.checkbox().disabled).toBe(true);
 
-    lyneElement.click();
-    fixture.detectChanges();
-    await fixture.whenStable();
+      component.control.enable();
+      expect(component.checkbox().disabled).toBe(false);
+    });
 
-    expect(lyneElement.classList.contains('ng-valid')).toBe(true);
+    it('should handle validation', async () => {
+      component.control.addValidators(Validators.requiredTrue);
+      component.control.setValue(false);
+      fixture.detectChanges();
+      await fixture.whenStable();
+      expect(lyneElement.classList.contains('ng-invalid')).toBe(true);
+
+      lyneElement.click();
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      expect(lyneElement.classList.contains('ng-valid')).toBe(true);
+    });
   });
 });
+
+@Component({
+  template: `<sbb-tag [formField]="control">Tag</sbb-tag>`,
+  imports: [SbbTag, FormField],
+})
+class SignalTestComponent {
+  control = form(signal(false));
+  checkbox = viewChild.required(SbbTag);
+}
 
 @Component({
   template: `<sbb-tag [formControl]="control">Tag</sbb-tag>`,
   imports: [SbbTag, ReactiveFormsModule],
 })
-class TestComponent {
+class ReactiveTestComponent {
   control = new FormControl(false);
   checkbox = viewChild.required(SbbTag);
 }

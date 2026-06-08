@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
@@ -9,7 +8,6 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 @Component({
   selector: 'sbb-form-field-native-select-example',
   templateUrl: 'form-field-native-select-example.html',
-  imports: [ReactiveFormsModule, SbbFormFieldModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [SbbFormFieldModule],
 })
 export class FormFieldNativeSelectExample {}

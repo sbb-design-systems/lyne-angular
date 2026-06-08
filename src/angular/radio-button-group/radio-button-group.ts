@@ -11,12 +11,10 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core.js';
-import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.js';
-import type { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button-panel.js';
-import type { SbbRadioButtonElement } from '@sbb-esta/lyne-elements/radio-button.js';
+import { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.pure.js';
+import type { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button-panel.pure.js';
+import type { SbbRadioButtonElement } from '@sbb-esta/lyne-elements/radio-button.pure.js';
 import { fromEvent } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/radio-button-group.js';
 
 /**
  * It can be used as a container for radio button elements.
@@ -40,6 +38,10 @@ import '@sbb-esta/lyne-elements/radio-button-group.js';
   ],
 })
 export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixin(class {}) {
+  static {
+    SbbRadioButtonGroupElement.define();
+  }
+
   #element: ElementRef<SbbRadioButtonGroupElement<T>> = inject(
     ElementRef<SbbRadioButtonGroupElement<T>>,
   );

@@ -1,9 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute, SbbDeferredAnimation } from '@sbb-esta/lyne-angular/core';
-import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.js';
-import type { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button-panel.js';
-
-import '@sbb-esta/lyne-elements/radio-button-panel.js';
+import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.pure.js';
+import { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button-panel.pure.js';
 
 /**
  * It displays a radio button enhanced with the panel design.
@@ -19,6 +17,10 @@ import '@sbb-esta/lyne-elements/radio-button-panel.js';
   hostDirectives: [SbbDeferredAnimation],
 })
 export class SbbRadioButtonPanel<T = string> {
+  static {
+    SbbRadioButtonPanelElement.define();
+  }
+
   #element: ElementRef<SbbRadioButtonPanelElement<T>> = inject(
     ElementRef<SbbRadioButtonPanelElement<T>>,
   );

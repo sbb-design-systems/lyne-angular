@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, NgZone, Injectable } from '@angular/core';
+import { inject, NgZone, Service } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import stackblitz from '@stackblitz/sdk';
 import type { Observable } from 'rxjs';
@@ -45,7 +45,7 @@ type FileDictionary = Record<string, string>;
 /**
  * StackBlitz writer, write example files to StackBlitz.
  */
-@Injectable({ providedIn: 'root' })
+@Service()
 export class StackBlitzWriter {
   #http: HttpClient = inject(HttpClient);
   #ngZone: NgZone = inject(NgZone);
@@ -72,7 +72,6 @@ export class StackBlitzWriter {
         this.#openStackBlitz({
           files,
           title: `SBB Lyne Angular Library - ${data.description}`,
-          // TODO: the definitive app endpoint must be updated once deployed.
           description: `${data.description}\n\nAuto-generated from: https://lyne-angular.app.sbb.ch`,
           openFile: exampleMainFile,
         });

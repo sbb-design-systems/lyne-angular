@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbTrainModule } from '@sbb-esta/lyne-angular/train';
 
 /**
@@ -8,6 +8,5 @@ import { SbbTrainModule } from '@sbb-esta/lyne-angular/train';
   selector: 'sbb-train-basic-example',
   templateUrl: 'train-basic-example.html',
   imports: [SbbTrainModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrainBasicExample {}

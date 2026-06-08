@@ -1,10 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbNavigationElement } from '@sbb-esta/lyne-elements/navigation.js';
+import { SbbNavigationElement } from '@sbb-esta/lyne-elements/navigation.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/navigation.js';
 
 /**
  * It displays a navigation menu, wrapping one or more `sbb-navigation-*` components.
@@ -17,6 +15,10 @@ import '@sbb-esta/lyne-elements/navigation.js';
   exportAs: 'sbbNavigation',
 })
 export class SbbNavigation {
+  static {
+    SbbNavigationElement.define();
+  }
+
   #element: ElementRef<SbbNavigationElement> = inject(ElementRef<SbbNavigationElement>);
   #ngZone: NgZone = inject(NgZone);
 
