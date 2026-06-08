@@ -107,9 +107,6 @@ export class SbbCalendar<T = Date> extends SbbControlValueAccessorMixin(class {}
     return this.#element.nativeElement.value;
   }
 
-  // public valueSig = input();
-  // public aa = computed()
-
   /**
    * A function used to filter out dates.
    */
