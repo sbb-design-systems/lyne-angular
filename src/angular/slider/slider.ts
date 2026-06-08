@@ -23,7 +23,7 @@ import { fromEvent } from 'rxjs';
   selector: 'sbb-slider',
   exportAs: 'sbbSlider',
   host: {
-    '(change)': 'this.onChangeFn(this.value)',
+    '(input)': 'this.onChangeFn(this.value)',
     '(blur)': 'this.onTouchedFn()',
   },
   providers: [
