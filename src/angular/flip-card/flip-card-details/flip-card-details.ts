@@ -1,6 +1,5 @@
 import { Directive } from '@angular/core';
-
-import '@sbb-esta/lyne-elements/flip-card.js';
+import { SbbFlipCardDetailsElement } from '@sbb-esta/lyne-elements/flip-card.pure.js';
 
 /**
  * Combined with a `sbb-flip-card`, it displays its content when the card is flipped.
@@ -11,4 +10,8 @@ import '@sbb-esta/lyne-elements/flip-card.js';
   selector: 'sbb-flip-card-details',
   exportAs: 'sbbFlipCardDetails',
 })
-export class SbbFlipCardDetails {}
+export class SbbFlipCardDetails {
+  static {
+    SbbFlipCardDetailsElement.define();
+  }
+}

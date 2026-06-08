@@ -1,9 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
-import type { SbbTitleElement } from '@sbb-esta/lyne-elements/title.js';
-
-import '@sbb-esta/lyne-elements/title.js';
+import { SbbTitleElement } from '@sbb-esta/lyne-elements/title.pure.js';
 
 /**
  *
@@ -15,6 +13,10 @@ import '@sbb-esta/lyne-elements/title.js';
   exportAs: 'sbbTitle',
 })
 export class SbbTitle {
+  static {
+    SbbTitleElement.define();
+  }
+
   #element: ElementRef<SbbTitleElement> = inject(ElementRef<SbbTitleElement>);
   #ngZone: NgZone = inject(NgZone);
 

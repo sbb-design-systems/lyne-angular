@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbBlockLinkStaticElement } from '@sbb-esta/lyne-elements/link.js';
-
-import '@sbb-esta/lyne-elements/link.js';
+import { SbbBlockLinkStaticElement } from '@sbb-esta/lyne-elements/link.pure.js';
 
 /**
  * It displays a static link enhanced with the SBB Design.
@@ -15,6 +13,10 @@ import '@sbb-esta/lyne-elements/link.js';
   exportAs: 'sbbBlockLinkStatic',
 })
 export class SbbBlockLinkStatic {
+  static {
+    SbbBlockLinkStaticElement.define();
+  }
+
   #element: ElementRef<SbbBlockLinkStaticElement> = inject(ElementRef<SbbBlockLinkStaticElement>);
   #ngZone: NgZone = inject(NgZone);
 

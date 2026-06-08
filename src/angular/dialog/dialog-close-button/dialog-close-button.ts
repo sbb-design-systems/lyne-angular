@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbDialogCloseButtonElement } from '@sbb-esta/lyne-elements/dialog.js';
-
-import '@sbb-esta/lyne-elements/dialog.js';
+import { SbbDialogCloseButtonElement } from '@sbb-esta/lyne-elements/dialog.pure.js';
 
 /**
  * Dialog close button, intended to be placed inside sbb-dialog.
@@ -16,6 +14,10 @@ import '@sbb-esta/lyne-elements/dialog.js';
   exportAs: 'sbbDialogCloseButton',
 })
 export class SbbDialogCloseButton {
+  static {
+    SbbDialogCloseButtonElement.define();
+  }
+
   #element: ElementRef<SbbDialogCloseButtonElement> = inject(
     ElementRef<SbbDialogCloseButtonElement>,
   );

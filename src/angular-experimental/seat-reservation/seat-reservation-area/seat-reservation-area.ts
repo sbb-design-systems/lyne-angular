@@ -1,7 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbSeatReservationAreaElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
-
-import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
+import { SbbSeatReservationAreaElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation.pure.js';
 
 /**
  * Visualize an area with a special meaning within a wagon.
@@ -11,6 +9,10 @@ import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
   exportAs: 'sbbSeatReservationArea',
 })
 export class SbbSeatReservationArea {
+  static {
+    SbbSeatReservationAreaElement.define();
+  }
+
   #element: ElementRef<SbbSeatReservationAreaElement> = inject(
     ElementRef<SbbSeatReservationAreaElement>,
   );

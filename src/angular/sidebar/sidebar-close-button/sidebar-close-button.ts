@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbSidebarCloseButtonElement } from '@sbb-esta/lyne-elements/sidebar.js';
-
-import '@sbb-esta/lyne-elements/sidebar.js';
+import { SbbSidebarCloseButtonElement } from '@sbb-esta/lyne-elements/sidebar.pure.js';
 
 /**
  * Sidebar close button, intended to be placed inside sbb-sidebar.
@@ -16,6 +14,10 @@ import '@sbb-esta/lyne-elements/sidebar.js';
   exportAs: 'sbbSidebarCloseButton',
 })
 export class SbbSidebarCloseButton {
+  static {
+    SbbSidebarCloseButtonElement.define();
+  }
+
   #element: ElementRef<SbbSidebarCloseButtonElement> = inject(
     ElementRef<SbbSidebarCloseButtonElement>,
   );

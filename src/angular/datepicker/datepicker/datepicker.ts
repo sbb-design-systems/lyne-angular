@@ -1,13 +1,11 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbDateSelectedEvent } from '@sbb-esta/lyne-elements/calendar.js';
-import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
-import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.js';
-import type { SbbPopoverCloseEvent } from '@sbb-esta/lyne-elements/popover.js';
+import type { SbbDateSelectedEvent } from '@sbb-esta/lyne-elements/calendar.pure.js';
+import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.pure.js';
+import { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.pure.js';
+import type { SbbPopoverCloseEvent } from '@sbb-esta/lyne-elements/popover.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/datepicker.js';
 
 /**
  * A datepicker component that allows users to select a date from a calendar view.
@@ -17,6 +15,10 @@ import '@sbb-esta/lyne-elements/datepicker.js';
   exportAs: 'sbbDatepicker',
 })
 export class SbbDatepicker<T = Date> {
+  static {
+    SbbDatepickerElement.define();
+  }
+
   #element: ElementRef<SbbDatepickerElement<T>> = inject(ElementRef<SbbDatepickerElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 

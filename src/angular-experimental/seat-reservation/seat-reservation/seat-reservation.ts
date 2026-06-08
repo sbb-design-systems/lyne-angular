@@ -10,15 +10,13 @@ import {
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type {
-  SbbSeatReservationElement,
   SeatReservation,
   SbbSeatReservationSelectedPlacesEvent,
   SbbSeatReservationSelectedCoachEvent,
   TravelDirection,
-} from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
+} from '@sbb-esta/lyne-elements-experimental/seat-reservation.pure.js';
+import { SbbSeatReservationElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation.pure.js';
 import { fromEvent } from 'rxjs';
-
-import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 
 /**
  * Main component for the seat reservation.
@@ -28,6 +26,10 @@ import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
   exportAs: 'sbbSeatReservation',
 })
 export class SbbSeatReservation {
+  static {
+    SbbSeatReservationElement.define();
+  }
+
   #element: ElementRef<SbbSeatReservationElement> = inject(ElementRef<SbbSeatReservationElement>);
   #ngZone: NgZone = inject(NgZone);
 

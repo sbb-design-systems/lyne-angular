@@ -1,8 +1,6 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbPopoverCloseButtonElement } from '@sbb-esta/lyne-elements/popover.js';
-
-import '@sbb-esta/lyne-elements/popover.js';
+import { SbbPopoverCloseButtonElement } from '@sbb-esta/lyne-elements/popover.pure.js';
 
 /**
  * Popover close button, intended to be placed inside sbb-popover.
@@ -16,6 +14,10 @@ import '@sbb-esta/lyne-elements/popover.js';
   exportAs: 'sbbPopoverCloseButton',
 })
 export class SbbPopoverCloseButton {
+  static {
+    SbbPopoverCloseButtonElement.define();
+  }
+
   #element: ElementRef<SbbPopoverCloseButtonElement> = inject(
     ElementRef<SbbPopoverCloseButtonElement>,
   );

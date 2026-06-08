@@ -4,7 +4,7 @@ import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
-import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.js';
+import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.pure.js';
 
 /**
  * @title Basic form-field

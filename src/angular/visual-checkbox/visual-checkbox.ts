@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbVisualCheckboxElement } from '@sbb-esta/lyne-elements/visual-checkbox.js';
-
-import '@sbb-esta/lyne-elements/visual-checkbox.js';
+import { SbbVisualCheckboxElement } from '@sbb-esta/lyne-elements/visual-checkbox.pure.js';
 
 /**
  * It visually displays a non-interactive checkbox.
@@ -12,6 +10,10 @@ import '@sbb-esta/lyne-elements/visual-checkbox.js';
   exportAs: 'sbbVisualCheckbox',
 })
 export class SbbVisualCheckbox {
+  static {
+    SbbVisualCheckboxElement.define();
+  }
+
   #element: ElementRef<SbbVisualCheckboxElement> = inject(ElementRef<SbbVisualCheckboxElement>);
   #ngZone: NgZone = inject(NgZone);
 

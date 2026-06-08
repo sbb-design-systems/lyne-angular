@@ -10,13 +10,11 @@ import {
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type {
-  SbbCalendarElement,
   SbbDateSelectedEvent,
   SbbMonthChangeEvent,
-} from '@sbb-esta/lyne-elements/calendar.js';
+} from '@sbb-esta/lyne-elements/calendar.pure.js';
+import { SbbCalendarElement } from '@sbb-esta/lyne-elements/calendar.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/calendar.js';
 
 /**
  * It displays a calendar which allows choosing a date.
@@ -28,6 +26,10 @@ import '@sbb-esta/lyne-elements/calendar.js';
   exportAs: 'sbbCalendar',
 })
 export class SbbCalendar<T = Date> {
+  static {
+    SbbCalendarElement.define();
+  }
+
   #element: ElementRef<SbbCalendarElement<T>> = inject(ElementRef<SbbCalendarElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 

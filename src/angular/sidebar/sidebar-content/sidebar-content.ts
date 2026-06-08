@@ -1,6 +1,5 @@
 import { Directive } from '@angular/core';
-
-import '@sbb-esta/lyne-elements/sidebar.js';
+import { SbbSidebarContentElement } from '@sbb-esta/lyne-elements/sidebar.pure.js';
 
 /**
  * Container for the sidebar content. Intended to be placed inside an `sbb-sidebar-container` element.
@@ -11,4 +10,8 @@ import '@sbb-esta/lyne-elements/sidebar.js';
   selector: 'sbb-sidebar-content',
   exportAs: 'sbbSidebarContent',
 })
-export class SbbSidebarContent {}
+export class SbbSidebarContent {
+  static {
+    SbbSidebarContentElement.define();
+  }
+}

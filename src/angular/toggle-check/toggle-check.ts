@@ -14,9 +14,7 @@ import {
   SbbControlValueAccessorMixin,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
-
-import '@sbb-esta/lyne-elements/toggle-check.js';
+import { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.pure.js';
 
 /**
  * It displays a toggle checkbox.
@@ -43,6 +41,10 @@ export class SbbToggleCheck<T = string>
   extends SbbControlValueAccessorMixin(class {})
   implements AfterViewInit
 {
+  static {
+    SbbToggleCheckElement.define();
+  }
+
   #element: ElementRef<SbbToggleCheckElement<T>> = inject(ElementRef<SbbToggleCheckElement<T>>);
   #ngZone: NgZone = inject(NgZone);
   #focusMonitor = inject(FocusMonitor);

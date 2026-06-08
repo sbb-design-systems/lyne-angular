@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbHeaderLinkElement } from '@sbb-esta/lyne-elements/header.js';
-
-import '@sbb-esta/lyne-elements/header.js';
+import { SbbHeaderLinkElement } from '@sbb-esta/lyne-elements/header.pure.js';
 
 /**
  * It displays a link element that can be used in the `sbb-header` component.
@@ -15,6 +13,10 @@ import '@sbb-esta/lyne-elements/header.js';
   exportAs: 'sbbHeaderLink',
 })
 export class SbbHeaderLink {
+  static {
+    SbbHeaderLinkElement.define();
+  }
+
   #element: ElementRef<SbbHeaderLinkElement> = inject(ElementRef<SbbHeaderLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 

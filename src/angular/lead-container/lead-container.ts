@@ -1,6 +1,5 @@
 import { Directive } from '@angular/core';
-
-import '@sbb-esta/lyne-elements/lead-container.js';
+import { SbbLeadContainerElement } from '@sbb-esta/lyne-elements/lead-container.pure.js';
 
 /**
  * The `sbb-lead-container` can be used for product pages to display a lead image and following content.
@@ -12,4 +11,8 @@ import '@sbb-esta/lyne-elements/lead-container.js';
   selector: 'sbb-lead-container',
   exportAs: 'sbbLeadContainer',
 })
-export class SbbLeadContainer {}
+export class SbbLeadContainer {
+  static {
+    SbbLeadContainerElement.define();
+  }
+}

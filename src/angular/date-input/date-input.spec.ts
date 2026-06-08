@@ -3,7 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core.js';
-import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
+import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.pure.js';
 
 import { SbbDateInput } from './date-input';
 

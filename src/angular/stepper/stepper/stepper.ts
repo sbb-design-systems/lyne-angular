@@ -2,14 +2,12 @@ import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@a
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core.js';
-import type {
-  SbbStepElement,
-  SbbStepChangeEvent,
+import {
+  type SbbStepElement,
+  type SbbStepChangeEvent,
   SbbStepperElement,
-} from '@sbb-esta/lyne-elements/stepper.js';
+} from '@sbb-esta/lyne-elements/stepper.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/stepper.js';
 
 /**
  * Provides a structured, step-by-step workflow for user interactions.
@@ -23,6 +21,10 @@ import '@sbb-esta/lyne-elements/stepper.js';
   exportAs: 'sbbStepper',
 })
 export class SbbStepper {
+  static {
+    SbbStepperElement.define();
+  }
+
   #element: ElementRef<SbbStepperElement> = inject(ElementRef<SbbStepperElement>);
   #ngZone: NgZone = inject(NgZone);
 

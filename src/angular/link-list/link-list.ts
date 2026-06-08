@@ -1,9 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbHorizontalFrom, SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
-import type { SbbLinkListElement } from '@sbb-esta/lyne-elements/link-list.js';
-
-import '@sbb-esta/lyne-elements/link-list.js';
+import { SbbLinkListElement } from '@sbb-esta/lyne-elements/link-list.pure.js';
 
 /**
  * It displays a list of `sbb-block-link`.
@@ -16,6 +14,10 @@ import '@sbb-esta/lyne-elements/link-list.js';
   exportAs: 'sbbLinkList',
 })
 export class SbbLinkList {
+  static {
+    SbbLinkListElement.define();
+  }
+
   #element: ElementRef<SbbLinkListElement> = inject(ElementRef<SbbLinkListElement>);
   #ngZone: NgZone = inject(NgZone);
 

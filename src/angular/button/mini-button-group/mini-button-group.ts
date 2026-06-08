@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbMiniButtonGroupElement } from '@sbb-esta/lyne-elements/button.js';
-
-import '@sbb-esta/lyne-elements/button.js';
+import { SbbMiniButtonGroupElement } from '@sbb-esta/lyne-elements/button.pure.js';
 
 /**
  * Display a list of `sbb-mini-button` elements in a horizontal container,
@@ -15,6 +13,10 @@ possibly separated by a `sbb-divider` component.
   exportAs: 'sbbMiniButtonGroup',
 })
 export class SbbMiniButtonGroup {
+  static {
+    SbbMiniButtonGroupElement.define();
+  }
+
   #element: ElementRef<SbbMiniButtonGroupElement> = inject(ElementRef<SbbMiniButtonGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 

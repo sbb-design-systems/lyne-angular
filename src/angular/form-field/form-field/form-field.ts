@@ -13,14 +13,12 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import {
   SbbFormFieldControlEvent,
-  type SbbFormFieldElement,
-} from '@sbb-esta/lyne-elements/form-field.js';
+  SbbFormFieldElement,
+} from '@sbb-esta/lyne-elements/form-field.pure.js';
 import { of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 
 import { SbbFormFieldControl } from './form-field-control';
-
-import '@sbb-esta/lyne-elements/form-field.js';
 
 /**
  * It wraps an input element adding label, errors, icon, etc.
@@ -39,6 +37,10 @@ import '@sbb-esta/lyne-elements/form-field.js';
   exportAs: 'sbbFormField',
 })
 export class SbbFormField {
+  static {
+    SbbFormFieldElement.define();
+  }
+
   #element: ElementRef<SbbFormFieldElement> = inject(ElementRef<SbbFormFieldElement>);
   #ngZone: NgZone = inject(NgZone);
   #environmentInjector = inject(EnvironmentInjector);

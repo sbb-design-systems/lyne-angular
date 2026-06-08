@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.js';
-
-import '@sbb-esta/lyne-elements/divider.js';
+import { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.pure.js';
 
 /**
  * Displays a divider between sections.
@@ -12,6 +10,10 @@ import '@sbb-esta/lyne-elements/divider.js';
   exportAs: 'sbbDivider',
 })
 export class SbbDivider {
+  static {
+    SbbDividerElement.define();
+  }
+
   #element: ElementRef<SbbDividerElement> = inject(ElementRef<SbbDividerElement>);
   #ngZone: NgZone = inject(NgZone);
 

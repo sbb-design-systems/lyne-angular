@@ -1,6 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { SbbSeatReservationModule } from '@sbb-esta/lyne-angular-experimental/seat-reservation';
-import type { SeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
+import type { SeatReservation } from '@sbb-esta/lyne-elements-experimental/seat-reservation.pure.js';
 
 /**
  * @title Multiple Decks Seat Reservation

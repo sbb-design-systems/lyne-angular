@@ -1,9 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core.js';
-import type { SbbTimetableOccupancyElement } from '@sbb-esta/lyne-elements/timetable-occupancy.js';
-
-import '@sbb-esta/lyne-elements/timetable-occupancy.js';
+import { SbbTimetableOccupancyElement } from '@sbb-esta/lyne-elements/timetable-occupancy.pure.js';
 
 /**
  * Used in `sbb-timetable-row`, it displays information about wagon occupancy.
@@ -13,6 +11,10 @@ import '@sbb-esta/lyne-elements/timetable-occupancy.js';
   exportAs: 'sbbTimetableOccupancy',
 })
 export class SbbTimetableOccupancy {
+  static {
+    SbbTimetableOccupancyElement.define();
+  }
+
   #element: ElementRef<SbbTimetableOccupancyElement> = inject(
     ElementRef<SbbTimetableOccupancyElement>,
   );

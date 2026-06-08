@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { nullOnEmptyAttribute } from '@sbb-esta/lyne-angular/core';
-import { assignDialogResult } from '@sbb-esta/lyne-elements/dialog.js';
+import { assignDialogResult } from '@sbb-esta/lyne-elements/dialog.pure.js';
 
 /**
  * Directive to close a dialog. Can be placed on any action element inside the dialog.

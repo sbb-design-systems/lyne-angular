@@ -1,8 +1,6 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbCalendarWeeknumberElement } from '@sbb-esta/lyne-elements/calendar.js';
-
-import '@sbb-esta/lyne-elements/calendar.js';
+import { SbbCalendarWeeknumberElement } from '@sbb-esta/lyne-elements/calendar.pure.js';
 
 /**
  * It displays a single week number cell in the `sbb-calendar` component.
@@ -12,6 +10,10 @@ import '@sbb-esta/lyne-elements/calendar.js';
   exportAs: 'sbbCalendarWeeknumber',
 })
 export class SbbCalendarWeeknumber {
+  static {
+    SbbCalendarWeeknumberElement.define();
+  }
+
   #element: ElementRef<SbbCalendarWeeknumberElement> = inject(
     ElementRef<SbbCalendarWeeknumberElement>,
   );

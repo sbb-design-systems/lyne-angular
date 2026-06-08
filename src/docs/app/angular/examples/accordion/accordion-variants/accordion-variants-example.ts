@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
-import type { SbbAccordionElement } from '@sbb-esta/lyne-elements/accordion.js';
+import type { SbbAccordionElement } from '@sbb-esta/lyne-elements/accordion.pure.js';
 import { map } from 'rxjs/operators';
 
 /**

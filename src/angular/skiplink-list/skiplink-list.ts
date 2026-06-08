@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
-import type { SbbSkiplinkListElement } from '@sbb-esta/lyne-elements/skiplink-list.js';
-
-import '@sbb-esta/lyne-elements/skiplink-list.js';
+import { SbbSkiplinkListElement } from '@sbb-esta/lyne-elements/skiplink-list.pure.js';
 
 /**
  * It displays a list of `sbb-block-link`/`sbb-block-link-button` which are visible only when focused.
@@ -16,6 +14,10 @@ import '@sbb-esta/lyne-elements/skiplink-list.js';
   exportAs: 'sbbSkiplinkList',
 })
 export class SbbSkiplinkList {
+  static {
+    SbbSkiplinkListElement.define();
+  }
+
   #element: ElementRef<SbbSkiplinkListElement> = inject(ElementRef<SbbSkiplinkListElement>);
   #ngZone: NgZone = inject(NgZone);
 

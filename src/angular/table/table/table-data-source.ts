@@ -2,7 +2,7 @@
 import { _isNumberValue } from '@angular/cdk/coercion';
 import { DataSource } from '@angular/cdk/table';
 import type { SbbCompactPaginator, SbbPaginator } from '@sbb-esta/lyne-angular/paginator';
-import type { SbbPaginatorPageEvent } from '@sbb-esta/lyne-elements/paginator.js';
+import type { SbbPaginatorPageEvent } from '@sbb-esta/lyne-elements/paginator.pure.js';
 import type { Observable, Subscription } from 'rxjs';
 import { BehaviorSubject, combineLatest, merge, of as observableOf, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';

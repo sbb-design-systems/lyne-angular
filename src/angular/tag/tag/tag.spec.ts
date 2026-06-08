@@ -1,7 +1,7 @@
 import { Component, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag.js';
+import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag.pure.js';
 
 import { SbbTag } from './tag';
 

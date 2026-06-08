@@ -12,19 +12,17 @@ import {
 } from '@angular/core';
 import { outputFromObservable, takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type {
-  SbbStepLabelElement,
+import {
+  type SbbStepLabelElement,
   SbbStepElement,
-  SbbStepperElement,
-  SbbStepValidateEvent,
-} from '@sbb-esta/lyne-elements/stepper.js';
+  type SbbStepperElement,
+  type SbbStepValidateEvent,
+} from '@sbb-esta/lyne-elements/stepper.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
 import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import type { SbbStepContent } from './step-content';
 import { SBB_STEP_CONTENT } from './step-content';
-
-import '@sbb-esta/lyne-elements/stepper.js';
 
 /**
  * Combined with a `sbb-stepper`, it displays a step's content.
@@ -41,6 +39,10 @@ import '@sbb-esta/lyne-elements/stepper.js';
   `,
 })
 export class SbbStep {
+  static {
+    SbbStepElement.define();
+  }
+
   #element: ElementRef<SbbStepElement> = inject(ElementRef<SbbStepElement>);
   #viewContainerRef = inject(ViewContainerRef);
   #changeDetectorRef = inject(ChangeDetectorRef);
@@ -90,4 +92,14 @@ export class SbbStep {
         this.#changeDetectorRef.markForCheck();
       });
   }
+
+  protected _activeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'active',
+  });
+  /**
+   * The active event is dispatched when a step is activated.
+   */
+  public activeOutput: OutputRef<Event> = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'active'),
+  );
 }

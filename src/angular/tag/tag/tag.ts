@@ -16,10 +16,8 @@ import {
   SbbControlValueAccessorMixin,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbTagElement } from '@sbb-esta/lyne-elements/tag.js';
+import { SbbTagElement } from '@sbb-esta/lyne-elements/tag.pure.js';
 import { fromEvent } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/tag.js';
 
 /**
  * It displays a selectable element which can be used as a filter.
@@ -47,6 +45,10 @@ export class SbbTag<T = string>
   extends SbbControlValueAccessorMixin(class {})
   implements AfterViewInit
 {
+  static {
+    SbbTagElement.define();
+  }
+
   #element: ElementRef<SbbTagElement<T>> = inject(ElementRef<SbbTagElement<T>>);
   #ngZone: NgZone = inject(NgZone);
   #focusMonitor = inject(FocusMonitor);

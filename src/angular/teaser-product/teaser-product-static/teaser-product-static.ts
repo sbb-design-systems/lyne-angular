@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbTeaserProductStaticElement } from '@sbb-esta/lyne-elements/teaser-product.js';
-
-import '@sbb-esta/lyne-elements/teaser-product.js';
+import { SbbTeaserProductStaticElement } from '@sbb-esta/lyne-elements/teaser-product.pure.js';
 
 /**
  * Displays a text and a footnote, combined with an image, to tease a product.
@@ -18,6 +16,10 @@ import '@sbb-esta/lyne-elements/teaser-product.js';
   exportAs: 'sbbTeaserProductStatic',
 })
 export class SbbTeaserProductStatic {
+  static {
+    SbbTeaserProductStaticElement.define();
+  }
+
   #element: ElementRef<SbbTeaserProductStaticElement> = inject(
     ElementRef<SbbTeaserProductStaticElement>,
   );

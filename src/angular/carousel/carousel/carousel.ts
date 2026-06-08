@@ -1,8 +1,6 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbCarouselElement } from '@sbb-esta/lyne-elements/carousel.js';
-
-import '@sbb-esta/lyne-elements/carousel.js';
+import { SbbCarouselElement } from '@sbb-esta/lyne-elements/carousel.pure.js';
 
 /**
  * It displays a carousel component.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/carousel.js';
   exportAs: 'sbbCarousel',
 })
 export class SbbCarousel {
+  static {
+    SbbCarouselElement.define();
+  }
+
   #element: ElementRef<SbbCarouselElement> = inject(ElementRef<SbbCarouselElement>);
   #ngZone: NgZone = inject(NgZone);
 

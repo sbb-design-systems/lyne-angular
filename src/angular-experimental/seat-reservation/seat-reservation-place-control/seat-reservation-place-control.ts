@@ -13,12 +13,10 @@ import type {
   PlaceState,
   PlaceType,
   SbbPlaceSelectionEvent,
-  SbbSeatReservationPlaceControlElement,
   TravelDirection,
-} from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
+} from '@sbb-esta/lyne-elements-experimental/seat-reservation.pure.js';
+import { SbbSeatReservationPlaceControlElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation.pure.js';
 import { fromEvent } from 'rxjs';
-
-import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 
 /**
  * Output the graphic of a seat or a bicycle place as a control element.
@@ -28,6 +26,10 @@ import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
   exportAs: 'sbbSeatReservationPlaceControl',
 })
 export class SbbSeatReservationPlaceControl {
+  static {
+    SbbSeatReservationPlaceControlElement.define();
+  }
+
   #element: ElementRef<SbbSeatReservationPlaceControlElement> = inject(
     ElementRef<SbbSeatReservationPlaceControlElement>,
   );
