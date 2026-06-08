@@ -16,6 +16,7 @@
     "build": "run-s build:angular build:angular:schematics build:angular-experimental build:docs",
     "test": "npm-run-all --sequential test:*",
     "test:angular": "ng test angular",
+    "test:angular-schematics": "vitest run --config vitest.schematics.config.ts",
     "test:angular-experimental": "ng test angular-experimental",
     "test:docs": "ng test docs",
     "compodoc:run": "run-s compodoc:generate compodoc:api",
