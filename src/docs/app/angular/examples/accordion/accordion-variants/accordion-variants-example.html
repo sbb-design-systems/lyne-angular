@@ -1,7 +1,4 @@
-<sbb-accordion
-  [multi]="controls.multi().value()"
-  [size]="this.controls.smallSize().value() ? 's' : 'l'"
->
+<sbb-accordion [multi]="controls.multi().value()" [size]="controls.smallSize().value() ? 's' : 'l'">
   <sbb-expansion-panel [expanded]="true">
     <sbb-expansion-panel-header [iconName]="controls.iconPanel().value() ? 'pie-small' : ''"
       >First header</sbb-expansion-panel-header

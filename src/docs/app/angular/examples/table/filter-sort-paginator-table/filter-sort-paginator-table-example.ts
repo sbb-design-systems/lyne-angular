@@ -64,13 +64,14 @@ export class FilterSortPaginatorTableExample {
     VEHICLE_EXAMPLE_DATA.map((vehicleExampleItem) => vehicleExampleItem.category),
   );
 
-  #vehicleFilter = signal({
-    _: '',
-    category: [] as string[],
-    name: '',
-    description: '',
-  });
-  protected vehicleFilterForm = form(this.#vehicleFilter);
+  protected vehicleFilterForm = form(
+    signal({
+      _: '',
+      category: [] as string[],
+      name: '',
+      description: '',
+    }),
+  );
 
   protected descriptions = computed(() =>
     this.vehicleFilterForm.description().value().length === 0
@@ -87,7 +88,7 @@ export class FilterSortPaginatorTableExample {
       this.table().dataSource = this.dataSource;
     });
     effect(() => {
-      this.dataSource.filter = this.#vehicleFilter();
+      this.dataSource.filter = this.vehicleFilterForm().value();
     });
   }
 
