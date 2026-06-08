@@ -2,6 +2,9 @@ import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
+import { SbbLinkListAnchorModule } from '@sbb-esta/lyne-angular/link-list-anchor';
+import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 import { marked } from 'marked';
 import { map, switchMap } from 'rxjs/operators';
 
@@ -17,6 +20,8 @@ import { moduleParams } from '../module-params';
   host: {
     '[innerHTML]': 'content()',
   },
+  // Imports used because we use the elements in marked.config
+  imports: [SbbTitleModule, SbbLinkModule, SbbLinkListAnchorModule],
 })
 export class MarkdownViewerComponent {
   #htmlLoader = inject(HtmlLoader);
