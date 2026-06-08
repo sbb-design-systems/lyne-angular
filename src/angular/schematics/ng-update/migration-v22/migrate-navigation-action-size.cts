@@ -39,7 +39,10 @@ export class MigrateNavigationActionSize extends AttributeMigrationBase {
         offset: tagNameEndOffset + attrMatch.index,
         index: nextIndex(),
         length: attrMatch[0].length,
-        log: () => this.logger.info(`    Removed 'size' attribute from \`<${tagName}>\``),
+        log: () =>
+          this.logger.info(
+            `    Removed 'size' attribute from \`<${tagName}>\` as it no longer exists.`,
+          ),
       });
     }
   }

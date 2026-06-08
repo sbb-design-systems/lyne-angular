@@ -19,7 +19,7 @@ const PR_URL = 'https://github.com/sbb-design-systems/lyne-components/pull/4937'
  *
  * 1. `hideCloseButton` present as a static attribute (boolean or `="true"`):
  *    → remove the attribute. The popover will have no close button, which
- *    matches the original intent.
+ *      matches the original intent.
  *
  * 2. `[hideCloseButton]="true"` (bound input with literal `true`):
  *    → same as above; remove the binding.
@@ -29,8 +29,9 @@ const PR_URL = 'https://github.com/sbb-design-systems/lyne-components/pull/4937'
  *
  * 4. No `hideCloseButton` attribute at all:
  *    → the original popover was showing a close button by default; insert
- *    `<sbb-popover-close-button>` as the last child to preserve behaviour.
- *    → also, transfer the 'accessibilityCloseLabel' from the `popover` to the `<sbb-popover-close-button>`
+ *      `<sbb-popover-close-button>` as the first child to preserve behaviour.
+ *    → also, transfer the 'accessibilityCloseLabel' from the `popover`
+ *      to the `aria-label` of the `<sbb-popover-close-button>`
  */
 export class MigratePopoverCloseButton extends AttributeMigrationBase {
   protected override collectEdits(

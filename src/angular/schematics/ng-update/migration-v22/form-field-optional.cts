@@ -18,7 +18,7 @@ export class FormFieldOptionalMigration extends AddCommentBase {
             leadingTriviaChars: [],
           });
           const matches: ResourceMatch[] = [];
-          const commentText = `FIXME: The "optional" attribute on \`<sbb-form-field>\` is not allowed anymore. Check: https://github.com/sbb-design-systems/lyne-components/pull/4931`;
+          const commentText = `FIXME: The "optional" attribute on \`<sbb-form-field>\` is not allowed anymore. Check: https://lyne-angular.app.sbb.ch/angular/components/form-field/overview#visualization-of-coderequiredcode--optional-state and https://github.com/sbb-design-systems/lyne-components/pull/4931`;
 
           visitElements(ast.nodes, (el) => {
             if (el.name !== 'sbb-form-field') {

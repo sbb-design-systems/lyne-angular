@@ -44,7 +44,7 @@ export function handleLeanThemeConfiguration(): Rule {
           const comment = `<!--
   FIXME:
    The legacy \`sbb-lean\` class has been found and removed from the <html> tag, and the default lean theme import has been added.
-   If you want a different one, or an 'off-brand' or 'safety' variant, please check and adapt your \`angular-json\`.
+   If you want a different one, or an 'off-brand' or 'safety' variant, please check and adapt your \`angular.json\`.
 -->`;
 
           if (stripped.length === 0) {
@@ -65,7 +65,7 @@ export function handleLeanThemeConfiguration(): Rule {
 
     context.logger.warn(`
    The legacy \`sbb-lean\` class has been found and removed from the <html> tag, and the default lean theme import has been added.
-   If you want a different one, or an 'off-brand' or 'safety' variant, please check and adapt your \`angular-json\`.
+   If you want a different one, or an 'off-brand' or 'safety' variant, please check and adapt your \`angular.json\`.
 `);
 
     const workspace = await getWorkspace(tree);
