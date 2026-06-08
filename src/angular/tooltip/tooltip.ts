@@ -9,9 +9,8 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbTooltipElement } from '@sbb-esta/lyne-elements/tooltip.js';
+import { SbbTooltipElement } from '@sbb-esta/lyne-elements/tooltip.pure.js';
 import { NEVER, fromEvent } from 'rxjs';
-import '@sbb-esta/lyne-elements/tooltip.js';
 
 /**
  * It displays text content within a tooltip.
@@ -26,6 +25,10 @@ import '@sbb-esta/lyne-elements/tooltip.js';
   exportAs: 'sbbTooltip',
 })
 export class SbbTooltip {
+  static {
+    SbbTooltipElement.define();
+  }
+
   #element: ElementRef<SbbTooltipElement> = inject(ElementRef<SbbTooltipElement>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -1,11 +1,10 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type {
-  SbbAutocompleteGridButtonElement,
   SbbAutocompleteGridOptionElement,
   SbbAutocompleteGridOptgroupElement,
-} from '@sbb-esta/lyne-elements-experimental/autocomplete-grid.js';
-import '@sbb-esta/lyne-elements-experimental/autocomplete-grid.js';
+} from '@sbb-esta/lyne-elements-experimental/autocomplete-grid.pure.js';
+import { SbbAutocompleteGridButtonElement } from '@sbb-esta/lyne-elements-experimental/autocomplete-grid.pure.js';
 
 /**
  * It displays an icon-only button that can be used in `sbb-autocomplete-grid`.
@@ -17,6 +16,10 @@ import '@sbb-esta/lyne-elements-experimental/autocomplete-grid.js';
   exportAs: 'sbbAutocompleteGridButton',
 })
 export class SbbAutocompleteGridButton {
+  static {
+    SbbAutocompleteGridButtonElement.define();
+  }
+
   #element: ElementRef<SbbAutocompleteGridButtonElement> = inject(
     ElementRef<SbbAutocompleteGridButtonElement>,
   );

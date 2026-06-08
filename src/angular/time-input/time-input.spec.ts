@@ -2,7 +2,7 @@ import { Component, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import type { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.js';
+import type { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.pure.js';
 
 import { SbbTimeInput } from './time-input';
 

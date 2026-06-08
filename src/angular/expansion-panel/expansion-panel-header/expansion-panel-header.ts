@@ -1,10 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel.js';
+import { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel.pure.js';
 import { fromEvent } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/expansion-panel.js';
 
 /**
  * It acts as a native `summary` tag for the `sbb-expansion-panel` component.
@@ -17,6 +15,10 @@ import '@sbb-esta/lyne-elements/expansion-panel.js';
   exportAs: 'sbbExpansionPanelHeader',
 })
 export class SbbExpansionPanelHeader {
+  static {
+    SbbExpansionPanelHeaderElement.define();
+  }
+
   #element: ElementRef<SbbExpansionPanelHeaderElement> = inject(
     ElementRef<SbbExpansionPanelHeaderElement>,
   );

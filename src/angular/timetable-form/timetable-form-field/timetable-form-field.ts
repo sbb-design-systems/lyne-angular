@@ -1,8 +1,6 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbTimetableFormFieldElement } from '@sbb-esta/lyne-elements/timetable-form.js';
-
-import '@sbb-esta/lyne-elements/timetable-form.js';
+import { SbbTimetableFormFieldElement } from '@sbb-esta/lyne-elements/timetable-form.pure.js';
 
 /**
  * Extends the `sbb-form-field`. Meant to be used inside a `sbb-timetable-form`.
@@ -21,6 +19,10 @@ import '@sbb-esta/lyne-elements/timetable-form.js';
   exportAs: 'sbbTimetableFormField',
 })
 export class SbbTimetableFormField {
+  static {
+    SbbTimetableFormFieldElement.define();
+  }
+
   #element: ElementRef<SbbTimetableFormFieldElement> = inject(
     ElementRef<SbbTimetableFormFieldElement>,
   );

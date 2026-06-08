@@ -1,8 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core.js';
-import type { SbbTrainWagonLinkElement } from '@sbb-esta/lyne-elements/train.js';
-import '@sbb-esta/lyne-elements/train.js';
+import { SbbTrainWagonLinkElement } from '@sbb-esta/lyne-elements/train.pure.js';
 
 /**
  * It displays a train compartment within a `sbb-train` component and behaves like a link.
@@ -15,6 +14,10 @@ import '@sbb-esta/lyne-elements/train.js';
   exportAs: 'sbbTrainWagonLink',
 })
 export class SbbTrainWagonLink {
+  static {
+    SbbTrainWagonLinkElement.define();
+  }
+
   #element: ElementRef<SbbTrainWagonLinkElement> = inject(ElementRef<SbbTrainWagonLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 

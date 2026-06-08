@@ -1,7 +1,7 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, signal, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import type { SbbDialogCloseEvent } from '@sbb-esta/lyne-elements/dialog.js';
+import type { SbbDialogCloseEvent } from '@sbb-esta/lyne-elements/dialog.pure.js';
 
 import { SbbDialogService } from '../dialog/dialog-service';
 import { SbbDialogModule } from '../dialog.module';

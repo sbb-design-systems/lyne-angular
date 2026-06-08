@@ -2,9 +2,7 @@ import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angul
 import type { AbstractControl, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import type { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.js';
-
-import '@sbb-esta/lyne-elements/time-input.js';
+import { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.pure.js';
 
 /**
  * Custom input for a time.
@@ -24,6 +22,10 @@ import '@sbb-esta/lyne-elements/time-input.js';
   ],
 })
 export class SbbTimeInput extends SbbControlValueAccessorMixin(class {}) implements Validator {
+  static {
+    SbbTimeInputElement.define();
+  }
+
   #element: ElementRef<SbbTimeInputElement> = inject(ElementRef<SbbTimeInputElement>);
   #ngZone: NgZone = inject(NgZone);
   #lastValue: Date | null = null;

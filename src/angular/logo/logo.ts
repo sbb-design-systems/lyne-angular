@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbLogoElement } from '@sbb-esta/lyne-elements/logo.js';
-
-import '@sbb-esta/lyne-elements/logo.js';
+import { SbbLogoElement } from '@sbb-esta/lyne-elements/logo.pure.js';
 
 /**
  * It displays the SBB logo.
@@ -13,6 +11,10 @@ import '@sbb-esta/lyne-elements/logo.js';
   exportAs: 'sbbLogo',
 })
 export class SbbLogo {
+  static {
+    SbbLogoElement.define();
+  }
+
   #element: ElementRef<SbbLogoElement> = inject(ElementRef<SbbLogoElement>);
   #ngZone: NgZone = inject(NgZone);
 

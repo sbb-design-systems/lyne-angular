@@ -14,10 +14,8 @@ import {
   SbbControlValueAccessorMixin,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.js';
-import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox-panel.js';
-
-import '@sbb-esta/lyne-elements/checkbox-panel.js';
+import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.pure.js';
+import { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox-panel.pure.js';
 
 /**
  * It displays a checkbox enhanced with selection panel design.
@@ -46,6 +44,10 @@ export class SbbCheckboxPanel<T = string>
   extends SbbControlValueAccessorMixin(class {})
   implements AfterViewInit
 {
+  static {
+    SbbCheckboxPanelElement.define();
+  }
+
   #element: ElementRef<SbbCheckboxPanelElement<T>> = inject(ElementRef<SbbCheckboxPanelElement<T>>);
   #ngZone: NgZone = inject(NgZone);
   #focusMonitor = inject(FocusMonitor);

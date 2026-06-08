@@ -1,12 +1,10 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type {
-  SbbNavigationButtonElement,
   SbbNavigationMarkerElement,
   SbbNavigationSectionElement,
-} from '@sbb-esta/lyne-elements/navigation.js';
-
-import '@sbb-esta/lyne-elements/navigation.js';
+} from '@sbb-esta/lyne-elements/navigation.pure.js';
+import { SbbNavigationButtonElement } from '@sbb-esta/lyne-elements/navigation.pure.js';
 
 /**
  * It displays a button element that can be used in the `sbb-navigation` component.
@@ -18,6 +16,10 @@ import '@sbb-esta/lyne-elements/navigation.js';
   exportAs: 'sbbNavigationButton',
 })
 export class SbbNavigationButton {
+  static {
+    SbbNavigationButtonElement.define();
+  }
+
   #element: ElementRef<SbbNavigationButtonElement> = inject(ElementRef<SbbNavigationButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 

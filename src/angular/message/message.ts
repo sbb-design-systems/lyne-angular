@@ -1,6 +1,5 @@
 import { Directive } from '@angular/core';
-
-import '@sbb-esta/lyne-elements/message.js';
+import { SbbMessageElement } from '@sbb-esta/lyne-elements/message.pure.js';
 
 /**
  * It displays a complex message combining a title, an image, an action and some content.
@@ -15,4 +14,8 @@ import '@sbb-esta/lyne-elements/message.js';
   selector: 'sbb-message',
   exportAs: 'sbbMessage',
 })
-export class SbbMessage {}
+export class SbbMessage {
+  static {
+    SbbMessageElement.define();
+  }
+}

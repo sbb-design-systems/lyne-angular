@@ -1,6 +1,5 @@
 import { Directive } from '@angular/core';
-
-import '@sbb-esta/lyne-elements/dialog.js';
+import { SbbDialogActionsElement } from '@sbb-esta/lyne-elements/dialog.pure.js';
 
 /**
  * Use this component to display a footer into an `sbb-dialog` with an action group.
@@ -11,4 +10,8 @@ import '@sbb-esta/lyne-elements/dialog.js';
   selector: 'sbb-dialog-actions',
   exportAs: 'sbbDialogActions',
 })
-export class SbbDialogActions {}
+export class SbbDialogActions {
+  static {
+    SbbDialogActionsElement.define();
+  }
+}

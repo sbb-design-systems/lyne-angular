@@ -1,8 +1,6 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbFormFieldTextCounterElement } from '@sbb-esta/lyne-elements/form-field.js';
-
-import '@sbb-esta/lyne-elements/form-field.js';
+import { SbbFormFieldTextCounterElement } from '@sbb-esta/lyne-elements/form-field.pure.js';
 
 /**
  * It displays the remaining characters count for input/textarea elements with a configured
@@ -17,6 +15,10 @@ import '@sbb-esta/lyne-elements/form-field.js';
   exportAs: 'sbbFormFieldTextCounter',
 })
 export class SbbFormFieldTextCounter {
+  static {
+    SbbFormFieldTextCounterElement.define();
+  }
+
   #element: ElementRef<SbbFormFieldTextCounterElement> = inject(
     ElementRef<SbbFormFieldTextCounterElement>,
   );

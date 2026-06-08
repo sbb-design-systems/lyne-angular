@@ -1,13 +1,11 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
-import type {
-  SbbTabGroupElement,
+import {
+  type SbbTabGroupElement,
   SbbTabLabelElement,
-  SbbTabElement,
-} from '@sbb-esta/lyne-elements/tabs.js';
-
-import '@sbb-esta/lyne-elements/tabs.js';
+  type SbbTabElement,
+} from '@sbb-esta/lyne-elements/tabs.pure.js';
 
 /**
  * Combined with a `sbb-tab-group`, it displays a tab's title.
@@ -21,6 +19,10 @@ import '@sbb-esta/lyne-elements/tabs.js';
   exportAs: 'sbbTabLabel',
 })
 export class SbbTabLabel {
+  static {
+    SbbTabLabelElement.define();
+  }
+
   #element: ElementRef<SbbTabLabelElement> = inject(ElementRef<SbbTabLabelElement>);
   #ngZone: NgZone = inject(NgZone);
 

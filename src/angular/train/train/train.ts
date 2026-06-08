@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
-import type { SbbTrainElement } from '@sbb-esta/lyne-elements/train.js';
-
-import '@sbb-esta/lyne-elements/train.js';
+import { SbbTrainElement } from '@sbb-esta/lyne-elements/train.pure.js';
 
 /**
  * It can be used as a container for `sbb-train-wagon` or `sbb-train-blocked-passage` components.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/train.js';
   exportAs: 'sbbTrain',
 })
 export class SbbTrain {
+  static {
+    SbbTrainElement.define();
+  }
+
   #element: ElementRef<SbbTrainElement> = inject(ElementRef<SbbTrainElement>);
   #ngZone: NgZone = inject(NgZone);
 

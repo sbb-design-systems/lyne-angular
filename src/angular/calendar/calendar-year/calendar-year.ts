@@ -1,8 +1,6 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbCalendarYearElement } from '@sbb-esta/lyne-elements/calendar.js';
-
-import '@sbb-esta/lyne-elements/calendar.js';
+import { SbbCalendarYearElement } from '@sbb-esta/lyne-elements/calendar.pure.js';
 
 /**
  * It displays a single year cell in the `sbb-calendar` years view.
@@ -12,6 +10,10 @@ import '@sbb-esta/lyne-elements/calendar.js';
   exportAs: 'sbbCalendarYear',
 })
 export class SbbCalendarYear<T = Date> {
+  static {
+    SbbCalendarYearElement.define();
+  }
+
   #element: ElementRef<SbbCalendarYearElement<T>> = inject(ElementRef<SbbCalendarYearElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 

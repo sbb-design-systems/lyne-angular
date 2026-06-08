@@ -1,9 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
-import type { SbbJourneyHeaderElement } from '@sbb-esta/lyne-elements/journey-header.js';
-
-import '@sbb-esta/lyne-elements/journey-header.js';
+import { SbbJourneyHeaderElement } from '@sbb-esta/lyne-elements/journey-header.pure.js';
 
 /**
  * Combined with the `sbb-journey-summary`, it displays the journey's detail.
@@ -13,6 +11,10 @@ import '@sbb-esta/lyne-elements/journey-header.js';
   exportAs: 'sbbJourneyHeader',
 })
 export class SbbJourneyHeader {
+  static {
+    SbbJourneyHeaderElement.define();
+  }
+
   #element: ElementRef<SbbJourneyHeaderElement> = inject(ElementRef<SbbJourneyHeaderElement>);
   #ngZone: NgZone = inject(NgZone);
 

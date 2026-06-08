@@ -1,10 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option.js';
+import { SbbOptionElement } from '@sbb-esta/lyne-elements/option.pure.js';
 import { fromEvent } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/option.js';
 
 /**
  * It displays on option item which can be used in `sbb-select` or `sbb-autocomplete`.
@@ -18,6 +16,10 @@ import '@sbb-esta/lyne-elements/option.js';
   exportAs: 'sbbOption',
 })
 export class SbbOption<T = string> {
+  static {
+    SbbOptionElement.define();
+  }
+
   #element: ElementRef<SbbOptionElement<T>> = inject(ElementRef<SbbOptionElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 

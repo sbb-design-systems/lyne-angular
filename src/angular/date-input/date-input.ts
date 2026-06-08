@@ -3,9 +3,9 @@ import type { AbstractControl, ValidationErrors, Validator, ValidatorFn } from '
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { readConfig, defaultDateAdapter } from '@sbb-esta/lyne-elements/core.js';
-import type { SbbDateInputAssociated } from '@sbb-esta/lyne-elements/date-input.js';
-import { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
-import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.js';
+import type { SbbDateInputAssociated } from '@sbb-esta/lyne-elements/date-input.pure.js';
+import { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.pure.js';
+import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.pure.js';
 
 /**
  * Custom input for a date.
@@ -29,6 +29,10 @@ export class SbbDateInput<T = Date>
   extends SbbControlValueAccessorMixin(class {})
   implements Validator
 {
+  static {
+    SbbDateInputElement.define();
+  }
+
   /**
    * Attempts to resolve the associated date input with the given element.
    */

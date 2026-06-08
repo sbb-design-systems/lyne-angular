@@ -14,11 +14,9 @@ import {
   internalOutputFromObservable,
   SbbControlValueAccessorMixin,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option.js';
-import type { SbbSelectElement } from '@sbb-esta/lyne-elements/select.js';
+import type { SbbOptionElement } from '@sbb-esta/lyne-elements/option.pure.js';
+import { SbbSelectElement } from '@sbb-esta/lyne-elements/select.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/select.js';
 
 /**
  * It displays a panel with selectable options.
@@ -44,6 +42,10 @@ import '@sbb-esta/lyne-elements/select.js';
   ],
 })
 export class SbbSelect<T = string> extends SbbControlValueAccessorMixin(class {}) {
+  static {
+    SbbSelectElement.define();
+  }
+
   #element: ElementRef<SbbSelectElement<T>> = inject(ElementRef<SbbSelectElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 

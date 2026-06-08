@@ -1,8 +1,6 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbMiniButtonLinkElement } from '@sbb-esta/lyne-elements/button.js';
-
-import '@sbb-esta/lyne-elements/button.js';
+import { SbbMiniButtonLinkElement } from '@sbb-esta/lyne-elements/button.pure.js';
 
 /**
  * It displays an icon-only button enhanced with the SBB Design as link variant;
@@ -16,6 +14,10 @@ it's meant to be used within the `sbb-mini-button-group`.
   exportAs: 'sbbMiniButtonLink',
 })
 export class SbbMiniButtonLink {
+  static {
+    SbbMiniButtonLinkElement.define();
+  }
+
   #element: ElementRef<SbbMiniButtonLinkElement> = inject(ElementRef<SbbMiniButtonLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 

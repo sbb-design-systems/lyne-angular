@@ -1,6 +1,5 @@
 import { Directive } from '@angular/core';
-
-import '@sbb-esta/lyne-elements-experimental/pearl-chain-vertical.js';
+import { SbbPearlChainVerticalElement } from '@sbb-esta/lyne-elements-experimental/pearl-chain-vertical.pure.js';
 
 /**
  * It can be used as a container for the `sbb-pearl-chain-vertical-item` component.
@@ -11,4 +10,8 @@ import '@sbb-esta/lyne-elements-experimental/pearl-chain-vertical.js';
   selector: 'sbb-pearl-chain-vertical',
   exportAs: 'sbbPearlChainVertical',
 })
-export class SbbPearlChainVertical {}
+export class SbbPearlChainVertical {
+  static {
+    SbbPearlChainVerticalElement.define();
+  }
+}

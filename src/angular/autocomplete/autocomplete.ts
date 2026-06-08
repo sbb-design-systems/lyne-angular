@@ -1,12 +1,10 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbAutocompleteElement } from '@sbb-esta/lyne-elements/autocomplete.js';
+import { SbbAutocompleteElement } from '@sbb-esta/lyne-elements/autocomplete.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import type { SbbAutocompleteType } from './autocomplete-type';
-
-import '@sbb-esta/lyne-elements/autocomplete.js';
 
 /**
  * Combined with a native input, it displays a panel with a list of available options.
@@ -20,6 +18,10 @@ import '@sbb-esta/lyne-elements/autocomplete.js';
   exportAs: 'sbbAutocomplete',
 })
 export class SbbAutocomplete<T = string> implements SbbAutocompleteType<T> {
+  static {
+    SbbAutocompleteElement.define();
+  }
+
   #element: ElementRef<SbbAutocompleteElement<T>> = inject(ElementRef<SbbAutocompleteElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -10,10 +10,8 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.js';
-import type { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox.js';
-
-import '@sbb-esta/lyne-elements/checkbox.js';
+import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.pure.js';
+import { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox.pure.js';
 
 /**
  * It displays a checkbox enhanced with the SBB Design.
@@ -39,6 +37,10 @@ export class SbbCheckbox<T = string>
   extends SbbControlValueAccessorMixin(class {})
   implements AfterViewInit
 {
+  static {
+    SbbCheckboxElement.define();
+  }
+
   #element: ElementRef<SbbCheckboxElement<T>> = inject(ElementRef<SbbCheckboxElement<T>>);
   #ngZone: NgZone = inject(NgZone);
   #focusMonitor = inject(FocusMonitor);

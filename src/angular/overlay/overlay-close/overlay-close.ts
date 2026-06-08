@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { nullOnEmptyAttribute } from '@sbb-esta/lyne-angular/core';
-import { assignOverlayResult } from '@sbb-esta/lyne-elements/overlay.js';
+import { assignOverlayResult } from '@sbb-esta/lyne-elements/overlay.pure.js';
 
 /**
  * Directive to close an overlay. Can be placed on any action element inside the overlay.

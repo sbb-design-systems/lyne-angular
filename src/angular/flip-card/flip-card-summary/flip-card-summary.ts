@@ -1,7 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbFlipCardSummaryElement } from '@sbb-esta/lyne-elements/flip-card.js';
-
-import '@sbb-esta/lyne-elements/flip-card.js';
+import { SbbFlipCardSummaryElement } from '@sbb-esta/lyne-elements/flip-card.pure.js';
 
 /**
  * Combined with a `sbb-flip-card`, it displays its content when the card is not flipped.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/flip-card.js';
   exportAs: 'sbbFlipCardSummary',
 })
 export class SbbFlipCardSummary {
+  static {
+    SbbFlipCardSummaryElement.define();
+  }
+
   #element: ElementRef<SbbFlipCardSummaryElement> = inject(ElementRef<SbbFlipCardSummaryElement>);
   #ngZone: NgZone = inject(NgZone);
 

@@ -1,7 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbLoadingIndicatorCircleElement } from '@sbb-esta/lyne-elements/loading-indicator-circle.js';
-
-import '@sbb-esta/lyne-elements/loading-indicator-circle.js';
+import { SbbLoadingIndicatorCircleElement } from '@sbb-esta/lyne-elements/loading-indicator-circle.pure.js';
 
 /**
  * It displays a circle loading indicator.
@@ -11,6 +9,10 @@ import '@sbb-esta/lyne-elements/loading-indicator-circle.js';
   exportAs: 'sbbLoadingIndicatorCircle',
 })
 export class SbbLoadingIndicatorCircle {
+  static {
+    SbbLoadingIndicatorCircleElement.define();
+  }
+
   #element: ElementRef<SbbLoadingIndicatorCircleElement> = inject(
     ElementRef<SbbLoadingIndicatorCircleElement>,
   );

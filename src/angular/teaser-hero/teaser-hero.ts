@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbTeaserHeroElement } from '@sbb-esta/lyne-elements/teaser-hero.js';
-
-import '@sbb-esta/lyne-elements/teaser-hero.js';
+import { SbbTeaserHeroElement } from '@sbb-esta/lyne-elements/teaser-hero.pure.js';
 
 /**
  * It displays an image and an action call within a panel.
@@ -17,6 +15,10 @@ import '@sbb-esta/lyne-elements/teaser-hero.js';
   exportAs: 'sbbTeaserHero',
 })
 export class SbbTeaserHero {
+  static {
+    SbbTeaserHeroElement.define();
+  }
+
   #element: ElementRef<SbbTeaserHeroElement> = inject(ElementRef<SbbTeaserHeroElement>);
   #ngZone: NgZone = inject(NgZone);
 

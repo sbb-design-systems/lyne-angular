@@ -1,11 +1,9 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type {
-  PearlChainVerticalItemAttributes,
+import {
+  type PearlChainVerticalItemAttributes,
   SbbPearlChainVerticalItemElement,
-} from '@sbb-esta/lyne-elements-experimental/pearl-chain-vertical-item.js';
-
-import '@sbb-esta/lyne-elements-experimental/pearl-chain-vertical-item.js';
+} from '@sbb-esta/lyne-elements-experimental/pearl-chain-vertical-item.pure.js';
 
 /**
  * It displays details about connection between stations.
@@ -18,6 +16,10 @@ import '@sbb-esta/lyne-elements-experimental/pearl-chain-vertical-item.js';
   exportAs: 'sbbPearlChainVerticalItem',
 })
 export class SbbPearlChainVerticalItem {
+  static {
+    SbbPearlChainVerticalItemElement.define();
+  }
+
   #element: ElementRef<SbbPearlChainVerticalItemElement> = inject(
     ElementRef<SbbPearlChainVerticalItemElement>,
   );

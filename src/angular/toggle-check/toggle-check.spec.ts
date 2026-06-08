@@ -1,7 +1,7 @@
 import { Component, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
+import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.pure.js';
 
 import { SbbToggleCheck } from './toggle-check';
 

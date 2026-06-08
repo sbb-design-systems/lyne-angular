@@ -1,10 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbAlertElement } from '@sbb-esta/lyne-elements/alert.js';
+import { SbbAlertElement } from '@sbb-esta/lyne-elements/alert.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/alert.js';
 
 /**
  * It displays messages which require user's attention.
@@ -18,6 +16,10 @@ import '@sbb-esta/lyne-elements/alert.js';
   exportAs: 'sbbAlert',
 })
 export class SbbAlert {
+  static {
+    SbbAlertElement.define();
+  }
+
   #element: ElementRef<SbbAlertElement> = inject(ElementRef<SbbAlertElement>);
   #ngZone: NgZone = inject(NgZone);
 
