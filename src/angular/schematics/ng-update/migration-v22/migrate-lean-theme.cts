@@ -45,6 +45,7 @@ export function handleLeanThemeConfiguration(): Rule {
   FIXME:
    The legacy \`sbb-lean\` class has been found and removed from the <html> tag, and the default lean theme import has been added.
    If you want a different one, or an 'off-brand' or 'safety' variant, please check and adapt your \`angular.json\`.
+   Check https://lyne-angular.app.sbb.ch/angular/guides/theming#themes for more details about theming.
 -->`;
 
           if (stripped.length === 0) {
@@ -66,6 +67,7 @@ export function handleLeanThemeConfiguration(): Rule {
     context.logger.warn(`
    The legacy \`sbb-lean\` class has been found and removed from the <html> tag, and the default lean theme import has been added.
    If you want a different one, or an 'off-brand' or 'safety' variant, please check and adapt your \`angular.json\`.
+   Check https://lyne-angular.app.sbb.ch/angular/guides/theming#themes for more details about theming.
 `);
 
     const workspace = await getWorkspace(tree);
@@ -96,7 +98,7 @@ export class LeanClassMigration extends AddCommentBase {
           while ((match = regex.exec(content)) !== null) {
             matches.push({
               index: match.index,
-              commentText: `FIXME: legacy \`sbb-lean\` class detected on this element. Adapt the element styling if necessary.`,
+              commentText: `FIXME: legacy \`sbb-lean\` class detected on this element. Adapt the element styling if necessary and/or check https://lyne-angular.app.sbb.ch/angular/guides/theming#themes.`,
             });
           }
 
