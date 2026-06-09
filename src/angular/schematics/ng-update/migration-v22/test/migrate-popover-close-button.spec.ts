@@ -99,6 +99,33 @@ describe(`sbb-migrate-popover-close-button`, () => {
       const count = (output.match(/<sbb-popover-close-button>/g) ?? []).length;
       expect(count).toBe(1);
     });
+
+    it('stops inserting sbb-popover-close-button because hoverTrigger present', () => {
+      const input = `<sbb-popover hoverTrigger>\n  Content\n</sbb-popover>`;
+      const output = testMigration(MigratePopoverCloseButton, 'html', input);
+      expect(output).not.toContain('<sbb-popover-close-button></sbb-popover-close-button>');
+    });
+
+    it('stops inserting sbb-popover-close-button because hover-trigger present', () => {
+      const input = `<sbb-popover hover-trigger>\n  Content\n</sbb-popover>`;
+      const output = testMigration(MigratePopoverCloseButton, 'html', input);
+      expect(output).not.toContain('<sbb-popover-close-button></sbb-popover-close-button>');
+    });
+
+    it('stops inserting sbb-popover-close-button because [hoverTrigger]="true" present', () => {
+      const input = `<sbb-popover [hoverTrigger]="true">\n  Content\n</sbb-popover>`;
+      const output = testMigration(MigratePopoverCloseButton, 'html', input);
+      expect(output).not.toContain('<sbb-popover-close-button></sbb-popover-close-button>');
+    });
+
+    it('creates comment because [hoverTrigger] value not determinable', () => {
+      const input = `<sbb-popover [hoverTrigger]="foo">\n  Content\n</sbb-popover>`;
+      const output = testMigration(MigratePopoverCloseButton, 'html', input);
+      expect(output).not.toContain('<sbb-popover-close-button></sbb-popover-close-button>');
+      expect(output).toContain(
+        `Conditionally rendered '[hoverTrigger]' on <sbb-popover> has been detected. If evaluated to true, do nothing, if false,conditionally render <sbb-popover-close-button>`,
+      );
+    });
   });
 
   describe('accessibilityCloseLabel transfer', () => {

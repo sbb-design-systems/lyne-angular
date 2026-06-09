@@ -53,6 +53,13 @@ export class MigratePopoverCloseButton extends AttributeMigrationBase {
         return;
       }
 
+      const staticHoverTrigger = el.attributes.find(
+        (a) => a.name === 'hoverTrigger' || a.name === 'hover-trigger',
+      );
+      const boundHoverTrigger = el.inputs.find((i) => i.name === 'hoverTrigger') as
+        | TmplAstBoundAttribute
+        | undefined;
+
       const staticHide = el.attributes.find(
         (a) => a.name === 'hideCloseButton' || a.name === 'hide-close-button',
       );
@@ -101,6 +108,35 @@ export class MigratePopoverCloseButton extends AttributeMigrationBase {
         // Case 4: no hideCloseButton → the close button was shown by default;
         // insert <sbb-popover-close-button> to preserve that behavior.
         if (!el.endSourceSpan) {
+          return;
+        }
+
+        if (
+          staticHoverTrigger ||
+          (boundHoverTrigger &&
+            boundHoverTrigger.valueSpan &&
+            content
+              .slice(
+                boundHoverTrigger.valueSpan.start.offset,
+                boundHoverTrigger.valueSpan.end.offset,
+              )
+              .trim() === 'true')
+        ) {
+          return;
+        }
+
+        if (boundHoverTrigger) {
+          // Case 3: dynamic expression — cannot safely auto-migrate.
+          queueFixmeComment(
+            fullSource,
+            edits,
+            nextIndex(),
+            template,
+            template.start + el.sourceSpan.start.offset,
+            `FIXME: Conditionally rendered '[hoverTrigger]' on <sbb-popover> has been detected. If evaluated to true, do nothing, if false,` +
+              `conditionally render <sbb-popover-close-button>. Check: ${PR_URL}`,
+          );
+
           return;
         }
 
