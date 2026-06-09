@@ -4,7 +4,7 @@ import type { ComponentRef } from '@angular/core';
 import type { SubscriptionLike, Observable } from 'rxjs';
 import { share, Subscription, take, takeUntil } from 'rxjs';
 
-import type { SbbOverlayBaseConfig } from './overlay-config';
+import type { SbbOverlayBaseConfig } from './overlay-config-base';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
 
 /** Possible states of the lifecycle of an overlay. */

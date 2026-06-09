@@ -6,6 +6,6 @@ export * from './deferred-animation';
 export * from './internal-output-from-observable';
 export * from './overlay/focus-initial';
 export * from './overlay/overlay-base';
-export * from './overlay/overlay-config';
+export * from './overlay/overlay-config-base';
 export * from './overlay/overlay-container-base';
 export * from './overlay/overlay-base-ref';

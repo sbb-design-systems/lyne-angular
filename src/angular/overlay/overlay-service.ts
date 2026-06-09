@@ -3,7 +3,7 @@ import { inject, Service, type TemplateRef } from '@angular/core';
 import { SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core';
 
 import type { SbbOverlay } from './overlay';
-import type { SbbOverlayConfig } from './overlay-config';
+import { SbbOverlayConfig } from './overlay-config';
 import { SbbOverlayContainer } from './overlay-container';
 import { SbbOverlayRef } from './overlay-ref';
 
@@ -15,7 +15,8 @@ export class SbbOverlayService extends SbbOverlayBaseService<
 > {
   protected parentService = inject(SbbOverlayService, { optional: true, skipSelf: true });
   protected containerType = SbbOverlayContainer;
-  protected overlayRefConstructor = SbbOverlayRef;
+  protected refConstructor = SbbOverlayRef;
+  protected configType = SbbOverlayConfig;
 
   public override open<T = unknown, R = unknown>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,

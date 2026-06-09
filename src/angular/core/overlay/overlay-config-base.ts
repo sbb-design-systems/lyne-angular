@@ -29,7 +29,7 @@ export class SbbOverlayBaseConfig<C extends SbbOverlayContainerBase, I = unknown
     | StaticProvider[]
     | ((
         overlayRef: SbbOverlayBaseRef,
-        config: SbbOverlayBaseConfig<C, I>,
+        config: SbbOverlayBaseConfig<C, I, D>,
         container: C,
       ) => StaticProvider[]);
 
