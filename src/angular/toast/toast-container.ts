@@ -32,7 +32,7 @@ import { SbbToastConfig } from './toast-config';
 })
 export class SbbToastContainer extends SbbOverlayContainerBase<SbbToast> {
   readonly _config: SbbToastConfig<SbbToastContainer> =
-    inject(SbbToastConfig, { optional: true }) || {};
+    inject(SbbToastConfig<SbbToastContainer>, { optional: true }) || {};
 
   /** The portal outlet inside of this container into which the dialog content will be loaded. */
   public elementInstance = inject(SbbToast);

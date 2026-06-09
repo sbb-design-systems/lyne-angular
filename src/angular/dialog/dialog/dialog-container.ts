@@ -33,7 +33,7 @@ import { SbbDialogConfig } from './dialog-config';
 })
 export class SbbDialogContainer extends SbbOverlayContainerBase<SbbDialog> {
   readonly _config: SbbDialogConfig<SbbDialogContainer> =
-    inject(SbbDialogConfig, { optional: true }) || {};
+    inject(SbbDialogConfig<SbbDialogContainer>, { optional: true }) || {};
 
   /** The portal outlet inside of this container into which the dialog content will be loaded. */
   public elementInstance = inject(SbbDialog)!;
