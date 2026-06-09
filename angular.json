@@ -27,6 +27,10 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "defaultConfiguration": "browser",
+          "options": {
+            "tsConfig": "src/angular/tsconfig.spec.json",
+            "exclude": ["src/angular/schematics/**/*.spec.ts"]
+          },
           "configurations": {
             "browser": {
               "browsers": ["chromium"],
@@ -78,7 +82,7 @@
           "builder": "@angular/build:unit-test",
           "defaultConfiguration": "browser",
           "options": {
-            "exclude": ["src/angular/schematics/**/*.spec.ts"]
+            "tsConfig": "src/angular-experimental/tsconfig.spec.json"
           },
           "configurations": {
             "browser": {

@@ -10,5 +10,6 @@
     }
   },
   "files": ["../test-setup.ts"],
-  "include": ["**/*.spec.ts", "**/*.d.ts", "../typings.d.ts"]
+  "include": ["**/*.spec.ts", "**/*.d.ts", "../typings.d.ts"],
+  "exclude": ["schematics/**/*.cts", "schematics/**/*.ts"]
 }
