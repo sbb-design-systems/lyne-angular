@@ -1,18 +1,5 @@
-<sbb-breadcrumb [href]="externalLink()" [iconName]="iconName()" [target]="targetBlank()"
-  >Single breadcrumb
-</sbb-breadcrumb>
-
-<sbb-title level="5">Properties</sbb-title>
-<form [formGroup]="form" class="controls">
-  <sbb-radio-button-group orientation="vertical" formControlName="iconName">
-    <label>Icon</label>
-    <sbb-radio-button value="">none</sbb-radio-button>
-    <sbb-radio-button value="house-small">house</sbb-radio-button>
-    <sbb-radio-button value="download-small">download</sbb-radio-button>
-    <sbb-radio-button value="pie-small">pie</sbb-radio-button>
-  </sbb-radio-button-group>
-  <sbb-checkbox-group orientation="vertical">
-    <sbb-checkbox formControlName="targetBlank">Open in new window</sbb-checkbox>
-    <sbb-checkbox formControlName="externalLink">External href</sbb-checkbox>
-  </sbb-checkbox-group>
-</form>
+<sbb-breadcrumb-group>
+  <sbb-breadcrumb href="/" iconName="house-small"></sbb-breadcrumb>
+  <sbb-breadcrumb href="/level-1">Level 1</sbb-breadcrumb>
+  <sbb-breadcrumb href="/level-2">Level 2</sbb-breadcrumb>
+</sbb-breadcrumb-group>

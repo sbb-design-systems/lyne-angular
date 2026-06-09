@@ -13,7 +13,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   alert: ['alert-basic'],
   autocomplete: ['autocomplete-basic'],
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
-  breadcrumb: [{ id: 'breadcrumb-basic', hasStyle: true }, 'breadcrumb-group'],
+  breadcrumb: ['breadcrumb-basic'],
   button: ['button-basic', 'mini-button-basic'],
   calendar: ['calendar-basic', 'calendar-reactive', 'calendar-fixed-month'],
   card: ['card-basic'],
@@ -131,7 +131,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'badge-header-button':
       return import('../angular/examples/badge');
     case 'breadcrumb-basic':
-    case 'breadcrumb-group':
       return import('../angular/examples/breadcrumb');
     case 'button-basic':
       return import('../angular/examples/button');
