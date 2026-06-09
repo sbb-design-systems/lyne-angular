@@ -8,6 +8,6 @@
   </sbb-autocomplete>
 </sbb-form-field>
 
-<sbb-card class="form-box" color="milk"> {{ control.value | json }} </sbb-card>
-
-<p>Selected Value: <code>{{control().value() | json}}</code></p>
+<p>
+  <sbb-card color="milk">Selected value: <code>{{control().value() | json}}</code></sbb-card>
+</p>

@@ -12,11 +12,10 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'action-group': ['action-group-basic', { id: 'action-group-complex', hasStyle: true }],
   alert: ['alert-basic'],
   autocomplete: [
-    { id: 'autocomplete-basic', hasStyle: true },
-    { id: 'autocomplete-hint-optgroup', hasStyle: true },
-    { id: 'autocomplete-reactive', hasStyle: true },
-    { id: 'autocomplete-template', hasStyle: true },
-    { id: 'autocomplete-variants', hasStyle: true },
+    'autocomplete-basic',
+    'autocomplete-complex-value',
+    'autocomplete-hint-optgroup',
+    'autocomplete-variants',
   ],
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
@@ -129,9 +128,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'alert-basic':
       return import('../angular/examples/alert');
     case 'autocomplete-basic':
+    case 'autocomplete-complex-value':
     case 'autocomplete-hint-optgroup':
-    case 'autocomplete-reactive':
-    case 'autocomplete-template':
     case 'autocomplete-variants':
       return import('../angular/examples/autocomplete');
     case 'badge-basic':
