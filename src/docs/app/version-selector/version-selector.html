@@ -1,0 +1,8 @@
+<sbb-form-field size="s">
+  <sbb-select [formField]="versionForm">
+    <sbb-option [value]="0">V {{version}}</sbb-option>
+    @for (ver of legacyVersions; track ver) {
+    <sbb-option [value]="ver">V {{ver}}</sbb-option>
+    }
+  </sbb-select>
+</sbb-form-field>
