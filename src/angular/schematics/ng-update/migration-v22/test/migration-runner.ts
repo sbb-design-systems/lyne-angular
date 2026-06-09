@@ -170,19 +170,34 @@ export function runMigrationAndGetOutput<T extends Migration<null>>(
   }
 
   // Apply changes to content (from back to front to ensure character indexes remain stable)
+  type TextOp =
+    | { type: 'remove'; offset: number; length: number }
+    | { type: 'insert'; offset: number; text: string };
+
+  // Sort from back to front (descending offset).
+  // If the offsets match, ensure the 'remove' operation happens first.
+  const operations: TextOp[] = [
+    ...removals.map((r) => ({ type: 'remove' as const, ...r })),
+    ...insertions.map((i) => ({ type: 'insert' as const, ...i })),
+  ];
+
+  operations.sort((a, b) => {
+    if (b.offset !== a.offset) {
+      return b.offset - a.offset;
+    }
+    return a.type === 'remove' ? -1 : 1;
+  });
+
   let finalFileOutput = fileContent;
 
-  removals.sort((a, b) => b.offset - a.offset);
-  for (const removal of removals) {
-    finalFileOutput =
-      finalFileOutput.slice(0, removal.offset) +
-      finalFileOutput.slice(removal.offset + removal.length);
-  }
-
-  insertions.sort((a, b) => b.offset - a.offset);
-  for (const change of insertions) {
-    finalFileOutput =
-      finalFileOutput.slice(0, change.offset) + change.text + finalFileOutput.slice(change.offset);
+  for (const op of operations) {
+    if (op.type === 'remove') {
+      finalFileOutput =
+        finalFileOutput.slice(0, op.offset) + finalFileOutput.slice(op.offset + op.length);
+    } else {
+      finalFileOutput =
+        finalFileOutput.slice(0, op.offset) + op.text + finalFileOutput.slice(op.offset);
+    }
   }
 
   return finalFileOutput;
