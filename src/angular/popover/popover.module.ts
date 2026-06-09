@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SbbFocusInitial } from '@sbb-esta/lyne-angular/core/overlay';
+import { SbbFocusInitial } from '@sbb-esta/lyne-angular/core';
 
 import { SbbPopover } from './popover/popover';
 import { SbbPopoverClose } from './popover-close/popover-close';

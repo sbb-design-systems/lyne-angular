@@ -103,6 +103,7 @@ const getModuleNamesFromMeta = async (projectFolder: string): Promise<string[]> 
  *
  * NOTE: since there could be cases of folders with the same name (e.g. `angular/overlay` and `angular/core/overlay`),
  * the `api` folder is deleted and recreated every time and the readme file is created with the 'append' flag (`a`).
+ * TODO: Check whether still necessary
  *
  * @param projectFolder the name of the package (angular / angular-experimental / ...)
  */

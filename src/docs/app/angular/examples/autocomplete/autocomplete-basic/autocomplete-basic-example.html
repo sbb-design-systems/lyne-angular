@@ -1,11 +1,13 @@
 <sbb-form-field>
-  <label>Autocomplete</label>
-  <input [formField]="control" [sbbAutocomplete]="auto" />
-  <sbb-autocomplete [displayWith]="displayWith" #auto="sbbAutocomplete">
-    @for (value of values; track value) {
-    <sbb-option [value]="value">{{ value.property }}</sbb-option>
+  <label>Basic Autocomplete</label>
+  <input [formField]="control" />
+  <sbb-autocomplete>
+    @for (option of options; track option) {
+    <sbb-option [value]="option">{{ option }}</sbb-option>
     }
   </sbb-autocomplete>
 </sbb-form-field>
 
-<p>Selected Value: <code>{{control().value() | json}}</code></p>
+<p>
+  <sbb-card color="milk">Selected value: <code>{{control().value() | json}}</code></sbb-card>
+</p>
