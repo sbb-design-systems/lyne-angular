@@ -13,7 +13,7 @@ import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
 export class VersionSelectorComponent {
   protected version =
     inject(Meta).getTag('name="sbb-lyne-angular-version"')?.content ?? 'unknown version';
-  protected legacyVersions = this.#getLegacyVersions();
+  protected legacyVersions = signal(this.#getLegacyVersions());
 
   // 0 is considered the current version
   protected versionForm = form(signal(0));
@@ -26,9 +26,7 @@ export class VersionSelectorComponent {
    * Reads the legacy version list from a meta tag. Expected format is comma-separated list of versions (e.g. "22, 21, ...")
    */
   #getLegacyVersions(): number[] {
-    const meta = inject(Meta).getTag('name="sbb-lyne-angular-legacy-versions"')?.content ?? '';
-
-    return meta
+    return (window.LEGACY_VERSIONS ?? '')
       .split(',')
       .map(Number)
       .filter(Number.isInteger)
