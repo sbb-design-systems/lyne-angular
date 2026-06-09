@@ -10,7 +10,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     { id: 'accordion-wizard', hasStyle: true },
   ],
   'action-group': ['action-group-basic', { id: 'action-group-complex', hasStyle: true }],
-  alert: ['alert-basic', 'alert-group', 'alert-router-link', { id: 'alert-variants', hasStyle: true }],
+  alert: ['alert-basic', 'alert-group', 'alert-variants'],
   autocomplete: ['autocomplete-basic'],
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
@@ -122,7 +122,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/action-group');
     case 'alert-basic':
     case 'alert-group':
-    case 'alert-router-link':
     case 'alert-variants':
       return import('../angular/examples/alert');
     case 'autocomplete-basic':
