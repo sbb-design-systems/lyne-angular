@@ -1,0 +1,12 @@
+@if (legacyVersions.length > 0) {
+<sbb-form-field size="s" width="collapse" borderless class="version-selector">
+  <sbb-select [formField]="versionForm">
+    <sbb-option [value]="0">v{{version}}</sbb-option>
+    @for (ver of legacyVersions; track ver) {
+    <sbb-option [value]="ver">v{{ver}}</sbb-option>
+    }
+  </sbb-select>
+</sbb-form-field>
+} @else {
+<span class="version-info">{{ version }}</span>
+}
