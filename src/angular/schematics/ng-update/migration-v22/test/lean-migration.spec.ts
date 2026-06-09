@@ -24,7 +24,7 @@ describe(`sbb-lean-migration`, () => {
   });
 
   it('should add comment in TS file', () => {
-    const mockInputTs = `
+    const mockInput = `
 import { Component } from '@angular/core';
 
 @Component({
@@ -34,7 +34,7 @@ import { Component } from '@angular/core';
 export class AppComponent {}
 `.trim();
 
-    const mockOutputTs = `
+    const mockOutput = `
 import { Component } from '@angular/core';
 
 @Component({
@@ -48,9 +48,9 @@ export class AppComponent {}
     const result = runMigrationAndGetOutput({
       migrationClass: LeanClassMigration,
       filePath: 'src/app/app.component.ts',
-      fileContent: mockInputTs,
+      fileContent: mockInput,
     });
 
-    expect(result).toBe(mockOutputTs);
+    expect(result).toBe(mockOutput);
   });
 });
