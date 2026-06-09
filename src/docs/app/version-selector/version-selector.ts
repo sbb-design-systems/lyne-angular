@@ -4,6 +4,12 @@ import { Meta } from '@angular/platform-browser';
 import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
 import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
 
+declare global {
+  interface Window {
+    LEGACY_VERSIONS?: string;
+  }
+}
+
 @Component({
   selector: 'sbb-version-selector',
   imports: [FormField, SbbFormField, SbbSelectModule],
@@ -13,7 +19,7 @@ import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
 export class VersionSelectorComponent {
   protected version =
     inject(Meta).getTag('name="sbb-lyne-angular-version"')?.content ?? 'unknown version';
-  protected legacyVersions = signal(this.#getLegacyVersions());
+  protected legacyVersions = this.#getLegacyVersions();
 
   // 0 is considered the current version
   protected versionForm = form(signal(0));

@@ -1,7 +1,7 @@
 @use '@sbb-esta/lyne-elements' as sbb;
 
-.sbb-header-info {
-  padding-inline-end: var(--sbb-spacing-fixed-1x);
+.sbb-header-info:has(.version-selector) {
+  align-items: center;
 }
 
 .sidebar-toggle {

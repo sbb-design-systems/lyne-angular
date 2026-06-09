@@ -15,12 +15,6 @@ import { SidebarToggle } from './shared/package-viewer/sidebar-toggle';
 import { ThemeController } from './theme-controller';
 import { VersionSelectorComponent } from './version-selector/version-selector';
 
-declare global {
-  interface Window {
-    LEGACY_VERSIONS?: string; // set by CI/CD
-  }
-}
-
 @Component({
   selector: 'sbb-app',
   imports: [
