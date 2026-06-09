@@ -1,10 +1,12 @@
 <sbb-header expanded>
   <span class="sbb-header-info">
     <strong>Lyne Angular</strong>
-    <span>{{version}}</span>
+    <sbb-version-selector></sbb-version-selector>
   </span>
   <div class="sbb-header-spacer"></div>
-  <sbb-header-button iconName="eye-small" #appearanceTrigger>Appearance</sbb-header-button>
+  <sbb-header-button iconName="eye-small" #appearanceTrigger hide-label-below="large">
+    Appearance
+  </sbb-header-button>
   <sbb-menu [trigger]="appearanceTrigger">
     <sbb-menu-button
       (click)="lightDarkController.setColorScheme('light')"
@@ -70,6 +72,9 @@
     <sbb-logo protectiveRoom="none"></sbb-logo>
     <sbb-signet protectiveRoom="panel"></sbb-signet>
   </a>
+  @if (isDev) {
+  <sbb-header-environment>dev</sbb-header-environment>
+  }
 </sbb-header>
 <sbb-icon-sidebar-container>
   <sbb-icon-sidebar>
