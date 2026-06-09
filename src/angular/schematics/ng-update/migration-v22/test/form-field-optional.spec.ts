@@ -38,8 +38,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: '<sbb-form-field optional><input /></sbb-form-field>',
-  standalone: true
+  template: '<sbb-form-field optional><input /></sbb-form-field>'
 })
 export class AppComponent {}
 `.trim();
