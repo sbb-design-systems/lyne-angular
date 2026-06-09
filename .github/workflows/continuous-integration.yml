@@ -58,6 +58,10 @@ jobs:
         run: yarn ng test -c ci
         env:
           NODE_ENV: production
+      - name: Run schematic tests
+        run: yarn test:angular-schematics
+        env:
+          NODE_ENV: production
       - name: Assert no new snapshots (run `yarn build && ng test -c ci` if this fails)
         run: git diff --exit-code
       - name: Store coverage
