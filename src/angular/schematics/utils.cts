@@ -1,3 +1,12 @@
+import {
+  TmplAstDeferredBlock,
+  TmplAstElement,
+  TmplAstForLoopBlock,
+  TmplAstIfBlock,
+  TmplAstNode,
+  TmplAstSwitchBlock,
+  TmplAstTemplate,
+} from '@angular/compiler';
 import { getProjectFromWorkspace } from '@angular/cdk/schematics';
 import type { logging } from '@angular-devkit/core';
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
@@ -9,8 +18,6 @@ import type {
 } from '@schematics/angular/utility/workspace';
 import { updateWorkspace } from '@schematics/angular/utility/workspace';
 
-import type { NgAddOptionsSchema } from './schema';
-
 interface Package {
   dependencies?: Record<string, string>;
   peerDependencies?: Record<string, string>;
@@ -19,7 +26,10 @@ interface Package {
 /**
  * Gets the project name: takes the default name from cli, if not found gets it from the angular.json.
  */
-export function getProjectName(options: NgAddOptionsSchema, workspace: WorkspaceDefinition) {
+export function getProjectName<T extends { project?: string }>(
+  options: T,
+  workspace: WorkspaceDefinition,
+) {
   return (
     options.project ||
     (workspace.extensions['defaultProject'] as string) ||
@@ -142,7 +152,7 @@ export function addThemeToProject(
       target.builder === '@angular-devkit/build-angular:jest'
     ) {
       logger.info(
-        `Modern test builder detected. Skipping 'styles' array injection for 'test' setup.`,
+        `    Modern test builder detected. Skipping 'styles' array injection for 'test' setup.`,
       );
     } else {
       if (!target.options) {
@@ -153,11 +163,62 @@ export function addThemeToProject(
         target.options['styles'] = [themePath];
         return;
       } else if (styles.includes(themePath)) {
-        logger.info(`Theme already present in project "${projectName}", skipping.`);
+        logger.info(`    Theme already present in project "${projectName}", skipping.`);
       } else {
         styles.unshift(themePath);
-        logger.info(`"${themePath}" added to project "${projectName}".`);
+        logger.info(`    "${themePath}" added to project "${projectName}".`);
       }
     }
   });
+}
+
+/**
+ * Recursively walks Angular template AST nodes and invokes `cb` for every
+ * `TmplAstElement` found, descending into:
+ *
+ * - `TmplAstTemplate`      — hosts of `*ngIf`, `*ngFor`, `*ngSwitch` structural directives
+ * - `TmplAstIfBlock`       — `@if` / `@else if` / `@else` branches
+ * - `TmplAstForLoopBlock`  — `@for` body and `@empty` fallback
+ * - `TmplAstSwitchBlock`   — `@switch` cases
+ * - `TmplAstDeferredBlock` — `@defer` primary body, `@placeholder`, `@loading`, `@error`
+ */
+export function visitElements(nodes: TmplAstNode[], cb: (el: TmplAstElement) => void): void {
+  for (const node of nodes) {
+    if (node instanceof TmplAstElement) {
+      cb(node);
+      visitElements(node.children, cb);
+    } else if (node instanceof TmplAstTemplate) {
+      // Structural-directive host: *ngIf, *ngFor, *ngSwitch, etc.
+      visitElements(node.children, cb);
+    } else if (node instanceof TmplAstIfBlock) {
+      // @if / @else if / @else — each branch has its own children array.
+      for (const branch of node.branches) {
+        visitElements(branch.children, cb);
+      }
+    } else if (node instanceof TmplAstForLoopBlock) {
+      // @for body + optional @empty fallback.
+      visitElements(node.children, cb);
+      if (node.empty) {
+        visitElements(node.empty.children, cb);
+      }
+    } else if (node instanceof TmplAstSwitchBlock) {
+      // @switch — groups hold one or more consecutive @case/@default expressions
+      // that share a single body; descend into each group's children.
+      for (const group of node.groups) {
+        visitElements(group.children, cb);
+      }
+    } else if (node instanceof TmplAstDeferredBlock) {
+      // @defer primary body + placeholder / loading / error blocks.
+      visitElements(node.children, cb);
+      if (node.placeholder) {
+        visitElements(node.placeholder.children, cb);
+      }
+      if (node.loading) {
+        visitElements(node.loading.children, cb);
+      }
+      if (node.error) {
+        visitElements(node.error.children, cb);
+      }
+    }
+  }
 }

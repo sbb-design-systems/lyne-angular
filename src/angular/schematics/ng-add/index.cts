@@ -2,7 +2,7 @@ import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schematics/tasks';
 
 import { NgAddOptionsSchema } from './schema';
-import { addPackageToPackageJson, getPackageVersion } from './utils.cjs';
+import { addPackageToPackageJson, getPackageVersion } from '../utils.cjs';
 
 const PACKAGE_FALLBACK_VERSION = 'latest';
 
