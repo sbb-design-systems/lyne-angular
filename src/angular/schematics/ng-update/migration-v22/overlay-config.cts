@@ -17,9 +17,9 @@ export class OverlayConfigMigration extends AddCommentBase {
             }
 
             return `FIXME: the usage of \`SbbOverlayConfig\` has been changed.
-              If you are using it to open a \`SbbOverlay\`, you have to adapt your import.
-              If you are using it to open a \`SbbDialog\`, change it to \`SbbDialogConfig\`.
-              If you are using it to open a \`SbbToast\`, change it to \`SbbToastConfig\`.
+              If you are using it to open a \`SbbOverlay\`, you have to adapt your import to \`@sbb-esta/lyne-angular/overlay\`.
+              If you are using it to open a \`SbbDialog\`, change it to \`SbbDialogConfig\` and adapt your import to \`@sbb-esta/lyne-angular/dialog\`.
+              If you are using it to open a \`SbbToast\`, change it to \`SbbToastConfig\` and adapt your import to \`@sbb-esta/lyne-angular/toast\`.
             `;
           }
 
