@@ -1,5 +1,9 @@
 @use '@sbb-esta/lyne-elements' as sbb;
 
+.sbb-header-info {
+  align-items: center;
+}
+
 .sidebar-toggle {
   justify-self: end;
 }

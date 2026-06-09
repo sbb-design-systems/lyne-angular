@@ -7,23 +7,25 @@ import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
 @Component({
   selector: 'sbb-version-selector',
   imports: [FormField, SbbFormField, SbbSelectModule],
+  styleUrl: './version-selector.scss',
   templateUrl: './version-selector.html',
 })
 export class VersionSelectorComponent {
-  version = inject(Meta).getTag('name="sbb-lyne-angular-version"')?.content ?? 'unknown version';
-  legacyVersions = this._getLegacyVersions();
+  protected version =
+    inject(Meta).getTag('name="sbb-lyne-angular-version"')?.content ?? 'unknown version';
+  protected legacyVersions = this.#getLegacyVersions();
 
   // 0 is considered the current version
-  versionForm = form(signal(0));
+  protected versionForm = form(signal(0));
 
   constructor() {
-    effect(() => this._navigateToLegacyVersion(this.versionForm().value()));
+    effect(() => this.#navigateToLegacyVersion(this.versionForm().value()));
   }
 
   /**
    * Reads the legacy version list from a meta tag. Expected format is comma-separated list of versions (e.g. "22, 21, ...")
    */
-  private _getLegacyVersions(): number[] {
+  #getLegacyVersions(): number[] {
     const meta = inject(Meta).getTag('name="sbb-lyne-angular-legacy-versions"')?.content ?? '';
 
     return meta
@@ -34,7 +36,7 @@ export class VersionSelectorComponent {
       .sort((a, b) => b - a);
   }
 
-  private async _navigateToLegacyVersion(version: number): Promise<void> {
+  async #navigateToLegacyVersion(version: number): Promise<void> {
     if (!version) {
       return;
     }
