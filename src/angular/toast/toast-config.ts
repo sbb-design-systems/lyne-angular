@@ -1,4 +1,4 @@
-import { SbbOverlayBaseConfig } from '@sbb-esta/lyne-angular/core/overlay';
+import { SbbOverlayBaseConfig } from '@sbb-esta/lyne-angular/core';
 
 import type { SbbToast } from './toast';
 import type { SbbToastContainer } from './toast-container';

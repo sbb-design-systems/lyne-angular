@@ -7,7 +7,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { outputToObservable } from '@angular/core/rxjs-interop';
-import { SbbOverlayContainerBase, SbbOverlayState } from '@sbb-esta/lyne-angular/core/overlay';
+import { SbbOverlayContainerBase, SbbOverlayState } from '@sbb-esta/lyne-angular/core';
 import type { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.pure.js';
 import type { Observable } from 'rxjs';
 

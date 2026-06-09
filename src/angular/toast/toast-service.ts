@@ -1,6 +1,6 @@
 import type { ComponentType } from '@angular/cdk/overlay';
 import { inject, Service, type TemplateRef } from '@angular/core';
-import { SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core/overlay';
+import { SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core';
 
 import { SbbSimpleToast } from './simple-toast';
 import type { SbbToast } from './toast';

@@ -1,4 +1,4 @@
-import { SbbOverlayBaseConfig } from '@sbb-esta/lyne-angular/core/overlay';
+import { SbbOverlayBaseConfig } from '@sbb-esta/lyne-angular/core';
 
 import type { SbbOverlay } from './overlay';
 import type { SbbOverlayContainer } from './overlay-container';
