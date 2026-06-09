@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
 import { SbbLinkListAnchorModule } from '@sbb-esta/lyne-angular/link-list-anchor';
 
@@ -9,6 +9,5 @@ import { SbbLinkListAnchorModule } from '@sbb-esta/lyne-angular/link-list-anchor
   selector: 'sbb-link-list-anchor-basic-example',
   templateUrl: 'link-list-anchor-basic-example.html',
   imports: [SbbLinkListAnchorModule, SbbLinkModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LinkListAnchorBasicExample {}

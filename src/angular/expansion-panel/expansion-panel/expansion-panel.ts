@@ -5,11 +5,9 @@ import {
   internalOutputFromObservable,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
+import { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/expansion-panel.js';
 
 /**
  * It displays an expandable summary-details widget.
@@ -22,6 +20,10 @@ import '@sbb-esta/lyne-elements/expansion-panel.js';
   hostDirectives: [SbbDeferredAnimation],
 })
 export class SbbExpansionPanel {
+  static {
+    SbbExpansionPanelElement.define();
+  }
+
   #element: ElementRef<SbbExpansionPanelElement> = inject(ElementRef<SbbExpansionPanelElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -29,10 +31,10 @@ export class SbbExpansionPanel {
    * Heading level; if unset, a `div` will be rendered.
    */
   @Input()
-  public set titleLevel(value: SbbTitleLevel | null) {
+  public set titleLevel(value: SbbHeadingLevel | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
   }
-  public get titleLevel(): SbbTitleLevel | null {
+  public get titleLevel(): SbbHeadingLevel | null {
     return this.#element.nativeElement.titleLevel;
   }
 
@@ -81,13 +83,13 @@ export class SbbExpansionPanel {
   }
 
   /**
-   * Size variant, either l or s.
+   * Size variant, either s (lean theme default) or l (standard theme default).
    */
   @Input()
-  public set size(value: 's' | 'l') {
+  public set size(value: 's' | 'l' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 's' | 'l' {
+  public get size(): 's' | 'l' | null {
     return this.#element.nativeElement.size;
   }
 

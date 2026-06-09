@@ -1,9 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbProtectiveRoom } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import type { SbbLogoElement } from '@sbb-esta/lyne-elements/logo.js';
-
-import '@sbb-esta/lyne-elements/logo.js';
+import { SbbLogoElement } from '@sbb-esta/lyne-elements/logo.pure.js';
 
 /**
  * It displays the SBB logo.
@@ -14,6 +11,10 @@ import '@sbb-esta/lyne-elements/logo.js';
   exportAs: 'sbbLogo',
 })
 export class SbbLogo {
+  static {
+    SbbLogoElement.define();
+  }
+
   #element: ElementRef<SbbLogoElement> = inject(ElementRef<SbbLogoElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -21,10 +22,10 @@ export class SbbLogo {
    * Visual protective room around logo.
    */
   @Input()
-  public set protectiveRoom(value: SbbProtectiveRoom) {
+  public set protectiveRoom(value: 'none' | 'minimal' | 'ideal') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.protectiveRoom = value));
   }
-  public get protectiveRoom(): SbbProtectiveRoom {
+  public get protectiveRoom(): 'none' | 'minimal' | 'ideal' {
     return this.#element.nativeElement.protectiveRoom;
   }
 

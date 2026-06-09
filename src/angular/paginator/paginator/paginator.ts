@@ -10,11 +10,11 @@ import {
 } from '@angular/core';
 import { outputFromObservable, outputToObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbPaginatorPageEventDetails } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import type { SbbPaginatorElement } from '@sbb-esta/lyne-elements/paginator.js';
+import {
+  SbbPaginatorElement,
+  type SbbPaginatorPageEvent,
+} from '@sbb-esta/lyne-elements/paginator.pure.js';
 import { AsyncSubject, forkJoin, fromEvent, map, NEVER, type Observable } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/paginator.js';
 
 /**
  * It displays a paginator component.
@@ -24,6 +24,10 @@ import '@sbb-esta/lyne-elements/paginator.js';
   exportAs: 'sbbPaginator',
 })
 export class SbbPaginator implements OnInit {
+  static {
+    SbbPaginatorElement.define();
+  }
+
   #element: ElementRef<SbbPaginatorElement> = inject(ElementRef<SbbPaginatorElement>);
   #ngZone: NgZone = inject(NgZone);
   #initialized = new AsyncSubject<void>();
@@ -90,13 +94,13 @@ export class SbbPaginator implements OnInit {
   }
 
   /**
-   * Size variant, either m or s.
+   * Size variant, either s (lean theme default) or m (standard theme default).
    */
   @Input()
-  public set size(value: 'm' | 's') {
+  public set size(value: 'm' | 's' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 'm' | 's' {
+  public get size(): 'm' | 's' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -231,19 +235,16 @@ export class SbbPaginator implements OnInit {
     this.#initialized.complete();
   }
 
-  protected _pageOutput: OutputRef<CustomEvent<SbbPaginatorPageEventDetails>> =
-    outputFromObservable<CustomEvent<SbbPaginatorPageEventDetails>>(NEVER, {
+  protected _pageOutput: OutputRef<SbbPaginatorPageEvent> =
+    outputFromObservable<SbbPaginatorPageEvent>(NEVER, {
       alias: 'page',
     });
   /**
    * The page event is dispatched when the page index, length or page size changes.
    */
-  public pageOutput: OutputRef<CustomEvent<SbbPaginatorPageEventDetails>> =
-    internalOutputFromObservable(
-      fromEvent<CustomEvent<SbbPaginatorPageEventDetails>>(this.#element.nativeElement, 'page'),
-    );
-
-  public page: Observable<CustomEvent<SbbPaginatorPageEventDetails>> = outputToObservable(
-    this.pageOutput,
+  public pageOutput: OutputRef<SbbPaginatorPageEvent> = internalOutputFromObservable(
+    fromEvent<SbbPaginatorPageEvent>(this.#element.nativeElement, 'page'),
   );
+
+  public page: Observable<SbbPaginatorPageEvent> = outputToObservable(this.pageOutput);
 }

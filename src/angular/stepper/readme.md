@@ -31,6 +31,28 @@ with the position in the `<sbb-stepper>`. This can be overridden via the `iconNa
 <sbb-step-label iconName="tick-small">Step label</sbb-step-label>
 ```
 
+<!-- #region override intro-end -->
+
+On top of the Lyne Elements functionality, the Angular wrapper provides a `SbbStepContent` directive.
+By default, the step contents are eagerly loaded. Eagerly loaded steps will initialize the child components but not inject them into the DOM until the step is activated.
+
+If the step contains several complex child components or the step's contents rely on DOM calculations during initialization, it is advised to lazy load the step's content.
+
+Step contents can be lazy loaded by declaring the body in a ng-template with the sbbStepContent attribute.
+
+```ts
+@Component({
+  imports: [SbbStepperModule],
+  template: `<sbb-step-label active>Label</sbb-step-label>
+    <sbb-step>
+      <ng-template sbbStepContent>${text}</ng-template>
+    </sbb-step>`,
+})
+class StepComponent {}
+```
+
+<!-- #endregion -->
+
 ## Interactions
 
 There are two attributes to support navigation between different steps that can be used on elements inside an `sbb-step` to select the next or the previous step when clicked: `sbb-stepper-next` and `sbb-stepper-previous`.
@@ -55,11 +77,12 @@ The `linear` property can be set to create a linear stepper that requires the us
 ## Events
 
 Whenever a step switch is triggered, a `validate` event is emitted and can be canceled to prevent the step change.
+The `event` property contains information about the `currentIndex`, `nextIndex`, `currentStep` and `nextStep`.
 
 ```ts
 document
   .querySelector('sbb-stepper')
-  .addEventListener((event: CustomEvent<SbbStepValidateEventDetails>) => {
+  .addEventListener('validate', (event: SbbStepValidateEvent) => {
     if (currentStateIsInvalid()) {
       // This will prevent switching to another step and force
       // the user to fix the current state.

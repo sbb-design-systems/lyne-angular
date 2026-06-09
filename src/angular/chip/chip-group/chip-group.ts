@@ -9,18 +9,10 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-  booleanAttribute,
-  internalOutputFromObservable,
-  SbbControlValueAccessorMixin,
-} from '@sbb-esta/lyne-angular/core';
-import type {
-  SbbChipGroupElement,
-  SbbChipInputTokenEndEvent,
-} from '@sbb-esta/lyne-elements/chip.js';
-import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/chip.js';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import type { SbbChipInputTokenEndEvent } from '@sbb-esta/lyne-elements/chip.pure.js';
+import { SbbChipGroupElement } from '@sbb-esta/lyne-elements/chip.pure.js';
+import { fromEvent } from 'rxjs';
 
 /**
  * The `sbb-chip-group` component is used as a container for one or multiple `sbb-chip`.
@@ -43,6 +35,10 @@ import '@sbb-esta/lyne-elements/chip.js';
   ],
 })
 export class SbbChipGroup<T = string> extends SbbControlValueAccessorMixin(class {}) {
+  static {
+    SbbChipGroupElement.define();
+  }
+
   #element: ElementRef<SbbChipGroupElement<T>> = inject(ElementRef<SbbChipGroupElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -200,27 +196,5 @@ export class SbbChipGroup<T = string> extends SbbControlValueAccessorMixin(class
   public chipInputTokenEndOutput: OutputRef<SbbChipInputTokenEndEvent<T>> = outputFromObservable(
     fromEvent<SbbChipInputTokenEndEvent<T>>(this.#element.nativeElement, 'chipinputtokenend'),
     { alias: 'chipInputTokenEnd' },
-  );
-
-  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
-    alias: 'input',
-  });
-  /**
-   * The input event fires when the value has been changed as a direct result of a user action.
-   */
-  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
-    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
-  );
-
-  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'change',
-  });
-  /**
-   * The change event is fired when the user modifies the element's value.
-   * Unlike the input event, the change event is not necessarily fired
-   * for each alteration to an element's value.
-   */
-  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'change'),
   );
 }

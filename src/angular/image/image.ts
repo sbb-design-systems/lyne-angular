@@ -9,10 +9,8 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbImageElement } from '@sbb-esta/lyne-elements/image.js';
+import { SbbImageElement } from '@sbb-esta/lyne-elements/image.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/image.js';
 
 /**
  * It displays an image.
@@ -25,6 +23,10 @@ import '@sbb-esta/lyne-elements/image.js';
   exportAs: 'sbbImage',
 })
 export class SbbImage {
+  static {
+    SbbImageElement.define();
+  }
+
   #element: ElementRef<SbbImageElement> = inject(ElementRef<SbbImageElement>);
   #ngZone: NgZone = inject(NgZone);
 

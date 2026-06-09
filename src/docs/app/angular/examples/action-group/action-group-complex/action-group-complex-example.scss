@@ -1,0 +1,17 @@
+@use '@sbb-esta/lyne-elements' as sbb;
+
+.action-group {
+  flex-wrap: wrap;
+}
+.order-button {
+  flex-basis: 100%;
+}
+
+@include sbb.mq($from: small) {
+  .start-right-group {
+    margin-inline-start: auto;
+  }
+  .order-button {
+    flex-basis: auto;
+  }
+}

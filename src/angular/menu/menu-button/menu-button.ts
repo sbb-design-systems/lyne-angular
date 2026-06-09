@@ -1,9 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbMenuButtonElement } from '@sbb-esta/lyne-elements/menu.js';
-
-import '@sbb-esta/lyne-elements/menu.js';
+import { SbbMenuButtonElement } from '@sbb-esta/lyne-elements/menu.pure.js';
 
 /**
  * It displays a button element that can be used in the `sbb-menu` component.
@@ -17,6 +14,10 @@ import '@sbb-esta/lyne-elements/menu.js';
   exportAs: 'sbbMenuButton',
 })
 export class SbbMenuButton {
+  static {
+    SbbMenuButtonElement.define();
+  }
+
   #element: ElementRef<SbbMenuButtonElement> = inject(ElementRef<SbbMenuButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -92,10 +93,10 @@ export class SbbMenuButton {
    * The type attribute to use for the button.
    */
   @Input()
-  public set type(value: SbbButtonType) {
+  public set type(value: 'button' | 'reset' | 'submit') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): SbbButtonType {
+  public get type(): 'button' | 'reset' | 'submit' {
     return this.#element.nativeElement.type;
   }
 

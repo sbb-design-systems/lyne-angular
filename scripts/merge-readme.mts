@@ -45,7 +45,7 @@ for (const dir of readdirSync(dirname(cachePath), { withFileTypes: true })
   )
   .map((d) => join(d.parentPath, d.name))) {
   console.log(`Removing old cache directory ${relative(projectRoot, dir)}`);
-  rmSync(dir, { force: true });
+  rmSync(dir, { force: true, recursive: true });
 }
 
 const guidesIncludeList = ['datetime', 'layout', 'theming'];
@@ -75,21 +75,24 @@ async function writeGuides(path: string, newContent: string) {
     .replace(/^import\s+(?:[\s\w{},*]+?\s+from\s+)?['"][^'"]+['"];?/gm, '')
 
     // Convert inline stories
-    .replace(/(<InlineStory\b[^>]*>)([\s\S]*?)(<\/InlineStory>)/gi, (_, _open, content, _close) => {
-      // Remove completely empty lines as otherwise they are interpreted as html paragraph by markdown.
-      const cleaned = content
-        .split(/\r?\n/) // Split into lines
-        .filter((line) => line.trim()) // Keep lines with content
-        .join('\n') // Join back with line breaks
+    .replace(
+      /(<InlineStory\b[^>]*>)([\s\S]*?)(<\/InlineStory>)/gi,
+      (_, _open, content: string, _close) => {
+        // Remove completely empty lines as otherwise they are interpreted as html paragraph by markdown.
+        const cleaned = content
+          .split(/\r?\n/) // Split into lines
+          .filter((line) => line.trim()) // Keep lines with content
+          .join('\n') // Join back with line breaks
 
-        // Remove tsx style brackets
-        .replaceAll('{`', '')
-        .replaceAll('`}', '')
+          // Remove tsx style brackets
+          .replaceAll('{`', '')
+          .replaceAll('`}', '')
 
-        // Remove all whitespaces within style tags to later interpret it correctly
-        .replace(/(<style\b[^>]*>)\s*([\s\S]*?)\s*(<\/style>)/gi, '$1$2$3');
-      return '<div class="sbb-inline-story">' + '\n' + cleaned + '\n' + '</div>';
-    });
+          // Remove all whitespaces within style tags to later interpret it correctly
+          .replace(/(<style\b[^>]*>)\s*([\s\S]*?)\s*(<\/style>)/gi, '$1$2$3');
+        return '<div class="sbb-inline-story">' + '\n' + cleaned + '\n' + '</div>';
+      },
+    );
 
   newContent = convertDocsLinks(newContent);
   newContent = convertHtmlExamples(newContent);

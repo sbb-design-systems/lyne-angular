@@ -1,5 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { assignOverlayResult } from '@sbb-esta/lyne-elements/overlay.js';
+import { nullOnEmptyAttribute } from '@sbb-esta/lyne-angular/core';
+import { assignOverlayResult } from '@sbb-esta/lyne-elements/overlay.pure.js';
 
 /**
  * Directive to close an overlay. Can be placed on any action element inside the overlay.
@@ -16,14 +17,14 @@ export class SbbOverlayClose {
 
   /* eslint-disable @typescript-eslint/no-explicit-any */
   /** Optional value to return when the overlay is closed. */
-  @Input('sbb-overlay-close')
+  @Input({ alias: 'sbb-overlay-close', transform: nullOnEmptyAttribute })
   public get result(): any {
     return this.#result;
   }
   public set result(value: any) {
     this.#result = value;
     this.#ngZone.runOutsideAngular(() =>
-      assignOverlayResult(this.#elementRef.nativeElement, value),
+      assignOverlayResult(this.#elementRef.nativeElement, this.#result),
     );
   }
   #result: any = null;

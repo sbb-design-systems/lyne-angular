@@ -16,7 +16,7 @@ that can be selected by the user; it is useful for switching between views withi
 
 The `even` property can be used to let the component expand to the parent component or adapt to the label's width.
 
-The component has two different sizes, `s` and `m` (default), which can be set using the `size` property.
+The component has two different sizes, `s` and `m`, which can be set using the `size` property.
 
 ```html
 <sbb-toggle size="s" even> ... </sbb-toggle>

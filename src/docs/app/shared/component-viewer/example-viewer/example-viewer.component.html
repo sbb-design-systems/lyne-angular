@@ -1,4 +1,8 @@
-<sbb-title level="4" class="example-viewer-title">{{ exampleData().description }}</sbb-title>
+<sbb-title level="4" class="example-viewer-title" [id]="exampleData().id">
+  <sbb-link [href]="currentPath + '#' + exampleData().id" class="docs-link">
+    {{ exampleData().description }}
+  </sbb-link>
+</sbb-title>
 
 <div class="example">
   <div class="container">

@@ -2,10 +2,8 @@ import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@a
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import type { SbbAutocompleteType } from '@sbb-esta/lyne-angular/autocomplete';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbAutocompleteGridElement } from '@sbb-esta/lyne-elements-experimental/autocomplete-grid/autocomplete-grid.js';
+import { SbbAutocompleteGridElement } from '@sbb-esta/lyne-elements-experimental/autocomplete-grid.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements-experimental/autocomplete-grid.js';
 
 /**
  * Combined with a native input, it displays a panel with a list of available options with connected buttons.
@@ -19,6 +17,10 @@ import '@sbb-esta/lyne-elements-experimental/autocomplete-grid.js';
   exportAs: 'sbbAutocompleteGrid',
 })
 export class SbbAutocompleteGrid<T = string> implements SbbAutocompleteType<T> {
+  static {
+    SbbAutocompleteGridElement.define();
+  }
+
   #element: ElementRef<SbbAutocompleteGridElement<T>> = inject(
     ElementRef<SbbAutocompleteGridElement<T>>,
   );
@@ -28,10 +30,10 @@ export class SbbAutocompleteGrid<T = string> implements SbbAutocompleteType<T> {
    * Size variant, either m or s.
    */
   @Input()
-  public set size(value: 'm' | 's') {
+  public set size(value: 'm' | 's' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 'm' | 's' {
+  public get size(): 'm' | 's' | null {
     return this.#element.nativeElement.size;
   }
 

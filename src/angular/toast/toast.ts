@@ -9,10 +9,8 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbToastElement, SbbToastPosition } from '@sbb-esta/lyne-elements/toast.js';
+import { SbbToastElement, type SbbToastPosition } from '@sbb-esta/lyne-elements/toast.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/toast.js';
 
 /**
  * It displays a toast notification.
@@ -27,6 +25,10 @@ import '@sbb-esta/lyne-elements/toast.js';
   exportAs: 'sbbToast',
 })
 export class SbbToast {
+  static {
+    SbbToastElement.define();
+  }
+
   #element: ElementRef<SbbToastElement> = inject(ElementRef<SbbToastElement>);
   #ngZone: NgZone = inject(NgZone);
 

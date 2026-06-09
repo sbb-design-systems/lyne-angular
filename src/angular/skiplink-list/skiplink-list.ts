@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbSkiplinkListElement } from '@sbb-esta/lyne-elements/skiplink-list.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
-
-import '@sbb-esta/lyne-elements/skiplink-list.js';
+import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
+import { SbbSkiplinkListElement } from '@sbb-esta/lyne-elements/skiplink-list.pure.js';
 
 /**
  * It displays a list of `sbb-block-link`/`sbb-block-link-button` which are visible only when focused.
@@ -16,6 +14,10 @@ import '@sbb-esta/lyne-elements/skiplink-list.js';
   exportAs: 'sbbSkiplinkList',
 })
 export class SbbSkiplinkList {
+  static {
+    SbbSkiplinkListElement.define();
+  }
+
   #element: ElementRef<SbbSkiplinkListElement> = inject(ElementRef<SbbSkiplinkListElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -34,10 +36,10 @@ export class SbbSkiplinkList {
    * The semantic level of the title, e.g. 2 = h2.
    */
   @Input()
-  public set titleLevel(value: SbbTitleLevel) {
+  public set titleLevel(value: SbbHeadingLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.titleLevel = value));
   }
-  public get titleLevel(): SbbTitleLevel {
+  public get titleLevel(): SbbHeadingLevel {
     return this.#element.nativeElement.titleLevel;
   }
 }

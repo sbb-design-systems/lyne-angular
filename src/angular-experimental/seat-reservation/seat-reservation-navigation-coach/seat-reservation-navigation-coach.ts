@@ -11,12 +11,10 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type {
   CoachItemDetails,
-  SbbSeatReservationNavigationCoachElement,
-  SelectCoachEventDetails,
-} from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
+  SbbSelectCoachEvent,
+} from '@sbb-esta/lyne-elements-experimental/seat-reservation.pure.js';
+import { SbbSeatReservationNavigationCoachElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation.pure.js';
 import { fromEvent } from 'rxjs';
-
-import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 
 /**
  * This component will display the navigation coach item for Seat reservation.
@@ -26,6 +24,10 @@ import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
   exportAs: 'sbbSeatReservationNavigationCoach',
 })
 export class SbbSeatReservationNavigationCoach {
+  static {
+    SbbSeatReservationNavigationCoachElement.define();
+  }
+
   #element: ElementRef<SbbSeatReservationNavigationCoachElement> = inject(
     ElementRef<SbbSeatReservationNavigationCoachElement>,
   );
@@ -94,8 +96,8 @@ export class SbbSeatReservationNavigationCoach {
   /**
    * Emits when a coach within the navigation was selected and returns the clicked coach nav index.
    */
-  public selectCoachOutput: OutputRef<CustomEvent<SelectCoachEventDetails>> = outputFromObservable(
-    fromEvent<CustomEvent<SelectCoachEventDetails>>(this.#element.nativeElement, 'selectcoach'),
+  public selectCoachOutput: OutputRef<SbbSelectCoachEvent> = outputFromObservable(
+    fromEvent<SbbSelectCoachEvent>(this.#element.nativeElement, 'selectcoach'),
     { alias: 'selectCoach' },
   );
 

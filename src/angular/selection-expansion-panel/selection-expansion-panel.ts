@@ -5,16 +5,12 @@ import {
   internalOutputFromObservable,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.js';
-import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox-panel.js';
-import type {
-  SbbRadioButtonGroupElement,
-  SbbRadioButtonPanelElement,
-} from '@sbb-esta/lyne-elements/radio-button.js';
-import type { SbbSelectionExpansionPanelElement } from '@sbb-esta/lyne-elements/selection-expansion-panel.js';
+import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.pure.js';
+import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox-panel.pure.js';
+import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.pure.js';
+import type { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button-panel.pure.js';
+import { SbbSelectionExpansionPanelElement } from '@sbb-esta/lyne-elements/selection-expansion-panel.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/selection-expansion-panel.js';
 
 /**
  * It displays an expandable panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
@@ -28,6 +24,10 @@ import '@sbb-esta/lyne-elements/selection-expansion-panel.js';
   hostDirectives: [SbbDeferredAnimation],
 })
 export class SbbSelectionExpansionPanel {
+  static {
+    SbbSelectionExpansionPanelElement.define();
+  }
+
   #element: ElementRef<SbbSelectionExpansionPanelElement> = inject(
     ElementRef<SbbSelectionExpansionPanelElement>,
   );

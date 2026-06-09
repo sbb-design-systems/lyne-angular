@@ -45,7 +45,7 @@ The component can be displayed in `disabled` or `required` state by using the se
 
 ## Style
 
-The component has three possible `size` values, named `xs`, `s` and `m` (default).
+The component has three possible `size` values, named `xs`, `s` and `m`.
 
 ```html
 <sbb-checkbox value="size" size="xs">Size</sbb-checkbox>

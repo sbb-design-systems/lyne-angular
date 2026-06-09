@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel.js';
+import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel.pure.js';
 
 import { SbbExpansionPanelModule } from '../expansion-panel.module';
 

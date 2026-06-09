@@ -238,7 +238,9 @@ component. Use it to display a footer with an action group.
 
 ```html
 <sbb-dialog>
-  <sbb-dialog-actions>
+  <sbb-dialog-actions
+    class="sbb-orientation-vertical-full-width sbb-orientation-horizontal-from-small"
+  >
     <sbb-block-link sbb-dialog-close>Link</sbb-block-link>
     <sbb-secondary-button sbb-dialog-close>Cancel</sbb-secondary-button>
     <sbb-button sbb-dialog-close sbb-focus-initial>Confirm</sbb-button>
@@ -344,6 +346,24 @@ It's possible to display the component in `negative` variant using the self-name
 
 ```html
 <sbb-dialog negative>
+  <sbb-dialog-title>Title</sbb-dialog-title>
+  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+</sbb-dialog>
+```
+
+The dialog takes the full width and adapts its height to the slotted content;
+starting from small breakpoint, the width adapts to the content too.
+
+To configure the dialog dimension, consumers can set the dimensions on the slotted content,
+e.g. setting the width or height on the `<sbb-dialog-content>` element.
+
+```html
+<style>
+  sbb-dialog-content {
+    height: 480px;
+  }
+</style>
+<sbb-dialog>
   <sbb-dialog-title>Title</sbb-dialog-title>
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
 </sbb-dialog>

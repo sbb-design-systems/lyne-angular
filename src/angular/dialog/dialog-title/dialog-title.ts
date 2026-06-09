@@ -1,9 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbDialogTitleElement } from '@sbb-esta/lyne-elements/dialog.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
-
-import '@sbb-esta/lyne-elements/dialog.js';
+import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
+import { SbbDialogTitleElement } from '@sbb-esta/lyne-elements/dialog.pure.js';
 
 /**
  * It displays a title inside a dialog header.
@@ -15,6 +13,10 @@ import '@sbb-esta/lyne-elements/dialog.js';
   exportAs: 'sbbDialogTitle',
 })
 export class SbbDialogTitle {
+  static {
+    SbbDialogTitleElement.define();
+  }
+
   #element: ElementRef<SbbDialogTitleElement> = inject(ElementRef<SbbDialogTitleElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -22,10 +24,10 @@ export class SbbDialogTitle {
    * Title level
    */
   @Input()
-  public set level(value: SbbTitleLevel) {
+  public set level(value: SbbHeadingLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.level = value));
   }
-  public get level(): SbbTitleLevel {
+  public get level(): SbbHeadingLevel {
     return this.#element.nativeElement.level;
   }
 
@@ -33,10 +35,10 @@ export class SbbDialogTitle {
    * Visual level for the title.
    */
   @Input()
-  public set visualLevel(value: SbbTitleLevel | null) {
+  public set visualLevel(value: SbbHeadingLevel | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.visualLevel = value));
   }
-  public get visualLevel(): SbbTitleLevel | null {
+  public get visualLevel(): SbbHeadingLevel | null {
     return this.#element.nativeElement.visualLevel;
   }
 

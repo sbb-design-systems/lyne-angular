@@ -1,9 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbMiniButtonElement } from '@sbb-esta/lyne-elements/button.js';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-
-import '@sbb-esta/lyne-elements/button.js';
+import { SbbMiniButtonElement } from '@sbb-esta/lyne-elements/button.pure.js';
 
 /**
  * It displays an icon-only button enhanced with the SBB Design;
@@ -18,6 +15,10 @@ or the `sbb-mini-button-group`. *
   exportAs: 'sbbMiniButton',
 })
 export class SbbMiniButton {
+  static {
+    SbbMiniButtonElement.define();
+  }
+
   #element: ElementRef<SbbMiniButtonElement> = inject(ElementRef<SbbMiniButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -104,10 +105,10 @@ export class SbbMiniButton {
    * The type attribute to use for the button.
    */
   @Input()
-  public set type(value: SbbButtonType) {
+  public set type(value: 'button' | 'reset' | 'submit') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): SbbButtonType {
+  public get type(): 'button' | 'reset' | 'submit' {
     return this.#element.nativeElement.type;
   }
 

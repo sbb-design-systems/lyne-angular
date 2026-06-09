@@ -1,6 +1,6 @@
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, inject, viewChild } from '@angular/core';
+import { Component, effect, inject, viewChild } from '@angular/core';
 import type { SbbSortState } from '@sbb-esta/lyne-angular/table';
 import { SbbSort, SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
 
@@ -12,7 +12,6 @@ import { SbbSort, SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angu
   selector: 'sbb-sortable-table-example',
   templateUrl: 'sortable-table-example.html',
   imports: [SbbTableModule, DatePipe],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SortableTableExample {
   protected displayedColumns: string[] = ['letter', 'number', 'word', 'date'];

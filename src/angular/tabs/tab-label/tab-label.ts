@@ -1,13 +1,11 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type {
-  SbbTabGroupElement,
+import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
+import {
+  type SbbTabGroupElement,
   SbbTabLabelElement,
-  SbbTabElement,
-} from '@sbb-esta/lyne-elements/tabs.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
-
-import '@sbb-esta/lyne-elements/tabs.js';
+  type SbbTabElement,
+} from '@sbb-esta/lyne-elements/tabs.pure.js';
 
 /**
  * Combined with a `sbb-tab-group`, it displays a tab's title.
@@ -21,6 +19,10 @@ import '@sbb-esta/lyne-elements/tabs.js';
   exportAs: 'sbbTabLabel',
 })
 export class SbbTabLabel {
+  static {
+    SbbTabLabelElement.define();
+  }
+
   #element: ElementRef<SbbTabLabelElement> = inject(ElementRef<SbbTabLabelElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -29,10 +31,10 @@ export class SbbTabLabel {
    * Use this property to generate the appropriate header tag, taking SEO into consideration.
    */
   @Input()
-  public set level(value: SbbTitleLevel) {
+  public set level(value: SbbHeadingLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.level = value));
   }
-  public get level(): SbbTitleLevel {
+  public get level(): SbbHeadingLevel {
     return this.#element.nativeElement.level;
   }
 

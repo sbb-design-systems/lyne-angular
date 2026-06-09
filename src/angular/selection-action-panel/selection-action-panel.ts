@@ -1,13 +1,9 @@
 import { Directive, ElementRef, inject } from '@angular/core';
-import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.js';
-import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox-panel.js';
-import type {
-  SbbRadioButtonGroupElement,
-  SbbRadioButtonPanelElement,
-} from '@sbb-esta/lyne-elements/radio-button.js';
-import type { SbbSelectionActionPanelElement } from '@sbb-esta/lyne-elements/selection-action-panel.js';
-
-import '@sbb-esta/lyne-elements/selection-action-panel.js';
+import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.pure.js';
+import type { SbbCheckboxPanelElement } from '@sbb-esta/lyne-elements/checkbox-panel.pure.js';
+import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.pure.js';
+import type { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button-panel.pure.js';
+import { SbbSelectionActionPanelElement } from '@sbb-esta/lyne-elements/selection-action-panel.pure.js';
 
 /**
  * It displays a panel connected to a `sbb-checkbox` or to a `sbb-radio-button`.
@@ -21,6 +17,10 @@ It can also contain an action element (e.g. an `sbb-button`)
   exportAs: 'sbbSelectionActionPanel',
 })
 export class SbbSelectionActionPanel {
+  static {
+    SbbSelectionActionPanelElement.define();
+  }
+
   #element: ElementRef<SbbSelectionActionPanelElement> = inject(
     ElementRef<SbbSelectionActionPanelElement>,
   );

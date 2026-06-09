@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbTagModule } from '@sbb-esta/lyne-angular/tag';
 
 /**
@@ -8,6 +8,5 @@ import { SbbTagModule } from '@sbb-esta/lyne-angular/tag';
   selector: 'sbb-tag-basic-example',
   templateUrl: 'tag-basic-example.html',
   imports: [SbbTagModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TagBasicExample {}

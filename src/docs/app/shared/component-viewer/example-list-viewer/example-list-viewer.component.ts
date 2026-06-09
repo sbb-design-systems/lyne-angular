@@ -1,7 +1,11 @@
+import { Location } from '@angular/common';
 import type { Signal } from '@angular/core';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
+import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
+import { SbbLinkListAnchorModule } from '@sbb-esta/lyne-angular/link-list-anchor';
+import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 import { map } from 'rxjs/operators';
 
 import { ExampleData } from '../../example-data';
@@ -11,11 +15,12 @@ import { ExampleViewerComponent } from '../example-viewer/example-viewer.compone
 @Component({
   selector: 'sbb-example-list-viewer',
   templateUrl: './example-list-viewer.component.html',
-  imports: [ExampleViewerComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ExampleViewerComponent, SbbTitleModule, SbbLinkListAnchorModule, SbbLinkModule],
 })
 export class ExampleListViewerComponent {
-  #route = inject(ActivatedRoute);
+  readonly #route = inject(ActivatedRoute);
+
+  protected currentPath = inject(Location).path();
   examples: Signal<ExampleData[]> = toSignal(
     moduleParams(this.#route).pipe(
       map((params) => {

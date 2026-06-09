@@ -1,12 +1,7 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type {
-  JourneyHeaderSize,
-  SbbJourneyHeaderElement,
-} from '@sbb-esta/lyne-elements/journey-header.js';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
-
-import '@sbb-esta/lyne-elements/journey-header.js';
+import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
+import { SbbJourneyHeaderElement } from '@sbb-esta/lyne-elements/journey-header.pure.js';
 
 /**
  * Combined with the `sbb-journey-summary`, it displays the journey's detail.
@@ -16,6 +11,10 @@ import '@sbb-esta/lyne-elements/journey-header.js';
   exportAs: 'sbbJourneyHeader',
 })
 export class SbbJourneyHeader {
+  static {
+    SbbJourneyHeaderElement.define();
+  }
+
   #element: ElementRef<SbbJourneyHeaderElement> = inject(ElementRef<SbbJourneyHeaderElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -56,22 +55,11 @@ export class SbbJourneyHeader {
    * Title level
    */
   @Input()
-  public set level(value: SbbTitleLevel) {
+  public set level(value: SbbHeadingLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.level = value));
   }
-  public get level(): SbbTitleLevel {
+  public get level(): SbbHeadingLevel {
     return this.#element.nativeElement.level;
-  }
-
-  /**
-   * Journey header size, either s, m or l.
-   */
-  @Input()
-  public set size(value: JourneyHeaderSize) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
-  }
-  public get size(): JourneyHeaderSize {
-    return this.#element.nativeElement.size;
   }
 
   /**
@@ -89,10 +77,10 @@ export class SbbJourneyHeader {
    * Visual level for the title.
    */
   @Input()
-  public set visualLevel(value: SbbTitleLevel | null) {
+  public set visualLevel(value: SbbHeadingLevel | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.visualLevel = value));
   }
-  public get visualLevel(): SbbTitleLevel | null {
+  public get visualLevel(): SbbHeadingLevel | null {
     return this.#element.nativeElement.visualLevel;
   }
 }

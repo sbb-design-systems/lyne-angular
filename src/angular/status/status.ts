@@ -1,7 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbStatusElement, SbbStatusType } from '@sbb-esta/lyne-elements/status.js';
-
-import '@sbb-esta/lyne-elements/status.js';
+import { SbbStatusElement } from '@sbb-esta/lyne-elements/status.pure.js';
 
 /**
  * Displays a message to the user's attention.
@@ -17,6 +15,10 @@ import '@sbb-esta/lyne-elements/status.js';
   exportAs: 'sbbStatus',
 })
 export class SbbStatus {
+  static {
+    SbbStatusElement.define();
+  }
+
   #element: ElementRef<SbbStatusElement> = inject(ElementRef<SbbStatusElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -24,10 +26,28 @@ export class SbbStatus {
    * The type of the status.
    */
   @Input()
-  public set type(value: SbbStatusType) {
+  public set type(
+    value:
+      | 'info'
+      | 'success'
+      | 'warning'
+      | 'error'
+      | 'pending'
+      | 'incomplete'
+      | 'not-started'
+      | 'in-progress',
+  ) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): SbbStatusType {
+  public get type():
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'error'
+    | 'pending'
+    | 'incomplete'
+    | 'not-started'
+    | 'in-progress' {
     return this.#element.nativeElement.type;
   }
 

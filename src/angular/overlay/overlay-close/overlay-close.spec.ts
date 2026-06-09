@@ -1,7 +1,7 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, signal } from '@angular/core';
+import { Component, signal, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import type { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.js';
+import type { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.pure.js';
 
 import { SbbOverlayService } from '../overlay-service';
 
@@ -22,6 +22,10 @@ describe(`sbb-overlay-close`, () => {
       expect(fixture.nativeElement.querySelector('button').hasAttribute('sbb-overlay-close')).toBe(
         true,
       );
+    });
+
+    it('should transform empty attribute to null via nullOnEmptyAttribute', () => {
+      expect(fixture.componentInstance.directive().result).toBeNull();
     });
   });
 
@@ -136,7 +140,9 @@ describe(`sbb-overlay-close`, () => {
   template: `<button sbb-overlay-close>Label</button>`,
   imports: [SbbOverlayClose],
 })
-class TestComponent {}
+class TestComponent {
+  directive = viewChild.required(SbbOverlayClose);
+}
 
 @Component({
   template: `<div>Service Test Component</div>`,

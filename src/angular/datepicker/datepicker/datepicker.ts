@@ -1,12 +1,11 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { CalendarView } from '@sbb-esta/lyne-elements/calendar.js';
-import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
-import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.js';
+import type { SbbDateSelectedEvent } from '@sbb-esta/lyne-elements/calendar.pure.js';
+import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.pure.js';
+import { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.pure.js';
+import type { SbbPopoverCloseEvent } from '@sbb-esta/lyne-elements/popover.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/datepicker.js';
 
 /**
  * A datepicker component that allows users to select a date from a calendar view.
@@ -16,6 +15,10 @@ import '@sbb-esta/lyne-elements/datepicker.js';
   exportAs: 'sbbDatepicker',
 })
 export class SbbDatepicker<T = Date> {
+  static {
+    SbbDatepickerElement.define();
+  }
+
   #element: ElementRef<SbbDatepickerElement<T>> = inject(ElementRef<SbbDatepickerElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -49,10 +52,10 @@ export class SbbDatepicker<T = Date> {
    * The initial view of calendar which should be displayed on opening.
    */
   @Input()
-  public set view(value: CalendarView) {
+  public set view(value: 'day' | 'month' | 'year') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.view = value));
   }
-  public get view(): CalendarView {
+  public get view(): 'day' | 'month' | 'year' {
     return this.#element.nativeElement.view;
   }
 
@@ -95,37 +98,29 @@ export class SbbDatepicker<T = Date> {
   /**
    * Event emitted on date selection.
    */
-  public dateSelectedOutput: OutputRef<CustomEvent<T>> = outputFromObservable(
-    fromEvent<CustomEvent<T>>(this.#element.nativeElement, 'dateselected'),
+  public dateSelectedOutput: OutputRef<SbbDateSelectedEvent<T>> = outputFromObservable(
+    fromEvent<SbbDateSelectedEvent<T>>(this.#element.nativeElement, 'dateselected'),
     { alias: 'dateSelected' },
   );
 
   /**
    * Emits whenever the component begins the closing transition. Can be canceled.
    */
-  public beforeCloseOutput: OutputRef<CustomEvent<{ closeTarget: HTMLElement | null }>> =
-    outputFromObservable(
-      fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
-        this.#element.nativeElement,
-        'beforeclose',
-      ),
-      { alias: 'beforeClose' },
-    );
+  public beforeCloseOutput: OutputRef<SbbPopoverCloseEvent> = outputFromObservable(
+    fromEvent<SbbPopoverCloseEvent>(this.#element.nativeElement, 'beforeclose'),
+    { alias: 'beforeClose' },
+  );
 
-  protected _closeOutput: OutputRef<CustomEvent<{ closeTarget: HTMLElement | null }>> =
-    outputFromObservable<CustomEvent<{ closeTarget: HTMLElement | null }>>(NEVER, {
+  protected _closeOutput: OutputRef<SbbPopoverCloseEvent> =
+    outputFromObservable<SbbPopoverCloseEvent>(NEVER, {
       alias: 'close',
     });
   /**
    * Emits whenever the component is closed.
    */
-  public closeOutput: OutputRef<CustomEvent<{ closeTarget: HTMLElement | null }>> =
-    internalOutputFromObservable(
-      fromEvent<CustomEvent<{ closeTarget: HTMLElement | null }>>(
-        this.#element.nativeElement,
-        'close',
-      ),
-    );
+  public closeOutput: OutputRef<SbbPopoverCloseEvent> = internalOutputFromObservable(
+    fromEvent<SbbPopoverCloseEvent>(this.#element.nativeElement, 'close'),
+  );
 
   /**
    * Emits whenever the component starts the opening transition. Can be canceled.

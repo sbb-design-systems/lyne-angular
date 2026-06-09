@@ -1,6 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
 
@@ -20,7 +20,6 @@ interface VehicleExampleItem {
   selector: 'sbb-selectable-table-example',
   templateUrl: 'selectable-table-example.html',
   imports: [SbbTableModule, SbbCheckboxModule, JsonPipe],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectableTableExample {
   protected columns = [

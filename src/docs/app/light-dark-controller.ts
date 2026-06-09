@@ -1,4 +1,4 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, Service, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { fromEvent } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -7,9 +7,7 @@ const LOCAL_STORE_KEY = 'sbbDarkMode';
 
 type ColorScheme = 'dark' | 'light' | 'system';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class LightDarkController {
   #query = window.matchMedia('(prefers-color-scheme: dark)');
   #osPreferredState = toSignal<boolean>(

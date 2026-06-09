@@ -1,13 +1,11 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { ITripItem } from '@sbb-esta/lyne-elements-experimental/core/timetable.js';
-import type {
-  Boarding,
-  Price,
+import type { ITripItem } from '@sbb-esta/lyne-elements-experimental/core.js';
+import {
+  type Boarding,
+  type Price,
   SbbTimetableRowElement,
-} from '@sbb-esta/lyne-elements-experimental/timetable-row.js';
-
-import '@sbb-esta/lyne-elements-experimental/timetable-row.js';
+} from '@sbb-esta/lyne-elements-experimental/timetable-row.pure.js';
 
 /**
  * It displays information about the trip, acting as a container for all the `sbb-timetable-*` components.
@@ -17,6 +15,10 @@ import '@sbb-esta/lyne-elements-experimental/timetable-row.js';
   exportAs: 'sbbTimetableRow',
 })
 export class SbbTimetableRow {
+  static {
+    SbbTimetableRowElement.define();
+  }
+
   #element: ElementRef<SbbTimetableRowElement> = inject(ElementRef<SbbTimetableRowElement>);
   #ngZone: NgZone = inject(NgZone);
 

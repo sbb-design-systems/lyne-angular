@@ -12,7 +12,7 @@ import {
   SbbOverlayContainerBase,
   SbbOverlayState,
 } from '@sbb-esta/lyne-angular/core/overlay';
-import type { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.js';
+import type { SbbOverlayCloseEvent } from '@sbb-esta/lyne-elements/overlay.pure.js';
 import type { Observable } from 'rxjs';
 
 import { SbbOverlay } from './overlay';
@@ -48,13 +48,8 @@ export class SbbOverlayContainer extends SbbOverlayContainerBase<SbbOverlay> {
   }
   /** Closes the component. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public close(result?: any): void;
-  /** @deprecated */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public close(result?: any, target?: HTMLElement): void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public close(result?: any, target?: HTMLElement): void {
-    this.elementInstance.close(result, target);
+  public close(result?: any): void {
+    this.elementInstance.close(result);
   }
 
   public override attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
@@ -80,8 +75,4 @@ export class SbbOverlayContainer extends SbbOverlayContainerBase<SbbOverlay> {
   public override beforeClosed: Observable<SbbOverlayCloseEvent> = outputToObservable(
     this.elementInstance.beforeCloseOutput,
   );
-
-  public override afterOpen: Observable<Event> = this.afterOpened;
-  public override afterClose: Observable<SbbOverlayCloseEvent> = this.afterClosed;
-  public override beforeClose: Observable<SbbOverlayCloseEvent> = this.beforeClosed;
 }

@@ -1,6 +1,5 @@
 import { KeyValuePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component, inject } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SbbDividerModule } from '@sbb-esta/lyne-angular/divider';
@@ -20,7 +19,6 @@ import { ThemeController } from './theme-controller';
   selector: 'sbb-app',
   imports: [
     KeyValuePipe,
-    ReactiveFormsModule,
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
@@ -34,7 +32,6 @@ import { ThemeController } from './theme-controller';
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   themeController = inject(ThemeController);

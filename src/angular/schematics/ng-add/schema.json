@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ng-add",
+  "title": "Add Lyne Angular",
+  "description": "Adds @sbb-esta/lyne-angular to an Angular project",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "The name of the project.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "theme": {
+      "type": "string",
+      "description": "The theme to apply to your application",
+      "enum": ["standard", "off-brand", "safety", "lean", "lean-off-brand", "lean-safety"],
+      "x-prompt": {
+        "message": "Which theme would you like to use?",
+        "type": "list",
+        "items": [
+          { "value": "standard", "label": "Standard" },
+          { "value": "off-brand", "label": "Off Brand" },
+          { "value": "safety", "label": "Safety" },
+          { "value": "lean", "label": "Lean" },
+          { "value": "lean-off-brand", "label": "Lean Off Brand" },
+          { "value": "lean-safety", "label": "Lean Safety" }
+        ]
+      }
+    }
+  },
+  "required": ["theme"]
+}

@@ -1,9 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import type { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.js';
-
-import '@sbb-esta/lyne-elements/divider.js';
+import { SbbDividerElement } from '@sbb-esta/lyne-elements/divider.pure.js';
 
 /**
  * Displays a divider between sections.
@@ -13,6 +10,10 @@ import '@sbb-esta/lyne-elements/divider.js';
   exportAs: 'sbbDivider',
 })
 export class SbbDivider {
+  static {
+    SbbDividerElement.define();
+  }
+
   #element: ElementRef<SbbDividerElement> = inject(ElementRef<SbbDividerElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -20,10 +21,10 @@ export class SbbDivider {
    * Orientation property with possible values 'horizontal' | 'vertical'. Defaults to horizontal.
    */
   @Input()
-  public set orientation(value: SbbOrientation) {
+  public set orientation(value: 'horizontal' | 'vertical') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.orientation = value));
   }
-  public get orientation(): SbbOrientation {
+  public get orientation(): 'horizontal' | 'vertical' {
     return this.#element.nativeElement.orientation;
   }
 

@@ -3,19 +3,19 @@ import type { Type } from '@angular/core';
 import type { ExampleData } from './example-data';
 
 export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[]> = {
-  accordion: ['accordion-basic', 'accordion-nested-lazy', 'accordion-variants', 'accordion-wizard'],
-  'action-group': ['action-group-basic'],
-  alert: [
-    'alert-basic',
-    'alert-group',
-    'alert-router-link',
-    { id: 'alert-variants', hasStyle: true },
+  accordion: [
+    'accordion-basic',
+    'accordion-nested-lazy',
+    'accordion-variants',
+    { id: 'accordion-wizard', hasStyle: true },
   ],
+  'action-group': ['action-group-basic', { id: 'action-group-complex', hasStyle: true }],
+  alert: ['alert-basic', 'alert-group', 'alert-router-link', { id: 'alert-variants', hasStyle: true }],
   autocomplete: ['autocomplete-basic'],
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
   button: ['button-basic', 'mini-button-basic'],
-  calendar: ['calendar-basic'],
+  calendar: ['calendar-basic', 'calendar-reactive', 'calendar-fixed-month'],
   card: ['card-basic'],
   carousel: ['carousel-basic'],
   checkbox: ['checkbox-basic'],
@@ -66,6 +66,11 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'radio-button': ['radio-button-basic'],
   'radio-button-group': ['radio-button-group-basic'],
   'radio-button-panel': ['radio-button-panel-basic'],
+  'seat-reservation': [
+    'seat-reservation-basic',
+    'seat-reservation-multiple-decks',
+    'seat-reservation-bus',
+  ],
   select: ['select-basic'],
   'selection-action-panel': ['selection-action-panel-basic'],
   'selection-expansion-panel': ['selection-expansion-panel-basic'],
@@ -91,6 +96,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   tag: ['tag-basic'],
   teaser: ['teaser-basic'],
   'teaser-hero': ['teaser-hero-basic'],
+  'teaser-panel': ['teaser-panel-basic'],
   'teaser-product': ['teaser-product-basic'],
   'time-input': ['time-input-basic'],
   'timetable-form': ['timetable-form-basic'],
@@ -112,6 +118,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'accordion-wizard':
       return import('../angular/examples/accordion');
     case 'action-group-basic':
+    case 'action-group-complex':
       return import('../angular/examples/action-group');
     case 'alert-basic':
     case 'alert-group':
@@ -131,6 +138,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'button-basic':
       return import('../angular/examples/button');
     case 'calendar-basic':
+    case 'calendar-fixed-month':
+      return import('../angular/examples/calendar');
+    case 'calendar-reactive':
       return import('../angular/examples/calendar');
     case 'card-basic':
       return import('../angular/examples/card');
@@ -244,6 +254,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/radio-button-group');
     case 'radio-button-panel-basic':
       return import('../angular/examples/radio-button-panel');
+    case 'seat-reservation-basic':
+    case 'seat-reservation-bus':
+    case 'seat-reservation-multiple-decks':
+      return import('../angular-experimental/examples/seat-reservation');
     case 'select-basic':
       return import('../angular/examples/select');
     case 'selectable-table':
@@ -278,6 +292,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/teaser');
     case 'teaser-hero-basic':
       return import('../angular/examples/teaser-hero');
+    case 'teaser-panel-basic':
+      return import('../angular/examples/teaser-panel');
     case 'teaser-product-basic':
       return import('../angular/examples/teaser-product');
     case 'time-input-basic':

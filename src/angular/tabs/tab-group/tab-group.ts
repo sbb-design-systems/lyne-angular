@@ -9,15 +9,13 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type {
+import {
   SbbTabGroupElement,
-  SbbTabLabelElement,
-  SbbTabElement,
-  SbbTabChangedEventDetails,
-} from '@sbb-esta/lyne-elements/tabs.js';
+  type SbbTabLabelElement,
+  type SbbTabElement,
+  type SbbTabChangeEvent,
+} from '@sbb-esta/lyne-elements/tabs.pure.js';
 import { fromEvent } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/tabs.js';
 
 /**
  * It displays one or more tabs, each one with a label and some content.
@@ -29,17 +27,21 @@ import '@sbb-esta/lyne-elements/tabs.js';
   exportAs: 'sbbTabGroup',
 })
 export class SbbTabGroup {
+  static {
+    SbbTabGroupElement.define();
+  }
+
   #element: ElementRef<SbbTabGroupElement> = inject(ElementRef<SbbTabGroupElement>);
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either s, l or xl.
+   * Size variant, either s (lean theme default), l (standard theme default) or xl.
    */
   @Input()
-  public set size(value: 's' | 'l' | 'xl') {
+  public set size(value: 's' | 'l' | 'xl' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 's' | 'l' | 'xl' {
+  public get size(): 's' | 'l' | 'xl' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -94,8 +96,8 @@ export class SbbTabGroup {
   /**
    * The tabchange event is dispatched when a tab is selected.
    */
-  public tabChangeOutput: OutputRef<CustomEvent<SbbTabChangedEventDetails>> = outputFromObservable(
-    fromEvent<CustomEvent<SbbTabChangedEventDetails>>(this.#element.nativeElement, 'tabchange'),
+  public tabChangeOutput: OutputRef<SbbTabChangeEvent> = outputFromObservable(
+    fromEvent<SbbTabChangeEvent>(this.#element.nativeElement, 'tabchange'),
     { alias: 'tabChange' },
   );
 

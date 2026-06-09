@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
@@ -8,6 +8,5 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   selector: 'sbb-title-basic-example',
   templateUrl: 'title-basic-example.html',
   imports: [SbbTitleModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TitleBasicExample {}

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbToggleModule } from '@sbb-esta/lyne-angular/toggle';
 
 /**
@@ -8,6 +8,5 @@ import { SbbToggleModule } from '@sbb-esta/lyne-angular/toggle';
   selector: 'sbb-toggle-basic-example',
   templateUrl: 'toggle-basic-example.html',
   imports: [SbbToggleModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToggleBasicExample {}

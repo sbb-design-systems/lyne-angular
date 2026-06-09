@@ -9,15 +9,10 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-  booleanAttribute,
-  internalOutputFromObservable,
-  SbbControlValueAccessorMixin,
-} from '@sbb-esta/lyne-angular/core';
-import type { SbbFileSelectorElement } from '@sbb-esta/lyne-elements/file-selector.js';
-import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/file-selector.js';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import type { SbbFileChangeEvent } from '@sbb-esta/lyne-elements/file-selector.pure.js';
+import { SbbFileSelectorElement } from '@sbb-esta/lyne-elements/file-selector.pure.js';
+import { fromEvent } from 'rxjs';
 
 /**
  * It allows to select one or more file from storage devices and display them.
@@ -40,17 +35,21 @@ import '@sbb-esta/lyne-elements/file-selector.js';
   ],
 })
 export class SbbFileSelector extends SbbControlValueAccessorMixin(class {}) {
+  static {
+    SbbFileSelectorElement.define();
+  }
+
   #element: ElementRef<SbbFileSelectorElement> = inject(ElementRef<SbbFileSelectorElement>);
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either s or m.
+   * Size variant, either s (lean theme default) or m (standard theme default).
    */
   @Input()
-  public set size(value: 's' | 'm') {
+  public set size(value: 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 's' | 'm' {
+  public get size(): 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -214,33 +213,11 @@ export class SbbFileSelector extends SbbControlValueAccessorMixin(class {}) {
     return this.#element.nativeElement.setCustomValidity(message);
   }
 
-  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
-    alias: 'input',
-  });
-  /**
-   * The input event fires when the value has been changed as a direct result of a user action.
-   */
-  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
-    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
-  );
-
-  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'change',
-  });
-  /**
-   * The change event is fired when the user modifies the element's value.
-   * Unlike the input event, the change event is not necessarily fired
-   * for each alteration to an element's value.
-   */
-  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'change'),
-  );
-
   /**
    * An event which is emitted each time the file list changes.
    */
-  public fileChangedOutput: OutputRef<CustomEvent<Readonly<File>[]>> = outputFromObservable(
-    fromEvent<CustomEvent<Readonly<File>[]>>(this.#element.nativeElement, 'filechanged'),
+  public fileChangedOutput: OutputRef<SbbFileChangeEvent> = outputFromObservable(
+    fromEvent<SbbFileChangeEvent>(this.#element.nativeElement, 'filechanged'),
     { alias: 'fileChanged' },
   );
 }

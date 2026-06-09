@@ -13,7 +13,7 @@
     "schedule": ["before 7am on monday"],
     "enabled": true
   },
-  "ignoreDeps": ["typescript", "zone.js"],
+  "ignoreDeps": ["typescript"],
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance", "bump"],

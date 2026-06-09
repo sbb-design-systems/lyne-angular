@@ -1,12 +1,10 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbAutocompleteElement } from '@sbb-esta/lyne-elements/autocomplete.js';
+import { SbbAutocompleteElement } from '@sbb-esta/lyne-elements/autocomplete.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
 
 import type { SbbAutocompleteType } from './autocomplete-type';
-
-import '@sbb-esta/lyne-elements/autocomplete.js';
 
 /**
  * Combined with a native input, it displays a panel with a list of available options.
@@ -20,17 +18,22 @@ import '@sbb-esta/lyne-elements/autocomplete.js';
   exportAs: 'sbbAutocomplete',
 })
 export class SbbAutocomplete<T = string> implements SbbAutocompleteType<T> {
+  static {
+    SbbAutocompleteElement.define();
+  }
+
   #element: ElementRef<SbbAutocompleteElement<T>> = inject(ElementRef<SbbAutocompleteElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either m or s.
+   * Size variant, either s (lean theme default) or m (standard theme default).
+   * When placed inside an `<sbb-form-field>`, the size is inherited from the form field.
    */
   @Input()
-  public set size(value: 'm' | 's') {
+  public set size(value: 'm' | 's' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 'm' | 's' {
+  public get size(): 'm' | 's' | null {
     return this.#element.nativeElement.size;
   }
 

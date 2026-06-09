@@ -7,20 +7,14 @@ import {
   inject,
   Input,
   NgZone,
-  type OutputRef,
 } from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
   booleanAttribute,
-  internalOutputFromObservable,
   SbbControlValueAccessorMixin,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.js';
-import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/toggle-check.js';
+import { SbbToggleCheckElement } from '@sbb-esta/lyne-elements/toggle-check.pure.js';
 
 /**
  * It displays a toggle checkbox.
@@ -47,18 +41,22 @@ export class SbbToggleCheck<T = string>
   extends SbbControlValueAccessorMixin(class {})
   implements AfterViewInit
 {
+  static {
+    SbbToggleCheckElement.define();
+  }
+
   #element: ElementRef<SbbToggleCheckElement<T>> = inject(ElementRef<SbbToggleCheckElement<T>>);
   #ngZone: NgZone = inject(NgZone);
   #focusMonitor = inject(FocusMonitor);
 
   /**
-   * Size variant, either m, s or xs.
+   * Size variant, either xs (lean theme default), s (standard theme default) or m.
    */
   @Input()
-  public set size(value: 'xs' | 's' | 'm') {
+  public set size(value: 'xs' | 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 'xs' | 's' | 'm' {
+  public get size(): 'xs' | 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -227,24 +225,4 @@ export class SbbToggleCheck<T = string>
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
-
-  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'change',
-  });
-  /**
-   * The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
-   */
-  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'change'),
-  );
-
-  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
-    alias: 'input',
-  });
-  /**
-   * The input event fires when the value has been changed as a direct result of a user action.
-   */
-  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
-    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
-  );
 }

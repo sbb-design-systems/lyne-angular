@@ -12,7 +12,7 @@ import {
   SbbOverlayContainerBase,
   SbbOverlayState,
 } from '@sbb-esta/lyne-angular/core/overlay';
-import type { SbbDialogCloseEvent } from '@sbb-esta/lyne-elements/dialog.js';
+import type { SbbDialogCloseEvent } from '@sbb-esta/lyne-elements/dialog.pure.js';
 import type { Observable } from 'rxjs';
 
 import { SbbDialog } from './dialog';
@@ -49,13 +49,8 @@ export class SbbDialogContainer extends SbbOverlayContainerBase<SbbDialog> {
 
   /** Closes the component. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public override close(result?: any): void;
-  /** @deprecated */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public override close(result?: any, target?: HTMLElement): void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public override close(result?: any, target?: HTMLElement): void {
-    this.elementInstance.close(result, target);
+  public override close(result?: any): void {
+    this.elementInstance.close(result);
   }
 
   /**
@@ -89,8 +84,4 @@ export class SbbDialogContainer extends SbbOverlayContainerBase<SbbDialog> {
   public override beforeClosed: Observable<SbbDialogCloseEvent> = outputToObservable(
     this.elementInstance.beforeCloseOutput,
   );
-
-  public override afterOpen: Observable<Event> = this.afterOpened;
-  public override afterClose: Observable<SbbDialogCloseEvent> = this.afterClosed;
-  public override beforeClose: Observable<SbbDialogCloseEvent> = this.beforeClosed;
 }

@@ -1,7 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbSignetElement, SbbSignetProtectiveRoom } from '@sbb-esta/lyne-elements/signet.js';
-
-import '@sbb-esta/lyne-elements/signet.js';
+import { SbbSignetElement } from '@sbb-esta/lyne-elements/signet.pure.js';
 
 /**
  * It displays the SBB signet.
@@ -12,6 +10,10 @@ import '@sbb-esta/lyne-elements/signet.js';
   exportAs: 'sbbSignet',
 })
 export class SbbSignet {
+  static {
+    SbbSignetElement.define();
+  }
+
   #element: ElementRef<SbbSignetElement> = inject(ElementRef<SbbSignetElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -19,10 +21,10 @@ export class SbbSignet {
    * Visual protective room around signet.
    */
   @Input()
-  public set protectiveRoom(value: SbbSignetProtectiveRoom) {
+  public set protectiveRoom(value: 'none' | 'minimal' | 'ideal' | 'panel') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.protectiveRoom = value));
   }
-  public get protectiveRoom(): SbbSignetProtectiveRoom {
+  public get protectiveRoom(): 'none' | 'minimal' | 'ideal' | 'panel' {
     return this.#element.nativeElement.protectiveRoom;
   }
 

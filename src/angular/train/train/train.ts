@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
-import type { SbbTrainElement } from '@sbb-esta/lyne-elements/train.js';
-
-import '@sbb-esta/lyne-elements/train.js';
+import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
+import { SbbTrainElement } from '@sbb-esta/lyne-elements/train.pure.js';
 
 /**
  * It can be used as a container for `sbb-train-wagon` or `sbb-train-blocked-passage` components.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/train.js';
   exportAs: 'sbbTrain',
 })
 export class SbbTrain {
+  static {
+    SbbTrainElement.define();
+  }
+
   #element: ElementRef<SbbTrainElement> = inject(ElementRef<SbbTrainElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -32,10 +34,10 @@ export class SbbTrain {
    * Heading level of the direction label, used for screen readers.
    */
   @Input()
-  public set directionLabelLevel(value: SbbTitleLevel) {
+  public set directionLabelLevel(value: SbbHeadingLevel) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.directionLabelLevel = value));
   }
-  public get directionLabelLevel(): SbbTitleLevel {
+  public get directionLabelLevel(): SbbHeadingLevel {
     return this.#element.nativeElement.directionLabelLevel;
   }
 

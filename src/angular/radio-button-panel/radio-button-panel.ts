@@ -1,18 +1,7 @@
-import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
-import {
-  booleanAttribute,
-  internalOutputFromObservable,
-  SbbDeferredAnimation,
-} from '@sbb-esta/lyne-angular/core';
-import type { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button-panel.js';
-import type {
-  SbbRadioButtonGroupElement,
-  SbbRadioButtonSize,
-} from '@sbb-esta/lyne-elements/radio-button.js';
-import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/radio-button-panel.js';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
+import { booleanAttribute, SbbDeferredAnimation } from '@sbb-esta/lyne-angular/core';
+import type { SbbRadioButtonGroupElement } from '@sbb-esta/lyne-elements/radio-button-group.pure.js';
+import { SbbRadioButtonPanelElement } from '@sbb-esta/lyne-elements/radio-button-panel.pure.js';
 
 /**
  * It displays a radio button enhanced with the panel design.
@@ -28,19 +17,23 @@ import '@sbb-esta/lyne-elements/radio-button-panel.js';
   hostDirectives: [SbbDeferredAnimation],
 })
 export class SbbRadioButtonPanel<T = string> {
+  static {
+    SbbRadioButtonPanelElement.define();
+  }
+
   #element: ElementRef<SbbRadioButtonPanelElement<T>> = inject(
     ElementRef<SbbRadioButtonPanelElement<T>>,
   );
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either xs, s or m.
+   * Size variant, either xs (lean theme default), s or m (standard theme default).
    */
   @Input()
-  public set size(value: SbbRadioButtonSize) {
+  public set size(value: 'xs' | 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbRadioButtonSize {
+  public get size(): 'xs' | 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -213,24 +206,4 @@ export class SbbRadioButtonPanel<T = string> {
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
-
-  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'change',
-  });
-  /**
-   * The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
-   */
-  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'change'),
-  );
-
-  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
-    alias: 'input',
-  });
-  /**
-   * The input event fires when the value has been changed as a direct result of a user action.
-   */
-  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
-    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
-  );
 }

@@ -1,4 +1,3 @@
-import 'tsx';
 import eslint from '@eslint/js';
 import { configs as angulareslint, processInlineTemplates } from 'angular-eslint';
 import { defineConfig } from 'eslint/config';
@@ -7,7 +6,7 @@ import { flatConfigs as importXFlatConfigs } from 'eslint-plugin-import-x';
 import globals from 'globals';
 import { configs as tseslint } from 'typescript-eslint';
 
-const eslintPluginLyne = await import('./tools/eslint/index.js');
+import eslintPluginLyne from './tools/eslint/index.ts';
 
 const ignores = [
   'dist/**/*',
@@ -90,5 +89,5 @@ export default defineConfig([
     },
   },
   // @ts-expect-error The returned config will exist.
-  eslintPluginLyne.default.configs.recommended,
+  eslintPluginLyne.configs.recommended,
 ]);

@@ -1,7 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbCardElement } from '@sbb-esta/lyne-elements/card.js';
-
-import '@sbb-esta/lyne-elements/card.js';
+import { SbbCardElement } from '@sbb-esta/lyne-elements/card.pure.js';
 
 /**
  * It displays content related to a single subject.
@@ -15,6 +13,10 @@ import '@sbb-esta/lyne-elements/card.js';
   exportAs: 'sbbCard',
 })
 export class SbbCard {
+  static {
+    SbbCardElement.define();
+  }
+
   #element: ElementRef<SbbCardElement> = inject(ElementRef<SbbCardElement>);
   #ngZone: NgZone = inject(NgZone);
 

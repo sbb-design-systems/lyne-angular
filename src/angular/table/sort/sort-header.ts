@@ -5,7 +5,6 @@ import { NgClass } from '@angular/common';
 import type { AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 import {
   booleanAttribute,
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -47,15 +46,6 @@ export interface SbbArrowViewStateTransition {
 }
 
 /**
- * Column definition associated with a `SbbSortHeader`.
- * @deprecated
- */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface SbbSortHeaderColumnDef {
-  name: string;
-}
-
-/**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
  *
@@ -80,7 +70,6 @@ interface SbbSortHeaderColumnDef {
     '[class.sbb-sort-header-disabled]': '_isDisabled()',
   },
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgClass],
 })
 export class SbbSortHeader implements SbbSortable, OnDestroy, OnInit, AfterViewInit {

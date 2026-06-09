@@ -1,10 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type {
-  SbbIconSidebarContainerElement,
-  SbbIconSidebarElement,
-} from '@sbb-esta/lyne-elements/icon-sidebar.js';
-
-import '@sbb-esta/lyne-elements/icon-sidebar.js';
+import type { SbbIconSidebarContainerElement } from '@sbb-esta/lyne-elements/icon-sidebar.pure.js';
+import { SbbIconSidebarElement } from '@sbb-esta/lyne-elements/icon-sidebar.pure.js';
 
 /**
  * Icon sidebar, can be placed inside a `sbb-icon-sidebar-container` element.
@@ -16,6 +12,10 @@ import '@sbb-esta/lyne-elements/icon-sidebar.js';
   exportAs: 'sbbIconSidebar',
 })
 export class SbbIconSidebar {
+  static {
+    SbbIconSidebarElement.define();
+  }
+
   #element: ElementRef<SbbIconSidebarElement> = inject(ElementRef<SbbIconSidebarElement>);
   #ngZone: NgZone = inject(NgZone);
 

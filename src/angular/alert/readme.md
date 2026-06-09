@@ -7,7 +7,7 @@ The group also manages the accessibility of one or multiple alert instances and 
 visual gap between each other.
 
 ```html
-<sbb-alert-group accessibilityTitle="Disruptions" accessibilityLevel="2">
+<sbb-alert-group accessibilityTitle="Disruptions" accessibilityTitleLevel="2">
   <sbb-alert size="l">
     <sbb-title level="3">Interruption between Genève and Lausanne</sbb-title>
     The rail traffic between Allaman and Morges is interrupted. All trains are cancelled.
@@ -68,7 +68,7 @@ use the `readonly` attribute/`readOnly` property.
 
 ## Style
 
-Users can choose between three `size` options: `s`, `m` (default) and `l`.
+Users can choose between three `size` options: `s`, `m` and `l`.
 
 ```html
 <sbb-alert size="s"> ... </sbb-alert>

@@ -1,20 +1,14 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  input,
-  signal,
-  ViewContainerRef,
-} from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, computed, inject, input, signal, ViewContainerRef } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import type { SafeHtml } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
+import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
 import { SbbTabsModule } from '@sbb-esta/lyne-angular/tabs';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
-import { SbbToggleCheck } from '@sbb-esta/lyne-angular/toggle-check';
+import { SbbToggleCheckModule } from '@sbb-esta/lyne-angular/toggle-check';
 import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
 import { marked } from 'marked';
 import { combineLatest, filter, from } from 'rxjs';
@@ -27,9 +21,6 @@ import type { ModuleParams } from '../../module-params';
 import { moduleParams } from '../../module-params';
 import { StackBlitzButton } from '../stack-blitz/stack-blitz-button';
 
-import '@sbb-esta/lyne-elements/title.js';
-import '@sbb-esta/lyne-elements/link.js';
-
 interface ExampleCode {
   label: string;
   code: SafeHtml;
@@ -38,10 +29,9 @@ interface ExampleCode {
 @Component({
   selector: 'sbb-example-outlet',
   template: '',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleOutletComponent {
-  #viewContainerRef = inject(ViewContainerRef);
+  readonly #viewContainerRef = inject(ViewContainerRef);
   exampleData = input.required<ExampleData>();
 
   constructor() {
@@ -68,20 +58,25 @@ export class ExampleOutletComponent {
     SbbButtonModule,
     StackBlitzButton,
     SbbTitleModule,
-    SbbToggleCheck,
+    SbbToggleCheckModule,
+    SbbLinkModule,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleViewerComponent {
-  #htmlLoader = inject(HtmlLoader);
-  #route = inject(ActivatedRoute);
-  #domSanitizer = inject(DomSanitizer);
-  #defaultExtensionsOrder = ['html', 'ts', 'css', 'scss'];
-  #routeParams = toSignal(moduleParams(this.#route));
+  readonly #htmlLoader = inject(HtmlLoader);
+  readonly #route = inject(ActivatedRoute);
+  readonly #domSanitizer = inject(DomSanitizer);
+  readonly #defaultExtensionsOrder = ['html', 'ts', 'css', 'scss'];
+  readonly #routeParams = toSignal(moduleParams(this.#route));
+  protected readonly currentPath = inject(Location).path();
 
   exampleData = input.required<ExampleData>();
   protected showSource = signal(false);
-  protected stackBlitzEnabled = computed(() => this.#routeParams()?.packageName === 'angular');
+  protected stackBlitzEnabled = computed(
+    () =>
+      this.#routeParams()?.packageName === 'angular' ||
+      this.#routeParams()?.packageName === 'angular-experimental',
+  );
   protected exampleCodes = toSignal(
     toObservable(this.exampleData).pipe(
       switchMap((data) => {

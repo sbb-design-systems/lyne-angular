@@ -3,7 +3,7 @@ import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import type { SbbTab } from '@sbb-esta/lyne-angular/tabs';
-import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs.js';
+import type { SbbTabLabelElement } from '@sbb-esta/lyne-elements/tabs.pure.js';
 
 import { SbbTabsModule } from '../tabs.module';
 
@@ -76,7 +76,7 @@ describe(`sbb-tab-content`, () => {
     lazyTabLabelElement.click();
     fixture.detectChanges();
     expect(lazyTabElement.textContent).toEqual('Lazy content');
-    const contentPortal = (lazyTab.componentInstance as SbbTab).contentPortal;
+    const contentPortal = (lazyTab.componentInstance as SbbTab)['contentPortal'];
 
     const eagerTabLabel = (fixture.nativeElement as HTMLElement).querySelector<SbbTabLabelElement>(
       '#eager-label',
@@ -87,7 +87,7 @@ describe(`sbb-tab-content`, () => {
     lazyTabLabelElement.click();
     fixture.detectChanges();
 
-    expect((lazyTab.componentInstance as SbbTab).contentPortal).toBe(contentPortal);
+    expect((lazyTab.componentInstance as SbbTab)['contentPortal']).toBe(contentPortal);
   });
 
   it('should update template changed of lazy tabs', async () => {

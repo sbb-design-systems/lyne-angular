@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbErrorElement } from '@sbb-esta/lyne-elements/form-field.js';
-
-import '@sbb-esta/lyne-elements/form-field.js';
+import { SbbErrorElement } from '@sbb-esta/lyne-elements/form-field.pure.js';
 
 /**
  * It displays an error message in the `sbb-form-field`.
@@ -15,6 +13,10 @@ import '@sbb-esta/lyne-elements/form-field.js';
   exportAs: 'sbbError',
 })
 export class SbbError {
+  static {
+    SbbErrorElement.define();
+  }
+
   #element: ElementRef<SbbErrorElement> = inject(ElementRef<SbbErrorElement>);
   #ngZone: NgZone = inject(NgZone);
 

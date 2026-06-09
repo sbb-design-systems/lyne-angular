@@ -1,10 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbStickyBarElement } from '@sbb-esta/lyne-elements/container.js';
+import { SbbStickyBarElement } from '@sbb-esta/lyne-elements/container.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/container.js';
 
 /**
  * A container that sticks to the bottom of the page if slotted into `sbb-container`.
@@ -19,6 +17,10 @@ import '@sbb-esta/lyne-elements/container.js';
   exportAs: 'sbbStickyBar',
 })
 export class SbbStickyBar {
+  static {
+    SbbStickyBarElement.define();
+  }
+
   #element: ElementRef<SbbStickyBarElement> = inject(ElementRef<SbbStickyBarElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -34,13 +36,13 @@ export class SbbStickyBar {
   }
 
   /**
-   * Size of the container.
+   * Size of the sticky bar, either s (lean theme default) or m (standard theme default).
    */
   @Input()
-  public set size(value: 'm' | 's') {
+  public set size(value: 'm' | 's' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 'm' | 's' {
+  public get size(): 'm' | 's' | null {
     return this.#element.nativeElement.size;
   }
 

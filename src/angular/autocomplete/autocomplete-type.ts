@@ -1,7 +1,7 @@
 import type { OutputRef } from '@angular/core';
 
 export interface SbbAutocompleteType<T = string> {
-  size: 'm' | 's';
+  size: 'm' | 's' | null;
   negative: boolean;
   origin: HTMLElement | null;
   trigger: HTMLInputElement | null;
