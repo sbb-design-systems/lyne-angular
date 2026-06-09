@@ -7,7 +7,7 @@
     "ng": "ng",
     "start": "run-s compodoc:run generate-selector-map 'ng serve docs'",
     "build:angular": "ng build angular",
-    "build:angular:schematics": "tsc -p tsconfig.schematics.json",
+    "build:angular:schematics": "tsc -p src/angular/schematics/tsconfig.json",
     "postbuild:angular": "node ./scripts/patch-package-version.mts",
     "build:angular-experimental": "ng build angular-experimental",
     "postbuild:angular-experimental": "node ./scripts/patch-package-version.mts",
