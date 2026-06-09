@@ -39,4 +39,7 @@ export class App {
   lightDarkController = inject(LightDarkController);
   sidebarToggle = inject(SidebarToggle);
   packages = PACKAGES;
+  isDev =
+    window.location.hostname === 'localhost' ||
+    window.location.hostname.split('.')[0]?.endsWith('-dev');
 }
