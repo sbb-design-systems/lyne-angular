@@ -197,7 +197,10 @@ export class MigrateActionGroupProperties extends AttributeMigrationBase {
   ): void {
     // Sort tags by length descending so longer tags match before substring counterparts
     const sortedTags = [...targetTags].sort((a, b) => b.length - a.length);
-    const childTagPattern = new RegExp(`<(${sortedTags.join('|')})(\\b[^>]*?)(?:\/?)>`, 'gi');
+    const childTagPattern = new RegExp(
+      `<(${sortedTags.join('|')})((?![\\w\\-])[^>]*?)(?:\/?)>`,
+      'gi',
+    );
     let childMatch: RegExpExecArray | null;
 
     while ((childMatch = childTagPattern.exec(innerContent)) !== null) {
