@@ -1,10 +1,10 @@
 import type { ComponentType } from '@angular/cdk/overlay';
 import { inject, Service, type TemplateRef } from '@angular/core';
-import type { SbbOverlayConfig } from '@sbb-esta/lyne-angular/core/overlay';
-import { SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core/overlay';
+import { SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core';
 
 import { SbbSimpleToast } from './simple-toast';
 import type { SbbToast } from './toast';
+import { SbbToastConfig } from './toast-config';
 import { SbbToastContainer } from './toast-container';
 import { SbbToastRef } from './toast-ref';
 
@@ -16,15 +16,16 @@ export class SbbToastService extends SbbOverlayBaseService<
 > {
   protected parentService = inject(SbbToastService, { optional: true, skipSelf: true });
   protected containerType = SbbToastContainer;
-  protected overlayRefConstructor = SbbToastRef;
+  protected refConstructor = SbbToastRef;
+  protected configType = SbbToastConfig;
 
   override open<T = unknown | SbbSimpleToast>(
     content: ComponentType<T> | TemplateRef<T> | string,
-    config?: SbbOverlayConfig<SbbToastContainer, SbbToast>,
+    config?: SbbToastConfig<SbbToastContainer>,
   ): SbbToastRef<T> {
     if (typeof content === 'string') {
       const message = content;
-      const configWithComponent: SbbOverlayConfig<SbbToastContainer, SbbToast> = {
+      const configWithComponent: SbbToastConfig<SbbToastContainer> = {
         ...config,
         data: { message, ...(config?.data || {}) },
       };

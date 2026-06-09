@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { SbbFileSelector } from '@sbb-esta/lyne-angular/file-selector/file-selector';
-import { SbbFileSelectorDropzone } from '@sbb-esta/lyne-angular/file-selector/file-selector-dropzone';
+
+import { SbbFileSelector } from './file-selector/file-selector';
+import { SbbFileSelectorDropzone } from './file-selector-dropzone/file-selector-dropzone';
 
 const SBB_FILE_SELECTOR_EXPORTED_DECLARATIONS = [SbbFileSelector, SbbFileSelectorDropzone];
 

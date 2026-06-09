@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SbbFocusInitial } from '@sbb-esta/lyne-angular/core/overlay';
+import { SbbFocusInitial } from '@sbb-esta/lyne-angular/core';
 
 import { SbbNavigation } from './navigation/navigation';
 import { SbbNavigationButton } from './navigation-button/navigation-button';

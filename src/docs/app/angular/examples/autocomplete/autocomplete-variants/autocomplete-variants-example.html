@@ -1,0 +1,31 @@
+<sbb-form-field [size]="form.size().value()">
+  <label>Autocomplete with properties</label>
+  <input [formField]="control" [sbbAutocomplete]="auto" />
+  <sbb-autocomplete
+    [requireSelection]="form.requireSelection().value()"
+    [autoSelectActiveOption]="form.autoSelectActiveOption().value()"
+    [autoActiveFirstOption]="form.autoActiveFirstOption().value()"
+    #auto="sbbAutocomplete"
+  >
+    <sbb-option value="Option 1">Option 1</sbb-option>
+    <sbb-option value="Option 2">Option 2</sbb-option>
+    <sbb-option value="Option 3">Option 3</sbb-option>
+  </sbb-autocomplete>
+</sbb-form-field>
+
+<p>
+  <sbb-card color="milk">Selected value: <code> {{ control().value() | json }} </code></sbb-card>
+</p>
+<sbb-title level="5">Properties</sbb-title>
+<sbb-action-group>
+  <sbb-checkbox-group orientation="vertical">
+    <sbb-checkbox [formField]="form.requireSelection">requireSelection</sbb-checkbox>
+    <sbb-checkbox [formField]="form.autoSelectActiveOption">autoSelectActiveOption</sbb-checkbox>
+    <sbb-checkbox [formField]="form.autoActiveFirstOption">autoActiveFirstOption</sbb-checkbox>
+  </sbb-checkbox-group>
+  <sbb-radio-button-group [formField]="form.size" orientation="vertical" allowEmptySelection>
+    <label>Size</label>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+  </sbb-radio-button-group>
+</sbb-action-group>

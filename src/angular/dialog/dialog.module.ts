@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SbbFocusInitial } from '@sbb-esta/lyne-angular/core/overlay';
+import { SbbFocusInitial } from '@sbb-esta/lyne-angular/core';
 
 import { SbbDialog } from './dialog/dialog';
 import { SbbDialogContainer } from './dialog/dialog-container';
