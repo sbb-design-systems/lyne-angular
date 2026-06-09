@@ -1,4 +1,5 @@
 export * from './dialog/dialog';
+export * from './dialog/dialog-config';
 export * from './dialog/dialog-container';
 export * from './dialog/dialog-ref';
 export * from './dialog/dialog-service';
