@@ -119,16 +119,16 @@ export class MigratePopoverCloseButton extends AttributeMigrationBase {
         );
         const a11yLabelInput = el.inputs.find((attr) => attr.name === 'accessibilityCloseLabel');
         const staticA11yLabel = a11yLabelAttr?.value;
-        const boundA11Label = a11yLabelInput?.valueSpan
+        const boundA11yLabel = a11yLabelInput?.valueSpan
           ? content
               .slice(a11yLabelInput.valueSpan.start.offset, a11yLabelInput.valueSpan.end.offset)
               .trim()
           : '';
 
         const a11yAriaLabel = staticA11yLabel
-          ? `aria-label="${staticA11yLabel}"`
-          : boundA11Label
-            ? `[aria-label]="${boundA11Label}"`
+          ? ` aria-label="${staticA11yLabel}"`
+          : boundA11yLabel
+            ? ` [aria-label]="${boundA11yLabel}"`
             : '';
 
         // Remove the 'accessibilityCloseLabel' property
@@ -136,26 +136,43 @@ export class MigratePopoverCloseButton extends AttributeMigrationBase {
           this._queueAttrRemoval(
             content,
             template,
-            (a11yLabelAttr || a11yLabelInput)!.sourceSpan.start.offset,
-            (a11yLabelAttr || a11yLabelInput)!.sourceSpan.end.offset,
+            (a11yLabelAttr ?? a11yLabelInput)!.sourceSpan.start.offset,
+            (a11yLabelAttr ?? a11yLabelInput)!.sourceSpan.end.offset,
             edits,
             nextIndex,
           );
         }
 
-        const endTagOffset = el.endSourceSpan.start.offset;
-        // Start of the line that contains `</sbb-popover>`.
-        const lineStart = Math.max(0, content.lastIndexOf('\n', endTagOffset - 1) + 1);
-        // Indentation of the closing tag → used to derive child indentation.
-        const closingTagIndent = content.slice(lineStart, endTagOffset).match(/^\s*/)?.[0] ?? '';
-        const contentIndent = `${closingTagIndent}  `;
+        // The insertion point is immediately after the opening tag's `>`.
+        const openTagEnd = el.startSourceSpan.end.offset;
+
+        // Detect whether the opening tag is immediately followed by a newline.
+        // - Multiline: `<sbb-popover>\n  content` → insert on a new line with indentation
+        // - Inline:    `<sbb-popover>content`     → insert inline with a trailing newline
+        const charAfterOpenTag = content[openTagEnd];
+        const isMultiline = charAfterOpenTag === '\n' || charAfterOpenTag === '\r';
+
+        let insertion: string;
+        if (isMultiline) {
+          // Derive indentation from the opening tag's own line.
+          const openTagLineStart = Math.max(
+            0,
+            content.lastIndexOf('\n', el.sourceSpan.start.offset - 1) + 1,
+          );
+          const openTagIndent =
+            content.slice(openTagLineStart, el.sourceSpan.start.offset).match(/^\s*/)?.[0] ?? '';
+          const childIndent = `${openTagIndent}  `;
+          insertion = `\n${childIndent}<sbb-popover-close-button${a11yAriaLabel}></sbb-popover-close-button>`;
+        } else {
+          // Inline case: just prepend the element; the existing content follows on the same line.
+          insertion = `<sbb-popover-close-button${a11yAriaLabel}></sbb-popover-close-button>`;
+        }
 
         edits.push({
-          // Insert before the closing-tag line so indentation is preserved.
-          offset: template.start + lineStart,
+          offset: template.start + openTagEnd,
           index: nextIndex(),
           length: 0,
-          insertion: `${contentIndent}<sbb-popover-close-button ${a11yAriaLabel}></sbb-popover-close-button>\n`,
+          insertion,
           log: () =>
             this.logger.info(
               `  → Added <sbb-popover-close-button> to <sbb-popover> in ${template.filePath}`,
