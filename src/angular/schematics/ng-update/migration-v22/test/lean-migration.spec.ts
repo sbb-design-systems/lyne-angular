@@ -10,7 +10,8 @@ describe(`sbb-lean-migration`, () => {
       `<sbb-button class="sbb-lean sbb-dark" iconName="pie-small">test</sbb-button>`.trim();
 
     const mockOutput = `
-<!-- FIXME: legacy \`sbb-lean\` class detected on this element. Adapt the element styling if necessary and/or check https://lyne-angular.app.sbb.ch/angular/guides/theming#themes. -->
+<!-- FIXME: legacy \`sbb-lean\` class detected on this element. -->
+<!--  Adapt the element styling if necessary and/or check https://lyne-angular.app.sbb.ch/angular/guides/theming#themes. -->
 <sbb-button class="sbb-lean sbb-dark" iconName="pie-small">test</sbb-button>
 `.trim();
 
@@ -34,7 +35,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  // FIXME: legacy \`sbb-lean\` class detected on this element. Adapt the element styling if necessary and/or check https://lyne-angular.app.sbb.ch/angular/guides/theming#themes.
+  // FIXME: legacy \`sbb-lean\` class detected on this element.
+  //  Adapt the element styling if necessary and/or check https://lyne-angular.app.sbb.ch/angular/guides/theming#themes.
   template: '<sbb-button class="sbb-lean sbb-dark" iconName="pie-small">test</sbb-button>'
 })
 export class AppComponent {}

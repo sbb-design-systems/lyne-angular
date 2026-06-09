@@ -112,12 +112,32 @@ function buildTokenRegex(token: string): RegExp {
   return new RegExp(source, 'g');
 }
 
-/** Formats a comment body without a trailing space when the end delimiter is empty. */
+/** Formats a comment body, supporting both single-line and multiline comment text. */
 function formatComment(indent: string, delimiters: CommentDelimiters, commentText: string): string {
-  const body = delimiters.end
-    ? `${delimiters.start} ${commentText} ${delimiters.end}`
-    : `${delimiters.start} ${commentText}`;
-  return `${indent}${body}`;
+  let renderedLineIndex = 0;
+  return (
+    commentText
+      .split('\n')
+      .map((line) => {
+        const trimmedLine = line.trim();
+        // Skip emitting completely empty lines to prevent trailing whitespace issues
+        if (!trimmedLine) {
+          return '';
+        }
+
+        // Add an extra space prefix ONLY from the 2nd actual text line onwards
+        const linePrefix = renderedLineIndex > 0 ? ' ' : '';
+        renderedLineIndex++;
+
+        const body = delimiters.end
+          ? `${delimiters.start} ${linePrefix}${trimmedLine} ${delimiters.end}`
+          : `${delimiters.start} ${linePrefix}${trimmedLine}`;
+        return `${indent}${body}`;
+      })
+      // Filter out empty strings from skipped empty lines
+      .filter((line) => line !== '')
+      .join('\n')
+  );
 }
 
 /**

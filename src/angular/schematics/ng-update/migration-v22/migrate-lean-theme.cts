@@ -98,7 +98,10 @@ export class LeanClassMigration extends AddCommentBase {
           while ((match = regex.exec(content)) !== null) {
             matches.push({
               index: match.index,
-              commentText: `FIXME: legacy \`sbb-lean\` class detected on this element. Adapt the element styling if necessary and/or check https://lyne-angular.app.sbb.ch/angular/guides/theming#themes.`,
+              commentText: `
+                FIXME: legacy \`sbb-lean\` class detected on this element.
+                Adapt the element styling if necessary and/or check https://lyne-angular.app.sbb.ch/angular/guides/theming#themes.
+              `,
             });
           }
 

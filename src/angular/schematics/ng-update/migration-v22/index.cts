@@ -19,6 +19,7 @@ import { MigrateActionGroupProperties } from './migrate-action-group-properties.
 import { MigratePopoverCloseButton } from './migrate-popover-close-button.cjs';
 
 import { SBB_UPGRADE_DATA } from './sbb-upgrade-data.cjs';
+import { OverlayConfigMigration } from './overlay-config.cjs';
 
 const migrations: NullableDevkitMigration[] = [
   FormFieldOptionalMigration,
@@ -26,6 +27,7 @@ const migrations: NullableDevkitMigration[] = [
   TitleMarginBlockMigration,
   CalendarWideMigration,
   LeanClassMigration,
+  OverlayConfigMigration,
   MigrateImportPaths,
   MigrateTableStriped,
   MigrateNavigationActionSize,

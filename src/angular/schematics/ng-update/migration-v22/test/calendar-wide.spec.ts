@@ -16,7 +16,8 @@ describe(`sbb-calendar-wide`, () => {
 
     const mockOutput = `
 <div class="container">
-  <!-- FIXME: The "wide" attribute on \`<sbb-calendar>\` has been removed in favor of "amount". Check the release breaking changes for more info. -->
+  <!-- FIXME: The "wide" attribute on \`<sbb-calendar>\` has been removed in favor of "amount". -->
+  <!--  Check the release breaking changes for more info. -->
   <sbb-calendar wide>
     <sbb-calendar-day value="2025-01-01"></sbb-calendar-day>
   </sbb-calendar>
@@ -47,7 +48,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  // FIXME: The "wide" attribute on \`<sbb-calendar>\` has been removed in favor of "amount". Check the release breaking changes for more info.
+  // FIXME: The "wide" attribute on \`<sbb-calendar>\` has been removed in favor of "amount".
+  //  Check the release breaking changes for more info.
   template: \`
     <sbb-calendar wide>
       <sbb-calendar-day value="2025-01-01"></sbb-calendar-day>
@@ -82,7 +84,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  // FIXME: The "wide" attribute on \`<sbb-calendar>\` has been removed in favor of "amount". Check the release breaking changes for more info.
+  // FIXME: The "wide" attribute on \`<sbb-calendar>\` has been removed in favor of "amount".
+  //  Check the release breaking changes for more info.
   template: \`
     <sbb-calendar [wide]>
       <sbb-calendar-day value="2025-01-01"></sbb-calendar-day>

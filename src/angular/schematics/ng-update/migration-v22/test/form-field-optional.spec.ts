@@ -16,7 +16,8 @@ describe(`sbb-form-field-optional`, () => {
 
     const mockOutput = `
 <div class="container">
-  <!-- FIXME: The "optional" attribute on \`<sbb-form-field>\` is not allowed anymore. Check: https://lyne-angular.app.sbb.ch/angular/components/form-field/overview#visualization-of-coderequiredcode--optional-state and https://github.com/sbb-design-systems/lyne-components/pull/4931 -->
+  <!-- FIXME: The "optional" attribute on \`<sbb-form-field>\` is not allowed anymore. -->
+  <!--  Check: https://lyne-angular.app.sbb.ch/angular/components/form-field/overview#visualization-of-coderequiredcode--optional-state and https://github.com/sbb-design-systems/lyne-components/pull/4931 -->
   <sbb-form-field optional>
     <input placeholder="First Name" />
   </sbb-form-field>
@@ -38,7 +39,8 @@ describe(`sbb-form-field-optional`, () => {
 
     const mockOutput = `
 <div class="container">
-  <!-- FIXME: The "optional" attribute on \`<sbb-form-field>\` is not allowed anymore. Check: https://lyne-angular.app.sbb.ch/angular/components/form-field/overview#visualization-of-coderequiredcode--optional-state and https://github.com/sbb-design-systems/lyne-components/pull/4931 -->
+  <!-- FIXME: The "optional" attribute on \`<sbb-form-field>\` is not allowed anymore. -->
+  <!--  Check: https://lyne-angular.app.sbb.ch/angular/components/form-field/overview#visualization-of-coderequiredcode--optional-state and https://github.com/sbb-design-systems/lyne-components/pull/4931 -->
   <sbb-form-field [attr.optional]="true">
     <input placeholder="First Name" />
   </sbb-form-field>
@@ -65,7 +67,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  // FIXME: The "optional" attribute on \`<sbb-form-field>\` is not allowed anymore. Check: https://lyne-angular.app.sbb.ch/angular/components/form-field/overview#visualization-of-coderequiredcode--optional-state and https://github.com/sbb-design-systems/lyne-components/pull/4931
+  // FIXME: The "optional" attribute on \`<sbb-form-field>\` is not allowed anymore.
+  //  Check: https://lyne-angular.app.sbb.ch/angular/components/form-field/overview#visualization-of-coderequiredcode--optional-state and https://github.com/sbb-design-systems/lyne-components/pull/4931
   template: '<sbb-form-field optional><input /></sbb-form-field>'
 })
 export class AppComponent {}
