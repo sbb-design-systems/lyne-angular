@@ -211,7 +211,6 @@ describe(`sbb-migrate-action-group-properties`, () => {
 </sbb-action-group>
       `.trim();
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
-      console.log(output);
       expect(output).toContain('<sbb-button size="m">');
       expect(output).toContain('<sbb-button-link size="s">');
       expect(output).not.toContain('buttonSize');
