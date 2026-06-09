@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { TitleMarginBlockMigration } from '../title-margin-block.cjs';
 
-import { runMigrationAndGetOutput } from './migration-runner';
+import { testMigration } from './migration-runner';
 
 describe(`sbb-title-margin-block`, () => {
   it('should add comment in HTML file', () => {
@@ -23,12 +23,7 @@ describe(`sbb-title-margin-block`, () => {
 }
 `.trim();
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: TitleMarginBlockMigration,
-      filePath: 'src/app/component.scss',
-      fileContent: mockInput,
-    });
-
+    const result = testMigration(TitleMarginBlockMigration, 'scss', mockInput);
     expect(result).toBe(mockOutput);
   });
 
@@ -68,12 +63,7 @@ import { Component } from '@angular/core';
 export class AppComponent {}
 `.trim();
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: TitleMarginBlockMigration,
-      filePath: 'src/app/app.component.ts',
-      fileContent: mockInput,
-    });
-
+    const result = testMigration(TitleMarginBlockMigration, 'ts', mockInput);
     expect(result).toBe(mockOutput);
   });
 });

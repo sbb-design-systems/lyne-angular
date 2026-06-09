@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { MigrateTableStriped } from '../migrate-table-striped.cjs'; // Adjust relative path as needed
 
-import { runMigrationAndGetOutput } from './migration-runner';
+import { testMigration } from './migration-runner';
 
 describe(`sbb-migrate-table-striped`, () => {
   it('should add sbb-table--striped class to tables in an HTML file', () => {
@@ -26,12 +26,7 @@ describe(`sbb-migrate-table-striped`, () => {
 </div>
 `.trim();
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: MigrateTableStriped,
-      filePath: 'src/app/component.html',
-      fileContent: mockInput,
-    });
-
+    const result = testMigration(MigrateTableStriped, 'html', mockInput);
     expect(result).toBe(mockOutput);
   });
 
@@ -46,13 +41,7 @@ describe(`sbb-migrate-table-striped`, () => {
 </div>
 `.trim();
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: MigrateTableStriped,
-      filePath: 'src/app/component.html',
-      fileContent: mockInput,
-    });
-
-    // The content should remain completely untouched
+    const result = testMigration(MigrateTableStriped, 'html', mockInput);
     expect(result).toBe(mockInput);
   });
 
@@ -67,13 +56,7 @@ describe(`sbb-migrate-table-striped`, () => {
 </div>
 `.trim();
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: MigrateTableStriped,
-      filePath: 'src/app/component.html',
-      fileContent: mockInput,
-    });
-
-    // The negative lookahead (?!-) should prevent this from changing
+    const result = testMigration(MigrateTableStriped, 'html', mockInput);
     expect(result).toBe(mockInput);
   });
 
@@ -106,12 +89,7 @@ import { Component } from '@angular/core';
 export class AppComponent {}
 `.trim();
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: MigrateTableStriped,
-      filePath: 'src/app/component.ts',
-      fileContent: mockInput,
-    });
-
+    const result = testMigration(MigrateTableStriped, 'ts', mockInput);
     expect(result).toBe(mockOutput);
   });
 });

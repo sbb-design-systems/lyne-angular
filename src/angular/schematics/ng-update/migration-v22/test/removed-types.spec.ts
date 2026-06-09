@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { RemoveTypesMigration } from '../removed-types.cjs';
 
-import { runMigrationAndGetOutput } from './migration-runner.js';
+import { testMigration } from './migration-runner.js';
 
 describe(`sbb-removed-types`, () => {
   it('should insert a FIXME comment for CalendarView token references', () => {
@@ -14,12 +14,7 @@ describe(`sbb-removed-types`, () => {
       }
     `;
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: RemoveTypesMigration,
-      filePath: 'src/app/my.component.ts',
-      fileContent: sourceCode,
-    });
-
+    const result = testMigration(RemoveTypesMigration, 'ts', sourceCode);
     expect(result).toContain(
       `// FIXME: "CalendarView" has been replaced by "'day' | 'month' | 'year'". Check: https://github.com/sbb-design-systems/lyne-components/pull/4864`,
     );
@@ -34,12 +29,7 @@ describe(`sbb-removed-types`, () => {
       }
     `;
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: RemoveTypesMigration,
-      filePath: 'src/app/autocomplete.component.ts',
-      fileContent: sourceCode,
-    });
-
+    const result = testMigration(RemoveTypesMigration, 'ts', sourceCode);
     expect(result).toContain(
       `// FIXME: "CustomEvent<{ option: SbbOptionBaseElement<T> }>" has been replaced by "SbbInputAutocompleteEvent<T>". Check: https://github.com/sbb-design-systems/lyne-components/pull/4918`,
     );
@@ -54,12 +44,7 @@ describe(`sbb-removed-types`, () => {
       }
     `;
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: RemoveTypesMigration,
-      filePath: 'src/app/button.ts',
-      fileContent: sourceCode,
-    });
-
+    const result = testMigration(RemoveTypesMigration, 'ts', sourceCode);
     expect(result).toContain(
       `// FIXME: "SbbButtonSize" has been replaced by "'s' | 'm' | 'l'". Check: https://github.com/sbb-design-systems/lyne-components/pull/4864`,
     );

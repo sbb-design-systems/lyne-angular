@@ -10,8 +10,6 @@ export interface RunMigrationOptions<T extends Migration<null>> {
   filePath: string;
   /** The full initial contents of the file. */
   fileContent: string;
-  /** Optional inline template string slice if testing a .ts component file. */
-  inlineHtmlFragment?: string;
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
@@ -90,7 +88,7 @@ function extractInlineStyles(filePath: string, fileContent: string): ResolvedRes
   return styles;
 }
 
-export function runMigrationAndGetOutput<T extends Migration<null>>(
+function runMigrationAndGetOutput<T extends Migration<null>>(
   options: RunMigrationOptions<T>,
 ): string {
   const { migrationClass, filePath, fileContent } = options;
@@ -202,3 +200,17 @@ export function runMigrationAndGetOutput<T extends Migration<null>>(
 
   return finalFileOutput;
 }
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export function testMigration<T>(
+  migrationClass: new (...args: any[]) => Migration<null, T>,
+  fileExtension: 'html' | 'ts' | 'scss',
+  fileContent: string,
+): string {
+  return runMigrationAndGetOutput({
+    migrationClass,
+    filePath: `test.${fileExtension}`,
+    fileContent,
+  });
+}
+/* eslint-enable @typescript-eslint/no-explicit-any */

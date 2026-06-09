@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { CalendarWideMigration } from '../calendar-wide.cjs';
 
-import { runMigrationAndGetOutput } from './migration-runner';
+import { testMigration } from './migration-runner';
 
 describe(`sbb-calendar-wide`, () => {
   it('should add comment in HTML file', () => {
@@ -23,12 +23,7 @@ describe(`sbb-calendar-wide`, () => {
 </div>
 `.trim();
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: CalendarWideMigration,
-      filePath: 'src/app/component.html',
-      fileContent: mockInput,
-    });
-
+    const result = testMigration(CalendarWideMigration, 'html', mockInput);
     expect(result).toBe(mockOutput);
   });
 
@@ -63,12 +58,7 @@ export class AppComponent {}
 
 `.trim();
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: CalendarWideMigration,
-      filePath: 'src/app/app.component.ts',
-      fileContent: mockInput,
-    });
-
+    const result = testMigration(CalendarWideMigration, 'ts', mockInput);
     expect(result).toBe(mockOutput);
   });
 
@@ -103,12 +93,7 @@ export class AppComponent {}
 
 `.trim();
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: CalendarWideMigration,
-      filePath: 'src/app/app.component.ts',
-      fileContent: mockInput,
-    });
-
+    const result = testMigration(CalendarWideMigration, 'ts', mockInput);
     expect(result).toBe(mockOutput);
   });
 });

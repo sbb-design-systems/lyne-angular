@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { FormFieldOptionalMigration } from '../form-field-optional.cjs';
 
-import { runMigrationAndGetOutput } from './migration-runner';
+import { testMigration } from './migration-runner';
 
 describe(`sbb-form-field-optional`, () => {
   it('should add comment in HTML file', () => {
@@ -23,12 +23,7 @@ describe(`sbb-form-field-optional`, () => {
 </div>
 `.trim();
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: FormFieldOptionalMigration,
-      filePath: 'src/app/component.html',
-      fileContent: mockInput,
-    });
-
+    const result = testMigration(FormFieldOptionalMigration, 'html', mockInput);
     expect(result).toBe(mockOutput);
   });
 
@@ -50,12 +45,7 @@ describe(`sbb-form-field-optional`, () => {
 </div>
 `.trim();
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: FormFieldOptionalMigration,
-      filePath: 'src/app/component.html',
-      fileContent: mockInput,
-    });
-
+    const result = testMigration(FormFieldOptionalMigration, 'html', mockInput);
     expect(result).toBe(mockOutput);
   });
 
@@ -81,12 +71,7 @@ import { Component } from '@angular/core';
 export class AppComponent {}
 `.trim();
 
-    const result = runMigrationAndGetOutput({
-      migrationClass: FormFieldOptionalMigration,
-      filePath: 'src/app/app.component.ts',
-      fileContent: mockInput,
-    });
-
+    const result = testMigration(FormFieldOptionalMigration, 'ts', mockInput);
     expect(result).toBe(mockOutput);
   });
 });
