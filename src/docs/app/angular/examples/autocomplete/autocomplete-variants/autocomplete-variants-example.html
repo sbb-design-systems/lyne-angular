@@ -23,9 +23,8 @@
     <sbb-checkbox [formField]="form.autoSelectActiveOption">autoSelectActiveOption</sbb-checkbox>
     <sbb-checkbox [formField]="form.autoActiveFirstOption">autoActiveFirstOption</sbb-checkbox>
   </sbb-checkbox-group>
-  <sbb-radio-button-group [formField]="form.size" orientation="vertical">
+  <sbb-radio-button-group [formField]="form.size" orientation="vertical" allowEmptySelection>
     <label>Size</label>
-    <sbb-radio-button [value]="null">null (adapt to theme)</sbb-radio-button>
     <sbb-radio-button value="s">s</sbb-radio-button>
     <sbb-radio-button value="m">m</sbb-radio-button>
   </sbb-radio-button-group>
