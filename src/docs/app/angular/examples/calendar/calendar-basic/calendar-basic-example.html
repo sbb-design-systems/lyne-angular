@@ -1,6 +1,32 @@
-<sbb-calendar [formField]="form.calendar"></sbb-calendar>
+<sbb-calendar
+  [orientation]="controls.orientation().value()"
+  [view]="controls.view().value()"
+  [weekNumbers]="controls.weekNumbers().value()"
+  [multiple]="controls.multiple().value()"
+  [formField]="controls.calendar"
+></sbb-calendar>
+<div class="controls">
+  <div>
+    <sbb-title class="group-label" level="6">Calendar</sbb-title>
+    <sbb-checkbox-group orientation="vertical">
+      <sbb-checkbox [formField]="controls.weekNumbers">Week numbers</sbb-checkbox>
+      <sbb-checkbox [formField]="controls.multiple">Multiple</sbb-checkbox>
+    </sbb-checkbox-group>
+    Orientation
+    <sbb-radio-button-group [formField]="controls.orientation">
+      <sbb-radio-button value="horizontal">Horizontal</sbb-radio-button>
+      <sbb-radio-button value="vertical">Vertical</sbb-radio-button>
+    </sbb-radio-button-group>
+    View
+    <sbb-radio-button-group [formField]="controls.view">
+      <sbb-radio-button value="day">Day</sbb-radio-button>
+      <sbb-radio-button value="month">Month</sbb-radio-button>
+      <sbb-radio-button value="year">Year</sbb-radio-button>
+    </sbb-radio-button-group>
+  </div>
+</div>
 
 <p>
   <span class="sbb-text--bold">Value:</span>
-  {{ form.calendar().value().toDateString() }}
+  {{ controls.calendar().value().toDateString() }}
 </p>

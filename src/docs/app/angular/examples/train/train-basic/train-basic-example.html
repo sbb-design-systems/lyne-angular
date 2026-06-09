@@ -1,6 +1,33 @@
 <sbb-train-formation>
-  <sbb-train>
-    <sbb-train-wagon></sbb-train-wagon>
+  <sbb-train
+    directionLabel="Direction of travel"
+    station="Bern"
+    direction="left"
+    accessibilityLabel="The top of the train is in Sector A. The train leaves the station in this direction"
+  >
+    <sbb-train-wagon
+      label="22"
+      sector="A"
+      wagonType="locomotive"
+      additionalAccessibilityText="Top of the train"
+    ></sbb-train-wagon>
+    <sbb-train-wagon sector="A" wagonType="closed" label="23"> </sbb-train-wagon>
     <sbb-train-blocked-passage></sbb-train-blocked-passage>
+    <sbb-train-wagon-button label="24" wagon-type="wagon" occupancy="medium" wagon-class="1">
+    </sbb-train-wagon-button>
+    <sbb-train-wagon-link
+      href="/angular/components/train/overview#button-and-link-variants"
+      wagon-type="wagon"
+      occupancy="low"
+      wagon-class="1"
+      label="25"
+    >
+      <sbb-icon
+        aria-hidden="false"
+        aria-label="wheelchair space"
+        name="sa-rs"
+        aria-label="Wheelchair space available in this wagon"
+      ></sbb-icon>
+    </sbb-train-wagon-link>
   </sbb-train>
 </sbb-train-formation>
