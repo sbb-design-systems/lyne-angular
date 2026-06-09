@@ -28,6 +28,9 @@ const IMPORT_PATH_MIGRATIONS: Record<string, string> = {
   '@sbb-esta/lyne-angular/checkbox/checkbox': '@sbb-esta/lyne-angular/checkbox',
   '@sbb-esta/lyne-angular/container/container': '@sbb-esta/lyne-angular/container',
   '@sbb-esta/lyne-angular/container/sticky-bar': '@sbb-esta/lyne-angular/container',
+  '@sbb-esta/lyne-angular/file-selector/file-selector': '@sbb-esta/lyne-angular/file-selector',
+  '@sbb-esta/lyne-angular/file-selector/file-selector-dropzone':
+    '@sbb-esta/lyne-angular/file-selector',
   '@sbb-esta/lyne-angular/link-list/link-list-anchor': '@sbb-esta/lyne-angular/link-list-anchor',
   '@sbb-esta/lyne-angular/link-list/link-list': '@sbb-esta/lyne-angular/link-list',
   '@sbb-esta/lyne-angular/link/block-link-button': '@sbb-esta/lyne-angular/link',
