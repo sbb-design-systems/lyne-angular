@@ -28,6 +28,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
         name: 'Guides',
         entries: [
           { label: 'Getting started', link: './guides/getting-started' },
+          { label: 'How to update', link: './guides/how-to-update' },
           { label: 'Theming', link: './guides/theming' },
           { label: 'Layout', link: './guides/layout' },
           { label: 'Datetime', link: './guides/datetime' },
