@@ -5,8 +5,8 @@ import { FormFieldOptionalMigration } from '../form-field-optional.cjs';
 import { runMigrationAndGetOutput } from './migration-runner';
 
 describe(`sbb-form-field-optional`, () => {
-  it('should add comment in HTML file above the form-field', () => {
-    const mockInputHtml = `
+  it('should add comment in HTML file', () => {
+    const mockInput = `
 <div class="container">
   <sbb-form-field optional>
     <input placeholder="First Name" />
@@ -14,7 +14,7 @@ describe(`sbb-form-field-optional`, () => {
 </div>
 `.trim();
 
-    const mockOutputHtml = `
+    const mockOutput = `
 <div class="container">
   <!-- FIXME: The "optional" attribute on \`<sbb-form-field>\` is not allowed anymore. Check: https://lyne-angular.app.sbb.ch/angular/components/form-field/overview#visualization-of-coderequiredcode--optional-state and https://github.com/sbb-design-systems/lyne-components/pull/4931 -->
   <sbb-form-field optional>
@@ -26,13 +26,40 @@ describe(`sbb-form-field-optional`, () => {
     const result = runMigrationAndGetOutput({
       migrationClass: FormFieldOptionalMigration,
       filePath: 'src/app/component.html',
-      fileContent: mockInputHtml,
+      fileContent: mockInput,
     });
 
-    expect(result).toBe(mockOutputHtml);
+    expect(result).toBe(mockOutput);
   });
 
-  it('should add comment in TS file dabove the template declaration', () => {
+  it('should add comment in HTML file', () => {
+    const mockInput = `
+<div class="container">
+  <sbb-form-field [attr.optional]="true">
+    <input placeholder="First Name" />
+  </sbb-form-field>
+</div>
+`.trim();
+
+    const mockOutput = `
+<div class="container">
+  <!-- FIXME: The "optional" attribute on \`<sbb-form-field>\` is not allowed anymore. Check: https://lyne-angular.app.sbb.ch/angular/components/form-field/overview#visualization-of-coderequiredcode--optional-state and https://github.com/sbb-design-systems/lyne-components/pull/4931 -->
+  <sbb-form-field [attr.optional]="true">
+    <input placeholder="First Name" />
+  </sbb-form-field>
+</div>
+`.trim();
+
+    const result = runMigrationAndGetOutput({
+      migrationClass: FormFieldOptionalMigration,
+      filePath: 'src/app/component.html',
+      fileContent: mockInput,
+    });
+
+    expect(result).toBe(mockOutput);
+  });
+
+  it('should add comment in TS file', () => {
     const mockInputTs = `
 import { Component } from '@angular/core';
 
@@ -42,8 +69,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {}
 `.trim();
-
-    const inlineHtmlFragment = `<sbb-form-field optional><input /></sbb-form-field>`;
 
     const mockOutputTs = `
 import { Component } from '@angular/core';
@@ -60,7 +85,6 @@ export class AppComponent {}
       migrationClass: FormFieldOptionalMigration,
       filePath: 'src/app/app.component.ts',
       fileContent: mockInputTs,
-      inlineHtmlFragment,
     });
 
     expect(result).toBe(mockOutputTs);

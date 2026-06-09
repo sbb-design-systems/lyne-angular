@@ -16,13 +16,84 @@ export interface RunMigrationOptions<T extends Migration<null>> {
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
 /**
- * Universal runner that processes a template using any Angular CDK Migration class
- * and returns the transformed file content.
+ * Walks a TypeScript AST to find all `template: '...'` or `template: \`...\``
+ * string literals inside @Component decorators, returning each as a
+ * ResolvedResource suitable for visitTemplate.
  */
+function extractInlineTemplates(filePath: string, fileContent: string): ResolvedResource[] {
+  const sourceFile = ts.createSourceFile(filePath, fileContent, ts.ScriptTarget.Latest, true);
+  const templates: ResolvedResource[] = [];
+
+  const visit = (node: ts.Node) => {
+    if (
+      ts.isPropertyAssignment(node) &&
+      ts.isIdentifier(node.name) &&
+      node.name.text === 'template' &&
+      (ts.isStringLiteral(node.initializer) || ts.isTemplateLiteral(node.initializer))
+    ) {
+      const literal = node.initializer;
+      const contentStart = literal.getStart(sourceFile) + 1;
+      const contentEnd = literal.getEnd() - 1;
+      const content = fileContent.slice(contentStart, contentEnd);
+
+      templates.push({
+        filePath: filePath as unknown as WorkspacePath,
+        content,
+        start: contentStart,
+        inline: true,
+      } as ResolvedResource);
+    }
+
+    ts.forEachChild(node, visit);
+  };
+
+  visit(sourceFile);
+  return templates;
+}
+
+/**
+ * Walks a TypeScript AST to find all `styles: ['...']` or `styles: [\`...\`]`
+ * array entries inside @Component decorators, returning each as a
+ * ResolvedResource suitable for visitStylesheet.
+ */
+function extractInlineStyles(filePath: string, fileContent: string): ResolvedResource[] {
+  const sourceFile = ts.createSourceFile(filePath, fileContent, ts.ScriptTarget.Latest, true);
+  const styles: ResolvedResource[] = [];
+
+  const visit = (node: ts.Node) => {
+    if (
+      ts.isPropertyAssignment(node) &&
+      ts.isIdentifier(node.name) &&
+      node.name.text === 'styles' &&
+      ts.isArrayLiteralExpression(node.initializer)
+    ) {
+      for (const element of node.initializer.elements) {
+        if (ts.isStringLiteral(element) || ts.isTemplateLiteral(element)) {
+          const contentStart = element.getStart(sourceFile) + 1;
+          const contentEnd = element.getEnd() - 1;
+          const content = fileContent.slice(contentStart, contentEnd);
+
+          styles.push({
+            filePath: filePath as unknown as WorkspacePath,
+            content,
+            start: contentStart,
+            inline: true,
+          } as ResolvedResource);
+        }
+      }
+    }
+
+    ts.forEachChild(node, visit);
+  };
+
+  visit(sourceFile);
+  return styles;
+}
+
 export function runMigrationAndGetOutput<T extends Migration<null>>(
   options: RunMigrationOptions<T>,
 ): string {
-  const { migrationClass, filePath, fileContent, inlineHtmlFragment } = options;
+  const { migrationClass, filePath, fileContent } = options;
   const insertions: { offset: number; text: string }[] = [];
   const removals: { offset: number; length: number }[] = [];
 
@@ -65,7 +136,7 @@ export function runMigrationAndGetOutput<T extends Migration<null>>(
 
   // Construct the template resource boundary parameters
   if (filePath.endsWith('.ts')) {
-    // 1. Process TypeScript AST Nodes
+    // Process TypeScript AST Nodes
     const sourceFile = ts.createSourceFile(filePath, fileContent, ts.ScriptTarget.Latest, true);
 
     const walkNode = (node: ts.Node) => {
@@ -75,26 +146,27 @@ export function runMigrationAndGetOutput<T extends Migration<null>>(
 
     walkNode(sourceFile);
 
-    // 2. Process Inline HTML Templates if provided
-    if (inlineHtmlFragment) {
-      const startOffset = fileContent.indexOf(inlineHtmlFragment);
-      if (startOffset !== -1) {
-        const resource = {
-          filePath: filePath as unknown as WorkspacePath,
-          content: inlineHtmlFragment,
-          start: startOffset,
-        } as ResolvedResource;
-        migration.visitTemplate(resource);
-      }
+    for (const template of extractInlineTemplates(filePath, fileContent)) {
+      migration.visitTemplate(template);
     }
-  } else {
-    // 3. Process External HTML Files
-    const resource = {
+
+    for (const style of extractInlineStyles(filePath, fileContent)) {
+      migration.visitStylesheet(style);
+    }
+  } else if (filePath.endsWith('.scss') || filePath.endsWith('.css')) {
+    migration.visitStylesheet({
       filePath: filePath as unknown as WorkspacePath,
       content: fileContent,
       start: 0,
-    } as ResolvedResource;
-    migration.visitTemplate(resource);
+      inline: false,
+    } as ResolvedResource);
+  } else {
+    migration.visitTemplate({
+      filePath: filePath as unknown as WorkspacePath,
+      content: fileContent,
+      start: 0,
+      inline: false,
+    } as ResolvedResource);
   }
 
   // Apply changes to content (from back to front to ensure character indexes remain stable)
