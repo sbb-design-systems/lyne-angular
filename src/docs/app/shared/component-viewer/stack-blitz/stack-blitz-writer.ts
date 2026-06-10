@@ -29,7 +29,7 @@ export const TEMPLATE_FILES = [
   'src/favicon.ico',
   'src/index.html',
   'src/main.ts',
-  'src/styles.css',
+  'src/styles.scss',
   'src/environments/environment.prod.ts',
   'src/environments/environment.ts',
 ];

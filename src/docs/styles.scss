@@ -102,3 +102,36 @@ sbb-block-link {
   border-radius: var(--sbb-border-radius-2x);
   margin-block: var(--sbb-spacing-fixed-6x);
 }
+
+.sbb-controls-table {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: var(--sbb-border-width-1x) solid
+    light-dark(var(--sbb-color-aluminium), var(--sbb-color-anthracite));
+
+  > * {
+    padding: var(--sbb-spacing-fixed-3x);
+  }
+
+  > label {
+    font-weight: bold;
+
+    &:not(:first-of-type) {
+      border-top: var(--sbb-border-width-1x) solid
+        light-dark(var(--sbb-color-aluminium), var(--sbb-color-anthracite));
+    }
+  }
+
+  @include sbb.mq($from: large) {
+    grid-template-columns: 25% 1fr;
+
+    > label {
+      border-right: var(--sbb-border-width-1x) solid
+        light-dark(var(--sbb-color-aluminium), var(--sbb-color-anthracite));
+
+      &:not(:first-of-type) {
+        border-top: none;
+      }
+    }
+  }
+}
