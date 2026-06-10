@@ -20,7 +20,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
   button: ['button-basic', 'mini-button-basic'],
-  calendar: ['calendar-basic', 'calendar-reactive', 'calendar-fixed-month'],
+  calendar: [
+    'calendar-basic',
+    'calendar-reactive-form',
+    'calendar-fixed-month',
+    'calendar-with-filter',
+  ],
   card: ['card-basic', 'card-link', 'card-button'],
   carousel: ['carousel-basic'],
   checkbox: ['checkbox-basic'],
@@ -135,9 +140,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'autocomplete-variants':
       return import('../angular/examples/autocomplete');
     case 'badge-basic':
-      return import('../angular/examples/badge');
     case 'badge-before':
-      return import('../angular/examples/badge');
     case 'badge-header-button':
       return import('../angular/examples/badge');
     case 'breadcrumb-basic':
@@ -146,8 +149,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/button');
     case 'calendar-basic':
     case 'calendar-fixed-month':
-      return import('../angular/examples/calendar');
-    case 'calendar-reactive':
+    case 'calendar-reactive-form':
+    case 'calendar-with-filter':
       return import('../angular/examples/calendar');
     case 'card-basic':
     case 'card-button':
@@ -192,19 +195,13 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'footer-clock':
       return import('../angular/examples/footer');
     case 'form-field-basic':
-      return import('../angular/examples/form-field');
     case 'form-field-clear':
-      return import('../angular/examples/form-field');
     case 'form-field-hint':
-      return import('../angular/examples/form-field');
     case 'form-field-native-select':
-      return import('../angular/examples/form-field');
     case 'form-field-prefix-suffix':
-      return import('../angular/examples/form-field');
     case 'form-field-text-counter':
       return import('../angular/examples/form-field');
     case 'grouped-columns-table':
-      return import('../angular/examples/table');
     case 'grouped-rows-and-columns-table':
       return import('../angular/examples/table');
     case 'header-basic':

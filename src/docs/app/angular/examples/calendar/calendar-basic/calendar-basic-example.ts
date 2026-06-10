@@ -16,19 +16,20 @@ import type { SbbCalendarElement } from '@sbb-esta/lyne-elements/calendar.pure.j
   selector: 'sbb-calendar-basic-example',
   templateUrl: 'calendar-basic-example.html',
   imports: [
+    FormField,
+    SbbActionGroupModule,
     SbbCalendarModule,
+    SbbCardModule,
     SbbCheckboxModule,
     SbbRadioButtonModule,
     SbbTitleModule,
-    FormField,
-    SbbActionGroupModule,
-    SbbCardModule,
   ],
 })
 export class CalendarBasicExample {
+  protected form = form(signal({ calendar: new Date() }));
+
   protected controls = form(
     signal({
-      calendar: new Date(),
       weekNumbers: false,
       multiple: false,
       disabled: false,

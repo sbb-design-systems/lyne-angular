@@ -1,10 +1,15 @@
 <sbb-calendar
+  [formField]="form.calendar"
   [orientation]="controls.orientation().value()"
   [view]="controls.view().value()"
   [weekNumbers]="controls.weekNumbers().value()"
   [multiple]="controls.multiple().value()"
-  [formField]="controls.calendar"
 ></sbb-calendar>
+
+<p>
+  <sbb-card color="milk">Value: <code>{{ form.calendar().value().toDateString() }}</code></sbb-card>
+</p>
+
 <sbb-title class="group-label" level="5">Calendar</sbb-title>
 <sbb-action-group>
   <sbb-checkbox-group orientation="vertical">
@@ -23,9 +28,3 @@
     <sbb-radio-button value="year">Year</sbb-radio-button>
   </sbb-radio-button-group>
 </sbb-action-group>
-
-<p>
-  <sbb-card color="milk"
-    >Value: <code>{{ controls.calendar().value().toDateString() }}</code></sbb-card
-  >
-</p>
