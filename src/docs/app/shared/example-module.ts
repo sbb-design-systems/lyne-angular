@@ -112,7 +112,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   toggle: ['toggle-basic'],
   'toggle-check': ['toggle-check-basic'],
   tooltip: ['tooltip-basic'],
-  train: ['train-basic'],
+  train: ['train-basic', 'train-vertical'],
 };
 
 export async function loadExample(id: string): Promise<Record<string, Type<unknown>> | undefined> {
@@ -322,6 +322,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'tooltip-basic':
       return import('../angular/examples/tooltip');
     case 'train-basic':
+    case 'train-vertical':
       return import('../angular/examples/train');
     default:
       console.warn(`No example found for component with id "${id}".`);
