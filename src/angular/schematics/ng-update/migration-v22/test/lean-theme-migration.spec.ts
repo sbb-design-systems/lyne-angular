@@ -139,7 +139,7 @@ describe(`sbb-lean-theme-migration`, () => {
     ).to.be.equal(true);
   });
 
-  it.only('should update angular.json with complex style', async () => {
+  it('should update angular.json with complex style', async () => {
     const architect = {
       build: {
         builder: '@angular-devkit/build-angular:browser',
