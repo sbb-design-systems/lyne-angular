@@ -17,7 +17,7 @@ RUN echo '{"variant":"global","environmentVariables":["LEGACY_VERSIONS"],"filePa
 RUN chmod a+w /usr/share/nginx/html/index.html
 
 # Install ngssc binary
-ADD https://github.com/kyubisation/angular-server-side-configuration/releases/download/v21.0.4/ngssc_64bit /usr/sbin/ngssc
+ADD https://github.com/kyubisation/angular-server-side-configuration/releases/download/v22.0.0/ngssc_64bit /usr/sbin/ngssc
 RUN chmod +x /usr/sbin/ngssc
 
 # Copy insert key script and assign execute permission
