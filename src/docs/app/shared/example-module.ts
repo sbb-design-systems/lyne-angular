@@ -20,7 +20,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
   button: ['button-basic', 'mini-button-basic'],
-  calendar: [{ id: 'calendar-basic', hasStyle: true }, 'calendar-reactive', 'calendar-fixed-month'],
+  calendar: ['calendar-basic', 'calendar-reactive', 'calendar-fixed-month'],
   card: ['card-basic'],
   carousel: ['carousel-basic'],
   checkbox: ['checkbox-basic'],
