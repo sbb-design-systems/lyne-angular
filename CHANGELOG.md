@@ -1,5 +1,48 @@
 # Changelog
 
+## [22.0.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.7.0...v22.0.0) (2026-06-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* introduced specific overlay configurations for dialog (SbbDialogConfig), overlay (SbbOverlayConfig) and toast (SbbToastConfig). Removed entry point `core/overlay`; use `core` instead.
+* Various deprecated symbols were removed and some types were adapted.
+
+### Features
+
+* **calendar:** implement form-value accessor ([#400](https://github.com/sbb-design-systems/lyne-angular/issues/400)) ([8804c75](https://github.com/sbb-design-systems/lyne-angular/commit/8804c7588cca05e66b80ee5fa6e40e76f906e4a0))
+* make Angular components tree shakeable ([#397](https://github.com/sbb-design-systems/lyne-angular/issues/397)) ([15e6f81](https://github.com/sbb-design-systems/lyne-angular/commit/15e6f81768d237aeb3738fd30f7a181847f3202f))
+* **schematics:** provide update schematics for v22 ([#398](https://github.com/sbb-design-systems/lyne-angular/issues/398)) ([4b0007c](https://github.com/sbb-design-systems/lyne-angular/commit/4b0007cc15afc5f0362a16d5a2ad93dc9a4a4a7b))
+* update to Angular 22 ([#394](https://github.com/sbb-design-systems/lyne-angular/issues/394)) ([bbf9068](https://github.com/sbb-design-systems/lyne-angular/commit/bbf90685987647c5cc0e4a6d12fbf8625936801a))
+
+
+### Bug Fixes
+
+* **dialog,overlay:** return null as close result for empty close attribute ([#387](https://github.com/sbb-design-systems/lyne-angular/issues/387)) ([ea65ab6](https://github.com/sbb-design-systems/lyne-angular/commit/ea65ab633832ffed8119db00b149fa42a7d4867e)), closes [#386](https://github.com/sbb-design-systems/lyne-angular/issues/386)
+* **slider:** update form value on input instead of on change ([#401](https://github.com/sbb-design-systems/lyne-angular/issues/401)) ([d6374c0](https://github.com/sbb-design-systems/lyne-angular/commit/d6374c0a7f170e90026abae5b2fec9b58595b54d))
+* treat `null` as (in)valid date in date and time input ([#389](https://github.com/sbb-design-systems/lyne-angular/issues/389)) ([11d084b](https://github.com/sbb-design-systems/lyne-angular/commit/11d084bf6dfbd29997eefe74f007581c7e966489))
+
+
+### Documentation
+
+* **action-group:** add complex example ([#396](https://github.com/sbb-design-systems/lyne-angular/issues/396)) ([50b3705](https://github.com/sbb-design-systems/lyne-angular/commit/50b3705c67cbbf0247d7ae34a28508cce96f0e66))
+* **alert:** add examples ([#364](https://github.com/sbb-design-systems/lyne-angular/issues/364)) ([b71341e](https://github.com/sbb-design-systems/lyne-angular/commit/b71341e65598d976e32650a708a05594169ac118))
+* **autocomplete:** add examples ([#366](https://github.com/sbb-design-systems/lyne-angular/issues/366)) ([14b9ec9](https://github.com/sbb-design-systems/lyne-angular/commit/14b9ec9fb0cddccd03a86c4489ef4160244ff909))
+* **breadcrumb:** add examples ([#379](https://github.com/sbb-design-systems/lyne-angular/issues/379)) ([ddf40ca](https://github.com/sbb-design-systems/lyne-angular/commit/ddf40ca45a03744b82e98159ae4193bff9570f2e))
+* **how-to-update:** add 'how-to-update' guide ([#402](https://github.com/sbb-design-systems/lyne-angular/issues/402)) ([351bf4f](https://github.com/sbb-design-systems/lyne-angular/commit/351bf4fe2f39e2a812eede4a2048ff443d88938b))
+* **seat-reservation:** add examples ([#383](https://github.com/sbb-design-systems/lyne-angular/issues/383)) ([e613bdb](https://github.com/sbb-design-systems/lyne-angular/commit/e613bdbf5a75b11cb387827ed2442caaa7cf0469))
+* update various examples ([#406](https://github.com/sbb-design-systems/lyne-angular/issues/406)) ([02450e7](https://github.com/sbb-design-systems/lyne-angular/commit/02450e7d1c281eabff59480786b905e90ad8f1c0))
+* **version-selector:** add version selector to the main page ([#404](https://github.com/sbb-design-systems/lyne-angular/issues/404)) ([013b72f](https://github.com/sbb-design-systems/lyne-angular/commit/013b72f87c43ff0823d4ad159a09793a7169d320))
+
+
+### Code Refactoring
+
+* provide own overlay config for overlay module ([#403](https://github.com/sbb-design-systems/lyne-angular/issues/403)) ([9d5f16f](https://github.com/sbb-design-systems/lyne-angular/commit/9d5f16f8bf16fa5604e1834d2226b6b4a4f6bb05))
+* remove explicit declaration of 'input' and 'change' events ([#378](https://github.com/sbb-design-systems/lyne-angular/issues/378)) ([c906da5](https://github.com/sbb-design-systems/lyne-angular/commit/c906da5569617f47596dd7e68fda8ba7bfc77301))
+* remove obsolete  entry points for file selector ([#405](https://github.com/sbb-design-systems/lyne-angular/issues/405)) ([f699607](https://github.com/sbb-design-systems/lyne-angular/commit/f699607f54d4689d5a82a192c8e7d990e7d1435c))
+* remove various deprecated symbols ([#392](https://github.com/sbb-design-systems/lyne-angular/issues/392)) ([bb1a9e9](https://github.com/sbb-design-systems/lyne-angular/commit/bb1a9e972f96ca4902d05db02ddccca39c373c41))
+* simplify code by using signal forms ([#395](https://github.com/sbb-design-systems/lyne-angular/issues/395)) ([06bf57d](https://github.com/sbb-design-systems/lyne-angular/commit/06bf57d8560b249aeb198d264d0e2d85d60911f7))
+
 ## [21.7.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.6.3...v21.7.0) (2026-05-12)
 
 
