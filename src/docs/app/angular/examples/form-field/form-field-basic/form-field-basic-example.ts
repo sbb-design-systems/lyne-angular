@@ -23,8 +23,8 @@ export class FormFieldBasicExample {
         borderless: false,
         floatingLabel: false,
         hiddenLabel: false,
-        size: 'm' as SbbFormFieldElement['size'],
-        width: 'default' as SbbFormFieldElement['width'] | null,
+        size: null as SbbFormFieldElement['size'],
+        width: null as SbbFormFieldElement['width'] | null,
       },
       input: {
         disabled: false,
