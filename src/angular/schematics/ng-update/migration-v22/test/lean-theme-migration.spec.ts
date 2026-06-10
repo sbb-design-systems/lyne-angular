@@ -21,7 +21,11 @@ describe(`sbb-lean-theme-migration`, () => {
    * Helper utility to spin up a mock workspace tree.
    * This provides a valid structure so internal workspace utilities don't crash.
    */
-  const createMockWorkspace = (): UnitTestTree => {
+  const createMockWorkspace = (
+    architect: Record<string, unknown> = {
+      build: { builder: '@angular-devkit/build-angular:browser' },
+    },
+  ): UnitTestTree => {
     const tree = new UnitTestTree(new HostTree());
 
     tree.create(
@@ -30,20 +34,11 @@ describe(`sbb-lean-theme-migration`, () => {
         {
           version: 1,
           projects: {
-            'my-test-app': {
+            'test-app': {
               root: '',
               sourceRoot: 'src',
               projectType: 'application',
-              architect: {
-                build: {
-                  builder: '@angular-devkit/build-angular:browser',
-                  options: { styles: ['src/styles.css'] },
-                },
-                test: {
-                  builder: '@angular-devkit/build-angular:karma',
-                  options: { styles: ['src/styles.css'] },
-                },
-              },
+              architect,
             },
           },
         },
@@ -55,15 +50,18 @@ describe(`sbb-lean-theme-migration`, () => {
     return tree;
   };
 
-  it('should remove sbb-lean, inject the FIXME comment, and trigger angular.json rule chain', async () => {
-    const tree = createMockWorkspace();
-    tree.create('/src/index.html', '<html class="sbb-lean"><body></body></html>');
+  describe('should apply migration rule', () => {
+    it('should remove sbb-lean and inject the FIXME comment', async () => {
+      const tree = createMockWorkspace();
+      tree.create('/src/index.html', '<html class="sbb-lean"><body></body></html>');
 
-    const resultTree = await firstValueFrom(runner.callRule(handleLeanThemeConfiguration(), tree));
+      const resultTree = await firstValueFrom(
+        runner.callRule(handleLeanThemeConfiguration(), tree),
+      );
 
-    const transformedHtml = resultTree.read('/src/index.html')?.toString('utf-8') ?? '';
-    expect(transformedHtml.trim()).toEqual(
-      `
+      const transformedHtml = resultTree.read('/src/index.html')?.toString('utf-8') ?? '';
+      expect(transformedHtml.trim()).toEqual(
+        `
 <!--
   FIXME:
    The legacy \`sbb-lean\` class has been found and removed from the <html> tag, and the default lean theme import has been added.
@@ -72,14 +70,103 @@ describe(`sbb-lean-theme-migration`, () => {
 -->
 <html><body></body></html>
 `.trim(),
-    );
+      );
+    });
+  });
 
+  it('should update angular.json when no theme is set', async () => {
+    const architect = {
+      build: {
+        builder: '@angular-devkit/build-angular:browser',
+        options: { styles: ['src/styles.css'] },
+      },
+      test: { builder: '@angular-devkit/build-angular:karma' },
+    };
+    const tree = createMockWorkspace(architect);
+    tree.create('/src/index.html', '<html class="sbb-lean"><body></body></html>');
+
+    const resultTree = await firstValueFrom(runner.callRule(handleLeanThemeConfiguration(), tree));
     const angularJsonRaw = resultTree.read('/angular.json')?.toString('utf-8') ?? '{}';
     const angularJson = JSON.parse(angularJsonRaw);
-    const styles: string[] = angularJson.projects['my-test-app'].architect.build.options.styles;
-    expect(styles).toBeDefined();
-    const hasLean = styles.includes('node_modules/@sbb-esta/lyne-elements/lean-theme.css');
-    expect(hasLean).to.be.equal(true);
+    const noLyneThemeStyles: string[] =
+      angularJson.projects['test-app'].architect.build.options.styles;
+    expect(noLyneThemeStyles).toBeDefined();
+    expect(noLyneThemeStyles.length).to.be.equal(2);
+    expect(
+      noLyneThemeStyles.includes('node_modules/@sbb-esta/lyne-elements/lean-theme.css'),
+    ).to.be.equal(true);
+    const noOptionsStyles: string[] =
+      angularJson.projects['test-app'].architect.test.options.styles;
+    expect(noOptionsStyles).toBeDefined();
+    expect(
+      noOptionsStyles.includes('node_modules/@sbb-esta/lyne-elements/lean-theme.css'),
+    ).to.be.equal(true);
+  });
+
+  it('should update angular.json overriding when needed', async () => {
+    const architect = {
+      build: {
+        builder: '@angular-devkit/build-angular:browser',
+        options: {
+          styles: ['src/styles.css', 'node_modules/@sbb-esta/lyne-elements/lean-theme.css'],
+        },
+      },
+      test: {
+        builder: '@angular-devkit/build-angular:karma',
+        options: {
+          styles: ['src/styles.css', 'node_modules/@sbb-esta/lyne-elements/off-brand-theme.css'],
+        },
+      },
+    };
+    const tree = createMockWorkspace(architect);
+    tree.create('/src/index.html', '<html class="sbb-lean"><body></body></html>');
+
+    const resultTree = await firstValueFrom(runner.callRule(handleLeanThemeConfiguration(), tree));
+    const angularJsonRaw = resultTree.read('/angular.json')?.toString('utf-8') ?? '{}';
+    const angularJson = JSON.parse(angularJsonRaw);
+    const noOverrideStyles: string[] =
+      angularJson.projects['test-app'].architect.build.options.styles;
+    expect(noOverrideStyles).toBeDefined();
+    expect(noOverrideStyles.length).to.be.equal(2);
+    const overrideStyles: string[] = angularJson.projects['test-app'].architect.test.options.styles;
+    expect(overrideStyles).toBeDefined();
+    expect(noOverrideStyles.length).to.be.equal(2);
+    expect(
+      noOverrideStyles.includes('node_modules/@sbb-esta/lyne-elements/off-brand-theme.css'),
+    ).to.be.equal(false);
+    expect(
+      noOverrideStyles.includes('node_modules/@sbb-esta/lyne-elements/lean-theme.css'),
+    ).to.be.equal(true);
+  });
+
+  it.only('should update angular.json with complex style', async () => {
+    const architect = {
+      build: {
+        builder: '@angular-devkit/build-angular:browser',
+        options: {
+          styles: [
+            {
+              input: 'node_modules/@sbb-esta/lyne-elements/standard-theme.css',
+              bundleName: 'test',
+            },
+          ],
+        },
+      },
+    };
+    const tree = createMockWorkspace(architect);
+    tree.create('/src/index.html', '<html class="sbb-lean"><body></body></html>');
+
+    const resultTree = await firstValueFrom(runner.callRule(handleLeanThemeConfiguration(), tree));
+    const angularJsonRaw = resultTree.read('/angular.json')?.toString('utf-8') ?? '{}';
+    const angularJson = JSON.parse(angularJsonRaw);
+    const withInputStyles: { input: string; bundler: string }[] =
+      angularJson.projects['test-app'].architect.build.options.styles;
+    expect(withInputStyles).toBeDefined();
+    expect(
+      withInputStyles.every(
+        (e) => e.input === 'node_modules/@sbb-esta/lyne-elements/lean-theme.css',
+      ),
+    ).to.be.equal(true);
   });
 
   it('should pass-through completely untouched if sbb-lean is missing from the html tag', async () => {

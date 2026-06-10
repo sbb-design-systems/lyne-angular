@@ -158,15 +158,54 @@ export function addThemeToProject(
       if (!target.options) {
         target.options = {};
       }
-      const styles = target.options['styles'] as (string | { input: string })[] | undefined;
+
+      const styles = target.options['styles'] as
+        | (string | { input: string; [key: string]: any })[]
+        | undefined;
+
       if (!styles) {
         target.options['styles'] = [themePath];
         return;
-      } else if (styles.includes(themePath)) {
+      }
+
+      const legacyThemeRegex = /^node_modules\/@sbb-esta\/lyne-elements\/.*-theme\.css$/;
+      let replacedLegacy = false;
+      const updatedStyles = styles.map((style) => {
+        if (typeof style === 'string') {
+          if (legacyThemeRegex.test(style)) {
+            replacedLegacy = true;
+            return themePath;
+          }
+          return style;
+        } else if (style && typeof style.input === 'string') {
+          if (legacyThemeRegex.test(style.input)) {
+            replacedLegacy = true;
+            return { ...style, input: themePath };
+          }
+          return style;
+        }
+        return style;
+      });
+
+      if (replacedLegacy) {
+        logger.info(
+          `    Replaced legacy lyne-elements theme with "${themePath}" in project "${projectName}".`,
+        );
+        target.options['styles'] = updatedStyles;
+        return;
+      }
+
+      const themeAlreadyExists = updatedStyles.some((style) => {
+        const pathToCheck = typeof style === 'string' ? style : style?.input;
+        return pathToCheck === themePath;
+      });
+
+      if (themeAlreadyExists) {
         logger.info(`    Theme already present in project "${projectName}", skipping.`);
       } else {
-        styles.unshift(themePath);
+        updatedStyles.unshift(themePath);
         logger.info(`    "${themePath}" added to project "${projectName}".`);
+        target.options['styles'] = updatedStyles;
       }
     }
   });
