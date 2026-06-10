@@ -16,7 +16,8 @@
     <sbb-train-wagon-button label="24" wagon-type="wagon" occupancy="medium" wagon-class="1">
     </sbb-train-wagon-button>
     <sbb-train-wagon-link
-      routerLink="../overview"
+      [routerLink]="['../overview']"
+      fragment="button-and-link-variants"
       wagon-type="wagon"
       occupancy="low"
       wagon-class="1"
