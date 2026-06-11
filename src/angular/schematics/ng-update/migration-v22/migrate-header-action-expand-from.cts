@@ -6,7 +6,7 @@ import {
 } from './attribute-migration-base.cjs';
 
 /**
- * Migration that manages the transition of the `expandFrom` attribute to `hideLabelBelow`
+ * Migration that manages the transition of the `expandFrom` and `expand-from` attributes to `hideLabelBelow`
  * on <sbb-header-button> and <sbb-header-link> components.
  */
 export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
@@ -14,23 +14,23 @@ export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
     return /<(sbb-header-button|sbb-header-link)(\b[^>]*?)(\/?)>/gi;
   }
 
-  /** Matches ONLY strictly static expandFrom="value" (capturing leading whitespace). */
+  /**
+   * Matches ONLY strictly static expandFrom="value" or expand-from="value".
+   */
   private readonly STATIC_EXPAND_FROM_PATTERN =
-    /(\s+)expandFrom\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
+    /(\s+)(expandFrom|expand-from)\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;
 
   /**
-   * Matches valid bound expandFrom forms (capturing leading whitespace for boundary consistency).
-   * Targets [expandFrom] and [attr.expandFrom].
+   * Matches valid bound expandFrom forms. Targets [expandFrom], [expand-from], [attr.expandFrom], and [attr.expand-from].
    */
   private readonly BOUND_EXPAND_FROM_PATTERN =
-    /(\s+)(?:\[\(?expandFrom\)?\]|\[attr\.expandFrom\])\s*=\s*(?:"[^"]*"|'[^']*')/i;
+    /(\s+)(?:\[\(?(expandFrom|expand-from)\)?\]|\[attr\.(expandFrom|expand-from)\])\s*=\s*(?:"[^"]*"|'[^']*')/i;
 
   /**
-   * Matches any valid form of expandFrom (static or bound) to identify its presence.
-   * Leading \s+ ensures we don't match 'expandFrom' inside an attribute value string.
+   * Matches any valid form of expandFrom or expand-from (static or bound) to identify its presence.
    */
   private readonly ANY_EXPAND_FROM_PATTERN =
-    /(\s+)(?:\[\(?expandFrom\)?\]|\[attr\.expandFrom\]|expandFrom)\s*=\s*(?:"[^"]*"|'[^']*')/i;
+    /(\s+)(?:\[\(?(?:expandFrom|expand-from)\)?\]|\[attr\.(?:expandFrom|expand-from)\]|(?:expandFrom|expand-from))\s*=\s*(?:"[^"]*"|'[^']*')/i;
 
   protected override collectEdits(
     template: ResolvedResource,
@@ -48,7 +48,7 @@ export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
 
       const hasExpandFrom = this.ANY_EXPAND_FROM_PATTERN.test(attrs);
 
-      // Rule #1: no expandFrom -> insert hideLabelBelow immediately after tag name.
+      // Rule #1: no expandFrom / expand-from -> insert hideLabelBelow immediately after tag name.
       if (!hasExpandFrom) {
         edits.push({
           offset: tagNameEndOffset,
@@ -57,16 +57,19 @@ export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
           insertion: ` hideLabelBelow="large"`,
           log: () =>
             this.logger.info(
-              `    Added \`hideLabelBelow="large"\` to \`<${tagName}>\` (no expandFrom present).`,
+              `    Added \`hideLabelBelow="large"\` to \`<${tagName}>\` (no expandFrom/expand-from present).`,
             ),
         });
         continue;
       }
 
-      // Rule #2: bound expandFrom -> add FIXME message for manual update, leave untouched.
-      if (this.BOUND_EXPAND_FROM_PATTERN.test(attrs)) {
+      // Rule #2: bound expandFrom / expand-from -> add FIXME message for manual update, leave untouched.
+      const boundMatch = this.BOUND_EXPAND_FROM_PATTERN.exec(attrs);
+      if (boundMatch) {
+        const matchedName = boundMatch[2] ?? boundMatch[3];
+
         this.logger.warn(
-          `    FIXME: bound or attribute-bound \`expandFrom\` on \`<${tagName}>\` could not be migrated automatically.`,
+          `    FIXME: bound or attribute-bound \`${matchedName}\` on \`<${tagName}>\` could not be migrated automatically.`,
         );
         queueFixmeComment(
           fullSource,
@@ -74,12 +77,12 @@ export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
           nextIndex(),
           template,
           tagFileOffset,
-          `FIXME: bound \`expandFrom\` on \`<${tagName}>\` must be migrated manually to \`hideLabelBelow\``,
+          `FIXME: bound \`${matchedName}\` on \`<${tagName}>\` must be migrated manually to \`hideLabelBelow\``,
         );
         continue;
       }
 
-      // Rule #3: static expandFrom.
+      // Rule #3: static expandFrom / expand-from.
       const staticMatch = this.STATIC_EXPAND_FROM_PATTERN.exec(attrs);
       if (!staticMatch) {
         continue;
@@ -87,6 +90,7 @@ export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
 
       const attrFileOffset = tagNameEndOffset + staticMatch.index;
       const leadingSpace = staticMatch[1];
+      const matchedName = staticMatch[2];
       const expandFromValue = (
         staticMatch.groups?.['dq'] ??
         staticMatch.groups?.['sq'] ??
@@ -94,18 +98,18 @@ export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
       ).trim();
 
       if (expandFromValue === 'zero') {
-        // Rule #3a: value is "zero" -> remove expandFrom completely.
+        // Rule #3a: value is "zero" -> remove attribute completely.
         edits.push({
           offset: attrFileOffset,
           index: nextIndex(),
           length: staticMatch[0].length,
           log: () =>
             this.logger.info(
-              `    Removed \`expandFrom\` attribute from \`<${tagName}>\` (value was zero).`,
+              `    Removed \`${matchedName}\` attribute from \`<${tagName}>\` (value was zero).`,
             ),
         });
       } else {
-        // Rule #3b: value is not "zero" -> remove expandFrom, add hideLabelBelow with same value
+        // Rule #3b: value is not "zero" -> remove attribute, add hideLabelBelow with same value
         edits.push({
           offset: attrFileOffset,
           index: nextIndex(),
@@ -113,7 +117,7 @@ export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
           insertion: `${leadingSpace}hideLabelBelow="${expandFromValue}"`,
           log: () =>
             this.logger.info(
-              `    Migrated \`expandFrom="${expandFromValue}"\` to \`hideLabelBelow="${expandFromValue}"\` on \`<${tagName}>\`.`,
+              `    Migrated \`${matchedName}="${expandFromValue}"\` to \`hideLabelBelow="${expandFromValue}"\` on \`<${tagName}>\`.`,
             ),
         });
       }
