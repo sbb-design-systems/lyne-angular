@@ -111,10 +111,10 @@ export class SbbCalendar<T = Date> extends SbbControlValueAccessorMixin(class {}
    * A function used to filter out dates.
    */
   @Input()
-  public set dateFilter(value: ((date: T | null) => boolean) | null) {
+  public set dateFilter(value: ((date: T) => boolean) | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.dateFilter = value));
   }
-  public get dateFilter(): ((date: T | null) => boolean) | null {
+  public get dateFilter(): ((date: T) => boolean) | null {
     return this.#element.nativeElement.dateFilter;
   }
 

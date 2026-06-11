@@ -130,7 +130,7 @@ allowed they will be displayed as disabled in the corresponding view.
 
 ```ts
 /** Returns only working days (Mon-Fri). */
-const dateFilterFn: (d: Day) => boolean = d.getDay() !== 6 && d.getDay() !== 0;
+const dateFilterFn: (d: Date) => boolean = d.getDay() !== 6 && d.getDay() !== 0;
 ```
 
 ```html
