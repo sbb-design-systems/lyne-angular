@@ -10,6 +10,10 @@ describe(`sbb-migrate-import-paths`, () => {
 import { Component } from '@angular/core';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button/button';
 import { SbbAccentButtonModule } from '@sbb-esta/lyne-angular/button/accent-button';
+import { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkbox';
+import { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox/checkbox.js';
+import '@sbb-esta/lyne-elements/checkbox/checkbox';
+import '@sbb-esta/lyne-elements/checkbox/checkbox.js';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +26,10 @@ export class AppComponent {}
 import { Component } from '@angular/core';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbAccentButtonModule } from '@sbb-esta/lyne-angular/button';
+import { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox';
+import { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox.js';
+import '@sbb-esta/lyne-elements/checkbox';
+import '@sbb-esta/lyne-elements/checkbox.js';
 
 @Component({
   selector: 'app-root',

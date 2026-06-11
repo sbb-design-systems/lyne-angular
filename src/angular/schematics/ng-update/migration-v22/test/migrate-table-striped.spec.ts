@@ -8,7 +8,7 @@ describe(`sbb-migrate-table-striped`, () => {
   it('should add sbb-table--striped class to tables in an HTML file', () => {
     const mockInput = `
 <div class="container">
-  <table class="sbb-table">
+  <table class="sbb-table sbb-another-class" sbb-table>
     <thead>
       <tr><th>Header</th></tr>
     </thead>
@@ -18,7 +18,7 @@ describe(`sbb-migrate-table-striped`, () => {
 
     const mockOutput = `
 <div class="container">
-  <table class="sbb-table sbb-table--striped">
+  <table class="sbb-table sbb-table--striped sbb-another-class" sbb-table>
     <thead>
       <tr><th>Header</th></tr>
     </thead>
