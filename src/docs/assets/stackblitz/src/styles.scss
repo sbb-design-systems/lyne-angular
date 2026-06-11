@@ -1,3 +1,5 @@
+@use '@sbb-esta/lyne-elements' as sbb;
+
 body {
   display: flex;
   flex-direction: column;
@@ -19,35 +21,31 @@ body {
   letter-spacing: var(--sbb-typo-letter-spacing-text);
 }
 
+// These styles need to be in sync with main styles.scss!
 .sbb-controls-table {
   display: grid;
   grid-template-columns: 1fr;
-  border: var(--sbb-border-width-1x) solid
-    light-dark(var(--sbb-color-aluminium), var(--sbb-color-anthracite));
-
-  > * {
-    padding: var(--sbb-spacing-fixed-3x);
-  }
+  gap: var(--sbb-spacing-fixed-1x);
+  background-color: var(--sbb-background-color-3);
+  border-radius: var(--sbb-border-radius-4x);
+  padding: var(--sbb-spacing-responsive-xxs);
 
   > label {
+    @include sbb.heading--level-6;
+
     font-weight: bold;
 
-    &:not(:first-of-type) {
-      border-top: var(--sbb-border-width-1x) solid
-        light-dark(var(--sbb-color-aluminium), var(--sbb-color-anthracite));
+    &:where(:not(:first-child)) {
+      margin-block-start: var(--sbb-spacing-fixed-4x);
     }
   }
 
-  @media (min-width: 1024px) {
-    grid-template-columns: 25% 1fr;
+  @include sbb.mq($from: large) {
+    grid-template-columns: auto 1fr;
+    gap: var(--sbb-spacing-fixed-4x);
 
     > label {
-      border-right: var(--sbb-border-width-1x) solid
-        light-dark(var(--sbb-color-aluminium), var(--sbb-color-anthracite));
-
-      &:not(:first-of-type) {
-        border-top: none;
-      }
+      margin-block-start: 0;
     }
   }
 }
