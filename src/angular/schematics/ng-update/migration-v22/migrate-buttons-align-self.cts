@@ -70,7 +70,7 @@ export class MigrateButtonAlignSelf extends AttributeMigrationBase {
           nextIndex(),
           template,
           tagFileOffset,
-          `FIXME: '${matchedName}' has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex .`,
+          `FIXME: '${matchedName}' has been removed. Check your style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex and https://github.com/sbb-design-systems/lyne-components/pull/4829 .`,
         );
       }
     }

@@ -9,8 +9,9 @@ describe(`sbb-migrate-action-group-properties`, () => {
     it('removes static orientation attribute from sbb-action-group', () => {
       const input = `<sbb-action-group orientation="horizontal"></sbb-action-group>`;
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
+      expect(output).toContain(`<!-- FIXME: 'orientation' has been removed.`);
       expect(output).toContain(
-        `<!-- FIXME: 'orientation' has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
+        ` Check your style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex and https://github.com/sbb-design-systems/lyne-components/pull/4829 . -->`,
       );
       expect(output).toContain(`<sbb-action-group></sbb-action-group>`);
     });
@@ -18,8 +19,9 @@ describe(`sbb-migrate-action-group-properties`, () => {
     it('removes bound [orientation] attribute', () => {
       const input = `<sbb-action-group [orientation]="myOrientation"></sbb-action-group>`;
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
+      expect(output).toContain(`<!-- FIXME: 'orientation' has been removed.`);
       expect(output).toContain(
-        `<!-- FIXME: 'orientation' has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
+        ` Check your style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex and https://github.com/sbb-design-systems/lyne-components/pull/4829 . -->`,
       );
       expect(output).toContain(`<sbb-action-group></sbb-action-group>`);
     });
@@ -39,8 +41,9 @@ describe(`sbb-migrate-action-group-properties`, () => {
     it('removes static horizontalFrom attribute', () => {
       const input = `<sbb-action-group horizontalFrom="medium"></sbb-action-group>`;
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
+      expect(output).toContain(`<!-- FIXME: 'horizontalFrom' has been removed.`);
       expect(output).toContain(
-        `<!-- FIXME: 'horizontalFrom' has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
+        ` Check your style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex and https://github.com/sbb-design-systems/lyne-components/pull/4829 . -->`,
       );
       expect(output).toContain(`<sbb-action-group></sbb-action-group>`);
     });
@@ -48,8 +51,9 @@ describe(`sbb-migrate-action-group-properties`, () => {
     it('removes bound [horizontalFrom] attribute', () => {
       const input = `<sbb-action-group [horizontalFrom]="myBreakpoint"></sbb-action-group>`;
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
+      expect(output).toContain(`<!-- FIXME: 'horizontalFrom' has been removed.`);
       expect(output).toContain(
-        `<!-- FIXME: 'horizontalFrom' has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
+        ` Check your style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex and https://github.com/sbb-design-systems/lyne-components/pull/4829 . -->`,
       );
       expect(output).toContain(`<sbb-action-group></sbb-action-group>`);
     });
@@ -57,8 +61,9 @@ describe(`sbb-migrate-action-group-properties`, () => {
     it('removes multiple layout attributes at once', () => {
       const input = `<sbb-action-group orientation="horizontal" alignGroup="center" horizontalFrom="medium"></sbb-action-group>`;
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
+      expect(output).toContain(`<!-- FIXME: 'orientation' and 'horizontalFrom' have been removed.`);
       expect(output).toContain(
-        `<!-- FIXME: 'orientation' and 'horizontalFrom' have been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
+        ` Check your style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex and https://github.com/sbb-design-systems/lyne-components/pull/4829 . -->`,
       );
       expect(output).toContain(`<sbb-action-group></sbb-action-group>`);
     });
@@ -66,8 +71,9 @@ describe(`sbb-migrate-action-group-properties`, () => {
     it('removes layout attributes from sbb-dialog-actions', () => {
       const input = `<sbb-dialog-actions orientation="horizontal"></sbb-dialog-actions>`;
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
+      expect(output).toContain(`<!-- FIXME: 'orientation' has been removed.`);
       expect(output).toContain(
-        `<!-- FIXME: 'orientation' has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
+        ` Check your style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex and https://github.com/sbb-design-systems/lyne-components/pull/4829 . -->`,
       );
       expect(output).toContain(`<sbb-dialog-actions></sbb-dialog-actions>`);
     });
@@ -75,8 +81,9 @@ describe(`sbb-migrate-action-group-properties`, () => {
     it('preserves unrelated attributes when removing layout attributes', () => {
       const input = `<sbb-action-group class="my-group" orientation="horizontal" id="actions"></sbb-action-group>`;
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
+      expect(output).toContain(`<!-- FIXME: 'orientation' has been removed.`);
       expect(output).toContain(
-        `<!-- FIXME: 'orientation' has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
+        ` Check your style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex and https://github.com/sbb-design-systems/lyne-components/pull/4829 . -->`,
       );
       expect(output).toContain(
         `<sbb-action-group class="my-group" id="actions"></sbb-action-group>`,

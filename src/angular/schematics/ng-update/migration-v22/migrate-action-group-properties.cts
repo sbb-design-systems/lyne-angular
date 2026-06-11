@@ -175,7 +175,7 @@ export class MigrateActionGroupProperties extends AttributeMigrationBase {
           nextIndex(),
           template,
           tagFileOffset,
-          `FIXME: ${flaggedAttrs.join(' and ')} ${verb} removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex .`,
+          `FIXME: ${flaggedAttrs.join(' and ')} ${verb} removed. Check your style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex and https://github.com/sbb-design-systems/lyne-components/pull/4829 .`,
         );
       }
     }

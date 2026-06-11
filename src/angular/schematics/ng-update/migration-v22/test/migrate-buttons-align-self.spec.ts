@@ -83,8 +83,9 @@ export class MyComponent {}
       const output = testMigration(MigrateButtonAlignSelf, 'ts', input);
       expect(output).not.toContain('alignSelf="center"');
       expect(output).toContain('<sbb-button>Confirm</sbb-button>');
+      expect(output).toContain(`// FIXME: 'alignSelf' has been removed.`);
       expect(output).toContain(
-        `// FIXME: 'alignSelf' has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex .`,
+        ` Check your style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex and https://github.com/sbb-design-systems/lyne-components/pull/4829 .`,
       );
     });
   });
