@@ -4,7 +4,7 @@ import { Migration, ResolvedResource, TargetVersion } from '@angular/cdk/schemat
  * Matches the class `sbb-table` but not `sbb-table--*` modifier classes, so we
  * never double-add the striped class on re-runs.
  */
-const SBB_TABLE_PATTERN = /\bsbb-table(?!-)/g;
+const SBB_TABLE_PATTERN = /class\s*=\s*(["'])[^"']*\b(?<class>sbb-table)\b(?!-)[^"']*\1/g;
 
 /**
  * Migration that adds `sbb-table--striped` wherever `sbb-table` is used in a
@@ -20,7 +20,10 @@ export class MigrateTableStriped extends Migration<null> {
 
     let match: RegExpExecArray | null;
     while ((match = SBB_TABLE_PATTERN.exec(content)) !== null) {
-      const tail = content.slice(match.index + match[0].length);
+      const className = match.groups!.class;
+      const classOffsetInMatch = match[0].indexOf(className);
+      const classIndex = match.index + classOffsetInMatch;
+      const tail = content.slice(classIndex + className.length);
 
       // Skip if `sbb-table--striped` is already present right after this class.
       if (/^(\s+)sbb-table--striped\b/.test(tail)) {
@@ -28,7 +31,7 @@ export class MigrateTableStriped extends Migration<null> {
       }
 
       // Absolute offset within the file (inline templates have start > 0).
-      const insertPos = template.start + match.index + match[0].length;
+      const insertPos = template.start + classIndex + className.length;
       recorder.insertRight(insertPos, ' sbb-table--striped');
       this.logger.info(`  → Added 'sbb-table--striped' class in ${template.filePath}`);
     }
