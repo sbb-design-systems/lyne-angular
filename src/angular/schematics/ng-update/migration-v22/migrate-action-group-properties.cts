@@ -1,6 +1,10 @@
 import { ResolvedResource } from '@angular/cdk/schematics';
 
-import { AttributeMigrationBase, MigrationEdit } from './attribute-migration-base.cjs';
+import {
+  AttributeMigrationBase,
+  MigrationEdit,
+  queueFixmeComment,
+} from './attribute-migration-base.cjs';
 
 const BUTTON_TAGS = [
   'sbb-accent-button',
@@ -21,7 +25,7 @@ const LINK_TAGS = [
 ];
 
 /**
- * Migration that removes `orientation`, `alignGroup`, `horizontalFrom`, `buttonSize` and `linkSize`
+ * Migration that removes `orientation`, `alignGroup`, `horizontalFrom`, `horizontal-from`, `buttonSize` and `linkSize`
  * properties from `sbb-action-group` and `sbb-dialog-actions`.
  * The `buttonSize` and `linkSize` properties are proxied to the inner buttons/links before removal.
  */
@@ -31,7 +35,7 @@ export class MigrateActionGroupProperties extends AttributeMigrationBase {
   }
 
   private get OTHER_ATTRS_PATTERN(): RegExp {
-    return /(\s+)(?:\[\(?(?:orientation|alignGroup|horizontalFrom)\)?\]|\[attr\.(?:orientation|alignGroup|horizontalFrom)\]|(?:orientation|alignGroup|horizontalFrom))(?=\s|=|\$)(?:\s*=\s*(?:"[^"]*"|'[^']*'))?/gi;
+    return /(\s+)(?:\[\(?(?:orientation|alignGroup|align-group|horizontalFrom|horizontal-from)\)?\]|\[attr\.(?:orientation|alignGroup|align-group|horizontalFrom|horizontal-from)\]|(?:orientation|alignGroup|align-group|horizontalFrom|horizontal-from))(?=\s|=|\$)(?:\s*=\s*(?:"[^"]*"|'[^']*'))?/gi;
   }
 
   /** Matches ONLY strictly static buttonSize="value" (capturing leading whitespace). */
@@ -67,7 +71,7 @@ export class MigrateActionGroupProperties extends AttributeMigrationBase {
     template: ResolvedResource,
     edits: MigrationEdit[],
     nextIndex: () => number,
-    _fullSource: string,
+    fullSource: string,
   ): void {
     const tagPattern = this.TAG_PATTERN;
 
@@ -130,20 +134,49 @@ export class MigrateActionGroupProperties extends AttributeMigrationBase {
         }
       }
 
-      // Remove general configuration layout attributes (orientation, alignGroup, etc.)
+      // Track flagged layout attributes per tag instance to combine them into one comment
+      const flaggedAttrs: string[] = [];
+
+      // Remove general configuration layout attributes (orientation, alignGroup, horizontalFrom, etc.)
       const otherAttrsPattern = this.OTHER_ATTRS_PATTERN;
       let attrMatch: RegExpExecArray | null;
       while ((attrMatch = otherAttrsPattern.exec(attrs)) !== null) {
-        const attrName =
-          attrMatch[0].match(/\b(orientation|alignGroup|horizontalFrom)\b/i)?.[1] ??
-          attrMatch[0].trim();
+        const matchedName =
+          attrMatch[0].match(
+            /\b(orientation|alignGroup|align-group|horizontalFrom|horizontal-from)\b/i,
+          )?.[1] ?? attrMatch[0].trim();
+
+        const normalizedName = matchedName.toLowerCase();
+
+        // Collect attributes requiring manual style validation reviews
+        if (
+          normalizedName === 'orientation' ||
+          normalizedName === 'horizontalfrom' ||
+          normalizedName === 'horizontal-from'
+        ) {
+          flaggedAttrs.push(matchedName);
+        }
+
         edits.push({
           offset: tagNameEndOffset + attrMatch.index,
           index: nextIndex(),
           length: attrMatch[0].length,
           log: () =>
-            this.logger.info(`    Removed \`${attrName}\` attribute from \`<${tagName}>\``),
+            this.logger.info(`    Removed \`${matchedName}\` attribute from \`<${tagName}>\``),
         });
+      }
+
+      // If any of the flagged layout attributes were found on this specific tag, generate a single combined comment
+      if (flaggedAttrs.length > 0) {
+        const verb = flaggedAttrs.length > 1 ? 'have been' : 'has been';
+        queueFixmeComment(
+          fullSource,
+          edits,
+          nextIndex(),
+          template,
+          tagFileOffset,
+          `FIXME: ${flaggedAttrs.join(' and ')} ${verb} removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex .`,
+        );
       }
     }
   }
