@@ -1,5 +1,19 @@
 # Changelog
 
+## [22.0.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.0.0...v22.0.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* **schematics:** fix 'table-striped' and 'import-path' migrations ([#412](https://github.com/sbb-design-systems/lyne-angular/issues/412)) ([7d15f04](https://github.com/sbb-design-systems/lyne-angular/commit/7d15f04199fbcc481760276c4bd8b7113b6ff746))
+* **schematics:** improve schematics for v22 migration ([#411](https://github.com/sbb-design-systems/lyne-angular/issues/411)) ([252fe2d](https://github.com/sbb-design-systems/lyne-angular/commit/252fe2d265a5dfe0d9902d7c05407ec2b4c8ed9e))
+* **schematics:** lean theme migration ([#408](https://github.com/sbb-design-systems/lyne-angular/issues/408)) ([5abdca4](https://github.com/sbb-design-systems/lyne-angular/commit/5abdca4521aeb0dd18dd3decd4c5fa857678833c))
+
+
+### Documentation
+
+* **version-selector:** improve option font size ([#410](https://github.com/sbb-design-systems/lyne-angular/issues/410)) ([5d4a6e7](https://github.com/sbb-design-systems/lyne-angular/commit/5d4a6e722b7a0c54beb232a3f6f8186a47a0b361))
+
 ## [22.0.0](https://github.com/sbb-design-systems/lyne-angular/compare/v21.7.0...v22.0.0) (2026-06-10)
 
 
