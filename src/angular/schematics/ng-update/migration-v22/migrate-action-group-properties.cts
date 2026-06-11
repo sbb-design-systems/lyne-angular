@@ -154,7 +154,7 @@ export class MigrateActionGroupProperties extends AttributeMigrationBase {
           normalizedName === 'horizontalfrom' ||
           normalizedName === 'horizontal-from'
         ) {
-          flaggedAttrs.push(matchedName);
+          flaggedAttrs.push(`'${matchedName}'`);
         }
 
         edits.push({

@@ -10,7 +10,7 @@ describe(`sbb-migrate-action-group-properties`, () => {
       const input = `<sbb-action-group orientation="horizontal"></sbb-action-group>`;
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
       expect(output).toContain(
-        `<!-- FIXME: orientation has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
+        `<!-- FIXME: 'orientation' has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
       );
       expect(output).toContain(`<sbb-action-group></sbb-action-group>`);
     });
@@ -19,7 +19,7 @@ describe(`sbb-migrate-action-group-properties`, () => {
       const input = `<sbb-action-group [orientation]="myOrientation"></sbb-action-group>`;
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
       expect(output).toContain(
-        `<!-- FIXME: orientation has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
+        `<!-- FIXME: 'orientation' has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
       );
       expect(output).toContain(`<sbb-action-group></sbb-action-group>`);
     });
@@ -40,7 +40,7 @@ describe(`sbb-migrate-action-group-properties`, () => {
       const input = `<sbb-action-group horizontalFrom="medium"></sbb-action-group>`;
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
       expect(output).toContain(
-        `<!-- FIXME: horizontalFrom has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
+        `<!-- FIXME: 'horizontalFrom' has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
       );
       expect(output).toContain(`<sbb-action-group></sbb-action-group>`);
     });
@@ -49,7 +49,7 @@ describe(`sbb-migrate-action-group-properties`, () => {
       const input = `<sbb-action-group [horizontalFrom]="myBreakpoint"></sbb-action-group>`;
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
       expect(output).toContain(
-        `<!-- FIXME: horizontalFrom has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
+        `<!-- FIXME: 'horizontalFrom' has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
       );
       expect(output).toContain(`<sbb-action-group></sbb-action-group>`);
     });
@@ -58,7 +58,7 @@ describe(`sbb-migrate-action-group-properties`, () => {
       const input = `<sbb-action-group orientation="horizontal" alignGroup="center" horizontalFrom="medium"></sbb-action-group>`;
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
       expect(output).toContain(
-        `<!-- FIXME: orientation and horizontalFrom have been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
+        `<!-- FIXME: 'orientation' and 'horizontalFrom' have been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
       );
       expect(output).toContain(`<sbb-action-group></sbb-action-group>`);
     });
@@ -67,7 +67,7 @@ describe(`sbb-migrate-action-group-properties`, () => {
       const input = `<sbb-dialog-actions orientation="horizontal"></sbb-dialog-actions>`;
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
       expect(output).toContain(
-        `<!-- FIXME: orientation has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
+        `<!-- FIXME: 'orientation' has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
       );
       expect(output).toContain(`<sbb-dialog-actions></sbb-dialog-actions>`);
     });
@@ -76,7 +76,7 @@ describe(`sbb-migrate-action-group-properties`, () => {
       const input = `<sbb-action-group class="my-group" orientation="horizontal" id="actions"></sbb-action-group>`;
       const output = testMigration(MigrateActionGroupProperties, 'html', input);
       expect(output).toContain(
-        `<!-- FIXME: orientation has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
+        `<!-- FIXME: 'orientation' has been removed. Check you style by referring to https://lyne-angular.app.sbb.ch/angular/guides/layout#flex . -->`,
       );
       expect(output).toContain(
         `<sbb-action-group class="my-group" id="actions"></sbb-action-group>`,
@@ -299,7 +299,7 @@ describe(`sbb-migrate-action-group-properties`, () => {
       expect(output).not.toContain('alignGroup="center"');
       expect(output).not.toContain('buttonSize="m"');
       expect(output).toContain('<sbb-button size="m">');
-      expect(output).toContain('FIXME: orientation has been removed.');
+      expect(output).toContain("FIXME: 'orientation' has been removed.");
     });
   });
 
@@ -340,7 +340,7 @@ describe(`sbb-migrate-action-group-properties`, () => {
       expect(output).not.toContain('orientation="horizontal"');
       expect(output).not.toContain('alignGroup="end"');
       expect(output).toContain('<sbb-button>Confirm</sbb-button>');
-      expect(output).toContain('FIXME: orientation has been removed.');
+      expect(output).toContain("FIXME: 'orientation' has been removed.");
     });
   });
 
@@ -363,7 +363,7 @@ export class TestComponent {}
       const output = testMigration(MigrateActionGroupProperties, 'ts', input);
       expect(output).not.toContain('orientation="horizontal"');
       expect(output).toContain('<sbb-action-group>');
-      expect(output).toContain('FIXME: orientation has been removed.');
+      expect(output).toContain("FIXME: 'orientation' has been removed.");
     });
 
     it('propagates buttonSize to children in inline template', () => {

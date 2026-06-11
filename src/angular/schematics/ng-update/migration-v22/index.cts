@@ -20,6 +20,7 @@ import { MigratePopoverCloseButton } from './migrate-popover-close-button.cjs';
 
 import { SBB_UPGRADE_DATA } from './sbb-upgrade-data.cjs';
 import { OverlayConfigMigration } from './overlay-config.cjs';
+import { MigrateButtonAlignSelf } from './migrate-buttons-align-self.cjs';
 
 const migrations: NullableDevkitMigration[] = [
   FormFieldOptionalMigration,
@@ -35,6 +36,7 @@ const migrations: NullableDevkitMigration[] = [
   MigrateHeaderActionExpandFrom,
   MigrateActionGroupProperties,
   MigratePopoverCloseButton,
+  MigrateButtonAlignSelf,
 ];
 
 export function migrate(): Rule {

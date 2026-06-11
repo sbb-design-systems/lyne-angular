@@ -101,7 +101,7 @@ export class MigratePopoverCloseButton extends AttributeMigrationBase {
             template,
             template.start + el.sourceSpan.start.offset,
             `FIXME: '[hideCloseButton]' on <sbb-popover> has been removed. ` +
-              `Conditionally render <sbb-popover-close-button> instead. Check: ${PR_URL}`,
+              `Conditionally render '<sbb-popover-close-button>' instead. Check: ${PR_URL}`,
           );
         }
       } else {
