@@ -33,119 +33,121 @@ describe(`sbb-migrate-header-action-expand-from`, () => {
     });
   });
 
-  describe('Rule 2: bound expandFrom — adds FIXME comment', () => {
-    it('adds FIXME comment for [expandFrom] binding on sbb-header-button', () => {
-      const input = `<sbb-header-button [expandFrom]="myVal">Label</sbb-header-button>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).toContain('<!-- FIXME:');
-      expect(output).toContain('must be migrated manually to `hideLabelBelow`');
+  for (const attr of ['expandFrom', 'expand-from']) {
+    describe(`Rule 2: bound ${attr} — adds FIXME comment`, () => {
+      it('adds FIXME comment for [expandFrom] binding on sbb-header-button', () => {
+        const input = `<sbb-header-button [${attr}]="myVal">Label</sbb-header-button>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).toContain('<!-- FIXME:');
+        expect(output).toContain('must be migrated manually to `hideLabelBelow`');
+      });
+
+      it(`adds FIXME comment for [${attr}] binding on sbb-header-link`, () => {
+        const input = `<sbb-header-link [${attr}]="myVal">Label</sbb-header-link>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).toContain('<!-- FIXME:');
+        expect(output).toContain('must be migrated manually to `hideLabelBelow`');
+      });
+
+      it(`adds FIXME comment for [attr.${attr}] binding`, () => {
+        const input = `<sbb-header-button [attr.${attr}]="myVal">Label</sbb-header-button>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).toContain('<!-- FIXME:');
+      });
+
+      it('places FIXME comment above the element', () => {
+        const input = `<sbb-header-button [${attr}]="myVal">Label</sbb-header-button>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        const fixmeIndex = output.indexOf('<!-- FIXME:');
+        const elementIndex = output.indexOf('<sbb-header-button');
+        expect(fixmeIndex).toBeLessThan(elementIndex);
+      });
+
+      it('preserves indentation in FIXME comment', () => {
+        const input = `  <sbb-header-button [${attr}]="myVal">Label</sbb-header-button>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).toMatch(/^ {2}<!-- FIXME:/m);
+      });
+
+      it('leaves the bound expandFrom attribute untouched', () => {
+        const input = `<sbb-header-button [${attr}]="myVal">Label</sbb-header-button>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).toContain(`[${attr}]="myVal"`);
+      });
     });
 
-    it('adds FIXME comment for [expandFrom] binding on sbb-header-link', () => {
-      const input = `<sbb-header-link [expandFrom]="myVal">Label</sbb-header-link>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).toContain('<!-- FIXME:');
-      expect(output).toContain('must be migrated manually to `hideLabelBelow`');
+    describe(`Rule 3a: static ${attr}="zero" — removes attribute`, () => {
+      it(`removes ${attr}="zero" from sbb-header-button`, () => {
+        const input = `<sbb-header-button ${attr}="zero">Label</sbb-header-button>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).toBe(`<sbb-header-button>Label</sbb-header-button>`);
+      });
+
+      it(`removes ${attr}="zero" from sbb-header-link`, () => {
+        const input = `<sbb-header-link ${attr}="zero">Label</sbb-header-link>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).toBe(`<sbb-header-link>Label</sbb-header-link>`);
+      });
+
+      it(`preserves other attributes when removing ${attr}="zero"`, () => {
+        const input = `<sbb-header-button class="active" ${attr}="zero" id="btn">Label</sbb-header-button>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).toBe(`<sbb-header-button class="active" id="btn">Label</sbb-header-button>`);
+      });
+
+      it(`does not insert hideLabelBelow when ${attr}="zero"`, () => {
+        const input = `<sbb-header-button ${attr}="zero">Label</sbb-header-button>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).not.toContain('hideLabelBelow');
+      });
     });
 
-    it('adds FIXME comment for [attr.expandFrom] binding', () => {
-      const input = `<sbb-header-button [attr.expandFrom]="myVal">Label</sbb-header-button>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).toContain('<!-- FIXME:');
-    });
+    describe(`Rule 3b: static ${attr} with non-zero value — replaces with hideLabelBelow`, () => {
+      it(`replaces ${attr}="small" with hideLabelBelow="small"`, () => {
+        const input = `<sbb-header-button ${attr}="small">Label</sbb-header-button>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).toBe(`<sbb-header-button hideLabelBelow="small">Label</sbb-header-button>`);
+      });
 
-    it('places FIXME comment above the element', () => {
-      const input = `<sbb-header-button [expandFrom]="myVal">Label</sbb-header-button>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      const fixmeIndex = output.indexOf('<!-- FIXME:');
-      const elementIndex = output.indexOf('<sbb-header-button');
-      expect(fixmeIndex).toBeLessThan(elementIndex);
-    });
+      it(`replaces ${attr}="large" with hideLabelBelow="large"`, () => {
+        const input = `<sbb-header-button ${attr}="large">Label</sbb-header-button>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).toBe(`<sbb-header-button hideLabelBelow="large">Label</sbb-header-button>`);
+      });
 
-    it('preserves indentation in FIXME comment', () => {
-      const input = `  <sbb-header-button [expandFrom]="myVal">Label</sbb-header-button>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).toMatch(/^ {2}<!-- FIXME:/m);
-    });
+      it(`replaces ${attr}="ultra" with hideLabelBelow="ultra"`, () => {
+        const input = `<sbb-header-button ${attr}="ultra">Label</sbb-header-button>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).toBe(`<sbb-header-button hideLabelBelow="ultra">Label</sbb-header-button>`);
+      });
 
-    it('leaves the bound expandFrom attribute untouched', () => {
-      const input = `<sbb-header-button [expandFrom]="myVal">Label</sbb-header-button>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).toContain('[expandFrom]="myVal"');
-    });
-  });
+      it(`handles single-quoted ${attr} value`, () => {
+        const input = `<sbb-header-button ${attr}='medium'>Label</sbb-header-button>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).toBe(`<sbb-header-button hideLabelBelow="medium">Label</sbb-header-button>`);
+      });
 
-  describe('Rule 3a: static expandFrom="zero" — removes attribute', () => {
-    it('removes expandFrom="zero" from sbb-header-button', () => {
-      const input = `<sbb-header-button expandFrom="zero">Label</sbb-header-button>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).toBe(`<sbb-header-button>Label</sbb-header-button>`);
-    });
+      it(`preserves other attributes when replacing ${attr}`, () => {
+        const input = `<sbb-header-button class="active" ${attr}="large" id="btn">Label</sbb-header-button>`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).toBe(
+          `<sbb-header-button class="active" hideLabelBelow="large" id="btn">Label</sbb-header-button>`,
+        );
+      });
 
-    it('removes expandFrom="zero" from sbb-header-link', () => {
-      const input = `<sbb-header-link expandFrom="zero">Label</sbb-header-link>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).toBe(`<sbb-header-link>Label</sbb-header-link>`);
+      it('handles self-closing tag', () => {
+        const input = `<sbb-header-button expandFrom="medium" />`;
+        const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
+        expect(output).toBe(`<sbb-header-button hideLabelBelow="medium" />`);
+      });
     });
-
-    it('preserves other attributes when removing expandFrom="zero"', () => {
-      const input = `<sbb-header-button class="active" expandFrom="zero" id="btn">Label</sbb-header-button>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).toBe(`<sbb-header-button class="active" id="btn">Label</sbb-header-button>`);
-    });
-
-    it('does not insert hideLabelBelow when expandFrom="zero"', () => {
-      const input = `<sbb-header-button expandFrom="zero">Label</sbb-header-button>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).not.toContain('hideLabelBelow');
-    });
-  });
-
-  describe('Rule 3b: static expandFrom with non-zero value — replaces with hideLabelBelow', () => {
-    it('replaces expandFrom="small" with hideLabelBelow="small"', () => {
-      const input = `<sbb-header-button expandFrom="small">Label</sbb-header-button>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).toBe(`<sbb-header-button hideLabelBelow="small">Label</sbb-header-button>`);
-    });
-
-    it('replaces expandFrom="medium" with hideLabelBelow="medium"', () => {
-      const input = `<sbb-header-button expandFrom="medium">Label</sbb-header-button>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).toBe(`<sbb-header-button hideLabelBelow="medium">Label</sbb-header-button>`);
-    });
-
-    it('replaces expandFrom="large" with hideLabelBelow="large"', () => {
-      const input = `<sbb-header-button expandFrom="large">Label</sbb-header-button>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).toBe(`<sbb-header-button hideLabelBelow="large">Label</sbb-header-button>`);
-    });
-
-    it('handles single-quoted expandFrom value', () => {
-      const input = `<sbb-header-button expandFrom='medium'>Label</sbb-header-button>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).toBe(`<sbb-header-button hideLabelBelow="medium">Label</sbb-header-button>`);
-    });
-
-    it('preserves other attributes when replacing expandFrom', () => {
-      const input = `<sbb-header-button class="active" expandFrom="medium" id="btn">Label</sbb-header-button>`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).toBe(
-        `<sbb-header-button class="active" hideLabelBelow="medium" id="btn">Label</sbb-header-button>`,
-      );
-    });
-
-    it('handles self-closing tag', () => {
-      const input = `<sbb-header-button expandFrom="medium" />`;
-      const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
-      expect(output).toBe(`<sbb-header-button hideLabelBelow="medium" />`);
-    });
-  });
+  }
 
   describe('multiple elements', () => {
     it('migrates multiple elements in the same template', () => {
       const input = `
 <sbb-header-button expandFrom="medium">Button</sbb-header-button>
-<sbb-header-link expandFrom="zero">Link</sbb-header-link>
+<sbb-header-link expand-from="zero">Link</sbb-header-link>
       `.trim();
       const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
       expect(output).toBe(
@@ -160,7 +162,7 @@ describe(`sbb-migrate-header-action-expand-from`, () => {
       const input = `
 <sbb-header-button>No expandFrom</sbb-header-button>
 <sbb-header-button expandFrom="zero">Zero</sbb-header-button>
-<sbb-header-button expandFrom="small">Static</sbb-header-button>
+<sbb-header-button expand-from="small">Static</sbb-header-button>
 <sbb-header-button [expandFrom]="dynamic">Bound</sbb-header-button>
       `.trim();
       const output = testMigration(MigrateHeaderActionExpandFrom, 'html', input);
@@ -215,5 +217,17 @@ export class TestComponent {}
       expect(output).toContain('// FIXME:');
       expect(output).toContain('[expandFrom]="myVal"');
     });
+  });
+
+  it('adds FIXME comment for attribute expand-from in inline template', () => {
+    const input = `
+@Component({
+  template: \`<sbb-header-button [expand-from]="myVal">Label</sbb-header-button>\`,
+})
+export class TestComponent {}
+      `.trim();
+    const output = testMigration(MigrateHeaderActionExpandFrom, 'ts', input);
+    expect(output).toContain('// FIXME:');
+    expect(output).toContain('[expand-from]="myVal"');
   });
 });
