@@ -25,6 +25,7 @@ body {
 .sbb-controls-table {
   display: grid;
   grid-template-columns: 1fr;
+  align-items: center;
   gap: var(--sbb-spacing-fixed-1x);
   background-color: var(--sbb-background-color-3);
   border-radius: var(--sbb-border-radius-4x);
