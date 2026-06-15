@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
-import { SbbActionGroup } from '@sbb-esta/lyne-angular/action-group';
 import { SbbAlertModule } from '@sbb-esta/lyne-angular/alert';
+import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
@@ -17,7 +17,7 @@ import type { SbbAlertElement } from '@sbb-esta/lyne-elements/alert.pure.js';
   templateUrl: 'alert-variants-example.html',
   imports: [
     FormField,
-    SbbActionGroup,
+    SbbCheckboxModule,
     SbbAlertModule,
     SbbFormFieldModule,
     SbbLinkModule,
