@@ -66,7 +66,7 @@ export class StackBlitzWriter {
       return (theme: string) => {
         files['angular.json'] = files['angular.json'].replace(
           /\${theme}/g,
-          `node_modules/@sbb-esta/lyne-elements/${theme}.css`,
+          `node_modules/@sbb-esta/lyne-elements/${theme}`,
         );
 
         this.#openStackBlitz({
