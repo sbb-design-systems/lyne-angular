@@ -300,14 +300,4 @@ export class SbbSelect<T = string> extends SbbControlValueAccessorMixin(class {}
   public get compareWith(): (v1: T | null, v2: T | null) => boolean {
     return this.#element.nativeElement.compareWith;
   }
-
-  protected _validityOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'validity',
-  });
-  /**
-   * The validity event is dispatched whenever the validity state of the element changes.
-   */
-  public validityOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'validity'),
-  );
 }

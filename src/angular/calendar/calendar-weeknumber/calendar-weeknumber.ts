@@ -1,8 +1,6 @@
-import { Directive, ElementRef, Input, NgZone, inject, type OutputRef } from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbCalendarWeeknumberElement } from '@sbb-esta/lyne-elements/calendar.pure.js';
-import { NEVER, fromEvent } from 'rxjs';
 
 /**
  * It displays a single week number cell in the `sbb-calendar` component.
@@ -110,14 +108,4 @@ export class SbbCalendarWeeknumber {
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
-
-  protected _validityOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'validity',
-  });
-  /**
-   * The validity event is dispatched whenever the validity state of the element changes.
-   */
-  public validityOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'validity'),
-  );
 }

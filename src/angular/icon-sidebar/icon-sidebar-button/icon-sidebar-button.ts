@@ -1,8 +1,5 @@
-import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { SbbIconSidebarButtonElement } from '@sbb-esta/lyne-elements/icon-sidebar.pure.js';
-import { NEVER, fromEvent } from 'rxjs';
 
 /**
  * Button to be placed inside `sbb-icon-sidebar`.
@@ -132,14 +129,4 @@ export class SbbIconSidebarButton {
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
-
-  protected _validityOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'validity',
-  });
-  /**
-   * The validity event is dispatched whenever the validity state of the element changes.
-   */
-  public validityOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'validity'),
-  );
 }

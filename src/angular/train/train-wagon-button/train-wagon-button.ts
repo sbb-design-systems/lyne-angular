@@ -1,20 +1,10 @@
-import { Directive, ElementRef, Input, NgZone, inject, type OutputRef } from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import type { SbbOccupancy } from '@sbb-esta/lyne-elements/core.js';
 import { SbbTrainWagonButtonElement } from '@sbb-esta/lyne-elements/train.pure.js';
-import { NEVER, fromEvent } from 'rxjs';
 
 /**
  * It displays a train compartment within a `sbb-train` component and behaves like a button.
  * It can be used to display the train compartment as well as to trigger an action, e.g., to show more details about the train compartment.
- *
- * @slot  - Use the unnamed slot to add one or more `sbb-icon` for meta-information of the wagon.
- */
-
-/**
- * It displays a train compartment within a `sbb-train` component and behaves like a button.
-It can be used to display the train compartment as well as to trigger an action, e.g., to show more details about the train compartment.
  *
  * @slot  - Use the unnamed slot to add one or more `sbb-icon` for meta-information of the wagon.
  */
@@ -221,14 +211,4 @@ export class SbbTrainWagonButton {
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
-
-  protected _validityOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'validity',
-  });
-  /**
-   * The validity event is dispatched whenever the validity state of the element changes.
-   */
-  public validityOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'validity'),
-  );
 }

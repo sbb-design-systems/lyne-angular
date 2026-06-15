@@ -44,6 +44,8 @@ const CAMEL_CASE_EVENTS_MAP: Record<string, string> = {
   toggleexpanded: 'toggleExpanded',
 };
 
+const EVENTS_WITHOUT_OUTPUT = ['input', 'change', 'validity'];
+
 // Converts camelCase to kebab-case
 function toKebabCase(str: string): string {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
@@ -484,7 +486,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         const elementClassName = classManifestDeclaration.name;
         const publicProperties = classManifestDeclaration.members?.filter(isPublicProperties) ?? [];
         const publicEvents = (classManifestDeclaration.events ?? []).filter(
-          (e) => e.name !== 'input' && e.name !== 'change',
+          (e) => !EVENTS_WITHOUT_OUTPUT.includes(e.name),
         );
         const publicGetters = classManifestDeclaration.members?.filter(isPublicGetter) ?? [];
         const publicMethods =

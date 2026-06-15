@@ -1,8 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbExpansionPanelHeaderElement } from '@sbb-esta/lyne-elements/expansion-panel.pure.js';
-import { fromEvent, NEVER } from 'rxjs';
+import { fromEvent } from 'rxjs';
 
 /**
  * It acts as a native `summary` tag for the `sbb-expansion-panel` component.
@@ -162,15 +162,5 @@ export class SbbExpansionPanelHeader {
   public toggleExpandedOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'toggleexpanded'),
     { alias: 'toggleExpanded' },
-  );
-
-  protected _validityOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'validity',
-  });
-  /**
-   * The validity event is dispatched whenever the validity state of the element changes.
-   */
-  public validityOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'validity'),
   );
 }

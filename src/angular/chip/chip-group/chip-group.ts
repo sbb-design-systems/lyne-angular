@@ -9,14 +9,10 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-  booleanAttribute,
-  SbbControlValueAccessorMixin,
-  internalOutputFromObservable,
-} from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbChipInputTokenEndEvent } from '@sbb-esta/lyne-elements/chip.pure.js';
 import { SbbChipGroupElement } from '@sbb-esta/lyne-elements/chip.pure.js';
-import { fromEvent, NEVER } from 'rxjs';
+import { fromEvent } from 'rxjs';
 
 /**
  * The `sbb-chip-group` component is used as a container for one or multiple `sbb-chip`.
@@ -200,15 +196,5 @@ export class SbbChipGroup<T = string> extends SbbControlValueAccessorMixin(class
   public chipInputTokenEndOutput: OutputRef<SbbChipInputTokenEndEvent<T>> = outputFromObservable(
     fromEvent<SbbChipInputTokenEndEvent<T>>(this.#element.nativeElement, 'chipinputtokenend'),
     { alias: 'chipInputTokenEnd' },
-  );
-
-  protected _validityOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'validity',
-  });
-  /**
-   * The validity event is dispatched whenever the validity state of the element changes.
-   */
-  public validityOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'validity'),
   );
 }

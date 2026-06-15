@@ -15,10 +15,9 @@ import {
   booleanAttribute,
   SbbControlValueAccessorMixin,
   SbbDeferredAnimation,
-  internalOutputFromObservable,
 } from '@sbb-esta/lyne-angular/core';
 import { SbbTagElement } from '@sbb-esta/lyne-elements/tag.pure.js';
-import { fromEvent, NEVER } from 'rxjs';
+import { fromEvent } from 'rxjs';
 
 /**
  * It displays a selectable element which can be used as a filter.
@@ -231,15 +230,5 @@ export class SbbTag<T = string>
   public didChangeOutput: OutputRef<Event> = outputFromObservable(
     fromEvent<Event>(this.#element.nativeElement, 'didChange'),
     { alias: 'didChange' },
-  );
-
-  protected _validityOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'validity',
-  });
-  /**
-   * The validity event is dispatched whenever the validity state of the element changes.
-   */
-  public validityOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'validity'),
   );
 }

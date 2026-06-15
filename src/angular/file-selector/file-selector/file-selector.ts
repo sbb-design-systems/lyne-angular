@@ -9,14 +9,10 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-  booleanAttribute,
-  SbbControlValueAccessorMixin,
-  internalOutputFromObservable,
-} from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import type { SbbFileChangeEvent } from '@sbb-esta/lyne-elements/file-selector.pure.js';
 import { SbbFileSelectorElement } from '@sbb-esta/lyne-elements/file-selector.pure.js';
-import { fromEvent, NEVER } from 'rxjs';
+import { fromEvent } from 'rxjs';
 
 /**
  * It allows to select one or more file from storage devices and display them.
@@ -223,15 +219,5 @@ export class SbbFileSelector extends SbbControlValueAccessorMixin(class {}) {
   public fileChangedOutput: OutputRef<SbbFileChangeEvent> = outputFromObservable(
     fromEvent<SbbFileChangeEvent>(this.#element.nativeElement, 'filechanged'),
     { alias: 'fileChanged' },
-  );
-
-  protected _validityOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'validity',
-  });
-  /**
-   * The validity event is dispatched whenever the validity state of the element changes.
-   */
-  public validityOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'validity'),
   );
 }
