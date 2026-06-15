@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbActionGroupModule } from '@sbb-esta/lyne-angular/action-group';
 import { SbbCalendarModule } from '@sbb-esta/lyne-angular/calendar';
@@ -26,7 +26,18 @@ import type { SbbCalendarElement } from '@sbb-esta/lyne-elements/calendar.pure.j
   ],
 })
 export class CalendarBasicExample {
-  protected form = form(signal({ calendar: new Date() }));
+  protected form = form(
+    signal<{
+      calendar: Date | Date[];
+    }>({ calendar: new Date() }),
+  );
+
+  protected stringifiedValue = computed(() => {
+    const value = this.form.calendar().value();
+    return value instanceof Array
+      ? JSON.stringify(value.map((d) => d.toDateString()))
+      : value.toDateString();
+  });
 
   protected controls = form(
     signal({

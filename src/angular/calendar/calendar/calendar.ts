@@ -134,7 +134,14 @@ export class SbbCalendar<T = Date> extends SbbControlValueAccessorMixin(class {}
    */
   @Input({ transform: booleanAttribute })
   public set multiple(value: boolean) {
+    const hasChanged = value !== this.multiple;
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.multiple = value));
+
+    // When 'multiple' changes, the 'value' type changes from Date to array and vice versa.
+    // We have to notify the ng form of the format change.
+    if (hasChanged && this.value) {
+      this.onChangeFn(this.value);
+    }
   }
   public get multiple(): boolean {
     return this.#element.nativeElement.multiple;
