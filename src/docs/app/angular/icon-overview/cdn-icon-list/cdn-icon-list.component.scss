@@ -1,0 +1,27 @@
+@use '@sbb-esta/lyne-elements' as sbb;
+
+.sbb-cdn-icon-list__filter-bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sbb-spacing-fixed-4x);
+  margin-block-end: var(--sbb-spacing-fixed-4x);
+
+  @include sbb.mq($from: large) {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.sbb-cdn-icon-list__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sbb-spacing-fixed-4x);
+}
+
+sbb-cdn-icon {
+  width: 100px;
+}
+
+.sbb-cdn-icon-list__paginator {
+  margin: var(--sbb-spacing-fixed-4x) 0;
+}

@@ -10,6 +10,8 @@ import { MarkdownViewerComponent } from '../shared/markdown-viewer/markdown-view
 import { PACKAGES } from '../shared/meta';
 import { PackageViewerComponent } from '../shared/package-viewer/package-viewer.component';
 
+import { IconOverviewComponent } from './icon-overview/icon-overview.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -24,11 +26,10 @@ const routes: Routes = [
         redirectTo: 'guides/getting-started',
         pathMatch: 'full',
       },
-      // TODO: create if needed
-      // {
-      //   path: 'icon-overview',
-      //   component: IconOverviewComponent,
-      // },
+      {
+        path: 'guides/icon-overview',
+        component: IconOverviewComponent,
+      },
       {
         path: 'guides/how-to-update',
         component: HowToUpdateComponent,

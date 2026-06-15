@@ -1,0 +1,40 @@
+<form class="sbb-cdn-icon-list__filter-bar">
+  <sbb-form-field>
+    <label>Fulltext Filter</label>
+    <input [formField]="filterForm.fulltext" />
+  </sbb-form-field>
+
+  <sbb-form-field>
+    <label>Namespaces</label>
+    <sbb-select placeholder="Namespaces" [formField]="filterForm.namespaces" multiple>
+      @for (namespace of namespaces; track namespace) {
+        <sbb-option [value]="namespace">
+          {{ namespace + (deprecatedNamespaces.includes(namespace) ? ' (deprecated)' : '') }}
+        </sbb-option>
+      }
+    </sbb-select>
+  </sbb-form-field>
+
+  <div>
+    <sbb-checkbox [formField]="filterForm.fitIcons"> Fit icon size to parent element </sbb-checkbox>
+  </div>
+</form>
+
+<div class="sbb-cdn-icon-list__items">
+  @for (cdnIcon of filteredIcons(); track cdnIcon.name) {
+    <sbb-cdn-icon [cdnIcon]="cdnIcon" [iconFit]="filterForm.fitIcons().value()" />
+  }
+</div>
+
+<sbb-paginator
+  [pageSize]="pageSize"
+  (page)="handlePageChange($event)"
+  aria-label="Select icon page"
+  class="sbb-cdn-icon-list__paginator"
+/>
+
+<p>
+  Icon CDN Version: {{ cdnIcons().iconVersion }}<br />
+  Picto CDN Version: {{ cdnIcons().pictoVersion }}<br />
+  Deprecated Icon CDN Version: {{ cdnIcons().deprecatedVersion }}
+</p>
