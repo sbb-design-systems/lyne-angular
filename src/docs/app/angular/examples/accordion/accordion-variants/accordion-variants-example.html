@@ -38,9 +38,13 @@
 </sbb-accordion>
 
 <sbb-title level="5">Properties</sbb-title>
-<sbb-checkbox-group orientation="vertical">
-  <sbb-checkbox [formField]="controls.multi">Allows for multiple panel opened</sbb-checkbox>
-  <sbb-checkbox [formField]="controls.smallSize">Small size</sbb-checkbox>
-  <sbb-checkbox [formField]="controls.iconPanel">Icon on header</sbb-checkbox>
-  <sbb-checkbox [formField]="controls.disablePanel">Disable second panel</sbb-checkbox>
-</sbb-checkbox-group>
+<div class="sbb-controls-table">
+  <label for="multiple">Allows for multiple panel opened</label>
+  <sbb-checkbox id="multiple" [formField]="controls.multi"></sbb-checkbox>
+  <label for="size">Small size</label>
+  <sbb-checkbox id="size" [formField]="controls.smallSize"></sbb-checkbox>
+  <label for="icon">Icon on header</label>
+  <sbb-checkbox id="icon" [formField]="controls.iconPanel"></sbb-checkbox>
+  <label for="disable">Disable second panel</label>
+  <sbb-checkbox id="disable" [formField]="controls.disablePanel"></sbb-checkbox>
+</div>

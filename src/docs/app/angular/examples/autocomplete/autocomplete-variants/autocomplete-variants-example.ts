@@ -1,7 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
-import { SbbActionGroup } from '@sbb-esta/lyne-angular/action-group';
 import { SbbAutocompleteModule } from '@sbb-esta/lyne-angular/autocomplete';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
@@ -19,7 +18,6 @@ import type { SbbAutocompleteElement } from '@sbb-esta/lyne-elements/autocomplet
   imports: [
     FormField,
     JsonPipe,
-    SbbActionGroup,
     SbbAutocompleteModule,
     SbbCardModule,
     SbbCheckboxModule,
