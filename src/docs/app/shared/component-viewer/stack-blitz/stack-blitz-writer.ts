@@ -29,7 +29,7 @@ export const TEMPLATE_FILES = [
   'src/favicon.ico',
   'src/index.html',
   'src/main.ts',
-  'src/styles.css',
+  'src/styles.scss',
   'src/environments/environment.prod.ts',
   'src/environments/environment.ts',
 ];
@@ -66,7 +66,7 @@ export class StackBlitzWriter {
       return (theme: string) => {
         files['angular.json'] = files['angular.json'].replace(
           /\${theme}/g,
-          `node_modules/@sbb-esta/lyne-elements/${theme}.css`,
+          `node_modules/@sbb-esta/lyne-elements/${theme}`,
         );
 
         this.#openStackBlitz({
