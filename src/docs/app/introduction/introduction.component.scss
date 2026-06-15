@@ -2,3 +2,16 @@
   display: block;
   max-width: 75rem;
 }
+
+.libraries {
+  flex-wrap: wrap;
+  align-items: start;
+
+  sbb-teaser {
+    width: 20rem;
+  }
+
+  img {
+    display: block;
+  }
+}

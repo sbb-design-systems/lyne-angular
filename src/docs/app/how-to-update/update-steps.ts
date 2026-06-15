@@ -1,6 +1,9 @@
-export interface UpdateStep {
-  from: number;
-  to: number;
+export interface Version {
+  major: number;
+  minor: number;
+}
+
+export interface UpdateStep extends Version {
   lyneChangelog: string;
   ngChangelog: string;
   actions: string[];
@@ -8,8 +11,15 @@ export interface UpdateStep {
 
 export const UPDATE_STEPS: UpdateStep[] = [
   {
-    from: 2100,
-    to: 2200,
+    major: 21,
+    minor: 0,
+    lyneChangelog: 'https://github.com/sbb-design-systems/lyne-components/releases/tag/v4.0.0',
+    ngChangelog: 'https://github.com/sbb-design-systems/lyne-angular/releases/tag/v21.0.0',
+    actions: [],
+  },
+  {
+    major: 22,
+    minor: 0,
     lyneChangelog: 'https://github.com/sbb-design-systems/lyne-components/releases/tag/v5.0.0',
     ngChangelog: 'https://github.com/sbb-design-systems/lyne-angular/releases/tag/v22.0.0',
     actions: [
