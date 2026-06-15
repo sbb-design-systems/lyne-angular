@@ -255,4 +255,14 @@ export class SbbCalendar<T = Date> extends SbbControlValueAccessorMixin(class {}
   public resetPosition(): void {
     return this.#element.nativeElement.resetPosition();
   }
+
+  protected _validityOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'validity',
+  });
+  /**
+   * The validity event is dispatched whenever the validity state of the element changes.
+   */
+  public validityOutput: OutputRef<Event> = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'validity'),
+  );
 }

@@ -1,8 +1,10 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.pure.js';
 import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.pure.js';
 import { SbbDatepickerToggleElement } from '@sbb-esta/lyne-elements/datepicker.pure.js';
+import { NEVER, fromEvent } from 'rxjs';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.
@@ -163,4 +165,14 @@ export class SbbDatepickerToggle<T = Date> {
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
+
+  protected _validityOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'validity',
+  });
+  /**
+   * The validity event is dispatched whenever the validity state of the element changes.
+   */
+  public validityOutput: OutputRef<Event> = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'validity'),
+  );
 }

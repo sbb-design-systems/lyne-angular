@@ -1,8 +1,22 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  forwardRef,
+  inject,
+  Input,
+  NgZone,
+  type OutputRef,
+} from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import type { AbstractControl, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import {
+  booleanAttribute,
+  SbbControlValueAccessorMixin,
+  internalOutputFromObservable,
+} from '@sbb-esta/lyne-angular/core';
 import { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.pure.js';
+import { NEVER, fromEvent } from 'rxjs';
 
 /**
  * Custom input for a time.
@@ -15,6 +29,7 @@ import { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.pure.js'
     '(blur)': 'this.onTouchedFn()',
     '(input)': 'this._onInput()',
     '(invalid)': 'this.validatorOnChange()',
+    '(validity)': 'this.validatorOnChange()',
   },
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SbbTimeInput), multi: true },
@@ -238,4 +253,14 @@ export class SbbTimeInput extends SbbControlValueAccessorMixin(class {}) impleme
       this.onChangeFn(this.valueAsDate);
     }
   }
+
+  protected _validityOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'validity',
+  });
+  /**
+   * The validity event is dispatched whenever the validity state of the element changes.
+   */
+  public validityOutput: OutputRef<Event> = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'validity'),
+  );
 }

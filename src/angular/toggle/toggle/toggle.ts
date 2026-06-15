@@ -1,14 +1,25 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  forwardRef,
+  inject,
+  Input,
+  NgZone,
+  type OutputRef,
+} from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
   booleanAttribute,
   SbbControlValueAccessorMixin,
   SbbDeferredAnimation,
+  internalOutputFromObservable,
 } from '@sbb-esta/lyne-angular/core';
 import {
   type SbbToggleOptionElement,
   SbbToggleElement,
 } from '@sbb-esta/lyne-elements/toggle.pure.js';
+import { NEVER, fromEvent } from 'rxjs';
 
 /**
  * It can be used as a container for two `sbb-toggle-option`, acting as a toggle button.
@@ -162,4 +173,14 @@ export class SbbToggle<T = string> extends SbbControlValueAccessorMixin(class {}
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
+
+  protected _validityOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'validity',
+  });
+  /**
+   * The validity event is dispatched whenever the validity state of the element changes.
+   */
+  public validityOutput: OutputRef<Event> = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'validity'),
+  );
 }
