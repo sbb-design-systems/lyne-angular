@@ -30,8 +30,8 @@
   <label for="autoActiveFirstOption">Active first option automatically</label>
   <sbb-checkbox id="autoActiveFirstOption" [formField]="form.autoActiveFirstOption"></sbb-checkbox>
 
-  <label for="size">Size</label>
-  <sbb-radio-button-group id="size" [formField]="form.size" allowEmptySelection>
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="form.size" allowEmptySelection>
     <sbb-radio-button value="s">s</sbb-radio-button>
     <sbb-radio-button value="m">m</sbb-radio-button>
   </sbb-radio-button-group>
