@@ -24,6 +24,7 @@ function importMigration(lib: string): Record<string, string> {
     [`@sbb-esta/${lib}/container/container`]: `@sbb-esta/${lib}/container`,
     [`@sbb-esta/${lib}/container/sticky-bar`]: `@sbb-esta/${lib}/container`,
     [`@sbb-esta/${lib}/core/overlay`]: `@sbb-esta/${lib}/core`,
+    [`@sbb-esta/${lib}/core/datetime`]: `@sbb-esta/${lib}/core`,
     [`@sbb-esta/${lib}/file-selector/file-selector`]: `@sbb-esta/${lib}/file-selector`,
     [`@sbb-esta/${lib}/file-selector/file-selector-dropzone`]: `@sbb-esta/${lib}/file-selector`,
     [`@sbb-esta/${lib}/link-list/link-list-anchor`]: `@sbb-esta/${lib}/link-list-anchor`,

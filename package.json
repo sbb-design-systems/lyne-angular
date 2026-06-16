@@ -1,6 +1,6 @@
 {
   "name": "lyne-angular",
-  "version": "22.0.1",
+  "version": "22.0.2",
   "scripts": {
     "postinstall": "run-s postinstall:playwright readme",
     "postinstall:playwright": "yarn playwright install",
@@ -80,11 +80,11 @@
     "marked-highlight": "2.2.4",
     "ng-packagr": "22.0.0",
     "npm-run-all2": "9.0.2",
-    "playwright": "1.60.0",
+    "playwright": "1.61.0",
     "prettier": "3.8.4",
     "tsx": "4.22.4",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.61.0",
+    "typescript-eslint": "8.61.1",
     "vitest": "4.1.9"
   },
   "prettier": {

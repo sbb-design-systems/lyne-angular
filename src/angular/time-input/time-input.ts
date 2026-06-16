@@ -15,6 +15,7 @@ import { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.pure.js'
     '(blur)': 'this.onTouchedFn()',
     '(input)': 'this._onInput()',
     '(invalid)': 'this.validatorOnChange()',
+    '(validity)': 'this.validatorOnChange()',
   },
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SbbTimeInput), multi: true },
