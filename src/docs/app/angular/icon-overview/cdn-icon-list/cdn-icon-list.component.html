@@ -1,11 +1,11 @@
-<form class="sbb-cdn-icon-list__filter-bar">
-  <sbb-form-field>
-    <label>Fulltext Filter</label>
+<form class="sbb-controls-table">
+  <label for="fulltext">Fulltext Filter</label>
+  <sbb-form-field id="fulltext">
     <input [formField]="filterForm.fulltext" />
   </sbb-form-field>
 
-  <sbb-form-field>
-    <label>Namespaces</label>
+  <label for="namespaces">Namespaces</label>
+  <sbb-form-field id="namespaces">
     <sbb-select placeholder="Namespaces" [formField]="filterForm.namespaces" multiple>
       @for (namespace of namespaces; track namespace) {
         <sbb-option [value]="namespace">
@@ -15,23 +15,23 @@
     </sbb-select>
   </sbb-form-field>
 
-  <div>
-    <sbb-checkbox [formField]="filterForm.fitIcons"> Fit icon size to parent element </sbb-checkbox>
-  </div>
+  <label for="fitIcons">Fit icon size to parent element</label>
+  <sbb-checkbox id="fitIcons" [formField]="filterForm.fitIcons"></sbb-checkbox>
 </form>
 
-<div class="sbb-cdn-icon-list__items">
-  @for (cdnIcon of filteredIcons(); track cdnIcon.name) {
-    <sbb-cdn-icon [cdnIcon]="cdnIcon" [iconFit]="filterForm.fitIcons().value()" />
-  }
-</div>
+@if (filteredIcons().length > 0) {
+  <div class="sbb-cdn-icon-list__items">
+    @for (cdnIcon of filteredIcons(); track cdnIcon.name) {
+      <sbb-cdn-icon [cdnIcon]="cdnIcon" [iconFit]="filterForm.fitIcons().value()" />
+    }
+  </div>
 
-<sbb-paginator
-  [pageSize]="pageSize"
-  (page)="handlePageChange($event)"
-  aria-label="Select icon page"
-  class="sbb-cdn-icon-list__paginator"
-/>
+  <sbb-paginator
+    [pageSize]="pageSize"
+    (page)="handlePageChange($event)"
+    aria-label="Select icon page"
+  />
+}
 
 <p>
   Icon CDN Version: {{ cdnIcons().iconVersion }}<br />

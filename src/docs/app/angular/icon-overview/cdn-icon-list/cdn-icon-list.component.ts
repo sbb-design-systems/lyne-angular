@@ -27,17 +27,17 @@ import { CdnIconComponent } from './cdn-icon/cdn-icon.component';
 })
 export class CdnIconListComponent {
   cdnIcons = input.required<CdnIcons>();
-  namespaces = ['icon', 'picto', 'kom', 'fpl'];
-  deprecatedNamespaces = ['kom', 'fpl'];
-  pageSize: number = 50;
-  paginator = viewChild.required(SbbPaginator);
+  paginator = viewChild(SbbPaginator);
   protected readonly currentPage = signal<number>(0);
+  protected readonly namespaces = ['icon', 'picto', 'kom', 'fpl'];
+  protected readonly deprecatedNamespaces = ['kom', 'fpl'];
+  protected readonly pageSize: number = 50;
 
   protected readonly filterForm = form(
     signal({
       fulltext: '',
       namespaces: this.namespaces.filter((ns) => !this.deprecatedNamespaces.includes(ns)),
-      fitIcons: false,
+      fitIcons: true,
     }),
   );
 
