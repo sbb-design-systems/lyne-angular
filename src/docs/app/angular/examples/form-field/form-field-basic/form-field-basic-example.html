@@ -14,31 +14,30 @@
   <sbb-error>This field is required!</sbb-error>
 </sbb-form-field>
 
-<div class="controls">
-  <div>
-    <sbb-title class="group-label" level="6">Form field</sbb-title>
-    <sbb-checkbox-group orientation="vertical">
-      <sbb-checkbox [formField]="controls.formField.borderless">Borderless</sbb-checkbox>
-      <sbb-checkbox [formField]="controls.formField.floatingLabel">Floating label</sbb-checkbox>
-      <sbb-checkbox [formField]="controls.formField.hiddenLabel">Hidden label</sbb-checkbox>
-    </sbb-checkbox-group>
-    Size
-    <sbb-radio-button-group [formField]="controls.formField.size">
-      <sbb-radio-button value="s">S</sbb-radio-button>
-      <sbb-radio-button value="m">M</sbb-radio-button>
-      <sbb-radio-button value="l">L</sbb-radio-button>
-    </sbb-radio-button-group>
-    Width
-    <sbb-radio-button-group [formField]="controls.formField.width">
-      <sbb-radio-button value="default">Default</sbb-radio-button>
-      <sbb-radio-button value="collapse">Collapse</sbb-radio-button>
-    </sbb-radio-button-group>
-  </div>
-  <div>
-    <sbb-title class="group-label" level="6">Input</sbb-title>
-    <sbb-checkbox-group orientation="vertical">
-      <sbb-checkbox [formField]="controls.input.disabled">Disabled</sbb-checkbox>
-      <sbb-checkbox [formField]="controls.input.readonly">Readonly</sbb-checkbox>
-    </sbb-checkbox-group>
-  </div>
+<sbb-title class="group-label" level="6">Form field</sbb-title>
+<div class="sbb-controls-table">
+  <label for="borderless">Borderless</label>
+  <sbb-checkbox id="borderless" [formField]="controls.formField.borderless"></sbb-checkbox>
+  <label for="floatingLabel">Floating label</label>
+  <sbb-checkbox id="floatingLabel" [formField]="controls.formField.floatingLabel"></sbb-checkbox>
+  <label for="hiddenLabel">Hidden label</label>
+  <sbb-checkbox id="hiddenLabel" [formField]="controls.formField.hiddenLabel"></sbb-checkbox>
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.formField.size">
+    <sbb-radio-button value="s">S</sbb-radio-button>
+    <sbb-radio-button value="m">M</sbb-radio-button>
+    <sbb-radio-button value="l">L</sbb-radio-button>
+  </sbb-radio-button-group>
+  <label>Width</label>
+  <sbb-radio-button-group aria-label="Width" [formField]="controls.formField.width">
+    <sbb-radio-button value="default">Default</sbb-radio-button>
+    <sbb-radio-button value="collapse">Collapse</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>
+<sbb-title class="group-label" level="6">Input</sbb-title>
+<div class="sbb-controls-table">
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.input.disabled"></sbb-checkbox>
+  <label for="readonly">Readonly</label>
+  <sbb-checkbox id="readonly" [formField]="controls.input.readonly"></sbb-checkbox>
 </div>
