@@ -20,9 +20,9 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
   button: [
+    'button-variants',
     'button-link-variants',
     'button-static-variants',
-    'button-variants',
     'mini-button-group',
     'mini-button-variants',
   ],

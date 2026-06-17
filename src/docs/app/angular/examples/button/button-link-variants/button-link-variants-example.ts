@@ -1,61 +1,38 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Component, signal } from '@angular/core';
+import { form, FormField } from '@angular/forms/signals';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
+import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbNotificationModule } from '@sbb-esta/lyne-angular/notification';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
-import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import { map } from 'rxjs/operators';
+import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title sbb-button-link with configurable properties
+ * @order 20
  */
 @Component({
   selector: 'sbb-button-link-variants-example',
   templateUrl: 'button-link-variants-example.html',
   imports: [
-    ReactiveFormsModule,
     SbbButtonModule,
     SbbCheckboxModule,
     SbbRadioButtonModule,
     SbbNotificationModule,
-    SbbTitle,
+    SbbTitleModule,
+    SbbFormFieldModule,
+    FormField,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonLinkVariantsExample {
-  protected form = inject(FormBuilder).nonNullable.group({
-    disabled: false,
-    loading: false,
-    label: true,
-    icon: false,
-    size: null,
-    targetBlank: false,
-    externalLink: false,
-  });
-
-  protected readonly disabled = toSignal(this.form.controls.disabled.valueChanges, {
-    initialValue: this.form.controls.disabled.value,
-  });
-  protected readonly loading = toSignal(this.form.controls.loading.valueChanges, {
-    initialValue: this.form.controls.loading.value,
-  });
-  protected readonly label = toSignal(this.form.controls.label.valueChanges, {
-    initialValue: this.form.controls.label.value,
-  });
-  protected readonly icon = toSignal(this.form.controls.icon.valueChanges, {
-    initialValue: this.form.controls.icon.value,
-  });
-  protected readonly size = toSignal(this.form.controls.size.valueChanges, {
-    initialValue: this.form.controls.size.value,
-  });
-  protected readonly targetBlank = toSignal(
-    this.form.controls.targetBlank.valueChanges.pipe(map((e) => (e ? '_blank' : ''))),
-    { initialValue: '' },
-  );
-  protected readonly externalLink = toSignal(
-    this.form.controls.externalLink.valueChanges.pipe(map((e) => (e ? 'https://www.sbb.ch' : '/'))),
-    { initialValue: '/' },
+  protected controls = form(
+    signal({
+      disabled: false,
+      loading: false,
+      variant: 'label',
+      size: null,
+      href: 'https://www.sbb.ch',
+      isBlank: true,
+    }),
   );
 }

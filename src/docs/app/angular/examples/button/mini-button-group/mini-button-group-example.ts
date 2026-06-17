@@ -4,6 +4,7 @@ import { SbbDividerModule } from '@sbb-esta/lyne-angular/divider';
 
 /**
  * @title Basic sbb-mini-button-group
+ * @order 40
  */
 @Component({
   selector: 'sbb-button-group-example',

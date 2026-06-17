@@ -4,68 +4,80 @@
 
 <p>
   <sbb-button-link
-    [disabled]="disabled()"
-    [loading]="loading()"
-    [iconName]="icon() ? 'pie-small' : ''"
-    [size]="size()"
-    [href]="externalLink()"
-    [target]="targetBlank()"
+    [disabled]="controls.disabled().value()"
+    [loading]="controls.loading().value()"
+    [iconName]="['icon', 'both'].includes(controls.variant().value()) ? 'pie-small' : ''"
+    [size]="controls.size().value()"
+    [href]="controls.href().value()"
+    [target]="controls.isBlank().value() ? '_blank' : ''"
   >
-    {{ label() ? 'Button text' : null }}
+    {{ ['label', 'both'].includes(controls.variant().value()) ? 'Button text' : null }}
   </sbb-button-link>
 </p>
 <p>
   <sbb-secondary-button-link
-    [disabled]="disabled()"
-    [loading]="loading()"
-    [iconName]="icon() ? 'dog-small' : ''"
-    [size]="size()"
-    [href]="externalLink()"
-    [target]="targetBlank()"
+    [disabled]="controls.disabled().value()"
+    [loading]="controls.loading().value()"
+    [iconName]="['icon', 'both'].includes(controls.variant().value()) ? 'dog-small' : ''"
+    [size]="controls.size().value()"
+    [href]="controls.href().value()"
+    [target]="controls.isBlank().value() ? '_blank' : ''"
   >
-    {{ label() ? 'Button text' : null }}
+    {{ ['label', 'both'].includes(controls.variant().value()) ? 'Button text' : null }}
   </sbb-secondary-button-link>
 </p>
 <p>
   <sbb-accent-button-link
-    [disabled]="disabled()"
-    [loading]="loading()"
-    [iconName]="icon() ? 'croissant-small' : ''"
-    [size]="size()"
-    [href]="externalLink()"
-    [target]="targetBlank()"
+    [disabled]="controls.disabled().value()"
+    [loading]="controls.loading().value()"
+    [iconName]="['icon', 'both'].includes(controls.variant().value())  ? 'croissant-small' : ''"
+    [size]="controls.size().value()"
+    [href]="controls.href().value()"
+    [target]="controls.isBlank().value() ? '_blank' : ''"
   >
-    {{ label() ? 'Button text' : null }}
+    {{ ['label', 'both'].includes(controls.variant().value()) ? 'Button text' : null }}
   </sbb-accent-button-link>
 </p>
 <p>
   <sbb-transparent-button-link
-    [disabled]="disabled()"
-    [loading]="loading()"
-    [iconName]="icon() ? 'diamond-small' : ''"
-    [size]="size()"
-    [href]="externalLink()"
+    [disabled]="controls.disabled().value()"
+    [loading]="controls.loading().value()"
+    [iconName]="['icon', 'both'].includes(controls.variant().value())  ? 'diamond-small' : ''"
+    [size]="controls.size().value()"
+    [href]="controls.href().value()"
+    [target]="controls.isBlank().value() ? '_blank' : ''"
   >
-    {{ label() ? 'Button text' : null }}
+    {{ ['label', 'both'].includes(controls.variant().value()) ? 'Button text' : null }}
   </sbb-transparent-button-link>
 </p>
 
 <sbb-title level="5">Properties</sbb-title>
-<form [formGroup]="form" style="display: flex; gap: var(--sbb-spacing-fixed-8x)">
-  <sbb-radio-button-group formControlName="size" orientation="vertical">
-    <label>Size</label>
-    <sbb-radio-button value="s">'s'</sbb-radio-button>
-    <sbb-radio-button value="m">'m'</sbb-radio-button>
-    <sbb-radio-button value="l">'l'</sbb-radio-button>
+<div class="sbb-controls-table">
+  <label for="href">Link</label>
+  <sbb-form-field>
+    <input type="text" id="href" [formField]="controls.href" />
+  </sbb-form-field>
+
+  <label>Variant</label>
+  <sbb-radio-button-group aria-label="Variant" [formField]="controls.variant">
+    <sbb-radio-button value="label">Label only</sbb-radio-button>
+    <sbb-radio-button value="icon">Icon only</sbb-radio-button>
+    <sbb-radio-button value="both">Both icon and label</sbb-radio-button>
   </sbb-radio-button-group>
-  <sbb-checkbox-group orientation="vertical">
-    <sbb-checkbox formControlName="disabled">Disabled</sbb-checkbox>
-    <sbb-checkbox formControlName="loading">Loading</sbb-checkbox>
-    <sbb-checkbox formControlName="label">Label</sbb-checkbox>
-    <sbb-checkbox formControlName="icon">Icon</sbb-checkbox>
-  </sbb-checkbox-group>
-  <sbb-checkbox-group orientation="vertical">
-    <sbb-checkbox formControlName="targetBlank">Open in new window</sbb-checkbox>
-    <sbb-checkbox formControlName="externalLink">External href</sbb-checkbox>
-  </sbb-checkbox-group>
-</form>
+
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+    <sbb-radio-button value="l">l</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label for="loading">Loading</label>
+  <sbb-checkbox id="loading" [formField]="controls.loading"></sbb-checkbox>
+
+  <label for="blank">Link opens in a new window</label>
+  <sbb-checkbox id="blank" [formField]="controls.isBlank"></sbb-checkbox>
+</div>
