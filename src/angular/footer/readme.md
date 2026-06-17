@@ -35,7 +35,7 @@ class (`class="sbb-link-list-button-group"`) to be displayed correctly.
       <sbb-block-link href="#">Praise</sbb-block-link>
       <sbb-block-link href="#">Report property damage</sbb-block-link>
     </sbb-link-list>
-    <sbb-button-link>All help topics</sbb-button-link>
+    <sbb-button-link size="l">All help topics</sbb-button-link>
   </div>
   <sbb-link-list titleLevel="2" titleContent="More SBB.">
     <sbb-block-link href="#">Jobs & careers</sbb-block-link>

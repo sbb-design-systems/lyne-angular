@@ -1,0 +1,38 @@
+<sbb-form-field [size]="form.size().value()">
+  <label>Autocomplete with properties</label>
+  <input [formField]="control" [sbbAutocomplete]="auto" />
+  <sbb-autocomplete
+    [requireSelection]="form.requireSelection().value()"
+    [autoSelectActiveOption]="form.autoSelectActiveOption().value()"
+    [autoActiveFirstOption]="form.autoActiveFirstOption().value()"
+    #auto="sbbAutocomplete"
+  >
+    <sbb-option value="Option 1">Option 1</sbb-option>
+    <sbb-option value="Option 2">Option 2</sbb-option>
+    <sbb-option value="Option 3">Option 3</sbb-option>
+  </sbb-autocomplete>
+</sbb-form-field>
+
+<p>
+  <sbb-card color="milk">Selected value: <code> {{ control().value() | json }} </code></sbb-card>
+</p>
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="requireSelection">Require selection</label>
+  <sbb-checkbox id="requireSelection" [formField]="form.requireSelection"></sbb-checkbox>
+
+  <label for="autoSelectActiveOption">Select active option automatically</label>
+  <sbb-checkbox
+    id="autoSelectActiveOption"
+    [formField]="form.autoSelectActiveOption"
+  ></sbb-checkbox>
+
+  <label for="autoActiveFirstOption">Active first option automatically</label>
+  <sbb-checkbox id="autoActiveFirstOption" [formField]="form.autoActiveFirstOption"></sbb-checkbox>
+
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="form.size" allowEmptySelection>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>

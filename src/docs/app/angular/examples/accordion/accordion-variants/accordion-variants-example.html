@@ -1,6 +1,6 @@
-<sbb-accordion [multi]="multi()" [size]="size()">
+<sbb-accordion [multi]="controls.multi().value()" [size]="controls.smallSize().value() ? 's' : 'l'">
   <sbb-expansion-panel [expanded]="true">
-    <sbb-expansion-panel-header [iconName]="iconPanel() ? 'pie-small' : ''"
+    <sbb-expansion-panel-header [iconName]="controls.iconPanel().value() ? 'pie-small' : ''"
       >First header</sbb-expansion-panel-header
     >
     <sbb-expansion-panel-content>
@@ -11,8 +11,8 @@
       non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </sbb-expansion-panel-content>
   </sbb-expansion-panel>
-  <sbb-expansion-panel [disabled]="disablePanel()">
-    <sbb-expansion-panel-header [iconName]="iconPanel() ? 'dog-small' : ''"
+  <sbb-expansion-panel [disabled]="controls.disablePanel().value()">
+    <sbb-expansion-panel-header [iconName]="controls.iconPanel().value() ? 'dog-small' : ''"
       >Second header</sbb-expansion-panel-header
     >
     <sbb-expansion-panel-content>
@@ -24,7 +24,7 @@
     </sbb-expansion-panel-content>
   </sbb-expansion-panel>
   <sbb-expansion-panel>
-    <sbb-expansion-panel-header [iconName]="iconPanel() ? 'user-small' : ''"
+    <sbb-expansion-panel-header [iconName]="controls.iconPanel().value() ? 'user-small' : ''"
       >Third header</sbb-expansion-panel-header
     >
     <sbb-expansion-panel-content>
@@ -38,9 +38,16 @@
 </sbb-accordion>
 
 <sbb-title level="5">Properties</sbb-title>
-<sbb-checkbox-group orientation="vertical" [formGroup]="form">
-  <sbb-checkbox formControlName="multi">Allows for multiple panel opened</sbb-checkbox>
-  <sbb-checkbox formControlName="smallSize">Small size</sbb-checkbox>
-  <sbb-checkbox formControlName="iconPanel">Icon on header</sbb-checkbox>
-  <sbb-checkbox formControlName="disablePanel">Disable second panel</sbb-checkbox>
-</sbb-checkbox-group>
+<div class="sbb-controls-table">
+  <label for="multiple">Allows for multiple panel opened</label>
+  <sbb-checkbox id="multiple" [formField]="controls.multi"></sbb-checkbox>
+
+  <label for="size">Small size</label>
+  <sbb-checkbox id="size" [formField]="controls.smallSize"></sbb-checkbox>
+
+  <label for="icon">Icon on header</label>
+  <sbb-checkbox id="icon" [formField]="controls.iconPanel"></sbb-checkbox>
+
+  <label for="disable">Disable second panel</label>
+  <sbb-checkbox id="disable" [formField]="controls.disablePanel"></sbb-checkbox>
+</div>

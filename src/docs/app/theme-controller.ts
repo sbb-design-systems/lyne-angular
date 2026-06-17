@@ -1,6 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { computed, inject, Injectable, signal } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
+import { computed, effect, inject, Service, signal, untracked } from '@angular/core';
 import type {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -8,7 +7,7 @@ import type {
   UrlTree,
 } from '@angular/router';
 import { Router } from '@angular/router';
-import { startWith, type Observable } from 'rxjs';
+import { type Observable } from 'rxjs';
 
 const themeLocalstorageKey = 'sbbTheme';
 
@@ -20,7 +19,7 @@ type SbbTheme =
   | 'lean-off-brand'
   | 'lean-safety';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class ThemeController implements CanActivate {
   #router = inject(Router);
   #document = inject(DOCUMENT);
@@ -35,42 +34,39 @@ export class ThemeController implements CanActivate {
         : 'default',
   );
   size = computed(() => (this.#theme().startsWith('standard') ? 'standard' : 'lean'));
+  fileName = computed(() => {
+    const fileName = this.#theme().replace('standard-', '');
+    const normalizedName = fileName === 'theme' ? 'standard-theme' : fileName;
+
+    return `${normalizedName}-theme.css`;
+  });
 
   constructor() {
-    toObservable(this.#theme)
-      .pipe(startWith(this.#theme()))
-      .subscribe((value) => {
-        // TODO: replace sbb-lean class with theme file after CSS refactoring
-        if (value.includes('standard')) {
-          this.#document.documentElement.classList.remove('sbb-lean');
-        } else {
-          this.#document.documentElement.classList.add(`sbb-lean`);
-        }
+    effect(() => {
+      const fileName = this.fileName();
 
-        let cssFileName = value.replace('lean', 'standard').replace('standard-', '');
-        if (cssFileName === 'theme') {
-          cssFileName = 'standard-theme';
-        }
-
-        this.#document.head
-          .querySelector('#theme')
-          ?.setAttribute('href', `assets/themes/angular/${cssFileName}-theme.css`);
-        this.#document.head
-          .querySelector('#theme-experimental')
-          ?.setAttribute('href', `assets/themes/angular-experimental/${cssFileName}-theme.css`);
-        localStorage.setItem(themeLocalstorageKey, value);
-      });
+      this.#document.head
+        .querySelector('#theme')
+        ?.setAttribute('href', `assets/themes/angular/${fileName}`);
+      this.#document.head
+        .querySelector('#theme-experimental')
+        ?.setAttribute('href', `assets/themes/angular-experimental/${fileName}`);
+      localStorage.setItem(
+        themeLocalstorageKey,
+        untracked(() => this.#theme()),
+      );
+    });
   }
 
   setBrand(offBrand: 'default' | 'off-brand' | 'safety') {
     const newTheme = `${this.size()}${offBrand === 'default' ? '' : '-' + offBrand}` as SbbTheme;
-    this.#setThemeWithReload(newTheme);
+    this.#setTheme(newTheme);
   }
 
   setSize(size: 'standard' | 'lean') {
     const brandType = this.brand();
     const newTheme = `${size}${brandType === 'default' ? '' : '-' + brandType}` as SbbTheme;
-    this.#setThemeWithReload(newTheme);
+    this.#setTheme(newTheme);
   }
 
   #setTheme(theme: SbbTheme) {
@@ -78,13 +74,6 @@ export class ThemeController implements CanActivate {
       return;
     }
     this.#theme.set(theme);
-  }
-
-  #setThemeWithReload(theme: SbbTheme) {
-    this.#setTheme(theme);
-
-    // TODO: remove after CSS refactoring
-    window.location.reload();
   }
 
   /**

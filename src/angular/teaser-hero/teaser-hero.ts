@@ -1,9 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbTeaserHeroElement } from '@sbb-esta/lyne-elements/teaser-hero.js';
-
-import '@sbb-esta/lyne-elements/teaser-hero.js';
+import { SbbTeaserHeroElement } from '@sbb-esta/lyne-elements/teaser-hero.pure.js';
 
 /**
  * It displays an image and an action call within a panel.
@@ -18,6 +15,10 @@ import '@sbb-esta/lyne-elements/teaser-hero.js';
   exportAs: 'sbbTeaserHero',
 })
 export class SbbTeaserHero {
+  static {
+    SbbTeaserHeroElement.define();
+  }
+
   #element: ElementRef<SbbTeaserHeroElement> = inject(ElementRef<SbbTeaserHeroElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -47,10 +48,10 @@ export class SbbTeaserHero {
    * Where to display the linked URL.
    */
   @Input()
-  public set target(value: LinkTargetType | string) {
+  public set target(value: '_blank' | '_self' | '_parent' | '_top' | string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.target = value));
   }
-  public get target(): LinkTargetType | string {
+  public get target(): '_blank' | '_self' | '_parent' | '_top' | string {
     return this.#element.nativeElement.target;
   }
 

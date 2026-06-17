@@ -1,6 +1,5 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
-import type { SbbTabNavBarElement } from '@sbb-esta/lyne-elements/tabs.js';
-import '@sbb-esta/lyne-elements/tabs.js';
+import { SbbTabNavBarElement } from '@sbb-esta/lyne-elements/tabs.pure.js';
 
 /**
  * It displays one or more tab-label-like elements, each one is an anchor element.
@@ -12,17 +11,21 @@ import '@sbb-esta/lyne-elements/tabs.js';
   exportAs: 'sbbTabNavBar',
 })
 export class SbbTabNavBar {
+  static {
+    SbbTabNavBarElement.define();
+  }
+
   #element: ElementRef<SbbTabNavBarElement> = inject(ElementRef<SbbTabNavBarElement>);
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either s, l or xl.
+   * Size variant, either s (lean theme default), l (standard theme default) or xl.
    */
   @Input()
-  public set size(value: 's' | 'l' | 'xl') {
+  public set size(value: 's' | 'l' | 'xl' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 's' | 'l' | 'xl' {
+  public get size(): 's' | 'l' | 'xl' | null {
     return this.#element.nativeElement.size;
   }
 }

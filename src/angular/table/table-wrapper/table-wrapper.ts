@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbTableWrapperElement } from '@sbb-esta/lyne-elements/table.js';
-
-import '@sbb-esta/lyne-elements/table.js';
+import { SbbTableWrapperElement } from '@sbb-esta/lyne-elements/table.pure.js';
 
 /**
  * Wraps a table to enhance its functionality.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/table.js';
   exportAs: 'sbbTableWrapper',
 })
 export class SbbTableWrapper {
+  static {
+    SbbTableWrapperElement.define();
+  }
+
   #element: ElementRef<SbbTableWrapperElement> = inject(ElementRef<SbbTableWrapperElement>);
   #ngZone: NgZone = inject(NgZone);
 

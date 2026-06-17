@@ -18,8 +18,8 @@ import {
 } from '@angular/core';
 import { defer, type Observable, startWith, Subject } from 'rxjs';
 
-import { SbbOverlayBaseRef } from './overlay-base-ref';
-import { SbbOverlayConfig } from './overlay-config';
+import type { SbbOverlayBaseRef } from './overlay-base-ref';
+import type { SbbOverlayBaseConfig } from './overlay-config-base';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
 
 /** Injection token that can be used to access the data that was passed in to an overlay. */
@@ -39,7 +39,7 @@ export abstract class SbbOverlayBaseService<
   #idGenerator = inject(_IdGenerator);
 
   #createInjector<D>(
-    config: SbbOverlayConfig<C, I, D>,
+    config: SbbOverlayBaseConfig<C, I, D>,
     overlayRef: R,
     overlayContainer: C,
     fallbackInjector: Injector,
@@ -47,9 +47,7 @@ export abstract class SbbOverlayBaseService<
     const userInjector = config.injector || config.viewContainerRef?.injector;
     const providers: StaticProvider[] = [
       { provide: this.containerType, useValue: overlayContainer },
-      { provide: this.overlayRefConstructor, useValue: overlayRef },
-      /** @deprecated, remove with next major release */
-      { provide: SbbOverlayBaseRef, useValue: overlayRef },
+      { provide: this.refConstructor, useValue: overlayRef },
     ];
 
     if (config.data) {
@@ -66,11 +64,11 @@ export abstract class SbbOverlayBaseService<
     return Injector.create({ providers, parent: userInjector || fallbackInjector });
   }
 
-  #attachContainer(portalOutlet: DomPortalOutlet, config: SbbOverlayConfig<C, I>): C {
+  #attachContainer(portalOutlet: DomPortalOutlet, config: SbbOverlayBaseConfig<C, I>): C {
     const containerType: Type<C> = this.containerType;
     const userInjector = config.injector || config.viewContainerRef?.injector;
     const providers: StaticProvider[] = [
-      { provide: SbbOverlayConfig, useValue: config },
+      { provide: this.configType, useValue: config },
       { provide: DomPortalOutlet, useValue: portalOutlet },
     ];
     const containerPortal = new ComponentPortal(
@@ -80,7 +78,7 @@ export abstract class SbbOverlayBaseService<
     );
     const componentRef = portalOutlet.attach(containerPortal);
 
-    const ngZone = this.injector.get(NgZone);
+    const ngZone = this.#injector.get(NgZone);
 
     if (typeof componentRef?.onDestroy === 'function') {
       // In most cases we control the portal and we know when it is being detached so that
@@ -113,9 +111,9 @@ export abstract class SbbOverlayBaseService<
     componentOrTemplateRef: ComponentType<D> | TemplateRef<D>,
     overlayRef: R,
     overlayContainer: C,
-    config: SbbOverlayConfig<C, I, D>,
+    config: SbbOverlayBaseConfig<C, I, D>,
   ) {
-    const injector = this.#createInjector(config, overlayRef, overlayContainer, this.injector);
+    const injector = this.#createInjector(config, overlayRef, overlayContainer, this.#injector);
     if (componentOrTemplateRef instanceof TemplateRef) {
       let context = { $implicit: config.data, overlayRef: overlayRef };
 
@@ -147,7 +145,7 @@ export abstract class SbbOverlayBaseService<
 
   open<T = unknown>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-    config: SbbOverlayConfig<C, I> = {},
+    config: SbbOverlayBaseConfig<C, I> = {},
   ): SbbOverlayBaseRef<T> {
     config.id = config.id || this.#idGenerator.getId('cdk-overlay-');
 
@@ -159,25 +157,25 @@ export abstract class SbbOverlayBaseService<
       throw Error(`Overlay with id "${config.id}" exists already. The overlay id must be unique.`);
     }
 
-    const overlayContainerElement = this.injector.get(OverlayContainer).getContainerElement();
+    const overlayContainerElement = this.#injector.get(OverlayContainer).getContainerElement();
 
     // Additional element is needed as DomPortalOutlet would remove the overlayContainerElement element on
     // dispose. We must not remove the entire overlay container as it is considered living forever after first instantiation.
-    const host = this.injector.get(DOCUMENT).createElement('div');
+    const host = this.#injector.get(DOCUMENT).createElement('div');
     overlayContainerElement.appendChild(host);
 
     const portalOutlet = new DomPortalOutlet(
       host,
-      this.injector.get(ApplicationRef),
-      this.injector,
+      this.#injector.get(ApplicationRef),
+      this.#injector,
     );
     const overlayContainer = this.#attachContainer(portalOutlet, config);
 
-    const overlayRefConstructed = new this.overlayRefConstructor(
+    const overlayRefConstructed = new this.refConstructor(
       overlayContainer,
       config,
       portalOutlet,
-      this.injector.get(Location),
+      this.#injector.get(Location),
     );
 
     this.#attachContent(componentOrTemplateRef, overlayRefConstructed, overlayContainer, config);
@@ -192,23 +190,6 @@ export abstract class SbbOverlayBaseService<
     overlayContainer.open();
 
     return overlayRefConstructed;
-  }
-
-  /**
-   * Finds an open overlay by its id.
-   * @param id ID to use when looking up the overlays.
-   * @deprecated use `getOverlayById` instead.
-   */
-  getDialogById(id: string): R | undefined {
-    return this.getOverlayById(id);
-  }
-
-  /**
-   * Keeps track of the currently-open overlays.
-   * @deprecated use `openOverlays` instead.
-   */
-  get openDialogs(): R[] {
-    return this.openOverlays;
   }
 
   /**
@@ -256,19 +237,13 @@ export abstract class SbbOverlayBaseService<
 
   protected abstract parentService: SbbOverlayBaseService<C, I, R> | null;
   protected abstract containerType: Type<C>;
-  protected abstract overlayRefConstructor: Type<R>;
+  protected abstract refConstructor: Type<R>;
+  protected abstract configType: Type<unknown>;
   protected overlayDataToken: InjectionToken<unknown> = SBB_OVERLAY_DATA;
 
-  // TODO: make private
-  // @breaking-change
-  injector = inject(Injector);
+  #injector = inject(Injector);
 
-  /*
-   * @breaking-change Remove `...args: unknown[]` and make the constructor private.
-   */
-  // eslint-disable-next-line @angular-eslint/prefer-inject
-  constructor(..._args: unknown[]);
-  constructor() {
+  protected constructor() {
     /* empty */
   }
 

@@ -53,7 +53,7 @@ The component's label can be displayed in bold using the `sbb-text--bold` class 
 </sbb-checkbox-panel>
 ```
 
-The component has three possible `size` values, named `xs`, `s` and `m` (default).
+The component has three possible `size` values, named `xs`, `s` and `m`.
 If the component is used within a group, the size is inherited from the group.
 
 ```html

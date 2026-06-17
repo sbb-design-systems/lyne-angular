@@ -73,17 +73,17 @@ in the next example, only images are allowed.
 
 ## Style
 
-The component has also two different sizes, `m` and `s`, which can be changed using the `size` property.
+The component has also two different sizes, `s` and `m`, which can be changed using the `size` property.
 
 ```html
 <sbb-file-selector size="s"></sbb-file-selector>
 
-<sbb-file-selector-dropzone size="s"></sbb-file-selector-dropzone>
+<sbb-file-selector-dropzone size="m"></sbb-file-selector-dropzone>
 ```
 
 ### Events
 
-Whenever the selection changes, a `filechanged` event is fired, whose `event.detail` property contains the list
+Whenever the selection changes, a `filechanged` event is fired, whose `event.files` property contains the list
 of currently selected files. The list can also be retrieved using the public `files` getter.
 
 ## Accessibility

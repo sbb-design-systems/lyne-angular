@@ -1,8 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbClockElement } from '@sbb-esta/lyne-elements/clock.js';
-import type { SbbTime } from '@sbb-esta/lyne-elements/core/interfaces.js';
-
-import '@sbb-esta/lyne-elements/clock.js';
+import { SbbClockElement } from '@sbb-esta/lyne-elements/clock.pure.js';
 
 /**
  * It displays an analog clock with the classic SBB face.
@@ -12,6 +9,10 @@ import '@sbb-esta/lyne-elements/clock.js';
   exportAs: 'sbbClock',
 })
 export class SbbClock {
+  static {
+    SbbClockElement.define();
+  }
+
   #element: ElementRef<SbbClockElement> = inject(ElementRef<SbbClockElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -19,10 +20,10 @@ export class SbbClock {
    * Define a specific time which the clock should show statically.
    */
   @Input()
-  public set now(value: SbbTime | null) {
+  public set now(value: `${number}:${number}:${number}` | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.now = value));
   }
-  public get now(): SbbTime | null {
+  public get now(): `${number}:${number}:${number}` | null {
     return this.#element.nativeElement.now;
   }
 }

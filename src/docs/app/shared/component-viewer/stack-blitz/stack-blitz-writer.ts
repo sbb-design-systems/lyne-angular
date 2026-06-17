@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, NgZone, Injectable } from '@angular/core';
+import { inject, NgZone, Service } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import stackblitz from '@stackblitz/sdk';
 import type { Observable } from 'rxjs';
@@ -29,7 +29,7 @@ export const TEMPLATE_FILES = [
   'src/favicon.ico',
   'src/index.html',
   'src/main.ts',
-  'src/styles.css',
+  'src/styles.scss',
   'src/environments/environment.prod.ts',
   'src/environments/environment.ts',
 ];
@@ -45,7 +45,7 @@ type FileDictionary = Record<string, string>;
 /**
  * StackBlitz writer, write example files to StackBlitz.
  */
-@Injectable({ providedIn: 'root' })
+@Service()
 export class StackBlitzWriter {
   #http: HttpClient = inject(HttpClient);
   #ngZone: NgZone = inject(NgZone);
@@ -56,23 +56,22 @@ export class StackBlitzWriter {
   #tokenVersion = this.#getPatchedTagVersion('name="sbb-lyne-token-version"');
 
   /** Opens a StackBlitz for the specified example. */
-  createStackBlitzForExample(data: ExampleData): Promise<(isSbbLean: boolean) => void> {
+  createStackBlitzForExample(data: ExampleData): Promise<(theme: string) => void> {
     // Run outside the zone since the creation doesn't interact with Angular
     // and the file requests can cause excessive change detections.
     return this.#ngZone.runOutsideAngular(async () => {
       const files = await this.#buildInMemoryFileDictionary(data);
       const exampleMainFile = `src/app/${data.indexFilename}`;
 
-      return (isSbbLean: boolean) => {
-        files['src/index.html'] = files['src/index.html'].replace(
-          /\${sbbLean}/g,
-          isSbbLean ? ' class="sbb-lean"' : '',
+      return (theme: string) => {
+        files['angular.json'] = files['angular.json'].replace(
+          /\${theme}/g,
+          `node_modules/@sbb-esta/lyne-elements/${theme}`,
         );
 
         this.#openStackBlitz({
           files,
           title: `SBB Lyne Angular Library - ${data.description}`,
-          // TODO: the definitive app endpoint must be updated once deployed.
           description: `${data.description}\n\nAuto-generated from: https://lyne-angular.app.sbb.ch`,
           openFile: exampleMainFile,
         });

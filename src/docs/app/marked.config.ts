@@ -1,4 +1,4 @@
-import type { SbbTitleLevel } from '@sbb-esta/lyne-elements/title.js';
+import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
 import GithubSlugger from 'github-slugger';
 import hljs from 'highlight.js';
 import { marked } from 'marked';
@@ -23,7 +23,7 @@ const DocsMarkedRenderer: RendererObject = {
       toc.push(`<sbb-block-link href="${href}">${text}</sbb-block-link>`);
     }
 
-    const titleLevel = depth.toString() as SbbTitleLevel;
+    const titleLevel = depth.toString() as SbbHeadingLevel;
     return `
       <sbb-title level=${titleLevel} id="${headingId}">
         <sbb-link href="${href}" class="docs-link">

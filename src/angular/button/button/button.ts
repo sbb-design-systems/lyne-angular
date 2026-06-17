@@ -1,9 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbButtonSize, SbbButtonElement } from '@sbb-esta/lyne-elements/button.js';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-
-import '@sbb-esta/lyne-elements/button.js';
+import { SbbButtonElement } from '@sbb-esta/lyne-elements/button.pure.js';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'primary' variant.
@@ -17,17 +14,21 @@ import '@sbb-esta/lyne-elements/button.js';
   exportAs: 'sbbButton',
 })
 export class SbbButton {
+  static {
+    SbbButtonElement.define();
+  }
+
   #element: ElementRef<SbbButtonElement> = inject(ElementRef<SbbButtonElement>);
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either l, m or s.
+   * Size variant, either s (lean theme default), m (standard theme default) or l.
    */
   @Input()
-  public set size(value: SbbButtonSize) {
+  public set size(value: 's' | 'm' | 'l' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbButtonSize {
+  public get size(): 's' | 'm' | 'l' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -114,10 +115,10 @@ export class SbbButton {
    * The type attribute to use for the button.
    */
   @Input()
-  public set type(value: SbbButtonType) {
+  public set type(value: 'button' | 'reset' | 'submit') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): SbbButtonType {
+  public get type(): 'button' | 'reset' | 'submit' {
     return this.#element.nativeElement.type;
   }
 

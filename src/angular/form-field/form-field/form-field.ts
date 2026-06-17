@@ -13,14 +13,12 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import {
   SbbFormFieldControlEvent,
-  type SbbFormFieldElement,
-} from '@sbb-esta/lyne-elements/form-field.js';
+  SbbFormFieldElement,
+} from '@sbb-esta/lyne-elements/form-field.pure.js';
 import { of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 
 import { SbbFormFieldControl } from './form-field-control';
-
-import '@sbb-esta/lyne-elements/form-field.js';
 
 /**
  * It wraps an input element adding label, errors, icon, etc.
@@ -39,6 +37,10 @@ import '@sbb-esta/lyne-elements/form-field.js';
   exportAs: 'sbbFormField',
 })
 export class SbbFormField {
+  static {
+    SbbFormFieldElement.define();
+  }
+
   #element: ElementRef<SbbFormFieldElement> = inject(ElementRef<SbbFormFieldElement>);
   #ngZone: NgZone = inject(NgZone);
   #environmentInjector = inject(EnvironmentInjector);
@@ -82,24 +84,13 @@ export class SbbFormField {
   }
 
   /**
-   * Indicates whether the input is optional.
-   */
-  @Input({ transform: booleanAttribute })
-  public set optional(value: boolean) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.optional = value));
-  }
-  public get optional(): boolean {
-    return this.#element.nativeElement.optional;
-  }
-
-  /**
-   * Size variant, either l, m or s.
+   * Size variant, either s (lean theme default), m (standard theme default) or l.
    */
   @Input()
-  public set size(value: 'l' | 'm' | 's') {
+  public set size(value: 'l' | 'm' | 's' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 'l' | 'm' | 's' {
+  public get size(): 'l' | 'm' | 's' | null {
     return this.#element.nativeElement.size;
   }
 

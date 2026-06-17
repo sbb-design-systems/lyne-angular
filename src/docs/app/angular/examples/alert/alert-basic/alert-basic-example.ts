@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { SbbAlertModule } from '@sbb-esta/lyne-angular/alert';
 import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
@@ -9,7 +10,6 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 @Component({
   selector: 'sbb-alert-basic-example',
   templateUrl: 'alert-basic-example.html',
-  imports: [SbbAlertModule, SbbLinkModule, SbbTitleModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterLink, SbbAlertModule, SbbLinkModule, SbbTitleModule],
 })
 export class AlertBasicExample {}

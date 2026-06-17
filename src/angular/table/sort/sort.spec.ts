@@ -1,7 +1,8 @@
 import type { CollectionViewer } from '@angular/cdk/collections';
 import { DataSource } from '@angular/cdk/collections';
 import { CdkTableModule } from '@angular/cdk/table';
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import type { WritableSignal } from '@angular/core';
+import { Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import {
@@ -189,7 +190,7 @@ describe('sbb-sort', () => {
 
       it('should be correct when sort has been disabled', () => {
         // Mousing over the first sort should set the view state to hint
-        component.disabledColumnSort = true;
+        component.disabledColumnSort.set(true);
         fixture.changeDetectorRef.markForCheck();
         fixture.detectChanges();
 
@@ -198,8 +199,8 @@ describe('sbb-sort', () => {
       });
 
       it('should be correct when sorting programmatically', () => {
-        component.active = 'defaultB';
-        component.direction = 'asc';
+        component.active.set('defaultB');
+        component.direction.set('asc');
         fixture.changeDetectorRef.markForCheck();
         fixture.detectChanges();
 
@@ -212,26 +213,26 @@ describe('sbb-sort', () => {
     });
 
     it('should be able to cycle from asc -> desc from either start point', () => {
-      component.disableClear = true;
+      component.disableClear.set(true);
 
-      component.start = 'asc';
+      component.start.set('asc');
       fixture.changeDetectorRef.markForCheck();
       testSingleColumnSortDirectionSequence(fixture, ['asc', 'desc']);
 
       // Reverse directions
-      component.start = 'desc';
+      component.start.set('desc');
       fixture.changeDetectorRef.markForCheck();
       testSingleColumnSortDirectionSequence(fixture, ['desc', 'asc']);
     });
 
     it('should be able to cycle asc -> desc -> [none]', () => {
-      component.start = 'asc';
+      component.start.set('asc');
       fixture.changeDetectorRef.markForCheck();
       testSingleColumnSortDirectionSequence(fixture, ['asc', 'desc', '']);
     });
 
     it('should be able to cycle desc -> asc -> [none]', () => {
-      component.start = 'desc';
+      component.start.set('desc');
       fixture.changeDetectorRef.markForCheck();
       testSingleColumnSortDirectionSequence(fixture, ['desc', 'asc', '']);
     });
@@ -244,7 +245,7 @@ describe('sbb-sort', () => {
       expect(container.getAttribute('tabindex')).toBe('0');
       expect(container.getAttribute('role')).toBe('button');
 
-      component.disabledColumnSort = true;
+      component.disabledColumnSort.set(true);
       fixture.detectChanges();
 
       component.sort('defaultA');
@@ -261,7 +262,7 @@ describe('sbb-sort', () => {
       expect(component.sbbSort.direction).toBe('asc');
       expect(container.getAttribute('tabindex')).toBe('0');
 
-      component.disableAllSort = true;
+      component.disableAllSort.set(true);
       fixture.detectChanges();
 
       component.sort('defaultA');
@@ -388,7 +389,7 @@ describe('sbb-sort', () => {
 
       // Switch sorting to a different column before asserting.
       component.sort('defaultB');
-      fixture.componentInstance.disabledColumnSort = true;
+      fixture.componentInstance.disabledColumnSort.set(true);
       fixture.detectChanges();
       await fixture.whenStable();
       fixture.detectChanges();
@@ -400,7 +401,7 @@ describe('sbb-sort', () => {
       const sortHeaderElement = fixture.nativeElement.querySelector('#defaultA');
 
       component.sort('defaultA');
-      fixture.componentInstance.disabledColumnSort = true;
+      fixture.componentInstance.disabledColumnSort.set(true);
       fixture.detectChanges();
       await fixture.whenStable();
       fixture.detectChanges();
@@ -427,7 +428,7 @@ describe('sbb-sort', () => {
       let descriptionElement = document.getElementById(descriptionId);
       expect(descriptionElement?.textContent).toBe('Sort second column');
 
-      fixture.componentInstance.secondColumnDescription = 'Sort 2nd column';
+      fixture.componentInstance.secondColumnDescription.set('Sort 2nd column');
       fixture.changeDetectorRef.markForCheck();
       fixture.detectChanges();
       descriptionId = sortButton.getAttribute('aria-describedby');
@@ -454,7 +455,7 @@ describe('sbb-sort', () => {
     it('should render arrows before if appropriate parameter passed', () => {
       const sbbSortWithArrowPositionFixture = TestBed.createComponent(SbbSortWithArrowPosition);
       const sbbSortWithArrowPositionComponent = sbbSortWithArrowPositionFixture.componentInstance;
-      sbbSortWithArrowPositionComponent.arrowPosition = 'before';
+      sbbSortWithArrowPositionComponent.arrowPosition.set('before');
 
       sbbSortWithArrowPositionFixture.detectChanges();
 
@@ -486,7 +487,7 @@ describe('sbb-sort', () => {
       expect(containerA.classList.contains('sbb-sort-header-position-before')).toBe(false);
       expect(containerB.classList.contains('sbb-sort-header-position-before')).toBe(false);
 
-      sbbSortWithArrowPositionComponent.arrowPosition = 'before';
+      sbbSortWithArrowPositionComponent.arrowPosition.set('before');
 
       sbbSortWithArrowPositionFixture.detectChanges();
       fixture.changeDetectorRef.markForCheck();
@@ -521,12 +522,12 @@ describe('sbb-sort', () => {
     });
 
     it('should be able to cycle from asc -> desc from either start point', () => {
-      component.start = 'asc';
+      component.start.set('asc');
       fixture.changeDetectorRef.markForCheck();
       testSingleColumnSortDirectionSequence(fixture, ['asc', 'desc']);
 
       // Reverse directions
-      component.start = 'desc';
+      component.start.set('desc');
       fixture.changeDetectorRef.markForCheck();
       testSingleColumnSortDirectionSequence(fixture, ['desc', 'asc']);
     });
@@ -613,21 +614,21 @@ type SimpleSbbSortAppColumnIds = 'defaultA' | 'defaultB' | 'overrideStart' | 'ov
   template: `
     <div
       sbbSort
-      [sbbSortActive]="active"
-      [sbbSortDisabled]="disableAllSort"
-      [sbbSortStart]="start"
-      [sbbSortDirection]="direction"
-      [sbbSortDisableClear]="disableClear"
+      [sbbSortActive]="active()"
+      [sbbSortDisabled]="disableAllSort()"
+      [sbbSortStart]="start()"
+      [sbbSortDirection]="direction()"
+      [sbbSortDisableClear]="disableClear()"
       (sbbSortChange)="latestSortEvent = $event"
     >
-      <div id="defaultA" #defaultA sbb-sort-header="defaultA" [disabled]="disabledColumnSort">
+      <div id="defaultA" #defaultA sbb-sort-header="defaultA" [disabled]="disabledColumnSort()">
         A
       </div>
       <div
         id="defaultB"
         #defaultB
         sbb-sort-header="defaultB"
-        [sortActionDescription]="secondColumnDescription"
+        [sortActionDescription]="secondColumnDescription()"
       >
         B
       </div>
@@ -647,13 +648,13 @@ type SimpleSbbSortAppColumnIds = 'defaultA' | 'defaultB' | 'overrideStart' | 'ov
 class SimpleSbbSortApp {
   latestSortEvent!: SbbSortState;
 
-  active!: string;
-  start: SbbSortDirection = 'asc';
-  direction: SbbSortDirection = '';
-  disableClear!: boolean;
-  disabledColumnSort = false;
-  disableAllSort = false;
-  secondColumnDescription = 'Sort second column';
+  active: WritableSignal<string> = signal('');
+  start: WritableSignal<SbbSortDirection> = signal('asc');
+  direction: WritableSignal<SbbSortDirection> = signal('');
+  disableClear: WritableSignal<boolean> = signal(false);
+  disabledColumnSort: WritableSignal<boolean> = signal(false);
+  disableAllSort: WritableSignal<boolean> = signal(false);
+  secondColumnDescription: WritableSignal<string> = signal('Sort second column');
   elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
   @ViewChild(SbbSort) sbbSort!: SbbSort;
@@ -798,8 +799,8 @@ class SbbSortableMissingIdApp {}
   template: `
     <div
       sbbSort
-      [sbbSortActive]="active"
-      [sbbSortStart]="start"
+      [sbbSortActive]="active()"
+      [sbbSortStart]="start()"
       (sbbSortChange)="latestSortEvent = $event"
     >
       <div id="defaultA" #defaultA sbb-sort-header="defaultA">A</div>
@@ -810,8 +811,8 @@ class SbbSortableMissingIdApp {}
 class SbbSortWithoutExplicitInputs {
   latestSortEvent!: SbbSortState;
 
-  active!: string;
-  start: SbbSortDirection = 'asc';
+  active: WritableSignal<string> = signal('');
+  start: WritableSignal<SbbSortDirection> = signal('asc');
   elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
   @ViewChild(SbbSort) sbbSort!: SbbSort;
@@ -830,10 +831,10 @@ class SbbSortWithoutExplicitInputs {
 @Component({
   template: `
     <div sbbSort>
-      <div id="defaultA" #defaultA sbb-sort-header="defaultA" [arrowPosition]="arrowPosition!">
+      <div id="defaultA" #defaultA sbb-sort-header="defaultA" [arrowPosition]="arrowPosition()">
         A
       </div>
-      <div id="defaultB" #defaultB sbb-sort-header="defaultB" [arrowPosition]="arrowPosition!">
+      <div id="defaultB" #defaultB sbb-sort-header="defaultB" [arrowPosition]="arrowPosition()">
         B
       </div>
     </div>
@@ -841,7 +842,7 @@ class SbbSortWithoutExplicitInputs {
   imports: [SbbTableModule],
 })
 class SbbSortWithArrowPosition {
-  arrowPosition?: 'before' | 'after';
+  arrowPosition: WritableSignal<'before' | 'after'> = signal('after');
   @ViewChild(SbbSort) sbbSort!: SbbSort;
   @ViewChild('defaultA') defaultA!: SbbSortHeader;
   @ViewChild('defaultB') defaultB!: SbbSortHeader;

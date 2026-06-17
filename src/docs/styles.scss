@@ -87,7 +87,7 @@ sbb-block-link {
 
   sbb-link-list-anchor {
     overflow: auto;
-    max-height: calc(100vh - var(--sbb-header-height) - 2rem);
+    max-height: calc(100vh - var(--sbb-header-vertical-spacing) - 2rem);
   }
 
   @include sbb.mq($to: small) {
@@ -101,4 +101,34 @@ sbb-block-link {
   padding: var(--sbb-spacing-fixed-6x);
   border-radius: var(--sbb-border-radius-2x);
   margin-block: var(--sbb-spacing-fixed-6x);
+}
+
+// These styles need to be in sync with stackblitz styles.scss!
+.sbb-controls-table {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: var(--sbb-spacing-fixed-1x);
+  background-color: var(--sbb-background-color-3);
+  border-radius: var(--sbb-border-radius-4x);
+  padding: var(--sbb-spacing-responsive-xxs);
+
+  > label {
+    @include sbb.heading--level-6;
+
+    font-weight: bold;
+
+    &:where(:not(:first-child)) {
+      margin-block-start: var(--sbb-spacing-fixed-4x);
+    }
+  }
+
+  @include sbb.mq($from: large) {
+    grid-template-columns: auto 1fr;
+    gap: var(--sbb-spacing-fixed-4x);
+
+    > label {
+      margin-block-start: 0;
+    }
+  }
 }

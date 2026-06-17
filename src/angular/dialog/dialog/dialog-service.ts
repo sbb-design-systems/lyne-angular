@@ -1,12 +1,13 @@
 import type { ComponentType } from '@angular/cdk/overlay';
-import { type TemplateRef, inject, Injectable } from '@angular/core';
-import { type SbbOverlayConfig, SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core/overlay';
+import { inject, Service, type TemplateRef } from '@angular/core';
+import { SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core';
 
 import type { SbbDialog } from './dialog';
+import { SbbDialogConfig } from './dialog-config';
 import { SbbDialogContainer } from './dialog-container';
 import { SbbDialogRef } from './dialog-ref';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class SbbDialogService extends SbbOverlayBaseService<
   SbbDialogContainer,
   SbbDialog,
@@ -14,13 +15,12 @@ export class SbbDialogService extends SbbOverlayBaseService<
 > {
   protected parentService = inject(SbbDialogService, { optional: true, skipSelf: true });
   protected containerType = SbbDialogContainer;
-  protected overlayRefConstructor = SbbDialogRef;
+  protected refConstructor = SbbDialogRef;
+  protected configType = SbbDialogConfig;
 
-  // TODO(breaking-change): The default type for R should be `unknown`.
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public override open<T = unknown, R = any>(
+  public override open<T = unknown, R = unknown>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-    config?: SbbOverlayConfig<SbbDialogContainer, SbbDialog>,
+    config?: SbbDialogConfig<SbbDialogContainer>,
   ): SbbDialogRef<T, R> {
     return super.open(componentOrTemplateRef, config) as SbbDialogRef<T, R>;
   }

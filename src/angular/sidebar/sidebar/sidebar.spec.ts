@@ -4,7 +4,7 @@ import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 import type {
   SbbSidebarContainerElement,
   SbbSidebarElement,
-} from '@sbb-esta/lyne-elements/sidebar.js';
+} from '@sbb-esta/lyne-elements/sidebar.pure.js';
 
 import { SbbSidebarModule } from '..';
 

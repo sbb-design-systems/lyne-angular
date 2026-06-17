@@ -1,10 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import type { SbbBlockLinkElement, SbbLinkSize } from '@sbb-esta/lyne-elements/link.js';
-
-import '@sbb-esta/lyne-elements/link.js';
+import { SbbBlockLinkElement } from '@sbb-esta/lyne-elements/link.pure.js';
 
 /**
  * It displays a link enhanced with the SBB Design.
@@ -17,6 +13,10 @@ import '@sbb-esta/lyne-elements/link.js';
   exportAs: 'sbbBlockLink',
 })
 export class SbbBlockLink {
+  static {
+    SbbBlockLinkElement.define();
+  }
+
   #element: ElementRef<SbbBlockLinkElement> = inject(ElementRef<SbbBlockLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -32,22 +32,21 @@ export class SbbBlockLink {
    * Moves the icon to the end of the component if set to true.
    */
   @Input()
-  public set iconPlacement(value: SbbIconPlacement) {
+  public set iconPlacement(value: 'start' | 'end') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconPlacement = value));
   }
-  public get iconPlacement(): SbbIconPlacement {
+  public get iconPlacement(): 'start' | 'end' {
     return this.#element.nativeElement.iconPlacement;
   }
 
   /**
-   * Text size, the link should get in the non-button variation.
-   * With inline variant, the text size adapts to where it is used.
+   * Size variant, either xs (lean theme default), s (standard theme default) or m.
    */
   @Input()
-  public set size(value: SbbLinkSize) {
+  public set size(value: 'xs' | 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbLinkSize {
+  public get size(): 'xs' | 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -90,10 +89,10 @@ export class SbbBlockLink {
    * Where to display the linked URL.
    */
   @Input()
-  public set target(value: LinkTargetType | string) {
+  public set target(value: '_blank' | '_self' | '_parent' | '_top' | string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.target = value));
   }
-  public get target(): LinkTargetType | string {
+  public get target(): '_blank' | '_self' | '_parent' | '_top' | string {
     return this.#element.nativeElement.target;
   }
 

@@ -1,24 +1,14 @@
-import {
-  Directive,
-  ElementRef,
-  forwardRef,
-  inject,
-  Input,
-  NgZone,
-  type OutputRef,
-} from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
   booleanAttribute,
-  internalOutputFromObservable,
   SbbControlValueAccessorMixin,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbToggleOptionElement, SbbToggleElement } from '@sbb-esta/lyne-elements/toggle.js';
-import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/toggle.js';
+import {
+  type SbbToggleOptionElement,
+  SbbToggleElement,
+} from '@sbb-esta/lyne-elements/toggle.pure.js';
 
 /**
  * It can be used as a container for two `sbb-toggle-option`, acting as a toggle button.
@@ -42,6 +32,10 @@ import '@sbb-esta/lyne-elements/toggle.js';
   hostDirectives: [SbbDeferredAnimation],
 })
 export class SbbToggle<T = string> extends SbbControlValueAccessorMixin(class {}) {
+  static {
+    SbbToggleElement.define();
+  }
+
   #element: ElementRef<SbbToggleElement<T>> = inject(ElementRef<SbbToggleElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -69,13 +63,13 @@ export class SbbToggle<T = string> extends SbbControlValueAccessorMixin(class {}
   }
 
   /**
-   * Size variant, either m or s.
+   * Size variant, either s (lean theme default) or m (standard theme default).
    */
   @Input()
-  public set size(value: 's' | 'm') {
+  public set size(value: 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 's' | 'm' {
+  public get size(): 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -168,16 +162,4 @@ export class SbbToggle<T = string> extends SbbControlValueAccessorMixin(class {}
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
-
-  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'change',
-  });
-  /**
-   * The change event is fired when the user modifies the element's value.
-   * Unlike the input event, the change event is not necessarily fired
-   * for each alteration to an element's value.
-   */
-  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'change'),
-  );
 }

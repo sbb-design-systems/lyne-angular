@@ -1,13 +1,10 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type {
+import {
   SbbStepLabelElement,
-  SbbStepElement,
-  SbbStepperElement,
-} from '@sbb-esta/lyne-elements/stepper.js';
-
-import '@sbb-esta/lyne-elements/stepper.js';
+  type SbbStepElement,
+  type SbbStepperElement,
+} from '@sbb-esta/lyne-elements/stepper.pure.js';
 
 /**
  * Combined with a `sbb-stepper`, it displays a step's label.
@@ -20,6 +17,10 @@ import '@sbb-esta/lyne-elements/stepper.js';
   exportAs: 'sbbStepLabel',
 })
 export class SbbStepLabel {
+  static {
+    SbbStepLabelElement.define();
+  }
+
   #element: ElementRef<SbbStepLabelElement> = inject(ElementRef<SbbStepLabelElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -84,10 +85,10 @@ export class SbbStepLabel {
    * The type attribute to use for the button.
    */
   @Input()
-  public set type(value: SbbButtonType) {
+  public set type(value: 'button' | 'reset' | 'submit') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): SbbButtonType {
+  public get type(): 'button' | 'reset' | 'submit' {
     return this.#element.nativeElement.type;
   }
 

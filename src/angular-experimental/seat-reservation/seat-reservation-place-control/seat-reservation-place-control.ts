@@ -10,15 +10,13 @@ import {
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import type {
-  PlaceSelection,
   PlaceState,
   PlaceType,
-  SbbSeatReservationPlaceControlElement,
+  SbbPlaceSelectionEvent,
   TravelDirection,
-} from '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
+} from '@sbb-esta/lyne-elements-experimental/seat-reservation.pure.js';
+import { SbbSeatReservationPlaceControlElement } from '@sbb-esta/lyne-elements-experimental/seat-reservation.pure.js';
 import { fromEvent } from 'rxjs';
-
-import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
 
 /**
  * Output the graphic of a seat or a bicycle place as a control element.
@@ -28,6 +26,10 @@ import '@sbb-esta/lyne-elements-experimental/seat-reservation.js';
   exportAs: 'sbbSeatReservationPlaceControl',
 })
 export class SbbSeatReservationPlaceControl {
+  static {
+    SbbSeatReservationPlaceControlElement.define();
+  }
+
   #element: ElementRef<SbbSeatReservationPlaceControlElement> = inject(
     ElementRef<SbbSeatReservationPlaceControlElement>,
   );
@@ -147,8 +149,8 @@ export class SbbSeatReservationPlaceControl {
    * Emits when a place was selected via user interaction and returns a
    * PlaceSelection object with necessary place information.
    */
-  public selectPlaceOutput: OutputRef<CustomEvent<PlaceSelection>> = outputFromObservable(
-    fromEvent<CustomEvent<PlaceSelection>>(this.#element.nativeElement, 'selectplace'),
+  public selectPlaceOutput: OutputRef<SbbPlaceSelectionEvent> = outputFromObservable(
+    fromEvent<SbbPlaceSelectionEvent>(this.#element.nativeElement, 'selectplace'),
     { alias: 'selectPlace' },
   );
 }

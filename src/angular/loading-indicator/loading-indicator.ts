@@ -1,7 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbLoadingIndicatorElement } from '@sbb-esta/lyne-elements/loading-indicator.js';
-
-import '@sbb-esta/lyne-elements/loading-indicator.js';
+import { SbbLoadingIndicatorElement } from '@sbb-esta/lyne-elements/loading-indicator.pure.js';
 
 /**
  * It displays a loading indicator.
@@ -11,6 +9,10 @@ import '@sbb-esta/lyne-elements/loading-indicator.js';
   exportAs: 'sbbLoadingIndicator',
 })
 export class SbbLoadingIndicator {
+  static {
+    SbbLoadingIndicatorElement.define();
+  }
+
   #element: ElementRef<SbbLoadingIndicatorElement> = inject(ElementRef<SbbLoadingIndicatorElement>);
   #ngZone: NgZone = inject(NgZone);
 

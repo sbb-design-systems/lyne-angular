@@ -1,8 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbOptionHintElement } from '@sbb-esta/lyne-elements/option.js';
-
-import '@sbb-esta/lyne-elements/option.js';
+import { SbbOptionHintElement } from '@sbb-esta/lyne-elements/option.pure.js';
 
 /**
  * Display a textual hint inside a `sbb-autocomplete` or a `sbb-select`.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/option.js';
   exportAs: 'sbbOptionHint',
 })
 export class SbbOptionHint {
+  static {
+    SbbOptionHintElement.define();
+  }
+
   #element: ElementRef<SbbOptionHintElement> = inject(ElementRef<SbbOptionHintElement>);
   #ngZone: NgZone = inject(NgZone);
 

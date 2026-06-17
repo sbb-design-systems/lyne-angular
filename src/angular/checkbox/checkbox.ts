@@ -7,21 +7,11 @@ import {
   inject,
   Input,
   NgZone,
-  type OutputRef,
 } from '@angular/core';
-import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-  booleanAttribute,
-  internalOutputFromObservable,
-  SbbControlValueAccessorMixin,
-} from '@sbb-esta/lyne-angular/core';
-import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.js';
-import type { SbbCheckboxElement, SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
-import type { SbbIconPlacement } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/checkbox.js';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import type { SbbCheckboxGroupElement } from '@sbb-esta/lyne-elements/checkbox-group.pure.js';
+import { SbbCheckboxElement } from '@sbb-esta/lyne-elements/checkbox.pure.js';
 
 /**
  * It displays a checkbox enhanced with the SBB Design.
@@ -47,18 +37,22 @@ export class SbbCheckbox<T = string>
   extends SbbControlValueAccessorMixin(class {})
   implements AfterViewInit
 {
+  static {
+    SbbCheckboxElement.define();
+  }
+
   #element: ElementRef<SbbCheckboxElement<T>> = inject(ElementRef<SbbCheckboxElement<T>>);
   #ngZone: NgZone = inject(NgZone);
   #focusMonitor = inject(FocusMonitor);
 
   /**
-   * Size variant, either xs, s or m.
+   * Size variant, either xs (lean theme default), s or m (standard theme default).
    */
   @Input()
-  public set size(value: SbbCheckboxSize) {
+  public set size(value: 'xs' | 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbCheckboxSize {
+  public get size(): 'xs' | 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -66,10 +60,10 @@ export class SbbCheckbox<T = string>
    * The label position relative to the labelIcon. Defaults to end
    */
   @Input()
-  public set iconPlacement(value: SbbIconPlacement) {
+  public set iconPlacement(value: 'start' | 'end') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.iconPlacement = value));
   }
-  public get iconPlacement(): SbbIconPlacement {
+  public get iconPlacement(): 'start' | 'end' {
     return this.#element.nativeElement.iconPlacement;
   }
 
@@ -245,24 +239,4 @@ export class SbbCheckbox<T = string>
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
-
-  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'change',
-  });
-  /**
-   * The change event is fired when the user modifies the element's value. Unlike the input event, the change event is not necessarily fired for each alteration to an element's value.
-   */
-  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'change'),
-  );
-
-  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
-    alias: 'input',
-  });
-  /**
-   * The input event fires when the value has been changed as a direct result of a user action.
-   */
-  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
-    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
-  );
 }

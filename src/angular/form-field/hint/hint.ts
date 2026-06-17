@@ -1,8 +1,6 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbHintElement } from '@sbb-esta/lyne-elements/form-field.js';
-
-import '@sbb-esta/lyne-elements/form-field.js';
+import { SbbHintElement } from '@sbb-esta/lyne-elements/form-field.pure.js';
 
 /**
  * It displays a hint message in the `sbb-form-field`.
@@ -14,6 +12,10 @@ import '@sbb-esta/lyne-elements/form-field.js';
   exportAs: 'sbbHint',
 })
 export class SbbHint {
+  static {
+    SbbHintElement.define();
+  }
+
   #element: ElementRef<SbbHintElement> = inject(ElementRef<SbbHintElement>);
   #ngZone: NgZone = inject(NgZone);
 

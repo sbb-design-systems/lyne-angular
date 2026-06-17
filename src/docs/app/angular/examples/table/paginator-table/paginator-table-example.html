@@ -10,18 +10,17 @@
   </table>
 </sbb-table-wrapper>
 
-<sbb-paginator [pageSize]="pageSize.value"></sbb-paginator>
+<sbb-paginator [pageSize]="form.pageSize().value()"></sbb-paginator>
 
-<h4>Properties</h4>
-
-<sbb-form-field>
-  <label>Page Size</label>
-  <input type="number" [formControl]="pageSize" [min]="1" />
-</sbb-form-field>
-
-<p>
-  <sbb-form-field>
-    <label>Count of rows</label>
-    <input type="number" [formControl]="rowCount" [min]="0" [max]="20" />
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="pageSize">Page Size</label>
+  <sbb-form-field id="pageSize">
+    <input type="number" [formField]="form.pageSize" />
   </sbb-form-field>
-</p>
+
+  <label for="rowCount">Count of rows</label>
+  <sbb-form-field id="rowCount">
+    <input type="number" [formField]="form.rowCount" />
+  </sbb-form-field>
+</div>

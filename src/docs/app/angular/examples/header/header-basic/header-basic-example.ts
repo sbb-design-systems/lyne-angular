@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbHeaderModule } from '@sbb-esta/lyne-angular/header';
 import { SbbLogoModule } from '@sbb-esta/lyne-angular/logo';
 
@@ -9,6 +9,5 @@ import { SbbLogoModule } from '@sbb-esta/lyne-angular/logo';
   selector: 'sbb-header-basic-example',
   templateUrl: 'header-basic-example.html',
   imports: [SbbHeaderModule, SbbLogoModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderBasicExample {}

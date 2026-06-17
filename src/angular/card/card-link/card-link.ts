@@ -1,9 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbCardLinkElement } from '@sbb-esta/lyne-elements/card.js';
-import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-
-import '@sbb-esta/lyne-elements/card.js';
+import { SbbCardLinkElement } from '@sbb-esta/lyne-elements/card.pure.js';
 
 /**
  * It turns the `sbb-card` into a link element.
@@ -15,6 +12,10 @@ import '@sbb-esta/lyne-elements/card.js';
   exportAs: 'sbbCardLink',
 })
 export class SbbCardLink {
+  static {
+    SbbCardLinkElement.define();
+  }
+
   #element: ElementRef<SbbCardLinkElement> = inject(ElementRef<SbbCardLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -44,10 +45,10 @@ export class SbbCardLink {
    * Where to display the linked URL.
    */
   @Input()
-  public set target(value: LinkTargetType | string) {
+  public set target(value: '_blank' | '_self' | '_parent' | '_top' | string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.target = value));
   }
-  public get target(): LinkTargetType | string {
+  public get target(): '_blank' | '_self' | '_parent' | '_top' | string {
     return this.#element.nativeElement.target;
   }
 

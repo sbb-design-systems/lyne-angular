@@ -1,7 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbTimetableDurationElement } from '@sbb-esta/lyne-elements-experimental/timetable-duration.js';
-
-import '@sbb-esta/lyne-elements-experimental/timetable-duration.js';
+import { SbbTimetableDurationElement } from '@sbb-esta/lyne-elements-experimental/timetable-duration.pure.js';
 
 /**
  * Used in `sbb-timetable-row`, it displays information about the trip duration.
@@ -11,6 +9,10 @@ import '@sbb-esta/lyne-elements-experimental/timetable-duration.js';
   exportAs: 'sbbTimetableDuration',
 })
 export class SbbTimetableDuration {
+  static {
+    SbbTimetableDurationElement.define();
+  }
+
   #element: ElementRef<SbbTimetableDurationElement> = inject(
     ElementRef<SbbTimetableDurationElement>,
   );

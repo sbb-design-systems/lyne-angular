@@ -1,10 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbDialogCloseButtonElement } from '@sbb-esta/lyne-elements/dialog.js';
-
-import '@sbb-esta/lyne-elements/dialog.js';
+import { SbbDialogCloseButtonElement } from '@sbb-esta/lyne-elements/dialog.pure.js';
 
 /**
  * Dialog close button, intended to be placed inside sbb-dialog.
@@ -18,6 +14,10 @@ import '@sbb-esta/lyne-elements/dialog.js';
   exportAs: 'sbbDialogCloseButton',
 })
 export class SbbDialogCloseButton {
+  static {
+    SbbDialogCloseButtonElement.define();
+  }
+
   #element: ElementRef<SbbDialogCloseButtonElement> = inject(
     ElementRef<SbbDialogCloseButtonElement>,
   );
@@ -37,13 +37,13 @@ export class SbbDialogCloseButton {
   }
 
   /**
-   * Size variant, either l, m or s.
+   * Size variant, either s (lean theme default), m (standard theme default) or l.
    */
   @Input()
-  public set size(value: SbbButtonSize) {
+  public set size(value: 's' | 'm' | 'l' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbButtonSize {
+  public get size(): 's' | 'm' | 'l' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -107,10 +107,10 @@ export class SbbDialogCloseButton {
    * The type attribute to use for the button.
    */
   @Input()
-  public set type(value: SbbButtonType) {
+  public set type(value: 'button' | 'reset' | 'submit') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): SbbButtonType {
+  public get type(): 'button' | 'reset' | 'submit' {
     return this.#element.nativeElement.type;
   }
 

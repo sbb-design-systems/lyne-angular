@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
 
 /**
@@ -9,7 +9,6 @@ import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table
   selector: 'sbb-grouped-columns-table-example',
   templateUrl: 'grouped-columns-table-example.html',
   imports: [SbbTableModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GroupedColumnsTableExample {
   protected displayedColumns: string[] = [

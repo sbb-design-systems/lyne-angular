@@ -19,14 +19,13 @@ import {
   SbbRow,
   SbbRowDef,
 } from './table/row';
-import { SbbRecycleRows, SbbTable } from './table/table';
+import { SbbTable } from './table/table';
 import { SbbTextColumn } from './table/text-column';
 import { SbbTableWrapper } from './table-wrapper/table-wrapper';
 
 const SBB_TABLE_EXPORTED_DECLARATIONS = [
   // Table
   SbbTable,
-  SbbRecycleRows,
   SbbTableWrapper,
 
   // Template defs

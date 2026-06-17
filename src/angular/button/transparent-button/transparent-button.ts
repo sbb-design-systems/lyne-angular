@@ -1,9 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbButtonSize, SbbTransparentButtonElement } from '@sbb-esta/lyne-elements/button.js';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-
-import '@sbb-esta/lyne-elements/button.js';
+import { SbbTransparentButtonElement } from '@sbb-esta/lyne-elements/button.pure.js';
 
 /**
  * It displays a button enhanced with the SBB Design in the 'transparent' variant.
@@ -17,19 +14,23 @@ import '@sbb-esta/lyne-elements/button.js';
   exportAs: 'sbbTransparentButton',
 })
 export class SbbTransparentButton {
+  static {
+    SbbTransparentButtonElement.define();
+  }
+
   #element: ElementRef<SbbTransparentButtonElement> = inject(
     ElementRef<SbbTransparentButtonElement>,
   );
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either l, m or s.
+   * Size variant, either s (lean theme default), m (standard theme default) or l.
    */
   @Input()
-  public set size(value: SbbButtonSize) {
+  public set size(value: 's' | 'm' | 'l' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbButtonSize {
+  public get size(): 's' | 'm' | 'l' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -116,10 +117,10 @@ export class SbbTransparentButton {
    * The type attribute to use for the button.
    */
   @Input()
-  public set type(value: SbbButtonType) {
+  public set type(value: 'button' | 'reset' | 'submit') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): SbbButtonType {
+  public get type(): 'button' | 'reset' | 'submit' {
     return this.#element.nativeElement.type;
   }
 

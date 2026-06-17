@@ -1,13 +1,13 @@
 import type { ESLintUtils, TSESLint } from '@typescript-eslint/utils';
 
-import exampleIndexRule from './example-index-rule';
-import exampleModuleRule from './example-module-rule';
+import exampleIndexRule from './example-index-rule.ts';
+import exampleModuleRule from './example-module-rule.ts';
 
 const rules = (
   await Promise.all(
-    ['angular-generator-rule', 'test-describe-title-rule'].map((name) =>
+    ['angular-generator-rule', 'purify-imports-rule', 'test-describe-title-rule'].map((name) =>
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      import(`./${name}.js`).then((m) => ({ [name]: m.default as ESLintUtils.RuleModule<any> })),
+      import(`./${name}.ts`).then((m) => ({ [name]: m.default as ESLintUtils.RuleModule<any> })),
     ),
   )
 ).reduce((current, next) => Object.assign(current, next));

@@ -1,10 +1,11 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type { SbbOverlayCloseEvent, SbbOverlayElement } from '@sbb-esta/lyne-elements/overlay.js';
+import {
+  type SbbOverlayCloseEvent,
+  SbbOverlayElement,
+} from '@sbb-esta/lyne-elements/overlay.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/overlay.js';
 
 /**
  * It displays an interactive overlay element.
@@ -17,6 +18,10 @@ import '@sbb-esta/lyne-elements/overlay.js';
   exportAs: 'sbbOverlay',
 })
 export class SbbOverlay {
+  static {
+    SbbOverlayElement.define();
+  }
+
   #element: ElementRef<SbbOverlayElement> = inject(ElementRef<SbbOverlayElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -113,13 +118,8 @@ export class SbbOverlay {
 
   /** Closes the component. */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public close(result?: any): void;
-  /** @deprecated */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public close(result?: any, target?: HTMLElement): void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public close(result?: any, target?: HTMLElement): void {
-    return this.#element.nativeElement.close(result, target);
+  public close(result?: any): void {
+    return this.#element.nativeElement.close(result);
   }
 
   /**

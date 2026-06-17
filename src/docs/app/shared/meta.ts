@@ -28,6 +28,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
         name: 'Guides',
         entries: [
           { label: 'Getting started', link: './guides/getting-started' },
+          { label: 'How to update', link: './guides/how-to-update' },
           { label: 'Theming', link: './guides/theming' },
           { label: 'Layout', link: './guides/layout' },
           { label: 'Datetime', link: './guides/datetime' },
@@ -101,6 +102,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           { label: 'Tag', link: './components/tag' },
           { label: 'Teaser', link: './components/teaser' },
           { label: 'Teaser Hero', link: './components/teaser-hero' },
+          { label: 'Teaser Panel', link: './components/teaser-panel' },
           { label: 'Teaser Product', link: './components/teaser-product' },
           { label: 'Time Input', link: './components/time-input' },
           { label: 'Timetable Form', link: './components/timetable-form' },

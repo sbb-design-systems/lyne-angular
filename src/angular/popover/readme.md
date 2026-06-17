@@ -17,6 +17,7 @@ the [sbb-menu-button](/angular/components/button/overview) is meant to be used a
 <sbb-mini-button iconName="circle-information-small" id="popover-trigger"></sbb-mini-button>
 
 <sbb-popover id="popover" trigger="popover-trigger">
+  <sbb-popover-close-button></sbb-popover-close-button>
   <sbb-title level="2" visualLevel="6" style="margin-block-start: 0">Popover Title.</sbb-title>
   <p id="popover-content">Popover content.</p>
 </sbb-popover>
@@ -43,13 +44,16 @@ The `<sbb-popover>` can be dismissed by clicking on an interactive element withi
 by clicking on the close button or by performing another action on the page.
 
 You can also indicate that an element within the popover content should close the `<sbb-popover>` when clicked
-by marking it with the `sbb-popover-close` attribute;
-it's also possible to hide the default close button using the `hideCloseButton` property.
+by marking it with the `sbb-popover-close` attribute.
+To display a close button, place the `<sbb-popover-close-button>` inside the popover.
+For accessibility reasons, the close button should be the first focusable element in the popover,
+so it is recommended to place it at the beginning of the content.
 
 ```html
 <sbb-mini-button id="popover-trigger"></sbb-mini-button>
 
-<sbb-popover id="popover" trigger="popover-trigger" hideCloseButton>
+<sbb-popover id="popover" trigger="popover-trigger">
+  <sbb-popover-close-button></sbb-popover-close-button>
   <sbb-title level="2" visualLevel="6" style="margin-block-start: 0">Popover Title.</sbb-title>
   <p id="popover-content">
     Popover content. <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
@@ -59,7 +63,8 @@ it's also possible to hide the default close button using the `hideCloseButton` 
 
 You can also indicate that the `<sbb-popover>` should be shown on hover with the property `hoverTrigger`
 and set a custom delay for the open and close animations (defaults to 0).
-In this case, the default close button is hidden.
+When using `hoverTrigger`, it is the consumer's responsibility to omit the `<sbb-popover-close-button>`,
+as a close button is not appropriate in hover-triggered popovers.
 
 If hover is not supported by the current device, the component will be triggered on click/tap as default.
 The `<sbb-popover>` will automatically disappear after the hiding delay

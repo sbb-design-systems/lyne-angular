@@ -13,14 +13,11 @@ import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
   booleanAttribute,
-  internalOutputFromObservable,
   SbbControlValueAccessorMixin,
   SbbDeferredAnimation,
 } from '@sbb-esta/lyne-angular/core';
-import type { SbbTagElement, SbbTagSize } from '@sbb-esta/lyne-elements/tag.js';
-import { fromEvent, NEVER } from 'rxjs';
-
-import '@sbb-esta/lyne-elements/tag.js';
+import { SbbTagElement } from '@sbb-esta/lyne-elements/tag.pure.js';
+import { fromEvent } from 'rxjs';
 
 /**
  * It displays a selectable element which can be used as a filter.
@@ -48,6 +45,10 @@ export class SbbTag<T = string>
   extends SbbControlValueAccessorMixin(class {})
   implements AfterViewInit
 {
+  static {
+    SbbTagElement.define();
+  }
+
   #element: ElementRef<SbbTagElement<T>> = inject(ElementRef<SbbTagElement<T>>);
   #ngZone: NgZone = inject(NgZone);
   #focusMonitor = inject(FocusMonitor);
@@ -75,13 +76,14 @@ export class SbbTag<T = string>
   }
 
   /**
-   * Tag size, either s or m.
+   * Tag size, either s (lean theme default) or m (standard theme default).
+   * The value is inherited from the closest `<sbb-tag-group>`.
    */
   @Input()
-  public set size(value: SbbTagSize) {
+  public set size(value: 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbTagSize {
+  public get size(): 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 
@@ -221,28 +223,6 @@ export class SbbTag<T = string>
   public setCustomValidity(message: string): void {
     return this.#element.nativeElement.setCustomValidity(message);
   }
-
-  protected _inputOutput: OutputRef<InputEvent> = outputFromObservable<InputEvent>(NEVER, {
-    alias: 'input',
-  });
-  /**
-   * The input event fires when the value has been changed as a direct result of a user action.
-   */
-  public inputOutput: OutputRef<InputEvent> = internalOutputFromObservable(
-    fromEvent<InputEvent>(this.#element.nativeElement, 'input'),
-  );
-
-  protected _changeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
-    alias: 'change',
-  });
-  /**
-   * The change event is fired when the user modifies the element's value.
-   * Unlike the input event, the change event is not necessarily fired
-   * for each alteration to an element's value.
-   */
-  public changeOutput: OutputRef<Event> = internalOutputFromObservable(
-    fromEvent<Event>(this.#element.nativeElement, 'change'),
-  );
 
   /**
    * Deprecated. Mirrors change event for React. Will be removed once React properly supports change events.

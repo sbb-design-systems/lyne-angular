@@ -1,7 +1,5 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import type { SbbChipLabelElement } from '@sbb-esta/lyne-elements/chip-label.js';
-
-import '@sbb-esta/lyne-elements/chip-label.js';
+import { SbbChipLabelElement } from '@sbb-esta/lyne-elements/chip-label.pure.js';
 
 /**
  * It displays brief and compact information.
@@ -13,6 +11,10 @@ import '@sbb-esta/lyne-elements/chip-label.js';
   exportAs: 'sbbChipLabel',
 })
 export class SbbChipLabel {
+  static {
+    SbbChipLabelElement.define();
+  }
+
   #element: ElementRef<SbbChipLabelElement> = inject(ElementRef<SbbChipLabelElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -20,10 +22,10 @@ export class SbbChipLabel {
    * Size of the chip.
    */
   @Input()
-  public set size(value: 'xxs' | 'xs' | 's') {
+  public set size(value: 'xxxs' | 'xxs' | 'xs' | 's') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): 'xxs' | 'xs' | 's' {
+  public get size(): 'xxxs' | 'xxs' | 'xs' | 's' {
     return this.#element.nativeElement.size;
   }
 

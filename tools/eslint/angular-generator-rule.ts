@@ -44,13 +44,7 @@ const CAMEL_CASE_EVENTS_MAP: Record<string, string> = {
   toggleexpanded: 'toggleExpanded',
 };
 
-// TODO: migrate with next major release.
-const modulesWithLegacyExports = new Set([
-  'container',
-  'file-selector',
-  'paginator',
-  'teaser-product',
-]);
+const EVENTS_WITHOUT_OUTPUT = ['input', 'change', 'validity'];
 
 // Converts camelCase to kebab-case
 function toKebabCase(str: string): string {
@@ -174,7 +168,7 @@ export class Sbb${toPascalCase(moduleName)}Module {}
 
       // If there is a common index, we need to add the export statement for the new module
       // And we need to update the *.module.ts file
-      if (hasCommonModule && !modulesWithLegacyExports.has(moduleName)) {
+      if (hasCommonModule) {
         // Edit index.ts in the common directory
         const indexContent = readFileSync(commonIndexPath, 'utf8');
         if (
@@ -474,7 +468,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           });
         }
       },
-      ['ClassDeclaration > Decorator[expression.callee.name="Directive"]'](
+      ['ClassDeclaration > Decorator[expression.callee.name=/^(Directive|Component)/]'](
         node: TSESTree.Decorator,
       ) {
         const module = getPairedModuleFromManifest(context.filename);
@@ -492,7 +486,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         const elementClassName = classManifestDeclaration.name;
         const publicProperties = classManifestDeclaration.members?.filter(isPublicProperties) ?? [];
         const publicEvents = (classManifestDeclaration.events ?? []).filter(
-          (e) => e.name !== 'input' && e.name !== 'change',
+          (e) => !EVENTS_WITHOUT_OUTPUT.includes(e.name),
         );
         const publicGetters = classManifestDeclaration.members?.filter(isPublicGetter) ?? [];
         const publicMethods =
@@ -528,6 +522,33 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
                 ),
             });
           }
+        }
+
+        // Add static block with the define() call if not present
+        if (
+          classDeclaration.body.body.every(
+            (n) =>
+              n.type !== AST_NODE_TYPES.StaticBlock ||
+              (n as TSESTree.StaticBlock).body.every(
+                (s) =>
+                  s.type !== AST_NODE_TYPES.ExpressionStatement ||
+                  !s.expression ||
+                  !sourceCode.getText(s.expression).includes(`${elementClassName}.define()`),
+              ),
+          )
+        ) {
+          context.report({
+            node: classDeclaration.body,
+            messageId: 'angularMissingDefine',
+            data: { symbol: elementClassName },
+            fix: (fixer) => {
+              const startOfBody = classDeclaration.body.range[0] + 1;
+              return fixer.insertTextBeforeRange(
+                [startOfBody, startOfBody],
+                `\n  static {\n    ${elementClassName}.define();\n  }\n\n`,
+              );
+            },
+          });
         }
 
         // Add imports related to inputs and outputs properties
@@ -937,7 +958,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
         const elementPath = existsSync(topLevelSrcPath)
           ? pathParts.slice(0, 2).join('/')
           : pathParts.slice(0, 3).join('/');
-        const elementImport = `@sbb-esta/lyne-${elementPath}.js`;
+        const elementImport = `@sbb-esta/lyne-${elementPath}.pure.js`;
 
         // Lyne element
         if (
@@ -954,8 +975,12 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
           context.report({
             node: lastImport,
             messageId: 'angularMissingImport',
-            data: { symbol: 'element side effect' },
-            fix: (fixer) => fixer.insertTextAfter(lastImport, `\nimport '${elementImport}';`),
+            data: { symbol: elementClassName },
+            fix: (fixer) =>
+              fixer.insertTextAfter(
+                lastImport,
+                `\nimport { ${elementClassName} } from '${elementImport}';`,
+              ),
           });
         }
 
@@ -1119,36 +1144,6 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
             }
           }
         }
-
-        // Lyne element class
-        if (
-          expectedAngularImports.has('ElementRef') &&
-          program.body.every(
-            (n) =>
-              n.type !== AST_NODE_TYPES.ImportDeclaration ||
-              n.specifiers.every(
-                (s) =>
-                  s.type === AST_NODE_TYPES.ImportSpecifier &&
-                  s.imported.type === AST_NODE_TYPES.Identifier &&
-                  s.imported.name !== elementClassName,
-              ) ||
-              n.source.value !== elementImport,
-          )
-        ) {
-          const lastImport = program.body
-            .filter((n) => n.type === AST_NODE_TYPES.ImportDeclaration && n.specifiers.length)
-            .at(-1)!;
-          context.report({
-            node: lastImport,
-            messageId: 'angularMissingImport',
-            data: { symbol: elementClassName },
-            fix: (fixer) =>
-              fixer.insertTextBefore(
-                lastImport,
-                `\nimport type { ${elementClassName} } from '${elementImport}';`,
-              ),
-          });
-        }
       },
     };
   },
@@ -1162,6 +1157,7 @@ export class ${className}${classDeclaration.classGenerics ? `<${classDeclaration
       rxJsInteropMissingImport: 'Missing import {{ symbol }}',
       angularMissingDirective: 'Missing class for {{ className }}',
       angularMissingIncorrectJSDoc: 'Missing or incorrect JSDoc for {{ symbol }}',
+      angularMissingDefine: 'Missing static define block for {{ symbol }}',
       angularMissingElementRef: 'Missing ElementRef property',
       angularMissingNgZone: 'Missing NgZone property',
       angularMissingInput: 'Missing input for property {{ property }}',

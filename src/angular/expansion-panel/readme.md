@@ -86,7 +86,7 @@ The component has two background options (`milk` and `white`, which is the defau
 <sbb-expansion-panel color="milk"> ... </sbb-expansion-panel>
 ```
 
-The component has two different sizes, `l` (default) and `s`, which can be changed using the `size` property.
+The component has two different sizes, `s` and `l`, which can be changed using the `size` property.
 The property is overridden when the component is used within a `<sbb-accordion>`.
 
 ```html

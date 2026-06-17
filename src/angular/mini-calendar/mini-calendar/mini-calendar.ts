@@ -1,8 +1,5 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
-import type { SbbOrientation } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import type { SbbMiniCalendarElement } from '@sbb-esta/lyne-elements/mini-calendar.js';
-
-import '@sbb-esta/lyne-elements/mini-calendar.js';
+import { SbbMiniCalendarElement } from '@sbb-esta/lyne-elements/mini-calendar.pure.js';
 
 /**
  * It displays a minimal calendar, together with the `sbb-mini-calendar-month` and `sbb-mini-calendar-day`.
@@ -14,6 +11,10 @@ import '@sbb-esta/lyne-elements/mini-calendar.js';
   exportAs: 'sbbMiniCalendar',
 })
 export class SbbMiniCalendar<T = Date> {
+  static {
+    SbbMiniCalendarElement.define();
+  }
+
   #element: ElementRef<SbbMiniCalendarElement<T>> = inject(ElementRef<SbbMiniCalendarElement<T>>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -21,10 +22,10 @@ export class SbbMiniCalendar<T = Date> {
    * The orientation of days in the calendar.
    */
   @Input()
-  public set orientation(value: SbbOrientation) {
+  public set orientation(value: 'horizontal' | 'vertical') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.orientation = value));
   }
-  public get orientation(): SbbOrientation {
+  public get orientation(): 'horizontal' | 'vertical' {
     return this.#element.nativeElement.orientation;
   }
 }

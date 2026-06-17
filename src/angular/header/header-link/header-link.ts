@@ -1,10 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { LinkTargetType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbHorizontalFrom } from '@sbb-esta/lyne-elements/core/interfaces.js';
-import type { SbbHeaderLinkElement } from '@sbb-esta/lyne-elements/header.js';
-
-import '@sbb-esta/lyne-elements/header.js';
+import { SbbHeaderLinkElement } from '@sbb-esta/lyne-elements/header.pure.js';
 
 /**
  * It displays a link element that can be used in the `sbb-header` component.
@@ -17,20 +13,24 @@ import '@sbb-esta/lyne-elements/header.js';
   exportAs: 'sbbHeaderLink',
 })
 export class SbbHeaderLink {
+  static {
+    SbbHeaderLinkElement.define();
+  }
+
   #element: ElementRef<SbbHeaderLinkElement> = inject(ElementRef<SbbHeaderLinkElement>);
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Used to set the minimum breakpoint from which the text is displayed.
+   * Used to set the maximum breakpoint (not including) to which the text is displayed.
    * E.g. if set to 'large', the text will be visible for breakpoints large and ultra,
    * and hidden for all the others. Ignored if no icon is set.
    */
   @Input()
-  public set expandFrom(value: SbbHorizontalFrom) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.expandFrom = value));
+  public set hideLabelBelow(value: 'small' | 'large' | 'ultra' | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hideLabelBelow = value));
   }
-  public get expandFrom(): SbbHorizontalFrom {
-    return this.#element.nativeElement.expandFrom;
+  public get hideLabelBelow(): 'small' | 'large' | 'ultra' | null {
+    return this.#element.nativeElement.hideLabelBelow;
   }
 
   /**
@@ -61,10 +61,10 @@ export class SbbHeaderLink {
    * Where to display the linked URL.
    */
   @Input()
-  public set target(value: LinkTargetType | string) {
+  public set target(value: '_blank' | '_self' | '_parent' | '_top' | string) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.target = value));
   }
-  public get target(): LinkTargetType | string {
+  public get target(): '_blank' | '_self' | '_parent' | '_top' | string {
     return this.#element.nativeElement.target;
   }
 

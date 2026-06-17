@@ -1,9 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbCheckboxSize } from '@sbb-esta/lyne-elements/checkbox.js';
-import type { SbbVisualCheckboxElement } from '@sbb-esta/lyne-elements/visual-checkbox.js';
-
-import '@sbb-esta/lyne-elements/visual-checkbox.js';
+import { SbbVisualCheckboxElement } from '@sbb-esta/lyne-elements/visual-checkbox.pure.js';
 
 /**
  * It visually displays a non-interactive checkbox.
@@ -13,6 +10,10 @@ import '@sbb-esta/lyne-elements/visual-checkbox.js';
   exportAs: 'sbbVisualCheckbox',
 })
 export class SbbVisualCheckbox {
+  static {
+    SbbVisualCheckboxElement.define();
+  }
+
   #element: ElementRef<SbbVisualCheckboxElement> = inject(ElementRef<SbbVisualCheckboxElement>);
   #ngZone: NgZone = inject(NgZone);
 
@@ -39,13 +40,13 @@ export class SbbVisualCheckbox {
   }
 
   /**
-   * Size of the checkbox, either xs, s or m.
+   * Size of the checkbox, either xs (lean theme default), s or m (standard theme default).
    */
   @Input()
-  public set size(value: SbbCheckboxSize) {
+  public set size(value: 'xs' | 's' | 'm' | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
   }
-  public get size(): SbbCheckboxSize {
+  public get size(): 'xs' | 's' | 'm' | null {
     return this.#element.nativeElement.size;
   }
 

@@ -68,7 +68,7 @@ use the `readonly` attribute/`readOnly` property.
 
 ## Style
 
-Users can choose between three `size` options: `s`, `m` (default) and `l`.
+Users can choose between three `size` options: `s`, `m` and `l`.
 
 ```html
 <sbb-alert size="s"> ... </sbb-alert>

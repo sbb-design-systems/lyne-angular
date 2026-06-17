@@ -1,7 +1,5 @@
 import { KeyValuePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { Meta } from '@angular/platform-browser';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { SbbDividerModule } from '@sbb-esta/lyne-angular/divider';
 import { SbbHeaderModule } from '@sbb-esta/lyne-angular/header';
@@ -15,12 +13,12 @@ import { LightDarkController } from './light-dark-controller';
 import { PACKAGES } from './shared/meta';
 import { SidebarToggle } from './shared/package-viewer/sidebar-toggle';
 import { ThemeController } from './theme-controller';
+import { VersionSelectorComponent } from './version-selector/version-selector';
 
 @Component({
   selector: 'sbb-app',
   imports: [
     KeyValuePipe,
-    ReactiveFormsModule,
     RouterLink,
     RouterLinkActive,
     RouterOutlet,
@@ -31,15 +29,17 @@ import { ThemeController } from './theme-controller';
     SbbMenuModule,
     SbbSignetModule,
     SbbTooltipModule,
+    VersionSelectorComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   themeController = inject(ThemeController);
   lightDarkController = inject(LightDarkController);
-  packages = PACKAGES;
-  version = inject(Meta).getTag('name="sbb-lyne-angular-version"')?.content ?? 'unknown version';
   sidebarToggle = inject(SidebarToggle);
+  packages = PACKAGES;
+  isDev =
+    window.location.hostname === 'localhost' ||
+    window.location.hostname.split('.')[0]?.endsWith('-dev');
 }

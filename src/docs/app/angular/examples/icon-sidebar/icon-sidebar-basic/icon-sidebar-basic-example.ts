@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { SbbIconSidebarModule } from '@sbb-esta/lyne-angular/icon-sidebar';
 import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
 
@@ -10,6 +10,5 @@ import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
   templateUrl: 'icon-sidebar-basic-example.html',
   styleUrl: 'icon-sidebar-basic-example.scss',
   imports: [SbbIconSidebarModule, SbbTooltipModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconSidebarBasicExample {}

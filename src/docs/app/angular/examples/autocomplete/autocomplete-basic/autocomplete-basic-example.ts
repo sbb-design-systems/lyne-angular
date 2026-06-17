@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { JsonPipe } from '@angular/common';
+import { Component, signal } from '@angular/core';
+import { form, FormField } from '@angular/forms/signals';
 import { SbbAutocompleteModule } from '@sbb-esta/lyne-angular/autocomplete';
+import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
@@ -9,15 +11,9 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 @Component({
   selector: 'sbb-autocomplete-basic-example',
   templateUrl: 'autocomplete-basic-example.html',
-  imports: [SbbAutocompleteModule, SbbFormFieldModule, ReactiveFormsModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FormField, SbbAutocompleteModule, SbbCardModule, SbbFormFieldModule, JsonPipe],
 })
 export class AutocompleteBasicExample {
-  values: { property: string; otherProp: string }[] = [
-    { property: 'value 1', otherProp: 'test' },
-    { property: 'value 2', otherProp: 'other test' },
-  ];
-  control = new FormControl(this.values[0]);
-  displayWith: ((value: { property: string; otherProperty: string }) => string) | null = (value) =>
-    value ? value.property : value;
+  protected readonly options: string[] = ['Value 1', 'Value 2', 'Value 3'];
+  protected control = form(signal(this.options[0]));
 }

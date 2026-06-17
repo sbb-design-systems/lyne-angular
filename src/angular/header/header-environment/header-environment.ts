@@ -1,6 +1,5 @@
 import { Directive } from '@angular/core';
-
-import '@sbb-esta/lyne-elements/header.js';
+import { SbbHeaderEnvironmentElement } from '@sbb-esta/lyne-elements/header.pure.js';
 
 /**
  * It displays a ribbon inside the header to indicate the current environment.
@@ -13,4 +12,8 @@ import '@sbb-esta/lyne-elements/header.js';
   selector: 'sbb-header-environment',
   exportAs: 'sbbHeaderEnvironment',
 })
-export class SbbHeaderEnvironment {}
+export class SbbHeaderEnvironment {
+  static {
+    SbbHeaderEnvironmentElement.define();
+  }
+}

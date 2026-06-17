@@ -77,11 +77,12 @@ The `linear` property can be set to create a linear stepper that requires the us
 ## Events
 
 Whenever a step switch is triggered, a `validate` event is emitted and can be canceled to prevent the step change.
+The `event` property contains information about the `currentIndex`, `nextIndex`, `currentStep` and `nextStep`.
 
 ```ts
 document
   .querySelector('sbb-stepper')
-  .addEventListener((event: CustomEvent<SbbStepValidateEventDetails>) => {
+  .addEventListener('validate', (event: SbbStepValidateEvent) => {
     if (currentStateIsInvalid()) {
       // This will prevent switching to another step and force
       // the user to fix the current state.

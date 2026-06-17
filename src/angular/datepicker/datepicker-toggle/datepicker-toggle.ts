@@ -1,13 +1,8 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.js';
-import type {
-  SbbDatepickerToggleElement,
-  SbbDatepickerElement,
-} from '@sbb-esta/lyne-elements/datepicker.js';
-
-import '@sbb-esta/lyne-elements/datepicker.js';
+import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.pure.js';
+import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.pure.js';
+import { SbbDatepickerToggleElement } from '@sbb-esta/lyne-elements/datepicker.pure.js';
 
 /**
  * Combined with a `sbb-datepicker`, it can be used to select a date from a `sbb-calendar`.
@@ -17,6 +12,10 @@ import '@sbb-esta/lyne-elements/datepicker.js';
   exportAs: 'sbbDatepickerToggle',
 })
 export class SbbDatepickerToggle<T = Date> {
+  static {
+    SbbDatepickerToggleElement.define();
+  }
+
   #element: ElementRef<SbbDatepickerToggleElement<T>> = inject(
     ElementRef<SbbDatepickerToggleElement<T>>,
   );
@@ -76,10 +75,10 @@ export class SbbDatepickerToggle<T = Date> {
    * The type attribute to use for the button.
    */
   @Input()
-  public set type(value: SbbButtonType) {
+  public set type(value: 'button' | 'reset' | 'submit') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): SbbButtonType {
+  public get type(): 'button' | 'reset' | 'submit' {
     return this.#element.nativeElement.type;
   }
 

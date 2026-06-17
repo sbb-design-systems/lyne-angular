@@ -4,7 +4,7 @@ import type { ComponentRef } from '@angular/core';
 import type { SubscriptionLike, Observable } from 'rxjs';
 import { share, Subscription, take, takeUntil } from 'rxjs';
 
-import type { SbbOverlayConfig } from './overlay-config';
+import type { SbbOverlayBaseConfig } from './overlay-config-base';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
 
 /** Possible states of the lifecycle of an overlay. */
@@ -32,10 +32,9 @@ export class SbbOverlayBaseRef<T = unknown, C extends Event = Event> {
 
   constructor(
     container: SbbOverlayContainerBase<unknown, C>,
-    config: SbbOverlayConfig<SbbOverlayContainerBase<unknown, C>>,
+    config: SbbOverlayBaseConfig<SbbOverlayContainerBase<unknown, C>>,
     portalOutlet: DomPortalOutlet,
-    // TODO: Make required @breaking-change
-    location?: Location,
+    location: Location,
   ) {
     this.id = config.id;
     this.#container = container;
@@ -90,33 +89,4 @@ export class SbbOverlayBaseRef<T = unknown, C extends Event = Event> {
   get beforeClosed(): Observable<C> {
     return this.#beforeClosed;
   }
-
-  /**
-   * Gets an observable that is notified when the dialog is finished opening.
-   * @deprecated use afterOpened instead.
-   */
-  get afterOpen(): Observable<Event> {
-    return this.#afterOpened;
-  }
-
-  /**
-   * Gets an observable that is notified when the dialog is finished closing.
-   * @deprecated use afterClosed instead.
-   */
-  get afterClose(): Observable<C> {
-    return this.#afterClosed;
-  }
-
-  /**
-   * Gets an observable that is notified when the dialog has started closing.
-   * @deprecated use beforeClosed instead.
-   */
-  get beforeClose(): Observable<C> {
-    return this.#beforeClosed;
-  }
 }
-
-export {
-  /** @deprecated use dedicated overlay refs from the corresponding modules (dialog / overlay / toast) */
-  SbbOverlayBaseRef as SbbOverlayRef,
-};

@@ -12,19 +12,17 @@ import {
 } from '@angular/core';
 import { outputFromObservable, takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
-import type {
-  SbbStepLabelElement,
+import {
+  type SbbStepLabelElement,
   SbbStepElement,
-  SbbStepperElement,
-  SbbStepValidateEventDetails,
-} from '@sbb-esta/lyne-elements/stepper.js';
+  type SbbStepperElement,
+  type SbbStepValidateEvent,
+} from '@sbb-esta/lyne-elements/stepper.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
 import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import type { SbbStepContent } from './step-content';
 import { SBB_STEP_CONTENT } from './step-content';
-
-import '@sbb-esta/lyne-elements/stepper.js';
 
 /**
  * Combined with a `sbb-stepper`, it displays a step's content.
@@ -41,6 +39,10 @@ import '@sbb-esta/lyne-elements/stepper.js';
   `,
 })
 export class SbbStep {
+  static {
+    SbbStepElement.define();
+  }
+
   #element: ElementRef<SbbStepElement> = inject(ElementRef<SbbStepElement>);
   #viewContainerRef = inject(ViewContainerRef);
   #changeDetectorRef = inject(ChangeDetectorRef);
@@ -65,16 +67,15 @@ export class SbbStep {
     return this.#element.nativeElement.stepper;
   }
 
-  protected _validateOutput: OutputRef<CustomEvent<SbbStepValidateEventDetails>> =
-    outputFromObservable<CustomEvent<SbbStepValidateEventDetails>>(NEVER, { alias: 'validate' });
+  protected _validateOutput: OutputRef<SbbStepValidateEvent> =
+    outputFromObservable<SbbStepValidateEvent>(NEVER, { alias: 'validate' });
 
   /**
    * The validate event is dispatched when a step change is triggered. Can be canceled to abort the step change.
    */
-  public validateOutput: OutputRef<CustomEvent<SbbStepValidateEventDetails>> =
-    internalOutputFromObservable(
-      fromEvent<CustomEvent<SbbStepValidateEventDetails>>(this.#element.nativeElement, 'validate'),
-    );
+  public validateOutput: OutputRef<SbbStepValidateEvent> = internalOutputFromObservable(
+    fromEvent<SbbStepValidateEvent>(this.#element.nativeElement, 'validate'),
+  );
 
   constructor() {
     const contentChildObservable = toObservable(this._explicitContent);
@@ -91,4 +92,14 @@ export class SbbStep {
         this.#changeDetectorRef.markForCheck();
       });
   }
+
+  protected _activeOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'active',
+  });
+  /**
+   * The active event is dispatched when a step is activated.
+   */
+  public activeOutput: OutputRef<Event> = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'active'),
+  );
 }

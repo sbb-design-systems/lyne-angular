@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, effect, viewChild } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, effect, signal, viewChild } from '@angular/core';
+import { form, FormField, max, min } from '@angular/forms/signals';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbPaginator, SbbPaginatorModule } from '@sbb-esta/lyne-angular/paginator';
 import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
+import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 interface VehicleExampleItem {
   position: number;
@@ -21,29 +21,25 @@ interface VehicleExampleItem {
   selector: 'sbb-paginator-table-example',
   templateUrl: 'paginator-table-example.html',
   styleUrl: 'paginator-table-example.scss',
-  imports: [
-    SbbTableModule,
-    SbbPaginatorModule,
-    SbbFormFieldModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [FormField, SbbTableModule, SbbPaginatorModule, SbbFormFieldModule, SbbTitleModule],
 })
 export class PaginatorTableExample {
   private readonly paginator = viewChild.required(SbbPaginator);
   protected dataSource = new SbbTableDataSource<VehicleExampleItem>(VEHICLE_EXAMPLE_DATA);
   protected displayedColumns: string[] = ['position', 'name', 'power', 'description'];
-  protected pageSize = new FormControl(5);
-  protected rowCount = new FormControl(20);
+  protected form = form(signal({ pageSize: 5, rowCount: 20 }), (s) => {
+    min(s.pageSize, 1);
+    min(s.rowCount, 0);
+    max(s.rowCount, 20);
+  });
 
   constructor() {
     effect(() => {
       this.dataSource.paginator = this.paginator();
     });
 
-    this.rowCount.valueChanges.pipe(takeUntilDestroyed()).subscribe((rowCount) => {
-      this.dataSource.data = VEHICLE_EXAMPLE_DATA.slice(0, rowCount ?? 0);
+    effect(() => {
+      this.dataSource.data = VEHICLE_EXAMPLE_DATA.slice(0, this.form.rowCount().value());
     });
   }
 }

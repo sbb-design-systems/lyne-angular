@@ -26,7 +26,7 @@ The `multi` property, if set, allows having more than one `<sbb-expansion-panel>
 
 ## Style
 
-The component has two different sizes, `l` (default) and `s`, which can be changed using the `size` property.
+The component has two different sizes, `s` and `l`, which can be changed using the `size` property.
 The property overrides the `size` value of any inner `<sbb-expansion-panel>`.
 
 ```html

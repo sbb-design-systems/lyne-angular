@@ -1,8 +1,5 @@
 import { Directive, ElementRef, Input, NgZone, inject } from '@angular/core';
-import type { SbbButtonType } from '@sbb-esta/lyne-elements/core/base-elements.js';
-import type { SbbMiniCalendarDayElement } from '@sbb-esta/lyne-elements/mini-calendar.js';
-
-import '@sbb-esta/lyne-elements/mini-calendar.js';
+import { SbbMiniCalendarDayElement } from '@sbb-esta/lyne-elements/mini-calendar.pure.js';
 
 /**
  * It displays a day in the `sbb-mini-calendar-month`.
@@ -12,6 +9,10 @@ import '@sbb-esta/lyne-elements/mini-calendar.js';
   exportAs: 'sbbMiniCalendarDay',
 })
 export class SbbMiniCalendarDay<T = Date> {
+  static {
+    SbbMiniCalendarDayElement.define();
+  }
+
   #element: ElementRef<SbbMiniCalendarDayElement<T>> = inject(
     ElementRef<SbbMiniCalendarDayElement<T>>,
   );
@@ -65,10 +66,10 @@ export class SbbMiniCalendarDay<T = Date> {
    * The type attribute to use for the button.
    */
   @Input()
-  public set type(value: SbbButtonType) {
+  public set type(value: 'button' | 'reset' | 'submit') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.type = value));
   }
-  public get type(): SbbButtonType {
+  public get type(): 'button' | 'reset' | 'submit' {
     return this.#element.nativeElement.type;
   }
 

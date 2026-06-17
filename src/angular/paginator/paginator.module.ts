@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
-import { SbbCompactPaginator } from '@sbb-esta/lyne-angular/paginator/compact-paginator';
-import { SbbPaginator } from '@sbb-esta/lyne-angular/paginator/paginator';
+
+import { SbbCompactPaginator } from './compact-paginator/compact-paginator';
+import { SbbPaginator } from './paginator/paginator';
 
 const SBB_PAGINATOR_EXPORTED_DECLARATIONS = [SbbPaginator, SbbCompactPaginator];
 

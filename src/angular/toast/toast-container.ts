@@ -7,14 +7,11 @@ import {
   viewChild,
 } from '@angular/core';
 import { outputToObservable } from '@angular/core/rxjs-interop';
-import {
-  SbbOverlayConfig,
-  SbbOverlayContainerBase,
-  SbbOverlayState,
-} from '@sbb-esta/lyne-angular/core/overlay';
+import { SbbOverlayContainerBase, SbbOverlayState } from '@sbb-esta/lyne-angular/core';
 import type { Observable } from 'rxjs';
 
 import { SbbToast } from './toast';
+import { SbbToastConfig } from './toast-config';
 
 /**
  * Container component for `SbbToast` components.
@@ -34,8 +31,8 @@ import { SbbToast } from './toast';
   template: `<ng-template cdkPortalOutlet></ng-template>`,
 })
 export class SbbToastContainer extends SbbOverlayContainerBase<SbbToast> {
-  readonly _config: SbbOverlayConfig<SbbToastContainer, SbbToast, unknown> =
-    inject(SbbOverlayConfig, { optional: true }) || {};
+  readonly _config: SbbToastConfig<SbbToastContainer> =
+    inject(SbbToastConfig<SbbToastContainer>, { optional: true }) || {};
 
   /** The portal outlet inside of this container into which the dialog content will be loaded. */
   public elementInstance = inject(SbbToast);
@@ -73,8 +70,4 @@ export class SbbToastContainer extends SbbOverlayContainerBase<SbbToast> {
   public override beforeClosed: Observable<Event> = outputToObservable(
     this.elementInstance.beforeCloseOutput,
   );
-
-  public override afterOpen: Observable<Event> = this.afterOpened;
-  public override afterClose: Observable<Event> = this.afterClosed;
-  public override beforeClose: Observable<Event> = this.beforeClosed;
 }
