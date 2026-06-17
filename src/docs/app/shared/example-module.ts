@@ -39,7 +39,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'flip-card': ['flip-card-basic'],
   footer: ['footer-basic', 'footer-clock'],
   'form-field': [
-    { id: 'form-field-basic', hasStyle: true },
+    'form-field-basic',
     'form-field-native-select',
     'form-field-clear',
     'form-field-hint',

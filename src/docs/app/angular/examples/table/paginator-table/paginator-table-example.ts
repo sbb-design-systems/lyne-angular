@@ -3,6 +3,7 @@ import { form, FormField, max, min } from '@angular/forms/signals';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbPaginator, SbbPaginatorModule } from '@sbb-esta/lyne-angular/paginator';
 import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
+import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 interface VehicleExampleItem {
   position: number;
@@ -20,7 +21,7 @@ interface VehicleExampleItem {
   selector: 'sbb-paginator-table-example',
   templateUrl: 'paginator-table-example.html',
   styleUrl: 'paginator-table-example.scss',
-  imports: [FormField, SbbTableModule, SbbPaginatorModule, SbbFormFieldModule],
+  imports: [FormField, SbbTableModule, SbbPaginatorModule, SbbFormFieldModule, SbbTitleModule],
 })
 export class PaginatorTableExample {
   private readonly paginator = viewChild.required(SbbPaginator);
