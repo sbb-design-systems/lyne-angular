@@ -5,7 +5,6 @@ import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import type { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 
 /**
  * @title sbb-button with configurable properties
@@ -23,13 +22,12 @@ import type { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonVariantsExample {
-  // FIXME: with lyne-elements v.5 the SbbButtonSize can be set to null to respect theme setting
   protected form = inject(FormBuilder).nonNullable.group({
     disabled: false,
     loading: false,
     label: true,
     icon: false,
-    size: 'l' as SbbButtonSize,
+    size: null,
   });
 
   protected readonly disabled = toSignal(this.form.controls.disabled.valueChanges, {

@@ -6,7 +6,6 @@ import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbNotificationModule } from '@sbb-esta/lyne-angular/notification';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitle } from '@sbb-esta/lyne-angular/title';
-import type { SbbButtonSize } from '@sbb-esta/lyne-elements/button.js';
 import { map } from 'rxjs/operators';
 
 /**
@@ -26,13 +25,12 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonLinkVariantsExample {
-  // FIXME: with lyne-elements v.5 the SbbButtonSize can be set to null to respect theme setting
   protected form = inject(FormBuilder).nonNullable.group({
     disabled: false,
     loading: false,
     label: true,
     icon: false,
-    size: 'l' as SbbButtonSize,
+    size: null,
     targetBlank: false,
     externalLink: false,
   });

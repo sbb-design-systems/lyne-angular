@@ -3,10 +3,20 @@ import type { Type } from '@angular/core';
 import type { ExampleData } from './example-data';
 
 export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[]> = {
-  accordion: ['accordion-basic', 'accordion-nested-lazy', 'accordion-variants', 'accordion-wizard'],
-  'action-group': ['action-group-basic'],
-  alert: ['alert-basic'],
-  autocomplete: ['autocomplete-basic'],
+  accordion: [
+    'accordion-basic',
+    'accordion-nested-lazy',
+    'accordion-variants',
+    { id: 'accordion-wizard', hasStyle: true },
+  ],
+  'action-group': ['action-group-basic', { id: 'action-group-complex', hasStyle: true }],
+  alert: ['alert-basic', 'alert-group', 'alert-variants'],
+  autocomplete: [
+    'autocomplete-basic',
+    'autocomplete-complex-value',
+    'autocomplete-hint-optgroup',
+    'autocomplete-variants',
+  ],
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
   button: [
@@ -16,8 +26,8 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'mini-button-group',
     'mini-button-variants',
   ],
-  calendar: ['calendar-basic'],
-  card: ['card-basic'],
+  calendar: ['calendar-basic', 'calendar-reactive', 'calendar-fixed-month'],
+  card: ['card-basic', 'card-link', 'card-button'],
   carousel: ['carousel-basic'],
   checkbox: ['checkbox-basic'],
   'checkbox-group': ['checkbox-group-basic'],
@@ -35,7 +45,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'flip-card': ['flip-card-basic'],
   footer: ['footer-basic', 'footer-clock'],
   'form-field': [
-    { id: 'form-field-basic', hasStyle: true },
+    'form-field-basic',
     'form-field-native-select',
     'form-field-clear',
     'form-field-hint',
@@ -97,6 +107,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   tag: ['tag-basic'],
   teaser: ['teaser-basic'],
   'teaser-hero': ['teaser-hero-basic'],
+  'teaser-panel': ['teaser-panel-basic'],
   'teaser-product': ['teaser-product-basic'],
   'time-input': ['time-input-basic'],
   'timetable-form': ['timetable-form-basic'],
@@ -107,7 +118,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   toggle: ['toggle-basic'],
   'toggle-check': ['toggle-check-basic'],
   tooltip: ['tooltip-basic'],
-  train: ['train-basic'],
+  train: ['train-basic', 'train-vertical'],
 };
 
 export async function loadExample(id: string): Promise<Record<string, Type<unknown>> | undefined> {
@@ -118,10 +129,16 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'accordion-wizard':
       return import('../angular/examples/accordion');
     case 'action-group-basic':
+    case 'action-group-complex':
       return import('../angular/examples/action-group');
     case 'alert-basic':
+    case 'alert-group':
+    case 'alert-variants':
       return import('../angular/examples/alert');
     case 'autocomplete-basic':
+    case 'autocomplete-complex-value':
+    case 'autocomplete-hint-optgroup':
+    case 'autocomplete-variants':
       return import('../angular/examples/autocomplete');
     case 'badge-basic':
       return import('../angular/examples/badge');
@@ -136,8 +153,12 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'button-variants':
       return import('../angular/examples/button');
     case 'calendar-basic':
+    case 'calendar-fixed-month':
+    case 'calendar-reactive':
       return import('../angular/examples/calendar');
     case 'card-basic':
+    case 'card-button':
+    case 'card-link':
       return import('../angular/examples/card');
     case 'carousel-basic':
       return import('../angular/examples/carousel');
@@ -288,6 +309,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/teaser');
     case 'teaser-hero-basic':
       return import('../angular/examples/teaser-hero');
+    case 'teaser-panel-basic':
+      return import('../angular/examples/teaser-panel');
     case 'teaser-product-basic':
       return import('../angular/examples/teaser-product');
     case 'time-input-basic':
@@ -309,6 +332,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'tooltip-basic':
       return import('../angular/examples/tooltip');
     case 'train-basic':
+    case 'train-vertical':
       return import('../angular/examples/train');
     default:
       console.warn(`No example found for component with id "${id}".`);
