@@ -3,37 +3,29 @@
 .sbb-cdn-icon__icon-wrapper {
   width: 100%;
   height: 100px;
-  padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: var(--sbb-spacing-fixed-4x);
   background-color: transparent;
   cursor: pointer;
-  color: var(--sbb-color-granite);
-  border: var(--sbb-border-width-1x) solid var(--sbb-color-storm);
+  color: var(--sbb-color-1);
+  border: var(--sbb-border-width-1x) solid var(--sbb-border-color-6-inverted);
   outline: 0;
 
   &:is(:hover, :focus) {
-    border-color: var(--sbb-ghost-button-border-color-hover);
+    border-color: var(--sbb-border-color-1);
   }
 
   &:where(.sbb-cdn-icon__icon-wrapper-dark) {
-    background-color: var(--sbb-color-black);
+    background-color: var(--sbb-background-color-1-inverted);
   }
 }
 
 .sbb-cdn-icon__icon-path {
+  @include sbb.ellipsis();
+
   display: block;
   text-align: center;
-  font-size: 0.8em;
-  line-height: var(--sbb-line-height-small);
-  @include sbb.ellipsis();
-}
-
-.sbb-cdn-icon__icon-fit {
-  --sbb-icon-svg-height: 100%;
-  --sbb-icon-svg-width: 100%;
-
-  width: 100%;
-  height: 100%;
+  font-size: var(--sbb-text-font-size-xs);
 }

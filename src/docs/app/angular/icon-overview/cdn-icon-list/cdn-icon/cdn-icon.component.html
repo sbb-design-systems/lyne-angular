@@ -1,8 +1,9 @@
 <button
   class="sbb-cdn-icon__icon-wrapper"
   [class.sbb-cdn-icon__icon-wrapper-dark]="cdnIcon().tags.includes('dark')"
+  (click)="openDialog()"
 >
-  <sbb-icon [name]="cdnIconPath" [class.sbb-cdn-icon__icon-fit]="iconFit()"></sbb-icon>
+  <sbb-icon [name]="cdnIconPath"></sbb-icon>
 </button>
 <span class="sbb-cdn-icon__icon-path" [sbb-tooltip]="cdnIconPath" sbb-tooltip-position="block-end">
   {{ cdnIconPath }}

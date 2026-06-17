@@ -37,7 +37,6 @@ export class CdnIconListComponent {
     signal({
       fulltext: '',
       namespaces: this.namespaces.filter((ns) => !this.deprecatedNamespaces.includes(ns)),
-      fitIcons: true,
     }),
   );
 

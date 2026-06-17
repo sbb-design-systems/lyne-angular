@@ -14,15 +14,12 @@
       }
     </sbb-select>
   </sbb-form-field>
-
-  <label for="fitIcons">Fit icon size to parent element</label>
-  <sbb-checkbox id="fitIcons" [formField]="filterForm.fitIcons"></sbb-checkbox>
 </form>
 
 @if (filteredIcons().length > 0) {
   <div class="sbb-cdn-icon-list__items">
     @for (cdnIcon of filteredIcons(); track cdnIcon.name) {
-      <sbb-cdn-icon [cdnIcon]="cdnIcon" [iconFit]="filterForm.fitIcons().value()" />
+      <sbb-cdn-icon [cdnIcon]="cdnIcon" />
     }
   </div>
 
