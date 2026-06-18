@@ -1,9 +1,8 @@
 @use '@sbb-esta/lyne-elements' as sbb;
 
-.cdn-icon-dialog-content {
+.cdn-icon-dialog-icon {
   display: flex;
-  flex-direction: column;
-  gap: var(--sbb-spacing-fixed-4x);
+  justify-content: center;
 }
 
 sbb-dialog-content {
