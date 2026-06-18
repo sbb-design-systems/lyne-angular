@@ -27,8 +27,7 @@ export class MiniButtonVariantsExample {
   protected controls = form(
     signal({
       disabled: false,
-      label: false,
-      icon: true,
+      variant: 'icon',
     }),
   );
 }
