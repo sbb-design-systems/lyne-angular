@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import type { SbbDialog } from '@sbb-esta/lyne-angular/dialog';
 import { SbbDialogService } from '@sbb-esta/lyne-angular/dialog';
 import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
@@ -14,16 +14,15 @@ import { CdnIconDialogComponent } from '../cdn-icon-dialog/cdn-icon-dialog.compo
   styleUrl: './cdn-icon.component.scss',
 })
 export class CdnIconComponent {
-  dialogService = inject(SbbDialogService);
   cdnIcon = input.required<CdnIcon>();
-
-  get cdnIconPath() {
+  cdnIconPath = computed(() => {
     return this.cdnIcon().namespace
       ? `${this.cdnIcon().namespace}:${this.cdnIcon().name}`
       : this.cdnIcon().name;
-  }
+  });
+  protected readonly dialogService = inject(SbbDialogService);
 
-  openDialog() {
+  openDialog(): void {
     this.dialogService.open(CdnIconDialogComponent, {
       setupContainer: (dialog: SbbDialog) => (dialog.backdrop = 'translucent'),
       data: { cdnIcon: this.cdnIcon() },

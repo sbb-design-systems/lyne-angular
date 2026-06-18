@@ -50,14 +50,12 @@ export class CdnIconListComponent {
 
   protected readonly allFilteredIcons = computed<CdnIcon[]>(() => {
     const iconsData = this.cdnIcons();
-
-    const fulltext = (this.filterForm.fulltext().value() || '').toUpperCase();
-    const activeNamespaces = this.filterForm.namespaces().value() || [];
-
     if (!iconsData?.icons) {
       return [];
     }
 
+    const fulltext = (this.filterForm.fulltext().value() || '').toUpperCase();
+    const activeNamespaces = this.filterForm.namespaces().value() || [];
     return iconsData.icons.filter((i) => {
       const matchesNamespace = activeNamespaces.some(
         (ns) => i.namespace === ns || (!i.namespace && ns === 'icon'),

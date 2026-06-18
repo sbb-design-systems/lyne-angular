@@ -11,14 +11,11 @@
   cursor: pointer;
   color: var(--sbb-color-1);
   border: var(--sbb-border-width-1x) solid var(--sbb-border-color-6-inverted);
+  border-radius: var(--sbb-border-radius-4x);
   outline: 0;
 
   &:is(:hover, :focus) {
     border-color: var(--sbb-border-color-1);
-  }
-
-  &:where(.sbb-cdn-icon__icon-wrapper-dark) {
-    background-color: var(--sbb-background-color-1-inverted);
   }
 }
 

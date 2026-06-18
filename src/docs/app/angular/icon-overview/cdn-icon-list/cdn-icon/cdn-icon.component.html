@@ -1,10 +1,11 @@
 <button
   class="sbb-cdn-icon__icon-wrapper"
-  [class.sbb-cdn-icon__icon-wrapper-dark]="cdnIcon().tags.includes('dark')"
+  [sbb-tooltip]="cdnIconPath()"
+  sbb-tooltip-position="block-end"
   (click)="openDialog()"
 >
-  <sbb-icon [name]="cdnIconPath"></sbb-icon>
+  <sbb-icon [name]="cdnIconPath()"></sbb-icon>
 </button>
-<span class="sbb-cdn-icon__icon-path" [sbb-tooltip]="cdnIconPath" sbb-tooltip-position="block-end">
-  {{ cdnIconPath }}
+<span class="sbb-cdn-icon__icon-path">
+  {{ cdnIconPath() }}
 </span>
