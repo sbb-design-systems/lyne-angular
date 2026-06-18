@@ -1,11 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, computed, inject } from '@angular/core';
 import { SbbLoadingIndicatorModule } from '@sbb-esta/lyne-angular/loading-indicator';
-import { forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { CdnIconListComponent } from './cdn-icon-list/cdn-icon-list.component';
-import type { CdnIcons, CdnIconsResponse } from './cdn-icon.service';
+import type { CdnIcons } from './cdn-icon.service';
 import { CdnIconService } from './cdn-icon.service';
 
 @Component({
@@ -16,15 +13,18 @@ import { CdnIconService } from './cdn-icon.service';
 export class IconOverviewComponent {
   #iconCdnService = inject(CdnIconService);
 
-  cdnIcons = toSignal(
-    forkJoin([this.#iconCdnService.loadIcons(), this.#iconCdnService.loadPictos()]).pipe(
-      map(
-        ([icons, pictos]: [CdnIconsResponse, CdnIconsResponse]): CdnIcons => ({
-          iconVersion: icons.version,
-          pictoVersion: pictos.version,
-          icons: icons.icons.concat(pictos.icons),
-        }),
-      ),
-    ),
-  );
+  readonly cdnIcons = computed<CdnIcons | undefined>(() => {
+    const iconsData = this.#iconCdnService.iconsResource.value();
+    const pictosData = this.#iconCdnService.pictosResource.value();
+
+    if (!iconsData || !pictosData) {
+      return undefined;
+    }
+
+    return {
+      iconVersion: iconsData.version,
+      pictoVersion: pictosData.version,
+      icons: iconsData.icons.concat(pictosData.icons),
+    };
+  });
 }
