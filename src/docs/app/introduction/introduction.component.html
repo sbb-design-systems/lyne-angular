@@ -1,37 +1,26 @@
-<sbb-title>SBB Lyne Angular Component Library</sbb-title>
-<p>
-  SBB’s digital guidelines ensure a consistent and recognizable user experience across all digital
-  channels, helping customers quickly find the information they need while providing binding visual
-  standards for all internal and external digital projects.
-</p>
+<sbb-title class="main-title">SBB Lyne Angular Component Library</sbb-title>
+
+<ul class="label-group">
+  <li>
+    <sbb-chip-label color="charcoal">100+ Components</sbb-chip-label>
+  </li>
+  <li>
+    <sbb-chip-label color="charcoal">Accessibility WCAG 2.2 Level AA</sbb-chip-label>
+  </li>
+  <li>
+    <sbb-chip-label color="charcoal">Angular Support</sbb-chip-label>
+  </li>
+  <li>
+    <sbb-chip-label color="charcoal">Open Source</sbb-chip-label>
+  </li>
+</ul>
 
 <p>
-  This library is being developed on GitHub (<sbb-link
-    href="https://github.com/sbb-design-systems/lyne-components"
-  >
-    sbb-design-systems/lyne-components
-  </sbb-link>
-  and
-  <sbb-link href="https://github.com/sbb-design-systems/lyne-angular">
-    sbb-design-systems/lyne-angular </sbb-link
-  >). Any
-  <sbb-link
-    href="https://github.com/sbb-design-systems/lyne-components/blob/main/docs/CONTRIBUTING.md"
-  >
-    contribution
-  </sbb-link>
-  is always welcome. If you would like to report a problem or have a feature request, feel free to
-  open an issue in either
-  <sbb-link href="https://github.com/sbb-design-systems/lyne-components/issues/new/choose">
-    lyne-components
-  </sbb-link>
-  or
-  <sbb-link href="https://github.com/sbb-design-systems/lyne-angular/issues/new/choose">
-    lyne-angular </sbb-link
-  >.
+  Build accessible, consistent and production-ready applications with Lyne components. Powered by
+  the official SBB Design System and optimized for Angular.
 </p>
 
-<sbb-title level="2">Packages</sbb-title>
+<sbb-title level="2" class="sbb-screen-reader-only">Packages</sbb-title>
 
 <sbb-action-group class="libraries">
   <sbb-teaser
@@ -44,6 +33,7 @@
         <source srcset="/assets/lyne-dark.webp" media="(prefers-color-scheme: dark)" />
         <img src="/assets/lyne.webp" alt="" />
       </picture>
+      <sbb-chip-label color="charcoal" class="sbb-figure-overlap-start-end">stable</sbb-chip-label>
     </figure>
     <sbb-title level="3" slot="title">&#64;sbb-esta/lyne-angular</sbb-title>
     Standard components that can be used for any kind of web site and web application.
@@ -59,15 +49,69 @@
         <source srcset="/assets/lyne-dark.webp" media="(prefers-color-scheme: dark)" />
         <img src="/assets/lyne.webp" alt="" />
       </picture>
+      <sbb-chip-label color="granite" class="sbb-figure-overlap-start-end">
+        experimental
+      </sbb-chip-label>
     </figure>
     <sbb-title level="3" slot="title">&#64;sbb-esta/lyne-elements-experimental</sbb-title>
     Experimental components that can change at any time.
   </sbb-teaser>
 </sbb-action-group>
 
-<sbb-title level="2">How to update</sbb-title>
-<p>
-  If you are already using &#64;sbb-esta/lyne-angular and want to update to the next major version,
-  you can follow our
-  <sbb-link routerLink="/angular/guides/how-to-update">how to update guide</sbb-link>.
-</p>
+<sbb-action-group class="sbb-orientation-horizontal-from-small actions">
+  <sbb-button-link routerLink="/angular">Get Started with lyne-angular</sbb-button-link>
+
+  <sbb-secondary-button-link href="https://digital.sbb.ch/de/design-system/lyne/overview//">
+    UX Documentation
+  </sbb-secondary-button-link>
+</sbb-action-group>
+
+<div class="card-group">
+  <sbb-card color="milk">
+    <sbb-card-link routerLink="/angular/guides/how-to-update"> How to update guide </sbb-card-link>
+    <sbb-title level="2" visualLevel="5">How to update</sbb-title>
+    <p>
+      If you are already using &#64;sbb-esta/lyne-angular and want to update to the next major
+      version, follow our
+      <sbb-link-static>how to update guide</sbb-link-static>.
+    </p>
+  </sbb-card>
+
+  <sbb-card color="milk">
+    <div class="links">
+      <div>
+        <sbb-title level="2" visualLevel="5">Links lyne-components</sbb-title>
+
+        <sbb-link-list>
+          <sbb-block-link href="https://github.com/sbb-design-systems/lyne-components">
+            Github
+          </sbb-block-link>
+          <sbb-block-link
+            href="https://github.com/sbb-design-systems/lyne-components/issues/new/choose"
+          >
+            Create issue
+          </sbb-block-link>
+          <sbb-block-link
+            href="https://github.com/sbb-design-systems/lyne-components/blob/main/docs/CONTRIBUTING.md"
+          >
+            Contribution guide
+          </sbb-block-link>
+        </sbb-link-list>
+      </div>
+      <div>
+        <sbb-title level="2" visualLevel="5">Links lyne-angular</sbb-title>
+
+        <sbb-link-list>
+          <sbb-block-link href="https://github.com/sbb-design-systems/lyne-angular">
+            Github
+          </sbb-block-link>
+          <sbb-block-link
+            href="https://github.com/sbb-design-systems/lyne-angular/issues/new/choose"
+          >
+            Create issue
+          </sbb-block-link>
+        </sbb-link-list>
+      </div>
+    </div>
+  </sbb-card>
+</div>
