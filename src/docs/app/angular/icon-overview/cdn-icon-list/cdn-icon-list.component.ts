@@ -1,10 +1,11 @@
-import { Component, computed, input, signal, viewChild } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { Component, computed, effect, input, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
-import { SbbPaginator, SbbPaginatorModule } from '@sbb-esta/lyne-angular/paginator';
+import { SbbNotificationModule } from '@sbb-esta/lyne-angular/notification';
+import { SbbPaginatorModule } from '@sbb-esta/lyne-angular/paginator';
 import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
+import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 import type { SbbPaginatorPageEvent } from '@sbb-esta/lyne-elements/paginator.pure.js';
 
 import type { CdnIcon, CdnIcons } from '../cdn-icon.service';
@@ -17,17 +18,17 @@ import { CdnIconComponent } from './cdn-icon/cdn-icon.component';
     SbbFormFieldModule,
     SbbSelectModule,
     SbbCheckboxModule,
-    ReactiveFormsModule,
-    FormField,
     SbbPaginatorModule,
+    SbbNotificationModule,
+    SbbTitleModule,
     CdnIconComponent,
+    FormField,
   ],
   templateUrl: './cdn-icon-list.component.html',
   styleUrl: './cdn-icon-list.component.scss',
 })
 export class CdnIconListComponent {
   cdnIcons = input.required<CdnIcons>();
-  paginator = viewChild(SbbPaginator);
   protected readonly currentPage = signal<number>(0);
   protected readonly namespaces = ['icon', 'picto'];
   protected readonly pageSize: number = 50;
@@ -39,9 +40,16 @@ export class CdnIconListComponent {
     }),
   );
 
-  filteredIcons = computed<CdnIcon[]>(() => {
+  constructor() {
+    effect(() => {
+      this.filterForm.fulltext().value();
+      this.filterForm.namespaces().value();
+      this.currentPage.set(0);
+    });
+  }
+
+  protected readonly allFilteredIcons = computed<CdnIcon[]>(() => {
     const iconsData = this.cdnIcons();
-    const paginator = this.paginator();
 
     const fulltext = (this.filterForm.fulltext().value() || '').toUpperCase();
     const activeNamespaces = this.filterForm.namespaces().value() || [];
@@ -50,7 +58,7 @@ export class CdnIconListComponent {
       return [];
     }
 
-    const filtered = iconsData.icons.filter((i) => {
+    return iconsData.icons.filter((i) => {
       const matchesNamespace = activeNamespaces.some(
         (ns) => i.namespace === ns || (!i.namespace && ns === 'icon'),
       );
@@ -62,14 +70,13 @@ export class CdnIconListComponent {
 
       return matchesNamespace && matchesText;
     });
+  });
 
-    if (paginator) {
-      paginator.length = filtered.length;
-      const start = this.currentPage() * this.pageSize;
-      return filtered.slice(start, start + this.pageSize);
-    }
+  protected readonly filteredIconsCount = computed(() => this.allFilteredIcons().length);
 
-    return filtered.slice(0, this.pageSize);
+  protected readonly filteredIcons = computed<CdnIcon[]>(() => {
+    const start = this.currentPage() * this.pageSize;
+    return this.allFilteredIcons().slice(start, start + this.pageSize);
   });
 
   protected handlePageChange(event: SbbPaginatorPageEvent): void {

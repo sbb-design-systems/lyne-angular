@@ -1,12 +1,13 @@
-<form class="sbb-controls-table">
-  <label for="fulltext">Fulltext Filter</label>
-  <sbb-form-field id="fulltext">
-    <input [formField]="filterForm.fulltext" />
+<form class="cdn-icon-list-filters">
+  <sbb-form-field>
+    <label>Fulltext filter</label>
+    <input placeholder="Enter icon name" [formField]="filterForm.fulltext" />
+    <sbb-form-field-clear></sbb-form-field-clear>
   </sbb-form-field>
 
-  <label for="namespaces">Namespaces</label>
-  <sbb-form-field id="namespaces">
-    <sbb-select placeholder="Namespaces" [formField]="filterForm.namespaces" multiple>
+  <sbb-form-field>
+    <label>Namespaces</label>
+    <sbb-select placeholder="Choose icon namespaces" [formField]="filterForm.namespaces" multiple>
       @for (namespace of namespaces; track namespace) {
         <sbb-option [value]="namespace">
           {{ namespace }}
@@ -17,6 +18,14 @@
 </form>
 
 @if (filteredIcons().length > 0) {
+  <sbb-paginator
+    [pageSize]="pageSize"
+    [pageIndex]="currentPage()"
+    [length]="filteredIconsCount()"
+    (page)="handlePageChange($event)"
+    aria-label="Select icon page"
+  />
+
   <div class="cdn-icon-list-items">
     @for (cdnIcon of filteredIcons(); track cdnIcon.name) {
       <sbb-cdn-icon [cdnIcon]="cdnIcon" />
@@ -25,9 +34,16 @@
 
   <sbb-paginator
     [pageSize]="pageSize"
+    [pageIndex]="currentPage()"
+    [length]="filteredIconsCount()"
     (page)="handlePageChange($event)"
     aria-label="Select icon page"
   />
+} @else {
+  <sbb-notification type="warn" readOnly>
+    <sbb-title level="5"> Icons not found. </sbb-title>
+    Please try with different filters.
+  </sbb-notification>
 }
 
 <p>
