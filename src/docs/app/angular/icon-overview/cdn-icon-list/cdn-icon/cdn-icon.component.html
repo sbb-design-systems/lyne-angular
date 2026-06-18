@@ -1,11 +1,13 @@
 <button
-  class="sbb-cdn-icon__icon-wrapper"
+  class="cdn-icon-wrapper"
   [sbb-tooltip]="cdnIconPath()"
   sbb-tooltip-position="block-end"
   (click)="openDialog()"
 >
-  <sbb-icon [name]="cdnIconPath()"></sbb-icon>
+  <div class="cdn-icon">
+    <sbb-icon [name]="cdnIconPath()"></sbb-icon>
+  </div>
+  <div class="cdn-icon-path">
+    {{ cdnIconPath() }}
+  </div>
 </button>
-<span class="sbb-cdn-icon__icon-path">
-  {{ cdnIconPath() }}
-</span>
