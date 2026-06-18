@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
+import type { SbbButton } from '@sbb-esta/lyne-angular/button';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
@@ -20,7 +21,7 @@ export class ButtonVariantsExample {
       disabled: false,
       loading: false,
       variant: 'label',
-      size: null,
+      size: null as SbbButton['size'],
     }),
   );
 }
