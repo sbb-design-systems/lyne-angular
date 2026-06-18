@@ -2,7 +2,7 @@ import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angul
 import type { AbstractControl, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
-import { readConfig, defaultDateAdapter } from '@sbb-esta/lyne-elements/core.js';
+import { defaultDateAdapter, readConfig } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbDateInputAssociated } from '@sbb-esta/lyne-elements/date-input.pure.js';
 import { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.pure.js';
 import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.pure.js';
@@ -19,6 +19,7 @@ import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.pu
     '(beforeinput)': 'this._onBeforeInput()',
     '(input)': 'this._onInput()',
     '(invalid)': 'this.validatorOnChange()',
+    '(validity)': 'this.validatorOnChange()',
   },
   providers: [
     { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SbbDateInput), multi: true },
@@ -100,10 +101,10 @@ export class SbbDateInput<T = Date>
    * this filter.
    */
   @Input()
-  public set dateFilter(value: (date: T | null) => boolean) {
+  public set dateFilter(value: (date: T) => boolean) {
     this.#runWithValidationCheck(() => (this.#element.nativeElement.dateFilter = value));
   }
-  public get dateFilter(): (date: T | null) => boolean {
+  public get dateFilter(): (date: T) => boolean {
     return this.#element.nativeElement.dateFilter;
   }
 

@@ -1,4 +1,4 @@
-import { Directive, inject, InjectionToken, TemplateRef } from '@angular/core';
+import { Directive, forwardRef, inject, InjectionToken, TemplateRef } from '@angular/core';
 
 export const SBB_EXPANSION_PANEL_CONTENT = new InjectionToken<SbbExpansionPanelContentDirective>(
   'SbbExpansionPanelContentDirective',
@@ -7,7 +7,10 @@ export const SBB_EXPANSION_PANEL_CONTENT = new InjectionToken<SbbExpansionPanelC
 @Directive({
   selector: '[sbbExpansionPanelContent]',
   providers: [
-    { provide: SBB_EXPANSION_PANEL_CONTENT, useExisting: SbbExpansionPanelContentDirective },
+    {
+      provide: SBB_EXPANSION_PANEL_CONTENT,
+      useExisting: forwardRef(() => SbbExpansionPanelContentDirective),
+    },
   ],
 })
 export class SbbExpansionPanelContentDirective {

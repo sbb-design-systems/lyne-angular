@@ -1,6 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { computed, inject, Service, signal } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
+import { computed, effect, inject, Service, signal, untracked } from '@angular/core';
 import type {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -8,7 +7,7 @@ import type {
   UrlTree,
 } from '@angular/router';
 import { Router } from '@angular/router';
-import { type Observable, startWith } from 'rxjs';
+import { type Observable } from 'rxjs';
 
 const themeLocalstorageKey = 'sbbTheme';
 
@@ -37,21 +36,26 @@ export class ThemeController implements CanActivate {
   size = computed(() => (this.#theme().startsWith('standard') ? 'standard' : 'lean'));
   fileName = computed(() => {
     const fileName = this.#theme().replace('standard-', '');
-    return fileName === 'theme' ? 'standard-theme' : fileName;
+    const normalizedName = fileName === 'theme' ? 'standard-theme' : fileName;
+
+    return `${normalizedName}-theme.css`;
   });
 
   constructor() {
-    toObservable(this.fileName)
-      .pipe(startWith(this.fileName()))
-      .subscribe((cssFileName) => {
-        this.#document.head
-          .querySelector('#theme')
-          ?.setAttribute('href', `assets/themes/angular/${cssFileName}-theme.css`);
-        this.#document.head
-          .querySelector('#theme-experimental')
-          ?.setAttribute('href', `assets/themes/angular-experimental/${cssFileName}-theme.css`);
-        localStorage.setItem(themeLocalstorageKey, this.#theme());
-      });
+    effect(() => {
+      const fileName = this.fileName();
+
+      this.#document.head
+        .querySelector('#theme')
+        ?.setAttribute('href', `assets/themes/angular/${fileName}`);
+      this.#document.head
+        .querySelector('#theme-experimental')
+        ?.setAttribute('href', `assets/themes/angular-experimental/${fileName}`);
+      localStorage.setItem(
+        themeLocalstorageKey,
+        untracked(() => this.#theme()),
+      );
+    });
   }
 
   setBrand(offBrand: 'default' | 'off-brand' | 'safety') {

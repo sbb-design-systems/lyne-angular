@@ -21,7 +21,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   breadcrumb: ['breadcrumb-basic'],
   button: ['button-basic', 'mini-button-basic'],
   calendar: ['calendar-basic', 'calendar-reactive', 'calendar-fixed-month'],
-  card: ['card-basic'],
+  card: ['card-basic', 'card-link', 'card-button'],
   carousel: ['carousel-basic'],
   checkbox: ['checkbox-basic'],
   'checkbox-group': ['checkbox-group-basic'],
@@ -39,7 +39,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'flip-card': ['flip-card-basic'],
   footer: ['footer-basic', 'footer-clock'],
   'form-field': [
-    { id: 'form-field-basic', hasStyle: true },
+    'form-field-basic',
     'form-field-native-select',
     'form-field-clear',
     'form-field-hint',
@@ -150,6 +150,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'calendar-reactive':
       return import('../angular/examples/calendar');
     case 'card-basic':
+    case 'card-button':
+    case 'card-link':
       return import('../angular/examples/card');
     case 'carousel-basic':
       return import('../angular/examples/carousel');

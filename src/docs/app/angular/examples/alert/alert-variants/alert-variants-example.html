@@ -11,22 +11,23 @@
 </sbb-alert>
 
 <sbb-title level="5">Properties</sbb-title>
-<sbb-action-group class="sbb-orientation-vertical">
-  <sbb-radio-button-group orientation="vertical" [formField]="controls.iconName">
-    <label>Icon</label>
-    <sbb-radio-button [value]="null">info (default)</sbb-radio-button>
-    <sbb-radio-button value="attention">attention</sbb-radio-button>
-    <sbb-radio-button value="disruption">disruption</sbb-radio-button>
-  </sbb-radio-button-group>
-  <sbb-radio-button-group orientation="vertical" [formField]="controls.size">
-    <label>Size</label>
+<div class="sbb-controls-table">
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>
     <sbb-radio-button value="s">s</sbb-radio-button>
     <sbb-radio-button value="m">m</sbb-radio-button>
     <sbb-radio-button value="l">l</sbb-radio-button>
   </sbb-radio-button-group>
-  <sbb-radio-button-group orientation="vertical" [formField]="controls.readOnly">
-    <label>Readonly</label>
-    <sbb-radio-button [value]="false">False</sbb-radio-button>
-    <sbb-radio-button [value]="true">True</sbb-radio-button>
+
+  <label>Icon</label>
+  <sbb-radio-button-group aria-label="Icon" [formField]="controls.iconName" allowEmptySelection>
+    <sbb-radio-button [value]="null">info (default)</sbb-radio-button>
+    <sbb-radio-button value="attention">attention</sbb-radio-button>
+    <sbb-radio-button value="disruption">disruption</sbb-radio-button>
   </sbb-radio-button-group>
-</sbb-action-group>
+
+  <label for="readonly">Readonly</label>
+  <sbb-checkbox-group>
+    <sbb-checkbox id="readonly" [formField]="controls.readOnly"></sbb-checkbox>
+  </sbb-checkbox-group>
+</div>

@@ -1,5 +1,18 @@
 # Changelog
 
+## [22.0.2](https://github.com/sbb-design-systems/lyne-angular/compare/v22.0.1...v22.0.2) (2026-06-15)
+
+
+### Bug Fixes
+
+* fix validation with signal forms ([#420](https://github.com/sbb-design-systems/lyne-angular/issues/420)) ([8374e01](https://github.com/sbb-design-systems/lyne-angular/commit/8374e01bb21f840299e6d1e97743a0f936525a7f))
+
+
+### Documentation
+
+* **alert:** add controls-table class ([#407](https://github.com/sbb-design-systems/lyne-angular/issues/407)) ([4647558](https://github.com/sbb-design-systems/lyne-angular/commit/46475581e117e7b4ddb92aac8d08e7078a7cafb7))
+* fix theme file name ([#417](https://github.com/sbb-design-systems/lyne-angular/issues/417)) ([4c1df9d](https://github.com/sbb-design-systems/lyne-angular/commit/4c1df9d058e46fdf27accaf380299d7c9d507eed))
+
 ## [22.0.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.0.0...v22.0.1) (2026-06-11)
 
 

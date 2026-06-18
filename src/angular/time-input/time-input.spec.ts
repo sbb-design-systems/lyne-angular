@@ -65,6 +65,15 @@ describe('sbb-time-input', () => {
 
       expect(component.control().value()).toEqual(new Date('1970-01-01T12:12:00'));
     });
+
+    it('should be invalid and have errors when user types 12345', async () => {
+      lyneElement.dispatchEvent(new InputEvent('beforeinput'));
+      lyneElement.textContent = '12345';
+      lyneElement.dispatchEvent(new InputEvent('input'));
+
+      expect(component.control().valid()).toBe(false);
+      expect(component.control().errors()).not.toBeNull();
+    });
   });
 
   describe('reactive forms', () => {
@@ -178,6 +187,15 @@ describe('sbb-time-input', () => {
       expect(component.control.valid).toBe(true);
       expect(component.control.value).not.toBeNull();
       expect(component.control.value).toEqual(new Date('1970-01-01T12:12:00'));
+    });
+
+    it('should be invalid and have errors when user types 12345', async () => {
+      lyneElement.dispatchEvent(new InputEvent('beforeinput'));
+      lyneElement.textContent = '12345';
+      lyneElement.dispatchEvent(new InputEvent('input'));
+
+      expect(component.control.valid).toBe(false);
+      expect(component.control.errors).not.toBeNull();
     });
   });
 });
