@@ -1,4 +1,5 @@
 import { Component, inject, input } from '@angular/core';
+import type { SbbDialog } from '@sbb-esta/lyne-angular/dialog';
 import { SbbDialogService } from '@sbb-esta/lyne-angular/dialog';
 import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
 import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
@@ -24,6 +25,7 @@ export class CdnIconComponent {
 
   openDialog() {
     this.dialogService.open(CdnIconDialogComponent, {
+      setupContainer: (dialog: SbbDialog) => (dialog.backdrop = 'translucent'),
       data: { cdnIcon: this.cdnIcon() },
     });
   }

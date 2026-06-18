@@ -1,7 +1,15 @@
-.sbb-cdn-icon-dialog__content {
+@use '@sbb-esta/lyne-elements' as sbb;
+
+.cdn-icon-dialog-content {
   display: flex;
   flex-direction: column;
   gap: var(--sbb-spacing-fixed-4x);
+}
+
+sbb-dialog-content {
+  @include sbb.mq($from: small) {
+    width: sbb.px-to-rem-build(480);
+  }
 }
 
 code {
