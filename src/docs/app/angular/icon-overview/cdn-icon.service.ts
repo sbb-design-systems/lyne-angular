@@ -9,7 +9,7 @@ export interface CdnIcon {
   tags: (string | null)[];
 }
 
-interface CdnIconsResponse {
+export interface CdnIconsResponse {
   version: string;
   icons: CdnIcon[];
 }
@@ -20,21 +20,14 @@ interface CdnPictogramsResponse {
 }
 
 export interface CdnIcons {
-  deprecatedVersion: string;
   iconVersion: string;
   pictoVersion: string;
   icons: CdnIcon[];
 }
 
-const pictoDefault: Partial<CdnIcon> = { namespace: 'picto' };
-
 @Service()
 export class CdnIconService {
   #http: HttpClient = inject(HttpClient);
-
-  loadDeprecated(): Observable<CdnIconsResponse> {
-    return this.#http.get<CdnIconsResponse>('https://icons.app.sbb.ch/index.json');
-  }
 
   loadIcons(): Observable<CdnIconsResponse> {
     return this.#http.get<CdnIconsResponse>('https://icons.app.sbb.ch/icons/index.json');
@@ -43,7 +36,7 @@ export class CdnIconService {
   loadPictos(): Observable<CdnIconsResponse> {
     return this.#http.get<CdnPictogramsResponse>('https://icons.app.sbb.ch/picto/index.json').pipe(
       map((res) => ({
-        icons: res.picto.map((icon) => ({ ...pictoDefault, ...icon })),
+        icons: res.picto.map((icon) => ({ ...icon, namespace: 'picto' })),
         version: res.version,
       })),
     );

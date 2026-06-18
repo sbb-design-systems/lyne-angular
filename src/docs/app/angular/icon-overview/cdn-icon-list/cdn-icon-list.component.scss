@@ -1,6 +1,6 @@
 @use '@sbb-esta/lyne-elements' as sbb;
 
-.sbb-cdn-icon-list__items {
+.cdn-icon-list-items {
   display: flex;
   flex-wrap: wrap;
   gap: var(--sbb-spacing-fixed-4x);
@@ -9,4 +9,8 @@
 
 sbb-cdn-icon {
   width: sbb.px-to-rem-build(100);
+}
+
+p {
+  font-size: var(--sbb-text-font-size-xs);
 }

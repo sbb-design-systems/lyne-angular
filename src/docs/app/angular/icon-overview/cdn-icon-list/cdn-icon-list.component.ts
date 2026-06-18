@@ -29,14 +29,13 @@ export class CdnIconListComponent {
   cdnIcons = input.required<CdnIcons>();
   paginator = viewChild(SbbPaginator);
   protected readonly currentPage = signal<number>(0);
-  protected readonly namespaces = ['icon', 'picto', 'kom', 'fpl'];
-  protected readonly deprecatedNamespaces = ['kom', 'fpl'];
+  protected readonly namespaces = ['icon', 'picto'];
   protected readonly pageSize: number = 50;
 
   protected readonly filterForm = form(
     signal({
       fulltext: '',
-      namespaces: this.namespaces.filter((ns) => !this.deprecatedNamespaces.includes(ns)),
+      namespaces: this.namespaces,
     }),
   );
 

@@ -9,7 +9,7 @@
     <sbb-select placeholder="Namespaces" [formField]="filterForm.namespaces" multiple>
       @for (namespace of namespaces; track namespace) {
         <sbb-option [value]="namespace">
-          {{ namespace + (deprecatedNamespaces.includes(namespace) ? ' (deprecated)' : '') }}
+          {{ namespace }}
         </sbb-option>
       }
     </sbb-select>
@@ -17,7 +17,7 @@
 </form>
 
 @if (filteredIcons().length > 0) {
-  <div class="sbb-cdn-icon-list__items">
+  <div class="cdn-icon-list-items">
     @for (cdnIcon of filteredIcons(); track cdnIcon.name) {
       <sbb-cdn-icon [cdnIcon]="cdnIcon" />
     }
@@ -33,5 +33,4 @@
 <p>
   Icon CDN Version: {{ cdnIcons().iconVersion }}<br />
   Picto CDN Version: {{ cdnIcons().pictoVersion }}<br />
-  Deprecated Icon CDN Version: {{ cdnIcons().deprecatedVersion }}
 </p>

@@ -5,6 +5,7 @@ import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { CdnIconListComponent } from './cdn-icon-list/cdn-icon-list.component';
+import type { CdnIcons, CdnIconsResponse } from './cdn-icon.service';
 import { CdnIconService } from './cdn-icon.service';
 
 @Component({
@@ -16,17 +17,14 @@ export class IconOverviewComponent {
   #iconCdnService = inject(CdnIconService);
 
   cdnIcons = toSignal(
-    forkJoin([
-      this.#iconCdnService.loadDeprecated(),
-      this.#iconCdnService.loadIcons(),
-      this.#iconCdnService.loadPictos(),
-    ]).pipe(
-      map(([deprecated, icons, pictos]) => ({
-        deprecatedVersion: deprecated.version,
-        iconVersion: icons.version,
-        pictoVersion: pictos.version,
-        icons: icons.icons.concat(deprecated.icons, pictos.icons),
-      })),
+    forkJoin([this.#iconCdnService.loadIcons(), this.#iconCdnService.loadPictos()]).pipe(
+      map(
+        ([icons, pictos]: [CdnIconsResponse, CdnIconsResponse]): CdnIcons => ({
+          iconVersion: icons.version,
+          pictoVersion: pictos.version,
+          icons: icons.icons.concat(pictos.icons),
+        }),
+      ),
     ),
   );
 }
