@@ -1,0 +1,11 @@
+<sbb-calendar [formField]="form.calendar" (monthchange)="onMonthChanged($event)">
+  @for (day of daysOfMonth(); track day) {
+  <sbb-calendar-day [slot]="day">
+    @if (day.substring(day.length - 1) === '2') {
+    <span class="price deal-price">99.-</span>
+    } @else {
+    <span class="price">123.-</span>
+    }
+  </sbb-calendar-day>
+  }
+</sbb-calendar>

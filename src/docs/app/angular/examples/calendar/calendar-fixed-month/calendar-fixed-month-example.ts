@@ -3,7 +3,7 @@ import { SbbCalendarModule } from '@sbb-esta/lyne-angular/calendar';
 
 /**
  * @title Calendar with fixed month
- * @order 1
+ * @order 10
  */
 @Component({
   selector: 'sbb-calendar-fixed-month-example',

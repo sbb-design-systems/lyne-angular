@@ -5,7 +5,7 @@ import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 
 /**
  * @title Reactive form integration
- * @order 1
+ * @order 2
  */
 @Component({
   selector: 'sbb-calendar-reactive-form-example',

@@ -134,14 +134,7 @@ export class SbbCalendar<T = Date> extends SbbControlValueAccessorMixin(class {}
    */
   @Input({ transform: booleanAttribute })
   public set multiple(value: boolean) {
-    const hasChanged = value !== this.multiple;
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.multiple = value));
-
-    // When 'multiple' changes, the 'value' type changes from Date to array and vice versa.
-    // We have to notify the ng form of the format change.
-    if (hasChanged && this.value) {
-      this.onChangeFn(this.value);
-    }
   }
   public get multiple(): boolean {
     return this.#element.nativeElement.multiple;
@@ -262,4 +255,10 @@ export class SbbCalendar<T = Date> extends SbbControlValueAccessorMixin(class {}
   public resetPosition(): void {
     return this.#element.nativeElement.resetPosition();
   }
+
+  protected _validityOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, { alias: 'validity' });
+  /**
+   * The validity event is dispatched whenever the validity state of the element changes.
+   */
+  public validityOutput: OutputRef<Event> = internalOutputFromObservable(fromEvent<Event>(this.#element.nativeElement, 'validity'));
 }

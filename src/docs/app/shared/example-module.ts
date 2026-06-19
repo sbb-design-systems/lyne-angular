@@ -23,8 +23,9 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   calendar: [
     'calendar-basic',
     'calendar-reactive-form',
-    'calendar-fixed-month',
     'calendar-with-filter',
+    { id: 'calendar-enhanced', hasStyle: true },
+    'calendar-fixed-month',
   ],
   card: ['card-basic', 'card-link', 'card-button'],
   carousel: ['carousel-basic'],
@@ -148,6 +149,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'button-basic':
       return import('../angular/examples/button');
     case 'calendar-basic':
+    case 'calendar-enhanced':
     case 'calendar-fixed-month':
     case 'calendar-reactive-form':
     case 'calendar-with-filter':
