@@ -21,8 +21,8 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   breadcrumb: ['breadcrumb-basic'],
   button: [
     'button-variants',
-    'button-link-variants',
-    'button-static-variants',
+    'button-link-basic',
+    'button-static-basic',
     'mini-button-group',
     'mini-button-variants',
   ],
@@ -148,8 +148,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/badge');
     case 'breadcrumb-basic':
       return import('../angular/examples/breadcrumb');
-    case 'button-link-variants':
-    case 'button-static-variants':
+    case 'button-link-basic':
+    case 'button-static-basic':
     case 'button-variants':
       return import('../angular/examples/button');
     case 'calendar-basic':
