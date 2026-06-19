@@ -13,7 +13,7 @@ import { CdnIconService } from './cdn-icon.service';
 export class IconOverviewComponent {
   #iconCdnService = inject(CdnIconService);
 
-  readonly cdnIcons = computed<CdnIcons | undefined>(() => {
+  protected readonly cdnIcons = computed<CdnIcons | undefined>(() => {
     const iconsData = this.#iconCdnService.iconsResource.value();
     const pictosData = this.#iconCdnService.pictosResource.value();
 

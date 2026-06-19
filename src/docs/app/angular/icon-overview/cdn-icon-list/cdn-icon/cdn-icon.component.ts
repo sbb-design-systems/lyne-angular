@@ -25,7 +25,7 @@ export class CdnIconComponent {
   openDialog(): void {
     this.dialogService.open(CdnIconDialogComponent, {
       setupContainer: (dialog: SbbDialog) => (dialog.backdrop = 'translucent'),
-      data: { cdnIcon: this.cdnIcon() },
+      data: { cdnIconPath: this.cdnIconPath(), tags: (this.cdnIcon().tags || []).join(', ') },
     });
   }
 }
