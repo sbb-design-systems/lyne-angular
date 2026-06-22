@@ -40,14 +40,22 @@
 <sbb-title level="5">Properties</sbb-title>
 <div class="sbb-controls-table">
   <label for="multiple">Allows for multiple panel opened</label>
-  <sbb-checkbox id="multiple" [formField]="controls.multi"></sbb-checkbox>
+  <sbb-checkbox-group>
+    <sbb-checkbox id="multiple" [formField]="controls.multi"></sbb-checkbox>
+  </sbb-checkbox-group>
 
   <label for="size">Small size</label>
-  <sbb-checkbox id="size" [formField]="controls.smallSize"></sbb-checkbox>
+  <sbb-checkbox-group>
+    <sbb-checkbox id="size" [formField]="controls.smallSize"></sbb-checkbox>
+  </sbb-checkbox-group>
 
   <label for="icon">Icon on header</label>
-  <sbb-checkbox id="icon" [formField]="controls.iconPanel"></sbb-checkbox>
+  <sbb-checkbox-group>
+    <sbb-checkbox id="icon" [formField]="controls.iconPanel"></sbb-checkbox>
+  </sbb-checkbox-group>
 
   <label for="disable">Disable second panel</label>
-  <sbb-checkbox id="disable" [formField]="controls.disablePanel"></sbb-checkbox>
+  <sbb-checkbox-group>
+    <sbb-checkbox id="disable" [formField]="controls.disablePanel"></sbb-checkbox>
+  </sbb-checkbox-group>
 </div>

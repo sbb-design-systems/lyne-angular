@@ -17,13 +17,19 @@
 <sbb-title level="5">Form field</sbb-title>
 <div class="sbb-controls-table">
   <label for="borderless">Borderless</label>
-  <sbb-checkbox id="borderless" [formField]="controls.formField.borderless"></sbb-checkbox>
+  <sbb-checkbox-group>
+    <sbb-checkbox id="borderless" [formField]="controls.formField.borderless"></sbb-checkbox>
+  </sbb-checkbox-group>
 
   <label for="floatingLabel">Floating label</label>
-  <sbb-checkbox id="floatingLabel" [formField]="controls.formField.floatingLabel"></sbb-checkbox>
+  <sbb-checkbox-group>
+    <sbb-checkbox id="floatingLabel" [formField]="controls.formField.floatingLabel"></sbb-checkbox>
+  </sbb-checkbox-group>
 
   <label for="hiddenLabel">Hidden label</label>
-  <sbb-checkbox id="hiddenLabel" [formField]="controls.formField.hiddenLabel"></sbb-checkbox>
+  <sbb-checkbox-group>
+    <sbb-checkbox id="hiddenLabel" [formField]="controls.formField.hiddenLabel"></sbb-checkbox>
+  </sbb-checkbox-group>
 
   <label>Size</label>
   <sbb-radio-button-group aria-label="Size" [formField]="controls.formField.size">
@@ -42,8 +48,12 @@
 <sbb-title level="5">Input</sbb-title>
 <div class="sbb-controls-table">
   <label for="disabled">Disabled</label>
-  <sbb-checkbox id="disabled" [formField]="controls.input.disabled"></sbb-checkbox>
+  <sbb-checkbox-group>
+    <sbb-checkbox id="disabled" [formField]="controls.input.disabled"></sbb-checkbox>
+  </sbb-checkbox-group>
 
   <label for="readonly">Readonly</label>
-  <sbb-checkbox id="readonly" [formField]="controls.input.readonly"></sbb-checkbox>
+  <sbb-checkbox-group>
+    <sbb-checkbox id="readonly" [formField]="controls.input.readonly"></sbb-checkbox>
+  </sbb-checkbox-group>
 </div>
