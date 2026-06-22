@@ -1,19 +1,14 @@
-<p>
-  <sbb-chip-label>On sale</sbb-chip-label>
-</p>
+<div class="chip-grid">
+  <p></p>
 
-<p>
-  <sbb-chip-label color="charcoal" size="s">Label</sbb-chip-label>
-</p>
+  @for (color of colors; track color) {
+  <p>{{ color }}</p>
+  } @for (size of sizes; track size) {
+  <p>{{ size }}</p>
 
-<p>
-  <sbb-chip-label color="granite" size="xs">Label</sbb-chip-label>
-</p>
-
-<p>
-  <sbb-chip-label color="white">Label</sbb-chip-label>
-</p>
-
-<p>
-  <sbb-chip-label size="xxxs">Label</sbb-chip-label>
-</p>
+  @for (color of colors; track color) {
+  <p>
+    <sbb-chip-label [color]="color" [size]="size">Label</sbb-chip-label>
+  </p>
+  } }
+</div>

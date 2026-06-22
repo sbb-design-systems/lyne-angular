@@ -27,7 +27,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'checkbox-group': ['checkbox-group-basic'],
   'checkbox-panel': ['checkbox-panel-basic'],
   chip: ['chip-basic'],
-  'chip-label': ['chip-label-basic'],
+  'chip-label': [{ id: 'chip-label-basic', hasStyle: true }],
   clock: ['clock-basic'],
   container: ['container-basic'],
   'date-input': ['date-input-basic'],
