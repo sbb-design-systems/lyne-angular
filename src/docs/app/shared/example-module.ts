@@ -26,7 +26,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   checkbox: ['checkbox-basic'],
   'checkbox-group': ['checkbox-group-basic'],
   'checkbox-panel': ['checkbox-panel-basic'],
-  chip: ['chip-basic'],
+  chip: ['chip-basic', 'chip-autocomplete'],
   'chip-label': ['chip-label-basic'],
   clock: ['clock-basic'],
   container: ['container-basic'],
@@ -161,6 +161,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/checkbox-group');
     case 'checkbox-panel-basic':
       return import('../angular/examples/checkbox-panel');
+    case 'chip-autocomplete':
     case 'chip-basic':
       return import('../angular/examples/chip');
     case 'chip-label-basic':
