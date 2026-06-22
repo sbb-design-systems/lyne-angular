@@ -1,6 +1,12 @@
+@use '@sbb-esta/lyne-elements' as sbb;
+
 .chip-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1fr;
   justify-items: center;
   align-items: center;
+
+  @include sbb.mq($from: small) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
