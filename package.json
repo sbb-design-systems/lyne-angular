@@ -90,7 +90,15 @@
   "prettier": {
     "singleQuote": true,
     "endOfLine": "lf",
-    "printWidth": 100
+    "printWidth": 100,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
   },
   "lint-staged": {
     "*.{js,ts}": [
