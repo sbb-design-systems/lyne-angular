@@ -1,0 +1,63 @@
+<p>
+  <sbb-button
+    [disabled]="controls.disabled().value()"
+    [loading]="controls.loading().value()"
+    [iconName]="['icon', 'both'].includes(controls.variant().value()) ? 'pie-small' : ''"
+    [size]="controls.size().value()"
+  >
+    {{ ['label', 'both'].includes(controls.variant().value()) ? 'Button text' : null }}
+  </sbb-button>
+</p>
+<p>
+  <sbb-secondary-button
+    [disabled]="controls.disabled().value()"
+    [loading]="controls.loading().value()"
+    [iconName]="['icon', 'both'].includes(controls.variant().value()) ? 'dog-small' : ''"
+    [size]="controls.size().value()"
+  >
+    {{ ['label', 'both'].includes(controls.variant().value()) ? 'Button text' : null }}
+  </sbb-secondary-button>
+</p>
+<p>
+  <sbb-accent-button
+    [disabled]="controls.disabled().value()"
+    [loading]="controls.loading().value()"
+    [iconName]="['icon', 'both'].includes(controls.variant().value())  ? 'croissant-small' : ''"
+    [size]="controls.size().value()"
+  >
+    {{ ['label', 'both'].includes(controls.variant().value()) ? 'Button text' : null }}
+  </sbb-accent-button>
+</p>
+<p>
+  <sbb-transparent-button
+    [disabled]="controls.disabled().value()"
+    [loading]="controls.loading().value()"
+    [iconName]="['icon', 'both'].includes(controls.variant().value())  ? 'diamond-small' : ''"
+    [size]="controls.size().value()"
+  >
+    {{ ['label', 'both'].includes(controls.variant().value()) ? 'Button text' : null }}
+  </sbb-transparent-button>
+</p>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Variant</label>
+  <sbb-radio-button-group aria-label="Variant" [formField]="controls.variant">
+    <sbb-radio-button value="label">Label only</sbb-radio-button>
+    <sbb-radio-button value="icon">Icon only</sbb-radio-button>
+    <sbb-radio-button value="both">Both icon and label</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+    <sbb-radio-button value="l">l</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label for="loading">Loading</label>
+  <sbb-checkbox id="loading" [formField]="controls.loading"></sbb-checkbox>
+</div>

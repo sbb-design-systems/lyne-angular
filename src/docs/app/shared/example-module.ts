@@ -19,7 +19,13 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   ],
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
-  button: ['button-basic', 'mini-button-basic'],
+  button: [
+    'button-variants',
+    'button-link-basic',
+    'button-static-basic',
+    'mini-button-group',
+    'mini-button-variants',
+  ],
   calendar: ['calendar-basic', 'calendar-reactive', 'calendar-fixed-month'],
   card: ['card-basic', 'card-link', 'card-button'],
   carousel: ['carousel-basic'],
@@ -142,11 +148,12 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/badge');
     case 'breadcrumb-basic':
       return import('../angular/examples/breadcrumb');
-    case 'button-basic':
+    case 'button-link-basic':
+    case 'button-static-basic':
+    case 'button-variants':
       return import('../angular/examples/button');
     case 'calendar-basic':
     case 'calendar-fixed-month':
-      return import('../angular/examples/calendar');
     case 'calendar-reactive':
       return import('../angular/examples/calendar');
     case 'card-basic':
@@ -237,7 +244,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/menu');
     case 'message-basic':
       return import('../angular/examples/message');
-    case 'mini-button-basic':
+    case 'mini-button-group':
+    case 'mini-button-variants':
       return import('../angular/examples/button');
     case 'mini-calendar-basic':
       return import('../angular/examples/mini-calendar');

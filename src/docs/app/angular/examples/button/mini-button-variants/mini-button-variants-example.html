@@ -1,0 +1,32 @@
+<p>Standalone</p>
+<sbb-mini-button
+  [disabled]="controls.disabled().value()"
+  [iconName]="['icon', 'both'].includes(controls.variant().value()) ? 'pen-small' : ''"
+>
+  {{ ['label', 'both'].includes(controls.variant().value()) ? 'Button text' : null }}
+</sbb-mini-button>
+<p>Form field</p>
+<sbb-form-field>
+  <input />
+  <sbb-mini-button slot="prefix" iconName="circle-information-small"></sbb-mini-button>
+  @if (controls.variant().value() === 'icon') {
+  <sbb-mini-button
+    slot="suffix"
+    iconName="pen-small"
+    [disabled]="controls.disabled().value()"
+  ></sbb-mini-button>
+  }
+</sbb-form-field>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Variant</label>
+  <sbb-radio-button-group aria-label="Variant" [formField]="controls.variant">
+    <sbb-radio-button value="label">Label only</sbb-radio-button>
+    <sbb-radio-button value="icon">Icon only</sbb-radio-button>
+    <sbb-radio-button value="both">Both icon and label</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+</div>
