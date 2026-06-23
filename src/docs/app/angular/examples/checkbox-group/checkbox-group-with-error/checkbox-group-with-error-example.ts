@@ -9,11 +9,11 @@ import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
- * @title Basic checkbox-group
+ * @title checkbox-group with error
  */
 @Component({
-  selector: 'sbb-checkbox-group-basic-example',
-  templateUrl: 'checkbox-group-basic-example.html',
+  selector: 'sbb-checkbox-group-with-error-example',
+  templateUrl: 'checkbox-group-with-error-example.html',
   imports: [
     SbbCheckboxModule,
     SbbTitleModule,
@@ -24,7 +24,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbCardModule,
   ],
 })
-export class CheckboxGroupBasicExample {
+export class CheckboxGroupWithErrorExample {
   protected controls = form(
     signal({
       orientation: 'horizontal' as SbbCheckboxGroup['orientation'],
@@ -32,14 +32,6 @@ export class CheckboxGroupBasicExample {
       disabled: false,
       required: false,
       horizontalFrom: null as SbbCheckboxGroup['horizontalFrom'] | null,
-    }),
-  );
-
-  protected group = form(
-    signal({
-      first: false,
-      second: false,
-      third: false,
     }),
   );
 }

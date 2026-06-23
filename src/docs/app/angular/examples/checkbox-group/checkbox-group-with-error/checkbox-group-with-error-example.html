@@ -1,0 +1,12 @@
+<sbb-checkbox-group
+  [orientation]="controls.orientation().value()"
+  [size]="controls.size().value()"
+  [disabled]="controls.disabled().value()"
+  [required]="controls.required().value()"
+  [horizontalFrom]="controls.horizontalFrom().value()"
+>
+  <sbb-checkbox checked value="checkbox-1">Label 1</sbb-checkbox>
+  <sbb-checkbox value="checkbox-2">Label 2</sbb-checkbox>
+  <sbb-checkbox value="checkbox-3">Label 3</sbb-checkbox>
+  <sbb-error slot="error">This is a required field.</sbb-error>
+</sbb-checkbox-group>
