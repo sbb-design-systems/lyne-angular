@@ -1,5 +1,29 @@
 # Changelog
 
+## [22.0.3](https://github.com/sbb-design-systems/lyne-angular/compare/v22.0.2...v22.0.3) (2026-06-23)
+
+
+### Bug Fixes
+
+* improve prettier config for html files ([#432](https://github.com/sbb-design-systems/lyne-angular/issues/432)) ([6bf0b06](https://github.com/sbb-design-systems/lyne-angular/commit/6bf0b066bcc901fb5523fbf18f31ec130b6952f2))
+* **tooltip:** always load tooltip element ([#422](https://github.com/sbb-design-systems/lyne-angular/issues/422)) ([3a36326](https://github.com/sbb-design-systems/lyne-angular/commit/3a363261c4c627add199eec1d4cf2f66189660c3))
+
+
+### Documentation
+
+* add icon-overview page ([#424](https://github.com/sbb-design-systems/lyne-angular/issues/424)) ([116f9c8](https://github.com/sbb-design-systems/lyne-angular/commit/116f9c8f5f7b0ae349931bcacdd983205626ceee))
+* **button:** add examples ([#425](https://github.com/sbb-design-systems/lyne-angular/issues/425)) ([970225c](https://github.com/sbb-design-systems/lyne-angular/commit/970225c764770da39e95487ebe7f683320021bfd))
+* **card:** add examples ([#421](https://github.com/sbb-design-systems/lyne-angular/issues/421)) ([ca29684](https://github.com/sbb-design-systems/lyne-angular/commit/ca29684d3670510075c86a3a66712d27e142b5d6))
+* **checkbox-panel:** add examples to docs ([#428](https://github.com/sbb-design-systems/lyne-angular/issues/428)) ([18cccb2](https://github.com/sbb-design-systems/lyne-angular/commit/18cccb246eb96d836a3f954801c90b929b4289b4))
+* fix variant panels ([#430](https://github.com/sbb-design-systems/lyne-angular/issues/430)) ([57732c5](https://github.com/sbb-design-systems/lyne-angular/commit/57732c5a251e6404eae6df0c0836507aa1307e05))
+* improve landing page ([#414](https://github.com/sbb-design-systems/lyne-angular/issues/414)) ([d9da596](https://github.com/sbb-design-systems/lyne-angular/commit/d9da59679228f311f1024da8b078fc6b329dfb20))
+* improve styling of controls ([#419](https://github.com/sbb-design-systems/lyne-angular/issues/419)) ([a67f1e9](https://github.com/sbb-design-systems/lyne-angular/commit/a67f1e90f1df54b2ed4df3612251c3e2e2b8ffed))
+
+
+### Code Refactoring
+
+* update lyne-elements ([4fd3751](https://github.com/sbb-design-systems/lyne-angular/commit/4fd37512afc1eba3e9c0fddc2d0335d74774406b))
+
 ## [22.0.2](https://github.com/sbb-design-systems/lyne-angular/compare/v22.0.1...v22.0.2) (2026-06-15)
 
 
