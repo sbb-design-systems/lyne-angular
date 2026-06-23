@@ -47,6 +47,10 @@ export class PackageViewerComponent {
     () => 'assets/selector-map.json',
   );
 
+  #guideKeywordsResource = httpResource<Record<string, Record<string, string[]>>>(
+    () => 'assets/guide-keywords.json',
+  );
+
   protected search = form(signal(''));
 
   protected filteredSections = computed(() => {
@@ -56,10 +60,11 @@ export class PackageViewerComponent {
       return sections;
     }
 
-    // Derive package folder key from package name, e.g. "@sbb-esta/angular" -> "angular"
+    // Derive package folder key from package name, e.g. "@sbb-esta/lyne-angular" -> "angular"
     const packageName = this.package().name ?? '';
     const packageKey = packageName.replace('@sbb-esta/lyne-', '');
     const packageSelectors = (this.#selectorMapResource.value() ?? {})[packageKey] ?? {};
+    const packageGuideKeywords = (this.#guideKeywordsResource.value() ?? {})[packageKey] ?? {};
 
     return sections
       .map((section) => ({
@@ -69,14 +74,25 @@ export class PackageViewerComponent {
             return true;
           }
 
-          // Look up real selectors for this entry from the generated map
           const module = e.link.split('/').at(-1) ?? '';
+
+          // For guide entries: check extracted guide keywords
+          if (e.link.includes('/guides/')) {
+            const guideKeywords = packageGuideKeywords[module] ?? [];
+            return guideKeywords.some((kw) => {
+              const normalized = this.#normalizeString(kw);
+              const normalizedQuery = this.#normalizeString(query);
+              return normalized.includes(normalizedQuery) || normalizedQuery.includes(normalized);
+            });
+          }
+
+          // For component entries: look up real selectors from the generated map
           const selectors = packageSelectors[module] ?? [];
 
           // Normalize camelCase selectors (e.g. "sbbAutocomplete") to kebab-case for comparison
           return selectors.some((sel) => {
-            const normalized = sel.replaceAll('-', '').toLowerCase();
-            const normalizedQuery = query.replaceAll('-', '').toLowerCase();
+            const normalized = this.#normalizeString(sel);
+            const normalizedQuery = this.#normalizeString(query);
             return normalized.includes(normalizedQuery) || normalizedQuery.includes(normalized);
           });
         }),
@@ -88,5 +104,9 @@ export class PackageViewerComponent {
     toObservable(this._sidebar)
       .pipe(finalize(() => this.sidebarToggle.unregister()))
       .subscribe((sidebar) => this.sidebarToggle.register(sidebar));
+  }
+
+  #normalizeString(string: string): string {
+    return string.replaceAll('-', '').replaceAll(' ', '').toLowerCase();
   }
 }

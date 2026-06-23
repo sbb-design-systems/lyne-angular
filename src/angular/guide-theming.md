@@ -1,3 +1,5 @@
+<!-- keywords: a11y, accessibility, alpha, animation, background, bold, brand, characters, color, css, cursor, dark, description, design, error, focus, font, icon-list, inverted, lean, li, light, light, list, negative, off-brand, ol, outline, responsive, roman, safety, sass, screenreader, scrollbar, scss, shadow, step-list, style, success, text, text, theme, token, typography, ul, warning -->
+
 # Theming
 
 This guide provides an overview of the theming capabilities in the Lyne Design System.

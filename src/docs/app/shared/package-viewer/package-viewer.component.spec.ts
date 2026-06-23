@@ -26,7 +26,10 @@ const MOCK_PACKAGE: ShowcaseMetaPackage = {
     },
     {
       name: 'Guides',
-      entries: [{ label: 'Getting started', link: './guides/getting-started' }],
+      entries: [
+        { label: 'Getting started', link: './guides/getting-started' },
+        { label: 'Theming', link: './guides/theming' },
+      ],
     },
   ],
 };
@@ -37,6 +40,21 @@ const MOCK_SELECTOR_MAP: Record<string, Record<string, string[]>> = {
     autocomplete: ['sbb-autocomplete'],
     'form-field': ['sbbFormField', 'sbb-form-field-clear'],
     'getting-started': [],
+  },
+};
+
+const MOCK_GUIDE_KEYWORDS: Record<string, Record<string, string[]>> = {
+  angular: {
+    'getting-started': [
+      'install',
+      'setup',
+      'npm',
+      'yarn',
+      'getting started',
+      'lyne-elements',
+      'schematics',
+    ],
+    theming: ['theme', 'dark mode', 'colors', 'css variables', 'design tokens', 'sass', 'lean'],
   },
 };
 
@@ -84,6 +102,24 @@ describe(`sbb-package-viewer`, () => {
     fixture.detectChanges();
   }
 
+  /** Flush the HTTP request for the guide-keywords */
+  function flushGuideKeywords(
+    map: Record<string, Record<string, string[]>> = MOCK_GUIDE_KEYWORDS,
+  ): void {
+    const req = httpTesting.expectOne('assets/guide-keywords.json');
+    req.flush(map);
+    fixture.detectChanges();
+  }
+
+  /** Flush both HTTP resources at once */
+  function flushAllResources(
+    selectorMap: Record<string, Record<string, string[]>> = MOCK_SELECTOR_MAP,
+    guideKeywords: Record<string, Record<string, string[]>> = MOCK_GUIDE_KEYWORDS,
+  ): void {
+    flushSelectorMap(selectorMap);
+    flushGuideKeywords(guideKeywords);
+  }
+
   /** Type a value into the search input as a real user would */
   function typeSearch(value: string): void {
     const input: HTMLInputElement = fixture.nativeElement.querySelector(
@@ -109,24 +145,25 @@ describe(`sbb-package-viewer`, () => {
   }
 
   it('should create the component', () => {
-    flushSelectorMap();
+    flushAllResources();
     expect(fixture.componentInstance).toBeTruthy();
   });
 
   describe('empty search', () => {
     it('should display all sections and entries when no search term is entered', () => {
-      flushSelectorMap();
+      flushAllResources();
       expect(getRenderedSectionNames()).toEqual(['Components', 'Guides']);
       expect(getRenderedLabels()).toEqual([
         'Button',
         'Autocomplete',
         'Form Field',
         'Getting started',
+        'Theming',
       ]);
     });
 
     it('should display all sections and entries when the search term contains only whitespace', () => {
-      flushSelectorMap();
+      flushAllResources();
       typeSearch('   ');
       expect(getRenderedSectionNames()).toEqual(['Components', 'Guides']);
       expect(getRenderedLabels()).toEqual([
@@ -134,12 +171,13 @@ describe(`sbb-package-viewer`, () => {
         'Autocomplete',
         'Form Field',
         'Getting started',
+        'Theming',
       ]);
     });
   });
 
   describe('label-based search', () => {
-    beforeEach(() => flushSelectorMap());
+    beforeEach(() => flushAllResources());
 
     it('should filter by label (exact match)', () => {
       typeSearch('Button');
@@ -193,7 +231,7 @@ describe(`sbb-package-viewer`, () => {
   });
 
   describe('selector-based search (via selector-map)', () => {
-    beforeEach(() => flushSelectorMap());
+    beforeEach(() => flushAllResources());
 
     it('should find an entry via camelCase selector', () => {
       typeSearch('sbbAutocomplete');
@@ -235,9 +273,91 @@ describe(`sbb-package-viewer`, () => {
     });
 
     it('should render no links when the selector-map has an empty array for an entry', () => {
-      // "getting-started" has an empty selector array → no selector match
-      typeSearch('sbbGettingStarted');
+      // "special-keyword" has an empty selector array → no selector match
+      typeSearch('sbbSpecialKeyword');
       expect(getRenderedLabels()).toHaveLength(0);
+    });
+
+    it('should not match component entries via guide keywords', () => {
+      // "npm" is a guide keyword but should not match any component entry
+      typeSearch('npm');
+      expect(getRenderedLabels()).not.toContain('Button');
+      expect(getRenderedLabels()).not.toContain('Autocomplete');
+      expect(getRenderedLabels()).not.toContain('Form Field');
+    });
+  });
+
+  describe('guide-keyword-based search (via guide-keywords)', () => {
+    beforeEach(() => flushAllResources());
+
+    it('should find a guide entry by an exact keyword', () => {
+      typeSearch('npm');
+      expect(getRenderedLabels()).toEqual(['Getting started']);
+      expect(getRenderedSectionNames()).toEqual(['Guides']);
+    });
+
+    it('should find a guide entry by a partial keyword match', () => {
+      // "schematics" contains "schema"
+      typeSearch('schema');
+      expect(getRenderedLabels()).toContain('Getting started');
+    });
+
+    it('should be case-insensitive for keyword matching', () => {
+      typeSearch('NPM');
+      expect(getRenderedLabels()).toContain('Getting started');
+    });
+
+    it('should match a multi-word keyword (e.g. "dark mode")', () => {
+      typeSearch('dark mode');
+      expect(getRenderedLabels()).toEqual(['Theming']);
+      expect(getRenderedSectionNames()).toEqual(['Guides']);
+    });
+
+    it('should match a partial query against a multi-word keyword', () => {
+      // "dark" is a partial match for the keyword "dark mode"
+      typeSearch('dark');
+      expect(getRenderedLabels()).toContain('Theming');
+    });
+
+    it('should match a hyphenated keyword (e.g. "lyne-elements")', () => {
+      typeSearch('lyne-elements');
+      expect(getRenderedLabels()).toContain('Getting started');
+    });
+
+    it('should match query "css" against keyword "css variables"', () => {
+      typeSearch('css');
+      expect(getRenderedLabels()).toContain('Theming');
+    });
+
+    it('should distinguish between guides by keyword', () => {
+      // "yarn" is only in getting-started, not in theming
+      typeSearch('yarn');
+      expect(getRenderedLabels()).toEqual(['Getting started']);
+      expect(getRenderedLabels()).not.toContain('Theming');
+    });
+
+    it('should return both guides when a keyword matches both', () => {
+      // Both guides have "theme"-related match: "theming" label match + keyword match
+      // Search for "sass" which is only in theming keywords
+      typeSearch('sass');
+      expect(getRenderedLabels()).toEqual(['Theming']);
+    });
+
+    it('should render no guide links when no keyword matches', () => {
+      typeSearch('xyz-no-keyword-match');
+      expect(getRenderedLabels()).toHaveLength(0);
+    });
+
+    it('should not use guide keywords for component entries', () => {
+      // "npm" is a guide keyword; component entries must not be found by it
+      typeSearch('npm');
+      expect(getRenderedSectionNames()).not.toContain('Components');
+    });
+
+    it('should correctly derive the package key for guide-keywords lookup', () => {
+      // "@sbb-esta/lyne-angular" → key "angular", data stored under guideKeywords["angular"]
+      typeSearch('design tokens');
+      expect(getRenderedLabels()).toContain('Theming');
     });
   });
 
@@ -246,8 +366,9 @@ describe(`sbb-package-viewer`, () => {
       // HTTP request not yet flushed → selector-map not yet loaded
       typeSearch('button');
       expect(getRenderedLabels()).toContain('Button');
-      // Request still open: flush now so that afterEach verify() passes
+      // Flush both so afterEach verify() passes
       flushSelectorMap();
+      flushGuideKeywords();
     });
 
     it('should render no results via selector while the map has not been loaded yet', () => {
@@ -255,20 +376,66 @@ describe(`sbb-package-viewer`, () => {
       typeSearch('sbbAutocomplete');
       expect(getRenderedLabels()).toHaveLength(0);
       flushSelectorMap();
+      flushGuideKeywords();
+    });
+  });
+
+  describe('guide-keywords not yet loaded', () => {
+    it('should still display label matches while guide-keywords are loading', () => {
+      flushSelectorMap();
+      typeSearch('theming');
+      // "Theming" label matches without needing the keywords map
+      expect(getRenderedLabels()).toContain('Theming');
+      flushGuideKeywords();
+    });
+
+    it('should render no keyword matches while guide-keywords have not been loaded yet', () => {
+      flushSelectorMap();
+      // "npm" only matches via guide keyword, not via label or selector
+      typeSearch('npm');
+      expect(getRenderedLabels()).toHaveLength(0);
+      flushGuideKeywords();
     });
   });
 
   describe('empty selector-map', () => {
     it('should still display label matches with an empty selector-map', () => {
       flushSelectorMap({});
+      flushGuideKeywords();
       typeSearch('button');
       expect(getRenderedLabels()).toContain('Button');
     });
 
     it('should render no selector matches when the package key is missing from the map', () => {
       flushSelectorMap({ other: { button: ['sbbButton'] } });
+      flushGuideKeywords();
       typeSearch('sbbButton');
       // No entry for "angular" in the map → no selector match
+      expect(getRenderedLabels()).toHaveLength(0);
+    });
+  });
+
+  describe('empty guide-keywords map', () => {
+    it('should still display label matches with an empty guide-keywords map', () => {
+      flushSelectorMap();
+      flushGuideKeywords({});
+      typeSearch('theming');
+      expect(getRenderedLabels()).toContain('Theming');
+    });
+
+    it('should render no keyword matches when the package key is missing from the guide-keywords map', () => {
+      flushSelectorMap();
+      flushGuideKeywords({ other: { 'getting-started': ['npm'] } });
+      typeSearch('npm');
+      // No entry for "angular" in the map → no keyword match
+      expect(getRenderedLabels()).toHaveLength(0);
+    });
+
+    it('should render no keyword matches when the guide has no entry in the map', () => {
+      flushSelectorMap();
+      // "theming" has no entry in the keywords map
+      flushGuideKeywords({ angular: { 'getting-started': ['npm'] } });
+      typeSearch('sass');
       expect(getRenderedLabels()).toHaveLength(0);
     });
   });
