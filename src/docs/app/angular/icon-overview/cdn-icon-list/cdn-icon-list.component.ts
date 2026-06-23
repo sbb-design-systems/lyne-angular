@@ -41,6 +41,7 @@ export class CdnIconListComponent {
   );
 
   constructor() {
+    //The effect will run whenever the fulltext or the namespaces change value, resetting the page to zero.
     effect(() => {
       this.filterForm.fulltext().value();
       this.filterForm.namespaces().value();

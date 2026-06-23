@@ -15,14 +15,14 @@ import { CdnIconDialogComponent } from '../cdn-icon-dialog/cdn-icon-dialog.compo
 })
 export class CdnIconComponent {
   cdnIcon = input.required<CdnIcon>();
-  cdnIconPath = computed(() => {
+  protected cdnIconPath = computed(() => {
     return this.cdnIcon().namespace
       ? `${this.cdnIcon().namespace}:${this.cdnIcon().name}`
       : this.cdnIcon().name;
   });
   protected readonly dialogService = inject(SbbDialogService);
 
-  openDialog(): void {
+  protected openDialog(): void {
     this.dialogService.open(CdnIconDialogComponent, {
       setupContainer: (dialog: SbbDialog) => (dialog.backdrop = 'translucent'),
       data: { cdnIconPath: this.cdnIconPath(), tags: (this.cdnIcon().tags || []).join(', ') },
