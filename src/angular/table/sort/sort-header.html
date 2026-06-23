@@ -21,32 +21,32 @@ The approach is based off of: https://dequeuniversity.com/library/aria/tables/sf
 
   <!-- Disable animations while a current animation is running -->
   @if (_renderArrow()) {
-  <div [ngClass]="_getArrowContainerClass()">
-    <!-- This is a modified version of the sbb arrow-down-small icon to support the animation -->
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      preserveAspectRatio="xMidYMid meet"
-      focusable="false"
-    >
-      <path
-        fill="none"
-        fill-rule="evenodd"
-        stroke="currentColor"
-        stroke-width="1"
-        d="M11.5,5.75 L11.5,18.25"
-      ></path>
-      <path
-        fill="none"
-        fill-rule="evenodd"
-        stroke="currentColor"
-        stroke-width="1"
-        d="M7.5,14.25 L11.5,18.25 L15.5,14.25"
-        [ngClass]="_getArrowClass()"
-      ></path>
-    </svg>
-  </div>
+    <div [ngClass]="_getArrowContainerClass()">
+      <!-- This is a modified version of the sbb arrow-down-small icon to support the animation -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        preserveAspectRatio="xMidYMid meet"
+        focusable="false"
+      >
+        <path
+          fill="none"
+          fill-rule="evenodd"
+          stroke="currentColor"
+          stroke-width="1"
+          d="M11.5,5.75 L11.5,18.25"
+        ></path>
+        <path
+          fill="none"
+          fill-rule="evenodd"
+          stroke="currentColor"
+          stroke-width="1"
+          d="M7.5,14.25 L11.5,18.25 L15.5,14.25"
+          [ngClass]="_getArrowClass()"
+        ></path>
+      </svg>
+    </div>
   }
 </div>

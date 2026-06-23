@@ -3,11 +3,11 @@
   <input [formField]="control" />
   <sbb-autocomplete>
     @for (option of filteredOptions(); track option) {
-    <sbb-option [value]="option">{{ option }}</sbb-option>
+      <sbb-option [value]="option">{{ option }}</sbb-option>
     }
     <sbb-optgroup label="Static Options">
       @for (option of staticOptions; track option) {
-      <sbb-option [value]="option">{{ option }}</sbb-option>
+        <sbb-option [value]="option">{{ option }}</sbb-option>
       }
       <sbb-option-hint>Hint for option group</sbb-option-hint>
     </sbb-optgroup>
@@ -15,5 +15,7 @@
 </sbb-form-field>
 
 <p>
-  <sbb-card color="milk">Selected value: <code>{{ control().value() | json }}</code></sbb-card>
+  <sbb-card color="milk">
+    Selected value: <code>{{ control().value() | json }}</code>
+  </sbb-card>
 </p>

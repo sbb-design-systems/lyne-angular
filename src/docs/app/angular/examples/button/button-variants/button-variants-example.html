@@ -22,7 +22,7 @@
   <sbb-accent-button
     [disabled]="controls.disabled().value()"
     [loading]="controls.loading().value()"
-    [iconName]="['icon', 'both'].includes(controls.variant().value())  ? 'croissant-small' : ''"
+    [iconName]="['icon', 'both'].includes(controls.variant().value()) ? 'croissant-small' : ''"
     [size]="controls.size().value()"
   >
     {{ ['label', 'both'].includes(controls.variant().value()) ? 'Button text' : null }}
@@ -32,7 +32,7 @@
   <sbb-transparent-button
     [disabled]="controls.disabled().value()"
     [loading]="controls.loading().value()"
-    [iconName]="['icon', 'both'].includes(controls.variant().value())  ? 'diamond-small' : ''"
+    [iconName]="['icon', 'both'].includes(controls.variant().value()) ? 'diamond-small' : ''"
     [size]="controls.size().value()"
   >
     {{ ['label', 'both'].includes(controls.variant().value()) ? 'Button text' : null }}
