@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SbbAutocompleteModule } from '@sbb-esta/lyne-angular/autocomplete';
-import { SbbChip, SbbChipModule } from '@sbb-esta/lyne-angular/chip';
+import { SbbChipModule } from '@sbb-esta/lyne-angular/chip';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
@@ -10,6 +10,6 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 @Component({
   selector: 'sbb-chip-autocomplete-example',
   templateUrl: 'chip-autocomplete-example.html',
-  imports: [SbbChipModule, SbbFormFieldModule, SbbAutocompleteModule, SbbChip],
+  imports: [SbbChipModule, SbbFormFieldModule, SbbAutocompleteModule],
 })
 export class ChipAutocompleteExample {}
