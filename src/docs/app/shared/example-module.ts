@@ -19,14 +19,26 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   ],
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
-  button: ['button-basic', 'mini-button-basic'],
-  calendar: ['calendar-basic', 'calendar-reactive', 'calendar-fixed-month'],
+  button: [
+    'button-variants',
+    'button-link-basic',
+    'button-static-basic',
+    'mini-button-group',
+    'mini-button-variants',
+  ],
+  calendar: [
+    'calendar-basic',
+    'calendar-reactive-form',
+    'calendar-with-filter',
+    { id: 'calendar-enhanced', hasStyle: true },
+    'calendar-fixed-month',
+  ],
   card: ['card-basic', 'card-link', 'card-button'],
   carousel: ['carousel-basic'],
   checkbox: ['checkbox-basic'],
   'checkbox-group': ['checkbox-group-basic'],
-  'checkbox-panel': ['checkbox-panel-basic'],
-  chip: ['chip-basic'],
+  'checkbox-panel': [{ id: 'checkbox-panel-variants', hasStyle: true }],
+  chip: ['chip-basic', 'chip-autocomplete', 'chip-variants', 'chip-complex-value'],
   'chip-label': [{ id: 'chip-label-basic', hasStyle: true }],
   clock: ['clock-basic'],
   container: ['container-basic'],
@@ -135,19 +147,20 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'autocomplete-variants':
       return import('../angular/examples/autocomplete');
     case 'badge-basic':
-      return import('../angular/examples/badge');
     case 'badge-before':
-      return import('../angular/examples/badge');
     case 'badge-header-button':
       return import('../angular/examples/badge');
     case 'breadcrumb-basic':
       return import('../angular/examples/breadcrumb');
-    case 'button-basic':
+    case 'button-link-basic':
+    case 'button-static-basic':
+    case 'button-variants':
       return import('../angular/examples/button');
     case 'calendar-basic':
+    case 'calendar-enhanced':
     case 'calendar-fixed-month':
-      return import('../angular/examples/calendar');
-    case 'calendar-reactive':
+    case 'calendar-reactive-form':
+    case 'calendar-with-filter':
       return import('../angular/examples/calendar');
     case 'card-basic':
     case 'card-button':
@@ -159,12 +172,16 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/checkbox');
     case 'checkbox-group-basic':
       return import('../angular/examples/checkbox-group');
-    case 'checkbox-panel-basic':
+    case 'checkbox-panel-variants':
       return import('../angular/examples/checkbox-panel');
+    case 'chip-autocomplete':
     case 'chip-basic':
+    case 'chip-complex-value':
       return import('../angular/examples/chip');
     case 'chip-label-basic':
       return import('../angular/examples/chip-label');
+    case 'chip-variants':
+      return import('../angular/examples/chip');
     case 'clock-basic':
       return import('../angular/examples/clock');
     case 'container-basic':
@@ -192,19 +209,13 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'footer-clock':
       return import('../angular/examples/footer');
     case 'form-field-basic':
-      return import('../angular/examples/form-field');
     case 'form-field-clear':
-      return import('../angular/examples/form-field');
     case 'form-field-hint':
-      return import('../angular/examples/form-field');
     case 'form-field-native-select':
-      return import('../angular/examples/form-field');
     case 'form-field-prefix-suffix':
-      return import('../angular/examples/form-field');
     case 'form-field-text-counter':
       return import('../angular/examples/form-field');
     case 'grouped-columns-table':
-      return import('../angular/examples/table');
     case 'grouped-rows-and-columns-table':
       return import('../angular/examples/table');
     case 'header-basic':
@@ -237,7 +248,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/menu');
     case 'message-basic':
       return import('../angular/examples/message');
-    case 'mini-button-basic':
+    case 'mini-button-group':
+    case 'mini-button-variants':
       return import('../angular/examples/button');
     case 'mini-calendar-basic':
       return import('../angular/examples/mini-calendar');

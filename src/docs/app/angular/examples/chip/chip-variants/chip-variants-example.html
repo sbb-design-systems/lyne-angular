@@ -1,0 +1,35 @@
+<sbb-form-field [size]="controls.size().value()" [hiddenLabel]="controls.hiddenLabel().value()">
+  <label>Field label</label>
+  <sbb-chip-group name="field-name" [addOnBlur]="controls.addOnBlur">
+    <sbb-chip value="Value 1"></sbb-chip>
+    <sbb-chip value="Value 2"></sbb-chip>
+    <sbb-chip value="Value 3"></sbb-chip>
+    <input
+      placeholder="Type and press enter."
+      [disabled]="controls.disabled().value()"
+      [readonly]="controls.readonly().value()"
+    />
+  </sbb-chip-group>
+</sbb-form-field>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+    <sbb-radio-button value="l">l</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="readonly">Readonly</label>
+  <sbb-checkbox id="readonly" [formField]="controls.readonly"></sbb-checkbox>
+
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label for="hiddenLabel">Hidden label</label>
+  <sbb-checkbox id="hiddenLabel" [formField]="controls.hiddenLabel"></sbb-checkbox>
+
+  <label for="addOnBlur">Add on blur</label>
+  <sbb-checkbox id="addOnBlur" [formField]="controls.addOnBlur"></sbb-checkbox>
+</div>

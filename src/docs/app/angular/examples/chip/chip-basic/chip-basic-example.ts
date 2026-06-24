@@ -3,7 +3,8 @@ import { SbbChipModule } from '@sbb-esta/lyne-angular/chip';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
- * @title Basic chip
+ * @title Basic sbb-chip usage
+ * @order 1
  */
 @Component({
   selector: 'sbb-chip-basic-example',

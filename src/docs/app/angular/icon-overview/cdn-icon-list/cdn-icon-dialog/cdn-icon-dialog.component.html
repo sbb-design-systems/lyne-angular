@@ -1,0 +1,13 @@
+<sbb-dialog-title> {{ data.cdnIconPath }} </sbb-dialog-title>
+<sbb-dialog-content>
+  <sbb-icon [name]="data.cdnIconPath" class="cdn-icon" />
+
+  <sbb-title level="5">Code</sbb-title>
+  <code>&lt;sbb-icon name="{{ data.cdnIconPath }}"&gt;&lt;/sbb-icon&gt;</code>
+
+  <sbb-title level="5">Tags</sbb-title>
+  <p>{{ data.tags }}</p>
+</sbb-dialog-content>
+<sbb-dialog-actions>
+  <sbb-secondary-button sbb-dialog-close="cancel">Close</sbb-secondary-button>
+</sbb-dialog-actions>

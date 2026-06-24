@@ -123,6 +123,10 @@ sbb-block-link {
     }
   }
 
+  > sbb-checkbox {
+    width: fit-content;
+  }
+
   @include sbb.mq($from: large) {
     grid-template-columns: auto 1fr;
     gap: var(--sbb-spacing-fixed-4x);

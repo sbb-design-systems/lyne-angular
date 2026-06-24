@@ -1,12 +1,12 @@
 import {
   Directive,
   ElementRef,
+  forwardRef,
   inject,
   Input,
   NgZone,
-  type OutputRef,
   numberAttribute,
-  forwardRef,
+  type OutputRef,
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -16,6 +16,7 @@ import {
   SbbControlValueAccessorMixin,
 } from '@sbb-esta/lyne-angular/core';
 import type {
+  Day,
   SbbDateSelectedEvent,
   SbbMonthChangeEvent,
 } from '@sbb-esta/lyne-elements/calendar.pure.js';
@@ -172,6 +173,13 @@ export class SbbCalendar<T = Date> extends SbbControlValueAccessorMixin(class {}
   }
   public get fixedMonth(): string {
     return this.#element.nativeElement.fixedMonth;
+  }
+
+  /**
+   * Returns the list of days that are visible in the calendar.
+   */
+  public visibleDays(): Day<T>[] {
+    return this.#element.nativeElement.visibleDays();
   }
 
   /**
