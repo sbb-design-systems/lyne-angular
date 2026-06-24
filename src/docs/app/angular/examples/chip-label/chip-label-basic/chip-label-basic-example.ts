@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { form, FormField } from '@angular/forms/signals';
 import type { SbbChipLabel } from '@sbb-esta/lyne-angular/chip-label';
 import { SbbChipLabelModule } from '@sbb-esta/lyne-angular/chip-label';
+import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
+import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title Basic chip-label
@@ -8,10 +11,13 @@ import { SbbChipLabelModule } from '@sbb-esta/lyne-angular/chip-label';
 @Component({
   selector: 'sbb-chip-label-basic-example',
   templateUrl: 'chip-label-basic-example.html',
-  styleUrl: 'chip-label-basic-example.scss',
-  imports: [SbbChipLabelModule],
+  imports: [FormField, SbbChipLabelModule, SbbRadioButtonModule, SbbTitleModule],
 })
 export class ChipLabelBasicExample {
-  protected readonly colors: SbbChipLabel['color'][] = ['charcoal', 'granite', 'milk', 'white'];
-  protected readonly sizes: SbbChipLabel['size'][] = ['s', 'xs', 'xxs', 'xxs'];
+  protected controls = form(
+    signal({
+      color: 'milk' as SbbChipLabel['color'],
+      size: 'xxs' as SbbChipLabel['size'],
+    }),
+  );
 }

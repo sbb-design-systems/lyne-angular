@@ -39,7 +39,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'checkbox-group': ['checkbox-group-basic'],
   'checkbox-panel': [{ id: 'checkbox-panel-variants', hasStyle: true }],
   chip: ['chip-basic', 'chip-autocomplete', 'chip-variants', 'chip-complex-value'],
-  'chip-label': [{ id: 'chip-label-basic', hasStyle: true }],
+  'chip-label': ['chip-label-basic'],
   clock: ['clock-basic'],
   container: ['container-basic'],
   'date-input': ['date-input-basic'],
