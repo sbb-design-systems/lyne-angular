@@ -63,7 +63,7 @@ function generateExample(inputPath: string, includeScss: boolean): void {
   // Resolve target directory under src/docs/app/angular/examples
   const targetDirectory = join(EXAMPLES_BASE_DIR, inputPath);
   if (existsSync(targetDirectory)) {
-    throw new Error(`Folder "${targetDirectory}" already exists.`);
+    throw new Error(`Folder ${targetDirectory} already exists.`);
   }
 
   // Create target directory and files
@@ -94,7 +94,7 @@ function generateExample(inputPath: string, includeScss: boolean): void {
     console.log(`Created: ${targetPath}`);
   }
 
-  console.log(`\nExample "${exampleName}" created successfully in "${targetDirectory}"`);
+  console.log(`\nExample ${exampleName} created successfully in ${targetDirectory}`);
 
   // Run lint:fix to export the new component and to add it in example-module.ts file.
   console.log('\nRunning lint:fix...');
