@@ -1,0 +1,5 @@
+@if (cdnIcons()) {
+  <sbb-cdn-icon-list [cdnIcons]="cdnIcons()!" />
+} @else {
+  <sbb-loading-indicator aria-label="Loading icons" />
+}

@@ -1,0 +1,13 @@
+<button
+  class="cdn-icon-wrapper"
+  [sbb-tooltip]="cdnIconPath()"
+  sbb-tooltip-position="block-end"
+  (click)="openDialog()"
+>
+  <div class="cdn-icon">
+    <sbb-icon [name]="cdnIconPath()"></sbb-icon>
+  </div>
+  <div class="cdn-icon-path">
+    {{ cdnIconPath() }}
+  </div>
+</button>
