@@ -1,19 +1,24 @@
 <p>
-  <sbb-chip-label>On sale</sbb-chip-label>
+  <sbb-chip-label [color]="controls.color().value()" [size]="controls.size().value()"
+    >Label</sbb-chip-label
+  >
 </p>
 
-<p>
-  <sbb-chip-label color="charcoal" size="s">Label</sbb-chip-label>
-</p>
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size">
+    <sbb-radio-button value="xxxs">xxxs</sbb-radio-button>
+    <sbb-radio-button value="xxs">xxs</sbb-radio-button>
+    <sbb-radio-button value="xs">xs</sbb-radio-button>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+  </sbb-radio-button-group>
 
-<p>
-  <sbb-chip-label color="granite" size="xs">Label</sbb-chip-label>
-</p>
-
-<p>
-  <sbb-chip-label color="white">Label</sbb-chip-label>
-</p>
-
-<p>
-  <sbb-chip-label size="xxxs">Label</sbb-chip-label>
-</p>
+  <label>Color</label>
+  <sbb-radio-button-group aria-label="Color" [formField]="controls.color">
+    <sbb-radio-button value="white">white</sbb-radio-button>
+    <sbb-radio-button value="milk">milk</sbb-radio-button>
+    <sbb-radio-button value="granite">granite</sbb-radio-button>
+    <sbb-radio-button value="charcoal">charcoal</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>
