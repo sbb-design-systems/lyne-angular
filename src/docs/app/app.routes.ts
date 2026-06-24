@@ -12,11 +12,6 @@ export const routes: Routes = [
         path: '',
         component: IntroductionComponent,
       },
-      // TODO: create if needed
-      // {
-      //   path: 'how-to-update',
-      //   component: HowToUpdateComponent,
-      // },
       {
         path: 'angular',
         loadChildren: () => import('./angular/angular.module').then((m) => m.AngularModule),
