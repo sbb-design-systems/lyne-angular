@@ -16,7 +16,7 @@ import type { SbbMonthChangeEvent } from '@sbb-esta/lyne-elements/calendar.pure.
 export class CalendarEnhancedExample {
   protected form = form(signal({ calendar: new Date() }));
 
-  daysOfMonth = signal<string[]>([]);
+  protected daysOfMonth = signal<string[]>([]);
 
   protected onMonthChanged(event: SbbMonthChangeEvent): void {
     this.daysOfMonth.set(event.range.map((d) => d.value));

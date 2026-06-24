@@ -7,7 +7,9 @@
 ></sbb-calendar>
 
 <p>
-  <sbb-card color="milk">Value: <code>{{ stringifiedValue() }}</code></sbb-card>
+  <sbb-card color="milk"
+    >Value: <code>{{ stringifiedValue() }}</code></sbb-card
+  >
 </p>
 
 <sbb-title level="5">Properties</sbb-title>
@@ -18,14 +20,14 @@
   <label for="multiple">Multiple</label>
   <sbb-checkbox id="multiple" [formField]="controls.multiple"></sbb-checkbox>
 
-  <label for="orientation">Orientation</label>
-  <sbb-radio-button-group id="orientation" [formField]="controls.orientation">
+  <label>Orientation</label>
+  <sbb-radio-button-group aria-label="Orientation" [formField]="controls.orientation">
     <sbb-radio-button value="horizontal">Horizontal</sbb-radio-button>
     <sbb-radio-button value="vertical">Vertical</sbb-radio-button>
   </sbb-radio-button-group>
 
-  <label for="view">View</label>
-  <sbb-radio-button-group id="view" [formField]="controls.view">
+  <label>View</label>
+  <sbb-radio-button-group aria-label="View" [formField]="controls.view">
     <sbb-radio-button value="day">Day</sbb-radio-button>
     <sbb-radio-button value="month">Month</sbb-radio-button>
     <sbb-radio-button value="year">Year</sbb-radio-button>

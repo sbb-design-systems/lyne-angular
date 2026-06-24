@@ -13,5 +13,5 @@ import { SbbCalendarModule } from '@sbb-esta/lyne-angular/calendar';
 export class CalendarWithFilterExample {
   protected value = new Date();
 
-  excludeWeekendsFn = (d: Date | null): boolean => d?.getDay() !== 6 && d?.getDay() !== 0;
+  protected excludeWeekendsFn = (d: Date | null): boolean => d?.getDay() !== 6 && d?.getDay() !== 0;
 }
