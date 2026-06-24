@@ -1,0 +1,14 @@
+.price {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: var(--sbb-text-font-size-xxs);
+  font-weight: normal;
+  letter-spacing: var(--sbb-typo-letter-spacing-text);
+  color: light-dark(var(--sbb-color-metal), var(--sbb-color-smoke));
+}
+
+.deal-price {
+  color: var(--sbb-color-green);
+  font-weight: bold;
+}
