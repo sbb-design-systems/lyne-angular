@@ -12,16 +12,15 @@
 
 <sbb-paginator [pageSize]="form.pageSize().value()"></sbb-paginator>
 
-<h4>Properties</h4>
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="pageSize">Page Size</label>
+  <sbb-form-field id="pageSize">
+    <input type="number" [formField]="form.pageSize" />
+  </sbb-form-field>
 
-<sbb-form-field>
-  <label>Page Size</label>
-  <input type="number" [formField]="form.pageSize" />
-</sbb-form-field>
-
-<p>
-  <sbb-form-field>
-    <label>Count of rows</label>
+  <label for="rowCount">Count of rows</label>
+  <sbb-form-field id="rowCount">
     <input type="number" [formField]="form.rowCount" />
   </sbb-form-field>
-</p>
+</div>

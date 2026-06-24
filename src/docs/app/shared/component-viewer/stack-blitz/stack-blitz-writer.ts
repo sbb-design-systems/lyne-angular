@@ -163,9 +163,9 @@ export class StackBlitzWriter {
     // seems to be able to partially re-use the lock file to speed up the module tree computation,
     // so providing a lock file is still reasonable while modifying the `package.json`.
     if (fileName === 'src/index.html' || fileName === 'package.json') {
-      fileContent = fileContent.replace(/\{\{angular-version}}/g, this.#version);
-      fileContent = fileContent.replace(/\{\{components-version}}/g, this.#lyneVersion);
-      fileContent = fileContent.replace(/\{\{token-version}}/g, this.#tokenVersion);
+      fileContent = fileContent.replace(/\{\{angular_version}}/g, this.#version);
+      fileContent = fileContent.replace(/\{\{components_version}}/g, this.#lyneVersion);
+      fileContent = fileContent.replace(/\{\{token_version}}/g, this.#tokenVersion);
     }
 
     if (fileName === 'src/index.html') {

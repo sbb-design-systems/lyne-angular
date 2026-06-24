@@ -13,7 +13,6 @@ import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.pur
 @Component({
   selector: 'sbb-form-field-basic-example',
   templateUrl: 'form-field-basic-example.html',
-  styleUrl: 'form-field-basic-example.scss',
   imports: [SbbCheckboxModule, SbbFormFieldModule, SbbRadioButtonModule, SbbTitleModule, FormField],
 })
 export class FormFieldBasicExample {

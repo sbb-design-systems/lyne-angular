@@ -1,4 +1,59 @@
+@use '@sbb-esta/lyne-elements' as sbb;
+
 :host {
   display: block;
   max-width: 75rem;
+}
+
+.main-title {
+  margin-block-start: var(--sbb-spacing-fixed-4x);
+}
+
+.libraries {
+  margin-block: var(--sbb-spacing-responsive-s);
+  flex-wrap: wrap;
+  align-items: start;
+
+  picture {
+    display: contents;
+  }
+
+  sbb-teaser {
+    width: min(20rem, 100%);
+  }
+}
+
+.label-group {
+  @include sbb.list-reset;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sbb-spacing-fixed-2x);
+  line-height: 0;
+}
+
+.actions {
+  margin-block: var(--sbb-spacing-responsive-m);
+}
+
+.card-group {
+  display: grid;
+  gap: var(--sbb-spacing-fixed-2x);
+
+  @include sbb.mq($from: large) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.links {
+  display: grid;
+  gap: var(--sbb-spacing-fixed-8x) var(--sbb-spacing-fixed-2x);
+
+  sbb-title {
+    margin-block-start: 0;
+  }
+
+  @include sbb.mq($from: small) {
+    grid-template-columns: 1fr 1fr;
+  }
 }

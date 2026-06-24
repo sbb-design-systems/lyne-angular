@@ -5,7 +5,7 @@
     <label>From</label>
     <sbb-select [formField]="versionForm.from">
       @for (v of versions; track v) {
-      <sbb-option [value]="v">{{ toVersionString(v) }}</sbb-option>
+        <sbb-option [value]="v">{{ v }}</sbb-option>
       }
     </sbb-select>
   </sbb-form-field>
@@ -14,38 +14,41 @@
     <label>To</label>
     <sbb-select [formField]="versionForm.to">
       @for (v of versions; track v) {
-      <sbb-option [value]="v">{{ toVersionString(v) }}</sbb-option>
+        <sbb-option [value]="v">{{ v }}</sbb-option>
       }
     </sbb-select>
   </sbb-form-field>
 </form>
 
-@if (versionForm.to().value() - versionForm.from().value() > 150) {
-<sbb-notification type="warn">
-  We do not support migrating across multiple major versions at once. Please migrate each major
-  version individually.
-</sbb-notification>
-} @if (versionForm.to().value() < versionForm.from().value()) {
-<sbb-notification type="error">
-  We do not support downgrading versions of Lyne Angular.
-</sbb-notification>
-} @if (versionForm.to().value() === versionForm.from().value()) {
-<sbb-notification type="success"> There's nothing to do. </sbb-notification>
-} @for (step of updateSteps(); track step) {
-<div>
-  <sbb-title level="4"
-    >Update from Version {{ toVersionString(step.from) }} to {{ toVersionString(step.to)
-    }}</sbb-title
-  >
-  <p>
-    Before starting, have a look at
-    <sbb-link [href]="step.lyneChangelog">Lyne Elements</sbb-link> and
-    <sbb-link [href]="step.ngChangelog">Lyne Angular</sbb-link> CHANGELOG.
-  </p>
-  <ol>
-    @for (action of step.actions; track action) {
-    <li [innerHTML]="toSafeHtml(action)"></li>
-    }
-  </ol>
-</div>
+@if (isSkipping()) {
+  <sbb-notification type="warn">
+    We do not support migrating across multiple major versions at once. Please migrate each major
+    version individually.
+  </sbb-notification>
+}
+@if (isDowngrading()) {
+  <sbb-notification type="error">
+    We do not support downgrading versions of Lyne Angular.
+  </sbb-notification>
+}
+@if (versionForm.to().value() === versionForm.from().value()) {
+  <sbb-notification type="success"> There's nothing to do. </sbb-notification>
+}
+@for (step of updateSteps(); track step) {
+  <div>
+    <sbb-title level="4">
+      Update from Version {{ this.versionForm.from().value() }} to
+      {{ this.versionForm.to().value() }}
+    </sbb-title>
+    <p>
+      Before starting, have a look at
+      <sbb-link [href]="step.lyneChangelog">Lyne Elements</sbb-link> and
+      <sbb-link [href]="step.ngChangelog">Lyne Angular</sbb-link> CHANGELOG.
+    </p>
+    <ol>
+      @for (action of step.actions; track action) {
+        <li [innerHTML]="toSafeHtml(action)"></li>
+      }
+    </ol>
+  </div>
 }

@@ -32,6 +32,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           { label: 'Theming', link: './guides/theming' },
           { label: 'Layout', link: './guides/layout' },
           { label: 'Datetime', link: './guides/datetime' },
+          { label: 'Icon Overview', link: 'guides/icon-overview' },
         ],
       },
       {
