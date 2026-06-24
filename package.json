@@ -5,7 +5,7 @@
     "postinstall": "run-s postinstall:playwright readme",
     "postinstall:playwright": "yarn playwright install",
     "ng": "ng",
-    "start": "run-s compodoc:run generate-selector-map generate-guide-keywords 'ng serve docs'",
+    "start": "run-s generate-selector-map generate-guide-keywords compodoc:run 'ng serve docs'",
     "build:angular": "ng build angular",
     "build:angular:schematics": "tsc -p src/angular/schematics/tsconfig.json",
     "postbuild:angular": "node ./scripts/patch-package-version.mts",
