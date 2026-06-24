@@ -1,3 +1,4 @@
+import { KeyValuePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SbbActionGroupModule } from '@sbb-esta/lyne-angular/action-group';
@@ -9,11 +10,14 @@ import { SbbLinkListModule } from '@sbb-esta/lyne-angular/link-list';
 import { SbbTeaserModule } from '@sbb-esta/lyne-angular/teaser';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
+import { PACKAGES } from '../shared/meta';
+
 @Component({
   selector: 'sbb-introduction',
   templateUrl: './introduction.component.html',
   styleUrl: './introduction.component.scss',
   imports: [
+    KeyValuePipe,
     RouterLink,
     SbbActionGroupModule,
     SbbButtonModule,
@@ -25,4 +29,6 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbTitleModule,
   ],
 })
-export class IntroductionComponent {}
+export class IntroductionComponent {
+  protected packages = PACKAGES;
+}

@@ -74,6 +74,9 @@ async function writeGuides(path: string, newContent: string) {
     // Replace imports
     .replace(/^import\s+(?:[\s\w{},*]+?\s+from\s+)?['"][^'"]+['"];?/gm, '')
 
+    // Replace MDX comments with HTML comments
+    .replace(/\{\/\*\s*([\s\S]*?)\s*\*\/\}/g, '<!-- $1 -->')
+
     // Convert inline stories
     .replace(
       /(<InlineStory\b[^>]*>)([\s\S]*?)(<\/InlineStory>)/gi,

@@ -1,5 +1,3 @@
-import { provideHttpClient } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import type { ComponentFixture } from '@angular/core/testing';
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRoute, provideRouter } from '@angular/router';
@@ -14,43 +12,77 @@ const MOCK_PACKAGE: ShowcaseMetaPackage = {
   name: '@sbb-esta/lyne-angular',
   iconName: 'test',
   image: 'assets/test.jpg',
+  imageDark: 'assets/test-dark.jpg',
   description: 'Test package',
+  label: 'stable',
+  labelColor: 'charcoal',
   sections: [
     {
       name: 'Components',
       entries: [
-        { label: 'Button', link: './components/button' },
-        { label: 'Autocomplete', link: './components/autocomplete' },
-        { label: 'Form Field', link: './components/form-field' },
+        {
+          label: 'Button',
+          link: './components/button',
+          keywords: ['sbbButton', 'sbb-button-link'],
+        },
+        {
+          label: 'Autocomplete',
+          link: './components/autocomplete',
+          keywords: ['sbb-autocomplete'],
+        },
+        {
+          label: 'Form Field',
+          link: './components/form-field',
+          keywords: ['sbbFormField', 'sbb-form-field-clear'],
+        },
       ],
     },
     {
       name: 'Guides',
-      entries: [{ label: 'Getting started', link: './guides/getting-started' }],
+      entries: [
+        {
+          label: 'Getting started',
+          link: './guides/getting-started',
+          keywords: [
+            'install',
+            'setup',
+            'npm',
+            'yarn',
+            'getting started',
+            'lyne-elements',
+            'schematics',
+          ],
+        },
+        {
+          label: 'Theming',
+          link: './guides/theming',
+          keywords: [
+            'theme',
+            'dark mode',
+            'colors',
+            'css variables',
+            'design tokens',
+            'sass',
+            'lean',
+          ],
+        },
+        {
+          label: 'Section without keywords',
+          link: './guides/theming',
+        },
+      ],
     },
   ],
 };
 
-const MOCK_SELECTOR_MAP: Record<string, Record<string, string[]>> = {
-  angular: {
-    button: ['sbbButton', 'sbb-button-link'],
-    autocomplete: ['sbb-autocomplete'],
-    'form-field': ['sbbFormField', 'sbb-form-field-clear'],
-    'getting-started': [],
-  },
-};
-
 describe(`sbb-package-viewer`, () => {
   let fixture: ComponentFixture<PackageViewerComponent>;
-  let httpTesting: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PackageViewerComponent],
       providers: [
         provideRouter([]),
-        provideHttpClient(),
-        provideHttpClientTesting(),
         {
           provide: ActivatedRoute,
           useValue: { data: of({ packageData: MOCK_PACKAGE }) },
@@ -66,23 +98,9 @@ describe(`sbb-package-viewer`, () => {
       ],
     }).compileComponents();
 
-    httpTesting = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(PackageViewerComponent);
     fixture.detectChanges();
   });
-
-  afterEach(() => {
-    httpTesting.verify();
-  });
-
-  /** Flush the HTTP request for the selector-map */
-  function flushSelectorMap(
-    map: Record<string, Record<string, string[]>> = MOCK_SELECTOR_MAP,
-  ): void {
-    const req = httpTesting.expectOne('assets/selector-map.json');
-    req.flush(map);
-    fixture.detectChanges();
-  }
 
   /** Type a value into the search input as a real user would */
   function typeSearch(value: string): void {
@@ -108,25 +126,20 @@ describe(`sbb-package-viewer`, () => {
     ).map((el) => el.textContent?.trim() ?? '');
   }
 
-  it('should create the component', () => {
-    flushSelectorMap();
-    expect(fixture.componentInstance).toBeTruthy();
-  });
-
   describe('empty search', () => {
     it('should display all sections and entries when no search term is entered', () => {
-      flushSelectorMap();
       expect(getRenderedSectionNames()).toEqual(['Components', 'Guides']);
       expect(getRenderedLabels()).toEqual([
         'Button',
         'Autocomplete',
         'Form Field',
         'Getting started',
+        'Theming',
+        'Section without keywords',
       ]);
     });
 
     it('should display all sections and entries when the search term contains only whitespace', () => {
-      flushSelectorMap();
       typeSearch('   ');
       expect(getRenderedSectionNames()).toEqual(['Components', 'Guides']);
       expect(getRenderedLabels()).toEqual([
@@ -134,13 +147,13 @@ describe(`sbb-package-viewer`, () => {
         'Autocomplete',
         'Form Field',
         'Getting started',
+        'Theming',
+        'Section without keywords',
       ]);
     });
   });
 
   describe('label-based search', () => {
-    beforeEach(() => flushSelectorMap());
-
     it('should filter by label (exact match)', () => {
       typeSearch('Button');
       expect(getRenderedLabels()).toEqual(['Button']);
@@ -152,7 +165,7 @@ describe(`sbb-package-viewer`, () => {
       expect(getRenderedLabels()).toContain('Button');
     });
 
-    it('should also accept uppercase letters', () => {
+    it('should accept uppercase letters', () => {
       typeSearch('BUTTON');
       expect(getRenderedLabels()).toContain('Button');
     });
@@ -192,84 +205,54 @@ describe(`sbb-package-viewer`, () => {
     });
   });
 
-  describe('selector-based search (via selector-map)', () => {
-    beforeEach(() => flushSelectorMap());
-
-    it('should find an entry via camelCase selector', () => {
+  describe('keyword-based search (components via selector keywords)', () => {
+    it('should find an entry via camelCase selector keyword', () => {
       typeSearch('sbbAutocomplete');
       expect(getRenderedLabels()).toEqual(['Autocomplete']);
     });
 
-    it('should find an entry via kebab-case selector', () => {
+    it('should find an entry via kebab-case selector keyword', () => {
       typeSearch('sbb-button-link');
       expect(getRenderedLabels()).toEqual(['Button']);
     });
 
-    it('should normalize a kebab-case query against a camelCase selector (sbb-button → sbbButton)', () => {
-      // selectorMap contains "sbbButton", query is "sbb-button"
+    it('should normalize a kebab-case query against a camelCase keyword (sbb-button → sbbButton)', () => {
       typeSearch('sbb-button');
       expect(getRenderedLabels()).toContain('Button');
     });
 
-    it('should normalize a camelCase query against a kebab-case selector (sbbFormField → sbb-form-field)', () => {
+    it('should normalize a camelCase query against a kebab-case keyword (sbbFormField → sbb-form-field)', () => {
       typeSearch('sbbFormField');
       expect(getRenderedLabels()).toContain('Form Field');
     });
 
-    it('should find a partial match via selector', () => {
-      // Query "formfield" → normalized "formfield", selector "sbbFormField" → normalized "sbbformfield"
+    it('should find a partial match via keyword', () => {
+      // "formfield" → normalized "formfield"; "sbbFormField" → normalized "sbbformfield"
       typeSearch('formfield');
       expect(getRenderedLabels()).toContain('Form Field');
     });
 
-    it('should render no links when the selector is not in the map', () => {
+    it('should render no links when no keyword matches', () => {
       typeSearch('sbbNonExistent');
       expect(getRenderedLabels()).toHaveLength(0);
     });
 
-    it('should derive the correct package key from the package name', () => {
-      // "@sbb-esta/lyne-angular" → key "angular"
-      // Data is stored under selectorMap["angular"], not "lyne-angular"
-      typeSearch('sbbAutocomplete');
-      expect(getRenderedLabels()).toHaveLength(1);
+    it('should find a guide entry by an exact keyword', () => {
+      typeSearch('npm');
+      expect(getRenderedLabels()).toEqual(['Getting started']);
+      expect(getRenderedSectionNames()).toEqual(['Guides']);
     });
 
-    it('should render no links when the selector-map has an empty array for an entry', () => {
-      // "getting-started" has an empty selector array → no selector match
-      typeSearch('sbbGettingStarted');
-      expect(getRenderedLabels()).toHaveLength(0);
+    it('should be case-insensitive for keyword matching', () => {
+      typeSearch('NPM');
+      expect(getRenderedLabels()).toContain('Getting started');
     });
   });
 
-  describe('selector-map not yet loaded', () => {
-    it('should still display label matches while the map is loading', () => {
-      // HTTP request not yet flushed → selector-map not yet loaded
-      typeSearch('button');
-      expect(getRenderedLabels()).toContain('Button');
-      // Request still open: flush now so that afterEach verify() passes
-      flushSelectorMap();
-    });
-
-    it('should render no results via selector while the map has not been loaded yet', () => {
-      // "sbbAutocomplete" does not match any label, map not loaded yet → no match
-      typeSearch('sbbAutocomplete');
-      expect(getRenderedLabels()).toHaveLength(0);
-      flushSelectorMap();
-    });
-  });
-
-  describe('empty selector-map', () => {
-    it('should still display label matches with an empty selector-map', () => {
-      flushSelectorMap({});
-      typeSearch('button');
-      expect(getRenderedLabels()).toContain('Button');
-    });
-
-    it('should render no selector matches when the package key is missing from the map', () => {
-      flushSelectorMap({ other: { button: ['sbbButton'] } });
-      typeSearch('sbbButton');
-      // No entry for "angular" in the map → no selector match
-      expect(getRenderedLabels()).toHaveLength(0);
+  describe('entries without keywords', () => {
+    it('should still match by label when an entry has no keywords', () => {
+      typeSearch('Section without keywords');
+      expect(getRenderedLabels()).toContain('Section without keywords');
     });
   });
 });
