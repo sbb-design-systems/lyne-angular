@@ -1,35 +1,29 @@
 <sbb-checkbox-group
   [orientation]="controls.orientation().value()"
   [size]="controls.size().value()"
-  [disabled]="controls.disabled().value()"
-  [required]="controls.required().value()"
   [horizontalFrom]="controls.horizontalFrom().value()"
 >
-  <sbb-checkbox checked value="checkbox-1" [formField]="group.first">Label 1</sbb-checkbox>
-  <sbb-checkbox value="checkbox-2" [formField]="group.second">Label 2</sbb-checkbox>
-  <sbb-checkbox value="checkbox-3" [formField]="group.third">Label 3</sbb-checkbox>
-  @if (controls.required().value() && !(group.first().value() || group.second().value() ||
-  group.third().value())) {
-  <sbb-error slot="error">This is a required field.</sbb-error>
-  }
+  <sbb-checkbox checked>Label 1</sbb-checkbox>
+  <sbb-checkbox>Label 2</sbb-checkbox>
+  <sbb-checkbox>Label 3</sbb-checkbox>
 </sbb-checkbox-group>
 <sbb-title level="5">Properties</sbb-title>
 <div class="sbb-controls-table">
   <label>Orientation</label>
-  <sbb-radio-button-group [formField]="controls.orientation">
+  <sbb-radio-button-group
+    aria-label="Orientation"
+    allowEmptySelection
+    [formField]="controls.orientation"
+  >
     <sbb-radio-button value="horizontal">Horizontal</sbb-radio-button>
     <sbb-radio-button value="vertical">Vertical</sbb-radio-button>
   </sbb-radio-button-group>
   <label>Size</label>
-  <sbb-radio-button-group [formField]="controls.size">
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size">
     <sbb-radio-button value="xs">xs</sbb-radio-button>
     <sbb-radio-button value="s">s</sbb-radio-button>
     <sbb-radio-button value="m">m</sbb-radio-button>
   </sbb-radio-button-group>
-  <label>Disabled</label>
-  <sbb-checkbox [formField]="controls.disabled"></sbb-checkbox>
-  <label>Required</label>
-  <sbb-checkbox [formField]="controls.required"></sbb-checkbox>
   <label>Horizontal From</label>
   <sbb-form-field size="s" type="select">
     <sbb-select [formField]="controls.horizontalFrom">

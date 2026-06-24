@@ -34,8 +34,6 @@ export class CheckboxGroupPanelExample {
     signal({
       orientation: 'horizontal' as SbbCheckboxGroup['orientation'],
       size: null as SbbCheckboxGroup['size'],
-      disabled: false,
-      required: false,
       horizontalFrom: null as SbbCheckboxGroup['horizontalFrom'] | null,
     }),
   );

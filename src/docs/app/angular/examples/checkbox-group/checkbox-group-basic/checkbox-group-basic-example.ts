@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
-import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { type SbbCheckboxGroup } from '@sbb-esta/lyne-angular/checkbox-group';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
@@ -21,7 +20,6 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbRadioButtonModule,
     SbbSelectModule,
     SbbFormFieldModule,
-    SbbCardModule,
   ],
 })
 export class CheckboxGroupBasicExample {
@@ -29,17 +27,7 @@ export class CheckboxGroupBasicExample {
     signal({
       orientation: 'horizontal' as SbbCheckboxGroup['orientation'],
       size: null as SbbCheckboxGroup['size'],
-      disabled: false,
-      required: false,
       horizontalFrom: null as SbbCheckboxGroup['horizontalFrom'] | null,
-    }),
-  );
-
-  protected group = form(
-    signal({
-      first: false,
-      second: false,
-      third: false,
     }),
   );
 }
