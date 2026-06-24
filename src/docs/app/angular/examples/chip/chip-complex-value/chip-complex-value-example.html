@@ -1,0 +1,23 @@
+<sbb-form-field floatingLabel>
+  <label>Favorite fruits</label>
+  <sbb-chip-group
+    [formField]="favoriteFruits"
+    (chipInputTokenEnd)="add($any($event))"
+    [displayWith]="formatFruit"
+  >
+    <input #input />
+  </sbb-chip-group>
+  <sbb-autocomplete>
+    @for (fruit of remainingFruits(); track fruit) {
+      <sbb-option [value]="fruit">
+        {{ formatFruit(fruit) }}
+      </sbb-option>
+    }
+  </sbb-autocomplete>
+</sbb-form-field>
+
+<p>
+  <sbb-card color="milk">
+    Selected value: <code>{{ favoriteFruits().value() | json }}</code>
+  </sbb-card>
+</p>
