@@ -38,7 +38,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   checkbox: ['checkbox-basic'],
   'checkbox-group': ['checkbox-group-basic'],
   'checkbox-panel': [{ id: 'checkbox-panel-variants', hasStyle: true }],
-  chip: ['chip-basic'],
+  chip: ['chip-basic', 'chip-autocomplete', 'chip-variants', 'chip-complex-value'],
   'chip-label': ['chip-label-basic'],
   clock: ['clock-basic'],
   container: ['container-basic'],
@@ -174,10 +174,14 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/checkbox-group');
     case 'checkbox-panel-variants':
       return import('../angular/examples/checkbox-panel');
+    case 'chip-autocomplete':
     case 'chip-basic':
+    case 'chip-complex-value':
       return import('../angular/examples/chip');
     case 'chip-label-basic':
       return import('../angular/examples/chip-label');
+    case 'chip-variants':
+      return import('../angular/examples/chip');
     case 'clock-basic':
       return import('../angular/examples/clock');
     case 'container-basic':
