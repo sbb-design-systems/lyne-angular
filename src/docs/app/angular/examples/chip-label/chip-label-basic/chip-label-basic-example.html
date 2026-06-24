@@ -1,7 +1,9 @@
 <div class="chip-grid">
-  @for (size of sizes; track size) { @for (color of colors; track color) {
-  <p>
-    <sbb-chip-label [color]="color" [size]="size">Label</sbb-chip-label>
-  </p>
-  } }
+  @for (size of sizes; track size) {
+    @for (color of colors; track color) {
+      <p>
+        <sbb-chip-label [color]="color" [size]="size">Label</sbb-chip-label>
+      </p>
+    }
+  }
 </div>
