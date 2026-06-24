@@ -53,6 +53,35 @@ Similar to the native `<input>` element, the `<sbb-time-input>` component
 dispatches the usual `input`, `change`, `blur`, `invalid` and keyboard
 and focus related events.
 
+<!-- #region override forms -->
+
+## Angular Forms integration
+
+When using the `<sbb-time-input>` with Angular Forms, the `valueAsDate` property is bound to the form control value.
+The initial value therefore should be either a valid `Date` object or `null`.
+The form control value will be set to `null` if the user enters an invalid time.
+
+```ts
+import { form, FormField } from '@angular/forms/signals';
+import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
+import { SbbTimeInputModule } from '@sbb-esta/lyne-angular/time-input';
+
+@Component({
+  selector: 'sbb-time-input-example',
+  imports: [FormField, SbbFormFieldModule, SbbTimeInputModule],
+  template: `
+    <sbb-form-field width="collapse" size="s">
+      <sbb-time-input [formField]="control"></sbb-time-input>
+    </sbb-form-field>
+  `,
+})
+export class TimeInputExampleComponent {
+  control = form(signal<Date | null>(new Date(2026, 0, 0, 12, 34))); // Initial value is 12:34
+}
+```
+
+<!-- #endregion -->
+
 ## @sbb-esta/lyne-elements Docs
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-time-input--docs)

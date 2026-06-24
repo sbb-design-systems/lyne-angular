@@ -1,3 +1,5 @@
+<!-- keywords: adapter, config, date, native, temporal -->
+
 # DateTime
 
 Various components of the Lyne Design System require date/time configuration and manipulation.

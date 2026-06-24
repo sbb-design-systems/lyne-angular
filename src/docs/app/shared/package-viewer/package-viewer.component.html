@@ -1,5 +1,6 @@
 <sbb-sidebar-container>
   <sbb-sidebar role="navigation" opened color="milk">
+    <sbb-sidebar-close-button></sbb-sidebar-close-button>
     <sbb-sidebar-title>
       <span class="package-name">{{ package().name }}</span>
       <sbb-form-field floatingLabel class="search-form-field">
@@ -8,7 +9,6 @@
         <input [formField]="search" aria-controls="results" aria-label="Search results" />
         <sbb-form-field-clear></sbb-form-field-clear> </sbb-form-field
     ></sbb-sidebar-title>
-    <sbb-sidebar-close-button></sbb-sidebar-close-button>
 
     <ul role="listbox" class="package-sections" id="results" aria-label="Search results">
       @for (section of filteredSections(); track section.name) {

@@ -35,11 +35,11 @@ import { VersionSelectorComponent } from './version-selector/version-selector';
   styleUrl: './app.scss',
 })
 export class App {
-  themeController = inject(ThemeController);
-  lightDarkController = inject(LightDarkController);
-  sidebarToggle = inject(SidebarToggle);
-  packages = PACKAGES;
-  isDev =
+  protected themeController = inject(ThemeController);
+  protected lightDarkController = inject(LightDarkController);
+  protected sidebarToggle = inject(SidebarToggle);
+  protected packages = PACKAGES;
+  protected isDev =
     window.location.hostname === 'localhost' ||
     window.location.hostname.split('.')[0]?.endsWith('-dev');
 }
