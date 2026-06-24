@@ -25,8 +25,7 @@ The `amount` property can be used to display more than one month; in this case, 
 `<sbb-calendar-day>` must be rendered for each month (they must not be grouped, just
 sequentially rendered as direct children of the `<sbb-calendar>` element).
 
-Each time the month changes due to user interaction with the previous/next month buttons,
-or via selecting a different year and then a month, a `monthchange` event is emitted, typed as
+Each time the month changes, a `monthchange` event is emitted, typed as
 `SbbMonthChangeEvent`. The event has a `range: Day[]` property, which can be accessed to have
 information about the days to render. Consumers can listen to this event to dynamically create
 and slot the `<sbb-calendar-day>`s of the chosen month.

@@ -1,1 +1,1 @@
-export { CheckboxPanelBasicExample } from './checkbox-panel-basic/checkbox-panel-basic-example';
+export { CheckboxPanelVariantsExample } from './checkbox-panel-variants/checkbox-panel-variants-example';

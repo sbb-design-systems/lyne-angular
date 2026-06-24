@@ -1,0 +1,17 @@
+@use '@sbb-esta/lyne-elements' as sbb;
+
+.cdn-icon-list-filters,
+.cdn-icon-list-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sbb-spacing-fixed-4x);
+  margin-block: var(--sbb-spacing-fixed-4x);
+}
+
+sbb-cdn-icon {
+  width: sbb.px-to-rem-build(100);
+}
+
+p {
+  font-size: var(--sbb-text-font-size-xs);
+}
