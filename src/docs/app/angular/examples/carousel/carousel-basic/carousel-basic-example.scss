@@ -6,6 +6,6 @@
 
 .carousel-item-with-text {
   position: relative;
-  margin: 50px;
+  margin: var(--sbb-spacing-fixed-12x);
   z-index: 1;
 }
