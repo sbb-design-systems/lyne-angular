@@ -22,6 +22,7 @@
     "compodoc:run": "run-s compodoc:generate compodoc:api",
     "compodoc:generate": "compodoc -p tsconfig.doc.json -e json -d src/docs --minimal --disablePrivate --disableProtected --disableInternal --disableSourceCode",
     "compodoc:api": "tsx scripts/api-generator.mts",
+    "generate-example": "node tools/generate-example/index.ts",
     "generate-selector-map": "tsx scripts/generate-selector-map.mts",
     "format": "prettier \"**/*\" --write --ignore-unknown",
     "lint": "ng lint",
