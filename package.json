@@ -11,7 +11,7 @@
     "postbuild:angular": "node ./scripts/patch-package-version.mts",
     "build:angular-experimental": "ng build angular-experimental",
     "postbuild:angular-experimental": "node ./scripts/patch-package-version.mts",
-    "build:docs": "run-s compodoc:run generate-selector-map generate-guide-keywords 'ng build docs'",
+    "build:docs": "run-s generate-selector-map generate-guide-keywords compodoc:run 'ng build docs'",
     "postbuild:docs": "node ./scripts/patch-docs-version.mts",
     "build": "run-s build:angular build:angular:schematics build:angular-experimental build:docs",
     "test": "npm-run-all --sequential test:*",
