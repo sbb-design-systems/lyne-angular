@@ -18,7 +18,7 @@
     "test:angular": "ng test angular",
     "test:angular-schematics": "vitest run --config vitest.schematics.config.ts",
     "test:angular-experimental": "ng test angular-experimental",
-    "test:docs": "ng test docs",
+    "test:docs": "run-s generate-selector-map generate-guide-keywords 'ng test docs'",
     "compodoc:run": "run-s compodoc:generate compodoc:api",
     "compodoc:generate": "compodoc -p tsconfig.doc.json -e json -d src/docs --minimal --disablePrivate --disableProtected --disableInternal --disableSourceCode",
     "compodoc:api": "tsx scripts/api-generator.mts",

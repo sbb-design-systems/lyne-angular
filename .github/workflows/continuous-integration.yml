@@ -54,6 +54,8 @@ jobs:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
+      - name: Create search keywords
+        run: yarn run-s generate-selector-map generate-guide-keywords
       - name: Run tests
         run: yarn ng test -c ci
         env:
