@@ -1,3 +1,29 @@
+/**
+ * Script based on the `generate-component` script of `lyne-components`.
+ *
+ * Given a path as `component/example-name`, it creates an example under the `component` folder;
+ * the content is taken from the files under the 'boilerplate' folder.
+ * If the style file is needed, the `--scss` flag can be used.
+ * The `lint:fix` command is run as child process to correctly export the component and update the example data.
+ *
+ * Example with no style:
+ * `yarn generate alert/alert-variants`
+ *
+ * ├─ alert/
+ *    └─ alert-variants/
+ *        ├─ alert-variants.html
+ *        └─ alert-variants.ts
+ *
+ * Example with style:
+ * `yarn generate clock/clock-basic --scss`
+ *
+ * ├─clock/
+ *   └─ clock-basic/
+ *      ├─ clock-basic-example.html
+ *      ├─ clock-basic-example.scss
+ *      └─ clock-basic-example.ts
+ */
+
 import { execSync } from 'child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
 import { basename, dirname, join } from 'path';
@@ -44,13 +70,18 @@ function generateExample(inputPath: string, includeScss: boolean): void {
   mkdirSync(targetDirectory, { recursive: true });
   const boilerplateFiles = readdirSync(BOILERPLATE_DIR);
   for (const file of boilerplateFiles) {
-    // Skip scss files if --scss flag is not provided
-    if (file.endsWith('.scss') && !includeScss) {
-      continue;
-    }
-
     const sourcePath = join(BOILERPLATE_DIR, file);
     let content = readFileSync(sourcePath, 'utf8');
+
+    // If --scss flag is not provided, do not add the style and remove its reference from the .ts file.
+    if (!includeScss) {
+      if (file.endsWith('.scss')) {
+        continue;
+      }
+      if (file.endsWith('.ts')) {
+        content = content.replace("  styleUrl: '__name__.scss',\n", '');
+      }
+    }
 
     content = content
       .replace(/__name__/g, exampleName)

@@ -11,7 +11,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 @Component({
   selector: 'sbb-__name__',
   templateUrl: '__name__.html',
-  // styleUrl: '__name__.scss', // uncomment this if the style is needed
+  styleUrl: '__name__.scss',
   imports: [
     // remove unused modules
     FormField,
