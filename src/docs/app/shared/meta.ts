@@ -87,7 +87,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           {
             label: 'Autocomplete',
             link: './components/autocomplete',
-            keywords: selectorMap.angular.autocomplete,
+            keywords: [...selectorMap.angular.autocomplete, 'form'],
           },
           { label: 'Badge', link: './components/badge', keywords: selectorMap.angular.badge },
           {
@@ -98,12 +98,12 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           {
             label: 'Button',
             link: './components/button',
-            keywords: selectorMap.angular.button,
+            keywords: [...selectorMap.angular.button, 'form'],
           },
           {
             label: 'Calendar',
             link: './components/calendar',
-            keywords: selectorMap.angular.calendar,
+            keywords: [...selectorMap.angular.calendar, 'form'],
           },
           { label: 'Card', link: './components/card', keywords: selectorMap.angular.card },
           {
@@ -114,7 +114,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           {
             label: 'Checkbox',
             link: './components/checkbox',
-            keywords: selectorMap.angular.checkbox,
+            keywords: [...selectorMap.angular.checkbox, 'form'],
           },
           {
             label: 'Checkbox Group',
@@ -124,9 +124,13 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           {
             label: 'Checkbox Panel',
             link: './components/checkbox-panel',
-            keywords: selectorMap.angular.checkboxPanel,
+            keywords: [...selectorMap.angular.checkboxPanel, 'form'],
           },
-          { label: 'Chip', link: './components/chip', keywords: selectorMap.angular.chip },
+          {
+            label: 'Chip',
+            link: './components/chip',
+            keywords: [...selectorMap.angular.chip, 'form'],
+          },
           {
             label: 'Chip Label',
             link: './components/chip-label',
@@ -141,7 +145,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           {
             label: 'Date input',
             link: './components/date-input',
-            keywords: selectorMap.angular.dateInput,
+            keywords: [...selectorMap.angular.dateInput, 'form'],
           },
           {
             label: 'Datepicker',
@@ -166,7 +170,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           {
             label: 'File Selector',
             link: './components/file-selector',
-            keywords: selectorMap.angular.fileSelector,
+            keywords: [...selectorMap.angular.fileSelector, 'form'],
           },
           {
             label: 'Flip Card',
@@ -276,7 +280,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           {
             label: 'Radio Button',
             link: './components/radio-button',
-            keywords: selectorMap.angular.radioButton,
+            keywords: [...selectorMap.angular.radioButton, 'form'],
           },
           {
             label: 'Radio Button Group',
@@ -286,12 +290,12 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           {
             label: 'Radio Button Panel',
             link: './components/radio-button-panel',
-            keywords: selectorMap.angular.radioButtonPanel,
+            keywords: [...selectorMap.angular.radioButtonPanel, 'form'],
           },
           {
             label: 'Select',
             link: './components/select',
-            keywords: selectorMap.angular.select,
+            keywords: [...selectorMap.angular.select, 'form'],
           },
           {
             label: 'Selection Action Panel',
@@ -321,7 +325,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           {
             label: 'Slider',
             link: './components/slider',
-            keywords: selectorMap.angular.slider,
+            keywords: [...selectorMap.angular.slider, 'form'],
           },
           {
             label: 'Status',
@@ -335,7 +339,11 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           },
           { label: 'Table', link: './components/table', keywords: selectorMap.angular.table },
           { label: 'Tabs', link: './components/tabs', keywords: selectorMap.angular.tabs },
-          { label: 'Tag', link: './components/tag', keywords: selectorMap.angular.tag },
+          {
+            label: 'Tag',
+            link: './components/tag',
+            keywords: [...selectorMap.angular.tag, 'form'],
+          },
           {
             label: 'Teaser',
             link: './components/teaser',
@@ -359,7 +367,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           {
             label: 'Time Input',
             link: './components/time-input',
-            keywords: selectorMap.angular.timeInput,
+            keywords: [...selectorMap.angular.timeInput, 'form'],
           },
           {
             label: 'Timetable Form',
@@ -381,12 +389,12 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           {
             label: 'Toggle',
             link: './components/toggle',
-            keywords: selectorMap.angular.toggle,
+            keywords: [...selectorMap.angular.toggle, 'form'],
           },
           {
             label: 'Toggle Check',
             link: './components/toggle-check',
-            keywords: selectorMap.angular.toggleCheck,
+            keywords: [...selectorMap.angular.toggleCheck, 'form'],
           },
           {
             label: 'Tooltip',
