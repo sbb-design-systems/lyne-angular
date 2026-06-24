@@ -1,3 +1,5 @@
+<!-- keywords: angular.json, import, install, ng add, npm, schematics, setup, yarn -->
+
 # Getting started @sbb-esta/lyne-angular-experimental
 
 1. Follow the getting started guide for the `@sbb-esta/angular` package to set up your Angular application and install the base package.

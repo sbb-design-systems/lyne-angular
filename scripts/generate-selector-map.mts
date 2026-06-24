@@ -23,6 +23,10 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 
 type SelectorMap = Record<string, Record<string, string[]>>;
 
+function toCamelCase(str: string): string {
+  return str.toLowerCase().replace(/[-_\s]+(.)?/g, (_, char) => (char ? char.toUpperCase() : ''));
+}
+
 /** Extract all sbb-relevant values from a @Directive/@Component selector string. */
 function selectorsFromDecoratorValue(raw: string): string[] {
   const results: string[] = [];
@@ -120,7 +124,7 @@ function generateForPackage(pkg: 'angular' | 'angular-experimental'): Record<str
     }
 
     if (selectors.size > 0) {
-      result[module] = [...selectors].sort();
+      result[toCamelCase(module)] = [...selectors].sort();
     }
   }
 
@@ -129,9 +133,9 @@ function generateForPackage(pkg: 'angular' | 'angular-experimental'): Record<str
 
 const selectorMap: SelectorMap = {
   angular: generateForPackage('angular'),
-  'angular-experimental': generateForPackage('angular-experimental'),
+  angularExperimental: generateForPackage('angular-experimental'),
 };
 
-const outputPath = join(root, 'src/docs/assets/selector-map.json');
+const outputPath = join(root, 'src/docs/app/shared/selector-map.json');
 writeFileSync(outputPath, JSON.stringify(selectorMap, null, 2), 'utf-8');
 console.log(`Generated ${outputPath}`);

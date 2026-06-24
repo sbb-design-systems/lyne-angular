@@ -1,4 +1,3 @@
-import { httpResource } from '@angular/common/http';
 import { Component, computed, inject, signal, viewChild } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { form, FormField } from '@angular/forms/signals';
@@ -43,10 +42,6 @@ export class PackageViewerComponent {
   );
   private _sidebar = viewChild.required(SbbSidebar);
 
-  #selectorMapResource = httpResource<Record<string, Record<string, string[]>>>(
-    () => 'assets/selector-map.json',
-  );
-
   protected search = form(signal(''));
 
   protected filteredSections = computed(() => {
@@ -56,11 +51,6 @@ export class PackageViewerComponent {
       return sections;
     }
 
-    // Derive package folder key from package name, e.g. "@sbb-esta/angular" -> "angular"
-    const packageName = this.package().name ?? '';
-    const packageKey = packageName.replace('@sbb-esta/lyne-', '');
-    const packageSelectors = (this.#selectorMapResource.value() ?? {})[packageKey] ?? {};
-
     return sections
       .map((section) => ({
         ...section,
@@ -69,16 +59,13 @@ export class PackageViewerComponent {
             return true;
           }
 
-          // Look up real selectors for this entry from the generated map
-          const module = e.link.split('/').at(-1) ?? '';
-          const selectors = packageSelectors[module] ?? [];
-
-          // Normalize camelCase selectors (e.g. "sbbAutocomplete") to kebab-case for comparison
-          return selectors.some((sel) => {
-            const normalized = sel.replaceAll('-', '').toLowerCase();
-            const normalizedQuery = query.replaceAll('-', '').toLowerCase();
-            return normalized.includes(normalizedQuery) || normalizedQuery.includes(normalized);
-          });
+          return (
+            e.keywords?.some((kw) => {
+              const normalized = this.#normalizeString(kw);
+              const normalizedQuery = this.#normalizeString(query);
+              return normalized.includes(normalizedQuery) || normalizedQuery.includes(normalized);
+            }) ?? false
+          );
         }),
       }))
       .filter((section) => section.entries.length > 0);
@@ -88,5 +75,9 @@ export class PackageViewerComponent {
     toObservable(this._sidebar)
       .pipe(finalize(() => this.sidebarToggle.unregister()))
       .subscribe((sidebar) => this.sidebarToggle.register(sidebar));
+  }
+
+  #normalizeString(string: string): string {
+    return string.replaceAll('-', '').replaceAll(' ', '').toLowerCase();
   }
 }

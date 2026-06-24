@@ -1,3 +1,5 @@
+<!-- keywords: angular.json, import, install, ng add, npm, schematics, setup, yarn -->
+
 # Getting Started
 
 > ⓘ The full introduction including some guides can be retrieved at [@sbb-esta/lyne-elements documentation](https://lyne-elements.app.sbb.ch).
