@@ -40,7 +40,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'checkbox-panel': [{ id: 'checkbox-panel-variants', hasStyle: true }],
   chip: ['chip-basic'],
   'chip-label': ['chip-label-basic'],
-  clock: ['clock-basic'],
+  clock: ['clock-basic', 'clock-paused'],
   container: ['container-basic'],
   'date-input': ['date-input-basic'],
   datepicker: ['datepicker-basic'],
@@ -179,6 +179,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'chip-label-basic':
       return import('../angular/examples/chip-label');
     case 'clock-basic':
+    case 'clock-paused':
       return import('../angular/examples/clock');
     case 'container-basic':
       return import('../angular/examples/container');
