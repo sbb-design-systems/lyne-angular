@@ -23,39 +23,28 @@
 <sbb-title level="2" class="sbb-screen-reader-only">Packages</sbb-title>
 
 <sbb-action-group class="libraries">
-  <sbb-teaser
-    alignment="below"
-    accessibilitylabel="Documentation of @sbb-esta/lyne-angular"
-    routerLink="/angular"
-  >
-    <figure slot="image" class="sbb-figure">
-      <picture>
-        <source srcset="/assets/lyne-dark.webp" media="(prefers-color-scheme: dark)" />
-        <img src="/assets/lyne.webp" alt="" />
-      </picture>
-      <sbb-chip-label color="charcoal" class="sbb-figure-overlap-start-end">stable</sbb-chip-label>
-    </figure>
-    <sbb-title level="3" slot="title">&#64;sbb-esta/lyne-angular</sbb-title>
-    Standard components that can be used for any kind of web site and web application.
-  </sbb-teaser>
-
-  <sbb-teaser
-    alignment="below"
-    accessibilitylabel="Documentation of @sbb-esta/lyne-angular-experimental"
-    routerLink="/angular-experimental"
-  >
-    <figure slot="image" class="sbb-figure">
-      <picture>
-        <source srcset="/assets/lyne-dark.webp" media="(prefers-color-scheme: dark)" />
-        <img src="/assets/lyne.webp" alt="" />
-      </picture>
-      <sbb-chip-label color="granite" class="sbb-figure-overlap-start-end">
-        experimental
-      </sbb-chip-label>
-    </figure>
-    <sbb-title level="3" slot="title">&#64;sbb-esta/lyne-elements-experimental</sbb-title>
-    Experimental components that can change at any time.
-  </sbb-teaser>
+  @for (packageEntry of packages | keyvalue; track $index) {
+    <sbb-teaser
+      alignment="below"
+      [accessibilityLabel]="'Documentation of ' + packageEntry.value.name"
+      [routerLink]="packageEntry.key"
+    >
+      <figure slot="image" class="sbb-figure">
+        <picture>
+          <source [srcset]="packageEntry.value.imageDark" media="(prefers-color-scheme: dark)" />
+          <img [src]="packageEntry.value.image" [alt]="packageEntry.value.name" />
+        </picture>
+        <sbb-chip-label
+          [color]="packageEntry.value.labelColor"
+          class="sbb-figure-overlap-start-end"
+        >
+          {{ packageEntry.value.label }}
+        </sbb-chip-label>
+      </figure>
+      <sbb-title level="3" slot="title">{{ packageEntry.value.name }}</sbb-title>
+      {{ packageEntry.value.description }}
+    </sbb-teaser>
+  }
 </sbb-action-group>
 
 <sbb-action-group class="sbb-orientation-horizontal-from-small actions">

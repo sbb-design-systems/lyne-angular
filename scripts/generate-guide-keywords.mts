@@ -28,6 +28,10 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 
 type GuideKeywordsMap = Record<string, Record<string, string[]>>;
 
+function toCamelCase(str: string): string {
+  return str.toLowerCase().replace(/[-_\s]+(.)?/g, (_, char) => (char ? char.toUpperCase() : ''));
+}
+
 /** Parse the <!-- keywords: ... --> comment from a Markdown source string. */
 function parseKeywords(source: string): string[] {
   const match = source.match(/<!--\s*keywords\s*:\s*([\s\S]*?)-->/);
@@ -58,7 +62,7 @@ function generateForPackage(pkg: 'angular' | 'angular-experimental'): Record<str
     const keywords = parseKeywords(source);
 
     if (keywords.length > 0) {
-      result[guideKey(entry.name)] = keywords;
+      result[toCamelCase(guideKey(entry.name))] = keywords;
     }
   }
 
@@ -67,9 +71,9 @@ function generateForPackage(pkg: 'angular' | 'angular-experimental'): Record<str
 
 const guideKeywordsMap: GuideKeywordsMap = {
   angular: generateForPackage('angular'),
-  'angular-experimental': generateForPackage('angular-experimental'),
+  angularExperimental: generateForPackage('angular-experimental'),
 };
 
-const outputPath = join(root, 'src/docs/assets/guide-keywords.json');
+const outputPath = join(root, 'src/docs/app/shared/guide-keywords.json');
 writeFileSync(outputPath, JSON.stringify(guideKeywordsMap, null, 2), 'utf-8');
 console.log(`Generated ${outputPath}`);

@@ -1,4 +1,3 @@
-import { httpResource } from '@angular/common/http';
 import { Component, computed, inject, signal, viewChild } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { form, FormField } from '@angular/forms/signals';
@@ -43,14 +42,6 @@ export class PackageViewerComponent {
   );
   private _sidebar = viewChild.required(SbbSidebar);
 
-  #selectorMapResource = httpResource<Record<string, Record<string, string[]>>>(
-    () => 'assets/selector-map.json',
-  );
-
-  #guideKeywordsResource = httpResource<Record<string, Record<string, string[]>>>(
-    () => 'assets/guide-keywords.json',
-  );
-
   protected search = form(signal(''));
 
   protected filteredSections = computed(() => {
@@ -60,12 +51,6 @@ export class PackageViewerComponent {
       return sections;
     }
 
-    // Derive package folder key from package name, e.g. "@sbb-esta/lyne-angular" -> "angular"
-    const packageName = this.package().name ?? '';
-    const packageKey = packageName.replace('@sbb-esta/lyne-', '');
-    const packageSelectors = (this.#selectorMapResource.value() ?? {})[packageKey] ?? {};
-    const packageGuideKeywords = (this.#guideKeywordsResource.value() ?? {})[packageKey] ?? {};
-
     return sections
       .map((section) => ({
         ...section,
@@ -74,27 +59,13 @@ export class PackageViewerComponent {
             return true;
           }
 
-          const module = e.link.split('/').at(-1) ?? '';
-
-          // For guide entries: check extracted guide keywords
-          if (e.link.includes('/guides/')) {
-            const guideKeywords = packageGuideKeywords[module] ?? [];
-            return guideKeywords.some((kw) => {
+          return (
+            e.keywords?.some((kw) => {
               const normalized = this.#normalizeString(kw);
               const normalizedQuery = this.#normalizeString(query);
               return normalized.includes(normalizedQuery) || normalizedQuery.includes(normalized);
-            });
-          }
-
-          // For component entries: look up real selectors from the generated map
-          const selectors = packageSelectors[module] ?? [];
-
-          // Normalize camelCase selectors (e.g. "sbbAutocomplete") to kebab-case for comparison
-          return selectors.some((sel) => {
-            const normalized = this.#normalizeString(sel);
-            const normalizedQuery = this.#normalizeString(query);
-            return normalized.includes(normalizedQuery) || normalizedQuery.includes(normalized);
-          });
+            }) ?? false
+          );
         }),
       }))
       .filter((section) => section.entries.length > 0);
