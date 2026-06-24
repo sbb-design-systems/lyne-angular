@@ -1,6 +1,12 @@
 @if (!loading()) {
   <sbb-table-wrapper class="table-wrapper">
-    <table sbb-table sbbSort [dataSource]="dataSource" (sbbSortChange)="announceSortChange($event)">
+    <table
+      sbb-table
+      sbbSort
+      [dataSource]="dataSource"
+      (sbbSortChange)="announceSortChange($event)"
+      class="sbb-table--striped sbb-table--hover"
+    >
       <ng-container sbbColumnDef="line" sticky>
         <th
           sbb-header-cell
