@@ -47,5 +47,4 @@ Thumbs.db
 /src/docs/documentation.json
 /src/docs/app/angular/api
 /src/docs/app/angular-experimental/api
-/src/docs/app/shared/selector-map.json
-/src/docs/app/shared/guide-keywords.json
+/src/docs/app/shared/keywords.json
