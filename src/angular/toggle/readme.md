@@ -1,5 +1,7 @@
 # Toggle
 
+<!-- keywords: form -->
+
 The `<sbb-toggle>` component is a wrapper for `<sbb-toggle-option>` elements
 that can be selected by the user; it is useful for switching between views within the content.
 

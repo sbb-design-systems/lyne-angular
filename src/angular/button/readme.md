@@ -1,5 +1,7 @@
 # Button
 
+<!-- keywords: form -->
+
 The button components from Lyne provide the same functionality as a native `<button>` element
 enhanced with SBB Design, accepting its associated properties (`type`, `name`, `value` and `form`).
 
