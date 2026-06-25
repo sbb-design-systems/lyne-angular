@@ -1,5 +1,7 @@
 # Slider
 
+<!-- keywords: form -->
+
 The `<sbb-slider>` is an input component that allows for the selection of a value within a range.
 
 This can be set using the `min` and `max` properties (default values are 0 and 100),

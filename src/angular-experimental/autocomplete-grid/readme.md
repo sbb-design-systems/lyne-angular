@@ -1,5 +1,7 @@
 # Autocomplete Grid
 
+<!-- keywords: form -->
+
 The `<sbb-autocomplete-grid>` is a component that can be used to display a panel of suggested options connected to a text input,
 with each option connected to one or more buttons.
 Use it when you need an autocomplete in which every selectable option in the panel needs one or more related button.
