@@ -1,0 +1,58 @@
+<sbb-form-field>
+  <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+  <sbb-date-input
+    [formControl]="form.controls.dateValue"
+    [disabled]="form.controls.disabled.value!"
+    [min]="form.controls.min.value"
+    [max]="form.controls.max.value"
+    [dateFilter]="form.controls.dateFilter.value!"
+  ></sbb-date-input>
+  <sbb-datepicker-toggle></sbb-datepicker-toggle>
+  <sbb-datepicker-next-day></sbb-datepicker-next-day>
+  <sbb-datepicker
+    [wide]="form.controls.wide.value"
+    [view]="form.controls.view.value!"
+  ></sbb-datepicker>
+</sbb-form-field>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formControl]="form.controls.disabled"></sbb-checkbox>
+
+  <label for="wide">Wide</label>
+  <sbb-checkbox id="wide" [formControl]="form.controls.wide"></sbb-checkbox>
+
+  <label>View</label>
+  <sbb-radio-button-group aria-label="View" [formControl]="form.controls.view">
+    <sbb-radio-button value="day">Day view</sbb-radio-button>
+    <sbb-radio-button value="month">Month view</sbb-radio-button>
+    <sbb-radio-button value="year">Year view</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Date filter</label>
+  <sbb-radio-button-group aria-label="Date filter" (change)="onChange($event)" allowEmptySelection>
+    <sbb-radio-button value="odd">Exclude odd years</sbb-radio-button>
+    <sbb-radio-button value="even">Exclude even years</sbb-radio-button>
+    <sbb-radio-button value="odd-days">Exclude odd days</sbb-radio-button>
+    <sbb-radio-button value="even-days">Exclude even days</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="min">Min</label>
+  <sbb-form-field>
+    <sbb-date-input
+      id="min"
+      [formControl]="form.controls.min"
+      [max]="form.controls.max.value"
+    ></sbb-date-input>
+  </sbb-form-field>
+
+  <label for="max">Max</label>
+  <sbb-form-field>
+    <sbb-date-input
+      id="max"
+      [formControl]="form.controls.max"
+      [min]="form.controls.min.value"
+    ></sbb-date-input>
+  </sbb-form-field>
+</div>
