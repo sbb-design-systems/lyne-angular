@@ -33,7 +33,7 @@ export class DateInputVariantsExample {
     dateFilter: new FormControl<(d: Date) => boolean>(() => true),
   });
 
-  test(event: Event): void {
+  onChange(event: Event): void {
     const radio = event.target as SbbRadioButtonElement;
     if (!radio.checked) {
       return this.form.controls.dateFilter.patchValue(() => true);
