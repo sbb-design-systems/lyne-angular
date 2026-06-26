@@ -49,7 +49,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'date-input': ['date-input-basic'],
   datepicker: ['datepicker-basic'],
   dialog: ['dialog-basic'],
-  divider: ['divider-basic'],
+  divider: [{ id: 'divider-basic', hasStyle: true }],
   'expansion-panel': ['expansion-panel-basic'],
   'file-selector': ['file-selector-basic'],
   'flip-card': ['flip-card-basic'],
