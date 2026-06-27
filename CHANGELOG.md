@@ -1,5 +1,18 @@
 # Changelog
 
+## [22.0.4](https://github.com/sbb-design-systems/lyne-angular/compare/v22.0.3...v22.0.4) (2026-06-27)
+
+
+### Documentation
+
+* add script for example creation ([#437](https://github.com/sbb-design-systems/lyne-angular/issues/437)) ([d8fd2dc](https://github.com/sbb-design-systems/lyne-angular/commit/d8fd2dce028df557efc70e12b8dc0328d78fab40))
+* **calendar:** add examples ([#426](https://github.com/sbb-design-systems/lyne-angular/issues/426)) ([00f40d8](https://github.com/sbb-design-systems/lyne-angular/commit/00f40d83e2810ab3276ff819cbc47fb1e2b6cd25))
+* **checkbox-group:** implement examples ([#434](https://github.com/sbb-design-systems/lyne-angular/issues/434)) ([6d6757d](https://github.com/sbb-design-systems/lyne-angular/commit/6d6757d430769ca20bde2ecd1cebc650a8894102))
+* **chip-label:** add examples ([#438](https://github.com/sbb-design-systems/lyne-angular/issues/438)) ([5403628](https://github.com/sbb-design-systems/lyne-angular/commit/5403628c9e18aa1845d495d1c5dbf77e9bc274ed))
+* **chip:** add examples ([#429](https://github.com/sbb-design-systems/lyne-angular/issues/429)) ([8fbd476](https://github.com/sbb-design-systems/lyne-angular/commit/8fbd47668d56d7a999f99d129adc0d099ad1a088))
+* include keywords in search ([#435](https://github.com/sbb-design-systems/lyne-angular/issues/435)) ([273cc1c](https://github.com/sbb-design-systems/lyne-angular/commit/273cc1c0c84ae14f93202ae437b590fce25a52b4))
+* update table examples and time-input docs ([#440](https://github.com/sbb-design-systems/lyne-angular/issues/440)) ([392fc5e](https://github.com/sbb-design-systems/lyne-angular/commit/392fc5e0226be3bd4138725ee9a7e05ffefa6b7d))
+
 ## [22.0.3](https://github.com/sbb-design-systems/lyne-angular/compare/v22.0.2...v22.0.3) (2026-06-23)
 
 
