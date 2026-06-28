@@ -70,7 +70,7 @@
     "custom-elements-manifest": "2.1.0",
     "eslint": "10.6.0",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-import-x": "4.17.0",
+    "eslint-plugin-import-x": "4.17.1",
     "github-slugger": "2.0.0",
     "globals": "17.7.0",
     "highlight.js": "11.11.1",
