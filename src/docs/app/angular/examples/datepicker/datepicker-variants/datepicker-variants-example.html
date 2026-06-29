@@ -31,11 +31,12 @@
   </sbb-radio-button-group>
 
   <label>Date filter</label>
-  <sbb-radio-button-group aria-label="Date filter" (change)="onChange($event)" allowEmptySelection>
-    <sbb-radio-button value="odd">Exclude odd years</sbb-radio-button>
-    <sbb-radio-button value="even">Exclude even years</sbb-radio-button>
-    <sbb-radio-button value="odd-days">Exclude odd days</sbb-radio-button>
-    <sbb-radio-button value="even-days">Exclude even days</sbb-radio-button>
+  <sbb-radio-button-group aria-label="Date filter" [formControl]="form.controls.dateFilter">
+    <sbb-radio-button [value]="noFilter" checked>No filter</sbb-radio-button>
+    <sbb-radio-button [value]="filterOddYears">Exclude odd years</sbb-radio-button>
+    <sbb-radio-button [value]="filterOddDays">Exclude even years</sbb-radio-button>
+    <sbb-radio-button [value]="filterEvenYears">Exclude odd days</sbb-radio-button>
+    <sbb-radio-button [value]="filterEvenDays">Exclude even days</sbb-radio-button>
   </sbb-radio-button-group>
 
   <label for="min">Min</label>

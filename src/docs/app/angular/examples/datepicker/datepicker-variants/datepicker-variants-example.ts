@@ -6,8 +6,8 @@ import { SbbDatepickerModule } from '@sbb-esta/lyne-angular/datepicker';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
+import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.pure.js';
 import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.pure.js';
-import type { SbbRadioButtonElement } from '@sbb-esta/lyne-elements/radio-button.pure.js';
 
 /**
  * @title datepicker with configurable properties
@@ -28,6 +28,14 @@ import type { SbbRadioButtonElement } from '@sbb-esta/lyne-elements/radio-button
   ],
 })
 export class DatepickerVariantsExample {
+  protected noFilter: SbbDateInputElement['dateFilter'] = () => true;
+  protected filterOddYears: SbbDateInputElement['dateFilter'] = (d: Date) =>
+    d.getFullYear() % 2 === 0;
+  protected filterOddDays: SbbDateInputElement['dateFilter'] = (d: Date) => d.getDate() % 2 === 0;
+  protected filterEvenYears: SbbDateInputElement['dateFilter'] = (d: Date) =>
+    d.getFullYear() % 2 === 1;
+  protected filterEvenDays: SbbDateInputElement['dateFilter'] = (d: Date) => d.getDate() % 2 === 1;
+
   protected form = new FormBuilder().group({
     dateValue: new FormControl(new Date('2024-12-12')),
     min: new FormControl(new Date('2024-01-01')),
@@ -37,16 +45,4 @@ export class DatepickerVariantsExample {
     view: new FormControl<SbbDatepickerElement['view']>('day'),
     dateFilter: new FormControl<(d: Date) => boolean>(() => true),
   });
-
-  onChange(event: Event): void {
-    const radio = event.target as SbbRadioButtonElement;
-    if (!radio.checked) {
-      return this.form.controls.dateFilter.patchValue(() => true);
-    }
-    this.form.controls.dateFilter.patchValue(
-      (d: Date) =>
-        (radio.value!.includes('days') ? d.getDate() : d.getFullYear()) % 2 ===
-        (radio.value!.includes('odd') ? 0 : 1),
-    );
-  }
 }
