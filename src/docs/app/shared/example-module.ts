@@ -47,7 +47,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   clock: ['clock-basic', 'clock-paused'],
   container: ['container-basic'],
   'date-input': ['date-input-basic'],
-  datepicker: ['datepicker-variants', 'datepicker-basic'],
+  datepicker: ['datepicker-basic', 'datepicker-variants'],
   dialog: ['dialog-basic'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
   'expansion-panel': ['expansion-panel-basic'],

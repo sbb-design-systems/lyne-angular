@@ -11,7 +11,7 @@ import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.pu
 
 /**
  * @title datepicker with configurable properties
- * @order 4
+ * @order 2
  */
 @Component({
   selector: 'sbb-datepicker-variants-example',
