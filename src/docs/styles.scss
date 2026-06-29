@@ -136,3 +136,8 @@ sbb-block-link {
     }
   }
 }
+
+.sbb-example__negative {
+  background-color: var(--sbb-background-color-1-negative);
+  color: var(--sbb-color-1-negative);
+}
