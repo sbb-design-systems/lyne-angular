@@ -160,8 +160,7 @@ export function addThemeToProject(
       }
 
       const styles = target.options['styles'] as
-        | (string | { input: string; [key: string]: any })[]
-        | undefined;
+        (string | { input: string; [key: string]: any })[] | undefined;
 
       if (!styles) {
         target.options['styles'] = [themePath];

@@ -77,9 +77,7 @@ Components created via `SbbDialogService` can _inject_ `SbbDialogRef` and use it
 in which they are contained.
 
 ```ts
-@Component({
-  /* ... */
-})
+@Component({/* ... */})
 export class YourDialog {
   dialogRef = inject(SbbDialogRef);
 
@@ -143,9 +141,7 @@ dialogRef.afterClosed.subscribe((event) => {
 If you want to set any properties on the `SbbDialog` component, you can use the `setupContainer` function in the configuration object.
 
 ```ts
-@Component({
-  /* ... */
-})
+@Component({/* ... */})
 export class ParentComponent {
   dialogService = inject(SbbDialogService);
 
@@ -166,9 +162,7 @@ export class ParentComponent {
 If you want to share data with the component rendered in your dialog, you can use the `data` property in the configuration object.
 
 ```ts
-@Component({
-  /* ... */
-})
+@Component({/* ... */})
 export class ParentComponent {
   dialogService = inject(SbbDialogService);
 

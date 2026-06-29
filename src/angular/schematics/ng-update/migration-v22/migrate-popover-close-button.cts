@@ -57,15 +57,13 @@ export class MigratePopoverCloseButton extends AttributeMigrationBase {
         (a) => a.name === 'hoverTrigger' || a.name === 'hover-trigger',
       );
       const boundHoverTrigger = el.inputs.find((i) => i.name === 'hoverTrigger') as
-        | TmplAstBoundAttribute
-        | undefined;
+        TmplAstBoundAttribute | undefined;
 
       const staticHide = el.attributes.find(
         (a) => a.name === 'hideCloseButton' || a.name === 'hide-close-button',
       );
       const boundHide = el.inputs.find((i) => i.name === 'hideCloseButton') as
-        | TmplAstBoundAttribute
-        | undefined;
+        TmplAstBoundAttribute | undefined;
 
       if (staticHide) {
         // Case 1: static boolean attr or `hideCloseButton="true"` → remove it.

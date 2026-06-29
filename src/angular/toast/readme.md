@@ -49,9 +49,7 @@ Components created via `SbbToastService` can _inject_ `SbbToastRef` and use it t
 in which they are contained.
 
 ```ts
-@Component({
-  /* ... */
-})
+@Component({/* ... */})
 export class YourToast {
   toastRef = inject(SbbToastRef);
 
@@ -66,9 +64,7 @@ export class YourToast {
 If you want to set any properties on the `SbbToast` component, you can use the `setupContainer` function in the configuration object.
 
 ```ts
-@Component({
-  /* ... */
-})
+@Component({/* ... */})
 export class ParentComponent {
   toastService = inject(SbbToastService);
 
@@ -88,9 +84,7 @@ export class ParentComponent {
 If you want to share data with the component rendered in your toast, you can use the `data` property in the configuration object.
 
 ```ts
-@Component({
-  /* ... */
-})
+@Component({/* ... */})
 export class ParentComponent {
   toastService = inject(SbbToastService);
 

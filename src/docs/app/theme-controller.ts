@@ -12,12 +12,7 @@ import { type Observable } from 'rxjs';
 const themeLocalstorageKey = 'sbbTheme';
 
 type SbbTheme =
-  | 'standard'
-  | 'standard-off-brand'
-  | 'standard-safety'
-  | 'lean'
-  | 'lean-off-brand'
-  | 'lean-safety';
+  'standard' | 'standard-off-brand' | 'standard-safety' | 'lean' | 'lean-off-brand' | 'lean-safety';
 
 @Service()
 export class ThemeController implements CanActivate {
