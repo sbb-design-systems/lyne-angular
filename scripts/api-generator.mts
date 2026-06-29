@@ -8,20 +8,72 @@ const documentation = JSON.parse(readFileSync(join(root, `/src/docs/documentatio
 const modulesWithLegacySubmodules = ['checkbox', 'link-list', 'radio-button'];
 const ignoredFolders = ['core'];
 
+type DocEntry = {
+  file: string;
+  name: string;
+  rawdescription?: string;
+  cssProps?: { name: string; default?: string; description: string }[];
+  cssParts?: { name: string; description: string }[];
+  slots?: { name: string; description: string }[];
+};
+
 /**
- * For all directives it collects slots, cssProps and cssParts information and appends it
- * to the `documentation` object, which is used to create the API docs.
+ * Removes lines from rawDescription that belong to slots, cssProps or cssParts,
+ * since these are now also embedded in the description by the new compodoc version
+ * and are rendered separately as tables.
+ */
+const cleanRawDescription = (
+  rawDescription: string,
+  slots: DocEntry['slots'],
+  cssProps: DocEntry['cssProps'],
+  cssParts: DocEntry['cssParts'],
+): string =>
+  rawDescription
+    .split('\n')
+    .filter((line) => {
+      const trimmed = line.trim();
+      if (!trimmed) {
+        return true;
+      }
+
+      // Remove CSS prop lines: [--name=value] - description or --name - description
+      if (
+        cssProps?.some(
+          (part) =>
+            trimmed === `${part.name} - ${part.description}` ||
+            trimmed === `[${part.name}=${part.default}] - ${part.description}`,
+        )
+      ) {
+        return false;
+      }
+
+      // Remove CSS part lines: name - description
+      if (cssParts?.some((part) => trimmed === `${part.name} - ${part.description}`)) {
+        return false;
+      }
+
+      // Remove slot lines: "- description" (unnamed) or "name - description" (named)
+      return !slots?.some((slot) => {
+        const expected = slot.name ? `${slot.name} - ${slot.description}` : `- ${slot.description}`;
+        return trimmed === expected;
+      });
+    })
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+
+/**
+ * For all directives and components it collects slots, cssProps and cssParts information
+ * and appends it to the `documentation` object, which is used to create the API docs.
+ * It also cleans the rawdescription so that the slot/cssprop/csspart content that the
+ * new compodoc version embeds there is not rendered as plain text in addition to the tables.
  */
 const appendAdditionalInformation = (documentation: {
-  directives: {
-    file: string;
-    name: string;
-    slots?: { name: string; description: string }[];
-    cssProps?: { name: string; default?: string; description: string }[];
-    cssParts?: { name: string; description: string }[];
-  }[];
+  directives: DocEntry[];
+  components?: DocEntry[];
 }): void => {
-  documentation.directives.forEach((d) => {
+  const entries = [...documentation.directives, ...(documentation.components ?? [])];
+  entries.forEach((d) => {
     const fileContent = readFileSync(new URL(`../${d.file}`, import.meta.url), 'utf8');
 
     const sourceFile = ts.createSourceFile('example.ts', fileContent, ts.ScriptTarget.ES2023, true);
@@ -64,6 +116,11 @@ const appendAdditionalInformation = (documentation: {
       ts.forEachChild(node, handleJsDoc);
     }
     handleJsDoc(sourceFile);
+
+    // Clean rawdescription: remove lines that are now rendered as tables
+    if (d.rawdescription && (d.slots?.length || d.cssProps?.length || d.cssParts?.length)) {
+      d.rawdescription = cleanRawDescription(d.rawdescription, d.slots, d.cssProps, d.cssParts);
+    }
   });
 };
 
