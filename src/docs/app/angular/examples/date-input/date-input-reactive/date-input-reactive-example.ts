@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
-import { SbbDateInput } from '@sbb-esta/lyne-angular/date-input';
+import { SbbDateInputModule } from '@sbb-esta/lyne-angular/date-input';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
@@ -11,7 +11,7 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 @Component({
   selector: 'sbb-date-input-reactive-example',
   templateUrl: 'date-input-reactive-example.html',
-  imports: [ReactiveFormsModule, SbbCardModule, SbbDateInput, SbbFormFieldModule],
+  imports: [ReactiveFormsModule, SbbCardModule, SbbDateInputModule, SbbFormFieldModule],
 })
 export class DateInputReactiveExample {
   protected control = new FormControl<Date | null>(new Date('2024-12-12'));
