@@ -59,9 +59,7 @@ overlayRef.close('Pizza!');
 Components created via `SbbOverlayService` can _inject_ `SbbOverlayRef` and use it to close the overlay in which they are contained.
 
 ```ts
-@Component({
-  /* ... */
-})
+@Component({/* ... */})
 export class YourOverlay {
   overlayRef = inject(SbbOverlayRef);
 
@@ -119,9 +117,7 @@ overlayRef.afterClosed.subscribe((event) => {
 If you want to set any properties on the `SbbOverlay` component, you can use the `setupContainer` function in the configuration object.
 
 ```ts
-@Component({
-  /* ... */
-})
+@Component({/* ... */})
 export class ParentComponent {
   overlayService = inject(SbbOverlayService);
 
@@ -141,9 +137,7 @@ export class ParentComponent {
 If you want to share data with the component rendered in your overlay, you can use the `data` property in the configuration object.
 
 ```ts
-@Component({
-  /* ... */
-})
+@Component({/* ... */})
 export class ParentComponent {
   overlayService = inject(SbbOverlayService);
 
