@@ -3,6 +3,7 @@ import { SbbClockModule } from '@sbb-esta/lyne-angular/clock';
 
 /**
  * @title Basic clock
+ * @order 1
  */
 @Component({
   selector: 'sbb-clock-basic-example',

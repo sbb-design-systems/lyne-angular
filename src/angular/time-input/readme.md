@@ -1,5 +1,7 @@
 # Time Input
 
+<!-- keywords: form -->
+
 The `<sbb-time-input>` is an input component that displays the typed value as a formatted time (HH:mm).
 
 ```html

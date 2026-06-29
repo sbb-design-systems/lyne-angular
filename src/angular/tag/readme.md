@@ -1,5 +1,7 @@
 # Tag
 
+<!-- keywords: form -->
+
 Tags categorize large amounts of information and filter content through user selection.
 
 The `<sbb-tag-group>` is a container for one or more `<sbb-tag>` components.
