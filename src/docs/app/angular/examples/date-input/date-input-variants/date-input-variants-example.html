@@ -15,9 +15,10 @@
   <sbb-checkbox id="disabled" [formControl]="form.controls.disabled"></sbb-checkbox>
 
   <label>Date filter</label>
-  <sbb-radio-button-group aria-label="Date filter" (change)="onChange($event)" allowEmptySelection>
-    <sbb-radio-button value="odd">Exclude odd years</sbb-radio-button>
-    <sbb-radio-button value="even">Exclude even years</sbb-radio-button>
+  <sbb-radio-button-group aria-label="Date filter" [formControl]="form.controls.dateFilter">
+    <sbb-radio-button [value]="noFilter" checked>No filter</sbb-radio-button>
+    <sbb-radio-button [value]="filterOdd">Exclude odd years</sbb-radio-button>
+    <sbb-radio-button [value]="filterEven">Exclude even years</sbb-radio-button>
   </sbb-radio-button-group>
 
   <label for="min">Min</label>
