@@ -6,6 +6,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title Basic checkbox
+ * @order 1
  */
 @Component({
   selector: 'sbb-checkbox-basic-example',
@@ -15,7 +16,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 export class CheckboxBasicExample {
   protected controls = form(
     signal({
-      size: 'm' as SbbCheckbox['size'],
+      size: null as SbbCheckbox['size'] | null,
       checked: false,
       disabled: false,
       indeterminate: false,
