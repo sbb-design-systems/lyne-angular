@@ -1,8 +1,10 @@
-<p>Horizontal</p>
-<sbb-divider [negative]="controls.negative().value()"></sbb-divider>
-<p>Vertical</p>
-<div class="vertical-divider-example">
-  <sbb-divider orientation="vertical" [negative]="controls.negative().value()"></sbb-divider>
+<div [class]="{ 'sbb-example__negative': controls.negative().value() }">
+  <p>Horizontal</p>
+  <sbb-divider [negative]="controls.negative().value()"></sbb-divider>
+  <p>Vertical</p>
+  <div class="vertical-divider-example">
+    <sbb-divider orientation="vertical" [negative]="controls.negative().value()"></sbb-divider>
+  </div>
 </div>
 
 <sbb-title level="5">Properties</sbb-title>
