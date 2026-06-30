@@ -39,12 +39,12 @@ export class DialogServiceContentExample {
   imports: [SbbButtonModule, SbbCardModule],
 })
 export class DialogServiceExample {
-  #dialogService = inject(SbbDialogService);
+  private _dialogService = inject(SbbDialogService);
 
   protected lastResult = signal<string | null>(null);
 
   protected openDialog(): void {
-    const dialogRef = this.#dialogService.open<DialogServiceContentExample, string>(
+    const dialogRef = this._dialogService.open<DialogServiceContentExample, string>(
       DialogServiceContentExample,
       {
         data: { name: 'Mario' },
