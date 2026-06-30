@@ -1,9 +1,7 @@
 <sbb-checkbox [formField]="signalForm.checkbox">Label</sbb-checkbox>
 
-<p class="sbb-text-s">
-  Value:
-
-  <sbb-card color="milk" id="form-data">
-    <code>{{ signalForm.checkbox().value() }}</code>
+<p>
+  <sbb-card color="milk">
+    Value: <code>{{ signalForm.checkbox().value() }}</code>
   </sbb-card>
 </p>

@@ -1,34 +1,33 @@
 <sbb-checkbox
-  value="icon"
+  [formField]="controls.model"
   [size]="controls.size().value()"
-  [disabled]="controls.disabled().value()"
   [indeterminate]="controls.indeterminate().value()"
-  [checked]="controls.checked().value()"
   [iconPlacement]="controls.iconPlacement().value()"
   iconName="tickets-class-small"
-  >Checkbox with Icon</sbb-checkbox
 >
+  Checkbox with Icon
+</sbb-checkbox>
+
+<p>
+  <sbb-card color="milk">
+    Value: <code>{{ controls.model().value() }}</code>
+  </sbb-card>
+</p>
+
 <sbb-title level="5">Properties</sbb-title>
 <div class="sbb-controls-table">
   <label>Size</label>
-  <sbb-radio-button-group
-    aria-label="Size"
-    size="s"
-    allowEmptySelection
-    [formField]="controls.size"
-  >
+  <sbb-radio-button-group aria-label="Size" allowEmptySelection [formField]="controls.size">
     <sbb-radio-button value="xs">xs</sbb-radio-button>
     <sbb-radio-button value="s">s</sbb-radio-button>
-    <sbb-radio-button value="m">m (default)</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
   </sbb-radio-button-group>
-  <label for="checked">Checked</label>
-  <sbb-checkbox id="checked" [formField]="controls.checked"> </sbb-checkbox>
   <label for="disabled">Disabled</label>
-  <sbb-checkbox id="disabled" [formField]="controls.disabled"> </sbb-checkbox>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
   <label for="indeterminate">Indeterminate</label>
-  <sbb-checkbox id="indeterminate" [formField]="controls.indeterminate"> </sbb-checkbox>
+  <sbb-checkbox id="indeterminate" [formField]="controls.indeterminate"></sbb-checkbox>
   <label>Icon Placement</label>
-  <sbb-radio-button-group aria-label="Icon Placement" size="s" [formField]="controls.iconPlacement">
+  <sbb-radio-button-group aria-label="Icon Placement" [formField]="controls.iconPlacement">
     <sbb-radio-button value="start">start</sbb-radio-button>
     <sbb-radio-button value="end">end</sbb-radio-button>
   </sbb-radio-button-group>
