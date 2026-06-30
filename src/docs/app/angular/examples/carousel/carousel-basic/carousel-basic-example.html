@@ -1,29 +1,57 @@
 <sbb-carousel>
   <sbb-carousel-list>
+    <!-- With SBB image -->
     <sbb-carousel-item>
-      <img
-        height="450"
-        width="800"
-        src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Billetkontrolle.jpg"
-        alt="SBB image 1"
-      />
+      <sbb-image
+        image-src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Billetkontrolle.jpg"
+        alt="Use of an sbb-image"
+        style="width: 600px; height: 338px"
+      ></sbb-image>
     </sbb-carousel-item>
+
+    <!-- With chip label -->
+    <sbb-carousel-item>
+      <figure class="sbb-figure" style="width: 600px; height: 338px">
+        <sbb-chip-label class="sbb-figure-overlap-start-start"> With chip label </sbb-chip-label>
+        <img
+          src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Kaufmann-frau.jpg"
+          alt="Use of a figure"
+        />
+      </figure>
+    </sbb-carousel-item>
+
+    <!-- With overlapping text -->
+    <sbb-carousel-item>
+      <div class="carousel-item-with-text__container" style="width: 600px; height: 338px">
+        <div class="carousel-item-with-text">
+          <div class="sbb-text--bold sbb-text-xl">Title slide 1</div>
+          <div>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer enim elit, ultricies in
+            tincidunt quis, mattis eu quam.
+          </div>
+        </div>
+        <sbb-image
+          image-src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Helpteaser-Background-Landscape.png"
+          alt="Image with text"
+          class="sbb-image-border-radius-none"
+          style="position: absolute; inset: 0"
+        ></sbb-image>
+      </div>
+    </sbb-carousel-item>
+
+    <!-- With native image -->
     <sbb-carousel-item>
       <img
-        height="450"
-        width="800"
+        height="338"
+        width="600"
         src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Hoehenrundweg-Gryden-Lenk.jpg"
-        alt="SBB image 2"
-      />
-    </sbb-carousel-item>
-    <sbb-carousel-item>
-      <img
-        height="450"
-        width="800"
-        src="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Kaufmann-frau.jpg"
-        alt="SBB image 3"
+        alt="Use of native image"
       />
     </sbb-carousel-item>
   </sbb-carousel-list>
-  <sbb-compact-paginator pager-position="start" size="m"></sbb-compact-paginator>
+  <sbb-compact-paginator></sbb-compact-paginator>
 </sbb-carousel>
+<sbb-card color="milk">
+  In mobile, scrolling the carousel can de-sync the paginator if the image is bigger than the
+  viewport. Be sure to set the right dimensions for the slotted image.
+</sbb-card>
