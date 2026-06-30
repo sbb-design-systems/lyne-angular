@@ -54,7 +54,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   datepicker: ['datepicker-basic'],
   dialog: ['dialog-basic'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
-  'expansion-panel': ['expansion-panel-basic'],
+  'expansion-panel': ['expansion-panel-basic', 'expansion-panel-variants'],
   'file-selector': ['file-selector-basic'],
   'flip-card': ['flip-card-basic'],
   footer: ['footer-basic', 'footer-clock'],
@@ -210,6 +210,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'expandable-table':
       return import('../angular/examples/table');
     case 'expansion-panel-basic':
+    case 'expansion-panel-variants':
       return import('../angular/examples/expansion-panel');
     case 'file-selector-basic':
       return import('../angular/examples/file-selector');
