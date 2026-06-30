@@ -15,19 +15,18 @@
 <sbb-title level="5">Properties</sbb-title>
 <div class="sbb-controls-table">
   <label>Color</label>
-  <sbb-radio-button-group aria-label="Color" size="s" [formField]="controls.color">
+  <sbb-radio-button-group aria-label="Color" [formField]="controls.color">
     <sbb-radio-button value="white">white (default)</sbb-radio-button>
     <sbb-radio-button value="milk">milk</sbb-radio-button>
     <sbb-radio-button value="transparent-bordered">transparent-bordered</sbb-radio-button>
-    <sbb-radio-button value="transparent-bordered-dashed"
-      >transparent-bordered-dashed</sbb-radio-button
-    >
+    <sbb-radio-button value="transparent-bordered-dashed">
+      transparent-bordered-dashed
+    </sbb-radio-button>
   </sbb-radio-button-group>
 
   <label>Spacing</label>
   <sbb-radio-button-group
     aria-label="Spacing"
-    size="s"
     [formField]="controls.spacing"
     [allowEmptySelection]="true"
   >
@@ -41,7 +40,7 @@
   </sbb-radio-button-group>
 
   <label for="badge-color">Badge color</label>
-  <sbb-radio-button-group id="badge-color" size="s" [formField]="controls.badgeColor">
+  <sbb-radio-button-group id="badge-color" [formField]="controls.badgeColor">
     <sbb-radio-button value="charcoal">charcoal</sbb-radio-button>
     <sbb-radio-button value="white">white</sbb-radio-button>
   </sbb-radio-button-group>
