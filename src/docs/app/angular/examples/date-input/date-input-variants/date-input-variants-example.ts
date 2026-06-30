@@ -29,6 +29,10 @@ export class DateInputVariantsExample {
   protected filterOdd: SbbDateInputElement['dateFilter'] = (d: Date) => d.getFullYear() % 2 === 0;
   protected filterEven: SbbDateInputElement['dateFilter'] = (d: Date) => d.getFullYear() % 2 === 1;
 
+  /**
+   * TODO: replace with signal forms and move min/max/disabled/dateFilter to validators
+   *  when PR https://github.com/angular/angular/pull/69452 is merged.
+   */
   protected form = new FormBuilder().group({
     dateValue: new FormControl(new Date('2024-12-12')),
     min: new FormControl(new Date('2024-01-01')),
