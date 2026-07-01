@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
+import type { SbbExpansionPanel } from '@sbb-esta/lyne-angular/expansion-panel';
 import { SbbExpansionPanelModule } from '@sbb-esta/lyne-angular/expansion-panel';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
-import type { SbbExpansionPanelElement } from '@sbb-esta/lyne-elements/expansion-panel.pure.js';
 
 /**
  * @title expansion-panel with configurable properties
@@ -30,8 +30,8 @@ export class ExpansionPanelVariantsExample {
       borderless: false,
       disabled: false,
       withIcon: false,
-      size: null as SbbExpansionPanelElement['size'],
-      color: 'white' as SbbExpansionPanelElement['color'],
+      size: null as SbbExpansionPanel['size'],
+      color: 'white' as SbbExpansionPanel['color'],
     }),
   );
 }
