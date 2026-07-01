@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { form, FormField } from '@angular/forms/signals';
+import { disabled, form, FormField } from '@angular/forms/signals';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbChipModule } from '@sbb-esta/lyne-angular/chip';
 import type { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
@@ -32,5 +32,13 @@ export class ChipVariantsExample {
       size: null as SbbFormField['size'],
       hiddenLabel: false,
     }),
+    (schemaPath) => {
+      disabled(schemaPath.disabled, {
+        when: ({ valueOf }) => valueOf(schemaPath.readonly),
+      });
+      disabled(schemaPath.readonly, {
+        when: ({ valueOf }) => valueOf(schemaPath.disabled),
+      });
+    },
   );
 }

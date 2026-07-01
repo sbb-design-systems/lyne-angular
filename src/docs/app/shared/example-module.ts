@@ -180,12 +180,12 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/carousel');
     case 'checkbox-basic':
       return import('../angular/examples/checkbox');
-
     case 'checkbox-group-basic':
     case 'checkbox-group-panel':
     case 'checkbox-group-with-error':
       return import('../angular/examples/checkbox-group');
     case 'checkbox-panel-variants':
+      return import('../angular/examples/checkbox-panel');
     case 'checkbox-reactive':
     case 'checkbox-signal':
     case 'checkbox-template-driven':

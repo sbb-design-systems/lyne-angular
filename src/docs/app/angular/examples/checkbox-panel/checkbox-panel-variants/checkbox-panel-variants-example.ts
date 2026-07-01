@@ -5,8 +5,7 @@ import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import type { SbbCheckboxPanel } from '@sbb-esta/lyne-angular/checkbox-panel';
 import { SbbCheckboxPanelModule } from '@sbb-esta/lyne-angular/checkbox-panel';
 import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
-import { SbbRadioButton } from '@sbb-esta/lyne-angular/radio-button';
-import { SbbRadioButtonGroup } from '@sbb-esta/lyne-angular/radio-button-group';
+import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
@@ -22,8 +21,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbCheckboxModule,
     SbbIconModule,
     SbbTitleModule,
-    SbbRadioButton,
-    SbbRadioButtonGroup,
+    SbbRadioButtonModule,
     FormField,
   ],
 })
