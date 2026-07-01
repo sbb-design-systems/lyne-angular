@@ -5,6 +5,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title Basic flip-card
+ * @order 2
  */
 @Component({
   selector: 'sbb-flip-card-basic-example',

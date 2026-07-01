@@ -61,7 +61,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'file-selector-reactive-form',
     'file-selector-template-driven',
   ],
-  'flip-card': ['flip-card-basic'],
+  'flip-card': ['flip-card-basic', 'flip-card-chip', 'flip-card-variants'],
   footer: ['footer-basic', 'footer-clock'],
   'form-field': [
     'form-field-basic',
@@ -229,6 +229,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'filter-sort-paginator-table':
       return import('../angular/examples/table');
     case 'flip-card-basic':
+    case 'flip-card-chip':
+    case 'flip-card-variants':
       return import('../angular/examples/flip-card');
     case 'footer-basic':
       return import('../angular/examples/footer');
