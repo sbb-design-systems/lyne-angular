@@ -34,8 +34,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'calendar-fixed-month',
   ],
   card: ['card-basic', 'card-link', 'card-button'],
-  carousel: ['carousel-basic'],
-  checkbox: ['checkbox-basic'],
+  carousel: [
+    { id: 'carousel-basic', hasStyle: true },
+    'carousel-link',
+    { id: 'carousel-button', hasStyle: true },
+  ],
+  checkbox: ['checkbox-basic', 'checkbox-signal', 'checkbox-reactive', 'checkbox-template-driven'],
   'checkbox-group': [
     'checkbox-group-basic',
     { id: 'checkbox-group-panel', hasStyle: true },
@@ -53,8 +57,8 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'date-input-variants',
   ],
   datepicker: ['datepicker-basic'],
-  dialog: ['dialog-basic'],
-  divider: ['divider-basic'],
+  dialog: ['dialog-basic', 'dialog-service'],
+  divider: [{ id: 'divider-basic', hasStyle: true }],
   'expansion-panel': ['expansion-panel-basic'],
   'file-selector': ['file-selector-basic'],
   'flip-card': ['flip-card-basic'],
@@ -176,15 +180,21 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'card-link':
       return import('../angular/examples/card');
     case 'carousel-basic':
+    case 'carousel-button':
+    case 'carousel-link':
       return import('../angular/examples/carousel');
     case 'checkbox-basic':
       return import('../angular/examples/checkbox');
+
     case 'checkbox-group-basic':
     case 'checkbox-group-panel':
     case 'checkbox-group-with-error':
       return import('../angular/examples/checkbox-group');
     case 'checkbox-panel-variants':
-      return import('../angular/examples/checkbox-panel');
+    case 'checkbox-reactive':
+    case 'checkbox-signal':
+    case 'checkbox-template-driven':
+      return import('../angular/examples/checkbox');
     case 'chip-autocomplete':
     case 'chip-basic':
     case 'chip-complex-value':
@@ -207,6 +217,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'datepicker-basic':
       return import('../angular/examples/datepicker');
     case 'dialog-basic':
+    case 'dialog-service':
       return import('../angular/examples/dialog');
     case 'divider-basic':
       return import('../angular/examples/divider');

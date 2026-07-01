@@ -1,10 +1,57 @@
-<sbb-secondary-button #trigger>Open Dialog</sbb-secondary-button>
+<sbb-button #trigger>Open Dialog</sbb-button>
 
-<sbb-dialog [trigger]="trigger">
-  <sbb-dialog-title>Title</sbb-dialog-title>
-  <sbb-dialog-content>Dialog content.</sbb-dialog-content>
+<sbb-dialog
+  [trigger]="trigger"
+  [negative]="controls.negative().value()"
+  [backdrop]="controls.backdrop().value()"
+  [backdropAction]="controls.backdropAction().value()"
+>
+  <sbb-dialog-title>A describing title of the dialog</sbb-dialog-title>
+
+  @if (controls.closeButton().value()) {
+    <sbb-dialog-close-button></sbb-dialog-close-button>
+  }
+
+  <sbb-dialog-content>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sit amet tellus massa.
+      Aliquam maximus fringilla pulvinar. Pellentesque eget ex a nisi vestibulum tempor. Duis
+      maximus urna a dolor tristique, nec congue nibh ultricies. Mauris sodales, urna at aliquam
+      iaculis, nisl mauris rhoncus nunc, sed pretium dui orci in sapien. Nam nec libero blandit,
+      ultricies enim eget, bibendum nibh. Aliquam erat volutpat. Ut in massa consectetur, molestie
+      elit eu, lobortis diam. Aenean eget nisl massa. Proin nec vestibulum lorem. Suspendisse
+      potenti. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi pulvinar neque
+      sit amet dignissim pulvinar.
+    </p>
+  </sbb-dialog-content>
+
   <sbb-dialog-actions>
     <sbb-secondary-button sbb-dialog-close>Close</sbb-secondary-button>
-    <sbb-button sbb-dialog-close>Confirm</sbb-button>
+    <sbb-button
+      sbb-dialog-close
+      [attr.sbb-focus-initial]="!controls.closeButton().value() ? '' : undefined"
+      >Confirm</sbb-button
+    >
   </sbb-dialog-actions>
 </sbb-dialog>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="negative">Negative</label>
+  <sbb-checkbox id="negative" [formField]="controls.negative"></sbb-checkbox>
+
+  <label for="close-button">Close button</label>
+  <sbb-checkbox id="close-button" [formField]="controls.closeButton"></sbb-checkbox>
+
+  <label>Backdrop</label>
+  <sbb-radio-button-group aria-label="Backdrop" [formField]="controls.backdrop">
+    <sbb-radio-button value="opaque">Opaque</sbb-radio-button>
+    <sbb-radio-button value="translucent">Translucent</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Backdrop action</label>
+  <sbb-radio-button-group aria-label="Backdrop action" [formField]="controls.backdropAction">
+    <sbb-radio-button value="close">Close</sbb-radio-button>
+    <sbb-radio-button value="none">None</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>

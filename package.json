@@ -58,8 +58,8 @@
     "@angular/build": "22.0.4",
     "@angular/cli": "22.0.4",
     "@angular/compiler-cli": "22.0.4",
-    "@commitlint/cli": "21.1.0",
-    "@commitlint/config-conventional": "21.1.0",
+    "@commitlint/cli": "21.2.0",
+    "@commitlint/config-conventional": "21.2.0",
     "@compodoc/compodoc": "2.0.0",
     "@eslint/js": "10.0.1",
     "@schematics/angular": "22.0.4",
@@ -82,10 +82,10 @@
     "ng-packagr": "22.0.0",
     "npm-run-all2": "9.0.2",
     "playwright": "1.61.1",
-    "prettier": "3.9.1",
+    "prettier": "3.9.4",
     "tsx": "4.22.4",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.62.0",
+    "typescript-eslint": "8.62.1",
     "vitest": "4.1.9"
   },
   "prettier": {
