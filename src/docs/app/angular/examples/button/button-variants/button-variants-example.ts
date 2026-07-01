@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { disabled, form, FormField } from '@angular/forms/signals';
-import type { SbbButton } from '@sbb-esta/lyne-angular/button';
-import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
+import { type SbbButton, SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
