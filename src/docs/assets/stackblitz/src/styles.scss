@@ -6,6 +6,10 @@ body {
   justify-content: space-between;
   margin: 0;
   padding: var(--sbb-spacing-fixed-8x);
+
+  &:has(.stackblitz-no-border) {
+    padding: 0;
+  }
 }
 
 html,
