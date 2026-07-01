@@ -3,18 +3,18 @@ import { Component, computed, signal } from '@angular/core';
 import { disabled, form, FormField } from '@angular/forms/signals';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
-import type { SbbFileSelector } from '@sbb-esta/lyne-angular/file-selector';
+import type { SbbFileSelectorDropzone } from '@sbb-esta/lyne-angular/file-selector';
 import { SbbFileSelectorModule } from '@sbb-esta/lyne-angular/file-selector';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
- * @title Basic file-selector
- * @order 1
+ * @title Basic file-selector dropzone
+ * @order 2
  */
 @Component({
-  selector: 'sbb-file-selector-basic-example',
-  templateUrl: 'file-selector-basic-example.html',
+  selector: 'sbb-file-selector-dropzone-example',
+  templateUrl: 'file-selector-dropzone-example.html',
   imports: [
     FormField,
     JsonPipe,
@@ -25,17 +25,17 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbTitleModule,
   ],
 })
-export class FileSelectorBasicExample {
-  protected form = form(signal<{ fileSelector: File[] }>({ fileSelector: [] }), (schemaPath) => {
-    disabled(schemaPath.fileSelector, { when: () => this.controls.disabled().value() });
+export class FileSelectorDropzoneExample {
+  protected form = form(signal<{ fileSelector: File[] }>({ fileSelector: [] }), (schema) => {
+    disabled(schema.fileSelector, { when: () => this.controls.disabled().value() });
   });
 
   protected controls = form(
     signal({
       disabled: false,
       multiple: false,
-      multipleMode: 'default' as SbbFileSelector['multipleMode'],
-      size: null as SbbFileSelector['size'],
+      multipleMode: 'default' as SbbFileSelectorDropzone['multipleMode'],
+      size: null as SbbFileSelectorDropzone['size'],
       accept: null as string | null,
     }),
     (schemaPath) => {

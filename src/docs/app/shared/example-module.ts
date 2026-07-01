@@ -55,7 +55,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   dialog: ['dialog-basic', 'dialog-service'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
   'expansion-panel': ['expansion-panel-basic', 'expansion-panel-variants'],
-  'file-selector': ['file-selector-basic'],
+  'file-selector': [
+    'file-selector-basic',
+    'file-selector-dropzone',
+    'file-selector-reactive-form',
+    'file-selector-template-driven',
+  ],
   'flip-card': ['flip-card-basic', 'flip-card-chip', 'flip-card-variants'],
   footer: ['footer-basic', 'footer-clock'],
   'form-field': [
@@ -180,7 +185,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/carousel');
     case 'checkbox-basic':
       return import('../angular/examples/checkbox');
-
     case 'checkbox-group-basic':
     case 'checkbox-group-panel':
     case 'checkbox-group-with-error':
@@ -218,6 +222,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'expansion-panel-variants':
       return import('../angular/examples/expansion-panel');
     case 'file-selector-basic':
+    case 'file-selector-dropzone':
+    case 'file-selector-reactive-form':
+    case 'file-selector-template-driven':
       return import('../angular/examples/file-selector');
     case 'filter-sort-paginator-table':
       return import('../angular/examples/table');
