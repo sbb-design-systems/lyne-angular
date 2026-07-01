@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
-import { SbbChipLabelModule } from '@sbb-esta/lyne-angular/chip-label';
 import { SbbFlipCardModule } from '@sbb-esta/lyne-angular/flip-card';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbImageModule } from '@sbb-esta/lyne-angular/image';
@@ -12,6 +11,7 @@ import type { SbbFlipCardSummaryElement } from '@sbb-esta/lyne-elements/flip-car
 
 /**
  * @title flip-card with configurable properties
+ * @order 10
  */
 @Component({
   selector: 'sbb-flip-card-variants-example',
@@ -22,7 +22,6 @@ import type { SbbFlipCardSummaryElement } from '@sbb-esta/lyne-elements/flip-car
     SbbFlipCardModule,
     SbbFormFieldModule,
     SbbImageModule,
-    SbbChipLabelModule,
     SbbLinkModule,
     SbbRadioButtonModule,
     SbbTitleModule,
@@ -33,8 +32,6 @@ export class FlipCardVariantsExample {
     signal({
       imageAlignment: 'after' as SbbFlipCardSummaryElement['imageAlignment'],
       hasImage: false,
-      hasChip: false,
     }),
   );
-  protected readonly form = form;
 }
