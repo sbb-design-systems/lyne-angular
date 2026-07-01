@@ -3,7 +3,7 @@
   [floatingLabel]="controls.formField.floatingLabel().value()"
   [hiddenLabel]="controls.formField.hiddenLabel().value()"
   [size]="controls.formField.size().value()"
-  [width]="controls.formField.width().value()!"
+  [width]="controls.formField.width().value()"
 >
   <label>Example</label>
   <input
@@ -26,7 +26,11 @@
   <sbb-checkbox id="hiddenLabel" [formField]="controls.formField.hiddenLabel"></sbb-checkbox>
 
   <label>Size</label>
-  <sbb-radio-button-group aria-label="Size" [formField]="controls.formField.size">
+  <sbb-radio-button-group
+    aria-label="Size"
+    [formField]="controls.formField.size"
+    allowEmptySelection
+  >
     <sbb-radio-button value="s">S</sbb-radio-button>
     <sbb-radio-button value="m">M</sbb-radio-button>
     <sbb-radio-button value="l">L</sbb-radio-button>
