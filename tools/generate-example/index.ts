@@ -6,8 +6,15 @@
  * If the style file is needed, the `--scss` flag can be used.
  * The `lint:fix` command is run as child process to correctly export the component and update the example data.
  *
- * Example with no style:
+ * The command can be used with a full path, so:
+ *
  * `yarn generate alert/alert-variants`
+ *
+ * otherwise, since the example name must have the same prefix of the folder name, with the shorthand:
+ *
+ * `yarn generate alert/variants`
+ *
+ * For both commands the same structure is generated:
  *
  * ├─ alert/
  *    └─ alert-variants/
@@ -15,7 +22,7 @@
  *        └─ alert-variants.ts
  *
  * Example with style:
- * `yarn generate clock/clock-basic --scss`
+ * `yarn generate clock/basic --scss`
  *
  * ├─clock/
  *   └─ clock-basic/
@@ -26,7 +33,7 @@
 
 import { execSync } from 'child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'fs';
-import { basename, dirname, join } from 'path';
+import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -47,21 +54,41 @@ function convertKebabCaseToPascalCase(name: string): string {
     .join('');
 }
 
+function normalizeInputPath(inputPath: string): {
+  componentName: string;
+  exampleFolderName: string;
+} {
+  const segments = inputPath.split('/').filter(Boolean);
+
+  if (segments.length !== 2) {
+    throw new Error(
+      `Invalid path "${inputPath}". Use "component/basic" or "component/component-basic".`,
+    );
+  }
+
+  const [componentName, rawExampleName] = segments;
+  const exampleFolderName = rawExampleName.startsWith(`${componentName}-`)
+    ? rawExampleName
+    : `${componentName}-${rawExampleName}`;
+
+  return { componentName, exampleFolderName };
+}
+
 function generateExample(inputPath: string, includeScss: boolean): void {
   if (!inputPath) {
     console.error('Usage: yarn generate-example <path> [--scss]');
-    console.error('Example: yarn generate-example accordion/accordion-basic');
+    console.error('Example: yarn generate-example accordion/basic');
+    console.error('Also supported: yarn generate-example accordion/accordion-basic');
     console.error('Example with style: yarn generate-example accordion/accordion-basic --scss');
     process.exit(1);
   }
 
-  // Extract folder name from path
-  const folderName = basename(inputPath);
-  const exampleName = `${folderName}-example`;
+  const { componentName, exampleFolderName } = normalizeInputPath(inputPath);
+  const exampleName = `${exampleFolderName}-example`;
   const exampleNameUpperCase = convertKebabCaseToPascalCase(exampleName);
 
   // Resolve target directory under src/docs/app/angular/examples
-  const targetDirectory = join(EXAMPLES_BASE_DIR, inputPath);
+  const targetDirectory = join(EXAMPLES_BASE_DIR, componentName, exampleFolderName);
   if (existsSync(targetDirectory)) {
     throw new Error(`Folder "${targetDirectory}" already exists.`);
   }
