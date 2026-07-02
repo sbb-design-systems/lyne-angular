@@ -45,7 +45,11 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     { id: 'checkbox-group-panel', hasStyle: true },
     'checkbox-group-with-error',
   ],
-  'checkbox-panel': [{ id: 'checkbox-panel-variants', hasStyle: true }],
+  'checkbox-panel': [
+    { id: 'checkbox-panel-variants', hasStyle: true },
+    { id: 'checkbox-panel-reactive', hasStyle: true },
+    { id: 'checkbox-panel-template-driven', hasStyle: true },
+  ],
   chip: ['chip-basic', 'chip-autocomplete', 'chip-variants', 'chip-complex-value'],
   'chip-label': ['chip-label-basic'],
   clock: ['clock-basic', 'clock-paused'],
@@ -68,7 +72,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   ],
   header: ['header-basic'],
   icon: ['icon-basic'],
-  'icon-sidebar': [{ id: 'icon-sidebar-basic', hasStyle: true }],
+  'icon-sidebar': [{ id: 'icon-sidebar-basic', hasStyle: true }, 'icon-sidebar-nested'],
   image: ['image-basic'],
   'journey-header': ['journey-header-basic'],
   'lead-container': ['lead-container-basic'],
@@ -184,6 +188,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'checkbox-group-panel':
     case 'checkbox-group-with-error':
       return import('../angular/examples/checkbox-group');
+    case 'checkbox-panel-reactive':
+      return import('../angular/examples/checkbox-panel');
+    case 'checkbox-panel-template-driven':
+      return import('../angular/examples/checkbox-panel');
     case 'checkbox-panel-variants':
       return import('../angular/examples/checkbox-panel');
     case 'checkbox-reactive':
@@ -244,6 +252,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'icon-basic':
       return import('../angular/examples/icon');
     case 'icon-sidebar-basic':
+      return import('../angular/examples/icon-sidebar');
+    case 'icon-sidebar-nested':
       return import('../angular/examples/icon-sidebar');
     case 'image-basic':
       return import('../angular/examples/image');

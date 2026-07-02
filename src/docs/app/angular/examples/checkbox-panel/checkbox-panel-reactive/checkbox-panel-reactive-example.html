@@ -1,0 +1,15 @@
+<sbb-checkbox-panel [formControl]="control">
+  <sbb-card-badge>%</sbb-card-badge>
+  Label
+  <span slot="subtext">Subtext</span>
+  <span slot="suffix" class="sbb-checkbox-panel-suffix">
+    <sbb-icon name="diamond-small" role="img" aria-hidden="true"></sbb-icon>
+    <span class="sbb-text--bold"> CHF 40.00 </span>
+  </span>
+</sbb-checkbox-panel>
+
+<p>
+  <sbb-card color="milk">
+    Value: <code>{{ control.value }}</code>
+  </sbb-card>
+</p>
