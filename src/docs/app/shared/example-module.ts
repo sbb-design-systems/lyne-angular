@@ -58,6 +58,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'file-selector': [
     'file-selector-showcase',
     'file-selector-dropzone-showcase',
+    'file-selector-signal',
     'file-selector-reactive-form',
     'file-selector-template-driven',
   ],
@@ -224,6 +225,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'file-selector-dropzone-showcase':
     case 'file-selector-reactive-form':
     case 'file-selector-showcase':
+    case 'file-selector-signal':
     case 'file-selector-template-driven':
       return import('../angular/examples/file-selector');
     case 'filter-sort-paginator-table':

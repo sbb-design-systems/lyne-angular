@@ -9,7 +9,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title Reactive form integration
- * @order 3
+ * @order 4
  */
 @Component({
   selector: 'sbb-file-selector-reactive-form-example',

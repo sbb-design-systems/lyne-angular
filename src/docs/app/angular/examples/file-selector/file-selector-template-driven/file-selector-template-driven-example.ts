@@ -9,7 +9,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title Template-driven form integration
- * @order 4
+ * @order 5
  */
 @Component({
   selector: 'sbb-file-selector-template-driven-example',
