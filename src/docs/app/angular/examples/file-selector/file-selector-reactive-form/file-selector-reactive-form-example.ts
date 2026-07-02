@@ -1,4 +1,4 @@
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { form, FormField } from '@angular/forms/signals';
@@ -16,7 +16,6 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   templateUrl: 'file-selector-reactive-form-example.html',
   imports: [
     FormField,
-    AsyncPipe,
     JsonPipe,
     ReactiveFormsModule,
     SbbCardModule,
@@ -34,7 +33,7 @@ export class FileSelectorReactiveFormExample {
     }),
   );
 
-  protected stringifiedValue(files: File[] | null): { name: string; size: number; type: string }[] {
-    return files ? files.map((f) => ({ name: f.name, size: f.size, type: f.type })) : [];
+  protected stringifiedValue(files: File[]): { name: string; size: number; type: string }[] {
+    return files.map((f) => ({ name: f.name, size: f.size, type: f.type }));
   }
 }
