@@ -6,7 +6,7 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
  * @title date-input with signals
- * @order 1
+ * @order 2
  */
 @Component({
   selector: 'sbb-date-input-signal-example',

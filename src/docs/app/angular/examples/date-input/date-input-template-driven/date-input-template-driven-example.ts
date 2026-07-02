@@ -6,7 +6,7 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
  * @title date-input with template-driven form
- * @order 3
+ * @order 4
  */
 @Component({
   selector: 'sbb-date-input-template-driven-example',

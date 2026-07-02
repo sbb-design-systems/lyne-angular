@@ -6,7 +6,7 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
  * @title date-input with reactive form
- * @order 2
+ * @order 3
  */
 @Component({
   selector: 'sbb-date-input-reactive-example',
@@ -14,5 +14,5 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
   imports: [ReactiveFormsModule, SbbCardModule, SbbDateInputModule, SbbFormFieldModule],
 })
 export class DateInputReactiveExample {
-  protected control = new FormControl<Date | null>(new Date('2024-12-12'));
+  protected readonly control = new FormControl<Date | null>(new Date('2024-12-12'));
 }

@@ -51,10 +51,10 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   clock: ['clock-basic', 'clock-paused'],
   container: ['container-basic'],
   'date-input': [
+    'date-input-showcase',
     'date-input-signal',
     'date-input-reactive',
     'date-input-template-driven',
-    'date-input-variants',
   ],
   datepicker: ['datepicker-basic'],
   dialog: ['dialog-basic', 'dialog-service'],
@@ -209,10 +209,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'container-basic':
       return import('../angular/examples/container');
     case 'date-input-reactive':
+    case 'date-input-showcase':
+      return import('../angular/examples/date-input');
     case 'date-input-signal':
     case 'date-input-template-driven':
-      return import('../angular/examples/date-input');
-    case 'date-input-variants':
       return import('../angular/examples/date-input');
     case 'datepicker-basic':
       return import('../angular/examples/datepicker');
