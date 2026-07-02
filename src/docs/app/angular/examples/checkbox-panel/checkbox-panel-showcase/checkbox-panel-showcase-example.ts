@@ -14,8 +14,8 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
  */
 @Component({
   selector: 'sbb-checkbox-panel-variants-example',
-  templateUrl: 'checkbox-panel-variants-example.html',
-  styleUrl: 'checkbox-panel-variants-example.scss',
+  templateUrl: 'checkbox-panel-showcase-example.html',
+  styleUrl: 'checkbox-panel-showcase-example.scss',
   imports: [
     SbbCheckboxPanelModule,
     SbbCardModule,
@@ -26,7 +26,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     FormField,
   ],
 })
-export class CheckboxPanelVariantsExample {
+export class CheckboxPanelShowcaseExample {
   protected controls = form(
     signal({
       size: null,

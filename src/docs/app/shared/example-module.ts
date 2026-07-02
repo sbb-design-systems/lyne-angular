@@ -46,7 +46,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'checkbox-group-with-error',
   ],
   'checkbox-panel': [
-    { id: 'checkbox-panel-variants', hasStyle: true },
+    { id: 'checkbox-panel-showcase', hasStyle: true },
     { id: 'checkbox-panel-reactive', hasStyle: true },
     { id: 'checkbox-panel-template-driven', hasStyle: true },
   ],
@@ -189,10 +189,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'checkbox-group-with-error':
       return import('../angular/examples/checkbox-group');
     case 'checkbox-panel-reactive':
-      return import('../angular/examples/checkbox-panel');
+    case 'checkbox-panel-showcase':
     case 'checkbox-panel-template-driven':
-      return import('../angular/examples/checkbox-panel');
-    case 'checkbox-panel-variants':
       return import('../angular/examples/checkbox-panel');
     case 'checkbox-reactive':
     case 'checkbox-signal':
