@@ -32,4 +32,4 @@ jobs:
           app-token: ${{ steps.token.outputs.token }}
           teams-webhook: ${{ secrets.TEAMS_WEBHOOK }}
           dev-packages: true
-          include-update-lyne: true
+          update-lyne: true
