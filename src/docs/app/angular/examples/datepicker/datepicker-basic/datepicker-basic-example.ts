@@ -4,7 +4,7 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
  * @title Basic datepicker
- * @order 1
+ * @order 2
  */
 @Component({
   selector: 'sbb-datepicker-basic-example',
