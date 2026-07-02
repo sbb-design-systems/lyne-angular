@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { form, FormField } from '@angular/forms/signals';
+import { disabled, form, FormField } from '@angular/forms/signals';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import type { SbbFlipCardSummary } from '@sbb-esta/lyne-angular/flip-card';
 import { SbbFlipCardModule } from '@sbb-esta/lyne-angular/flip-card';
@@ -33,5 +33,10 @@ export class FlipCardVariantsExample {
       imageAlignment: 'after' as SbbFlipCardSummary['imageAlignment'],
       hasImage: false,
     }),
+    (schemaPath) => {
+      disabled(schemaPath.imageAlignment, {
+        when: ({ valueOf }) => !valueOf(schemaPath.hasImage),
+      });
+    },
   );
 }

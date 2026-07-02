@@ -45,7 +45,11 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     { id: 'checkbox-group-panel', hasStyle: true },
     'checkbox-group-with-error',
   ],
-  'checkbox-panel': [{ id: 'checkbox-panel-variants', hasStyle: true }],
+  'checkbox-panel': [
+    { id: 'checkbox-panel-showcase', hasStyle: true },
+    { id: 'checkbox-panel-reactive', hasStyle: true },
+    { id: 'checkbox-panel-template-driven', hasStyle: true },
+  ],
   chip: ['chip-basic', 'chip-autocomplete', 'chip-variants', 'chip-complex-value'],
   'chip-label': ['chip-label-basic'],
   clock: ['clock-basic', 'clock-paused'],
@@ -185,12 +189,14 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/carousel');
     case 'checkbox-basic':
       return import('../angular/examples/checkbox');
-
     case 'checkbox-group-basic':
     case 'checkbox-group-panel':
     case 'checkbox-group-with-error':
       return import('../angular/examples/checkbox-group');
-    case 'checkbox-panel-variants':
+    case 'checkbox-panel-reactive':
+    case 'checkbox-panel-showcase':
+    case 'checkbox-panel-template-driven':
+      return import('../angular/examples/checkbox-panel');
     case 'checkbox-reactive':
     case 'checkbox-signal':
     case 'checkbox-template-driven':
