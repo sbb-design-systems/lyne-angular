@@ -11,7 +11,7 @@ import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
 @Component({
   selector: 'sbb-checkbox-panel-reactive-example',
   templateUrl: 'checkbox-panel-reactive-example.html',
-  styleUrl: ' checkbox-panel-reactive-example.scss',
+  styleUrl: 'checkbox-panel-reactive-example.scss',
   imports: [ReactiveFormsModule, SbbCheckboxPanelModule, SbbCardModule, SbbIconModule],
 })
 export class CheckboxPanelReactiveExample {
