@@ -14,6 +14,12 @@
 
 <sbb-title level="5">Properties</sbb-title>
 <div class="sbb-controls-table">
+  <label for="addOnBlur">Add on blur</label>
+  <sbb-checkbox id="addOnBlur" [formField]="controls.addOnBlur"></sbb-checkbox>
+</div>
+
+<sbb-title level="5">Form / input properties</sbb-title>
+<div class="sbb-controls-table">
   <label>Size</label>
   <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>
     <sbb-radio-button value="s">s</sbb-radio-button>
@@ -29,7 +35,4 @@
 
   <label for="hiddenLabel">Hidden label</label>
   <sbb-checkbox id="hiddenLabel" [formField]="controls.hiddenLabel"></sbb-checkbox>
-
-  <label for="addOnBlur">Add on blur</label>
-  <sbb-checkbox id="addOnBlur" [formField]="controls.addOnBlur"></sbb-checkbox>
 </div>
