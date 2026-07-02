@@ -3,6 +3,7 @@ import { SbbExpansionPanelModule } from '@sbb-esta/lyne-angular/expansion-panel'
 
 /**
  * @title Basic expansion-panel
+ * @order 1
  */
 @Component({
   selector: 'sbb-expansion-panel-basic-example',

@@ -1,37 +1,37 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
-import type { SbbAlert } from '@sbb-esta/lyne-angular/alert';
-import { SbbAlertModule } from '@sbb-esta/lyne-angular/alert';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
+import type { SbbFlipCardSummary } from '@sbb-esta/lyne-angular/flip-card';
+import { SbbFlipCardModule } from '@sbb-esta/lyne-angular/flip-card';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
+import { SbbImageModule } from '@sbb-esta/lyne-angular/image';
 import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
-import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
- * @title sbb-alert with configurable properties
+ * @title flip-card with configurable properties
+ * @order 10
  */
 @Component({
-  selector: 'sbb-alert-variants-example',
-  templateUrl: 'alert-variants-example.html',
+  selector: 'sbb-flip-card-variants-example',
+  templateUrl: 'flip-card-variants-example.html',
   imports: [
     FormField,
     SbbCheckboxModule,
-    SbbAlertModule,
+    SbbFlipCardModule,
     SbbFormFieldModule,
+    SbbImageModule,
     SbbLinkModule,
     SbbRadioButtonModule,
-    SbbSelectModule,
     SbbTitleModule,
   ],
 })
-export class AlertVariantsExample {
+export class FlipCardVariantsExample {
   protected controls = form(
     signal({
-      iconName: 'info',
-      readOnly: false,
-      size: null as SbbAlert['size'],
+      imageAlignment: 'after' as SbbFlipCardSummary['imageAlignment'],
+      hasImage: false,
     }),
   );
 }
