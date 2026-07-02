@@ -12,11 +12,12 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title checkbox-group with checkbox-panel
+ * @order 2
  */
 @Component({
-  selector: 'sbb-checkbox-group-panel-example',
-  templateUrl: 'checkbox-group-panel-example.html',
-  styleUrl: 'checkbox-group-panel-example.scss',
+  selector: 'sbb-checkbox-group-panel-showcase-example',
+  templateUrl: 'checkbox-group-panel-showcase-example.html',
+  styleUrl: 'checkbox-group-panel-showcase-example.scss',
   imports: [
     SbbCheckboxModule,
     SbbCheckboxPanelModule,
@@ -29,7 +30,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbIconModule,
   ],
 })
-export class CheckboxGroupPanelExample {
+export class CheckboxGroupPanelShowcaseExample {
   protected controls = form(
     signal({
       orientation: 'horizontal' as SbbCheckboxGroup['orientation'],

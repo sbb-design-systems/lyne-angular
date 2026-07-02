@@ -9,6 +9,7 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs';
 
 /**
  * @title sbb-autocomplete with sbb-optgroup and sbb-option-hint
+ * @order 3
  */
 @Component({
   selector: 'sbb-autocomplete-hint-optgroup-example',

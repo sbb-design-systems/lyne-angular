@@ -3,6 +3,7 @@ import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
 
 /**
  * @title Nested sbb-accordion with lazy-loaded content
+ * @order 3
  */
 @Component({
   selector: 'sbb-accordion-nested-lazy-example',

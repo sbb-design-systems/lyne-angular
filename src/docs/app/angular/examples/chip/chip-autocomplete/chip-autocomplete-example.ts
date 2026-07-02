@@ -5,7 +5,7 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
  * @title  sbb-chip with autocomplete
- * @order 2
+ * @order 3
  */
 @Component({
   selector: 'sbb-chip-autocomplete-example',

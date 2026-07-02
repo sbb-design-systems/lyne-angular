@@ -9,10 +9,11 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title Basic checkbox-group
+ * @order 1
  */
 @Component({
-  selector: 'sbb-checkbox-group-basic-example',
-  templateUrl: 'checkbox-group-basic-example.html',
+  selector: 'sbb-checkbox-group-showcase-example',
+  templateUrl: 'checkbox-group-showcase-example.html',
   imports: [
     SbbCheckboxModule,
     SbbTitleModule,
@@ -22,7 +23,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbFormFieldModule,
   ],
 })
-export class CheckboxGroupBasicExample {
+export class CheckboxGroupShowcaseExample {
   protected controls = form(
     signal({
       orientation: 'horizontal' as SbbCheckboxGroup['orientation'],

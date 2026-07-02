@@ -12,10 +12,10 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
  */
 @Component({
   selector: 'sbb-button-variants-example',
-  templateUrl: 'button-variants-example.html',
+  templateUrl: 'button-showcase-example.html',
   imports: [SbbButtonModule, SbbCheckboxModule, SbbRadioButtonModule, SbbTitleModule, FormField],
 })
-export class ButtonVariantsExample {
+export class ButtonShowcaseExample {
   protected controls = form(
     signal({
       disabled: false,

@@ -1,1 +1,1 @@
-export { ChipLabelBasicExample } from './chip-label-basic/chip-label-basic-example';
+export { ChipLabelShowcaseExample } from './chip-label-showcase/chip-label-showcase-example';

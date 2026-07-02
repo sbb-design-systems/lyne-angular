@@ -7,6 +7,7 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
  * @title Basic autocomplete
+ * @order 2
  */
 @Component({
   selector: 'sbb-autocomplete-basic-example',
