@@ -56,8 +56,8 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   divider: [{ id: 'divider-basic', hasStyle: true }],
   'expansion-panel': ['expansion-panel-basic', 'expansion-panel-variants'],
   'file-selector': [
-    'file-selector-basic',
-    'file-selector-dropzone',
+    'file-selector-showcase',
+    'file-selector-dropzone-showcase',
     'file-selector-reactive-form',
     'file-selector-template-driven',
   ],
@@ -221,9 +221,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'expansion-panel-basic':
     case 'expansion-panel-variants':
       return import('../angular/examples/expansion-panel');
-    case 'file-selector-basic':
-    case 'file-selector-dropzone':
+    case 'file-selector-dropzone-showcase':
     case 'file-selector-reactive-form':
+    case 'file-selector-showcase':
     case 'file-selector-template-driven':
       return import('../angular/examples/file-selector');
     case 'filter-sort-paginator-table':
