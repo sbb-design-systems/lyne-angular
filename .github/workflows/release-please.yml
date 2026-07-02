@@ -2,7 +2,6 @@ name: Release Please
 on:
   push:
     branches:
-      - main
       - '*.x'
 
 # Documentation:
@@ -19,83 +18,18 @@ permissions:
 jobs:
   release-please:
     runs-on: ubuntu-latest
-    env:
-      IMAGE_REPO_DOCS: ghcr.io/${{ github.repository }}/docs
     steps:
-      - uses: googleapis/release-please-action@v4
-        id: release
-        with:
-          target-branch: ${{ github.ref_name }}
-      - name: Release Info
-        run: echo "$RELEASE_OUTPUT"
-        env:
-          RELEASE_OUTPUT: ${{ toJSON(steps.release.outputs) }}
-      - name: 'Release: Determine version'
-        id: version
-        run: echo "version=$([[ "$VERSION" != "" ]] && echo "$VERSION" || echo "rev-$GITHUB_SHA")" >> $GITHUB_OUTPUT
-        env:
-          VERSION: ${{ steps.release.outputs.version }}
-
-      - name: Get token
-        id: get_token
+      - name: Create GitHub App token
+        id: token
         uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ secrets.MAINTENANCE_APP_ID }}
-          private-key: ${{ secrets.MAINTENANCE_APP_PEM }}
-      - uses: actions/checkout@v6
+          client-id: ${{ secrets.BOT_ID }}
+          private-key: ${{ secrets.BOT_PEM }}
+
+      - name: Release Please
+        uses: sbb-design-systems/actions/release-please@main
         with:
-          fetch-depth: 0
-          token: ${{ steps.get_token.outputs.token }}
-      - uses: actions/setup-node@v6
-        with:
-          node-version-file: .nvmrc
-          cache: yarn
-          registry-url: 'https://registry.npmjs.org'
-          scope: sbb-esta
-      - run: yarn install --frozen-lockfile --non-interactive
-      - name: 'Upgrade @sbb-esta/* dependencies for exact release version'
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          yarn update-lyne:upgrade
-
-      - name: Update npm
-        run: npm install --global npm@latest
-      - name: Run build
-        run: yarn build
-      - name: Remove files with forbidden extensions
-        run: node ./scripts/clean-docs-files.mts
-
-      - name: 'Release: Determine npm tag'
-        if: ${{ steps.release.outputs.release_created }}
-        id: npm_tag
-        run: echo "npm_tag=$([[ "${{ steps.version.outputs.version }}" == *"-"* ]] && echo "next" || echo "latest")" >> $GITHUB_OUTPUT
-
-      - name: 'Release: Publish @sbb-esta/lyne-angular'
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          cd dist/angular
-          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
-      - name: 'Release: Publish @sbb-esta/lyne-angular-experimental'
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          cd dist/angular-experimental
-          npm publish --tag ${{ steps.npm_tag.outputs.npm_tag }}
-
-      - uses: ./.github/actions/setup-mint
-      - name: 'Container: Build and publish release image'
-        if: ${{ steps.release.outputs.release_created }}
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
-          docker build --tag $IMAGE_REPO_DOCS:$VERSION-fat .
-          mint slim \
-            --target $IMAGE_REPO_DOCS:$VERSION-fat \
-            --tag $IMAGE_REPO_DOCS:$VERSION \
-            --preserve-path /usr/share/nginx/html \
-            --include-new false
-          docker push $IMAGE_REPO_DOCS:$VERSION
-          docker tag $IMAGE_REPO_DOCS:$VERSION $IMAGE_REPO_DOCS:latest
-          docker push $IMAGE_REPO_DOCS:latest
-          docker image list
-        env:
-          DOCKER_BUILDKIT: 1
-          VERSION: ${{ steps.release.outputs.version }}
+          app-token: ${{ steps.token.outputs.token }}
+          teams-webhook: ${{ secrets.TEAMS_WEBHOOK }}
+          dev-packages: true
+          include-update-lyne: true

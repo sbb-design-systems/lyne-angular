@@ -15,6 +15,7 @@
     "postbuild:docs": "node ./scripts/patch-docs-version.mts",
     "build": "run-s build:angular build:angular:schematics build:angular-experimental build:docs",
     "test": "npm-run-all --sequential test:*",
+    "test:tsc": "run-s lint:tsc:*-spec",
     "test:angular": "ng test angular",
     "test:angular-schematics": "vitest run --config vitest.schematics.config.ts",
     "test:angular-experimental": "ng test angular-experimental",
@@ -31,6 +32,7 @@
     "integrity": "run-p format readme",
     "update-lyne": "run-s update-lyne:upgrade readme",
     "update-lyne:upgrade": "yarn upgrade --non-interactive --scope @sbb-esta",
+    "prepare-container": "",
     "prepare": "husky"
   },
   "private": true,
