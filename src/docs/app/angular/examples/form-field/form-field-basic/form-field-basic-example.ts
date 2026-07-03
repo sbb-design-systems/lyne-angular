@@ -1,10 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
-import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
+import { type SbbFormField, SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
-import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.pure.js';
 
 /**
  * @title Basic form-field
@@ -13,7 +12,7 @@ import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.pur
 @Component({
   selector: 'sbb-form-field-basic-example',
   templateUrl: 'form-field-basic-example.html',
-  imports: [SbbCheckboxModule, SbbFormFieldModule, SbbRadioButtonModule, SbbTitleModule, FormField],
+  imports: [FormField, SbbCheckboxModule, SbbFormFieldModule, SbbRadioButtonModule, SbbTitleModule],
 })
 export class FormFieldBasicExample {
   protected controls = form(
@@ -22,8 +21,8 @@ export class FormFieldBasicExample {
         borderless: false,
         floatingLabel: false,
         hiddenLabel: false,
-        size: null as SbbFormFieldElement['size'],
-        width: null as SbbFormFieldElement['width'] | null,
+        size: null as SbbFormField['size'],
+        width: 'default' as SbbFormField['width'],
       },
       input: {
         disabled: false,

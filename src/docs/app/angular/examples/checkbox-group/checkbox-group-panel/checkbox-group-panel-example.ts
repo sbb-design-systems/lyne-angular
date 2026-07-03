@@ -1,8 +1,8 @@
 import { Component, signal } from '@angular/core';
-import { form, FormField } from '@angular/forms/signals';
+import { disabled, form, FormField } from '@angular/forms/signals';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
-import { type SbbCheckboxGroup } from '@sbb-esta/lyne-angular/checkbox-group';
+import type { SbbCheckboxGroup } from '@sbb-esta/lyne-angular/checkbox-group';
 import { SbbCheckboxPanelModule } from '@sbb-esta/lyne-angular/checkbox-panel';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
@@ -36,5 +36,10 @@ export class CheckboxGroupPanelExample {
       size: null as SbbCheckboxGroup['size'],
       horizontalFrom: null as SbbCheckboxGroup['horizontalFrom'] | null,
     }),
+    (schemaPath) => {
+      disabled(schemaPath.horizontalFrom, {
+        when: ({ valueOf }) => valueOf(schemaPath.orientation) === 'horizontal',
+      });
+    },
   );
 }

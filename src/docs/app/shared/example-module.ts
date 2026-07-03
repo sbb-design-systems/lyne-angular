@@ -34,25 +34,38 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'calendar-fixed-month',
   ],
   card: ['card-basic', 'card-link', 'card-button'],
-  carousel: ['carousel-basic'],
-  checkbox: ['checkbox-basic'],
+  carousel: [
+    { id: 'carousel-basic', hasStyle: true },
+    'carousel-link',
+    { id: 'carousel-button', hasStyle: true },
+  ],
+  checkbox: ['checkbox-basic', 'checkbox-signal', 'checkbox-reactive', 'checkbox-template-driven'],
   'checkbox-group': [
     'checkbox-group-basic',
     { id: 'checkbox-group-panel', hasStyle: true },
     'checkbox-group-with-error',
   ],
-  'checkbox-panel': [{ id: 'checkbox-panel-variants', hasStyle: true }],
+  'checkbox-panel': [
+    { id: 'checkbox-panel-showcase', hasStyle: true },
+    { id: 'checkbox-panel-reactive', hasStyle: true },
+    { id: 'checkbox-panel-template-driven', hasStyle: true },
+  ],
   chip: ['chip-basic', 'chip-autocomplete', 'chip-variants', 'chip-complex-value'],
   'chip-label': ['chip-label-basic'],
   clock: ['clock-basic', 'clock-paused'],
   container: ['container-basic'],
-  'date-input': ['date-input-basic'],
+  'date-input': [
+    'date-input-showcase',
+    'date-input-signal',
+    'date-input-reactive',
+    'date-input-template-driven',
+  ],
   datepicker: ['datepicker-showcase', 'datepicker-basic'],
-  dialog: ['dialog-basic'],
+  dialog: ['dialog-basic', 'dialog-service'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
-  'expansion-panel': ['expansion-panel-basic'],
+  'expansion-panel': ['expansion-panel-basic', 'expansion-panel-variants'],
   'file-selector': ['file-selector-basic'],
-  'flip-card': ['flip-card-basic'],
+  'flip-card': ['flip-card-basic', 'flip-card-chip', 'flip-card-variants'],
   footer: ['footer-basic', 'footer-clock'],
   'form-field': [
     'form-field-basic',
@@ -171,6 +184,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'card-link':
       return import('../angular/examples/card');
     case 'carousel-basic':
+    case 'carousel-button':
+    case 'carousel-link':
       return import('../angular/examples/carousel');
     case 'checkbox-basic':
       return import('../angular/examples/checkbox');
@@ -178,8 +193,14 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'checkbox-group-panel':
     case 'checkbox-group-with-error':
       return import('../angular/examples/checkbox-group');
-    case 'checkbox-panel-variants':
+    case 'checkbox-panel-reactive':
+    case 'checkbox-panel-showcase':
+    case 'checkbox-panel-template-driven':
       return import('../angular/examples/checkbox-panel');
+    case 'checkbox-reactive':
+    case 'checkbox-signal':
+    case 'checkbox-template-driven':
+      return import('../angular/examples/checkbox');
     case 'chip-autocomplete':
     case 'chip-basic':
     case 'chip-complex-value':
@@ -193,24 +214,32 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/clock');
     case 'container-basic':
       return import('../angular/examples/container');
-    case 'date-input-basic':
+    case 'date-input-reactive':
+    case 'date-input-showcase':
+      return import('../angular/examples/date-input');
+    case 'date-input-signal':
+    case 'date-input-template-driven':
       return import('../angular/examples/date-input');
     case 'datepicker-basic':
     case 'datepicker-showcase':
       return import('../angular/examples/datepicker');
     case 'dialog-basic':
+    case 'dialog-service':
       return import('../angular/examples/dialog');
     case 'divider-basic':
       return import('../angular/examples/divider');
     case 'expandable-table':
       return import('../angular/examples/table');
     case 'expansion-panel-basic':
+    case 'expansion-panel-variants':
       return import('../angular/examples/expansion-panel');
     case 'file-selector-basic':
       return import('../angular/examples/file-selector');
     case 'filter-sort-paginator-table':
       return import('../angular/examples/table');
     case 'flip-card-basic':
+    case 'flip-card-chip':
+    case 'flip-card-variants':
       return import('../angular/examples/flip-card');
     case 'footer-basic':
       return import('../angular/examples/footer');

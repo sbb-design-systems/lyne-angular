@@ -1,0 +1,9 @@
+<sbb-button (click)="openDialog()">Open Dialog using SbbDialogService</sbb-button>
+
+@if (lastResult()) {
+  <p>
+    <sbb-card color="milk">
+      Dialog result: <code>{{ lastResult() }}</code>
+    </sbb-card>
+  </p>
+}

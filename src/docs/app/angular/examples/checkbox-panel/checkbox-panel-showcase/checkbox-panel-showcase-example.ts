@@ -5,29 +5,28 @@ import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import type { SbbCheckboxPanel } from '@sbb-esta/lyne-angular/checkbox-panel';
 import { SbbCheckboxPanelModule } from '@sbb-esta/lyne-angular/checkbox-panel';
 import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
-import { SbbRadioButton } from '@sbb-esta/lyne-angular/radio-button';
-import { SbbRadioButtonGroup } from '@sbb-esta/lyne-angular/radio-button-group';
+import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title sbb-checkbox-panel with configurable properties
+ * @order 1
  */
 @Component({
   selector: 'sbb-checkbox-panel-variants-example',
-  templateUrl: 'checkbox-panel-variants-example.html',
-  styleUrl: 'checkbox-panel-variants-example.scss',
+  templateUrl: 'checkbox-panel-showcase-example.html',
+  styleUrl: 'checkbox-panel-showcase-example.scss',
   imports: [
     SbbCheckboxPanelModule,
     SbbCardModule,
     SbbCheckboxModule,
     SbbIconModule,
     SbbTitleModule,
-    SbbRadioButton,
-    SbbRadioButtonGroup,
+    SbbRadioButtonModule,
     FormField,
   ],
 })
-export class CheckboxPanelVariantsExample {
+export class CheckboxPanelShowcaseExample {
   protected controls = form(
     signal({
       size: null,

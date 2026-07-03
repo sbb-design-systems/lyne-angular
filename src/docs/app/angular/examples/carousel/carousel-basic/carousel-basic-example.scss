@@ -1,0 +1,11 @@
+.carousel-item-with-text__container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-item-with-text {
+  position: relative;
+  margin: var(--sbb-spacing-fixed-12x);
+  z-index: 1;
+}
