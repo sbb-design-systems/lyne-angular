@@ -1,6 +1,5 @@
 import { DatePipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { disabled, form, FormField } from '@angular/forms/signals';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
@@ -28,7 +27,6 @@ interface Filters {
   imports: [
     DatePipe,
     FormField,
-    ReactiveFormsModule,
     SbbCheckboxModule,
     SbbDatepickerModule,
     SbbFormFieldModule,
