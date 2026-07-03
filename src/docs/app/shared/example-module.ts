@@ -60,7 +60,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'date-input-reactive',
     'date-input-template-driven',
   ],
-  datepicker: ['datepicker-basic'],
+  datepicker: ['datepicker-showcase', 'datepicker-basic'],
   dialog: ['dialog-basic', 'dialog-service'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
   'expansion-panel': ['expansion-panel-basic', 'expansion-panel-variants'],
@@ -221,6 +221,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'date-input-template-driven':
       return import('../angular/examples/date-input');
     case 'datepicker-basic':
+    case 'datepicker-showcase':
       return import('../angular/examples/datepicker');
     case 'dialog-basic':
     case 'dialog-service':
