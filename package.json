@@ -1,6 +1,6 @@
 {
   "name": "lyne-angular",
-  "version": "22.0.4",
+  "version": "22.0.5",
   "scripts": {
     "postinstall": "run-s postinstall:playwright readme generate-keywords",
     "postinstall:playwright": "yarn playwright install",
