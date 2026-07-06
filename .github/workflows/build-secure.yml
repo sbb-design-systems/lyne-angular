@@ -1,0 +1,32 @@
+name: Build Secure
+# Secure execution of continuous integration jobs
+# which are performed upon completion of the
+# "Continuous Integration" workflow
+# https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
+on:
+  workflow_run:
+    workflows: [Build]
+    types: [completed]
+
+jobs:
+  preview-image:
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    permissions:
+      checks: write
+      deployments: write
+      packages: write
+      pull-requests: write
+
+    steps:
+      - name: Create GitHub App token
+        id: token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ secrets.BOT_ID }}
+          private-key: ${{ secrets.BOT_PEM }}
+      - uses: sbb-design-systems/actions/build-secure@main
+        with:
+          app-token: ${{ steps.token.outputs.token }}
