@@ -5,12 +5,9 @@
   When PR https://github.com/angular/angular/pull/69452 is merged,
   min and max don't need to be passed as property but minDate() and maxDate() functions of Signal
   Forms can be used where Schema is defined.
-
-  When Issue https://github.com/angular/angular/issues/69624 is resolved `$any()` will not
-  be needed anymore and `form.control()` can be used directly.
   -->
   <sbb-date-input
-    [formField]="$any(controls.model)"
+    [formField]="controls.model"
     [min]="controls.min().value()"
     [max]="controls.max().value()"
     [dateFilter]="filters[this.controls.dateFilter().value()]"

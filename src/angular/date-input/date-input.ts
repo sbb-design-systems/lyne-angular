@@ -76,10 +76,10 @@ export class SbbDateInput<T = Date>
    * Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.
    */
   @Input()
-  public set min(value: T | null) {
-    this.#runWithValidationCheck(() => (this.#element.nativeElement.min = value));
+  public set min(value: T | null | undefined) {
+    this.#runWithValidationCheck(() => (this.#element.nativeElement.min = value ?? null));
   }
-  public get min(): T | null {
+  public get min(): T | null | undefined {
     return this.#element.nativeElement.min;
   }
 
@@ -88,10 +88,10 @@ export class SbbDateInput<T = Date>
    * Accepts an ISO8601 formatted string (e.g. 2024-12-24) as attribute.
    */
   @Input()
-  public set max(value: T | null) {
-    this.#runWithValidationCheck(() => (this.#element.nativeElement.max = value));
+  public set max(value: T | null | undefined) {
+    this.#runWithValidationCheck(() => (this.#element.nativeElement.max = value ?? null));
   }
-  public get max(): T | null {
+  public get max(): T | null | undefined {
     return this.#element.nativeElement.max;
   }
 
