@@ -11,8 +11,8 @@ jobs:
         id: generate-token
         uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ secrets.MAINTENANCE_APP_ID }}
-          private-key: ${{ secrets.MAINTENANCE_APP_PEM }}
+          app-id: ${{ secrets.BOT_ID }}
+          private-key: ${{ secrets.BOT_PEM }}
       - name: Add issue
         uses: actions/add-to-project@v1.0.2
         with:
