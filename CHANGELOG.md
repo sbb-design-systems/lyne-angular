@@ -1,5 +1,12 @@
 # Changelog
 
+## [22.0.5](https://github.com/sbb-design-systems/lyne-angular/compare/v22.0.4...v22.0.5) (2026-07-06)
+
+
+### Miscellaneous Chores
+
+* prepare release 22.0.5 ([6be87f8](https://github.com/sbb-design-systems/lyne-angular/commit/6be87f8062f457a22799e06f73ee681450072044))
+
 ## [22.0.3](https://github.com/sbb-design-systems/lyne-angular/compare/v22.0.2...v22.0.3) (2026-06-23)
 
 
