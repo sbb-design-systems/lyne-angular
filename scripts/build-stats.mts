@@ -73,4 +73,4 @@ async function buildSizeStats(outDir: string): Promise<void> {
   console.log(`=> Built size stats in ${relative(projectRoot, outDir)}`);
 }
 
-await buildSizeStats(join(distDirectory, 'docs'));
+await buildSizeStats(join(distDirectory, 'docs', 'browser'));
