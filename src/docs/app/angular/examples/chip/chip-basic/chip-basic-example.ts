@@ -4,7 +4,7 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
  * @title Basic sbb-chip usage
- * @order 1
+ * @order 2
  */
 @Component({
   selector: 'sbb-chip-basic-example',

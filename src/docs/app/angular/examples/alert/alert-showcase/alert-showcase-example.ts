@@ -11,10 +11,11 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title sbb-alert with configurable properties
+ * @order 1
  */
 @Component({
-  selector: 'sbb-alert-variants-example',
-  templateUrl: 'alert-variants-example.html',
+  selector: 'sbb-alert-showcase-example',
+  templateUrl: 'alert-showcase-example.html',
   imports: [
     FormField,
     SbbCheckboxModule,
@@ -26,7 +27,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbTitleModule,
   ],
 })
-export class AlertVariantsExample {
+export class AlertShowcaseExample {
   protected controls = form(
     signal({
       iconName: 'info',

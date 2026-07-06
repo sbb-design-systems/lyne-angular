@@ -11,10 +11,11 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title sbb-autocomplete with configurable properties
+ * @order 1
  */
 @Component({
-  selector: 'sbb-autocomplete-variants-example',
-  templateUrl: 'autocomplete-variants-example.html',
+  selector: 'sbb-autocomplete-showcase-example',
+  templateUrl: 'autocomplete-showcase-example.html',
   imports: [
     FormField,
     JsonPipe,
@@ -26,7 +27,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbTitleModule,
   ],
 })
-export class AutocompleteVariantsExample {
+export class AutocompleteShowcaseExample {
   protected control = form(signal<string | null>(null));
 
   protected form = form(

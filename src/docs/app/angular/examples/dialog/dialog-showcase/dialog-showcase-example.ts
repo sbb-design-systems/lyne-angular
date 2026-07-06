@@ -12,8 +12,8 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
  * @order 1
  */
 @Component({
-  selector: 'sbb-dialog-basic-example',
-  templateUrl: 'dialog-basic-example.html',
+  selector: 'sbb-dialog-showcase-example',
+  templateUrl: 'dialog-showcase-example.html',
   imports: [
     FormField,
     SbbButtonModule,
@@ -24,7 +24,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbTitleModule,
   ],
 })
-export class DialogBasicExample {
+export class DialogShowcaseExample {
   protected controls = form(
     signal({
       negative: false,

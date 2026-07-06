@@ -9,11 +9,11 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title expansion-panel with configurable properties
- * @order 2
+ * @order 1
  */
 @Component({
-  selector: 'sbb-expansion-panel-variants-example',
-  templateUrl: 'expansion-panel-variants-example.html',
+  selector: 'sbb-expansion-panel-showcase-example',
+  templateUrl: 'expansion-panel-showcase-example.html',
   imports: [
     FormField,
     SbbCheckboxModule,
@@ -23,7 +23,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbTitleModule,
   ],
 })
-export class ExpansionPanelVariantsExample {
+export class ExpansionPanelShowcaseExample {
   protected controls = form(
     signal({
       expanded: false,

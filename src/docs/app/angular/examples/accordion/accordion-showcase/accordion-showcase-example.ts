@@ -6,13 +6,14 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title sbb-accordion with configurable properties
+ * @order 1
  */
 @Component({
-  selector: 'sbb-accordion-variants-example',
-  templateUrl: 'accordion-variants-example.html',
+  selector: 'sbb-accordion-showcase-example',
+  templateUrl: 'accordion-showcase-example.html',
   imports: [SbbAccordionModule, SbbCheckboxModule, SbbTitleModule, FormField],
 })
-export class AccordionVariantsExample {
+export class AccordionShowcaseExample {
   protected controls = form(
     signal({
       multi: false,
