@@ -1,0 +1,24 @@
+<div [class.sbb-example__negative]="controls.negative().value()">
+  <sbb-link-list-anchor
+    titleContent="Help & Contact"
+    [negative]="controls.negative().value()"
+    [size]="controls.size().value()"
+  >
+    <sbb-block-link routerLink="./">Refunds</sbb-block-link>
+    <sbb-block-link routerLink="./">Loss Report</sbb-block-link>
+    <sbb-block-link routerLink="./">Complaints</sbb-block-link>
+  </sbb-link-list-anchor>
+</div>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>
+    <sbb-radio-button value="xs">xs</sbb-radio-button>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="negative">Negative</label>
+  <sbb-checkbox id="negative" [formField]="controls.negative"></sbb-checkbox>
+</div>
