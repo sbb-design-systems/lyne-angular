@@ -1,0 +1,21 @@
+<p>
+  <sbb-link href="https://www.sbb.ch" target="_blank" [disabled]="controls.disabled().value()">
+    Link
+  </sbb-link>
+</p>
+<p>
+  <sbb-link-button href="https://www.sbb.ch" [disabled]="controls.disabled().value()">
+    Link button
+  </sbb-link-button>
+</p>
+<p>
+  <sbb-link-static href="https://www.sbb.ch" [disabled]="controls.disabled().value()">
+    Link static
+  </sbb-link-static>
+</p>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+</div>

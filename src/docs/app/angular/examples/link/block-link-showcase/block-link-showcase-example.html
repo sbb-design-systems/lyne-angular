@@ -1,0 +1,56 @@
+<p>
+  <sbb-block-link
+    href="https://www.sbb.ch"
+    target="_blank"
+    [size]="controls.size().value()"
+    [disabled]="controls.disabled().value()"
+    [iconName]="controls.withIcon().value() ? 'pie-small' : ''"
+    [iconPlacement]="controls.iconPlacement().value()"
+  >
+    Link
+  </sbb-block-link>
+</p>
+<p>
+  <sbb-block-link-button
+    href="https://www.sbb.ch"
+    [size]="controls.size().value()"
+    [disabled]="controls.disabled().value()"
+    [iconName]="controls.withIcon().value() ? 'pie-small' : ''"
+    [iconPlacement]="controls.iconPlacement().value()"
+  >
+    Link button
+  </sbb-block-link-button>
+</p>
+<p>
+  <sbb-block-link-static
+    href="https://www.sbb.ch"
+    [size]="controls.size().value()"
+    [disabled]="controls.disabled().value()"
+    [iconName]="controls.withIcon().value() ? 'pie-small' : ''"
+    [iconPlacement]="controls.iconPlacement().value()"
+  >
+    Link static
+  </sbb-block-link-static>
+</p>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>
+    <sbb-radio-button value="xs">xs</sbb-radio-button>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="withIcon">With icon</label>
+  <sbb-checkbox id="withIcon" [formField]="controls.withIcon"></sbb-checkbox>
+
+  <label>Icon placement</label>
+  <sbb-radio-button-group aria-label="Icon placement" [formField]="controls.iconPlacement">
+    <sbb-radio-button value="start">start</sbb-radio-button>
+    <sbb-radio-button value="end">end</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>
