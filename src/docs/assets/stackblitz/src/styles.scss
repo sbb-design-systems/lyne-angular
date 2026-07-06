@@ -7,7 +7,7 @@ body {
   margin: 0;
   padding: var(--sbb-spacing-fixed-8x);
 
-  &:has(.stackblitz-no-border) {
+  &:has(.fullscreen-example) {
     padding: 0;
   }
 }

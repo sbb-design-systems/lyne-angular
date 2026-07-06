@@ -1,1 +1,1 @@
-export { HeaderBasicExample } from './header-basic/header-basic-example';
+export { HeaderShowcaseExample } from './header-showcase/header-showcase-example';

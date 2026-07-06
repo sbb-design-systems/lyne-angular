@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
+import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbContainerModule } from '@sbb-esta/lyne-angular/container';
 import { type SbbHeader, SbbHeaderModule } from '@sbb-esta/lyne-angular/header';
@@ -8,13 +9,15 @@ import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
- * @title Basic header
+ * @title Header showcase
+ * @order 1
  */
 @Component({
-  selector: 'sbb-header-basic-example',
-  templateUrl: 'header-basic-example.html',
+  selector: 'sbb-header-showcase-example',
+  templateUrl: 'header-showcase-example.html',
   imports: [
     FormField,
+    SbbCardModule,
     SbbCheckboxModule,
     SbbContainerModule,
     SbbHeaderModule,
@@ -22,8 +25,11 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbRadioButtonModule,
     SbbTitleModule,
   ],
+  host: {
+    class: 'fullscreen-example',
+  },
 })
-export class HeaderBasicExample {
+export class HeaderShowcaseExample {
   protected controls = form(
     signal({
       expanded: false,
