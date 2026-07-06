@@ -1,0 +1,24 @@
+<style>
+  sbb-logo {
+    max-width: 300px;
+  }
+</style>
+<div [class.sbb-example__negative]="controls.negative().value()">
+  <sbb-logo
+    [negative]="controls.negative().value()"
+    [protectiveRoom]="controls.protectiveRoom().value()"
+  ></sbb-logo>
+</div>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="negative">Negative</label>
+  <sbb-checkbox id="negative" [formField]="controls.negative"></sbb-checkbox>
+
+  <label>Protective room</label>
+  <sbb-radio-button-group aria-label="Protective room" [formField]="controls.protectiveRoom">
+    <sbb-radio-button value="none">none</sbb-radio-button>
+    <sbb-radio-button value="minimal">minimal</sbb-radio-button>
+    <sbb-radio-button value="ideal">ideal</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>

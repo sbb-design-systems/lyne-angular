@@ -1,1 +1,1 @@
-export { LogoBasicExample } from './logo-basic/logo-basic-example';
+export { LogoShowcaseExample } from './logo-showcase/logo-showcase-example';
