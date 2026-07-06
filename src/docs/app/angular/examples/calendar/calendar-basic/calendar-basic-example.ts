@@ -1,12 +1,12 @@
 import { Component, computed, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbActionGroupModule } from '@sbb-esta/lyne-angular/action-group';
+import type { SbbCalendar } from '@sbb-esta/lyne-angular/calendar';
 import { SbbCalendarModule } from '@sbb-esta/lyne-angular/calendar';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
-import type { SbbCalendarElement } from '@sbb-esta/lyne-elements/calendar.pure.js';
 
 /**
  * @title Basic calendar
@@ -44,8 +44,8 @@ export class CalendarBasicExample {
       weekNumbers: false,
       multiple: false,
       disabled: false,
-      view: 'day' as SbbCalendarElement['view'],
-      orientation: 'horizontal' as SbbCalendarElement['orientation'],
+      view: 'day' as SbbCalendar['view'],
+      orientation: 'horizontal' as SbbCalendar['orientation'],
     }),
   );
 }

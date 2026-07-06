@@ -7,7 +7,7 @@ import type {
   UrlTree,
 } from '@angular/router';
 import { Router } from '@angular/router';
-import { type Observable } from 'rxjs';
+import type { Observable } from 'rxjs';
 
 const themeLocalstorageKey = 'sbbTheme';
 

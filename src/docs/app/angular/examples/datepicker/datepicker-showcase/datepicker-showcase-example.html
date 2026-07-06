@@ -1,0 +1,81 @@
+<sbb-form-field errorSpace="reserve">
+  <label>Date</label>
+  <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
+  <!--
+  When PR https://github.com/angular/angular/pull/69452 is merged,
+  min and max don't need to be passed as property but minDate() and maxDate() functions of Signal
+  Forms can be used where Schema is defined.
+
+  When Issue https://github.com/angular/angular/issues/69624 is resolved `$any()` will not
+  be needed anymore and `form.control()` can be used directly.
+  -->
+  <sbb-date-input
+    [formField]="$any(controls.model)"
+    [min]="controls.min().value()"
+    [max]="controls.max().value()"
+    [dateFilter]="filters[this.controls.dateFilter().value()]"
+  ></sbb-date-input>
+  <sbb-datepicker-toggle></sbb-datepicker-toggle>
+  <sbb-datepicker-next-day></sbb-datepicker-next-day>
+  <sbb-datepicker
+    [wide]="controls.wide().value()"
+    [view]="controls.view().value()"
+  ></sbb-datepicker>
+
+  @for (error of controls.model().errors(); track error.kind) {
+    @if (error.kind === 'sbbDateMin') {
+      <sbb-error>Date must be on or after {{ controls.min().value() | date }}.</sbb-error>
+    }
+    @if (error.kind === 'sbbDateMax') {
+      <sbb-error>Date must be on or before {{ controls.max().value() | date }}.</sbb-error>
+    }
+    @if (error.kind === 'sbbDateFilter') {
+      <sbb-error>This date is not allowed by the current filter.</sbb-error>
+    }
+    @if (error.kind === 'sbbDateParse') {
+      <sbb-error>Invalid date.</sbb-error>
+    }
+  }
+</sbb-form-field>
+
+<p>
+  <sbb-card color="milk"> <b>Value: </b> {{ controls.model().value() }} </sbb-card>
+</p>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="wide">Wide</label>
+  <sbb-checkbox id="wide" [formField]="controls.wide"></sbb-checkbox>
+
+  <label>View</label>
+  <sbb-radio-button-group aria-label="View" [formField]="controls.view">
+    <sbb-radio-button value="day">Day view</sbb-radio-button>
+    <sbb-radio-button value="month">Month view</sbb-radio-button>
+    <sbb-radio-button value="year">Year view</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>
+
+<sbb-title level="5">sbb-date-input properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label>Date filter</label>
+  <sbb-radio-button-group aria-label="Date filter" [formField]="controls.dateFilter">
+    <sbb-radio-button value="none">No filter</sbb-radio-button>
+    <sbb-radio-button value="odd">Exclude odd years</sbb-radio-button>
+    <sbb-radio-button value="oddDays">Exclude odd days</sbb-radio-button>
+    <sbb-radio-button value="even">Exclude even years</sbb-radio-button>
+    <sbb-radio-button value="evenDays">Exclude even days</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="min">Min</label>
+  <sbb-form-field>
+    <sbb-date-input id="min" [formField]="controls.min"></sbb-date-input>
+  </sbb-form-field>
+
+  <label for="max">Max</label>
+  <sbb-form-field>
+    <sbb-date-input id="max" [formField]="controls.max"></sbb-date-input>
+  </sbb-form-field>
+</div>
