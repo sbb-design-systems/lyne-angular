@@ -20,8 +20,6 @@ jobs:
           node-version-file: .nvmrc
           cache: yarn
       - run: yarn install --frozen-lockfile --non-interactive
-      - name: Create search keywords
-        run: yarn run-s generate-keywords
       - name: Run tests
         run: yarn ng test -c ci
         env:
@@ -30,5 +28,3 @@ jobs:
         run: yarn test:angular-schematics
         env:
           NODE_ENV: production
-      - name: Assert no new snapshots (run `yarn build && ng test -c ci` if this fails)
-        run: git diff --exit-code

@@ -31,5 +31,4 @@ jobs:
         with:
           app-token: ${{ steps.token.outputs.token }}
           teams-webhook: ${{ secrets.TEAMS_WEBHOOK }}
-          dev-packages: true
           update-lyne: true
