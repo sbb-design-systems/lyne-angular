@@ -8,11 +8,11 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title sbb-mini-button with configurable properties
- * @order 50
+ * @order 40
  */
 @Component({
-  selector: 'sbb-mini-button-variants-example',
-  templateUrl: 'mini-button-variants-example.html',
+  selector: 'sbb-mini-button-showcase-example',
+  templateUrl: 'mini-button-showcase-example.html',
   imports: [
     SbbButtonModule,
     SbbCheckboxModule,
@@ -22,7 +22,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     FormField,
   ],
 })
-export class MiniButtonVariantsExample {
+export class MiniButtonShowcaseExample {
   protected controls = form(
     signal({
       disabled: false,

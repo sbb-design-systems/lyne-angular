@@ -10,11 +10,11 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
  * @order 1
  */
 @Component({
-  selector: 'sbb-checkbox-basic-example',
-  templateUrl: 'checkbox-basic-example.html',
+  selector: 'sbb-checkbox-showcase-example',
+  templateUrl: 'checkbox-showcase-example.html',
   imports: [FormField, SbbCardModule, SbbCheckboxModule, SbbRadioButtonModule, SbbTitleModule],
 })
-export class CheckboxBasicExample {
+export class CheckboxShowcaseExample {
   protected controls = form(
     signal({
       model: false,

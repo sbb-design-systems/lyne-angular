@@ -11,11 +11,11 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title flip-card with configurable properties
- * @order 10
+ * @order 1
  */
 @Component({
-  selector: 'sbb-flip-card-variants-example',
-  templateUrl: 'flip-card-variants-example.html',
+  selector: 'sbb-flip-card-showcase-example',
+  templateUrl: 'flip-card-showcase-example.html',
   imports: [
     FormField,
     SbbCheckboxModule,
@@ -27,7 +27,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbTitleModule,
   ],
 })
-export class FlipCardVariantsExample {
+export class FlipCardShowcaseExample {
   protected controls = form(
     signal({
       imageAlignment: 'after' as SbbFlipCardSummary['imageAlignment'],

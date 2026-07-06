@@ -9,11 +9,11 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title sbb-chip with configurable properties
- * @order 3
+ * @order 1
  */
 @Component({
-  selector: 'sbb-chip-variants-example',
-  templateUrl: 'chip-variants-example.html',
+  selector: 'sbb-chip-showcase-example',
+  templateUrl: 'chip-showcase-example.html',
   imports: [
     FormField,
     SbbChipModule,
@@ -23,7 +23,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbTitleModule,
   ],
 })
-export class ChipVariantsExample {
+export class ChipShowcaseExample {
   protected controls = form(
     signal({
       addOnBlur: false,

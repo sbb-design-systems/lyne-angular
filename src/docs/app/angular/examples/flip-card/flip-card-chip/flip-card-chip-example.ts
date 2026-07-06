@@ -7,7 +7,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title flip-card with chip
- * @order 2
+ * @order 3
  */
 @Component({
   selector: 'sbb-flip-card-chip-example',
