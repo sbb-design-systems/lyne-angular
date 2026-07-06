@@ -3,6 +3,7 @@
     href="https://www.sbb.ch"
     target="_blank"
     [size]="controls.size().value()"
+    [negative]="controls.negative().value()"
     [disabled]="controls.disabled().value()"
     [iconName]="controls.withIcon().value() ? 'pie-small' : ''"
     [iconPlacement]="controls.iconPlacement().value()"
@@ -14,6 +15,7 @@
   <sbb-block-link-button
     href="https://www.sbb.ch"
     [size]="controls.size().value()"
+    [negative]="controls.negative().value()"
     [disabled]="controls.disabled().value()"
     [iconName]="controls.withIcon().value() ? 'pie-small' : ''"
     [iconPlacement]="controls.iconPlacement().value()"
@@ -25,6 +27,7 @@
   <sbb-block-link-static
     href="https://www.sbb.ch"
     [size]="controls.size().value()"
+    [negative]="controls.negative().value()"
     [disabled]="controls.disabled().value()"
     [iconName]="controls.withIcon().value() ? 'pie-small' : ''"
     [iconPlacement]="controls.iconPlacement().value()"
@@ -37,6 +40,9 @@
 <div class="sbb-controls-table">
   <label for="disabled">Disabled</label>
   <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label for="negative">Negative</label>
+  <sbb-checkbox id="negative" [formField]="controls.negative"></sbb-checkbox>
 
   <label>Size</label>
   <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>

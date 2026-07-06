@@ -1,15 +1,28 @@
 <p>
-  <sbb-link href="https://www.sbb.ch" target="_blank" [disabled]="controls.disabled().value()">
+  <sbb-link
+    href="https://www.sbb.ch"
+    target="_blank"
+    [negative]="controls.negative().value()"
+    [disabled]="controls.disabled().value()"
+  >
     Link
   </sbb-link>
 </p>
 <p>
-  <sbb-link-button href="https://www.sbb.ch" [disabled]="controls.disabled().value()">
+  <sbb-link-button
+    href="https://www.sbb.ch"
+    [negative]="controls.negative().value()"
+    [disabled]="controls.disabled().value()"
+  >
     Link button
   </sbb-link-button>
 </p>
 <p>
-  <sbb-link-static href="https://www.sbb.ch" [disabled]="controls.disabled().value()">
+  <sbb-link-static
+    href="https://www.sbb.ch"
+    [negative]="controls.negative().value()"
+    [disabled]="controls.disabled().value()"
+  >
     Link static
   </sbb-link-static>
 </p>
@@ -18,4 +31,7 @@
 <div class="sbb-controls-table">
   <label for="disabled">Disabled</label>
   <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label for="negative">Negative</label>
+  <sbb-checkbox id="negative" [formField]="controls.negative"></sbb-checkbox>
 </div>

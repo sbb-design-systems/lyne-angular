@@ -15,5 +15,10 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   imports: [FormField, SbbCheckboxModule, SbbFormFieldModule, SbbLinkModule, SbbTitleModule],
 })
 export class LinkShowcaseExample {
-  protected controls = form(signal({ disabled: false }));
+  protected controls = form(
+    signal({
+      negative: false,
+      disabled: false,
+    }),
+  );
 }

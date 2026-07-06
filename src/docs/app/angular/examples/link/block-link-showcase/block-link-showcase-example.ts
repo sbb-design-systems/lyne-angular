@@ -26,6 +26,7 @@ export class BlockLinkShowcaseExample {
   protected controls = form(
     signal({
       disabled: false,
+      negative: false,
       size: null as SbbBlockLink['size'],
       withIcon: false,
       iconPlacement: 'start' as SbbBlockLink['iconPlacement'],
