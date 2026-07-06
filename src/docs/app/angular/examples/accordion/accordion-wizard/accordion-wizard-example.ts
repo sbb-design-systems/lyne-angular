@@ -5,6 +5,7 @@ import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 
 /**
  * @title Wizard-like sbb-accordion
+ * @order 4
  */
 @Component({
   selector: 'sbb-accordion-wizard-example',

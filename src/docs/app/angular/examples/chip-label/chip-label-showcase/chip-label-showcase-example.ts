@@ -9,11 +9,11 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
  * @title Basic chip-label
  */
 @Component({
-  selector: 'sbb-chip-label-basic-example',
-  templateUrl: 'chip-label-basic-example.html',
+  selector: 'sbb-chip-label-showcase-example',
+  templateUrl: 'chip-label-showcase-example.html',
   imports: [FormField, SbbChipLabelModule, SbbRadioButtonModule, SbbTitleModule],
 })
-export class ChipLabelBasicExample {
+export class ChipLabelShowcaseExample {
   protected controls = form(
     signal({
       color: 'milk' as SbbChipLabel['color'],
