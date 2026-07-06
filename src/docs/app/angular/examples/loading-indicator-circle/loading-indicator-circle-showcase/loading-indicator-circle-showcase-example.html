@@ -1,0 +1,14 @@
+<div [class.sbb-example__negative]="controls.color().value() === 'white'">
+  <sbb-loading-indicator-circle [color]="controls.color().value()"></sbb-loading-indicator-circle>
+  Adapts to the font size
+</div>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Color</label>
+  <sbb-radio-button-group aria-label="Color" [formField]="controls.color">
+    <sbb-radio-button value="default">default</sbb-radio-button>
+    <sbb-radio-button value="smoke">smoke</sbb-radio-button>
+    <sbb-radio-button value="white">white</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>
