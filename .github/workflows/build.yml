@@ -67,11 +67,6 @@ jobs:
           name: docs
           path: dist/docs/
           retention-days: 1
-      - name: Store build
-        uses: actions/upload-artifact@v7
-        with:
-          name: build
-          path: dist/
 
       - name: Build and publish dev image
         uses: sbb-design-systems/actions/build-container@main
