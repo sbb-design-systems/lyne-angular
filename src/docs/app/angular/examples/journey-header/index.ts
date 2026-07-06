@@ -1,1 +1,1 @@
-export { JourneyHeaderBasicExample } from './journey-header-basic/journey-header-basic-example';
+export { JourneyHeaderShowcaseExample } from './journey-header-showcase/journey-header-showcase-example';
