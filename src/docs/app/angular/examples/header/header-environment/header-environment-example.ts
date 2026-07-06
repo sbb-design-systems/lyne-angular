@@ -8,7 +8,7 @@ import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
- * @title <component name> with configurable properties
+ * @title Header environment
  * @order 2
  */
 @Component({

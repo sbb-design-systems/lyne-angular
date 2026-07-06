@@ -1,5 +1,5 @@
 <div hidden>
-  <sbb-header>
+  <sbb-header scrollOrigin="scroll-container">
     <sbb-header-link iconName="hamburger-menu-small" href="https://sbb.ch/somewhere">
       Menu
     </sbb-header-link>
@@ -10,22 +10,8 @@
     <a aria-label="Homepage" href="/" class="sbb-header-logo">
       <sbb-logo protectiveRoom="none"></sbb-logo>
     </a>
-    <sbb-header-environment>{{ controls.environment().value() }}</sbb-header-environment>
   </sbb-header>
-  <sbb-container>
-    <!-- Controls panel -->
-    <sbb-title level="5">Properties</sbb-title>
-    <div class="sbb-controls-table">
-      <label>Environment</label>
-      <sbb-radio-button-group aria-label="Environment" [formField]="controls.environment">
-        <sbb-radio-button value="dev">dev</sbb-radio-button>
-        <sbb-radio-button value="edu">edu</sbb-radio-button>
-        <sbb-radio-button value="int">int</sbb-radio-button>
-        <sbb-radio-button value="loc">loc</sbb-radio-button>
-        <sbb-radio-button value="test">test</sbb-radio-button>
-      </sbb-radio-button-group>
-    </div>
-
+  <sbb-container id="scroll-container" class="scroll-container">
     <!-- Enough content to scroll -->
     <sbb-title level="5">Content</sbb-title>
     @for (_ of [1, 2, 3, 4, 5]; track _) {

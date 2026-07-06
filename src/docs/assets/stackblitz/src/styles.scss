@@ -25,6 +25,10 @@ body {
   letter-spacing: var(--sbb-typo-letter-spacing-text);
 }
 
+.stackblitz-hidden {
+  display: none;
+}
+
 // These styles need to be in sync with main styles.scss!
 .sbb-controls-table {
   display: grid;
