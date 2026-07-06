@@ -10,11 +10,11 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
  * @order 1
  */
 @Component({
-  selector: 'sbb-form-field-basic-example',
-  templateUrl: 'form-field-basic-example.html',
+  selector: 'sbb-form-field-showcase-example',
+  templateUrl: 'form-field-showcase-example.html',
   imports: [FormField, SbbCheckboxModule, SbbFormFieldModule, SbbRadioButtonModule, SbbTitleModule],
 })
-export class FormFieldBasicExample {
+export class FormFieldShowcaseExample {
   protected controls = form(
     signal({
       formField: {

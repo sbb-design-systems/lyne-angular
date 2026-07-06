@@ -4,27 +4,27 @@ import type { ExampleData } from './example-data';
 
 export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[]> = {
   accordion: [
+    'accordion-showcase',
     'accordion-basic',
     'accordion-nested-lazy',
-    'accordion-variants',
     { id: 'accordion-wizard', hasStyle: true },
   ],
   'action-group': ['action-group-basic', { id: 'action-group-complex', hasStyle: true }],
-  alert: ['alert-basic', 'alert-group', 'alert-variants'],
+  alert: ['alert-showcase', 'alert-basic', 'alert-group'],
   autocomplete: [
+    'autocomplete-showcase',
     'autocomplete-basic',
-    'autocomplete-complex-value',
     'autocomplete-hint-optgroup',
-    'autocomplete-variants',
+    'autocomplete-complex-value',
   ],
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
   breadcrumb: ['breadcrumb-basic'],
   button: [
-    'button-variants',
+    'button-showcase',
     'button-link-basic',
     'button-static-basic',
+    'mini-button-showcase',
     'mini-button-group',
-    'mini-button-variants',
   ],
   calendar: [
     'calendar-basic',
@@ -39,10 +39,15 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'carousel-link',
     { id: 'carousel-button', hasStyle: true },
   ],
-  checkbox: ['checkbox-basic', 'checkbox-signal', 'checkbox-reactive', 'checkbox-template-driven'],
+  checkbox: [
+    'checkbox-showcase',
+    'checkbox-signal',
+    'checkbox-reactive',
+    'checkbox-template-driven',
+  ],
   'checkbox-group': [
-    'checkbox-group-basic',
-    { id: 'checkbox-group-panel', hasStyle: true },
+    'checkbox-group-showcase',
+    { id: 'checkbox-group-panel-showcase', hasStyle: true },
     'checkbox-group-with-error',
   ],
   'checkbox-panel': [
@@ -50,8 +55,8 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     { id: 'checkbox-panel-reactive', hasStyle: true },
     { id: 'checkbox-panel-template-driven', hasStyle: true },
   ],
-  chip: ['chip-basic', 'chip-autocomplete', 'chip-variants', 'chip-complex-value'],
-  'chip-label': ['chip-label-basic'],
+  chip: ['chip-showcase', 'chip-basic', 'chip-autocomplete', 'chip-complex-value'],
+  'chip-label': ['chip-label-showcase'],
   clock: ['clock-basic', 'clock-paused'],
   container: ['container-basic'],
   'date-input': [
@@ -61,14 +66,14 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'date-input-template-driven',
   ],
   datepicker: ['datepicker-showcase', 'datepicker-basic'],
-  dialog: ['dialog-basic', 'dialog-service'],
+  dialog: ['dialog-showcase', 'dialog-service'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
-  'expansion-panel': ['expansion-panel-basic', 'expansion-panel-variants'],
+  'expansion-panel': ['expansion-panel-showcase', 'expansion-panel-basic'],
   'file-selector': ['file-selector-basic'],
-  'flip-card': ['flip-card-basic', 'flip-card-chip', 'flip-card-variants'],
+  'flip-card': ['flip-card-showcase', 'flip-card-basic', 'flip-card-chip'],
   footer: ['footer-basic', 'footer-clock'],
   'form-field': [
-    'form-field-basic',
+    'form-field-showcase',
     'form-field-native-select',
     'form-field-clear',
     'form-field-hint',
@@ -148,7 +153,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
   switch (id) {
     case 'accordion-basic':
     case 'accordion-nested-lazy':
-    case 'accordion-variants':
+    case 'accordion-showcase':
     case 'accordion-wizard':
       return import('../angular/examples/accordion');
     case 'action-group-basic':
@@ -156,12 +161,12 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/action-group');
     case 'alert-basic':
     case 'alert-group':
-    case 'alert-variants':
+    case 'alert-showcase':
       return import('../angular/examples/alert');
     case 'autocomplete-basic':
     case 'autocomplete-complex-value':
     case 'autocomplete-hint-optgroup':
-    case 'autocomplete-variants':
+    case 'autocomplete-showcase':
       return import('../angular/examples/autocomplete');
     case 'badge-basic':
     case 'badge-before':
@@ -172,8 +177,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'breadcrumb-basic':
       return import('../angular/examples/breadcrumb');
     case 'button-link-basic':
+    case 'button-showcase':
     case 'button-static-basic':
-    case 'button-variants':
       return import('../angular/examples/button');
     case 'calendar-basic':
     case 'calendar-enhanced':
@@ -189,10 +194,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'carousel-button':
     case 'carousel-link':
       return import('../angular/examples/carousel');
-    case 'checkbox-basic':
-      return import('../angular/examples/checkbox');
-    case 'checkbox-group-basic':
-    case 'checkbox-group-panel':
+    case 'checkbox-group-panel-showcase':
+    case 'checkbox-group-showcase':
     case 'checkbox-group-with-error':
       return import('../angular/examples/checkbox-group');
     case 'checkbox-panel-reactive':
@@ -200,6 +203,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'checkbox-panel-template-driven':
       return import('../angular/examples/checkbox-panel');
     case 'checkbox-reactive':
+    case 'checkbox-showcase':
     case 'checkbox-signal':
     case 'checkbox-template-driven':
       return import('../angular/examples/checkbox');
@@ -207,9 +211,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'chip-basic':
     case 'chip-complex-value':
       return import('../angular/examples/chip');
-    case 'chip-label-basic':
+    case 'chip-label-showcase':
       return import('../angular/examples/chip-label');
-    case 'chip-variants':
+    case 'chip-showcase':
       return import('../angular/examples/chip');
     case 'clock-basic':
     case 'clock-paused':
@@ -225,15 +229,15 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'datepicker-basic':
     case 'datepicker-showcase':
       return import('../angular/examples/datepicker');
-    case 'dialog-basic':
     case 'dialog-service':
+    case 'dialog-showcase':
       return import('../angular/examples/dialog');
     case 'divider-basic':
       return import('../angular/examples/divider');
     case 'expandable-table':
       return import('../angular/examples/table');
     case 'expansion-panel-basic':
-    case 'expansion-panel-variants':
+    case 'expansion-panel-showcase':
       return import('../angular/examples/expansion-panel');
     case 'file-selector-basic':
       return import('../angular/examples/file-selector');
@@ -241,17 +245,17 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/table');
     case 'flip-card-basic':
     case 'flip-card-chip':
-    case 'flip-card-variants':
+    case 'flip-card-showcase':
       return import('../angular/examples/flip-card');
     case 'footer-basic':
       return import('../angular/examples/footer');
     case 'footer-clock':
       return import('../angular/examples/footer');
-    case 'form-field-basic':
     case 'form-field-clear':
     case 'form-field-hint':
     case 'form-field-native-select':
     case 'form-field-prefix-suffix':
+    case 'form-field-showcase':
     case 'form-field-text-counter':
       return import('../angular/examples/form-field');
     case 'grouped-columns-table':
@@ -288,7 +292,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'message-basic':
       return import('../angular/examples/message');
     case 'mini-button-group':
-    case 'mini-button-variants':
+    case 'mini-button-showcase':
       return import('../angular/examples/button');
     case 'mini-calendar-basic':
       return import('../angular/examples/mini-calendar');
