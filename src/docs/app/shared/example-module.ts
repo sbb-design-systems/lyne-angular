@@ -45,13 +45,22 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     { id: 'checkbox-group-panel', hasStyle: true },
     'checkbox-group-with-error',
   ],
-  'checkbox-panel': [{ id: 'checkbox-panel-variants', hasStyle: true }],
+  'checkbox-panel': [
+    { id: 'checkbox-panel-showcase', hasStyle: true },
+    { id: 'checkbox-panel-reactive', hasStyle: true },
+    { id: 'checkbox-panel-template-driven', hasStyle: true },
+  ],
   chip: ['chip-basic', 'chip-autocomplete', 'chip-variants', 'chip-complex-value'],
   'chip-label': ['chip-label-basic'],
   clock: ['clock-basic', 'clock-paused'],
   container: ['container-basic'],
-  'date-input': ['date-input-basic'],
-  datepicker: ['datepicker-basic'],
+  'date-input': [
+    'date-input-showcase',
+    'date-input-signal',
+    'date-input-reactive',
+    'date-input-template-driven',
+  ],
+  datepicker: ['datepicker-showcase', 'datepicker-basic'],
   dialog: ['dialog-basic', 'dialog-service'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
   'expansion-panel': ['expansion-panel-basic', 'expansion-panel-variants'],
@@ -190,7 +199,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'checkbox-group-panel':
     case 'checkbox-group-with-error':
       return import('../angular/examples/checkbox-group');
-    case 'checkbox-panel-variants':
+    case 'checkbox-panel-reactive':
+    case 'checkbox-panel-showcase':
+    case 'checkbox-panel-template-driven':
+      return import('../angular/examples/checkbox-panel');
     case 'checkbox-reactive':
     case 'checkbox-signal':
     case 'checkbox-template-driven':
@@ -208,9 +220,14 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/clock');
     case 'container-basic':
       return import('../angular/examples/container');
-    case 'date-input-basic':
+    case 'date-input-reactive':
+    case 'date-input-showcase':
+      return import('../angular/examples/date-input');
+    case 'date-input-signal':
+    case 'date-input-template-driven':
       return import('../angular/examples/date-input');
     case 'datepicker-basic':
+    case 'datepicker-showcase':
       return import('../angular/examples/datepicker');
     case 'dialog-basic':
     case 'dialog-service':
