@@ -1,4 +1,7 @@
-<div class="example-container">
+<div hidden>
+  <sbb-header scroll-origin="content">
+    <sbb-header-link iconName="hamburger-menu-small" href="https://sbb.ch"> Menu </sbb-header-link>
+  </sbb-header>
   <sbb-icon-sidebar-container>
     <sbb-icon-sidebar>
       <sbb-icon-sidebar-link
@@ -15,6 +18,12 @@
         class="sbb-active"
         accessibilityCurrent="page"
       ></sbb-icon-sidebar-link>
+      <sbb-divider></sbb-divider>
+      <sbb-icon-sidebar-button
+        [iconName]="opened() ? 'list-arrow-left-small' : 'list-arrow-right-small'"
+        sbb-tooltip="Toggle Sidebar"
+        (click)="sidebar().toggle()"
+      ></sbb-icon-sidebar-button>
     </sbb-icon-sidebar>
     <sbb-icon-sidebar-content>
       <sbb-sidebar-container>
@@ -29,9 +38,8 @@
             <sbb-block-link href="#">The Unicorn's Guide to Creativity</sbb-block-link>
           </sbb-link-list>
         </sbb-sidebar>
-        <sbb-sidebar-content role="main">
+        <sbb-sidebar-content id="content" role="main">
           <sbb-title level="1" visualLevel="2">Unicorn Success Stories</sbb-title>
-          <sbb-button (click)="toggleSidebar()">Toggle sidebar</sbb-button>
           <p>
             In the enchanting world of fantasy, unicorns are legendary creatures known for their
             grace, purity, and magical abilities. These mystical beings have inspired countless
@@ -51,3 +59,8 @@
     </sbb-icon-sidebar-content>
   </sbb-icon-sidebar-container>
 </div>
+
+<sbb-card class="stackblitz-hidden">
+  This can only be used in StackBlitz, preferably with the preview in a new tab. Remove the
+  <code>hidden</code> attribute from the <code>&lt;div&gt;</code>.
+</sbb-card>
