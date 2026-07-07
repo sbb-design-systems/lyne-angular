@@ -137,7 +137,9 @@ sbb-block-link {
   }
 }
 
-.sbb-example__negative {
+.sbb-example-negative {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+
   background-color: var(--sbb-background-color-1-negative);
   color: var(--sbb-color-1-negative);
 }
