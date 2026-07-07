@@ -82,10 +82,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   ],
   header: ['header-basic'],
   icon: ['icon-basic'],
-  'icon-sidebar': [
-    { id: 'icon-sidebar-showcase', hasStyle: true },
-    { id: 'icon-sidebar-nested', hasStyle: true },
-  ],
+  'icon-sidebar': [{ id: 'icon-sidebar-showcase', hasStyle: true }, 'icon-sidebar-nested'],
   image: ['image-basic'],
   'journey-header': ['journey-header-showcase'],
   'lead-container': ['lead-container-basic'],

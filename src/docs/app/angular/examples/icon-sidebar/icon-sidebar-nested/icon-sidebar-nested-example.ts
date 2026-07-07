@@ -19,7 +19,6 @@ import { merge } from 'rxjs';
 @Component({
   selector: 'sbb-icon-sidebar-nested-example',
   templateUrl: 'icon-sidebar-nested-example.html',
-  styleUrl: 'icon-sidebar-nested-example.scss',
   imports: [
     SbbCardModule,
     SbbButtonModule,
