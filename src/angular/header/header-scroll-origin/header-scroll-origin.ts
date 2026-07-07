@@ -5,7 +5,6 @@ import { Directive } from '@angular/core';
  * Can be placed on any scrollable element.
  */
 @Directive({
-  // TODO: change selector to  [sbbHeaderScrollOrigin]
   selector: '[sbb-header-scroll-origin]',
   host: {
     '[attr.sbb-header-scroll-origin]': '""',
