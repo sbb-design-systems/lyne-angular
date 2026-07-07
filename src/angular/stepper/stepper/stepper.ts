@@ -102,14 +102,14 @@ export class SbbStepper {
   }
 
   /**
-   * Selects the next step.
+   * Selects the next enabled step. If no available step is found, it simply exits.
    */
   public next(): void {
     return this.#element.nativeElement.next();
   }
 
   /**
-   * Selects the previous step.
+   * Selects the previous enabled step. If no available step is found, it simply exits.
    */
   public previous(): void {
     return this.#element.nativeElement.previous();
