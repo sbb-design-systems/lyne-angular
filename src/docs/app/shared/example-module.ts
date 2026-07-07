@@ -69,7 +69,13 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   dialog: ['dialog-showcase', 'dialog-service'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
   'expansion-panel': ['expansion-panel-showcase', 'expansion-panel-basic'],
-  'file-selector': ['file-selector-basic'],
+  'file-selector': [
+    'file-selector-showcase',
+    'file-selector-dropzone-showcase',
+    'file-selector-signal',
+    'file-selector-reactive-form',
+    'file-selector-template-driven',
+  ],
   'flip-card': ['flip-card-showcase', 'flip-card-basic', 'flip-card-chip'],
   footer: ['footer-basic', 'footer-clock'],
   'form-field': [
@@ -84,7 +90,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   icon: ['icon-basic'],
   'icon-sidebar': [{ id: 'icon-sidebar-basic', hasStyle: true }],
   image: ['image-basic'],
-  'journey-header': ['journey-header-basic'],
+  'journey-header': ['journey-header-showcase'],
   'lead-container': ['lead-container-basic'],
   link: ['link-showcase', 'block-link-showcase'],
   'link-list': ['link-list-basic'],
@@ -239,7 +245,11 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'expansion-panel-basic':
     case 'expansion-panel-showcase':
       return import('../angular/examples/expansion-panel');
-    case 'file-selector-basic':
+    case 'file-selector-dropzone-showcase':
+    case 'file-selector-reactive-form':
+    case 'file-selector-showcase':
+    case 'file-selector-signal':
+    case 'file-selector-template-driven':
       return import('../angular/examples/file-selector');
     case 'filter-sort-paginator-table':
       return import('../angular/examples/table');
@@ -269,7 +279,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/icon-sidebar');
     case 'image-basic':
       return import('../angular/examples/image');
-    case 'journey-header-basic':
+    case 'journey-header-showcase':
       return import('../angular/examples/journey-header');
     case 'lead-container-basic':
       return import('../angular/examples/lead-container');
