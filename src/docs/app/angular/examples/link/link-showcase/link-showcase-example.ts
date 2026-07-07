@@ -18,7 +18,6 @@ export class LinkShowcaseExample {
   protected controls = form(
     signal({
       negative: false,
-      disabled: false,
     }),
   );
 }

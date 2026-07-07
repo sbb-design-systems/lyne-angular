@@ -13,6 +13,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 @Component({
   selector: 'sbb-block-link-showcase-example',
   templateUrl: 'block-link-showcase-example.html',
+  styleUrl: 'block-link-showcase-example.scss',
   imports: [
     FormField,
     SbbCheckboxModule,
@@ -25,7 +26,6 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 export class BlockLinkShowcaseExample {
   protected controls = form(
     signal({
-      disabled: false,
       negative: false,
       size: null as SbbBlockLink['size'],
       withIcon: false,

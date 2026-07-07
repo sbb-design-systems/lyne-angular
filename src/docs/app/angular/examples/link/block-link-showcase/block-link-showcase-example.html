@@ -1,46 +1,42 @@
-<p>
-  <sbb-block-link
-    href="https://www.sbb.ch"
-    target="_blank"
-    [size]="controls.size().value()"
-    [negative]="controls.negative().value()"
-    [disabled]="controls.disabled().value()"
-    [iconName]="controls.withIcon().value() ? 'pie-small' : ''"
-    [iconPlacement]="controls.iconPlacement().value()"
-  >
-    Link
-  </sbb-block-link>
-</p>
-<p>
-  <sbb-block-link-button
-    href="https://www.sbb.ch"
-    [size]="controls.size().value()"
-    [negative]="controls.negative().value()"
-    [disabled]="controls.disabled().value()"
-    [iconName]="controls.withIcon().value() ? 'pie-small' : ''"
-    [iconPlacement]="controls.iconPlacement().value()"
-  >
-    Link button
-  </sbb-block-link-button>
-</p>
-<p>
-  <sbb-block-link-static
-    href="https://www.sbb.ch"
-    [size]="controls.size().value()"
-    [negative]="controls.negative().value()"
-    [disabled]="controls.disabled().value()"
-    [iconName]="controls.withIcon().value() ? 'pie-small' : ''"
-    [iconPlacement]="controls.iconPlacement().value()"
-  >
-    Link static
-  </sbb-block-link-static>
-</p>
+<div class="wrapper" [class.sbb-example-negative]="controls.negative().value()">
+  <p>
+    <sbb-block-link
+      href="https://www.sbb.ch"
+      target="_blank"
+      [size]="controls.size().value()"
+      [negative]="controls.negative().value()"
+      [iconName]="controls.withIcon().value() ? 'pie-small' : ''"
+      [iconPlacement]="controls.iconPlacement().value()"
+    >
+      Link
+    </sbb-block-link>
+  </p>
+  <p>
+    <sbb-block-link-button
+      href="https://www.sbb.ch"
+      [size]="controls.size().value()"
+      [negative]="controls.negative().value()"
+      [iconName]="controls.withIcon().value() ? 'pie-small' : ''"
+      [iconPlacement]="controls.iconPlacement().value()"
+    >
+      Link button
+    </sbb-block-link-button>
+  </p>
+  <p>
+    <sbb-block-link-static
+      href="https://www.sbb.ch"
+      [size]="controls.size().value()"
+      [negative]="controls.negative().value()"
+      [iconName]="controls.withIcon().value() ? 'pie-small' : ''"
+      [iconPlacement]="controls.iconPlacement().value()"
+    >
+      Link static
+    </sbb-block-link-static>
+  </p>
+</div>
 
 <sbb-title level="5">Properties</sbb-title>
 <div class="sbb-controls-table">
-  <label for="disabled">Disabled</label>
-  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
-
   <label for="negative">Negative</label>
   <sbb-checkbox id="negative" [formField]="controls.negative"></sbb-checkbox>
 
