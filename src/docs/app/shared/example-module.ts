@@ -99,7 +99,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'loading-indicator-circle': ['loading-indicator-circle-basic'],
   logo: ['logo-basic'],
   'map-container': ['map-container-basic'],
-  menu: ['menu-basic'],
+  menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
   message: ['message-basic'],
   'mini-calendar': ['mini-calendar-basic'],
   navigation: ['navigation-basic'],
@@ -296,6 +296,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'map-container-basic':
       return import('../angular/examples/map-container');
     case 'menu-basic':
+    case 'menu-custom-content':
+    case 'menu-nested':
       return import('../angular/examples/menu');
     case 'message-basic':
       return import('../angular/examples/message');

@@ -5,12 +5,12 @@ import { SbbDividerModule } from '@sbb-esta/lyne-angular/divider';
 import { SbbMenuModule } from '@sbb-esta/lyne-angular/menu';
 
 /**
- * @title Basic menu
- * @order 1
+ * @title nested menus
+ * @order 3
  */
 @Component({
-  selector: 'sbb-menu-basic-example',
-  templateUrl: 'menu-basic-example.html',
+  selector: 'sbb-menu-nested-example',
+  templateUrl: 'menu-nested-example.html',
   imports: [SbbMenuModule, SbbButtonModule, SbbDividerModule, SbbBadgeModule],
 })
-export class MenuBasicExample {}
+export class MenuNestedExample {}

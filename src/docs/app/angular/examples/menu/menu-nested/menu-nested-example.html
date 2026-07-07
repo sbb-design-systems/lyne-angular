@@ -1,0 +1,35 @@
+<sbb-button #trigger>Menu trigger</sbb-button>
+
+<sbb-menu [trigger]="trigger">
+  <sbb-menu-button iconName="link-small"> New Document</sbb-menu-button>
+  <sbb-menu-button iconName="pen-small" sbb-badge="12"> Edit </sbb-menu-button>
+  <sbb-divider></sbb-divider>
+  <sbb-menu-button iconName="lock-closed-small" id="sub-menu-1">
+    Set Document Permissions
+  </sbb-menu-button>
+  <sbb-menu-button iconName="download-small" id="sub-menu-2">Download Selected</sbb-menu-button>
+  <sbb-menu-button iconName="trash-small">Delete Selected</sbb-menu-button>
+  <sbb-menu-button iconName="circle-information-small">Details</sbb-menu-button>
+  <sbb-divider></sbb-divider>
+  <sbb-menu-button iconName="cross-small">Cancel Selection</sbb-menu-button>
+</sbb-menu>
+<sbb-menu trigger="sub-menu-1">
+  <sbb-menu-button iconName="employees-sbb-small"> All Users</sbb-menu-button>
+  <sbb-menu-button iconName="two-users-small"> Group</sbb-menu-button>
+  <sbb-menu-button iconName="user-small"> Single User</sbb-menu-button>
+  <sbb-divider></sbb-divider>
+  <sbb-menu-button iconName="filter-small" id="sub-menu-3">
+    Custom User Permission
+  </sbb-menu-button>
+</sbb-menu>
+<sbb-menu trigger="sub-menu-2">
+  <sbb-menu-button iconName="document-pdf-small">Download as PDF</sbb-menu-button>
+  <sbb-menu-button iconName="document-doc-small">Download as DOCX</sbb-menu-button>
+  <sbb-menu-button iconName="document-xls-small">Download as XLS</sbb-menu-button>
+  <sbb-menu-button iconName="document-zip-small">Download as archive</sbb-menu-button>
+</sbb-menu>
+<sbb-menu trigger="sub-menu-3">
+  <sbb-menu-button iconName="hand-small">Hand Select</sbb-menu-button>
+  <sbb-menu-button iconName="tag-small">Define Permission Criteria</sbb-menu-button>
+  <sbb-menu-button iconName="link-small">Create Invitation Link</sbb-menu-button>
+</sbb-menu>
