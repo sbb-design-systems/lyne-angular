@@ -1,5 +1,5 @@
 <div hidden>
-  <sbb-header scrollOrigin="scroll-container">
+  <sbb-header [scrollOrigin]="scrollContainer">
     <sbb-header-link iconName="hamburger-menu-small" href="https://sbb.ch/somewhere">
       Menu
     </sbb-header-link>
@@ -11,7 +11,7 @@
       <sbb-logo protectiveRoom="none"></sbb-logo>
     </a>
   </sbb-header>
-  <sbb-container id="scroll-container" class="scroll-container">
+  <sbb-container class="scroll-container" #scrollContainer>
     <!-- Enough content to scroll -->
     <sbb-title level="5">Content</sbb-title>
     @for (_ of [1, 2, 3, 4, 5]; track _) {
