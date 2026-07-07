@@ -9,6 +9,7 @@ import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
 
 /**
  * @title icon-sidebar nested with sidebar
+ * @order 2
  */
 @Component({
   selector: 'sbb-icon-sidebar-nested-example',
@@ -25,9 +26,9 @@ import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
   ],
 })
 export class IconSidebarNestedExample {
-  protected sidebar = viewChild.required(SbbSidebar);
+  private _sidebar = viewChild.required(SbbSidebar);
 
-  toggleSidebar() {
-    this.sidebar().toggle();
+  protected toggleSidebar() {
+    this._sidebar().toggle();
   }
 }
