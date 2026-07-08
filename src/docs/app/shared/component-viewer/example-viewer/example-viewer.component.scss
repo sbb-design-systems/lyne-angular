@@ -7,14 +7,23 @@
 .example {
   border: var(--sbb-border-width-1x) solid var(--sbb-color-silver);
   border-radius: var(--border-radius);
+  overflow: auto;
 }
 
 .container {
   padding: var(--sbb-spacing-fixed-6x);
 
-  &:has(.fullscreen-example) {
+  &:has(.sbb-example-fullscreen) {
     padding: 0;
   }
+}
+
+:host:not(:has(.sbb-example-fullscreen-only)) .fullscreen-only-warning {
+  display: none;
+}
+
+:host:has(.sbb-example-fullscreen-only) .outlet-container {
+  display: none;
 }
 
 .tools {

@@ -9,5 +9,6 @@ import { SbbTimetableFormModule } from '@sbb-esta/lyne-angular/timetable-form';
   selector: 'sbb-timetable-form-basic-example',
   templateUrl: 'timetable-form-basic-example.html',
   imports: [SbbTimetableFormModule, SbbSignetModule],
+  host: { class: 'sbb-example-fullscreen' },
 })
 export class TimetableFormBasicExample {}
