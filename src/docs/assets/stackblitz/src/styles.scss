@@ -6,6 +6,10 @@ body {
   justify-content: space-between;
   margin: 0;
   padding: var(--sbb-spacing-fixed-8x);
+
+  &:has(.sbb-example-fullscreen, .sbb-example-fullscreen-only) {
+    padding: 0;
+  }
 }
 
 html,
