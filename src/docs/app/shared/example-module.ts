@@ -68,6 +68,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   datepicker: ['datepicker-showcase', 'datepicker-basic'],
   dialog: ['dialog-showcase', 'dialog-service'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
+  download: ['download-showcase', 'download-custom-content'],
   'expansion-panel': ['expansion-panel-showcase', 'expansion-panel-basic'],
   'file-selector': [
     'file-selector-showcase',
@@ -88,15 +89,15 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   ],
   header: ['header-showcase', 'header-environment', { id: 'header-scroll-origin', hasStyle: true }],
   icon: ['icon-basic'],
-  'icon-sidebar': [{ id: 'icon-sidebar-basic', hasStyle: true }],
-  image: ['image-basic'],
+  'icon-sidebar': [{ id: 'icon-sidebar-showcase', hasStyle: true }, 'icon-sidebar-nested'],
+  image: ['image-basic', 'image-with-chip', 'image-round'],
   'journey-header': ['journey-header-showcase'],
   'lead-container': ['lead-container-basic'],
-  link: ['link-basic'],
+  link: ['link-showcase', 'block-link-showcase'],
   'link-list': ['link-list-showcase'],
   'link-list-anchor': ['link-list-anchor-showcase'],
-  'loading-indicator': ['loading-indicator-basic'],
-  'loading-indicator-circle': ['loading-indicator-circle-basic'],
+  'loading-indicator': ['loading-indicator-showcase'],
+  'loading-indicator-circle': ['loading-indicator-circle-showcase'],
   logo: ['logo-basic'],
   'map-container': ['map-container-basic'],
   menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
@@ -178,6 +179,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'badge-before':
     case 'badge-header-button':
       return import('../angular/examples/badge');
+    case 'block-link-showcase':
+      return import('../angular/examples/link');
     case 'breadcrumb-basic':
       return import('../angular/examples/breadcrumb');
     case 'button-link-basic':
@@ -238,6 +241,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/dialog');
     case 'divider-basic':
       return import('../angular/examples/divider');
+    case 'download-custom-content':
+    case 'download-showcase':
+      return import('../angular/examples/download');
     case 'expandable-table':
       return import('../angular/examples/table');
     case 'expansion-panel-basic':
@@ -275,24 +281,27 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/header');
     case 'icon-basic':
       return import('../angular/examples/icon');
-    case 'icon-sidebar-basic':
+    case 'icon-sidebar-nested':
+    case 'icon-sidebar-showcase':
       return import('../angular/examples/icon-sidebar');
     case 'image-basic':
+    case 'image-round':
+    case 'image-with-chip':
       return import('../angular/examples/image');
     case 'journey-header-showcase':
       return import('../angular/examples/journey-header');
     case 'lead-container-basic':
       return import('../angular/examples/lead-container');
-    case 'link-basic':
-      return import('../angular/examples/link');
     case 'link-list-anchor-showcase':
       return import('../angular/examples/link-list-anchor');
     case 'link-list-showcase':
       return import('../angular/examples/link-list');
-    case 'loading-indicator-basic':
-      return import('../angular/examples/loading-indicator');
-    case 'loading-indicator-circle-basic':
+    case 'link-showcase':
+      return import('../angular/examples/link');
+    case 'loading-indicator-circle-showcase':
       return import('../angular/examples/loading-indicator-circle');
+    case 'loading-indicator-showcase':
+      return import('../angular/examples/loading-indicator');
     case 'logo-basic':
       return import('../angular/examples/logo');
     case 'map-container-basic':

@@ -1,1 +1,1 @@
-export { LoadingIndicatorCircleBasicExample } from './loading-indicator-circle-basic/loading-indicator-circle-basic-example';
+export { LoadingIndicatorCircleShowcaseExample } from './loading-indicator-circle-showcase/loading-indicator-circle-showcase-example';
