@@ -46,11 +46,6 @@ const routes: Routes = [
         component: ComponentViewerComponent,
         children: componentViewerSubnavigation,
       },
-      {
-        path: 'components/:module/:id',
-        component: ComponentViewerComponent,
-        children: componentViewerSubnavigation,
-      },
     ],
   },
 ];

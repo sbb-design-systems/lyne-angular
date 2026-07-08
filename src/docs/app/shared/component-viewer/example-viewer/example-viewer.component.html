@@ -6,7 +6,14 @@
 
 <div class="example">
   <div class="container">
-    <sbb-example-outlet [exampleData]="exampleData()" />
+    <div class="outlet-container">
+      <sbb-example-outlet [exampleData]="exampleData()" />
+    </div>
+
+    <sbb-notification class="fullscreen-only-warning" animation="none" type="info" readonly>
+      This example is only available in fullscreen mode or on StackBlitz. Click one of the buttons
+      below.
+    </sbb-notification>
 
     <sbb-tab-group [hidden]="!showSource()" class="sbb-example-viewer-tabs">
       @for (content of exampleCodes(); track $index) {
@@ -16,13 +23,27 @@
     </sbb-tab-group>
   </div>
   <div class="tools container">
+    <sbb-secondary-button-link
+      iconName="fullscreen-small"
+      [routerLink]="[
+        '/fullscreen-example',
+        moduleParams()?.packageName,
+        moduleParams()?.id,
+        exampleData()?.id,
+      ]"
+      aria-label="View in fullscreen mode"
+    >
+      Fullscreen
+    </sbb-secondary-button-link>
+
     @if (stackBlitzEnabled() && exampleData()) {
       <sbb-secondary-button
         sbb-stack-blitz-button
         [exampleData]="exampleData()"
         iconName="link-external-small"
+        aria-label="Edit in StackBlitz"
       >
-        Edit in StackBlitz
+        StackBlitz
       </sbb-secondary-button>
     }
 
