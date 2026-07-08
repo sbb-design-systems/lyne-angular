@@ -6,7 +6,7 @@ import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
- * @title <component name> with configurable properties
+ * @title <sbb-logo> with configurable properties
  */
 @Component({
   selector: 'sbb-logo-showcase-example',
