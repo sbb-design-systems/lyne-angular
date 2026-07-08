@@ -1,1 +1,1 @@
-export { LoadingIndicatorBasicExample } from './loading-indicator-basic/loading-indicator-basic-example';
+export { LoadingIndicatorShowcaseExample } from './loading-indicator-showcase/loading-indicator-showcase-example';
