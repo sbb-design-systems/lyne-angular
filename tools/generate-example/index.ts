@@ -8,7 +8,7 @@
  *
  * The command can be used with a full path, so:
  *
- * `yarn generate alert/alert-variants`
+ * `yarn generate-example alert/alert-variants`
  *
  * otherwise, since the example name must have the same prefix of the folder name, with the shorthand:
  *
