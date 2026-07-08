@@ -7,7 +7,7 @@ body {
   margin: 0;
   padding: var(--sbb-spacing-fixed-8x);
 
-  &:has(.fullscreen-example) {
+  &:has(.sbb-example-fullscreen, .sbb-example-fullscreen-only) {
     padding: 0;
   }
 }
@@ -23,10 +23,6 @@ body {
   align-items: flex-end;
   font-size: var(--sbb-text-font-size-xs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
-}
-
-.stackblitz-hidden {
-  display: none;
 }
 
 // These styles need to be in sync with main styles.scss!
@@ -66,6 +62,7 @@ body {
 .sbb-example-negative {
   --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
 
-  background-color: var(--sbb-background-color-1-negative);
   color: var(--sbb-color-1-negative);
+  background-color: var(--sbb-background-color-1-negative);
+  outline: 0.75rem solid var(--sbb-background-color-1-negative);
 }

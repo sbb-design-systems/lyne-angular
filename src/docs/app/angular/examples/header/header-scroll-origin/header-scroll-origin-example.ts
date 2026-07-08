@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbContainerModule } from '@sbb-esta/lyne-angular/container';
 import { SbbHeaderModule } from '@sbb-esta/lyne-angular/header';
 import { SbbLogoModule } from '@sbb-esta/lyne-angular/logo';
@@ -13,9 +12,9 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   selector: 'sbb-header-scroll-origin-example',
   templateUrl: 'header-scroll-origin-example.html',
   styleUrl: 'header-scroll-origin-example.scss',
-  imports: [SbbCardModule, SbbContainerModule, SbbHeaderModule, SbbLogoModule, SbbTitleModule],
+  imports: [SbbContainerModule, SbbHeaderModule, SbbLogoModule, SbbTitleModule],
   host: {
-    class: 'fullscreen-example',
+    class: 'sbb-example-fullscreen-only',
   },
 })
 export class HeaderScrollOriginExample {}

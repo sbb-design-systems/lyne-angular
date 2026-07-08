@@ -93,13 +93,13 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'journey-header': ['journey-header-showcase'],
   'lead-container': ['lead-container-basic'],
   link: ['link-basic'],
-  'link-list': ['link-list-basic'],
-  'link-list-anchor': ['link-list-anchor-basic'],
+  'link-list': ['link-list-showcase'],
+  'link-list-anchor': ['link-list-anchor-showcase'],
   'loading-indicator': ['loading-indicator-basic'],
   'loading-indicator-circle': ['loading-indicator-circle-basic'],
   logo: ['logo-basic'],
   'map-container': ['map-container-basic'],
-  menu: ['menu-basic'],
+  menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
   message: ['message-basic'],
   'mini-calendar': ['mini-calendar-basic'],
   navigation: ['navigation-basic', 'navigation-section'],
@@ -285,9 +285,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/lead-container');
     case 'link-basic':
       return import('../angular/examples/link');
-    case 'link-list-anchor-basic':
+    case 'link-list-anchor-showcase':
       return import('../angular/examples/link-list-anchor');
-    case 'link-list-basic':
+    case 'link-list-showcase':
       return import('../angular/examples/link-list');
     case 'loading-indicator-basic':
       return import('../angular/examples/loading-indicator');
@@ -298,6 +298,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'map-container-basic':
       return import('../angular/examples/map-container');
     case 'menu-basic':
+    case 'menu-custom-content':
+    case 'menu-nested':
       return import('../angular/examples/menu');
     case 'message-basic':
       return import('../angular/examples/message');
