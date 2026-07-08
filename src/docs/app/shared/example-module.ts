@@ -88,7 +88,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   ],
   header: ['header-showcase', 'header-environment', { id: 'header-scroll-origin', hasStyle: true }],
   icon: ['icon-basic'],
-  'icon-sidebar': [{ id: 'icon-sidebar-basic', hasStyle: true }],
+  'icon-sidebar': [{ id: 'icon-sidebar-showcase', hasStyle: true }, 'icon-sidebar-nested'],
   image: ['image-basic', 'image-with-chip', 'image-round'],
   'journey-header': ['journey-header-showcase'],
   'lead-container': ['lead-container-basic'],
@@ -277,7 +277,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/header');
     case 'icon-basic':
       return import('../angular/examples/icon');
-    case 'icon-sidebar-basic':
+    case 'icon-sidebar-nested':
+    case 'icon-sidebar-showcase':
       return import('../angular/examples/icon-sidebar');
     case 'image-basic':
     case 'image-round':
