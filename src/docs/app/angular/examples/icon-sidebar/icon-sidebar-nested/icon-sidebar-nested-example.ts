@@ -31,6 +31,7 @@ import { merge } from 'rxjs';
     SbbTooltipModule,
     SbbDividerModule,
   ],
+  host: { class: 'sbb-example-fullscreen-only' },
 })
 export class IconSidebarNestedExample {
   protected opened = signal<boolean>(true);
