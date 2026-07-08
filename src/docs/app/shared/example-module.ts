@@ -86,7 +86,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'form-field-text-counter',
     'form-field-prefix-suffix',
   ],
-  header: ['header-basic'],
+  header: ['header-showcase', 'header-environment', { id: 'header-scroll-origin', hasStyle: true }],
   icon: ['icon-basic'],
   'icon-sidebar': [{ id: 'icon-sidebar-basic', hasStyle: true }],
   image: ['image-basic'],
@@ -269,7 +269,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'grouped-columns-table':
     case 'grouped-rows-and-columns-table':
       return import('../angular/examples/table');
-    case 'header-basic':
+    case 'header-environment':
+    case 'header-scroll-origin':
+    case 'header-showcase':
       return import('../angular/examples/header');
     case 'icon-basic':
       return import('../angular/examples/icon');
