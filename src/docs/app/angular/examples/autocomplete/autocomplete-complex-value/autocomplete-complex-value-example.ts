@@ -8,6 +8,7 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
  * @title sbb-autocomplete with complex values
+ * @order 4
  */
 @Component({
   selector: 'sbb-autocomplete-complex-value-example',

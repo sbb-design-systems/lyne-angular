@@ -104,9 +104,17 @@ export class SbbStepper {
   /**
    * Selects the next step.
    */
+
+  /**
+   * Selects the next step.
+   */
   public next(): void {
     return this.#element.nativeElement.next();
   }
+
+  /**
+   * Selects the previous step.
+   */
 
   /**
    * Selects the previous step.

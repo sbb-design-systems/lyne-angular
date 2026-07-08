@@ -1,0 +1,41 @@
+import { JsonPipe } from '@angular/common';
+import { Component, signal } from '@angular/core';
+import { form, FormField } from '@angular/forms/signals';
+import type { SbbAutocomplete } from '@sbb-esta/lyne-angular/autocomplete';
+import { SbbAutocompleteModule } from '@sbb-esta/lyne-angular/autocomplete';
+import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
+import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
+import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
+import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
+import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
+
+/**
+ * @title sbb-autocomplete with configurable properties
+ * @order 1
+ */
+@Component({
+  selector: 'sbb-autocomplete-showcase-example',
+  templateUrl: 'autocomplete-showcase-example.html',
+  imports: [
+    FormField,
+    JsonPipe,
+    SbbAutocompleteModule,
+    SbbCardModule,
+    SbbCheckboxModule,
+    SbbFormFieldModule,
+    SbbRadioButtonModule,
+    SbbTitleModule,
+  ],
+})
+export class AutocompleteShowcaseExample {
+  protected control = form(signal<string | null>(null));
+
+  protected form = form(
+    signal({
+      requireSelection: false,
+      autoSelectActiveOption: false,
+      autoActiveFirstOption: false,
+      size: null as SbbAutocomplete['size'],
+    }),
+  );
+}

@@ -6,6 +6,10 @@ import { brotliCompress, gzip } from 'node:zlib';
 
 const projectRoot = fileURLToPath(new URL('../', import.meta.url));
 const distDirectory = join(projectRoot, 'dist');
+
+// For compatibility, we need the stats.json at
+// two directories (/docs/browser for dev deployment, /docs for local size comparison).
+const outDirectories = [join(distDirectory, 'docs', 'browser'), join(distDirectory, 'docs')];
 const gzipAsync = promisify(gzip);
 const brotliAsync = promisify(brotliCompress);
 const calculateGzipSize = async (content: string): Promise<number> =>
@@ -13,7 +17,7 @@ const calculateGzipSize = async (content: string): Promise<number> =>
 const calculateBrotliSize = async (content: string): Promise<number> =>
   (await brotliAsync(content)).length;
 
-async function buildSizeStats(outDir: string): Promise<void> {
+async function buildSizeStats(): Promise<void> {
   interface SizeStats {
     js: number;
     jsBrotli: number;
@@ -64,13 +68,12 @@ async function buildSizeStats(outDir: string): Promise<void> {
     }
   }
 
-  writeFileSync(
-    join(outDir, 'stats.json'),
-    JSON.stringify({ sizes: stats } satisfies Stats, null, 2),
-    'utf8',
-  );
+  for (const outDir of outDirectories) {
+    const content = JSON.stringify({ sizes: stats } satisfies Stats, null, 2);
+    writeFileSync(join(outDir, 'stats.json'), content, 'utf8');
 
-  console.log(`=> Built size stats in ${relative(projectRoot, outDir)}`);
+    console.log(`=> Built size stats in ${relative(projectRoot, outDir)}`);
+  }
 }
 
-await buildSizeStats(join(distDirectory, 'docs'));
+await buildSizeStats();
