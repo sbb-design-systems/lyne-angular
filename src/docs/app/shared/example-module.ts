@@ -93,7 +93,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   image: ['image-basic'],
   'journey-header': ['journey-header-showcase'],
   'lead-container': ['lead-container-basic'],
-  link: ['link-basic'],
+  link: ['link-showcase', 'block-link-showcase'],
   'link-list': ['link-list-showcase'],
   'link-list-anchor': ['link-list-anchor-showcase'],
   'loading-indicator': ['loading-indicator-basic'],
@@ -179,6 +179,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'badge-before':
     case 'badge-header-button':
       return import('../angular/examples/badge');
+    case 'block-link-showcase':
+      return import('../angular/examples/link');
     case 'breadcrumb-basic':
       return import('../angular/examples/breadcrumb');
     case 'button-link-basic':
@@ -287,12 +289,12 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/journey-header');
     case 'lead-container-basic':
       return import('../angular/examples/lead-container');
-    case 'link-basic':
-      return import('../angular/examples/link');
     case 'link-list-anchor-showcase':
       return import('../angular/examples/link-list-anchor');
     case 'link-list-showcase':
       return import('../angular/examples/link-list');
+    case 'link-showcase':
+      return import('../angular/examples/link');
     case 'loading-indicator-basic':
       return import('../angular/examples/loading-indicator');
     case 'loading-indicator-circle-basic':
