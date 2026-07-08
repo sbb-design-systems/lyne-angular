@@ -1,10 +1,10 @@
 :host {
   display: block;
   padding: var(--sbb-spacing-fixed-8x);
-}
 
-:host:has(.sbb-example-fullscreen, .sbb-example-fullscreen-only) {
-  padding: 0;
+  &:has(.sbb-example-fullscreen, .sbb-example-fullscreen-only) {
+    padding: 0;
+  }
 }
 
 .example-warning {
