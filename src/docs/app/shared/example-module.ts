@@ -89,10 +89,10 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   header: ['header-showcase', 'header-environment', { id: 'header-scroll-origin', hasStyle: true }],
   icon: ['icon-basic'],
   'icon-sidebar': [{ id: 'icon-sidebar-basic', hasStyle: true }],
-  image: ['image-basic'],
+  image: ['image-basic', 'image-with-chip', 'image-round'],
   'journey-header': ['journey-header-showcase'],
   'lead-container': ['lead-container-basic'],
-  link: ['link-basic'],
+  link: ['link-showcase', 'block-link-showcase'],
   'link-list': ['link-list-showcase'],
   'link-list-anchor': ['link-list-anchor-showcase'],
   'loading-indicator': ['loading-indicator-showcase'],
@@ -178,6 +178,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'badge-before':
     case 'badge-header-button':
       return import('../angular/examples/badge');
+    case 'block-link-showcase':
+      return import('../angular/examples/link');
     case 'breadcrumb-basic':
       return import('../angular/examples/breadcrumb');
     case 'button-link-basic':
@@ -278,17 +280,19 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'icon-sidebar-basic':
       return import('../angular/examples/icon-sidebar');
     case 'image-basic':
+    case 'image-round':
+    case 'image-with-chip':
       return import('../angular/examples/image');
     case 'journey-header-showcase':
       return import('../angular/examples/journey-header');
     case 'lead-container-basic':
       return import('../angular/examples/lead-container');
-    case 'link-basic':
-      return import('../angular/examples/link');
     case 'link-list-anchor-showcase':
       return import('../angular/examples/link-list-anchor');
     case 'link-list-showcase':
       return import('../angular/examples/link-list');
+    case 'link-showcase':
+      return import('../angular/examples/link');
     case 'loading-indicator-circle-showcase':
       return import('../angular/examples/loading-indicator-circle');
     case 'loading-indicator-showcase':

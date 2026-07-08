@@ -2,18 +2,18 @@ import { Component } from '@angular/core';
 import { SbbImageModule } from '@sbb-esta/lyne-angular/image';
 
 /**
- * @title Basic image
- * @order 1
+ * @title Round image
+ * @order 3
  */
 @Component({
-  selector: 'sbb-image-basic-example',
-  templateUrl: 'image-basic-example.html',
+  selector: 'sbb-image-round-example',
+  templateUrl: 'image-round-example.html',
   styles: `
     :host {
       display: block;
-      max-width: 30rem;
+      max-width: 25rem;
     }
   `,
   imports: [SbbImageModule],
 })
-export class ImageBasicExample {}
+export class ImageRoundExample {}
