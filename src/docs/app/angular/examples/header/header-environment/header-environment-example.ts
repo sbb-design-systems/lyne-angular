@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
-import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbContainerModule } from '@sbb-esta/lyne-angular/container';
 import { SbbHeaderModule } from '@sbb-esta/lyne-angular/header';
 import { SbbLogoModule } from '@sbb-esta/lyne-angular/logo';
@@ -16,7 +15,6 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   templateUrl: 'header-environment-example.html',
   imports: [
     FormField,
-    SbbCardModule,
     SbbContainerModule,
     SbbHeaderModule,
     SbbLogoModule,
@@ -24,7 +22,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbTitleModule,
   ],
   host: {
-    class: 'fullscreen-example',
+    class: 'sbb-example-fullscreen-only',
   },
 })
 export class HeaderEnvironmentExample {

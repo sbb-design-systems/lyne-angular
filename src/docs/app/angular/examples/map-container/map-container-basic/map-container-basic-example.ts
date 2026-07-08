@@ -8,5 +8,6 @@ import { SbbMapContainerModule } from '@sbb-esta/lyne-angular/map-container';
   selector: 'sbb-map-container-basic-example',
   templateUrl: 'map-container-basic-example.html',
   imports: [SbbMapContainerModule],
+  host: { class: 'sbb-example-fullscreen-only' },
 })
 export class MapContainerBasicExample {}

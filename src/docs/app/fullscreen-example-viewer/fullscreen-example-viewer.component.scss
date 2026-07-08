@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  padding: var(--sbb-spacing-fixed-8x);
+}
+
+:host:has(.sbb-example-fullscreen, .sbb-example-fullscreen-only) {
+  padding: 0;
+}
+
+.example-warning {
+  position: fixed;
+  z-index: 100000;
+  display: flex;
+  gap: var(--sbb-spacing-fixed-2x);
+  border: var(--sbb-border-width-1x) solid var(--sbb-color-primary);
+  border-radius: var(--sbb-border-radius-2x);
+  color: var(--sbb-color-black);
+  background-color: var(--sbb-color-warning);
+  padding: var(--sbb-spacing-fixed-2x);
+  inset: var(--sbb-spacing-fixed-2x) 0 auto;
+  margin: 0 auto;
+  max-width: fit-content;
+}
