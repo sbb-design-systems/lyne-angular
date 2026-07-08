@@ -4,7 +4,9 @@ import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import type { SbbDownload } from '@sbb-esta/lyne-angular/download';
 import { SbbDownloadModule } from '@sbb-esta/lyne-angular/download';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
+import { SbbOptionModule } from '@sbb-esta/lyne-angular/option';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
+import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
@@ -21,6 +23,8 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbRadioButtonModule,
     SbbTitleModule,
     SbbDownloadModule,
+    SbbSelectModule,
+    SbbOptionModule,
   ],
 })
 export class DownloadShowcaseExample {
@@ -28,7 +32,7 @@ export class DownloadShowcaseExample {
     signal({
       color: 'white' as SbbDownload['color'],
       label: '',
-      href: 'https://www.sbb.ch/anual-report.pdf',
+      iconName: '',
     }),
   );
 }

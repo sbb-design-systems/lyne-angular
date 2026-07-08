@@ -1,7 +1,8 @@
 <sbb-download
+  href="https://www.sbb.ch/anual-report.pdf"
   [color]="controls.color().value()"
-  [href]="controls.href().value()"
   [label]="controls.label().value()"
+  [iconName]="controls.iconName().value()"
 >
   <sbb-download-info changed="2026/12/12" size="4096"></sbb-download-info>
 </sbb-download>
@@ -13,11 +14,19 @@
     <sbb-radio-button value="white">white</sbb-radio-button>
     <sbb-radio-button value="milk">milk</sbb-radio-button>
   </sbb-radio-button-group>
-  <label>Href</label>
-  <sbb-radio-button-group aria-label="href" [formField]="controls.href">
-    <sbb-radio-button value="">none</sbb-radio-button>
-    <sbb-radio-button value="https://www.sbb.ch/anual-report.pdf">sbb.ch</sbb-radio-button>
-  </sbb-radio-button-group>
+  <label for="select">Icon Name</label>
+  <sbb-form-field>
+    <sbb-select id="select" [formField]="controls.iconName">
+      <sbb-option value="">auto</sbb-option>
+      <sbb-option value="document-pdf-small">document-pdf-small</sbb-option>
+      <sbb-option value="document-xls-small">document-xls-small</sbb-option>
+      <sbb-option value="document-ppt-small">document-ppt-small</sbb-option>
+      <sbb-option value="document-doc-small">document-doc-small</sbb-option>
+      <sbb-option value="document-zip-small">document-zip-small</sbb-option>
+      <sbb-option value="document-image-small">document-image-small</sbb-option>
+      <sbb-option value="document-standard-small">document-standard-small</sbb-option>
+    </sbb-select>
+  </sbb-form-field>
   <label for="label">Label</label>
   <sbb-form-field>
     <input id="label" [formField]="controls.label" />
