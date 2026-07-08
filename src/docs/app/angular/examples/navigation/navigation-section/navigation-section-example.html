@@ -7,7 +7,7 @@
     >
     <sbb-navigation-button>Vacations & Recreation</sbb-navigation-button>
     <sbb-navigation-button>Travel information</sbb-navigation-button>
-    <sbb-navigation-link href="./">Help & Contact</sbb-navigation-link>
+    <sbb-navigation-link routerLink="./">Help & Contact</sbb-navigation-link>
   </sbb-navigation-marker>
 
   <sbb-navigation-section [trigger]="firstNav" title-content="Demo only">
@@ -17,7 +17,7 @@
     <ng-container *ngTemplateOutlet="listTemplate; context: { label: 'List 4' }"></ng-container>
     <ng-container *ngTemplateOutlet="listTemplate; context: { label: 'List 5' }"></ng-container>
     <ng-container *ngTemplateOutlet="listTemplate; context: { label: 'List 6' }"></ng-container>
-    <sbb-button style="width: fit-content"> All Tickets & Offers </sbb-button>
+    <sbb-button> All Tickets & Offers </sbb-button>
   </sbb-navigation-section>
 </sbb-navigation>
 
@@ -25,6 +25,6 @@
   <sbb-navigation-list [label]="listLabel">
     <sbb-navigation-button>Label 1</sbb-navigation-button>
     <sbb-navigation-button>Label 2</sbb-navigation-button>
-    <sbb-navigation-link href="https://www.sbb.ch/en/">Label 3</sbb-navigation-link>
+    <sbb-navigation-link routerLink="https://www.sbb.ch/en/">Label 3</sbb-navigation-link>
   </sbb-navigation-list>
 </ng-template>
