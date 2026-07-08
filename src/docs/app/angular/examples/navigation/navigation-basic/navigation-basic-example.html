@@ -2,8 +2,19 @@
 
 <sbb-navigation [trigger]="trigger">
   <sbb-navigation-marker>
-    <sbb-navigation-button aria-current="page" id="nav-section-1">Label 1</sbb-navigation-button>
-    <sbb-navigation-button id="nav-section-2">Label 2</sbb-navigation-button>
-    <sbb-navigation-link href="https://www.sbb.ch/some/route">Label 3</sbb-navigation-link>
+    <sbb-navigation-button aria-current="page" class="sbb-active" id="nav-section-1"
+      >Tickets & Offers</sbb-navigation-button
+    >
+    <sbb-navigation-button id="nav-section-2">Vacations & Recreation</sbb-navigation-button>
+    <sbb-navigation-button id="nav-section-3">Travel information</sbb-navigation-button>
+    <sbb-navigation-link href="./">Help & Contact</sbb-navigation-link>
+  </sbb-navigation-marker>
+  <sbb-navigation-marker size="s">
+    <sbb-navigation-button id="nav-5" aria-pressed="false">Deutsch</sbb-navigation-button>
+    <sbb-navigation-button id="nav-6" aria-pressed="false">Français</sbb-navigation-button>
+    <sbb-navigation-button id="nav-7" aria-pressed="true" class="sbb-active"
+      >Italiano</sbb-navigation-button
+    >
+    <sbb-navigation-button id="nav-8" aria-pressed="false">English</sbb-navigation-button>
   </sbb-navigation-marker>
 </sbb-navigation>
