@@ -20,7 +20,7 @@ export class FullscreenExampleViewerComponent {
       map((params) => ExampleData.findExample(params['package'], params['module'], params['id'])),
     ),
   );
-  protected readonly showWarning = signal(true);
+  protected readonly showWarning = signal(window.location.hostname !== 'localhost');
 
   protected removeWarning() {
     this.showWarning.set(false);
