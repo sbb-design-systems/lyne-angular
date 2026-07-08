@@ -10,5 +10,6 @@ import { SbbLinkListModule } from '@sbb-esta/lyne-angular/link-list';
   selector: 'sbb-footer-basic-example',
   templateUrl: 'footer-basic-example.html',
   imports: [SbbFooterModule, SbbLinkListModule, SbbLinkModule],
+  host: { class: 'sbb-example-fullscreen' },
 })
 export class FooterBasicExample {}

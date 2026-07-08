@@ -103,10 +103,10 @@ particularly powerful in the following scenarios:
 <sbb-header hideOnScroll>...</sbb-header>
 <sbb-icon-sidebar-container>
   <sbb-icon-sidebar color="milk">...</sbb-icon-sidebar>
-  <sbb-icon-sidebar-content sbbHeaderScrollOrigin>
+  <sbb-icon-sidebar-content sbb-header-scroll-origin>
     <sbb-sidebar-container>
       <sbb-sidebar mode="side" opened>...</sbb-sidebar>
-      <sbb-sidebar-content sbbHeaderScrollOrigin>
+      <sbb-sidebar-content sbb-header-scroll-origin>
       </sbb-sidebar-content>
     </sbb-sidebar-container>
   </sbb-icon-sidebar-contentsbb-header-scroll-origin>

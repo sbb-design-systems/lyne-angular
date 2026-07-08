@@ -22,5 +22,6 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbBreadcrumbModule,
     SbbNotificationModule,
   ],
+  host: { class: 'sbb-example-fullscreen' },
 })
 export class LeadContainerBasicExample {}

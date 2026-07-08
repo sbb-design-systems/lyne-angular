@@ -32,11 +32,15 @@ export class ExampleData {
   /** Path from which to import the example. */
   importPath: string;
 
-  static find(library: string, id: string, module?: string): ExampleData[] {
-    return (EXAMPLE_COMPONENTS[module ? `${module}/${id}` : id] || []).map(
+  static find(library: string, module: string): ExampleData[] {
+    return (EXAMPLE_COMPONENTS[module] || []).map(
       (example) =>
-        new ExampleData(library, id, typeof example === 'string' ? { id: example } : example),
+        new ExampleData(library, module, typeof example === 'string' ? { id: example } : example),
     );
+  }
+
+  static findExample(library: string, module: string, id: string): ExampleData | null {
+    return ExampleData.find(library, module).find((example) => example.id === id) ?? null;
   }
 
   constructor(library: string, id: string, example: Partial<ExampleData>) {
