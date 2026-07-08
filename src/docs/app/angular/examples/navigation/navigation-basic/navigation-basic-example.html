@@ -10,9 +10,14 @@
     <sbb-navigation-link routerLink="./">Help & Contact</sbb-navigation-link>
   </sbb-navigation-marker>
   <sbb-navigation-marker size="s">
-    <sbb-navigation-button aria-pressed="false">Deutsch</sbb-navigation-button>
-    <sbb-navigation-button aria-pressed="false">Français</sbb-navigation-button>
-    <sbb-navigation-button aria-pressed="true" class="sbb-active">Italiano</sbb-navigation-button>
-    <sbb-navigation-button aria-pressed="false">English</sbb-navigation-button>
+    @for (lang of languages; track lang) {
+      <sbb-navigation-button
+        [attr.aria-pressed]="language() === lang"
+        [class.sbb-active]="language() === lang"
+        (click)="language.set(lang)"
+      >
+        {{ lang }}
+      </sbb-navigation-button>
+    }
   </sbb-navigation-marker>
 </sbb-navigation>
