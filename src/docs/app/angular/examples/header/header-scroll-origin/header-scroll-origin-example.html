@@ -1,35 +1,28 @@
-<div hidden>
-  <sbb-header>
-    <sbb-header-link iconName="hamburger-menu-small" href="https://sbb.ch/somewhere">
-      Menu
-    </sbb-header-link>
-    <sbb-header-button iconName="magnifying-glass-small" hide-label-below="large"
-      >Search</sbb-header-button
-    >
-    <div class="sbb-header-spacer"></div>
-    <a aria-label="Homepage" href="/" class="sbb-header-logo">
-      <sbb-logo protectiveRoom="none"></sbb-logo>
-    </a>
-  </sbb-header>
-  <sbb-container class="scroll-container" sbb-header-scroll-origin>
-    <!-- Enough content to scroll -->
-    <sbb-title level="5">Content</sbb-title>
-    @for (_ of [1, 2, 3, 4, 5]; track _) {
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
-        eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla
-        mi mollis urna, a lacinia mauris risus mattis massa. Quisque cursus sollicitudin enim in
-        malesuada. Maecenas nec hendrerit augue. Duis porttitor mattis molestie. Sed imperdiet velit
-        at dui ultrices, viverra scelerisque nisi dapibus. Nulla urna lectus, gravida eu dapibus
-        vel, mattis non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi,
-        sed eleifend odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque
-        augue ante, mollis eu lorem id, commodo cursus risus.
-      </p>
-    }
-  </sbb-container>
-</div>
-
-<sbb-card class="stackblitz-hidden">
-  This can only be used in StackBlitz, preferably with the preview in a new tab. Remove the
-  <code>hidden</code> attribute from the <code>&lt;div&gt;</code>.
-</sbb-card>
+<sbb-header>
+  <sbb-header-link iconName="hamburger-menu-small" href="https://sbb.ch/somewhere">
+    Menu
+  </sbb-header-link>
+  <sbb-header-button iconName="magnifying-glass-small" hide-label-below="large"
+    >Search</sbb-header-button
+  >
+  <div class="sbb-header-spacer"></div>
+  <a aria-label="Homepage" href="/" class="sbb-header-logo">
+    <sbb-logo protectiveRoom="none"></sbb-logo>
+  </a>
+</sbb-header>
+<sbb-container class="scroll-container" sbb-header-scroll-origin>
+  <!-- Enough content to scroll -->
+  <sbb-title level="5">Content</sbb-title>
+  @for (_ of [1, 2, 3, 4, 5]; track _) {
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet malesuada augue. Morbi
+      eget tristique nisl, sit amet dapibus erat. Donec tempor, metus et aliquam ultrices, nulla mi
+      mollis urna, a lacinia mauris risus mattis massa. Quisque cursus sollicitudin enim in
+      malesuada. Maecenas nec hendrerit augue. Duis porttitor mattis molestie. Sed imperdiet velit
+      at dui ultrices, viverra scelerisque nisi dapibus. Nulla urna lectus, gravida eu dapibus vel,
+      mattis non turpis. Nunc interdum et justo sed faucibus. Vestibulum interdum commodo mi, sed
+      eleifend odio posuere in. Nunc non dui venenatis, eleifend est ut, varius odio. Quisque augue
+      ante, mollis eu lorem id, commodo cursus risus.
+    </p>
+  }
+</sbb-container>
