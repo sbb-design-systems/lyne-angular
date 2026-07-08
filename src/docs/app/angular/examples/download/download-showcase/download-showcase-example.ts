@@ -10,21 +10,21 @@ import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
- * @title <component name> with configurable properties
+ * @title download with configurable properties
+ * @order 1
  */
 @Component({
   selector: 'sbb-download-showcase-example',
   templateUrl: 'download-showcase-example.html',
   imports: [
-    // remove unused modules
     FormField,
     SbbCheckboxModule,
-    SbbFormFieldModule,
-    SbbRadioButtonModule,
-    SbbTitleModule,
     SbbDownloadModule,
-    SbbSelectModule,
+    SbbFormFieldModule,
     SbbOptionModule,
+    SbbRadioButtonModule,
+    SbbSelectModule,
+    SbbTitleModule,
   ],
 })
 export class DownloadShowcaseExample {
