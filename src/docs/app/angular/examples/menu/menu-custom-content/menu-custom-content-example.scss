@@ -1,0 +1,10 @@
+.user {
+  font-weight: bold;
+  font-size: var(--sbb-text-font-size-xs);
+  margin-top: var(--sbb-spacing-fixed-1x);
+}
+
+.u-number {
+  color: light-dark(var(--sbb-color-graphite), var(--sbb-color-smoke));
+  font-size: var(--sbb-text-font-size-xxs);
+}

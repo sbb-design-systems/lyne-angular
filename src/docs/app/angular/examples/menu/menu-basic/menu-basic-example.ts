@@ -6,6 +6,7 @@ import { SbbMenuModule } from '@sbb-esta/lyne-angular/menu';
 
 /**
  * @title Basic menu
+ * @order 1
  */
 @Component({
   selector: 'sbb-menu-basic-example',

@@ -1,0 +1,40 @@
+<sbb-file-selector
+  [formField]="form.fileSelector"
+  [multiple]="controls.multiple().value()"
+  [multipleMode]="controls.multipleMode().value()"
+  [size]="controls.size().value()"
+  [accept]="controls.accept().value() ?? ''"
+></sbb-file-selector>
+
+<p>
+  <sbb-card color="milk"
+    >Value: <code>{{ stringifiedValue() | json }}</code></sbb-card
+  >
+</p>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label for="multiple">Multiple</label>
+  <sbb-checkbox id="multiple" [formField]="controls.multiple"></sbb-checkbox>
+
+  <label>Multiple mode</label>
+  <sbb-radio-button-group aria-label="Multiple mode" [formField]="controls.multipleMode">
+    <sbb-radio-button value="default">default</sbb-radio-button>
+    <sbb-radio-button value="persistent">persistent</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Accept</label>
+  <sbb-radio-button-group aria-label="Accept" [formField]="controls.accept" allowEmptySelection>
+    <sbb-radio-button value=".pdf">.pdf</sbb-radio-button>
+    <sbb-radio-button value=".png,.jpg,.jpeg">.png, .jpg, .jpeg</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>

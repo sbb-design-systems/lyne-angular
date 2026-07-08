@@ -1,0 +1,19 @@
+<sbb-secondary-button #trigger>Menu trigger</sbb-secondary-button>
+
+<sbb-menu [trigger]="trigger">
+  <div class="user">Christina Müller</div>
+  <span class="u-number">UIS9057</span>
+  <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>
+  <sbb-divider></sbb-divider>
+  <sbb-menu-link iconName="link-small" href="https://www.sbb.ch/en"> View </sbb-menu-link>
+  <sbb-menu-button iconName="tickets-class-small"> Tickets </sbb-menu-button>
+  <sbb-menu-button
+    iconName="shopping-cart-small"
+    sbb-badge="12"
+    aria-label="Cart, containing 12 items"
+  >
+    Cart
+  </sbb-menu-button>
+  <sbb-divider></sbb-divider>
+  <sbb-menu-button iconName="exit-small">Log Out</sbb-menu-button>
+</sbb-menu>

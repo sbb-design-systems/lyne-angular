@@ -1,0 +1,16 @@
+@let example = exampleData();
+
+@if (example) {
+  <sbb-example-outlet [exampleData]="example" />
+} @else {
+  <sbb-notification type="error" animation="none">
+    Example not found. Navigate to <sbb-link routerLink="/">Home</sbb-link> to select package to
+    browse examples.
+  </sbb-notification>
+}
+
+@if (showWarning()) {
+  <div class="example-warning">
+    EXAMPLE / BEISPIEL / EXEMPLE / ESEMPIO <button (click)="removeWarning()">Close</button>
+  </div>
+}
