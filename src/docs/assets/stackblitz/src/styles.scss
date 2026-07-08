@@ -6,6 +6,10 @@ body {
   justify-content: space-between;
   margin: 0;
   padding: var(--sbb-spacing-fixed-8x);
+
+  &:has(.fullscreen-example) {
+    padding: 0;
+  }
 }
 
 html,
@@ -19,6 +23,10 @@ body {
   align-items: flex-end;
   font-size: var(--sbb-text-font-size-xs);
   letter-spacing: var(--sbb-typo-letter-spacing-text);
+}
+
+.stackblitz-hidden {
+  display: none;
 }
 
 // These styles need to be in sync with main styles.scss!
@@ -55,7 +63,9 @@ body {
   }
 }
 
-.sbb-example__negative {
+.sbb-example-negative {
+  --sbb-focus-outline-color: var(--sbb-focus-outline-color-dark);
+
   background-color: var(--sbb-background-color-1-negative);
   color: var(--sbb-color-1-negative);
 }

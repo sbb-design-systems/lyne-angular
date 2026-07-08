@@ -69,7 +69,13 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   dialog: ['dialog-showcase', 'dialog-service'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
   'expansion-panel': ['expansion-panel-showcase', 'expansion-panel-basic'],
-  'file-selector': ['file-selector-basic'],
+  'file-selector': [
+    'file-selector-showcase',
+    'file-selector-dropzone-showcase',
+    'file-selector-signal',
+    'file-selector-reactive-form',
+    'file-selector-template-driven',
+  ],
   'flip-card': ['flip-card-showcase', 'flip-card-basic', 'flip-card-chip'],
   footer: ['footer-basic', 'footer-clock'],
   'form-field': [
@@ -80,7 +86,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'form-field-text-counter',
     'form-field-prefix-suffix',
   ],
-  header: ['header-basic'],
+  header: ['header-showcase', 'header-environment', { id: 'header-scroll-origin', hasStyle: true }],
   icon: ['icon-basic'],
   'icon-sidebar': [{ id: 'icon-sidebar-showcase', hasStyle: true }, 'icon-sidebar-nested'],
   image: ['image-basic'],
@@ -237,7 +243,11 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'expansion-panel-basic':
     case 'expansion-panel-showcase':
       return import('../angular/examples/expansion-panel');
-    case 'file-selector-basic':
+    case 'file-selector-dropzone-showcase':
+    case 'file-selector-reactive-form':
+    case 'file-selector-showcase':
+    case 'file-selector-signal':
+    case 'file-selector-template-driven':
       return import('../angular/examples/file-selector');
     case 'filter-sort-paginator-table':
       return import('../angular/examples/table');
@@ -259,7 +269,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'grouped-columns-table':
     case 'grouped-rows-and-columns-table':
       return import('../angular/examples/table');
-    case 'header-basic':
+    case 'header-environment':
+    case 'header-scroll-origin':
+    case 'header-showcase':
       return import('../angular/examples/header');
     case 'icon-basic':
       return import('../angular/examples/icon');
