@@ -86,7 +86,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'link-list-anchor': ['link-list-anchor-basic'],
   'loading-indicator': ['loading-indicator-basic'],
   'loading-indicator-circle': ['loading-indicator-circle-basic'],
-  logo: ['logo-showcase'],
+  logo: [{ id: 'logo-showcase', hasStyle: true }],
   'map-container': ['map-container-basic'],
   menu: ['menu-basic'],
   message: ['message-basic'],

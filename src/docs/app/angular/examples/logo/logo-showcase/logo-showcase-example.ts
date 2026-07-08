@@ -11,6 +11,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 @Component({
   selector: 'sbb-logo-showcase-example',
   templateUrl: 'logo-showcase-example.html',
+  styleUrl: 'logo-showcase-example.scss',
   imports: [FormField, SbbCheckboxModule, SbbLogoModule, SbbRadioButtonModule, SbbTitleModule],
 })
 export class LogoShowcaseExample {
