@@ -13,7 +13,6 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 @Component({
   selector: 'sbb-block-link-showcase-example',
   templateUrl: 'block-link-showcase-example.html',
-  styleUrl: 'block-link-showcase-example.scss',
   imports: [
     FormField,
     SbbCheckboxModule,

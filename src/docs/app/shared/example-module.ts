@@ -92,10 +92,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   image: ['image-basic'],
   'journey-header': ['journey-header-showcase'],
   'lead-container': ['lead-container-basic'],
-  link: [
-    { id: 'link-showcase', hasStyle: true },
-    { id: 'block-link-showcase', hasStyle: true },
-  ],
+  link: ['link-showcase', 'block-link-showcase'],
   'link-list': ['link-list-basic'],
   'link-list-anchor': ['link-list-anchor-basic'],
   'loading-indicator': ['loading-indicator-basic'],
