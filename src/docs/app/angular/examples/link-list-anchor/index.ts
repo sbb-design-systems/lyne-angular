@@ -1,1 +1,1 @@
-export { LinkListAnchorBasicExample } from './link-list-anchor-basic/link-list-anchor-basic-example';
+export { LinkListAnchorShowcaseExample } from './link-list-anchor-showcase/link-list-anchor-showcase-example';
