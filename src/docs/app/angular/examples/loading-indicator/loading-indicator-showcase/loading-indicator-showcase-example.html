@@ -1,0 +1,25 @@
+<div [class.sbb-example-negative]="controls.color().value() === 'white'">
+  <sbb-loading-indicator
+    [size]="controls.size().value()"
+    [color]="controls.color().value()"
+  ></sbb-loading-indicator>
+</div>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size">
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="l">l</sbb-radio-button>
+    <sbb-radio-button value="xl">xl</sbb-radio-button>
+    <sbb-radio-button value="xxl">xxl</sbb-radio-button>
+    <sbb-radio-button value="xxxl">xxxl</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Color</label>
+  <sbb-radio-button-group aria-label="Color" [formField]="controls.color">
+    <sbb-radio-button value="default">default</sbb-radio-button>
+    <sbb-radio-button value="smoke">smoke</sbb-radio-button>
+    <sbb-radio-button value="white">white</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>
