@@ -5,6 +5,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title Basic sbb-alert-group
+ * @order 3
  */
 @Component({
   selector: 'sbb-alert-group-example',

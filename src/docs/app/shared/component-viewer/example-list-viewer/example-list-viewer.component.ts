@@ -24,7 +24,7 @@ export class ExampleListViewerComponent {
   examples: Signal<ExampleData[]> = toSignal(
     moduleParams(this.#route).pipe(
       map((params) => {
-        const examples = ExampleData.find(params.packageName, params.id, params.module);
+        const examples = ExampleData.find(params.packageName, params.id);
         return examples.length === 0 ? [] : examples;
       }),
     ),

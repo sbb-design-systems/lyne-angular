@@ -120,6 +120,7 @@ const immutableAttributes = [
   'sbb-badge-position',
   'sbb-dialog-close',
   'sbb-focus-initial',
+  'sbb-header-scroll-origin',
   'sbb-navigation-close',
   'sbb-navigation-section-close',
   'sbb-overlay-close',

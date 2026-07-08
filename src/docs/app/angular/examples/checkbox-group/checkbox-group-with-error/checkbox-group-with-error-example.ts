@@ -4,6 +4,7 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 /**
  * @title checkbox-group with error
+ * @order 3
  */
 @Component({
   selector: 'sbb-checkbox-group-with-error-example',
