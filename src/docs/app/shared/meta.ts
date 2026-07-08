@@ -178,6 +178,11 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
             keywords: keywordsMap.angular.components.divider,
           },
           {
+            label: 'Download',
+            link: './components/download',
+            keywords: keywordsMap.angular.components.download,
+          },
+          {
             label: 'Expansion Panel',
             link: './components/expansion-panel',
             keywords: keywordsMap.angular.components.expansionPanel,

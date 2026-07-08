@@ -1,0 +1,25 @@
+<sbb-download
+  [color]="controls.color().value()"
+  [href]="controls.href().value()"
+  [label]="controls.label().value()"
+>
+  <sbb-download-info changed="2026/12/12" size="4096"></sbb-download-info>
+</sbb-download>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Color</label>
+  <sbb-radio-button-group aria-label="Color" [formField]="controls.color">
+    <sbb-radio-button value="white">white</sbb-radio-button>
+    <sbb-radio-button value="milk">milk</sbb-radio-button>
+  </sbb-radio-button-group>
+  <label>Href</label>
+  <sbb-radio-button-group aria-label="href" [formField]="controls.href">
+    <sbb-radio-button value="">none</sbb-radio-button>
+    <sbb-radio-button value="https://www.sbb.ch/anual-report.pdf">sbb.ch</sbb-radio-button>
+  </sbb-radio-button-group>
+  <label for="label">Label</label>
+  <sbb-form-field>
+    <input id="label" [formField]="controls.label" />
+  </sbb-form-field>
+</div>

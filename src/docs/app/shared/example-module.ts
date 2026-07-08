@@ -68,6 +68,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   datepicker: ['datepicker-showcase', 'datepicker-basic'],
   dialog: ['dialog-showcase', 'dialog-service'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
+  download: ['download-showcase'],
   'expansion-panel': ['expansion-panel-showcase', 'expansion-panel-basic'],
   'file-selector': [
     'file-selector-showcase',
@@ -238,6 +239,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/dialog');
     case 'divider-basic':
       return import('../angular/examples/divider');
+    case 'download-showcase':
+      return import('../angular/examples/download');
     case 'expandable-table':
       return import('../angular/examples/table');
     case 'expansion-panel-basic':
