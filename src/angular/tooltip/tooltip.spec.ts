@@ -2,6 +2,7 @@ import { Component, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
+import { userEvent } from 'vitest/browser';
 
 import { SbbTooltip } from './tooltip';
 import { SbbTooltipTrigger } from './tooltip-trigger';
@@ -37,7 +38,8 @@ describe('sbb-tooltip', () => {
 
     it('tooltip should open when correctly connected', async () => {
       expect(component.tooltip().isOpen).toBe(false);
-      fixture.nativeElement.querySelector('sbb-secondary-button')!.click();
+      fixture.nativeElement.querySelector('sbb-secondary-button')!.focus();
+      await userEvent.tab();
       expect(component.tooltip().isOpen).toBe(true);
     });
   });
@@ -51,6 +53,7 @@ class TestComponent {}
 
 @Component({
   template: `
+    <sbb-secondary-button>Initial focus</sbb-secondary-button>
     <sbb-secondary-button [sbbTooltipTrigger]="tooltip">Trigger</sbb-secondary-button>
     <sbb-tooltip #tooltip="sbbTooltip">Tooltip content</sbb-tooltip>
   `,
