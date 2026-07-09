@@ -20,18 +20,22 @@ It is possible to use it either with or without `<sbb-navigation-section>` insta
 
 ## Interactions
 
-To display the `<sbb-navigation>` component you can either provide a trigger element using the `trigger` property,
-or call the `open()` method on the `<sbb-navigation>` component.
+<!-- #region override trigger -->
+
+As an alternative to the `open()` method of the `<sbb-navigation>` element,
+a trigger can be connected via the `SbbNavigationTrigger` directive,
 
 ```html
 <!-- Trigger element -->
-<sbb-button id="nav-trigger">Navigation trigger</sbb-button>
+<sbb-button [sbbNavigation]="navigation">Navigation trigger</sbb-button>
 
 <!-- Navigation component with navigation sections -->
-<sbb-navigation trigger="nav-trigger">
+<sbb-navigation #navigation="sbbNavigation">
   <sbb-navigation-marker>
-    <sbb-navigation-button aria-current="page" id="nav-section-1">Label 1</sbb-navigation-button>
-    <sbb-navigation-button id="nav-section-2">Label 2</sbb-navigation-button>
+    <sbb-navigation-button aria-current="page" [sbbNavigationSection]="navSection1">
+      Label 1
+    </sbb-navigation-button>
+    <sbb-navigation-button>Label 2</sbb-navigation-button>
     <sbb-navigation-link href="https://www.sbb.ch/some/route">Label 3</sbb-navigation-link>
   </sbb-navigation-marker>
 
@@ -41,7 +45,7 @@ or call the `open()` method on the `<sbb-navigation>` component.
     <sbb-navigation-button aria-pressed="false">Language 3</sbb-navigation-button>
   </sbb-navigation-marker>
 
-  <sbb-navigation-section trigger="nav-section-1">
+  <sbb-navigation-section #navSection1="sbbNavigationSection">
     <span slot="label">Title 1</span>
     <sbb-navigation-list>
       <span slot="label">Label 1.1</span>
@@ -55,6 +59,8 @@ or call the `open()` method on the `<sbb-navigation>` component.
   ...
 </sbb-navigation>
 ```
+
+<!-- #endregion -->
 
 ## Navigation Actions
 
@@ -122,13 +128,18 @@ Optionally, a label can be provided via the `label` attribute/property or the `l
 The `<sbb-navigation-section>` is a container for both `<sbb-navigation-list>` and `<sbb-button>`.
 Its intended use is inside a `<sbb-navigation>` component, in which it can be seen as a 'second-level' panel.
 
-## Trigger
+Optionally, a label can be provided via slot or via the `titleContent` property.
 
-To display the `<sbb-navigation-section>` component you must provide a trigger element using the `trigger` property,
-Optionally a label can be provided via slot or via the `titleContent` property.
+### Trigger
+
+<!-- #region override trigger-section -->
+
+The `<sbb-navigation-section>` can be connected via the `SbbNavigationSectionTrigger` directive.
 
 ```html
-<sbb-navigation-section trigger="nav1" titleContent="Title 1">
+<sbb-navigation-button [sbbNavigationSection]="navigationSection">Label 1</sbb-navigation-button>
+
+<sbb-navigation-section #navigationSection="sbbNavigationSection" titleContent="Title 1">
   <sbb-navigation-list label="Label 1.1">
     <sbb-navigation-link accessibilityCurrent="page" href="...">Label 1.1.1</sbb-navigation-link>
     <sbb-navigation-link href="...">Label 1.1.2</sbb-navigation-link>
@@ -138,7 +149,9 @@ Optionally a label can be provided via slot or via the `titleContent` property.
 </sbb-navigation-section>
 ```
 
-## Accessibility
+<!-- #endregion -->
+
+### Accessibility
 
 On opening, the focus will be automatically set on the first focusable element (unless manually specified, see below).
 If there is a trigger for a navigation section with the CSS class `sbb-active`,
@@ -149,7 +162,7 @@ should be set on that action.
 Similarly, if a navigation action is marked to indicate a selected option (e.g. the selected language),
 `aria-pressed` should be set on that action.
 
-### Controlling initial focus
+#### Controlling initial focus
 
 The first element with the attribute `sbb-focus-initial` will receive focus on opening.
 If the attribute is not used, the first focusable element receives focus (recommended).
