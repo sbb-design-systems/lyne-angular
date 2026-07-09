@@ -7,11 +7,15 @@ import {
   inject,
   Injector,
   type TemplateRef,
+  viewChild,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core';
+import { SbbDialogModule } from '@sbb-esta/lyne-angular/dialog';
+import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 
 import { SbbDialog } from './dialog';
 import { SbbDialogRef } from './dialog-ref';
@@ -226,6 +230,27 @@ describe('sbb-dialog', () => {
       expect(overlayContainerElement.children.length).toBe(0);
     });
   });
+
+  describe('standalone usage with trigger', () => {
+    let fixture: ComponentFixture<TestSbbDialogTrigger>, component: TestSbbDialogTrigger;
+
+    beforeEach(async () => {
+      fixture = TestBed.createComponent(TestSbbDialogTrigger);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+      await waitForLitRender(fixture.nativeElement);
+    });
+
+    it('should create', async () => {
+      expect(component).toBeDefined();
+    });
+
+    it('dialog should open when correctly connected', async () => {
+      expect(component.dialog().isOpen).toBe(false);
+      fixture.nativeElement.querySelector('sbb-secondary-button')!.click();
+      expect(component.dialog().isOpen).toBe(true);
+    });
+  });
 });
 
 @Component({
@@ -233,6 +258,20 @@ describe('sbb-dialog', () => {
   imports: [SbbDialog],
 })
 class TestComponent {}
+
+@Component({
+  template: `
+    <sbb-secondary-button [sbbDialogTrigger]="dialog">Open Dialog</sbb-secondary-button>
+    <sbb-dialog #dialog="sbbDialog">
+      <sbb-dialog-title>Title</sbb-dialog-title>
+      <sbb-dialog-content>Content</sbb-dialog-content>
+    </sbb-dialog>
+  `,
+  imports: [SbbDialogModule, SbbButtonModule],
+})
+class TestSbbDialogTrigger {
+  dialog = viewChild.required(SbbDialog);
+}
 
 @Directive({
   selector: 'dir-with-view-container',
