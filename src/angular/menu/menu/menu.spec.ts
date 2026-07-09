@@ -51,7 +51,7 @@ class TestComponent {}
 
 @Component({
   template: `
-    <sbb-secondary-button [sbbMenuTrigger]="menu">Open Menu</sbb-secondary-button>
+    <sbb-secondary-button [sbbMenu]="menu">Open Menu</sbb-secondary-button>
     <sbb-menu #menu="sbbMenu"></sbb-menu>
   `,
   imports: [SbbMenu, SbbMenuTrigger, SbbButtonModule],

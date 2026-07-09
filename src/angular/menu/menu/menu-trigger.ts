@@ -4,12 +4,12 @@ import { SbbTriggerBase } from '@sbb-esta/lyne-angular/core';
 import type { SbbMenu } from './menu';
 
 @Directive({
-  selector: `[sbbMenuTrigger]`,
+  selector: `[sbbMenu]`,
   exportAs: 'sbbMenuTrigger',
 })
 export class SbbMenuTrigger extends SbbTriggerBase<SbbMenu> {
   /** The menu to be attached to this trigger. */
-  @Input('sbbMenuTrigger')
+  @Input('sbbMenu')
   get menu(): SbbMenu | null {
     return this.referenceElement;
   }

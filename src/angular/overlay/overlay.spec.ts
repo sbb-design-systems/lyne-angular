@@ -227,7 +227,7 @@ class TestComponent {}
 
 @Component({
   template: `
-    <sbb-secondary-button [sbbOverlayTrigger]="overlay">Open Overlay</sbb-secondary-button>
+    <sbb-secondary-button [sbbOverlay]="overlay">Open Overlay</sbb-secondary-button>
     <sbb-overlay #overlay="sbbOverlay"></sbb-overlay>
   `,
   imports: [SbbOverlay, SbbOverlayTrigger, SbbButtonModule],

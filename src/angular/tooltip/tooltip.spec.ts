@@ -54,7 +54,7 @@ class TestComponent {}
 @Component({
   template: `
     <sbb-secondary-button>Initial focus</sbb-secondary-button>
-    <sbb-secondary-button [sbbTooltipTrigger]="tooltip">Trigger</sbb-secondary-button>
+    <sbb-secondary-button [sbbTooltip]="tooltip">Trigger</sbb-secondary-button>
     <sbb-tooltip #tooltip="sbbTooltip">Tooltip content</sbb-tooltip>
   `,
   imports: [SbbTooltip, SbbTooltipTrigger, SbbButtonModule],

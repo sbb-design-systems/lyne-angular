@@ -51,7 +51,7 @@ class TestComponent {}
 
 @Component({
   template: `
-    <sbb-secondary-button [sbbPopoverTrigger]="popover">Open Popover</sbb-secondary-button>
+    <sbb-secondary-button [sbbPopover]="popover">Open Popover</sbb-secondary-button>
     <sbb-popover #popover="sbbPopover"></sbb-popover>
   `,
   imports: [SbbPopover, SbbPopoverTrigger, SbbButtonModule],

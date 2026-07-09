@@ -4,12 +4,12 @@ import { SbbTriggerBase } from '@sbb-esta/lyne-angular/core';
 import type { SbbPopover } from './popover';
 
 @Directive({
-  selector: `[sbbPopoverTrigger]`,
+  selector: `[sbbPopover]`,
   exportAs: 'sbbPopoverTrigger',
 })
 export class SbbPopoverTrigger extends SbbTriggerBase<SbbPopover> {
   /** The popover to be attached to this trigger. */
-  @Input('sbbPopoverTrigger')
+  @Input('sbbPopover')
   get popover(): SbbPopover | null {
     return this.referenceElement;
   }

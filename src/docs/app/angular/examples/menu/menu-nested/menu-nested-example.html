@@ -1,13 +1,13 @@
-<sbb-secondary-button [sbbMenuTrigger]="menu">Menu trigger</sbb-secondary-button>
+<sbb-secondary-button [sbbMenu]="menu">Menu trigger</sbb-secondary-button>
 
 <sbb-menu #menu="sbbMenu">
   <sbb-menu-button iconName="link-small"> New Document</sbb-menu-button>
   <sbb-menu-button iconName="pen-small" sbb-badge="12"> Edit </sbb-menu-button>
   <sbb-divider></sbb-divider>
-  <sbb-menu-button iconName="lock-closed-small" [sbbMenuTrigger]="subMenu1">
+  <sbb-menu-button iconName="lock-closed-small" [sbbMenu]="subMenu1">
     Set Document Permissions
   </sbb-menu-button>
-  <sbb-menu-button iconName="download-small" [sbbMenuTrigger]="subMenu2">
+  <sbb-menu-button iconName="download-small" [sbbMenu]="subMenu2">
     Download Selected
   </sbb-menu-button>
   <sbb-menu-button iconName="trash-small">Delete Selected</sbb-menu-button>
@@ -20,7 +20,7 @@
   <sbb-menu-button iconName="two-users-small"> Group</sbb-menu-button>
   <sbb-menu-button iconName="user-small"> Single User</sbb-menu-button>
   <sbb-divider></sbb-divider>
-  <sbb-menu-button iconName="filter-small" [sbbMenuTrigger]="subMenu3">
+  <sbb-menu-button iconName="filter-small" [sbbMenu]="subMenu3">
     Custom User Permission
   </sbb-menu-button>
 </sbb-menu>

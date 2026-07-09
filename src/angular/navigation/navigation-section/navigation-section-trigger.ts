@@ -4,12 +4,12 @@ import { SbbTriggerBase } from '@sbb-esta/lyne-angular/core';
 import type { SbbNavigationSection } from './navigation-section';
 
 @Directive({
-  selector: `[sbbNavigationSectionTrigger]`,
+  selector: `[sbbNavigationSection]`,
   exportAs: 'sbbNavigationSectionTrigger',
 })
 export class SbbNavigationSectionTrigger extends SbbTriggerBase<SbbNavigationSection> {
   /** The navigation section to be attached to this trigger. */
-  @Input('sbbNavigationSectionTrigger')
+  @Input('sbbNavigationSection')
   get navigationSection(): SbbNavigationSection | null {
     return this.referenceElement;
   }

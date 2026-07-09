@@ -52,9 +52,7 @@ class TestComponent {}
 
 @Component({
   template: `
-    <sbb-secondary-button [sbbNavigationSectionTrigger]="section">
-      Open Section
-    </sbb-secondary-button>
+    <sbb-secondary-button [sbbNavigationSection]="section"> Open Section </sbb-secondary-button>
     <sbb-navigation-section #section="sbbNavigationSection"></sbb-navigation-section>
   `,
   imports: [SbbNavigationSection, SbbNavigationSectionTrigger, SbbButtonModule],

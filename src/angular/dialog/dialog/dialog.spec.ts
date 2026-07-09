@@ -261,7 +261,7 @@ class TestComponent {}
 
 @Component({
   template: `
-    <sbb-secondary-button [sbbDialogTrigger]="dialog">Open Dialog</sbb-secondary-button>
+    <sbb-secondary-button [sbbDialog]="dialog">Open Dialog</sbb-secondary-button>
     <sbb-dialog #dialog="sbbDialog"></sbb-dialog>
   `,
   imports: [SbbDialogTrigger, SbbDialog, SbbButtonModule],

@@ -4,12 +4,12 @@ import { SbbTriggerBase } from '@sbb-esta/lyne-angular/core';
 import type { SbbDialog } from './dialog';
 
 @Directive({
-  selector: `[sbbDialogTrigger]`,
+  selector: `[sbbDialog]`,
   exportAs: 'sbbDialogTrigger',
 })
 export class SbbDialogTrigger extends SbbTriggerBase<SbbDialog> {
   /** The dialog to be attached to this trigger. */
-  @Input('sbbDialogTrigger')
+  @Input('sbbDialog')
   get dialog(): SbbDialog | null {
     return this.referenceElement;
   }
