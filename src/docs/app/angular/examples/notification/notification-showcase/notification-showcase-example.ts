@@ -28,9 +28,9 @@ export class NotificationShowcaseExample {
     signal({
       type: 'info' as SbbNotification['type'],
       size: null as SbbNotification['size'],
+      hasTitle: true,
       readonly: false,
       hasCustomIcon: false,
-      hasTitle: false,
     }),
   );
 }

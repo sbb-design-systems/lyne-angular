@@ -8,9 +8,9 @@
     <sbb-title level="3">Notification title</sbb-title>
   }
   The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
-  <sbb-link routerLink="./">Link one</sbb-link>
-  <sbb-link routerLink="./">Link two</sbb-link>
-  <sbb-link routerLink="./">Link three</sbb-link>
+  <sbb-link routerLink="./">Link one</sbb-link> &nbsp;
+  <sbb-link routerLink="./">Link two</sbb-link> &nbsp;
+  <sbb-link routerLink="./">Link three</sbb-link> &nbsp;
 </sbb-notification>
 
 <sbb-title level="5">Properties</sbb-title>
@@ -29,6 +29,9 @@
     <sbb-radio-button value="s">s</sbb-radio-button>
     <sbb-radio-button value="m">m</sbb-radio-button>
   </sbb-radio-button-group>
+
+  <label for="hasTitle">Title</label>
+  <sbb-checkbox id="hasTitle" [formField]="controls.hasTitle"></sbb-checkbox>
 
   <label for="readonly">Readonly</label>
   <sbb-checkbox id="readonly" [formField]="controls.readonly"></sbb-checkbox>
