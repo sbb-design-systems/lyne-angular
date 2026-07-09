@@ -7,15 +7,19 @@ import {
   inject,
   Injector,
   type TemplateRef,
+  viewChild,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core';
+import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 
 import { SbbOverlay } from './overlay';
 import { SbbOverlayRef } from './overlay-ref';
 import { SbbOverlayService } from './overlay-service';
+import { SbbOverlayTrigger } from './overlay-trigger';
 
 describe('sbb-overlay', () => {
   describe('component renders', () => {
@@ -192,6 +196,27 @@ describe('sbb-overlay', () => {
       expect(overlayContainerElement.children.length).toBe(0);
     });
   });
+
+  describe('standalone usage with trigger', () => {
+    let fixture: ComponentFixture<TestSbbOverlayTrigger>, component: TestSbbOverlayTrigger;
+
+    beforeEach(async () => {
+      fixture = TestBed.createComponent(TestSbbOverlayTrigger);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+      await waitForLitRender(fixture.nativeElement);
+    });
+
+    it('should create', async () => {
+      expect(component).toBeDefined();
+    });
+
+    it('overlay should open when correctly connected', async () => {
+      expect(component.overlay().isOpen).toBe(false);
+      fixture.nativeElement.querySelector('sbb-secondary-button')!.click();
+      expect(component.overlay().isOpen).toBe(true);
+    });
+  });
 });
 
 @Component({
@@ -199,6 +224,17 @@ describe('sbb-overlay', () => {
   imports: [SbbOverlay],
 })
 class TestComponent {}
+
+@Component({
+  template: `
+    <sbb-secondary-button [sbbOverlayTrigger]="overlay">Open Overlay</sbb-secondary-button>
+    <sbb-overlay #overlay="sbbOverlay"></sbb-overlay>
+  `,
+  imports: [SbbOverlay, SbbOverlayTrigger, SbbButtonModule],
+})
+class TestSbbOverlayTrigger {
+  overlay = viewChild.required(SbbOverlay);
+}
 
 @Directive({
   selector: 'dir-with-view-container',

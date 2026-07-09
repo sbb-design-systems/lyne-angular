@@ -1,10 +1,10 @@
 import { Component, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
-import { SbbMenuModule } from '@sbb-esta/lyne-angular/menu';
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 
 import { SbbMenu } from './menu';
+import { SbbMenuTrigger } from './menu-trigger';
 
 describe('sbb-menu', () => {
   describe('basic usage', () => {
@@ -52,11 +52,9 @@ class TestComponent {}
 @Component({
   template: `
     <sbb-secondary-button [sbbMenuTrigger]="menu">Open Menu</sbb-secondary-button>
-    <sbb-menu #menu="sbbMenu">
-      <sbb-menu-button>Action</sbb-menu-button>
-    </sbb-menu>
+    <sbb-menu #menu="sbbMenu"></sbb-menu>
   `,
-  imports: [SbbMenuModule, SbbButtonModule],
+  imports: [SbbMenu, SbbMenuTrigger, SbbButtonModule],
 })
 class TestSbbMenuTrigger {
   menu = viewChild.required(SbbMenu);

@@ -14,12 +14,12 @@ import {
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core';
-import { SbbDialogModule } from '@sbb-esta/lyne-angular/dialog';
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 
 import { SbbDialog } from './dialog';
 import { SbbDialogRef } from './dialog-ref';
 import { SbbDialogService } from './dialog-service';
+import { SbbDialogTrigger } from './dialog-trigger';
 
 describe('sbb-dialog', () => {
   describe('component renders', () => {
@@ -262,12 +262,9 @@ class TestComponent {}
 @Component({
   template: `
     <sbb-secondary-button [sbbDialogTrigger]="dialog">Open Dialog</sbb-secondary-button>
-    <sbb-dialog #dialog="sbbDialog">
-      <sbb-dialog-title>Title</sbb-dialog-title>
-      <sbb-dialog-content>Content</sbb-dialog-content>
-    </sbb-dialog>
+    <sbb-dialog #dialog="sbbDialog"></sbb-dialog>
   `,
-  imports: [SbbDialogModule, SbbButtonModule],
+  imports: [SbbDialogTrigger, SbbDialog, SbbButtonModule],
 })
 class TestSbbDialogTrigger {
   dialog = viewChild.required(SbbDialog);
