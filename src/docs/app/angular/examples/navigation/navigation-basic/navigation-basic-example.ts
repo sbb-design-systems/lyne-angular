@@ -14,5 +14,5 @@ import { SbbNavigationModule } from '@sbb-esta/lyne-angular/navigation';
 })
 export class NavigationBasicExample {
   protected readonly languages = ['Deutsch', 'Français', 'Italiano', 'English'];
-  protected language = signal('Italiano');
+  protected readonly language = signal('Italiano');
 }
