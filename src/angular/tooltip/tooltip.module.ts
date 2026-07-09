@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 
 import { SbbTooltip } from './tooltip';
 import { SbbTooltipDirective } from './tooltip-directives';
+import { SbbTooltipTrigger } from './tooltip-trigger';
 
-const SBB_TOOLTIP_EXPORTED_DECLARATIONS = [SbbTooltip, SbbTooltipDirective];
+const SBB_TOOLTIP_EXPORTED_DECLARATIONS = [SbbTooltip, SbbTooltipDirective, SbbTooltipTrigger];
 
 @NgModule({
   imports: SBB_TOOLTIP_EXPORTED_DECLARATIONS,
