@@ -103,7 +103,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
   message: ['message-basic'],
   'mini-calendar': ['mini-calendar-basic'],
-  navigation: ['navigation-basic'],
+  navigation: ['navigation-basic', 'navigation-section'],
   notification: ['notification-basic'],
   option: ['option-basic'],
   overlay: ['overlay-basic'],
@@ -320,6 +320,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'native-table':
       return import('../angular/examples/table');
     case 'navigation-basic':
+    case 'navigation-section':
       return import('../angular/examples/navigation');
     case 'notification-basic':
       return import('../angular/examples/notification');

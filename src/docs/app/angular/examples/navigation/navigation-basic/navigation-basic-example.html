@@ -2,8 +2,22 @@
 
 <sbb-navigation [trigger]="trigger">
   <sbb-navigation-marker>
-    <sbb-navigation-button aria-current="page" id="nav-section-1">Label 1</sbb-navigation-button>
-    <sbb-navigation-button id="nav-section-2">Label 2</sbb-navigation-button>
-    <sbb-navigation-link href="https://www.sbb.ch/some/route">Label 3</sbb-navigation-link>
+    <sbb-navigation-button aria-current="page" class="sbb-active"
+      >Tickets & Offers</sbb-navigation-button
+    >
+    <sbb-navigation-button>Vacations & Recreation</sbb-navigation-button>
+    <sbb-navigation-button>Travel information</sbb-navigation-button>
+    <sbb-navigation-link routerLink="./">Help & Contact</sbb-navigation-link>
+  </sbb-navigation-marker>
+  <sbb-navigation-marker size="s">
+    @for (lang of languages; track lang) {
+      <sbb-navigation-button
+        [attr.aria-pressed]="language() === lang"
+        [class.sbb-active]="language() === lang"
+        (click)="language.set(lang)"
+      >
+        {{ lang }}
+      </sbb-navigation-button>
+    }
   </sbb-navigation-marker>
 </sbb-navigation>
