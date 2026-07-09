@@ -1,0 +1,44 @@
+<div [class.sbb-example-negative]="controls.negative().value()">
+  <sbb-button #trigger>Open Overlay</sbb-button>
+
+  <sbb-overlay
+    [trigger]="trigger"
+    [expanded]="controls.expanded().value()"
+    [negative]="controls.negative().value()"
+  >
+    <sbb-title visualLevel="2" [negative]="controls.negative().value()"> Many Meetings </sbb-title>
+    <p>
+      Frodo halted for a moment, looking back. Elrond was in his chair and the fire was on his face
+      like summer-light upon the trees. Near him sat the Lady Arwen. To his surprise Frodo saw that
+      Aragorn stood beside her; his dark cloak was thrown back, and he seemed to be clad in
+      elven-mail, and a star shone on his breast. They spoke together, and then suddenly it seemed
+      to Frodo that Arwen turned towards him, and the light of her eyes fell on him from afar and
+      pierced his heart.
+    </p>
+    <sbb-image
+      imageSrc="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Hoehenrundweg-Gryden-Lenk.jpg"
+      alt="Natural landscape"
+    ></sbb-image>
+    <p>
+      He stood still enchanted, while the sweet syllables of the elvish song fell like clear jewels
+      of blended word and melody. 'It is a song to Elbereth,'' said Bilbo. 'They will sing that, and
+      other songs of the Blessed Realm, many times tonight. Come on!’ —J.R.R. Tolkien, The Lord of
+      the Rings: The Fellowship of the Ring, “Many Meetings”
+    </p>
+    <sbb-card color="transparent-bordered">
+      J.R.R. Tolkien, the mastermind behind Middle-earth's enchanting world, was born on January 3,
+      1892. With "The Hobbit" and "The Lord of the Rings", he pioneered fantasy literature.
+      Tolkien's linguistic brilliance and mythic passion converge in a literary legacy that
+      continues to transport readers to magical realms.
+    </sbb-card>
+  </sbb-overlay>
+</div>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="negative">Negative</label>
+  <sbb-checkbox id="negative" [formField]="controls.negative"></sbb-checkbox>
+
+  <label for="expanded">Expanded</label>
+  <sbb-checkbox id="expanded" [formField]="controls.expanded"></sbb-checkbox>
+</div>
