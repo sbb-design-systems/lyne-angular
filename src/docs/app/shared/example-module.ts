@@ -98,7 +98,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'link-list-anchor': ['link-list-anchor-showcase'],
   'loading-indicator': ['loading-indicator-showcase'],
   'loading-indicator-circle': ['loading-indicator-circle-showcase'],
-  logo: ['logo-basic'],
+  logo: [{ id: 'logo-showcase', hasStyle: true }],
   'map-container': ['map-container-basic'],
   menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
   message: ['message-basic'],
@@ -302,7 +302,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/loading-indicator-circle');
     case 'loading-indicator-showcase':
       return import('../angular/examples/loading-indicator');
-    case 'logo-basic':
+    case 'logo-showcase':
       return import('../angular/examples/logo');
     case 'map-container-basic':
       return import('../angular/examples/map-container');
