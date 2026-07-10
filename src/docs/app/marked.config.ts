@@ -1,8 +1,8 @@
 import type { SbbHeadingLevel } from '@sbb-esta/lyne-elements/core.js';
 import GithubSlugger from 'github-slugger';
 import hljs from 'highlight.js';
-import { marked } from 'marked';
 import type { RendererObject, Tokens } from 'marked';
+import { marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 
 // The slugger object used to create unique ids for headings.
@@ -67,6 +67,24 @@ export function setup(): void {
         preprocess(markdown: string): string {
           // Empty the toc list before processing the page.
           toc = [];
+
+          /**
+           * Generics could spawn on several lines, e.g.:
+           *
+           * ```ts
+           * export class SbbDialogRef<T = unknown, R = unknown> extends SbbOverlayBaseRef<
+           *   T,
+           *   SbbDialogCloseEvent<R | null>
+           * > {}
+           * ```
+           *
+           * This will lead to incorrect title formatting;
+           * to fix it, spaces and newlines inside generics are removed.
+           */
+          markdown = markdown.replace(
+            /<\s*([^>]*?)\s*>/g,
+            (_, inner) => `<${inner.replace(/\s+/g, ' ')}>`,
+          );
           return markdown;
         },
         postprocess(html: string): string {

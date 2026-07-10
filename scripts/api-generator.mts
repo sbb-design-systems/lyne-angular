@@ -353,9 +353,12 @@ const createDocsClassesInterfacesInjectables = (entities: any[], type: string): 
   return entities
     .map(
       (entity) =>
-        `## ${entity['name']}${entity['extends']?.length > 0 ? ` extends ${entity['extends'].join(', ')}` : ''}${entity['implements']?.length > 0 ? ` implements ${entity['implements'].join(',')}` : ''}
-${entity['rawdescription'] ? `\n${entity['rawdescription']?.replaceAll('\n', ' ').trimStart()}\n` : ''}
+        `## ${entity['name']}
 **Type:** ${type}\n
+${entity['implements']?.length > 0 ? `**Implements:** ${entity['implements'].join(',')}\n` : ''}
+${entity['extends']?.length > 0 ? `**Extends:** ${entity['extends'].join(', ')}\n` : ''}
+${entity['typeParameters']?.length > 0 ? `**Type parameters:** <${entity['typeParameters'].join(', ')}>\n` : ''}
+${entity['rawdescription'] ? `\n${entity['rawdescription']?.replaceAll('\n', ' ').trimStart()}\n` : ''}
 ${entity['properties']?.length > 0 ? createInputsTable(entity['properties'], entity['accessors']) : ''}${entity['methods']?.length > 0 ? createMethodsTable(entity['methods']) : ''}`,
     )
     .join('');
@@ -432,7 +435,8 @@ const createOutputTable = (directive: any): string => {
 | --- | --- |
 ${outputs
   .map(
-    (output) => `| ${output['name']} | ${createDescriptionForTable(output['rawdescription'])}|\n`,
+    (output) =>
+      `| ${output['name'].replace('Output', '')} | ${createDescriptionForTable(output['rawdescription'])}|\n`,
   )
   .join('')}\n`;
   }
