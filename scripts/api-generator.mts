@@ -475,7 +475,7 @@ const createCssPropsTable = (
 
 | Name | Default | Description |
 | --- | --- | --- |
-${slots.map((slot) => `| ${slot.name} | ${slot.default} | ${slot.description} |\n`).join('')}\n`;
+${slots.map((slot) => `| \`${slot.name}\` | \`${slot.default}\` | ${slot.description} |\n`).join('')}\n`;
 };
 
 const createCssPartsTable = (slots: { name: string; description: string }[]): string => {
@@ -483,7 +483,7 @@ const createCssPartsTable = (slots: { name: string; description: string }[]): st
 
 | Name | Description |
 | --- | --- |
-${slots.map((slot) => `| ${slot.name} | ${slot.description} |\n`).join('')}\n`;
+${slots.map((slot) => `| \`${slot.name}\` | ${slot.description} |\n`).join('')}\n`;
 };
 
 const createTypeForTable = (type?: string): string => {
