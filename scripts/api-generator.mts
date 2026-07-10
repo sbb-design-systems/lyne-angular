@@ -5,7 +5,6 @@ import ts from 'typescript';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const documentation = JSON.parse(readFileSync(join(root, `/src/docs/documentation.json`), 'utf8'));
-const modulesWithLegacySubmodules = ['checkbox', 'link-list', 'radio-button'];
 const ignoredFolders = ['core'];
 
 type DocEntry = {
@@ -186,13 +185,12 @@ const scanFoldersAndWriteFiles = (projectPath: string, apiFolder: string): strin
   const folders = readdirSync(projectPath, { withFileTypes: true });
   const subFolders = folders.filter((e) => e.isDirectory());
   const currentName = basename(projectPath);
-  const isLegacy = modulesWithLegacySubmodules.some((m) => projectPath.endsWith(`/${m}`));
   const hasSameNamedSubFolder = subFolders.some((e) => e.name === currentName);
   const generated: string[] = [];
 
   // Scan the current folder unless it has a same-named sub-folder whose docs would
   // duplicate it – except for legacy modules which always own their own docs directly.
-  if (isLegacy || !hasSameNamedSubFolder) {
+  if (!hasSameNamedSubFolder) {
     const readmeContent = createReadmeAPI(relative(root, normalize(projectPath)));
     if (readmeContent) {
       const apiFileName = `${currentName}-api.md`;
@@ -202,7 +200,7 @@ const scanFoldersAndWriteFiles = (projectPath: string, apiFolder: string): strin
   }
 
   // Stop recursion at leaf folders or legacy submodule roots
-  if (subFolders.length === 0 || isLegacy) {
+  if (subFolders.length === 0) {
     return generated;
   }
 
@@ -355,9 +353,9 @@ const createDocsClassesInterfacesInjectables = (entities: any[], type: string): 
       (entity) =>
         `## ${entity['name']}
 **Type:** ${type}\n
-${entity['implements']?.length > 0 ? `**Implements:** ${entity['implements'].join(',')}\n` : ''}
-${entity['extends']?.length > 0 ? `**Extends:** ${entity['extends'].join(', ')}\n` : ''}
-${entity['typeParameters']?.length > 0 ? `**Type parameters:** <${entity['typeParameters'].join(', ')}>\n` : ''}
+${entity['implements']?.length > 0 ? `**Implements:** \`${entity['implements'].join(',')}\`\n` : ''}
+${entity['extends']?.length > 0 ? `**Extends:** \`${entity['extends'].join(', ')}\`\n` : ''}
+${entity['typeParameters']?.length > 0 ? `**Type parameters:** \`<${entity['typeParameters'].join(', ')}>\`\n` : ''}
 ${entity['rawdescription'] ? `\n${entity['rawdescription']?.replaceAll('\n', ' ').trimStart()}\n` : ''}
 ${entity['properties']?.length > 0 ? createInputsTable(entity['properties'], entity['accessors']) : ''}${entity['methods']?.length > 0 ? createMethodsTable(entity['methods']) : ''}`,
     )
@@ -371,7 +369,8 @@ const createDocsComponentsDirectives = (entities: any[], type: string): string =
         `## ${entity['name']}
 ${entity['rawdescription'] ? `\n${entity['rawdescription']?.replaceAll('\n', ' ').trimStart()}\n` : ''}
 **Type:** ${type}\n
-**Selector:** \`${entity['selector']}\`
+**Selector:** \`${entity['selector']}\`\n
+${entity['extends']?.length > 0 ? `**Extends:** \`${entity['extends'].join(', ')}\`\n` : ''}
 ${entity['exportAs'] ? `\n**Exported as:** \`${entity['exportAs']}\`\n` : ''}
 ${entity['inputsClass']?.length > 0 ? createInputsTable(entity['inputsClass'], entity['accessors']) : ''}${entity['propertiesClass']?.length > 0 ? createOutputTable(entity) : ''}${entity['methodsClass']?.length > 0 ? createMethodsTable(entity['methodsClass']) : ''}${entity['slots']?.length > 0 ? createSlotsTable(entity['slots']) : ''}${entity['cssProps']?.length > 0 ? createCssPropsTable(entity['cssProps']) : ''}${entity['cssParts']?.length > 0 ? createCssPartsTable(entity['cssParts']) : ''}`,
     )
@@ -503,7 +502,7 @@ const createDescriptionForTable = (rawdescription?: string): string => {
 
 const createParametersForTable = (args: any[]): string => {
   if (args && args.length > 0) {
-    return `${args.map((arg) => `${arg.name}${arg.optional ? '?' : ''}: \`${arg.type}\``).join(' - ')}`;
+    return `${args.map((arg) => `${arg.name}${arg.optional ? '?' : ''}: \`${arg.type.replaceAll('|', '\\\|')}\``).join(', ')}`;
   }
   return '-';
 };
