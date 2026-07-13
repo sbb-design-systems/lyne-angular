@@ -22,6 +22,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   selector: 'sbb-container-sticky-bar-example',
   templateUrl: 'container-sticky-bar-example.html',
   styleUrl: 'container-sticky-bar-example.scss',
+  host: { class: 'sbb-example-fullscreen-only' },
   imports: [
     FormField,
     SbbCheckboxModule,

@@ -49,39 +49,41 @@
   </sbb-sticky-bar>
 </sbb-container>
 
-<sbb-title level="5">Container Properties</sbb-title>
-<div class="sbb-controls-table">
-  <label>Color</label>
-  <sbb-form-field size="s" type="select">
-    <sbb-select [formField]="containerControls.color">
-      <sbb-option value="white">white</sbb-option>
-      <sbb-option value="transparent">transparent</sbb-option>
-      <sbb-option value="milk">milk</sbb-option>
-      <sbb-option value="midnight">midnight</sbb-option>
-      <sbb-option value="charcoal">charcoal</sbb-option>
-    </sbb-select>
-  </sbb-form-field>
-  <label>Expanded</label>
-  <sbb-checkbox [formField]="containerControls.expanded"></sbb-checkbox>
-  <label>Background Expanded</label>
-  <sbb-checkbox [formField]="containerControls.backgroundExpanded"></sbb-checkbox>
-</div>
+<div class="controls-wrapper">
+  <sbb-title level="5">Container Properties</sbb-title>
+  <div class="sbb-controls-table">
+    <label>Color</label>
+    <sbb-form-field size="s" type="select">
+      <sbb-select [formField]="containerControls.color">
+        <sbb-option value="white">white</sbb-option>
+        <sbb-option value="transparent">transparent</sbb-option>
+        <sbb-option value="milk">milk</sbb-option>
+        <sbb-option value="midnight">midnight</sbb-option>
+        <sbb-option value="charcoal">charcoal</sbb-option>
+      </sbb-select>
+    </sbb-form-field>
+    <label>Expanded</label>
+    <sbb-checkbox [formField]="containerControls.expanded"></sbb-checkbox>
+    <label>Background Expanded</label>
+    <sbb-checkbox [formField]="containerControls.backgroundExpanded"></sbb-checkbox>
+  </div>
 
-<sbb-title level="5">Sticky Bar Properties</sbb-title>
-<div class="sbb-controls-table">
-  <label>Size</label>
-  <sbb-radio-button-group allowEmptySelection [formField]="stickybarControls.size">
-    <sbb-radio-button value="s">s</sbb-radio-button>
-    <sbb-radio-button value="m">m</sbb-radio-button>
-  </sbb-radio-button-group>
-  <label>Color</label>
-  <sbb-form-field size="s" type="select">
-    <sbb-select [formField]="stickybarControls.color">
-      <sbb-option [value]="null">unset</sbb-option>
-      <sbb-option value="white">white</sbb-option>
-      <sbb-option value="milk">milk</sbb-option>
-      <sbb-option value="midnight">midnight</sbb-option>
-      <sbb-option value="charcoal">charcoal</sbb-option>
-    </sbb-select>
-  </sbb-form-field>
+  <sbb-title level="5">Sticky Bar Properties</sbb-title>
+  <div class="sbb-controls-table">
+    <label>Size</label>
+    <sbb-radio-button-group allowEmptySelection [formField]="stickybarControls.size">
+      <sbb-radio-button value="s">s</sbb-radio-button>
+      <sbb-radio-button value="m">m</sbb-radio-button>
+    </sbb-radio-button-group>
+    <label>Color</label>
+    <sbb-form-field size="s" type="select">
+      <sbb-select [formField]="stickybarControls.color">
+        <sbb-option [value]="null">unset</sbb-option>
+        <sbb-option value="white">white</sbb-option>
+        <sbb-option value="milk">milk</sbb-option>
+        <sbb-option value="midnight">midnight</sbb-option>
+        <sbb-option value="charcoal">charcoal</sbb-option>
+      </sbb-select>
+    </sbb-form-field>
+  </div>
 </div>

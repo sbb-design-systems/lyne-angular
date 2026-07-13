@@ -15,6 +15,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   selector: 'sbb-container-showcase-example',
   templateUrl: 'container-showcase-example.html',
   styleUrl: 'container-showcase-example.scss',
+  host: { class: 'sbb-example-fullscreen' },
   imports: [
     SbbContainerModule,
     SbbTitleModule,

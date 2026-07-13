@@ -12,6 +12,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   selector: 'sbb-container-background-image-example',
   templateUrl: 'container-background-image-example.html',
   styleUrl: 'container-background-image-example.scss',
+  host: { class: 'sbb-example-fullscreen' },
   imports: [SbbTitleModule, SbbButtonModule, SbbImageModule, SbbContainerModule],
 })
 export class ContainerBackgroundImageExample {}

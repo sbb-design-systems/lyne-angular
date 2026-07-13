@@ -13,6 +13,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   selector: 'sbb-container-sticky-bar-control-sticky-state-example',
   templateUrl: 'container-sticky-bar-control-sticky-state-example.html',
   styleUrl: 'container-sticky-bar-control-sticky-state-example.scss',
+  host: { class: 'sbb-example-fullscreen-only' },
   imports: [
     SbbTitleModule,
     SbbButtonModule,
