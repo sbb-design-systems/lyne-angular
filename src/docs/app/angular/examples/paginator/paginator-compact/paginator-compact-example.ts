@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SbbPaginatorModule } from '@sbb-esta/lyne-angular/paginator';
 
 /**
- * @title <component name> with configurable properties
+ * @title Compact paginator
  * @order 2
  */
 @Component({
