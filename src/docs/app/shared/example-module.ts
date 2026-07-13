@@ -107,7 +107,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   notification: ['notification-basic'],
   option: ['option-basic'],
   overlay: ['overlay-basic'],
-  paginator: ['paginator-basic'],
+  paginator: ['paginator-showcase', 'paginator-compact'],
   popover: ['popover-basic'],
   'radio-button': ['radio-button-basic'],
   'radio-button-group': ['radio-button-group-basic'],
@@ -328,7 +328,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/option');
     case 'overlay-basic':
       return import('../angular/examples/overlay');
-    case 'paginator-basic':
+    case 'paginator-compact':
+    case 'paginator-showcase':
       return import('../angular/examples/paginator');
     case 'paginator-table':
       return import('../angular/examples/table');
