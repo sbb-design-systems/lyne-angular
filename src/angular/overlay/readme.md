@@ -198,14 +198,15 @@ It's possible to display the component in `negative` variant using the self-name
 
 ## Interactions
 
-<!-- #region trigger -->
+<!-- #region override trigger -->
 
-In order to show the overlay, you need to provide a trigger or call the `open()` method on the `<sbb-overlay>` component.
+As an alternative to the programmatic overlay service or the `open()` method of the `<sbb-overlay>` element,
+a trigger can be connected via the `SbbOverlayTrigger` directive,
 
 ```html
-<sbb-button id="overlay-trigger">Open overlay</sbb-button>
+<sbb-button [sbbOverlay]="overlay">Open overlay</sbb-button>
 
-<sbb-overlay trigger="overlay-trigger">
+<sbb-overlay #overlay="sbbOverlay">
   <p>Overlay content.</p>
 </sbb-overlay>
 ```

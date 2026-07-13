@@ -1,4 +1,4 @@
-<sbb-secondary-button #trigger>Open Overlay</sbb-secondary-button>
-<sbb-overlay id="my-overlay" [trigger]="trigger">
+<sbb-secondary-button [sbbOverlay]="overlay">Open Overlay</sbb-secondary-button>
+<sbb-overlay #overlay="sbbOverlay">
   <p>Overlay content.</p>
 </sbb-overlay>

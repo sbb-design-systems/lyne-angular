@@ -4,14 +4,14 @@ The `<sbb-menu>` is a component that can be attached to any element to open and 
 which allows to perform actions relevant to the current task by using the `<sbb-menu-button>`
 or to navigate within or outside the application by using the `<sbb-menu-link>` component along with it.
 
-<!-- #region intro-example -->
+<!-- #region override intro-example -->
 
 ```html
 <!-- Trigger element -->
-<sbb-button id="menu-trigger">Menu trigger</sbb-button>
+<sbb-button [sbbMenu]="menu">Menu trigger</sbb-button>
 
 <!-- Menu component with menu actions -->
-<sbb-menu trigger="menu-trigger">
+<sbb-menu #menu="sbbMenu">
   <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
   <sbb-menu-button icon="pen-small">Edit</sbb-menu-button>
   <sbb-menu-button icon="swisspass-small" sbb-badge="12" aria-label="Details, containing 12 items">
@@ -50,16 +50,16 @@ by evaluating the available space with the following priority: start/below, star
 
 Clicking in the backdrop or pressing the `ESC` key closes the menu.
 
-<!-- #region trigger -->
+<!-- #region override trigger -->
 
-The element that will trigger the menu dialog must be set using the `trigger` property.
+The element that will trigger the menu can be connected via the `SbbMenuTrigger` directive.
 
 ```html
 <!-- Trigger element -->
-<sbb-button id="menu-trigger">Menu trigger</sbb-button>
+<sbb-button [sbbMenu]="menu">Menu trigger</sbb-button>
 
 <!-- Menu component with custom content and menu actions -->
-<sbb-menu trigger="menu-trigger">...</sbb-menu>
+<sbb-menu #menu="sbbMenu">...</sbb-menu>
 ```
 
 <!-- #endregion -->
@@ -71,13 +71,13 @@ On smaller screens, submenus will automatically display a back button to navigat
 
 Please note that nesting the menus in DOM is not supported. The `<sbb-menu>` elements have to be siblings in order to work.
 
-<!-- #region nesting-example -->
+<!-- #region override nesting-example -->
 
 ```html
 <sbb-menu>
-  <sbb-menu-button icon="pen-small" id="submenu-trigger">Submenu trigger</sbb-menu-button>
+  <sbb-menu-button icon="pen-small" [sbbMenu]="menu">Submenu trigger</sbb-menu-button>
 </sbb-menu>
-<sbb-menu trigger="submenu-trigger">
+<sbb-menu #menu="sbbMenu">
   <sbb-menu-link icon="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
   <sbb-menu-button icon="swisspass-small" sbb-badge="12">Details</sbb-menu-button>
 </sbb-menu>

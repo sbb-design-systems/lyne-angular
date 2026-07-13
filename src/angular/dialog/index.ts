@@ -3,6 +3,7 @@ export * from './dialog/dialog-config';
 export * from './dialog/dialog-container';
 export * from './dialog/dialog-ref';
 export * from './dialog/dialog-service';
+export * from './dialog/dialog-trigger';
 export * from './dialog-actions/dialog-actions';
 export * from './dialog-close-button/dialog-close-button';
 export * from './dialog-close/dialog-close';

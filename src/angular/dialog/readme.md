@@ -244,15 +244,15 @@ component. Use it to display a footer with an action group.
 
 ## Interactions
 
-<!-- #region trigger -->
+<!-- #region override trigger -->
 
-To display the dialog, a trigger can be connected via the `trigger` property,
-or the `open()` method on the `<sbb-dialog>` component can be called.
+As an alternative to the programmatic `DialogService` or the `open()` method of the `<sbb-dialog>` element,
+a trigger can be connected via the `SbbDialogTrigger` directive,
 
 ```html
-<sbb-button id="dialog-trigger">Open dialog</sbb-button>
+<sbb-button [sbbDialog]="dialog">Open dialog</sbb-button>
 
-<sbb-dialog trigger="dialog-trigger">
+<sbb-dialog #dialog="sbbDialog">
   <sbb-dialog-title>Title</sbb-dialog-title>
   <sbb-dialog-content>Dialog content.</sbb-dialog-content>
   <sbb-dialog-actions><sbb-button sbb-dialog-close>Close</sbb-button></sbb-dialog-actions>

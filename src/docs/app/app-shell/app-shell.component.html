@@ -4,10 +4,10 @@
     <sbb-version-selector></sbb-version-selector>
   </span>
   <div class="sbb-header-spacer"></div>
-  <sbb-header-button iconName="eye-small" #appearanceTrigger hide-label-below="large">
+  <sbb-header-button iconName="eye-small" [sbbMenu]="menu" hide-label-below="large">
     Appearance
   </sbb-header-button>
-  <sbb-menu [trigger]="appearanceTrigger">
+  <sbb-menu #menu="sbbMenu">
     <sbb-menu-button
       (click)="lightDarkController.setColorScheme('light')"
       [iconName]="lightDarkController.mode() === 'light' ? 'tick-small' : null!"

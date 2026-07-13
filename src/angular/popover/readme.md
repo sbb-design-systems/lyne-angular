@@ -9,15 +9,14 @@ The component could be used:
 - when an element needs more context or explanation;
 - when defining a term or inline item.
 
-<!-- #region trigger -->
+<!-- #region override trigger -->
 
-The component must be connected with the trigger element using the `trigger` property,
-which accepts the id of the element, or directly its reference;
+The component can be connected with the trigger element using the `SbbPopoverTrigger` directive.
 
 ```html
-<sbb-mini-button iconName="circle-information-small" id="popover-trigger"></sbb-mini-button>
+<sbb-mini-button iconName="circle-information-small" [sbbPopover]="popover"></sbb-mini-button>
 
-<sbb-popover trigger="popover-trigger">
+<sbb-popover #popover="sbbPopover">
   <sbb-popover-close-button></sbb-popover-close-button>
   <sbb-title level="2" visualLevel="6" style="margin-block-start: 0">Popover Title.</sbb-title>
   <p>Popover content.</p>
