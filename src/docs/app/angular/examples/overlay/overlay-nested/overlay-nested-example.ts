@@ -4,7 +4,8 @@ import { SbbOverlayModule } from '@sbb-esta/lyne-angular/overlay';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
- * @title <component name> with configurable properties
+ * @title nested overlays
+ * @order 3
  */
 @Component({
   selector: 'sbb-overlay-nested-example',
