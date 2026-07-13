@@ -101,7 +101,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   logo: [{ id: 'logo-showcase', hasStyle: true }],
   'map-container': ['map-container-basic'],
   menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
-  message: ['message-basic', 'message-no-action', 'message-no-error-code', 'message-no-image'],
+  message: [{ id: 'message-basic', hasStyle: true }],
   'mini-calendar': ['mini-calendar-basic'],
   navigation: ['navigation-basic', 'navigation-section'],
   notification: ['notification-basic'],
@@ -311,12 +311,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'menu-nested':
       return import('../angular/examples/menu');
     case 'message-basic':
-      return import('../angular/examples/message');
-    case 'message-no-action':
-      return import('../angular/examples/message');
-    case 'message-no-error-code':
-      return import('../angular/examples/message');
-    case 'message-no-image':
       return import('../angular/examples/message');
     case 'mini-button-group':
     case 'mini-button-showcase':
