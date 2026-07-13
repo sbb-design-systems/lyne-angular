@@ -110,7 +110,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   paginator: ['paginator-basic'],
   popover: ['popover-basic'],
   'radio-button': ['radio-button-showcase'],
-  'radio-button-group': ['radio-button-group-basic'],
+  'radio-button-group': ['radio-button-group-showcase'],
   'radio-button-panel': ['radio-button-panel-basic'],
   'seat-reservation': [
     'seat-reservation-basic',
@@ -334,7 +334,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/table');
     case 'popover-basic':
       return import('../angular/examples/popover');
-    case 'radio-button-group-basic':
+    case 'radio-button-group-showcase':
       return import('../angular/examples/radio-button-group');
     case 'radio-button-panel-basic':
       return import('../angular/examples/radio-button-panel');

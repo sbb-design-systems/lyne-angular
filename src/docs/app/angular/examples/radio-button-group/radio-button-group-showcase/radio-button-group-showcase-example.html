@@ -1,0 +1,53 @@
+<sbb-radio-button-group
+  name="radio-group"
+  aria-label="Radio group label"
+  [formField]="controls.model"
+  [size]="controls.size().value()"
+  [orientation]="controls.orientation().value()"
+  [horizontalFrom]="controls.horizontalFrom().value()"
+  [allowEmptySelection]="controls.allowEmptySelection().value()"
+>
+  <sbb-radio-button value="Value one">Option one</sbb-radio-button>
+  <sbb-radio-button value="Value two">Option two</sbb-radio-button>
+  <sbb-radio-button value="Value three">Option three</sbb-radio-button>
+</sbb-radio-button-group>
+
+<p>
+  <sbb-card color="milk">
+    Value: <code>{{ controls.model().value() }}</code>
+  </sbb-card>
+</p>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" allowEmptySelection [formField]="controls.size">
+    <sbb-radio-button value="xs">xs</sbb-radio-button>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Orientation</label>
+  <sbb-radio-button-group aria-label="Orientation" [formField]="controls.orientation">
+    <sbb-radio-button value="horizontal">Horizontal</sbb-radio-button>
+    <sbb-radio-button value="vertical">Vertical</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Horizontal from</label>
+  <sbb-radio-button-group
+    aria-label="Horizontal from"
+    allowEmptySelection
+    [formField]="controls.horizontalFrom"
+  >
+    <sbb-radio-button value="zero">zero</sbb-radio-button>
+    <sbb-radio-button value="small">small</sbb-radio-button>
+    <sbb-radio-button value="large">large</sbb-radio-button>
+    <sbb-radio-button value="ultra">ultra</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label for="allowEmptySelection">Allow empty selection</label>
+  <sbb-checkbox id="allowEmptySelection" [formField]="controls.allowEmptySelection"></sbb-checkbox>
+</div>
