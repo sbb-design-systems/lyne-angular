@@ -2,10 +2,17 @@ import { NgModule } from '@angular/core';
 import { SbbFocusInitial } from '@sbb-esta/lyne-angular/core';
 
 import { SbbMenu } from './menu/menu';
+import { SbbMenuTrigger } from './menu/menu-trigger';
 import { SbbMenuButton } from './menu-button/menu-button';
 import { SbbMenuLink } from './menu-link/menu-link';
 
-const SBB_MENU_EXPORTED_DECLARATIONS = [SbbMenu, SbbMenuButton, SbbMenuLink, SbbFocusInitial];
+const SBB_MENU_EXPORTED_DECLARATIONS = [
+  SbbMenu,
+  SbbMenuTrigger,
+  SbbMenuButton,
+  SbbMenuLink,
+  SbbFocusInitial,
+];
 
 @NgModule({
   imports: SBB_MENU_EXPORTED_DECLARATIONS,

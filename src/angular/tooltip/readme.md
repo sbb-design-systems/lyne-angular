@@ -2,13 +2,13 @@
 
 The `<sbb-tooltip>` component displays contextual information related to an element.
 
-<!-- #region trigger -->
+<!-- #region override trigger -->
 
-The standard way to use it is through the `trigger` property, referencing the element which activate the tooltip.
+The trigger can be connected via the `SbbTooltipTrigger` directive.
 
 ```html
-<sbb-button id="tooltip-trigger">Button</sbb-button>
-<sbb-tooltip trigger="tooltip-trigger">Tooltip message</sbb-tooltip>
+<sbb-button [sbbTooltip]="tooltip">Button</sbb-button>
+<sbb-tooltip #tooltip="sbbTooltip">Tooltip message</sbb-tooltip>
 ```
 
 <!-- #endregion -->

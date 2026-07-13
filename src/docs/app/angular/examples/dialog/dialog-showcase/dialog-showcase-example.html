@@ -1,7 +1,7 @@
-<sbb-button #trigger>Open Dialog</sbb-button>
+<sbb-button [sbbDialog]="dialog">Open Dialog</sbb-button>
 
 <sbb-dialog
-  [trigger]="trigger"
+  #dialog="sbbDialog"
   [negative]="controls.negative().value()"
   [backdrop]="controls.backdrop().value()"
   [backdropAction]="controls.backdropAction().value()"
