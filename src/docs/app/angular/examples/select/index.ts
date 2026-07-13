@@ -1,1 +1,1 @@
-export { SelectBasicExample } from './select-basic/select-basic-example';
+export { SelectShowcaseExample } from './select-showcase/select-showcase-example';
