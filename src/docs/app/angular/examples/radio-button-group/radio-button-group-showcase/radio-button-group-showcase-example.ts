@@ -8,6 +8,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title Basic radio-button-group
+ * @order 1
  */
 @Component({
   selector: 'sbb-radio-button-group-basic-example',
