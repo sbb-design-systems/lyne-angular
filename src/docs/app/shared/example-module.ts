@@ -101,7 +101,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   logo: [{ id: 'logo-showcase', hasStyle: true }],
   'map-container': ['map-container-basic'],
   menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
-  message: ['message-basic'],
+  message: [{ id: 'message-basic', hasStyle: true }],
   'mini-calendar': ['mini-calendar-basic'],
   navigation: ['navigation-basic', 'navigation-section'],
   notification: ['notification-basic'],
