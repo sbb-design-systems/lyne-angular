@@ -101,13 +101,13 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   logo: [{ id: 'logo-showcase', hasStyle: true }],
   'map-container': ['map-container-basic'],
   menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
-  message: ['message-basic'],
+  message: [{ id: 'message-basic', hasStyle: true }],
   'mini-calendar': ['mini-calendar-basic'],
   navigation: ['navigation-basic', 'navigation-section'],
   notification: ['notification-basic'],
   option: ['option-basic'],
   overlay: ['overlay-showcase', 'overlay-service', 'overlay-nested'],
-  paginator: ['paginator-basic'],
+  paginator: ['paginator-showcase', 'paginator-compact'],
   popover: ['popover-basic'],
   'radio-button': ['radio-button-basic'],
   'radio-button-group': ['radio-button-group-basic'],
@@ -330,7 +330,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'overlay-service':
     case 'overlay-showcase':
       return import('../angular/examples/overlay');
-    case 'paginator-basic':
+    case 'paginator-compact':
+    case 'paginator-showcase':
       return import('../angular/examples/paginator');
     case 'paginator-table':
       return import('../angular/examples/table');
