@@ -27,7 +27,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'mini-button-group',
   ],
   calendar: [
-    'calendar-basic',
+    'calendar-showcase',
     'calendar-reactive-form',
     'calendar-with-filter',
     { id: 'calendar-enhanced', hasStyle: true },
@@ -105,7 +105,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'mini-calendar': ['mini-calendar-basic'],
   navigation: ['navigation-basic', 'navigation-section'],
   notification: ['notification-showcase'],
-  option: ['option-basic'],
+  option: ['option-showcase'],
   overlay: ['overlay-showcase', 'overlay-service', 'overlay-nested'],
   paginator: ['paginator-showcase', 'paginator-compact'],
   popover: ['popover-basic'],
@@ -187,10 +187,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'button-showcase':
     case 'button-static-basic':
       return import('../angular/examples/button');
-    case 'calendar-basic':
     case 'calendar-enhanced':
     case 'calendar-fixed-month':
     case 'calendar-reactive-form':
+    case 'calendar-showcase':
     case 'calendar-with-filter':
       return import('../angular/examples/calendar');
     case 'card-basic':
@@ -324,7 +324,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/navigation');
     case 'notification-showcase':
       return import('../angular/examples/notification');
-    case 'option-basic':
+    case 'option-showcase':
       return import('../angular/examples/option');
     case 'overlay-nested':
     case 'overlay-service':

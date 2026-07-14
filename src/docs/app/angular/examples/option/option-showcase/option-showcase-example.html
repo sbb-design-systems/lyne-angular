@@ -1,0 +1,11 @@
+<sbb-option [disabled]="controls.disabled().value()">Option label</sbb-option>
+
+<sbb-option [disabled]="controls.disabled().value()" iconName="circle-information-small"
+  >Option label</sbb-option
+>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+</div>
