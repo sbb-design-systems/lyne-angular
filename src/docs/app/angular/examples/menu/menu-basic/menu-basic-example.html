@@ -1,8 +1,8 @@
 <!-- Trigger element -->
-<sbb-button #trigger>Menu trigger</sbb-button>
+<sbb-button [sbbMenu]="menu">Menu trigger</sbb-button>
 
 <!-- Menu component with menu actions -->
-<sbb-menu [trigger]="trigger">
+<sbb-menu #menu="sbbMenu">
   <sbb-menu-link iconName="link-small" href="https://www.sbb.ch/en">View</sbb-menu-link>
   <sbb-menu-button iconName="pen-small">Edit</sbb-menu-button>
   <sbb-menu-button

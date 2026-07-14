@@ -1,0 +1,34 @@
+<sbb-secondary-button [sbbNavigation]="navigation">Open Navigation</sbb-secondary-button>
+
+<sbb-navigation #navigation="sbbNavigation">
+  <sbb-navigation-marker>
+    <sbb-navigation-button
+      aria-current="page"
+      class="sbb-active"
+      [sbbNavigationSection]="navigationSection"
+    >
+      Tickets & Offers
+    </sbb-navigation-button>
+    <sbb-navigation-button>Vacations & Recreation</sbb-navigation-button>
+    <sbb-navigation-button>Travel information</sbb-navigation-button>
+    <sbb-navigation-link routerLink="./">Help & Contact</sbb-navigation-link>
+  </sbb-navigation-marker>
+
+  <sbb-navigation-section #navigationSection="sbbNavigationSection" titleContent="Demo only">
+    <ng-container *ngTemplateOutlet="listTemplate; context: { label: 'List 1' }"></ng-container>
+    <ng-container *ngTemplateOutlet="listTemplate; context: { label: 'List 2' }"></ng-container>
+    <ng-container *ngTemplateOutlet="listTemplate; context: { label: 'List 3' }"></ng-container>
+    <ng-container *ngTemplateOutlet="listTemplate; context: { label: 'List 4' }"></ng-container>
+    <ng-container *ngTemplateOutlet="listTemplate; context: { label: 'List 5' }"></ng-container>
+    <ng-container *ngTemplateOutlet="listTemplate; context: { label: 'List 6' }"></ng-container>
+    <sbb-button> All Tickets & Offers </sbb-button>
+  </sbb-navigation-section>
+</sbb-navigation>
+
+<ng-template #listTemplate let-listLabel="label">
+  <sbb-navigation-list [label]="listLabel">
+    <sbb-navigation-button>Label 1</sbb-navigation-button>
+    <sbb-navigation-button>Label 2</sbb-navigation-button>
+    <sbb-navigation-link routerLink="https://www.sbb.ch/en/">Label 3</sbb-navigation-link>
+  </sbb-navigation-list>
+</ng-template>

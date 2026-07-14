@@ -7,15 +7,19 @@ import {
   inject,
   Injector,
   type TemplateRef,
+  viewChild,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core';
+import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 
 import { SbbDialog } from './dialog';
 import { SbbDialogRef } from './dialog-ref';
 import { SbbDialogService } from './dialog-service';
+import { SbbDialogTrigger } from './dialog-trigger';
 
 describe('sbb-dialog', () => {
   describe('component renders', () => {
@@ -226,6 +230,27 @@ describe('sbb-dialog', () => {
       expect(overlayContainerElement.children.length).toBe(0);
     });
   });
+
+  describe('standalone usage with trigger', () => {
+    let fixture: ComponentFixture<TestSbbDialogTrigger>, component: TestSbbDialogTrigger;
+
+    beforeEach(async () => {
+      fixture = TestBed.createComponent(TestSbbDialogTrigger);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+      await waitForLitRender(fixture.nativeElement);
+    });
+
+    it('should create', async () => {
+      expect(component).toBeDefined();
+    });
+
+    it('dialog should open when correctly connected', async () => {
+      expect(component.dialog().isOpen).toBe(false);
+      fixture.nativeElement.querySelector('sbb-secondary-button')!.click();
+      expect(component.dialog().isOpen).toBe(true);
+    });
+  });
 });
 
 @Component({
@@ -233,6 +258,17 @@ describe('sbb-dialog', () => {
   imports: [SbbDialog],
 })
 class TestComponent {}
+
+@Component({
+  template: `
+    <sbb-secondary-button [sbbDialog]="dialog">Open Dialog</sbb-secondary-button>
+    <sbb-dialog #dialog="sbbDialog"></sbb-dialog>
+  `,
+  imports: [SbbDialogTrigger, SbbDialog, SbbButtonModule],
+})
+class TestSbbDialogTrigger {
+  dialog = viewChild.required(SbbDialog);
+}
 
 @Directive({
   selector: 'dir-with-view-container',

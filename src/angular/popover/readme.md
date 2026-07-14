@@ -9,19 +9,21 @@ The component could be used:
 - when an element needs more context or explanation;
 - when defining a term or inline item.
 
-The component must be connected with the trigger element using the `trigger` property,
-which accepts the id of the element, or directly its reference;
-the [sbb-menu-button](/angular/components/button/overview) is meant to be used as trigger.
+<!-- #region override trigger -->
+
+The component can be connected with the trigger element using the `SbbPopoverTrigger` directive.
 
 ```html
-<sbb-mini-button iconName="circle-information-small" id="popover-trigger"></sbb-mini-button>
+<sbb-mini-button iconName="circle-information-small" [sbbPopover]="popover"></sbb-mini-button>
 
-<sbb-popover id="popover" trigger="popover-trigger">
+<sbb-popover #popover="sbbPopover">
   <sbb-popover-close-button></sbb-popover-close-button>
   <sbb-title level="2" visualLevel="6" style="margin-block-start: 0">Popover Title.</sbb-title>
-  <p id="popover-content">Popover content.</p>
+  <p>Popover content.</p>
 </sbb-popover>
 ```
+
+<!-- #endregion -->
 
 ## Configuration
 
@@ -50,14 +52,10 @@ For accessibility reasons, the close button should be the first focusable elemen
 so it is recommended to place it at the beginning of the content.
 
 ```html
-<sbb-mini-button id="popover-trigger"></sbb-mini-button>
-
-<sbb-popover id="popover" trigger="popover-trigger">
+<sbb-popover>
   <sbb-popover-close-button></sbb-popover-close-button>
   <sbb-title level="2" visualLevel="6" style="margin-block-start: 0">Popover Title.</sbb-title>
-  <p id="popover-content">
-    Popover content. <sbb-link id="popover-link" sbb-popover-close>Link</sbb-link>
-  </p>
+  <p>Popover content. <sbbLink sbb-popover-close>Link</sbb-link></p>
 </sbb-popover>
 ```
 
@@ -71,9 +69,7 @@ The `<sbb-popover>` will automatically disappear after the hiding delay
 if neither the trigger element nor the popover are on hover or if another action is performed on the page.
 
 ```html
-<sbb-mini-button id="popover-trigger"></sbb-mini-button>
-
-<sbb-popover id="popover" trigger="popover-trigger" hoverTrigger openDelay="500" closeDelay="750">
+<sbb-popover hoverTrigger openDelay="500" closeDelay="750">
   <sbb-title level="2" visualLevel="6" style="margin-block-start: 0">Popover Title.</sbb-title>
   <p id="popover-content">Popover content. <sbb-link id="popover-link">Link</sbb-link></p>
 </sbb-popover>

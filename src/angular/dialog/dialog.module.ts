@@ -3,6 +3,7 @@ import { SbbFocusInitial } from '@sbb-esta/lyne-angular/core';
 
 import { SbbDialog } from './dialog/dialog';
 import { SbbDialogContainer } from './dialog/dialog-container';
+import { SbbDialogTrigger } from './dialog/dialog-trigger';
 import { SbbDialogActions } from './dialog-actions/dialog-actions';
 import { SbbDialogClose } from './dialog-close/dialog-close';
 import { SbbDialogCloseButton } from './dialog-close-button/dialog-close-button';
@@ -11,6 +12,7 @@ import { SbbDialogTitle } from './dialog-title/dialog-title';
 
 const SBB_DIALOG_EXPORTED_DECLARATIONS = [
   SbbDialog,
+  SbbDialogTrigger,
   SbbDialogActions,
   SbbDialogCloseButton,
   SbbDialogClose,

@@ -47,8 +47,8 @@ Full example with applied spacings (CSS classes) in content:
     </sbb-alert>
   </sbb-alert-group>
   <sbb-breadcrumb-group class="sbb-lead-container-spacing">
-    <sbb-breadcrumb href="#" iconName="house-small" id="breadcrumb-0"></sbb-breadcrumb>
-    <sbb-breadcrumb href="#" id="breadcrumb-1">Level 1</sbb-breadcrumb>
+    <sbb-breadcrumb href="#" iconName="house-small"></sbb-breadcrumb>
+    <sbb-breadcrumb href="#">Level 1</sbb-breadcrumb>
   </sbb-breadcrumb-group>
   <sbb-block-link
     iconPlacement="start"
