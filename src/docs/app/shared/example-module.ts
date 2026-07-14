@@ -104,7 +104,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   message: [{ id: 'message-basic', hasStyle: true }],
   'mini-calendar': ['mini-calendar-basic'],
   navigation: ['navigation-basic', 'navigation-section'],
-  notification: ['notification-basic'],
+  notification: ['notification-showcase'],
   option: ['option-showcase'],
   overlay: ['overlay-showcase', 'overlay-service', 'overlay-nested'],
   paginator: ['paginator-showcase', 'paginator-compact'],
@@ -322,7 +322,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'navigation-basic':
     case 'navigation-section':
       return import('../angular/examples/navigation');
-    case 'notification-basic':
+    case 'notification-showcase':
       return import('../angular/examples/notification');
     case 'option-showcase':
       return import('../angular/examples/option');

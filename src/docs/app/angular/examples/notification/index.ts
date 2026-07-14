@@ -1,1 +1,1 @@
-export { NotificationBasicExample } from './notification-basic/notification-basic-example';
+export { NotificationShowcaseExample } from './notification-showcase/notification-showcase-example';
