@@ -9,3 +9,4 @@ export * from './overlay/overlay-base';
 export * from './overlay/overlay-config-base';
 export * from './overlay/overlay-container-base';
 export * from './overlay/overlay-base-ref';
+export * from './trigger-base';

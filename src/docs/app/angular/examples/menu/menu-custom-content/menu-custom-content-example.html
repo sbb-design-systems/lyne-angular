@@ -1,6 +1,6 @@
-<sbb-secondary-button #trigger>Menu trigger</sbb-secondary-button>
+<sbb-secondary-button [sbbMenu]="menu">Menu trigger</sbb-secondary-button>
 
-<sbb-menu [trigger]="trigger">
+<sbb-menu #menu="sbbMenu">
   <div class="user">Christina Müller</div>
   <span class="u-number">UIS9057</span>
   <sbb-block-link href="https://www.sbb.ch/en" size="xs">Profile</sbb-block-link>

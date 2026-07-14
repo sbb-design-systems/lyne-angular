@@ -1,6 +1,7 @@
 import { Directive, ElementRef, forwardRef, inject, Input } from '@angular/core';
 import type { ControlValueAccessor } from '@angular/forms';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { SbbTriggerBase } from '@sbb-esta/lyne-angular/core';
 import type { SbbInputAutocompleteEvent } from '@sbb-esta/lyne-elements/autocomplete.pure.js';
 import type { SbbFormFieldElement } from '@sbb-esta/lyne-elements/form-field.pure.js';
 import { BehaviorSubject } from 'rxjs';
@@ -24,7 +25,10 @@ import type { SbbAutocompleteType } from './autocomplete-type';
     '(inputAutocomplete)': '_handleSelected($event)',
   },
 })
-export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor {
+export class SbbAutocompleteTrigger<T = string>
+  extends SbbTriggerBase<SbbAutocompleteType<T>, HTMLInputElement>
+  implements ControlValueAccessor
+{
   #element = inject<ElementRef<HTMLInputElement>>(ElementRef);
 
   /** BehaviourSubject holding inputValue. Used for highlighting */
@@ -41,19 +45,18 @@ export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor 
   /** The autocomplete panel to be attached to this trigger. */
   @Input('sbbAutocomplete')
   get autocomplete(): SbbAutocompleteType<T> | null {
-    return this.#autocomplete;
+    return this.referenceElement;
   }
   set autocomplete(autocomplete: SbbAutocompleteType<T>) {
-    this.#autocomplete = autocomplete;
-    if (this.#autocomplete) {
-      this.#autocomplete.trigger = this.#element.nativeElement;
+    this.referenceElement = autocomplete;
+
+    if (this.referenceElement) {
       const formField = this.#element.nativeElement.closest<SbbFormFieldElement>('sbb-form-field');
       if (formField) {
-        this.#autocomplete.origin = formField;
+        this.referenceElement.origin = formField;
       }
     }
   }
-  #autocomplete: SbbAutocompleteType<T> | null = null;
 
   // Implemented as part of ControlValueAccessor.
   writeValue(value: T): void {
@@ -98,14 +101,14 @@ export class SbbAutocompleteTrigger<T = string> implements ControlValueAccessor 
       value = value === '' ? null : parseFloat(value);
     }
 
-    if (!this.#autocomplete?.requireSelection) {
+    if (!this.referenceElement?.requireSelection) {
       this._onChange(value);
     }
     this.#inputValue.next(target.value);
   }
 
   _handleChange(event: Event): void {
-    if (!this.#autocomplete?.requireSelection) {
+    if (!this.referenceElement?.requireSelection) {
       return;
     }
 

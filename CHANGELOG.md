@@ -1,5 +1,34 @@
 # Changelog
 
+## [22.1.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.0.5...v22.1.0) (2026-07-13)
+
+
+### Features
+
+* **download:** initial implementation ([#487](https://github.com/sbb-design-systems/lyne-angular/issues/487)) ([5e1dc48](https://github.com/sbb-design-systems/lyne-angular/commit/5e1dc489d945d21ec5d6ea0594c05c4169a28fe3))
+* trigger directives ([#490](https://github.com/sbb-design-systems/lyne-angular/issues/490)) ([9d42d11](https://github.com/sbb-design-systems/lyne-angular/commit/9d42d11398b9d0183715f98e977c8d25356cd6ac)), closes [#296](https://github.com/sbb-design-systems/lyne-angular/issues/296)
+
+
+### Documentation
+
+* add padding to negative context examples ([#485](https://github.com/sbb-design-systems/lyne-angular/issues/485)) ([6c9b11d](https://github.com/sbb-design-systems/lyne-angular/commit/6c9b11d923a611e5b427ece9a75b3d71b4853563))
+* **file-selector:** add examples ([#453](https://github.com/sbb-design-systems/lyne-angular/issues/453)) ([1e15b13](https://github.com/sbb-design-systems/lyne-angular/commit/1e15b13c9b6f94d503949b310a7177d27ca69957))
+* fix focus outline in negative context ([#476](https://github.com/sbb-design-systems/lyne-angular/issues/476)) ([ec0f63f](https://github.com/sbb-design-systems/lyne-angular/commit/ec0f63f0123f2309c12f490eb3eeede2da9fa83d))
+* handle fullscreen examples ([#482](https://github.com/sbb-design-systems/lyne-angular/issues/482)) ([ad66e7d](https://github.com/sbb-design-systems/lyne-angular/commit/ad66e7db082037b8dc153c6039b4238edb2ee8f3))
+* **header:** add examples ([#457](https://github.com/sbb-design-systems/lyne-angular/issues/457)) ([38837da](https://github.com/sbb-design-systems/lyne-angular/commit/38837da284609750247b48e42f2970cc1941c1b2))
+* **icon-sidebar:** add nested example ([#461](https://github.com/sbb-design-systems/lyne-angular/issues/461)) ([16b8b78](https://github.com/sbb-design-systems/lyne-angular/commit/16b8b78f33bf2e35fef1509a0eea6731bde44cc6))
+* **image:** add examples ([#459](https://github.com/sbb-design-systems/lyne-angular/issues/459)) ([da60be9](https://github.com/sbb-design-systems/lyne-angular/commit/da60be92d3ac22fdf5498203dbff17b831e7dd61))
+* improve generics in api-generator ([#491](https://github.com/sbb-design-systems/lyne-angular/issues/491)) ([db80a24](https://github.com/sbb-design-systems/lyne-angular/commit/db80a244f9465ad1ea5edaf0df4a0dee20abacdc))
+* **link-list, link-list-anchor:** add examples ([#471](https://github.com/sbb-design-systems/lyne-angular/issues/471)) ([f00e8c7](https://github.com/sbb-design-systems/lyne-angular/commit/f00e8c7fd1be18543c31e26242935dd61ce47e20))
+* **link:** add examples ([#467](https://github.com/sbb-design-systems/lyne-angular/issues/467)) ([ac1a0bb](https://github.com/sbb-design-systems/lyne-angular/commit/ac1a0bb92ad9a2d7663bde6d8c8d2e603b708072))
+* **loading-indicator, loading-indicator-circle:** add examples ([#481](https://github.com/sbb-design-systems/lyne-angular/issues/481)) ([e629bbd](https://github.com/sbb-design-systems/lyne-angular/commit/e629bbd63fe84eb84dd4992794d5f70ffbe93d86))
+* **logo:** add examples ([#486](https://github.com/sbb-design-systems/lyne-angular/issues/486)) ([301c758](https://github.com/sbb-design-systems/lyne-angular/commit/301c7587a23814bddb26152e6e59d4b2e58aae0c))
+* **menu:** add examples ([#480](https://github.com/sbb-design-systems/lyne-angular/issues/480)) ([693749c](https://github.com/sbb-design-systems/lyne-angular/commit/693749c675579f08ed8ce995cc0acea6163381dc))
+* **message:** add examples ([#479](https://github.com/sbb-design-systems/lyne-angular/issues/479)) ([5111496](https://github.com/sbb-design-systems/lyne-angular/commit/5111496fcc5f9cb1f4c1d7b3535c21453e906950))
+* **navigation:** add example ([#483](https://github.com/sbb-design-systems/lyne-angular/issues/483)) ([24b553d](https://github.com/sbb-design-systems/lyne-angular/commit/24b553d182b970e231778c144ed440fb5d4f36c9))
+* **paginator:** add examples ([#493](https://github.com/sbb-design-systems/lyne-angular/issues/493)) ([6cb2d6c](https://github.com/sbb-design-systems/lyne-angular/commit/6cb2d6cc664572f81f4802a69a9abad85d48b8ab))
+* update readmes from lyne-elements ([#495](https://github.com/sbb-design-systems/lyne-angular/issues/495)) ([1e0c599](https://github.com/sbb-design-systems/lyne-angular/commit/1e0c59926cd3386db2f44ed8a566928319e15536))
+
 ## [22.0.5](https://github.com/sbb-design-systems/lyne-angular/compare/v22.0.4...v22.0.5) (2026-07-06)
 
 
