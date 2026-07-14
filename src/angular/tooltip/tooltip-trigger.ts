@@ -1,22 +1,43 @@
-import { Directive, ElementRef, inject, Input, numberAttribute } from '@angular/core';
+import { Directive, Input, ElementRef, inject, numberAttribute } from '@angular/core';
+import { SbbTriggerBase } from '@sbb-esta/lyne-angular/core';
 import { SbbTooltipElement } from '@sbb-esta/lyne-elements/tooltip.pure.js';
 
+import { SbbTooltip } from './tooltip';
+
 @Directive({
-  selector: '[sbb-tooltip]',
+  selector: '[sbb-tooltip],[sbbTooltip]',
+  exportAs: 'sbbTooltipTrigger',
 })
-export class SbbTooltipDirective {
+export class SbbTooltipTrigger extends SbbTriggerBase<SbbTooltip> {
   static {
     SbbTooltipElement.define();
   }
 
   #elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-  @Input('sbb-tooltip')
-  public set tooltip(value: string | null) {
-    this.#assignAttribute('sbb-tooltip', value);
+  @Input('sbbTooltip')
+  public set tooltip(value: string | SbbTooltip | null) {
+    if (value instanceof SbbTooltip) {
+      this.referenceElement = value;
+      this.#elementRef.nativeElement.removeAttribute('sbb-tooltip');
+    } else {
+      this.referenceElement = null;
+      this.#assignAttribute('sbb-tooltip', value);
+    }
   }
-  public get tooltip(): string | null {
+  public get tooltip(): string | SbbTooltip | null {
+    if (this.referenceElement) {
+      return this.referenceElement;
+    }
     return this.#elementRef.nativeElement.getAttribute('sbb-tooltip');
+  }
+
+  /**
+   * @internal
+   */
+  @Input('sbb-tooltip')
+  set tooltipAlias(value: string | null | SbbTooltip) {
+    this.tooltip = value;
   }
 
   @Input({ alias: 'sbb-tooltip-open-delay', transform: numberAttribute })

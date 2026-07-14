@@ -1,0 +1,32 @@
+<div [class.sbb-example-negative]="controls.negative().value()">
+  <sbb-paginator
+    [length]="100"
+    [pageSize]="10"
+    [pageSizeOptions]="[10, 20, 50, 100]"
+    [negative]="controls.negative().value()"
+    [disabled]="controls.disabled().value()"
+    [size]="controls.size().value()"
+    [pagerPosition]="controls.pagerPosition().value()"
+  ></sbb-paginator>
+</div>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="negative">Negative</label>
+  <sbb-checkbox id="negative" [formField]="controls.negative"></sbb-checkbox>
+
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Pager position</label>
+  <sbb-radio-button-group aria-label="Pager position" [formField]="controls.pagerPosition">
+    <sbb-radio-button value="start">start</sbb-radio-button>
+    <sbb-radio-button value="end">end</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>

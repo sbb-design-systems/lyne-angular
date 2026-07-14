@@ -9,12 +9,12 @@ import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
- * @title Basic calendar
+ * @title sbb-calendar showcase
  * @order 1
  */
 @Component({
-  selector: 'sbb-calendar-basic-example',
-  templateUrl: 'calendar-basic-example.html',
+  selector: 'sbb-calendar-showcase-example',
+  templateUrl: 'calendar-showcase-example.html',
   imports: [
     FormField,
     SbbActionGroupModule,
@@ -25,7 +25,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbTitleModule,
   ],
 })
-export class CalendarBasicExample {
+export class CalendarShowcaseExample {
   protected form = form(
     signal<{
       calendar: Date | Date[];

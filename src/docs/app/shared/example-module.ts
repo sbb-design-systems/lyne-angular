@@ -27,7 +27,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'mini-button-group',
   ],
   calendar: [
-    'calendar-basic',
+    'calendar-showcase',
     'calendar-reactive-form',
     'calendar-with-filter',
     { id: 'calendar-enhanced', hasStyle: true },
@@ -101,13 +101,13 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   logo: [{ id: 'logo-showcase', hasStyle: true }],
   'map-container': ['map-container-basic'],
   menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
-  message: ['message-basic'],
+  message: [{ id: 'message-basic', hasStyle: true }],
   'mini-calendar': ['mini-calendar-basic'],
   navigation: ['navigation-basic', 'navigation-section'],
   notification: ['notification-basic'],
-  option: ['option-basic'],
-  overlay: ['overlay-basic'],
-  paginator: ['paginator-basic'],
+  option: ['option-showcase'],
+  overlay: ['overlay-showcase', 'overlay-service', 'overlay-nested'],
+  paginator: ['paginator-showcase', 'paginator-compact'],
   popover: ['popover-basic'],
   'radio-button': ['radio-button-showcase'],
   'radio-button-group': [
@@ -192,10 +192,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'button-showcase':
     case 'button-static-basic':
       return import('../angular/examples/button');
-    case 'calendar-basic':
     case 'calendar-enhanced':
     case 'calendar-fixed-month':
     case 'calendar-reactive-form':
+    case 'calendar-showcase':
     case 'calendar-with-filter':
       return import('../angular/examples/calendar');
     case 'card-basic':
@@ -329,11 +329,14 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/navigation');
     case 'notification-basic':
       return import('../angular/examples/notification');
-    case 'option-basic':
+    case 'option-showcase':
       return import('../angular/examples/option');
-    case 'overlay-basic':
+    case 'overlay-nested':
+    case 'overlay-service':
+    case 'overlay-showcase':
       return import('../angular/examples/overlay');
-    case 'paginator-basic':
+    case 'paginator-compact':
+    case 'paginator-showcase':
       return import('../angular/examples/paginator');
     case 'paginator-table':
       return import('../angular/examples/table');
