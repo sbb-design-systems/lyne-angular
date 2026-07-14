@@ -1,5 +1,11 @@
 <sbb-header expanded>
-  <sbb-header-button iconName="hamburger-menu-small">Menu</sbb-header-button>
+  <sbb-header-button iconName="arrows-right-left-small" (click)="startSidebar.toggle()">
+    Toggle Start Sidebar
+  </sbb-header-button>
+
+  <sbb-header-button iconName="arrows-right-left-small" (click)="endSidebar.toggle()">
+    Toggle End Sidebar
+  </sbb-header-button>
 </sbb-header>
 <sbb-icon-sidebar-container>
   <sbb-icon-sidebar>
@@ -18,15 +24,10 @@
       accessibilityCurrent="page"
     ></sbb-icon-sidebar-link>
     <sbb-divider></sbb-divider>
-    <sbb-icon-sidebar-button
-      [iconName]="opened() ? 'list-arrow-left-small' : 'list-arrow-right-small'"
-      sbb-tooltip="Toggle Sidebar"
-      (click)="sidebar().toggle()"
-    ></sbb-icon-sidebar-button>
   </sbb-icon-sidebar>
   <sbb-icon-sidebar-content>
     <sbb-sidebar-container>
-      <sbb-sidebar role="navigation" color="milk" opened focusOnOpen>
+      <sbb-sidebar #startSidebar="sbbSidebar" role="navigation" color="milk" opened focusOnOpen>
         <sbb-sidebar-title>Be a unicorn</sbb-sidebar-title>
         <sbb-sidebar-close-button></sbb-sidebar-close-button>
         <sbb-link-list>
@@ -53,6 +54,24 @@
           stories.
         </p>
       </sbb-sidebar-content>
+      <sbb-sidebar
+        #endSidebar="sbbSidebar"
+        role="navigation"
+        color="milk"
+        opened
+        focusOnOpen
+        position="end"
+      >
+        <sbb-sidebar-title>Be a unicorn</sbb-sidebar-title>
+        <sbb-sidebar-close-button></sbb-sidebar-close-button>
+        <sbb-link-list>
+          <sbb-block-link href="#">10 Steps to Becoming a Unicorn</sbb-block-link>
+          <sbb-block-link href="#" class="sbb-active" accessibilityCurrent="page">
+            Unicorn Success Stories
+          </sbb-block-link>
+          <sbb-block-link href="#">The Unicorn's Guide to Creativity</sbb-block-link>
+        </sbb-link-list>
+      </sbb-sidebar>
     </sbb-sidebar-container>
   </sbb-icon-sidebar-content>
 </sbb-icon-sidebar-container>

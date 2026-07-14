@@ -1,0 +1,52 @@
+<div class="example-container">
+  <sbb-sidebar-container>
+    <sbb-sidebar
+      role="navigation"
+      [opened]="controls.opened().value()"
+      [color]="controls.color().value()"
+      [position]="controls.position().value()"
+      [mode]="controls.mode().value()"
+    >
+      <sbb-sidebar-title>Sidebar Title</sbb-sidebar-title>
+      <sbb-sidebar-close-button></sbb-sidebar-close-button>
+      <sbb-link-list>
+        <sbb-block-link href="#">Link 1</sbb-block-link>
+        <sbb-block-link href="#" class="sbb-active" accessibilityCurrent="page">
+          Link 2
+        </sbb-block-link>
+      </sbb-link-list>
+    </sbb-sidebar>
+    <sbb-sidebar-content role="main">
+      <p>
+        In the enchanting world of fantasy, unicorns are legendary creatures known for their grace,
+        purity, and magical abilities. These mystical beings have inspired countless tales of
+        bravery and wonder. Here, we delve into some captivating unicorn success stories that
+        continue to enchant and inspire, each with a touch of public transport magic.
+      </p>
+    </sbb-sidebar-content>
+  </sbb-sidebar-container>
+</div>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Position</label>
+  <sbb-radio-button-group aria-label="Position" [formField]="controls.position">
+    <sbb-radio-button value="start">start</sbb-radio-button>
+    <sbb-radio-button value="end">end</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Mode</label>
+  <sbb-radio-button-group aria-label="Mode" [formField]="controls.mode">
+    <sbb-radio-button value="side">side</sbb-radio-button>
+    <sbb-radio-button value="over">over</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="opened">Opened</label>
+  <div><sbb-checkbox id="opened" [formField]="controls.opened"></sbb-checkbox> (unsynced)</div>
+
+  <label>Color</label>
+  <sbb-radio-button-group aria-label="Color" [formField]="controls.color">
+    <sbb-radio-button value="white">white</sbb-radio-button>
+    <sbb-radio-button value="milk">milk</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>

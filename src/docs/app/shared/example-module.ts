@@ -120,7 +120,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   select: ['select-basic'],
   'selection-action-panel': ['selection-action-panel-basic'],
   'selection-expansion-panel': ['selection-expansion-panel-basic'],
-  sidebar: [{ id: 'sidebar-basic', hasStyle: true }],
+  sidebar: [{ id: 'sidebar-showcase', hasStyle: true }, 'sidebar-nested'],
   signet: ['signet-basic'],
   'skiplink-list': ['skiplink-list-basic'],
   slider: ['slider-basic'],
@@ -355,7 +355,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/selection-action-panel');
     case 'selection-expansion-panel-basic':
       return import('../angular/examples/selection-expansion-panel');
-    case 'sidebar-basic':
+    case 'sidebar-nested':
+    case 'sidebar-showcase':
       return import('../angular/examples/sidebar');
     case 'signet-basic':
       return import('../angular/examples/signet');
