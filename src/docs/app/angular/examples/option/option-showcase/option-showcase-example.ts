@@ -16,7 +16,6 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 export class OptionShowcaseExample {
   protected controls = form(
     signal({
-      selected: false,
       disabled: false,
     }),
   );
