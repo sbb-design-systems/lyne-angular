@@ -1,7 +1,7 @@
-<sbb-secondary-button #trigger>Open overlay</sbb-secondary-button>
+<sbb-secondary-button [sbbOverlay]="overlay">Open overlay</sbb-secondary-button>
 
-<sbb-overlay [trigger]="trigger">
-  <sbb-title visualLevel="2"> First overlay title </sbb-title>
+<sbb-overlay #overlay="sbbOverlay">
+  <sbb-title visualLevel="2"> First overlay title</sbb-title>
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
     labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
@@ -9,9 +9,9 @@
     voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
     non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   </p>
-  <sbb-accent-button #triggerNested>Open nested overlay</sbb-accent-button>
-  <sbb-overlay [trigger]="triggerNested" negative>
-    <sbb-title visualLevel="2" negative> Second overlay title </sbb-title>
+  <sbb-accent-button [sbbOverlay]="nestedOverlay">Open nested overlay</sbb-accent-button>
+  <sbb-overlay #nestedOverlay="sbbOverlay" negative>
+    <sbb-title visualLevel="2" negative> Second overlay title</sbb-title>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco

@@ -21,7 +21,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 })
 export class OverlayServiceContentExample {
   // Fetch the overlay data using the injection token
-  overlayData = inject<{ name: string }>(SBB_OVERLAY_DATA);
+  protected overlayData = inject<{ name: string }>(SBB_OVERLAY_DATA);
   #overlayRef = inject(SbbOverlayRef);
 
   protected anotherClose(): void {
