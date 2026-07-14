@@ -1,0 +1,11 @@
+<sbb-secondary-button (click)="openOverlay()"
+  >Open Overlay using SbbOverlayService</sbb-secondary-button
+>
+
+@if (lastResult()) {
+  <p>
+    <sbb-card color="milk">
+      Dialog result: <code>{{ lastResult() }}</code>
+    </sbb-card>
+  </p>
+}
