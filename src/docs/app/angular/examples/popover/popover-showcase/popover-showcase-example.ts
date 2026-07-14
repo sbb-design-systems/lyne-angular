@@ -29,7 +29,7 @@ export class PopoverShowcaseExample {
   protected controls = form(
     signal({
       hoverTrigger: false,
-      hideCloseButton: false,
+      showCloseButton: true,
       openDelay: 0,
       closeDelay: 0,
     }),
