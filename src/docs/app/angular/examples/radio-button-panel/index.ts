@@ -1,1 +1,1 @@
-export { RadioButtonPanelBasicExample } from './radio-button-panel-basic/radio-button-panel-basic-example';
+export { RadioButtonPanelShowcaseExample } from './radio-button-panel-showcase/radio-button-panel-showcase-example';
