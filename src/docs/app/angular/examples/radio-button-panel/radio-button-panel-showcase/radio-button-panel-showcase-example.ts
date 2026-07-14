@@ -2,14 +2,17 @@ import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
-import type { SbbCheckboxPanel } from '@sbb-esta/lyne-angular/checkbox-panel';
 import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
-import { SbbRadioButtonPanelModule } from '@sbb-esta/lyne-angular/radio-button-panel';
+import {
+  type SbbRadioButtonPanel,
+  SbbRadioButtonPanelModule,
+} from '@sbb-esta/lyne-angular/radio-button-panel';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title Basic radio-button-panel
+ * @order 1
  */
 @Component({
   selector: 'sbb-radio-button-panel-showcase-example',
@@ -29,7 +32,7 @@ export class RadioButtonPanelShowcaseExample {
   protected controls = form(
     signal({
       size: null,
-      color: 'white' as SbbCheckboxPanel['color'],
+      color: 'white' as SbbRadioButtonPanel['color'],
       checked: true,
       disabled: false,
       borderless: false,
