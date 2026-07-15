@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { form, FormField } from '@angular/forms/signals';
+import { disabled, form, FormField } from '@angular/forms/signals';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import type { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
@@ -28,7 +28,14 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   ],
 })
 export class SelectShowcaseExample {
-  protected form = form(signal<{ select: string | string[] | null }>({ select: null }));
+  protected form = form(
+    signal<{ select: string | string[] | null }>({ select: null }),
+    (schemaPath) => {
+      disabled(schemaPath.select, {
+        when: () => this.controls.disabled().value(),
+      });
+    },
+  );
 
   protected controls = form(
     signal({
