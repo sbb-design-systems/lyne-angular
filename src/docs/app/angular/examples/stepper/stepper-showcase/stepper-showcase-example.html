@@ -1,0 +1,70 @@
+<sbb-stepper
+  aria-label="Purpose of this flow"
+  [linear]="controls.linear().value()"
+  [size]="controls.size().value()"
+  [orientation]="controls.orientation().value()"
+  [horizontalFrom]="controls.horizontalFrom().value()"
+>
+  <sbb-step-label>Step label 1</sbb-step-label>
+  <sbb-step>
+    <p>Step content 1</p>
+    <sbb-button sbb-stepper-next>Next</sbb-button>
+  </sbb-step>
+
+  <sbb-step-label [iconName]="controls.stepLabelHasIcon().value() ? 'pie-small' : ''"
+    >Step label 2</sbb-step-label
+  >
+  <sbb-step>
+    <p>Step content 2</p>
+    <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
+    <sbb-button sbb-stepper-next>Next</sbb-button>
+  </sbb-step>
+
+  <sbb-step-label [disabled]="controls.stepLabelDisabled().value()">Step label 3</sbb-step-label>
+  <sbb-step>
+    <p>Step content 3</p>
+    <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
+    <sbb-button sbb-stepper-next>Next</sbb-button>
+  </sbb-step>
+
+  <sbb-step-label>Step label 4</sbb-step-label>
+  <sbb-step>
+    <p>Step content 4</p>
+    <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
+  </sbb-step>
+</sbb-stepper>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="stepLabelDisabled">Disable step</label>
+  <sbb-checkbox id="stepLabelDisabled" [formField]="controls.stepLabelDisabled"></sbb-checkbox>
+
+  <label for="stepLabelHasIcon">Icon step</label>
+  <sbb-checkbox id="stepLabelHasIcon" [formField]="controls.stepLabelHasIcon"></sbb-checkbox>
+
+  <label for="linear">Linear</label>
+  <sbb-checkbox id="linear" [formField]="controls.linear"></sbb-checkbox>
+
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Orientation</label>
+  <sbb-radio-button-group aria-label="Orientation" [formField]="controls.orientation">
+    <sbb-radio-button value="horizontal">Horizontal</sbb-radio-button>
+    <sbb-radio-button value="vertical">Vertical</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Horizontal From</label>
+  <sbb-form-field size="s" type="select">
+    <sbb-select [formField]="controls.horizontalFrom">
+      <sbb-option [value]="null">unset</sbb-option>
+      <sbb-option value="zero">zero</sbb-option>
+      <sbb-option value="small">small</sbb-option>
+      <sbb-option value="large">large</sbb-option>
+      <sbb-option value="ultra">ultra</sbb-option>
+    </sbb-select>
+  </sbb-form-field>
+</div>
