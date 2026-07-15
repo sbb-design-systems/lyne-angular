@@ -1,1 +1,1 @@
-export { PopoverBasicExample } from './popover-basic/popover-basic-example';
+export { PopoverShowcaseExample } from './popover-showcase/popover-showcase-example';
