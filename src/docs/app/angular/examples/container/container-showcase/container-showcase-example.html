@@ -16,9 +16,9 @@
 <div class="controls-wrapper">
   <sbb-title level="5">Properties</sbb-title>
   <div class="sbb-controls-table">
-    <label>Color</label>
+    <label for="color">Color</label>
     <sbb-form-field size="s" type="select">
-      <sbb-select [formField]="controls.color">
+      <sbb-select [formField]="controls.color" id="color">
         <sbb-option value="white">white</sbb-option>
         <sbb-option value="transparent">transparent</sbb-option>
         <sbb-option value="milk">milk</sbb-option>
@@ -26,12 +26,13 @@
         <sbb-option value="charcoal">charcoal</sbb-option>
       </sbb-select>
     </sbb-form-field>
-    <label>Expanded</label>
-    <sbb-checkbox [formField]="controls.expanded"></sbb-checkbox>
-    <label>Background Expanded</label>
+    <label for="expanded">Expanded</label>
+    <sbb-checkbox [formField]="controls.expanded" id="expanded"></sbb-checkbox>
+    <label for="background-expanded">Background Expanded</label>
     <sbb-checkbox
       iconName="circle-exclamation-point-small"
       iconPlacement="start"
+      id="background-expanded"
       [formField]="controls.backgroundExpanded"
       >Only visible on large screens or fullscreen</sbb-checkbox
     >
