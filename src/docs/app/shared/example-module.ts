@@ -108,7 +108,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   option: ['option-showcase'],
   overlay: ['overlay-showcase', 'overlay-service', 'overlay-nested'],
   paginator: ['paginator-showcase', 'paginator-compact'],
-  popover: ['popover-basic'],
+  popover: [{ id: 'popover-showcase', hasStyle: true }],
   'radio-button': ['radio-button-basic'],
   'radio-button-group': ['radio-button-group-basic'],
   'radio-button-panel': ['radio-button-panel-basic'],
@@ -335,7 +335,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/paginator');
     case 'paginator-table':
       return import('../angular/examples/table');
-    case 'popover-basic':
+    case 'popover-showcase':
       return import('../angular/examples/popover');
     case 'radio-button-basic':
       return import('../angular/examples/radio-button');
