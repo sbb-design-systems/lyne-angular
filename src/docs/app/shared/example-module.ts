@@ -119,7 +119,11 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   ],
   select: ['select-basic'],
   'selection-action-panel': ['selection-action-panel-basic'],
-  'selection-expansion-panel': ['selection-expansion-panel-basic'],
+  'selection-expansion-panel': [
+    { id: 'selection-expansion-panel-showcase', hasStyle: true },
+    { id: 'selection-expansion-panel-group', hasStyle: true },
+    { id: 'selection-expansion-panel-ticket-options', hasStyle: true },
+  ],
   sidebar: [{ id: 'sidebar-basic', hasStyle: true }],
   signet: [{ id: 'signet-showcase', hasStyle: true }],
   'skiplink-list': ['skiplink-list-basic'],
@@ -353,7 +357,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/table');
     case 'selection-action-panel-basic':
       return import('../angular/examples/selection-action-panel');
-    case 'selection-expansion-panel-basic':
+    case 'selection-expansion-panel-group':
+    case 'selection-expansion-panel-showcase':
+    case 'selection-expansion-panel-ticket-options':
       return import('../angular/examples/selection-expansion-panel');
     case 'sidebar-basic':
       return import('../angular/examples/sidebar');

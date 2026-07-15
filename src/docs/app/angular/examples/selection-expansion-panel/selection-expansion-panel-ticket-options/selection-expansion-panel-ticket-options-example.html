@@ -1,0 +1,46 @@
+<sbb-checkbox-group orientation="vertical" horizontalFrom="ultra">
+  <sbb-selection-expansion-panel>
+    <sbb-checkbox-panel checked>
+      <sbb-card-badge>%</sbb-card-badge>
+      Saving
+      <span slot="subtext">Subtext</span>
+      <span slot="suffix" class="ticket-price">
+        <sbb-icon name="diamond-small"></sbb-icon>
+        <span class="sbb-text-xs sbb-text--bold">CHF</span>
+        <span class="sbb-text-m sbb-text--bold">40.00</span>
+      </span>
+    </sbb-checkbox-panel>
+
+    <div slot="content">
+      <sbb-radio-button-group orientation="vertical" value="non-flex">
+        <sbb-radio-button value="non-flex" class="ticket-flexibility">
+          Non-Flex
+          <span class="ticket-flexibility-price">
+            <span class="sbb-text-m">CHF 0.00</span>
+          </span>
+        </sbb-radio-button>
+        <sbb-radio-button value="semi-flex" class="ticket-flexibility">
+          Semi-Flex
+          <span class="ticket-flexibility-price">
+            <span class="sbb-text-m">+ CHF 5.00</span>
+          </span>
+        </sbb-radio-button>
+      </sbb-radio-button-group>
+      <sbb-divider></sbb-divider>
+      <span class="description-wrapper">
+        <div class="description">
+          1 x 0 x Supersaver ticket, Half-Fare Card
+          <sbb-mini-button
+            id="popover-trigger-1"
+            icon-name="circle-information-small"
+          ></sbb-mini-button>
+        </div>
+        <div>Valid: Thu., 03.11.2022 until Fri., 04.11.2022 05:00</div>
+      </span>
+      <sbb-popover trigger="popover-trigger-1" hover-trigger>
+        <sbb-title level="2" visual-level="6"> Popover title. </sbb-title>
+        <span class="sbb-text-s">Simple popover</span>
+      </sbb-popover>
+    </div>
+  </sbb-selection-expansion-panel>
+</sbb-checkbox-group>
