@@ -1,1 +1,1 @@
-export { SliderBasicExample } from './slider-basic/slider-basic-example';
+export { SliderShowcaseExample } from './slider-showcase/slider-showcase-example';
