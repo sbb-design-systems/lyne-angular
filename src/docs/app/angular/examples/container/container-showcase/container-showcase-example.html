@@ -1,0 +1,40 @@
+<sbb-container
+  [color]="controls.color().value()"
+  [expanded]="controls.expanded().value()"
+  [backgroundExpanded]="controls.backgroundExpanded().value()"
+>
+  <sbb-title level="4">Example title</sbb-title>
+  <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
+  <p class="sbb-text-s">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+    voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  </p>
+  <sbb-secondary-button size="l"> See more </sbb-secondary-button>
+</sbb-container>
+<div class="controls-wrapper">
+  <sbb-title level="5">Properties</sbb-title>
+  <div class="sbb-controls-table">
+    <label for="color">Color</label>
+    <sbb-form-field size="s" type="select">
+      <sbb-select [formField]="controls.color" id="color">
+        <sbb-option value="white">white</sbb-option>
+        <sbb-option value="transparent">transparent</sbb-option>
+        <sbb-option value="milk">milk</sbb-option>
+        <sbb-option value="midnight">midnight</sbb-option>
+        <sbb-option value="charcoal">charcoal</sbb-option>
+      </sbb-select>
+    </sbb-form-field>
+    <label for="expanded">Expanded</label>
+    <sbb-checkbox [formField]="controls.expanded" id="expanded"></sbb-checkbox>
+    <label for="background-expanded">Background Expanded</label>
+    <sbb-checkbox
+      iconName="circle-exclamation-point-small"
+      iconPlacement="start"
+      id="background-expanded"
+      [formField]="controls.backgroundExpanded"
+      >Only visible on large screens or fullscreen</sbb-checkbox
+    >
+  </div>
+</div>
