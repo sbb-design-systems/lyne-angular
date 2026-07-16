@@ -58,7 +58,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   chip: ['chip-showcase', 'chip-basic', 'chip-autocomplete', 'chip-complex-value'],
   'chip-label': ['chip-label-showcase'],
   clock: ['clock-basic', 'clock-paused'],
-  container: ['container-basic'],
+  container: [
+    { id: 'container-showcase', hasStyle: true },
+    { id: 'container-background-image', hasStyle: true },
+    { id: 'container-sticky-bar', hasStyle: true },
+    { id: 'container-sticky-bar-control-sticky-state', hasStyle: true },
+  ],
   'date-input': [
     'date-input-showcase',
     'date-input-signal',
@@ -104,11 +109,11 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   message: [{ id: 'message-basic', hasStyle: true }],
   'mini-calendar': ['mini-calendar-basic'],
   navigation: ['navigation-basic', 'navigation-section'],
-  notification: ['notification-basic'],
+  notification: ['notification-showcase'],
   option: ['option-showcase'],
   overlay: ['overlay-showcase', 'overlay-service', 'overlay-nested'],
   paginator: ['paginator-showcase', 'paginator-compact'],
-  popover: ['popover-basic'],
+  popover: [{ id: 'popover-showcase', hasStyle: true }],
   'radio-button': ['radio-button-showcase'],
   'radio-button-group': [
     'radio-button-group-showcase',
@@ -127,10 +132,14 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'seat-reservation-bus',
   ],
   select: ['select-basic'],
-  'selection-action-panel': ['selection-action-panel-basic'],
+  'selection-action-panel': [
+    'selection-action-panel-basic',
+    'selection-action-panel-with-expansion',
+    'selection-action-panel-group',
+  ],
   'selection-expansion-panel': ['selection-expansion-panel-basic'],
   sidebar: [{ id: 'sidebar-basic', hasStyle: true }],
-  signet: ['signet-basic'],
+  signet: [{ id: 'signet-showcase', hasStyle: true }],
   'skiplink-list': ['skiplink-list-basic'],
   slider: ['slider-basic'],
   status: ['status-basic'],
@@ -234,7 +243,13 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'clock-basic':
     case 'clock-paused':
       return import('../angular/examples/clock');
-    case 'container-basic':
+    case 'container-background-image':
+      return import('../angular/examples/container');
+    case 'container-showcase':
+      return import('../angular/examples/container');
+    case 'container-sticky-bar':
+      return import('../angular/examples/container');
+    case 'container-sticky-bar-control-sticky-state':
       return import('../angular/examples/container');
     case 'date-input-reactive':
     case 'date-input-showcase':
@@ -331,7 +346,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'navigation-basic':
     case 'navigation-section':
       return import('../angular/examples/navigation');
-    case 'notification-basic':
+    case 'notification-showcase':
       return import('../angular/examples/notification');
     case 'option-showcase':
       return import('../angular/examples/option');
@@ -344,7 +359,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/paginator');
     case 'paginator-table':
       return import('../angular/examples/table');
-    case 'popover-basic':
+    case 'popover-showcase':
       return import('../angular/examples/popover');
     case 'radio-button-group-reactive':
     case 'radio-button-group-showcase':
@@ -366,12 +381,14 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'selectable-table':
       return import('../angular/examples/table');
     case 'selection-action-panel-basic':
+    case 'selection-action-panel-group':
+    case 'selection-action-panel-with-expansion':
       return import('../angular/examples/selection-action-panel');
     case 'selection-expansion-panel-basic':
       return import('../angular/examples/selection-expansion-panel');
     case 'sidebar-basic':
       return import('../angular/examples/sidebar');
-    case 'signet-basic':
+    case 'signet-showcase':
       return import('../angular/examples/signet');
     case 'simple-table':
       return import('../angular/examples/table');
