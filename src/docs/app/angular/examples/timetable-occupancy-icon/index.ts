@@ -1,1 +1,1 @@
-export { TimetableOccupancyIconBasicExample } from './timetable-occupancy-icon-basic/timetable-occupancy-icon-basic-example';
+export { TimetableOccupancyIconShowcaseExample } from './timetable-occupancy-icon-showcase/timetable-occupancy-icon-showcase-example';
