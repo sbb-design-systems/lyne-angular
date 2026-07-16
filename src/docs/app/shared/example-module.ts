@@ -147,7 +147,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     { id: 'native-table', hasStyle: true },
     { id: 'expandable-table', hasStyle: true },
   ],
-  tabs: ['tabs-showcase', { id: 'tabs-fixed-height', hasStyle: true }, 'tabs-tab-nav-bar'],
+  tabs: [
+    'tabs-showcase',
+    { id: 'tabs-fixed-height', hasStyle: true },
+    'tabs-tab-nav-bar',
+    'tabs-lazy-content',
+  ],
   tag: ['tag-basic'],
   teaser: ['teaser-basic'],
   'teaser-hero': ['teaser-hero-basic'],
@@ -391,6 +396,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'sticky-table':
       return import('../angular/examples/table');
     case 'tabs-fixed-height':
+    case 'tabs-lazy-content':
+      return import('../angular/examples/tabs');
     case 'tabs-showcase':
     case 'tabs-tab-nav-bar':
       return import('../angular/examples/tabs');
