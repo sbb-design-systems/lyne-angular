@@ -14,9 +14,15 @@
       @for (section of filteredSections(); track section.name) {
         <sbb-title visualLevel="4">{{ section.name }}</sbb-title>
         @for (entry of section.entries; track entry.label) {
-          <sbb-block-link role="option" [routerLink]="entry.link" routerLinkActive="sbb-active">{{
-            entry.label
-          }}</sbb-block-link>
+          <sbb-block-link
+            role="option"
+            [routerLink]="entry.link"
+            routerLinkActive="sbb-active"
+            #rla="routerLinkActive"
+            [accessibilityCurrent]="rla.isActive ? 'page' : ''"
+          >
+            {{ entry.label }}
+          </sbb-block-link>
         }
       }
     </ul>
