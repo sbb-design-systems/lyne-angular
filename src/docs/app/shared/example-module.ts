@@ -114,9 +114,19 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   overlay: ['overlay-showcase', 'overlay-service', 'overlay-nested'],
   paginator: ['paginator-showcase', 'paginator-compact'],
   popover: [{ id: 'popover-showcase', hasStyle: true }],
-  'radio-button': ['radio-button-basic'],
-  'radio-button-group': ['radio-button-group-basic'],
-  'radio-button-panel': ['radio-button-panel-basic'],
+  'radio-button': ['radio-button-showcase'],
+  'radio-button-group': [
+    'radio-button-group-showcase',
+    'radio-button-group-signal',
+    'radio-button-group-reactive',
+    'radio-button-group-template-driven',
+  ],
+  'radio-button-panel': [
+    { id: 'radio-button-panel-showcase', hasStyle: true },
+    { id: 'radio-button-panel-signal', hasStyle: true },
+    { id: 'radio-button-panel-reactive', hasStyle: true },
+    { id: 'radio-button-panel-template-driven', hasStyle: true },
+  ],
   'seat-reservation': [
     'seat-reservation-basic',
     'seat-reservation-multiple-decks',
@@ -352,12 +362,18 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/table');
     case 'popover-showcase':
       return import('../angular/examples/popover');
-    case 'radio-button-basic':
-      return import('../angular/examples/radio-button');
-    case 'radio-button-group-basic':
+    case 'radio-button-group-reactive':
+    case 'radio-button-group-showcase':
+    case 'radio-button-group-signal':
+    case 'radio-button-group-template-driven':
       return import('../angular/examples/radio-button-group');
-    case 'radio-button-panel-basic':
+    case 'radio-button-panel-reactive':
+    case 'radio-button-panel-showcase':
+    case 'radio-button-panel-signal':
+    case 'radio-button-panel-template-driven':
       return import('../angular/examples/radio-button-panel');
+    case 'radio-button-showcase':
+      return import('../angular/examples/radio-button');
     case 'seat-reservation-basic':
     case 'seat-reservation-bus':
     case 'seat-reservation-multiple-decks':
