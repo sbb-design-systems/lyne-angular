@@ -1,1 +1,1 @@
-export { SignetBasicExample } from './signet-basic/signet-basic-example';
+export { SignetShowcaseExample } from './signet-showcase/signet-showcase-example';

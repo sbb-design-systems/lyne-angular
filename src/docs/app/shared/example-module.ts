@@ -104,11 +104,11 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   message: [{ id: 'message-basic', hasStyle: true }],
   'mini-calendar': ['mini-calendar-basic'],
   navigation: ['navigation-basic', 'navigation-section'],
-  notification: ['notification-basic'],
+  notification: ['notification-showcase'],
   option: ['option-showcase'],
   overlay: ['overlay-showcase', 'overlay-service', 'overlay-nested'],
   paginator: ['paginator-showcase', 'paginator-compact'],
-  popover: ['popover-basic'],
+  popover: [{ id: 'popover-showcase', hasStyle: true }],
   'radio-button': ['radio-button-basic'],
   'radio-button-group': ['radio-button-group-basic'],
   'radio-button-panel': ['radio-button-panel-basic'],
@@ -121,7 +121,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'selection-action-panel': ['selection-action-panel-basic'],
   'selection-expansion-panel': ['selection-expansion-panel-basic'],
   sidebar: [{ id: 'sidebar-showcase', hasStyle: true }, 'sidebar-nested'],
-  signet: ['signet-basic'],
+  signet: [{ id: 'signet-showcase', hasStyle: true }],
   'skiplink-list': ['skiplink-list-basic'],
   slider: ['slider-basic'],
   status: ['status-basic'],
@@ -322,7 +322,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'navigation-basic':
     case 'navigation-section':
       return import('../angular/examples/navigation');
-    case 'notification-basic':
+    case 'notification-showcase':
       return import('../angular/examples/notification');
     case 'option-showcase':
       return import('../angular/examples/option');
@@ -335,7 +335,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/paginator');
     case 'paginator-table':
       return import('../angular/examples/table');
-    case 'popover-basic':
+    case 'popover-showcase':
       return import('../angular/examples/popover');
     case 'radio-button-basic':
       return import('../angular/examples/radio-button');
@@ -358,7 +358,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'sidebar-nested':
     case 'sidebar-showcase':
       return import('../angular/examples/sidebar');
-    case 'signet-basic':
+    case 'signet-showcase':
       return import('../angular/examples/signet');
     case 'simple-table':
       return import('../angular/examples/table');
