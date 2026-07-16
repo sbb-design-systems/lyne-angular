@@ -157,7 +157,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     { id: 'native-table', hasStyle: true },
     { id: 'expandable-table', hasStyle: true },
   ],
-  tabs: ['tabs-basic'],
+  tabs: [
+    'tabs-showcase',
+    { id: 'tabs-fixed-height', hasStyle: true },
+    'tabs-tab-nav-bar',
+    'tabs-lazy-content',
+  ],
   tag: ['tag-basic'],
   teaser: ['teaser-basic'],
   'teaser-hero': ['teaser-hero-basic'],
@@ -407,7 +412,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/stepper');
     case 'sticky-table':
       return import('../angular/examples/table');
-    case 'tabs-basic':
+    case 'tabs-fixed-height':
+    case 'tabs-lazy-content':
+    case 'tabs-showcase':
+    case 'tabs-tab-nav-bar':
       return import('../angular/examples/tabs');
     case 'tag-basic':
       return import('../angular/examples/tag');
