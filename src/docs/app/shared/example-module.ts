@@ -397,7 +397,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/table');
     case 'tabs-fixed-height':
     case 'tabs-lazy-content':
-      return import('../angular/examples/tabs');
     case 'tabs-showcase':
     case 'tabs-tab-nav-bar':
       return import('../angular/examples/tabs');
