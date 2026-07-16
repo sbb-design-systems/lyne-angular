@@ -25,8 +25,8 @@
       iconName="glass-cocktail-small"
       routerLink="go-to-the-party"
       routerLinkActive="sbb-active"
-      #rla="routerLinkActive"
-      [accessibilityCurrent]="rla.isActive ? 'page' : ''"
+      #rlaParty="routerLinkActive"
+      [accessibilityCurrent]="rlaParty.isActive ? 'page' : ''"
     ></sbb-icon-sidebar-link>
     <sbb-icon-sidebar-link
       sbb-tooltip="Be a unicorn"
@@ -34,8 +34,8 @@
       iconName="unicorn-small"
       routerLink="./"
       routerLinkActive="sbb-active"
-      #rla="routerLinkActive"
-      [accessibilityCurrent]="rla.isActive ? 'page' : ''"
+      #rlaUnicorn="routerLinkActive"
+      [accessibilityCurrent]="rlaUnicorn.isActive ? 'page' : ''"
     ></sbb-icon-sidebar-link>
   </sbb-icon-sidebar>
 </ng-template>

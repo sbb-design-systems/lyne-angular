@@ -15,8 +15,8 @@
       iconName="glass-cocktail-small"
       routerLink="go-to-the-party"
       routerLinkActive="sbb-active"
-      #rla="routerLinkActive"
-      [accessibilityCurrent]="rla.isActive ? 'page' : ''"
+      #rlaParty="routerLinkActive"
+      [accessibilityCurrent]="rlaParty.isActive ? 'page' : ''"
     >
       ></sbb-icon-sidebar-link
     >
@@ -26,8 +26,8 @@
       iconName="unicorn-small"
       routerLink="./"
       routerLinkActive="sbb-active"
-      #rla="routerLinkActive"
-      [accessibilityCurrent]="rla.isActive ? 'page' : ''"
+      #rlaUnicorn="routerLinkActive"
+      [accessibilityCurrent]="rlaUnicorn.isActive ? 'page' : ''"
     ></sbb-icon-sidebar-link>
     <sbb-divider></sbb-divider>
   </sbb-icon-sidebar>
@@ -40,24 +40,24 @@
           <sbb-block-link
             routerLink="ten-steps-becoming-a-unicorn"
             routerLinkActive="sbb-active"
-            #rla="routerLinkActive"
-            [accessibilityCurrent]="rla.isActive ? 'page' : ''"
+            #rlaBecomingUnicorn="routerLinkActive"
+            [accessibilityCurrent]="rlaBecomingUnicorn.isActive ? 'page' : ''"
           >
             10 Steps to Becoming a Unicorn
           </sbb-block-link>
           <sbb-block-link
             routerLink="./"
             routerLinkActive="sbb-active"
-            #rla="routerLinkActive"
-            [accessibilityCurrent]="rla.isActive ? 'page' : ''"
+            #rlaUnicornStories="routerLinkActive"
+            [accessibilityCurrent]="rlaUnicornStories.isActive ? 'page' : ''"
           >
             Unicorn Success Stories
           </sbb-block-link>
           <sbb-block-link
             routerLink="unicorns-guide-to-creativity"
             routerLinkActive="sbb-active"
-            #rla="routerLinkActive"
-            [accessibilityCurrent]="rla.isActive ? 'page' : ''"
+            #rlaCreativity="routerLinkActive"
+            [accessibilityCurrent]="rlaCreativity.isActive ? 'page' : ''"
           >
             The Unicorn's Guide to Creativity
           </sbb-block-link>
@@ -93,24 +93,24 @@
           <sbb-block-link
             routerLink="ten-steps-becoming-a-unicorn"
             routerLinkActive="sbb-active"
-            #rla="routerLinkActive"
-            [accessibilityCurrent]="rla.isActive ? 'page' : ''"
+            #rlaBecomingUnicorn2="routerLinkActive"
+            [accessibilityCurrent]="rlaBecomingUnicorn2.isActive ? 'page' : ''"
           >
             10 Steps to Becoming a Unicorn
           </sbb-block-link>
           <sbb-block-link
             routerLink="./"
             routerLinkActive="sbb-active"
-            #rla="routerLinkActive"
-            [accessibilityCurrent]="rla.isActive ? 'page' : ''"
+            #rlaUnicornStories2="routerLinkActive"
+            [accessibilityCurrent]="rlaUnicornStories2.isActive ? 'page' : ''"
           >
             Unicorn Success Stories
           </sbb-block-link>
           <sbb-block-link
             routerLink="unicorns-guide-to-creativity"
             routerLinkActive="sbb-active"
-            #rla="routerLinkActive"
-            [accessibilityCurrent]="rla.isActive ? 'page' : ''"
+            #rlaCreativity2="routerLinkActive"
+            [accessibilityCurrent]="rlaCreativity2.isActive ? 'page' : ''"
           >
             The Unicorn's Guide to Creativity
           </sbb-block-link>

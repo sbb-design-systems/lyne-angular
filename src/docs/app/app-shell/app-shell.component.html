@@ -108,8 +108,8 @@
       [routerLink]="''"
       routerLinkActive="sbb-active"
       [routerLinkActiveOptions]="{ exact: true }"
-      #rla="routerLinkActive"
-      [accessibilityCurrent]="rla.isActive ? 'page' : ''"
+      #rlaHome="routerLinkActive"
+      [accessibilityCurrent]="rlaHome.isActive ? 'page' : ''"
     ></sbb-icon-sidebar-link>
     @for (packageEntry of packages | keyvalue; track $index) {
       <sbb-icon-sidebar-link
