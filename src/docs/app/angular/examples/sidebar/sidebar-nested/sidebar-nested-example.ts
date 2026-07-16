@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbDividerModule } from '@sbb-esta/lyne-angular/divider';
@@ -18,6 +19,7 @@ import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
   selector: 'sbb-sidebar-nested-example',
   templateUrl: 'sidebar-nested-example.html',
   imports: [
+    RouterModule,
     SbbCardModule,
     SbbButtonModule,
     SbbIconSidebarModule,

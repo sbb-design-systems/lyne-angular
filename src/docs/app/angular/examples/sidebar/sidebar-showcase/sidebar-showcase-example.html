@@ -10,8 +10,20 @@
       <sbb-sidebar-title>Sidebar Title</sbb-sidebar-title>
       <sbb-sidebar-close-button></sbb-sidebar-close-button>
       <sbb-link-list>
-        <sbb-block-link href="#">Link 1</sbb-block-link>
-        <sbb-block-link href="#" class="sbb-active" accessibilityCurrent="page">
+        <sbb-block-link
+          routerLink="link-1"
+          routerLinkActive="sbb-active"
+          #rla="routerLinkActive"
+          [accessibilityCurrent]="rla.isActive ? 'page' : ''"
+        >
+          Link 1
+        </sbb-block-link>
+        <sbb-block-link
+          routerLink="./"
+          routerLinkActive="sbb-active"
+          #rla="routerLinkActive"
+          [accessibilityCurrent]="rla.isActive ? 'page' : ''"
+        >
           Link 2
         </sbb-block-link>
       </sbb-link-list>

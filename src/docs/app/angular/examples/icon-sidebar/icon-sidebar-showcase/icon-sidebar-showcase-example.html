@@ -23,15 +23,19 @@
       sbb-tooltip="Go to the party"
       accessibilityLabel="Go to the party"
       iconName="glass-cocktail-small"
-      href="./"
+      routerLink="go-to-the-party"
+      routerLinkActive="sbb-active"
+      #rla="routerLinkActive"
+      [accessibilityCurrent]="rla.isActive ? 'page' : ''"
     ></sbb-icon-sidebar-link>
     <sbb-icon-sidebar-link
       sbb-tooltip="Be a unicorn"
       accessibilityLabel="Be a unicorn"
       iconName="unicorn-small"
-      href="./"
-      class="sbb-active"
-      accessibilityCurrent="page"
+      routerLink="./"
+      routerLinkActive="sbb-active"
+      #rla="routerLinkActive"
+      [accessibilityCurrent]="rla.isActive ? 'page' : ''"
     ></sbb-icon-sidebar-link>
   </sbb-icon-sidebar>
 </ng-template>

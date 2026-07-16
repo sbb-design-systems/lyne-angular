@@ -6,6 +6,7 @@ import { SbbAccordionModule } from '@sbb-esta/lyne-angular/accordion';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbHeaderScrollOrigin } from '@sbb-esta/lyne-angular/header';
 import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
+import { SbbIconSidebarLink } from '@sbb-esta/lyne-angular/icon-sidebar';
 import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
 import { SbbSidebar, SbbSidebarModule } from '@sbb-esta/lyne-angular/sidebar';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
@@ -31,6 +32,7 @@ import { SidebarToggle } from './sidebar-toggle';
     SbbIconModule,
     SbbSidebarModule,
     SbbTitleModule,
+    SbbIconSidebarLink,
   ],
 })
 export class PackageViewerComponent {

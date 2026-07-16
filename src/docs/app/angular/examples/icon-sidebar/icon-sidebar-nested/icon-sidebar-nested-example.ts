@@ -1,5 +1,6 @@
 import { Component, signal, viewChild } from '@angular/core';
 import { outputToObservable, toObservable } from '@angular/core/rxjs-interop';
+import { RouterModule } from '@angular/router';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbDividerModule } from '@sbb-esta/lyne-angular/divider';
@@ -21,6 +22,7 @@ import { switchMap } from 'rxjs/operators';
   selector: 'sbb-icon-sidebar-nested-example',
   templateUrl: 'icon-sidebar-nested-example.html',
   imports: [
+    RouterModule,
     SbbCardModule,
     SbbButtonModule,
     SbbIconSidebarModule,

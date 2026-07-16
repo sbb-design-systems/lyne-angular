@@ -1,6 +1,7 @@
 import { Component, signal, viewChild } from '@angular/core';
 import { outputToObservable, toObservable } from '@angular/core/rxjs-interop';
 import { form, FormField } from '@angular/forms/signals';
+import { RouterModule } from '@angular/router';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
 import { SbbLinkListModule } from '@sbb-esta/lyne-angular/link-list';
@@ -20,6 +21,7 @@ import { switchMap } from 'rxjs/operators';
   styleUrl: 'sidebar-showcase-example.scss',
   imports: [
     FormField,
+    RouterModule,
     SbbCheckboxModule,
     SbbLinkListModule,
     SbbLinkModule,
