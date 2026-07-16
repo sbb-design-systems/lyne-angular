@@ -6,7 +6,7 @@ import { SbbRadioButtonPanelModule } from '@sbb-esta/lyne-angular/radio-button-p
 
 /**
  * @title sbb-radio-button-panel in a template-driven form
- * @order 3
+ * @order 4
  */
 @Component({
   selector: 'sbb-radio-button-panel-template-driven-example',

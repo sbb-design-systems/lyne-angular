@@ -123,6 +123,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   ],
   'radio-button-panel': [
     { id: 'radio-button-panel-showcase', hasStyle: true },
+    { id: 'radio-button-panel-signal', hasStyle: true },
     { id: 'radio-button-panel-reactive', hasStyle: true },
     { id: 'radio-button-panel-template-driven', hasStyle: true },
   ],
@@ -368,6 +369,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/radio-button-group');
     case 'radio-button-panel-reactive':
     case 'radio-button-panel-showcase':
+    case 'radio-button-panel-signal':
     case 'radio-button-panel-template-driven':
       return import('../angular/examples/radio-button-panel');
     case 'radio-button-showcase':
