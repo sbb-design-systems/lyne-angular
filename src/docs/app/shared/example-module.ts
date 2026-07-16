@@ -133,7 +133,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   signet: [{ id: 'signet-showcase', hasStyle: true }],
   'skiplink-list': ['skiplink-list-basic'],
   slider: ['slider-basic'],
-  status: ['status-basic'],
+  status: ['status-showcase'],
   stepper: ['stepper-basic'],
   table: [
     'simple-table',
@@ -384,7 +384,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/slider');
     case 'sortable-table':
       return import('../angular/examples/table');
-    case 'status-basic':
+    case 'status-showcase':
       return import('../angular/examples/status');
     case 'stepper-basic':
       return import('../angular/examples/stepper');
