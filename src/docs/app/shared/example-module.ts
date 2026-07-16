@@ -58,7 +58,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   chip: ['chip-showcase', 'chip-basic', 'chip-autocomplete', 'chip-complex-value'],
   'chip-label': ['chip-label-showcase'],
   clock: ['clock-basic', 'clock-paused'],
-  container: ['container-basic'],
+  container: [
+    { id: 'container-showcase', hasStyle: true },
+    { id: 'container-background-image', hasStyle: true },
+    { id: 'container-sticky-bar', hasStyle: true },
+    { id: 'container-sticky-bar-control-sticky-state', hasStyle: true },
+  ],
   'date-input': [
     'date-input-showcase',
     'date-input-signal',
@@ -225,7 +230,13 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'clock-basic':
     case 'clock-paused':
       return import('../angular/examples/clock');
-    case 'container-basic':
+    case 'container-background-image':
+      return import('../angular/examples/container');
+    case 'container-showcase':
+      return import('../angular/examples/container');
+    case 'container-sticky-bar':
+      return import('../angular/examples/container');
+    case 'container-sticky-bar-control-sticky-state':
       return import('../angular/examples/container');
     case 'date-input-reactive':
     case 'date-input-showcase':
