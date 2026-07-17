@@ -1,0 +1,30 @@
+<sbb-tag-group
+  [size]="controls.size().value()"
+  [multiple]="controls.multiple().value()"
+  [disabled]="controls.disabled().value()"
+>
+  <sbb-tag value="all">All</sbb-tag>
+  <sbb-tag value="phones" [amount]="controls.amount().value()">Phones</sbb-tag>
+  <sbb-tag value="computer" [amount]="controls.amount().value()">Computer</sbb-tag>
+  <sbb-tag value="laptop" [amount]="controls.amount().value()">Laptop</sbb-tag>
+</sbb-tag-group>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="amount">Amount</label>
+  <sbb-form-field id="amount" size="s">
+    <input type="number" [formField]="controls.amount" />
+  </sbb-form-field>
+
+  <label for="multiple">Multiple</label>
+  <sbb-checkbox id="multiple" [formField]="controls.multiple"></sbb-checkbox>
+
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+</div>

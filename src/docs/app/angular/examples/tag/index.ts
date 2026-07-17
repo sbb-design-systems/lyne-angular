@@ -1,1 +1,1 @@
-export { TagBasicExample } from './tag-basic/tag-basic-example';
+export { TagShowcaseExample } from './tag-showcase/tag-showcase-example';
