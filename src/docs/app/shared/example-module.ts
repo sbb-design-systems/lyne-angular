@@ -120,6 +120,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   select: [
     'select-showcase',
     'select-optgroup',
+    'select-complex-value',
     'select-signal',
     'select-reactive',
     'select-template-driven',
@@ -350,6 +351,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'seat-reservation-bus':
     case 'seat-reservation-multiple-decks':
       return import('../angular-experimental/examples/seat-reservation');
+    case 'select-complex-value':
     case 'select-optgroup':
     case 'select-reactive':
     case 'select-showcase':

@@ -1,0 +1,12 @@
+<sbb-form-field>
+  <label>Select</label>
+  <sbb-select [formField]="form.select">
+    @for (opt of options(); track opt.id) {
+      <sbb-option [value]="opt">{{ opt.name }}</sbb-option>
+    }
+  </sbb-select>
+</sbb-form-field>
+
+<p>
+  <sbb-card color="milk"> <b>Value: </b> {{ form.select().value() | json }} </sbb-card>
+</p>
