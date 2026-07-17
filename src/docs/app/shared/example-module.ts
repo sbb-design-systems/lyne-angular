@@ -132,7 +132,14 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'seat-reservation-multiple-decks',
     'seat-reservation-bus',
   ],
-  select: ['select-basic'],
+  select: [
+    'select-showcase',
+    'select-optgroup',
+    'select-complex-value',
+    'select-signal',
+    'select-reactive',
+    'select-template-driven',
+  ],
   'selection-action-panel': [
     'selection-action-panel-basic',
     'selection-action-panel-with-expansion',
@@ -383,7 +390,12 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'seat-reservation-bus':
     case 'seat-reservation-multiple-decks':
       return import('../angular-experimental/examples/seat-reservation');
-    case 'select-basic':
+    case 'select-complex-value':
+    case 'select-optgroup':
+    case 'select-reactive':
+    case 'select-showcase':
+    case 'select-signal':
+    case 'select-template-driven':
       return import('../angular/examples/select');
     case 'selectable-table':
       return import('../angular/examples/table');
