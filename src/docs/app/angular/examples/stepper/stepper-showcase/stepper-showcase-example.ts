@@ -10,6 +10,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title Basic stepper
+ * @order 1
  */
 @Component({
   selector: 'sbb-stepper-basic-example',
