@@ -1,0 +1,12 @@
+<sbb-tag-group>
+  @for (device of ['all', 'phones', 'computer', 'laptop']; track device) {
+    <sbb-tag [value]="device" [checked]="false"> {{ device | titlecase }} </sbb-tag>
+  }
+</sbb-tag-group>
+
+<p>
+  <sbb-card color="milk">
+    This sbb-tag-group behaves like a radio or a tab; when a tag is checked, the other become
+    unchecked.
+  </sbb-card>
+</p>

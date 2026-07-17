@@ -1,0 +1,15 @@
+<sbb-tag-group multiple>
+  <sbb-tag value="all" (change)="updateTags()">All</sbb-tag>
+  @for (device of ['phones', 'computer', 'laptop']; track device) {
+    <sbb-tag [value]="device" (change)="updateTagAll()">{{ device | titlecase }}</sbb-tag>
+  }
+</sbb-tag-group>
+
+<p>
+  <sbb-card color="milk">
+    <p>
+      This sbb-tag-group permits to select the 'All' option, or to select multiple values removing
+      the 'All' selection.
+    </p>
+  </sbb-card>
+</p>
