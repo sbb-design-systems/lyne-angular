@@ -14,5 +14,5 @@ import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
   imports: [FormField, SbbCardModule, SbbFormFieldModule, SbbSelectModule],
 })
 export class SelectSignalExample {
-  protected readonly form = form(signal<string | null>(null));
+  protected readonly form = form(signal({ select: null as string | null }));
 }
