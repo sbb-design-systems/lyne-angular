@@ -10,6 +10,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 @Component({
   selector: 'sbb-message-basic-example',
   templateUrl: 'message-basic-example.html',
+  styleUrl: 'message-basic-example.scss',
   imports: [SbbMessageModule, SbbImageModule, SbbTitleModule, SbbButtonModule],
 })
 export class MessageBasicExample {}

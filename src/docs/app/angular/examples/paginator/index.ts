@@ -1,1 +1,2 @@
-export { PaginatorBasicExample } from './paginator-basic/paginator-basic-example';
+export { PaginatorCompactExample } from './paginator-compact/paginator-compact-example';
+export { PaginatorShowcaseExample } from './paginator-showcase/paginator-showcase-example';

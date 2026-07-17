@@ -1,0 +1,34 @@
+<sbb-mini-button iconName="circle-information-small" [sbbPopover]="popover"></sbb-mini-button>
+
+<sbb-popover
+  #popover="sbbPopover"
+  [hoverTrigger]="controls.hoverTrigger().value()"
+  [openDelay]="controls.openDelay().value()"
+  [closeDelay]="controls.closeDelay().value()"
+>
+  @if (controls.showCloseButton().value()) {
+    <sbb-popover-close-button></sbb-popover-close-button>
+  }
+
+  <sbb-title level="2" visualLevel="6">Popover Title.</sbb-title>
+  <p>Popover content.</p>
+</sbb-popover>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="show-close-button">Show close button</label>
+  <sbb-checkbox id="show-close-button" [formField]="controls.showCloseButton"></sbb-checkbox>
+
+  <label for="hover-trigger">Hover trigger</label>
+  <sbb-checkbox id="hover-trigger" [formField]="controls.hoverTrigger"></sbb-checkbox>
+
+  <label for="open-delay">Open delay (ms)</label>
+  <sbb-form-field size="s">
+    <input id="open-delay" type="number" [formField]="controls.openDelay" />
+  </sbb-form-field>
+
+  <label for="close-delay">Close delay (ms)</label>
+  <sbb-form-field size="s">
+    <input id="close-delay" type="number" [formField]="controls.closeDelay" />
+  </sbb-form-field>
+</div>

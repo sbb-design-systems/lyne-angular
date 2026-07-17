@@ -27,7 +27,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'mini-button-group',
   ],
   calendar: [
-    'calendar-basic',
+    'calendar-showcase',
     'calendar-reactive-form',
     'calendar-with-filter',
     { id: 'calendar-enhanced', hasStyle: true },
@@ -58,7 +58,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   chip: ['chip-showcase', 'chip-basic', 'chip-autocomplete', 'chip-complex-value'],
   'chip-label': ['chip-label-showcase'],
   clock: ['clock-basic', 'clock-paused'],
-  container: ['container-basic'],
+  container: [
+    { id: 'container-showcase', hasStyle: true },
+    { id: 'container-background-image', hasStyle: true },
+    { id: 'container-sticky-bar', hasStyle: true },
+    { id: 'container-sticky-bar-control-sticky-state', hasStyle: true },
+  ],
   'date-input': [
     'date-input-showcase',
     'date-input-signal',
@@ -101,17 +106,27 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   logo: [{ id: 'logo-showcase', hasStyle: true }],
   'map-container': ['map-container-basic'],
   menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
-  message: ['message-basic'],
+  message: [{ id: 'message-basic', hasStyle: true }],
   'mini-calendar': ['mini-calendar-basic'],
   navigation: ['navigation-basic', 'navigation-section'],
-  notification: ['notification-basic'],
-  option: ['option-basic'],
-  overlay: ['overlay-basic'],
-  paginator: ['paginator-basic'],
-  popover: ['popover-basic'],
-  'radio-button': ['radio-button-basic'],
-  'radio-button-group': ['radio-button-group-basic'],
-  'radio-button-panel': ['radio-button-panel-basic'],
+  notification: ['notification-showcase'],
+  option: ['option-showcase'],
+  overlay: ['overlay-showcase', 'overlay-service', 'overlay-nested'],
+  paginator: ['paginator-showcase', 'paginator-compact'],
+  popover: [{ id: 'popover-showcase', hasStyle: true }],
+  'radio-button': ['radio-button-showcase'],
+  'radio-button-group': [
+    'radio-button-group-showcase',
+    'radio-button-group-signal',
+    'radio-button-group-reactive',
+    'radio-button-group-template-driven',
+  ],
+  'radio-button-panel': [
+    { id: 'radio-button-panel-showcase', hasStyle: true },
+    { id: 'radio-button-panel-signal', hasStyle: true },
+    { id: 'radio-button-panel-reactive', hasStyle: true },
+    { id: 'radio-button-panel-template-driven', hasStyle: true },
+  ],
   'seat-reservation': [
     'seat-reservation-basic',
     'seat-reservation-multiple-decks',
@@ -125,13 +140,17 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'select-reactive',
     'select-template-driven',
   ],
-  'selection-action-panel': ['selection-action-panel-basic'],
+  'selection-action-panel': [
+    'selection-action-panel-basic',
+    'selection-action-panel-with-expansion',
+    'selection-action-panel-group',
+  ],
   'selection-expansion-panel': ['selection-expansion-panel-basic'],
-  sidebar: [{ id: 'sidebar-basic', hasStyle: true }],
-  signet: ['signet-basic'],
+  sidebar: [{ id: 'sidebar-showcase', hasStyle: true }, 'sidebar-nested'],
+  signet: [{ id: 'signet-showcase', hasStyle: true }],
   'skiplink-list': ['skiplink-list-basic'],
   slider: ['slider-basic'],
-  status: ['status-basic'],
+  status: ['status-showcase'],
   stepper: ['stepper-basic'],
   table: [
     'simple-table',
@@ -145,7 +164,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     { id: 'native-table', hasStyle: true },
     { id: 'expandable-table', hasStyle: true },
   ],
-  tabs: ['tabs-basic'],
+  tabs: [
+    'tabs-showcase',
+    { id: 'tabs-fixed-height', hasStyle: true },
+    'tabs-tab-nav-bar',
+    'tabs-lazy-content',
+  ],
   tag: ['tag-basic'],
   teaser: ['teaser-basic'],
   'teaser-hero': ['teaser-hero-basic'],
@@ -194,10 +218,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'button-showcase':
     case 'button-static-basic':
       return import('../angular/examples/button');
-    case 'calendar-basic':
     case 'calendar-enhanced':
     case 'calendar-fixed-month':
     case 'calendar-reactive-form':
+    case 'calendar-showcase':
     case 'calendar-with-filter':
       return import('../angular/examples/calendar');
     case 'card-basic':
@@ -232,7 +256,13 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'clock-basic':
     case 'clock-paused':
       return import('../angular/examples/clock');
-    case 'container-basic':
+    case 'container-background-image':
+      return import('../angular/examples/container');
+    case 'container-showcase':
+      return import('../angular/examples/container');
+    case 'container-sticky-bar':
+      return import('../angular/examples/container');
+    case 'container-sticky-bar-control-sticky-state':
       return import('../angular/examples/container');
     case 'date-input-reactive':
     case 'date-input-showcase':
@@ -329,24 +359,33 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'navigation-basic':
     case 'navigation-section':
       return import('../angular/examples/navigation');
-    case 'notification-basic':
+    case 'notification-showcase':
       return import('../angular/examples/notification');
-    case 'option-basic':
+    case 'option-showcase':
       return import('../angular/examples/option');
-    case 'overlay-basic':
+    case 'overlay-nested':
+    case 'overlay-service':
+    case 'overlay-showcase':
       return import('../angular/examples/overlay');
-    case 'paginator-basic':
+    case 'paginator-compact':
+    case 'paginator-showcase':
       return import('../angular/examples/paginator');
     case 'paginator-table':
       return import('../angular/examples/table');
-    case 'popover-basic':
+    case 'popover-showcase':
       return import('../angular/examples/popover');
-    case 'radio-button-basic':
-      return import('../angular/examples/radio-button');
-    case 'radio-button-group-basic':
+    case 'radio-button-group-reactive':
+    case 'radio-button-group-showcase':
+    case 'radio-button-group-signal':
+    case 'radio-button-group-template-driven':
       return import('../angular/examples/radio-button-group');
-    case 'radio-button-panel-basic':
+    case 'radio-button-panel-reactive':
+    case 'radio-button-panel-showcase':
+    case 'radio-button-panel-signal':
+    case 'radio-button-panel-template-driven':
       return import('../angular/examples/radio-button-panel');
+    case 'radio-button-showcase':
+      return import('../angular/examples/radio-button');
     case 'seat-reservation-basic':
     case 'seat-reservation-bus':
     case 'seat-reservation-multiple-decks':
@@ -361,12 +400,15 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'selectable-table':
       return import('../angular/examples/table');
     case 'selection-action-panel-basic':
+    case 'selection-action-panel-group':
+    case 'selection-action-panel-with-expansion':
       return import('../angular/examples/selection-action-panel');
     case 'selection-expansion-panel-basic':
       return import('../angular/examples/selection-expansion-panel');
-    case 'sidebar-basic':
+    case 'sidebar-nested':
+    case 'sidebar-showcase':
       return import('../angular/examples/sidebar');
-    case 'signet-basic':
+    case 'signet-showcase':
       return import('../angular/examples/signet');
     case 'simple-table':
       return import('../angular/examples/table');
@@ -376,13 +418,16 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/slider');
     case 'sortable-table':
       return import('../angular/examples/table');
-    case 'status-basic':
+    case 'status-showcase':
       return import('../angular/examples/status');
     case 'stepper-basic':
       return import('../angular/examples/stepper');
     case 'sticky-table':
       return import('../angular/examples/table');
-    case 'tabs-basic':
+    case 'tabs-fixed-height':
+    case 'tabs-lazy-content':
+    case 'tabs-showcase':
+    case 'tabs-tab-nav-bar':
       return import('../angular/examples/tabs');
     case 'tag-basic':
       return import('../angular/examples/tag');

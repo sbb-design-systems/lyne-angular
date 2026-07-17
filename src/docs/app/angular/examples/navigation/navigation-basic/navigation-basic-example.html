@@ -1,10 +1,10 @@
-<sbb-secondary-button #trigger>Open Navigation</sbb-secondary-button>
+<sbb-secondary-button [sbbNavigation]="navigation">Open Navigation</sbb-secondary-button>
 
-<sbb-navigation [trigger]="trigger">
+<sbb-navigation #navigation="sbbNavigation">
   <sbb-navigation-marker>
-    <sbb-navigation-button aria-current="page" class="sbb-active"
-      >Tickets & Offers</sbb-navigation-button
-    >
+    <sbb-navigation-button aria-current="page" class="sbb-active">
+      Tickets & Offers
+    </sbb-navigation-button>
     <sbb-navigation-button>Vacations & Recreation</sbb-navigation-button>
     <sbb-navigation-button>Travel information</sbb-navigation-button>
     <sbb-navigation-link routerLink="./">Help & Contact</sbb-navigation-link>

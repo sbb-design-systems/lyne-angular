@@ -1,0 +1,39 @@
+<sbb-notification
+  [type]="controls.type().value()"
+  [size]="controls.size().value()"
+  [readOnly]="controls.readonly().value()"
+  [iconName]="controls.hasCustomIcon().value() ? 'wifi-disabled-small' : ''"
+>
+  @if (controls.hasTitle().value()) {
+    <sbb-title level="3">Notification title</sbb-title>
+  }
+  The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+  <sbb-link routerLink="./">Link</sbb-link>
+</sbb-notification>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Type</label>
+  <sbb-radio-button-group aria-label="Type" [formField]="controls.type">
+    <sbb-radio-button value="info">info</sbb-radio-button>
+    <sbb-radio-button value="note">note</sbb-radio-button>
+    <sbb-radio-button value="success">success</sbb-radio-button>
+    <sbb-radio-button value="warn">warn</sbb-radio-button>
+    <sbb-radio-button value="error">error</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="has-title">Title</label>
+  <sbb-checkbox id="has-title" [formField]="controls.hasTitle"></sbb-checkbox>
+
+  <label for="readonly">Readonly</label>
+  <sbb-checkbox id="readonly" [formField]="controls.readonly"></sbb-checkbox>
+
+  <label for="has-custom-icon">Custom icon</label>
+  <sbb-checkbox id="has-custom-icon" [formField]="controls.hasCustomIcon"></sbb-checkbox>
+</div>
