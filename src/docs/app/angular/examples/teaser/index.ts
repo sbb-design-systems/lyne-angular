@@ -1,1 +1,1 @@
-export { TeaserBasicExample } from './teaser-basic/teaser-basic-example';
+export { TeaserShowcaseExample } from './teaser-showcase/teaser-showcase-example';
