@@ -1,5 +1,6 @@
 import { Directive, ElementRef, inject } from '@angular/core';
 import { SbbEasterEggElement } from '@sbb-esta/lyne-elements-experimental/easter-egg.pure.js';
+
 /**
  * A hidden easter egg dialog rendering a canvas-based Snake game.
 
