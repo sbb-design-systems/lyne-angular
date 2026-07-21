@@ -1,0 +1,35 @@
+<div [class.sbb-example-negative]="controls.negative().value()">
+  <sbb-title
+    [negative]="controls.negative().value()"
+    [level]="controls.level().value()"
+    [visualLevel]="controls.visualLevel().value()"
+  >
+    Data without insights are trivial, and insights without action are pointless
+  </sbb-title>
+</div>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="negative">Negative</label>
+  <sbb-checkbox id="negative" [formField]="controls.negative"></sbb-checkbox>
+
+  <label>Level</label>
+  <sbb-radio-button-group aria-label="Level" [formField]="controls.level">
+    <sbb-radio-button value="1">1</sbb-radio-button>
+    <sbb-radio-button value="2">2</sbb-radio-button>
+    <sbb-radio-button value="3">3</sbb-radio-button>
+    <sbb-radio-button value="4">4</sbb-radio-button>
+    <sbb-radio-button value="5">5</sbb-radio-button>
+    <sbb-radio-button value="6">6</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Visual level</label>
+  <sbb-radio-button-group aria-label="Visual level" [formField]="controls.visualLevel">
+    <sbb-radio-button value="1">1</sbb-radio-button>
+    <sbb-radio-button value="2">2</sbb-radio-button>
+    <sbb-radio-button value="3">3</sbb-radio-button>
+    <sbb-radio-button value="4">4</sbb-radio-button>
+    <sbb-radio-button value="5">5</sbb-radio-button>
+    <sbb-radio-button value="6">6</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>
