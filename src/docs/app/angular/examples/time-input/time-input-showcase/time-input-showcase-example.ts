@@ -9,6 +9,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title time-input with configurable properties
+ * @order 1
  */
 @Component({
   selector: 'sbb-time-input-basic-example',
@@ -26,7 +27,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 export class TimeInputShowcaseExample {
   protected readonly controls = form(
     signal({
-      model: new Date(1970, 0, 1, 15, 0, 0),
+      model: new Date(1970, 0, 1, 15, 15, 0),
       disabled: false,
       readonly: false,
       withIcons: false,
