@@ -5,6 +5,8 @@
       [routerLink]="['.', section.toLowerCase()]"
       routerLinkActive="sbb-active"
       [routerLinkActiveOptions]="{ exact: true }"
+      #rla="routerLinkActive"
+      [attr.aria-current]="rla.isActive ? 'page' : ''"
     >
       {{ section }}
     </a>
