@@ -1,1 +1,1 @@
-export { TimeInputBasicExample } from './time-input-basic/time-input-basic-example';
+export { TimeInputShowcaseExample } from './time-input-showcase/time-input-showcase-example';
