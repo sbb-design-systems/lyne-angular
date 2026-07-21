@@ -16,6 +16,10 @@ export abstract class SbbFormFieldControl implements SbbFormFieldElementControl 
   abstract readonly disabled: boolean;
   /** Whether the control is readonly. */
   abstract readonly readOnly?: boolean;
+  /** Whether the control has been interacted with. */
+  abstract readonly interacted?: boolean;
+  /** Whether the control is invalid. */
+  abstract readonly invalid?: boolean;
 
   /** Handles a click on the control's container. */
   abstract onContainerClick(event: MouseEvent): void;
