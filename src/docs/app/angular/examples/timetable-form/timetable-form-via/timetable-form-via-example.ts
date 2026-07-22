@@ -10,12 +10,12 @@ import { SbbTimetableFormModule } from '@sbb-esta/lyne-angular/timetable-form';
 import { SbbToggleModule } from '@sbb-esta/lyne-angular/toggle';
 
 /**
- * @title Basic timetable-form
- * @order 1
+ * @title timetable-form with 'Via' field
+ * @order 2
  */
 @Component({
-  selector: 'sbb-timetable-form-basic-example',
-  templateUrl: 'timetable-form-basic-example.html',
+  selector: 'sbb-timetable-form-via-example',
+  templateUrl: 'timetable-form-via-example.html',
   imports: [
     FormField,
     SbbButtonModule,
@@ -29,10 +29,11 @@ import { SbbToggleModule } from '@sbb-esta/lyne-angular/toggle';
   ],
   host: { class: 'sbb-example-fullscreen' },
 })
-export class TimetableFormBasicExample {
+export class TimetableFormViaExample {
   protected form = form(
     signal({
       from: '',
+      via: '',
       to: '',
       date: new Date(),
       time: new Date(),
