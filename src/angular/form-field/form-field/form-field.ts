@@ -1,22 +1,22 @@
 import {
-  afterNextRender,
   contentChild,
+  DestroyRef,
   Directive,
+  effect,
   ElementRef,
-  EnvironmentInjector,
   inject,
   Input,
+  isSignal,
   NgZone,
-  runInInjectionContext,
 } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { FormField } from '@angular/forms/signals';
 import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import {
   SbbFormFieldControlEvent,
   SbbFormFieldElement,
+  type SbbFormFieldElementControl,
 } from '@sbb-esta/lyne-elements/form-field.pure.js';
-import { of } from 'rxjs';
-import { startWith, switchMap } from 'rxjs/operators';
+import { type Subscription } from 'rxjs';
 
 import { SbbFormFieldControl } from './form-field-control';
 
@@ -43,30 +43,55 @@ export class SbbFormField {
 
   #element: ElementRef<SbbFormFieldElement> = inject(ElementRef<SbbFormFieldElement>);
   #ngZone: NgZone = inject(NgZone);
-  #environmentInjector = inject(EnvironmentInjector);
+  #stateChangesSubscription = new Map<SbbFormFieldControl, Subscription>();
   // Must not be ES private, as Angular does not support this for contentChild.
   private control = contentChild(SbbFormFieldControl, { descendants: true });
+  private formField = contentChild(FormField, { descendants: true });
 
   constructor() {
-    afterNextRender(() => {
-      // To support custom controls, we query for an optional implementation
-      // of the SbbFormFieldControl, which we then use to dispatch an
-      // SbbFormFieldControlEvent event whenever the custom control has a
-      // state change.
-      runInInjectionContext(this.#environmentInjector, () => {
-        toObservable(this.control)
-          .pipe(
-            switchMap((control) =>
-              !control ? of(null!) : control.stateChanges.pipe(startWith(null)),
-            ),
-            takeUntilDestroyed(),
-          )
-          .subscribe(() =>
-            this.#element.nativeElement?.dispatchEvent(
-              new SbbFormFieldControlEvent(this.control() ?? null),
-            ),
+    // To support custom controls, we query for an optional implementation
+    // of the SbbFormFieldControl, which we then use to dispatch an
+    // SbbFormFieldControlEvent event whenever the custom control has a
+    // state change.
+    inject(DestroyRef).onDestroy(() => this.#unsubscribeStateChanges());
+    const emptyValues = [undefined, null, ''];
+    effect(() => {
+      const control = this.control();
+      if (control) {
+        if (!this.#stateChangesSubscription.has(control)) {
+          this.#unsubscribeStateChanges();
+          this.#stateChangesSubscription.set(
+            control,
+            control.stateChanges.subscribe(() => this.#dispatchControlEvent(control)),
           );
-      });
+        }
+        return;
+      }
+
+      const formField = this.formField();
+      const state = formField?.state();
+      if (!formField || !state) {
+        this.#dispatchControlEvent(null);
+        return;
+      }
+
+      const element = formField.element;
+      const type =
+        ('type' in state ? (isSignal(state.type) ? state.type() : state.type) : undefined) ??
+        (element as unknown as { type: string }).type;
+
+      this.#element.nativeElement?.dispatchEvent(
+        new SbbFormFieldControlEvent({
+          element,
+          disabled: state.disabled(),
+          empty: emptyValues.includes(state.controlValue()),
+          readOnly: state.readonly(),
+          type: type ? String(type) : undefined,
+          invalid: state.invalid(),
+          interacted: state.touched(),
+          onContainerClick: () => formField.focus(),
+        }),
+      );
     });
   }
 
@@ -177,5 +202,14 @@ export class SbbFormField {
    */
   public get label(): HTMLLabelElement | null {
     return this.#element.nativeElement.label;
+  }
+
+  #dispatchControlEvent(control: SbbFormFieldElementControl | null): void {
+    this.#element.nativeElement?.dispatchEvent(new SbbFormFieldControlEvent(control));
+  }
+
+  #unsubscribeStateChanges(): void {
+    this.#stateChangesSubscription.forEach((s) => s.unsubscribe());
+    this.#stateChangesSubscription.clear();
   }
 }
