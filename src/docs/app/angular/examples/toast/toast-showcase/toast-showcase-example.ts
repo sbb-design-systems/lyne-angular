@@ -9,6 +9,7 @@ import { SbbToast, SbbToastModule } from '@sbb-esta/lyne-angular/toast';
 
 /**
  * @title toast with configurable properties
+ * @order 1
  */
 @Component({
   selector: 'sbb-toast-showcase-example',

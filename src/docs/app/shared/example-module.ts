@@ -180,7 +180,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'timetable-occupancy': ['timetable-occupancy-showcase'],
   'timetable-occupancy-icon': ['timetable-occupancy-icon-showcase'],
   title: ['title-basic'],
-  toast: ['toast-showcase'],
+  toast: ['toast-showcase', 'toast-service'],
   toggle: ['toggle-basic'],
   'toggle-check': ['toggle-check-basic'],
   tooltip: ['tooltip-basic'],
@@ -450,6 +450,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/timetable-occupancy');
     case 'title-basic':
       return import('../angular/examples/title');
+    case 'toast-service':
     case 'toast-showcase':
       return import('../angular/examples/toast');
     case 'toggle-basic':
