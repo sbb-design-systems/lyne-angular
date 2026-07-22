@@ -2148,17 +2148,17 @@
   integrity sha512-l1In9Sq/jf5Smsphr4LtYndGtpi3VJjrVA2qpnBLVNZyh6Tyg/2Uzj8XZ71WAje8NSw1J4rlyJ3yF2JHZuIH5w==
 
 "@sbb-esta/lyne-elements-experimental@npm:@sbb-esta/lyne-elements-experimental-dev@v5-dev":
-  version "5.4.0-dev.1784558333"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-experimental-dev/-/lyne-elements-experimental-dev-5.4.0-dev.1784558333.tgz#86ee35046103ee2c9d22b0e71e822df867a00fdf"
-  integrity sha512-TkJdW8VD/cA8c2UIfqqzMza6S77SwEu2V8DiQnERjdnmM0Uc68jIgX64fZdmZutpgIt5UxeT/RBPIXKc6Ao04Q==
+  version "5.4.0-dev.1784644052"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-experimental-dev/-/lyne-elements-experimental-dev-5.4.0-dev.1784644052.tgz#973e91713b2e2f46c413e945771f062e3f04b266"
+  integrity sha512-8QuCr6bZHaLlQLJQE6nEd2Klpo+yZy7AhWj/KgAgWMXTk7JvfdLNnO8a1RoKQvkDP9FSwADPW3rnp7oJnclMSg==
   dependencies:
     lit "^3.3.3"
     tslib "^2.8.1"
 
 "@sbb-esta/lyne-elements@npm:@sbb-esta/lyne-elements-dev@v5-dev":
-  version "5.4.0-dev.1784558321"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-dev/-/lyne-elements-dev-5.4.0-dev.1784558321.tgz#d113c0607459a91c7dd1d0aeda716d0db184c7f1"
-  integrity sha512-pBovKpAgNb3UaYWbUp208p0G8LRbTRaM2+SLaQUW0BSv6+JP3yp3LwTBMoIoaCwW8vk+sswL+Gxhg0DIYNWBFw==
+  version "5.4.0-dev.1784644043"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-dev/-/lyne-elements-dev-5.4.0-dev.1784644043.tgz#10f5884bd795658f56b27b5199b932ae908809e9"
+  integrity sha512-IW7otUAD61lJatlKczNO+XBrVJLNV83+BnMUKNBQa912oBV2c7A+HCJL2niD1m6H9YB/R9XrLcByI1aTDLFRog==
   dependencies:
     "@lit-labs/observers" "^2.1.0"
     lit "^3.3.3"
@@ -4455,10 +4455,10 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.2.4.tgz#eca284f75d2965079309dc0ad9255abb2ebc1632"
   integrity sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==
 
-lint-staged@17.1.0:
-  version "17.1.0"
-  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-17.1.0.tgz#2673a96468ae907d29e74977f3a382666d87df11"
-  integrity sha512-d7UQRu/9ZPgfu4+hu/k0wny5GEaIxo+2jb2LJqQDkE7cHRTm1HGqNUDq5UOwsGPpjpaNAFmgAsYo3TR+i9cSJw==
+lint-staged@17.1.1:
+  version "17.1.1"
+  resolved "https://registry.yarnpkg.com/lint-staged/-/lint-staged-17.1.1.tgz#1cf041f138e10a4fe0356e2f30a013f17d5f1fb2"
+  integrity sha512-FnHWpSe5cPRtrDG+soOuNdBxb4XQb2gN5EqpEWKdweyqyOfpl4QSjbrz3ilcIf0WXmkiNQGZZRQ23R5YtB3TEw==
   dependencies:
     picomatch "^4.0.5"
     string-argv "^0.3.2"
