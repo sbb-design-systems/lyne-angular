@@ -1,17 +1,7 @@
 <sbb-form-field errorSpace="reserve">
   <label>Date</label>
   <sbb-datepicker-previous-day></sbb-datepicker-previous-day>
-  <!--
-  When PR https://github.com/angular/angular/pull/69452 is merged,
-  min and max don't need to be passed as property but minDate() and maxDate() functions of Signal
-  Forms can be used where Schema is defined.
-  -->
-  <sbb-date-input
-    [formField]="controls.model"
-    [min]="controls.min().value()"
-    [max]="controls.max().value()"
-    [dateFilter]="filters[this.controls.dateFilter().value()]"
-  ></sbb-date-input>
+  <sbb-date-input [formField]="controls.model"></sbb-date-input>
   <sbb-datepicker-toggle></sbb-datepicker-toggle>
   <sbb-datepicker-next-day></sbb-datepicker-next-day>
   <sbb-datepicker
