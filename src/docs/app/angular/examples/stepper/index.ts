@@ -1,1 +1,2 @@
-export { StepperBasicExample } from './stepper-basic/stepper-basic-example';
+export { StepperLazyLoadedExample } from './stepper-lazy-loaded/stepper-lazy-loaded-example';
+export { StepperShowcaseExample } from './stepper-showcase/stepper-showcase-example';
