@@ -1,0 +1,39 @@
+<sbb-button (click)="openToast()">Open toast</sbb-button>
+<sbb-toast
+  [position]="controls.position().value()"
+  [iconName]="controls.withIcon().value() ? 'pie-small' : ''"
+  [readOnly]="controls.readonly().value()"
+  [timeout]="controls.timeout().value()"
+>
+  Toast content
+</sbb-toast>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Position</label>
+  <sbb-form-field>
+    <sbb-select [formField]="controls.position">
+      <sbb-option value="top-left">top-left</sbb-option>
+      <sbb-option value="top-center">top-center</sbb-option>
+      <sbb-option value="top-right">top-right</sbb-option>
+      <sbb-option value="top-start">top-start</sbb-option>
+      <sbb-option value="top-end">top-end</sbb-option>
+      <sbb-option value="bottom-left">bottom-left</sbb-option>
+      <sbb-option value="bottom-center">bottom-center</sbb-option>
+      <sbb-option value="bottom-right">bottom-right</sbb-option>
+      <sbb-option value="bottom-start">bottom-start</sbb-option>
+      <sbb-option value="bottom-end">bottom-end</sbb-option>
+    </sbb-select>
+  </sbb-form-field>
+
+  <label for="timeout">Timeout</label>
+  <sbb-form-field>
+    <input id="timeout" type="number" [formField]="controls.timeout" />
+  </sbb-form-field>
+
+  <label for="readonly">Readonly</label>
+  <sbb-checkbox id="readonly" [formField]="controls.readonly"></sbb-checkbox>
+
+  <label for="with-icon">With icon</label>
+  <sbb-checkbox id="with-icon" [formField]="controls.withIcon"></sbb-checkbox>
+</div>
