@@ -1,8 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
-import { SbbRadioButton } from '@sbb-esta/lyne-angular/radio-button';
-import { SbbRadioButtonGroupModule } from '@sbb-esta/lyne-angular/radio-button-group';
+import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import type { SbbTimetableOccupancyIcon } from '@sbb-esta/lyne-angular/timetable-occupancy-icon';
 import { SbbTimetableOccupancyIconModule } from '@sbb-esta/lyne-angular/timetable-occupancy-icon';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
@@ -16,8 +15,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   imports: [
     FormField,
     SbbCheckboxModule,
-    SbbRadioButton,
-    SbbRadioButtonGroupModule,
+    SbbRadioButtonModule,
     SbbTimetableOccupancyIconModule,
     SbbTitleModule,
   ],
