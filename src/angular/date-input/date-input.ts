@@ -1,11 +1,27 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import {
+  Directive,
+  effect,
+  ElementRef,
+  forwardRef,
+  inject,
+  Injector,
+  Input,
+  NgZone,
+} from '@angular/core';
 import type { AbstractControl, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import { type FormField } from '@angular/forms/signals';
+import {
+  booleanAttribute,
+  lazyFormField,
+  SbbControlValueAccessorMixin,
+} from '@sbb-esta/lyne-angular/core';
 import { defaultDateAdapter, readConfig } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbDateInputAssociated } from '@sbb-esta/lyne-elements/date-input.pure.js';
 import { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.pure.js';
 import type { SbbDatepickerElement } from '@sbb-esta/lyne-elements/datepicker.pure.js';
+
+import { DATE_FILTER } from './date-input-filter';
 
 /**
  * Custom input for a date.
@@ -45,6 +61,8 @@ export class SbbDateInput<T = Date>
   #ngZone: NgZone = inject(NgZone);
   #dateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
   #lastValue: T | null = null;
+  #injector = inject(Injector);
+  #formField?: FormField<unknown> | null;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected validatorOnChange = () => {};
@@ -243,6 +261,29 @@ export class SbbDateInput<T = Date>
     this.#filterValidator,
   ]);
 
+  constructor() {
+    super();
+    effect(() => {
+      this.#formField ??= lazyFormField(this.#injector);
+      const state = this.#formField?.state();
+      if (!state) {
+        return;
+      }
+
+      const min = state.min?.();
+      const max = state.max?.();
+      const dateFilter = state.metadata(DATE_FILTER)?.();
+
+      const element = this.#element.nativeElement;
+      this.#assignDateAttribute(element, 'min', min);
+      this.#assignDateAttribute(element, 'max', max);
+      element.toggleAttribute('required', state.required?.() ?? false);
+      element.toggleAttribute('disabled', state.disabled?.() ?? false);
+      element.toggleAttribute('readonly', state.readonly?.() ?? false);
+      element.dateFilter = (dateFilter as (date: T) => boolean) ?? (() => true);
+    });
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   override writeValue(value: any): void {
     if (
@@ -263,7 +304,9 @@ export class SbbDateInput<T = Date>
   }
 
   validate(control: AbstractControl): ValidationErrors | null {
-    return this.#validator?.(control) ?? null;
+    // With FormField usage only validate parsing, as everything
+    // else should be handled via model validation configuration.
+    return !this.#formField ? (this.#validator?.(control) ?? null) : this.#parseValidator(control);
   }
 
   public focus(options: FocusOptions): void {
@@ -329,6 +372,14 @@ export class SbbDateInput<T = Date>
     // nulls, otherwise the validators won't run.
     if (!this.valueAsDate || !this.#dateAdapter.sameDate(this.valueAsDate, this.#lastValue)) {
       this.onChangeFn(this.valueAsDate);
+    }
+  }
+
+  #assignDateAttribute(element: HTMLElement, attribute: 'min' | 'max', value: unknown): void {
+    if (value instanceof Date) {
+      element.setAttribute(attribute, this.#dateAdapter.toIso8601(value));
+    } else {
+      element.removeAttribute(attribute);
     }
   }
 }
