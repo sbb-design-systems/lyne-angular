@@ -265,8 +265,16 @@ needs to be dispatched on the `<sbb-form-field>` instance.
 
 <!-- #region override custom-form-control-angular -->
 
-In order for `<sbb-form-field>` to support a custom form component, you need to implement
-the `SbbFormFieldControl` interface and register it as a provider.
+`<sbb-form-field>` supports creating custom form controls.
+
+#### Signal Forms
+
+With version 22.2.0 of `@sbb-esta/lyne-angular` this will simply work out of the box
+if you implement the Angular `FormValueControl` interface.
+
+#### Reactive & Model driven Forms
+
+You will need to implement the `SbbFormFieldControl` interface and register it as a provider.
 Important to note is that the `stateChanges` observable MUST emit whenever
 one of the properties defined in `SbbFormFieldControl` changes.
 
