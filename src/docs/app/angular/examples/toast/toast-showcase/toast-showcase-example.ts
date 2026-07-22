@@ -32,9 +32,7 @@ export class ToastShowcaseExample {
       timeout: 0,
       withIcon: false,
     }),
-    (s) => {
-      min(s.timeout, 0);
-    },
+    (s) => min(s.timeout, 0),
   );
   protected toast = viewChild.required(SbbToast);
 
