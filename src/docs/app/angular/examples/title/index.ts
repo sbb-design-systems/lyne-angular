@@ -1,1 +1,1 @@
-export { TitleBasicExample } from './title-basic/title-basic-example';
+export { TitleShowcaseExample } from './title-showcase/title-showcase-example';
