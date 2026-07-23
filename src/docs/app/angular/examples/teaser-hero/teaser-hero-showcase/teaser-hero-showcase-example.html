@@ -1,0 +1,32 @@
+<sbb-teaser-hero href="https://www.sbb.ch">
+  @if (controls.variant().value() !== 'chip-only') {
+    Break out and explore castles and palaces.
+    <span slot="link-content">Find out more</span>
+  }
+  @if (controls.variant().value() !== 'default') {
+    <figure class="sbb-figure" slot="image">
+      <sbb-image
+        slot="image"
+        imageSrc="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Hoehenrundweg-Gryden-Lenk.jpg"
+        alt="Mountain view"
+      ></sbb-image>
+      <sbb-chip-label class="sbb-figure-overlap-start-start"> Chip label </sbb-chip-label>
+    </figure>
+  } @else {
+    <sbb-image
+      slot="image"
+      imageSrc="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Hoehenrundweg-Gryden-Lenk.jpg"
+      alt="Mountain view"
+    ></sbb-image>
+  }
+</sbb-teaser-hero>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Variants</label>
+  <sbb-radio-button-group aria-label="Icon" [formField]="controls.variant">
+    <sbb-radio-button value="default">Image and content</sbb-radio-button>
+    <sbb-radio-button value="with-chip">Image with chip</sbb-radio-button>
+    <sbb-radio-button value="chip-only">Image with chip and no content</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>
