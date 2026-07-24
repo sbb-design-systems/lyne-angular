@@ -175,7 +175,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'teaser-hero': ['teaser-hero-basic'],
   'teaser-panel': ['teaser-panel-basic'],
   'teaser-product': ['teaser-product-basic'],
-  'time-input': ['time-input-basic'],
+  'time-input': [
+    'time-input-showcase',
+    'time-input-signal',
+    'time-input-reactive',
+    'time-input-template-driven',
+  ],
   'timetable-form': ['timetable-form-basic'],
   'timetable-occupancy': ['timetable-occupancy-showcase'],
   'timetable-occupancy-icon': ['timetable-occupancy-icon-showcase'],
@@ -439,7 +444,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/teaser-panel');
     case 'teaser-product-basic':
       return import('../angular/examples/teaser-product');
-    case 'time-input-basic':
+    case 'time-input-reactive':
+    case 'time-input-showcase':
+    case 'time-input-signal':
+    case 'time-input-template-driven':
       return import('../angular/examples/time-input');
     case 'timetable-form-basic':
       return import('../angular/examples/timetable-form');
