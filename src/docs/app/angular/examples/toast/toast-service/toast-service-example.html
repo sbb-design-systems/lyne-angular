@@ -1,0 +1,14 @@
+<sbb-action-group>
+  <sbb-secondary-button (click)="openToast()"> Open simple toast via service </sbb-secondary-button>
+  <sbb-secondary-button (click)="openToastTemplate()">
+    Open toast via service with template
+  </sbb-secondary-button>
+  <sbb-secondary-button (click)="openToastComponent()">
+    Open toast via service with component
+  </sbb-secondary-button>
+</sbb-action-group>
+
+<ng-template #toastTemplate>
+  I'm a template
+  <sbb-link routerLink="./">with a link.</sbb-link>
+</ng-template>

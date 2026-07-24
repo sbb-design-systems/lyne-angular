@@ -71,7 +71,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'date-input-template-driven',
   ],
   datepicker: ['datepicker-showcase', 'datepicker-basic'],
-  dialog: ['dialog-showcase', 'dialog-service'],
+  dialog: ['dialog-showcase', 'dialog-service', 'dialog-nested'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
   download: ['download-showcase', 'download-custom-content'],
   'expansion-panel': ['expansion-panel-showcase', 'expansion-panel-basic'],
@@ -180,7 +180,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'timetable-occupancy': ['timetable-occupancy-showcase'],
   'timetable-occupancy-icon': ['timetable-occupancy-icon-showcase'],
   title: ['title-basic'],
-  toast: ['toast-basic'],
+  toast: ['toast-showcase', 'toast-service'],
   toggle: ['toggle-basic'],
   'toggle-check': ['toggle-check-basic'],
   tooltip: ['tooltip-basic'],
@@ -273,6 +273,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'datepicker-basic':
     case 'datepicker-showcase':
       return import('../angular/examples/datepicker');
+    case 'dialog-nested':
     case 'dialog-service':
     case 'dialog-showcase':
       return import('../angular/examples/dialog');
@@ -449,7 +450,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/timetable-occupancy');
     case 'title-basic':
       return import('../angular/examples/title');
-    case 'toast-basic':
+    case 'toast-service':
+    case 'toast-showcase':
       return import('../angular/examples/toast');
     case 'toggle-basic':
       return import('../angular/examples/toggle');
