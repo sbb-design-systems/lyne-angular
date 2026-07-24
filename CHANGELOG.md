@@ -1,5 +1,18 @@
 # Changelog
 
+## [22.2.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.1.1...v22.2.0) (2026-07-23)
+
+
+### Features
+
+* **form-field:** implement support for Signal Forms ([#522](https://github.com/sbb-design-systems/lyne-angular/issues/522)) ([547bce0](https://github.com/sbb-design-systems/lyne-angular/commit/547bce0f377ffaf4ebf3bc463bc43e37f3ea8d6b))
+
+
+### Documentation
+
+* **timetable-occupancy:** add examples ([#510](https://github.com/sbb-design-systems/lyne-angular/issues/510)) ([fe752c5](https://github.com/sbb-design-systems/lyne-angular/commit/fe752c5947bff8f41bfe7e17f86117052c4cdb10))
+* **timetable-occupancy:** minor fixes ([#526](https://github.com/sbb-design-systems/lyne-angular/issues/526)) ([19a4fa4](https://github.com/sbb-design-systems/lyne-angular/commit/19a4fa4af01629dd6f82d1a965409deae4a54147))
+
 ## [22.1.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.1.0...v22.1.1) (2026-07-20)
 
 
