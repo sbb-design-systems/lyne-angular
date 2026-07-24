@@ -149,7 +149,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   sidebar: [{ id: 'sidebar-showcase', hasStyle: true }, 'sidebar-nested'],
   signet: [{ id: 'signet-showcase', hasStyle: true }],
   'skiplink-list': ['skiplink-list-basic'],
-  slider: ['slider-basic'],
+  slider: ['slider-showcase', 'slider-signal', 'slider-reactive', 'slider-template-driven'],
   status: ['status-showcase'],
   stepper: ['stepper-basic'],
   table: [
@@ -414,7 +414,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/table');
     case 'skiplink-list-basic':
       return import('../angular/examples/skiplink-list');
-    case 'slider-basic':
+    case 'slider-reactive':
+    case 'slider-showcase':
+    case 'slider-signal':
+    case 'slider-template-driven':
       return import('../angular/examples/slider');
     case 'sortable-table':
       return import('../angular/examples/table');
