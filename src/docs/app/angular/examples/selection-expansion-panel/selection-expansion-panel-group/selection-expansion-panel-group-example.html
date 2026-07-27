@@ -1,0 +1,17 @@
+<sbb-radio-button-group orientation="vertical">
+  @for (i of [1, 2, 3]; track i) {
+    <sbb-selection-expansion-panel>
+      <sbb-radio-button-panel [value]="i">
+        <sbb-card-badge>%</sbb-card-badge>
+        Value {{ i }}
+        <span slot="subtext">Subtext</span>
+        <span slot="suffix" class="ticket-price">
+          <sbb-icon name="diamond-small"></sbb-icon>
+          <span class="sbb-text-xs sbb-text--bold">CHF</span>
+          <span class="sbb-text-m sbb-text--bold">40.00</span>
+        </span>
+      </sbb-radio-button-panel>
+      <div slot="content">Inner Content</div>
+    </sbb-selection-expansion-panel>
+  }
+</sbb-radio-button-group>

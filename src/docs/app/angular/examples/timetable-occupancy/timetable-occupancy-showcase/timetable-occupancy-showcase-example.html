@@ -1,0 +1,29 @@
+<sbb-timetable-occupancy
+  [firstClassOccupancy]="controls.firstClassOccupancy().value()"
+  [secondClassOccupancy]="controls.secondClassOccupancy().value()"
+></sbb-timetable-occupancy>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>First Class Occupancy</label>
+  <sbb-radio-button-group
+    aria-label="First Class Occupancy"
+    [formField]="controls.firstClassOccupancy"
+  >
+    <sbb-radio-button value="none">None</sbb-radio-button>
+    <sbb-radio-button value="low">Low</sbb-radio-button>
+    <sbb-radio-button value="medium">Medium</sbb-radio-button>
+    <sbb-radio-button value="high">High</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Second Class Occupancy</label>
+  <sbb-radio-button-group
+    aria-label="Second Class Occupancy"
+    [formField]="controls.secondClassOccupancy"
+  >
+    <sbb-radio-button value="none">None</sbb-radio-button>
+    <sbb-radio-button value="low">Low</sbb-radio-button>
+    <sbb-radio-button value="medium">Medium</sbb-radio-button>
+    <sbb-radio-button value="high">High</sbb-radio-button>
+  </sbb-radio-button-group>
+</div>

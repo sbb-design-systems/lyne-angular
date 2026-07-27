@@ -1,5 +1,25 @@
 # Changelog
 
+## [22.1.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.1.0...v22.1.1) (2026-07-20)
+
+
+### Documentation
+
+* change examples ids to camel-case ([#507](https://github.com/sbb-design-systems/lyne-angular/issues/507)) ([617e822](https://github.com/sbb-design-systems/lyne-angular/commit/617e8223a0c252a381efcb9a597c5bb6355aaf6a))
+* **container:** add examples ([#478](https://github.com/sbb-design-systems/lyne-angular/issues/478)) ([9893810](https://github.com/sbb-design-systems/lyne-angular/commit/9893810fca21b46b0abda0ceb6e0e81ec3513c93))
+* **notification:** improve example ([#489](https://github.com/sbb-design-systems/lyne-angular/issues/489)) ([29bbf8d](https://github.com/sbb-design-systems/lyne-angular/commit/29bbf8d229f6076a3d9596d861ac3e1f81990cba))
+* **option:** add examples ([#492](https://github.com/sbb-design-systems/lyne-angular/issues/492)) ([fda7e2b](https://github.com/sbb-design-systems/lyne-angular/commit/fda7e2b077f4511ac914d809f175d43a67acb083))
+* **overlay:** add examples ([#494](https://github.com/sbb-design-systems/lyne-angular/issues/494)) ([6756187](https://github.com/sbb-design-systems/lyne-angular/commit/67561876c2f4deacee63f2a09566a2b0f4c5ed0d))
+* **popover:** add examples ([#496](https://github.com/sbb-design-systems/lyne-angular/issues/496)) ([5c744ae](https://github.com/sbb-design-systems/lyne-angular/commit/5c744aebdf1e4776c9864f5f2beed5788ef0e7f9))
+* **radio:** update examples ([#500](https://github.com/sbb-design-systems/lyne-angular/issues/500)) ([1155052](https://github.com/sbb-design-systems/lyne-angular/commit/1155052be0d2ac457c8005077ffa63e1332dc81b))
+* **select:** add examples ([#503](https://github.com/sbb-design-systems/lyne-angular/issues/503)) ([293de96](https://github.com/sbb-design-systems/lyne-angular/commit/293de96bf82266372964e6f035639f5ea14f155e))
+* **selection-action-panel:** add examples ([#504](https://github.com/sbb-design-systems/lyne-angular/issues/504)) ([adc37b1](https://github.com/sbb-design-systems/lyne-angular/commit/adc37b1eeeed718192fc752e91470811646749ee))
+* **sidebar:** add examples ([#501](https://github.com/sbb-design-systems/lyne-angular/issues/501)) ([f1dd349](https://github.com/sbb-design-systems/lyne-angular/commit/f1dd34967cdd5870e2fa6e1906114be05e5c0bc7))
+* **signet:** improve example ([#502](https://github.com/sbb-design-systems/lyne-angular/issues/502)) ([225c0fe](https://github.com/sbb-design-systems/lyne-angular/commit/225c0fe137bdd027feeab1870c0b74d8c6c2086e))
+* **skiplink-list:** add examples ([#505](https://github.com/sbb-design-systems/lyne-angular/issues/505)) ([69ae82b](https://github.com/sbb-design-systems/lyne-angular/commit/69ae82b09a29690aaab17c13564beb62e355da3b))
+* **status:** improve example ([#506](https://github.com/sbb-design-systems/lyne-angular/issues/506)) ([0191380](https://github.com/sbb-design-systems/lyne-angular/commit/019138015fa05945a36d41274c153218abbd94bb))
+* **tabs:** add examples ([#508](https://github.com/sbb-design-systems/lyne-angular/issues/508)) ([586642b](https://github.com/sbb-design-systems/lyne-angular/commit/586642b5353762ac55fc5b3c6b17285cb0c6b023))
+
 ## [22.1.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.0.5...v22.1.0) (2026-07-13)
 
 

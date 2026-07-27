@@ -132,13 +132,24 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'seat-reservation-multiple-decks',
     'seat-reservation-bus',
   ],
-  select: ['select-basic'],
+  select: [
+    'select-showcase',
+    'select-optgroup',
+    'select-complex-value',
+    'select-signal',
+    'select-reactive',
+    'select-template-driven',
+  ],
   'selection-action-panel': [
     'selection-action-panel-basic',
     'selection-action-panel-with-expansion',
     'selection-action-panel-group',
   ],
-  'selection-expansion-panel': ['selection-expansion-panel-basic'],
+  'selection-expansion-panel': [
+    { id: 'selection-expansion-panel-showcase', hasStyle: true },
+    { id: 'selection-expansion-panel-group', hasStyle: true },
+    { id: 'selection-expansion-panel-ticket-options', hasStyle: true },
+  ],
   sidebar: [{ id: 'sidebar-showcase', hasStyle: true }, 'sidebar-nested'],
   signet: [{ id: 'signet-showcase', hasStyle: true }],
   'skiplink-list': ['skiplink-list-basic'],
@@ -170,8 +181,8 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'teaser-product': ['teaser-product-basic'],
   'time-input': ['time-input-basic'],
   'timetable-form': ['timetable-form-basic'],
-  'timetable-occupancy': ['timetable-occupancy-basic'],
-  'timetable-occupancy-icon': ['timetable-occupancy-icon-basic'],
+  'timetable-occupancy': ['timetable-occupancy-showcase'],
+  'timetable-occupancy-icon': ['timetable-occupancy-icon-showcase'],
   title: ['title-basic'],
   toast: ['toast-basic'],
   toggle: ['toggle-basic'],
@@ -383,7 +394,12 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'seat-reservation-bus':
     case 'seat-reservation-multiple-decks':
       return import('../angular-experimental/examples/seat-reservation');
-    case 'select-basic':
+    case 'select-complex-value':
+    case 'select-optgroup':
+    case 'select-reactive':
+    case 'select-showcase':
+    case 'select-signal':
+    case 'select-template-driven':
       return import('../angular/examples/select');
     case 'selectable-table':
       return import('../angular/examples/table');
@@ -391,7 +407,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'selection-action-panel-group':
     case 'selection-action-panel-with-expansion':
       return import('../angular/examples/selection-action-panel');
-    case 'selection-expansion-panel-basic':
+    case 'selection-expansion-panel-group':
+    case 'selection-expansion-panel-showcase':
+    case 'selection-expansion-panel-ticket-options':
       return import('../angular/examples/selection-expansion-panel');
     case 'sidebar-nested':
     case 'sidebar-showcase':
@@ -435,10 +453,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/time-input');
     case 'timetable-form-basic':
       return import('../angular/examples/timetable-form');
-    case 'timetable-occupancy-basic':
-      return import('../angular/examples/timetable-occupancy');
-    case 'timetable-occupancy-icon-basic':
+    case 'timetable-occupancy-icon-showcase':
       return import('../angular/examples/timetable-occupancy-icon');
+    case 'timetable-occupancy-showcase':
+      return import('../angular/examples/timetable-occupancy');
     case 'title-basic':
       return import('../angular/examples/title');
     case 'toast-basic':
