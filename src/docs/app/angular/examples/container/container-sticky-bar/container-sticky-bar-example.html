@@ -1,0 +1,97 @@
+<sbb-container
+  [color]="containerControls.color().value()"
+  [expanded]="containerControls.expanded().value()"
+  [backgroundExpanded]="containerControls.backgroundExpanded().value()"
+>
+  <sbb-title level="4">Example title</sbb-title>
+  <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
+  <p class="sbb-text-s">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+    voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  </p>
+  <sbb-secondary-button tabindex="0" size="l"> See more </sbb-secondary-button>
+
+  <sbb-title level="4">Another one</sbb-title>
+  <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
+  <p class="sbb-text-s">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+    voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  </p>
+  <sbb-secondary-button tabindex="0" size="l"> See more </sbb-secondary-button>
+
+  <sbb-title level="4">And another one</sbb-title>
+  <p class="sbb-text-s">The container component will give its content the correct spacing.</p>
+  <p class="sbb-text-s">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+    voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  </p>
+  <sbb-secondary-button tabindex="0" size="l"> See more </sbb-secondary-button>
+
+  <sbb-sticky-bar
+    [color]="stickybarControls.color().value()"
+    [size]="stickybarControls.size().value()"
+  >
+    <sbb-action-group
+      class="sbb-orientation-vertical-full-width sbb-orientation-horizontal-from-small"
+    >
+      <sbb-block-link size="m" icon-name="chevron-small-left-small" href="https://www.sbb.ch/en/">
+        Link
+      </sbb-block-link>
+      <sbb-secondary-button size="l">Cancel</sbb-secondary-button>
+      <sbb-button size="l">Confirm</sbb-button>
+    </sbb-action-group>
+  </sbb-sticky-bar>
+</sbb-container>
+
+<div class="controls-wrapper">
+  <sbb-title level="5">Container Properties</sbb-title>
+  <div class="sbb-controls-table">
+    <label for="color">Color</label>
+    <sbb-form-field size="s" type="select">
+      <sbb-select id="color" [formField]="containerControls.color">
+        <sbb-option value="white">white</sbb-option>
+        <sbb-option value="transparent">transparent</sbb-option>
+        <sbb-option value="milk">milk</sbb-option>
+        <sbb-option value="midnight">midnight</sbb-option>
+        <sbb-option value="charcoal">charcoal</sbb-option>
+      </sbb-select>
+    </sbb-form-field>
+    <label for="expanded">Expanded</label>
+    <sbb-checkbox id="expanded" [formField]="containerControls.expanded"></sbb-checkbox>
+    <label for="background-expanded">Background Expanded</label>
+    <sbb-checkbox
+      id="background-expanded"
+      [formField]="containerControls.backgroundExpanded"
+    ></sbb-checkbox>
+  </div>
+
+  <sbb-title level="5">Sticky Bar Properties</sbb-title>
+  <div class="sbb-controls-table">
+    <label for="sticky-bar-size">Size</label>
+    <sbb-radio-button-group
+      id="sticky-bar-size"
+      allowEmptySelection
+      aria-label="Sticky bar size"
+      [formField]="stickybarControls.size"
+    >
+      <sbb-radio-button value="s">s</sbb-radio-button>
+      <sbb-radio-button value="m">m</sbb-radio-button>
+    </sbb-radio-button-group>
+    <label for="sticky-bar-color">Color</label>
+    <sbb-form-field size="s" type="select">
+      <sbb-select id="sticky-bar-color" [formField]="stickybarControls.color">
+        <sbb-option [value]="null">unset</sbb-option>
+        <sbb-option value="white">white</sbb-option>
+        <sbb-option value="milk">milk</sbb-option>
+        <sbb-option value="midnight">midnight</sbb-option>
+        <sbb-option value="charcoal">charcoal</sbb-option>
+      </sbb-select>
+    </sbb-form-field>
+  </div>
+</div>

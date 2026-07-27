@@ -1,0 +1,14 @@
+<sbb-radio-button-group orientation="vertical" horizontalFrom="ultra">
+  @for (i of [1, 2, 3]; track i) {
+    <sbb-selection-action-panel>
+      <sbb-radio-button-panel [value]="i">
+        radio-button {{ i }}
+        <span slot="subtext">Subtext</span>
+      </sbb-radio-button-panel>
+
+      <sbb-secondary-button iconName="arrow-right-small"></sbb-secondary-button>
+
+      <sbb-card-badge slot="badge" color="charcoal">ab CHF 26.50</sbb-card-badge>
+    </sbb-selection-action-panel>
+  }
+</sbb-radio-button-group>

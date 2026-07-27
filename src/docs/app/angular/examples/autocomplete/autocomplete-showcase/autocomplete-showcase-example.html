@@ -20,17 +20,20 @@
 </p>
 <sbb-title level="5">Properties</sbb-title>
 <div class="sbb-controls-table">
-  <label for="requireSelection">Require selection</label>
-  <sbb-checkbox id="requireSelection" [formField]="form.requireSelection"></sbb-checkbox>
+  <label for="require-selection">Require selection</label>
+  <sbb-checkbox id="require-selection" [formField]="form.requireSelection"></sbb-checkbox>
 
-  <label for="autoSelectActiveOption">Select active option automatically</label>
+  <label for="auto-select-active-option">Select active option automatically</label>
   <sbb-checkbox
-    id="autoSelectActiveOption"
+    id="auto-select-active-option"
     [formField]="form.autoSelectActiveOption"
   ></sbb-checkbox>
 
-  <label for="autoActiveFirstOption">Active first option automatically</label>
-  <sbb-checkbox id="autoActiveFirstOption" [formField]="form.autoActiveFirstOption"></sbb-checkbox>
+  <label for="auto-active-first-option">Active first option automatically</label>
+  <sbb-checkbox
+    id="auto-active-first-option"
+    [formField]="form.autoActiveFirstOption"
+  ></sbb-checkbox>
 
   <label>Size</label>
   <sbb-radio-button-group aria-label="Size" [formField]="form.size" allowEmptySelection>

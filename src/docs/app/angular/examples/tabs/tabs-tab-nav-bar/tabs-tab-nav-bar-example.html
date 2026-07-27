@@ -1,0 +1,39 @@
+<sbb-tab-nav-bar>
+  <a
+    routerLink="./"
+    routerLinkActive="sbb-active"
+    #rlaOverview="routerLinkActive"
+    [attr.aria-current]="rlaOverview.isActive ? 'page' : null"
+  >
+    <sbb-icon name="pie-small"></sbb-icon>
+    Overview
+    <p class="sbb-tab-amount">42</p>
+  </a>
+  <a
+    routerLink="/timetable"
+    routerLinkActive="sbb-active"
+    #rlaTimetable="routerLinkActive"
+    [attr.aria-current]="rlaTimetable.isActive ? 'page' : null"
+  >
+    Timetable
+  </a>
+  <a
+    class="sbb-disabled"
+    aria-disabled="true"
+    routerLink="/tickets"
+    routerLinkActive="sbb-active"
+    #rlaTickets="routerLinkActive"
+    [attr.aria-current]="rlaTickets.isActive ? 'page' : null"
+  >
+    Tickets
+  </a>
+  <a
+    routerLink="/offers"
+    routerLinkActive="sbb-active"
+    #rlaOffers="routerLinkActive"
+    [attr.aria-current]="rlaOffers.isActive ? 'page' : null"
+  >
+    Offers
+  </a>
+</sbb-tab-nav-bar>
+<p>A `&lt;router-outlet&gt;` usually follows the &lt;sbb-tab-nav-bar&gt;.</p>

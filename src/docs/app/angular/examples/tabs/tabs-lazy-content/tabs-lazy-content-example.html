@@ -1,0 +1,31 @@
+<sbb-tab-group>
+  <sbb-tab-label>Eagerly loaded</sbb-tab-label>
+  <sbb-tab>
+    <section>
+      <p>This tab content is <strong>eagerly loaded</strong>.</p>
+      <p>The component is initialized immediately.</p>
+    </section>
+  </sbb-tab>
+
+  <sbb-tab-label>Lazily loaded</sbb-tab-label>
+  <sbb-tab>
+    <ng-template sbbTabContent>
+      <section>
+        <p>This tab content is <strong>lazily loaded</strong> using <code>sbbTabContent</code>.</p>
+        <p>
+          The content is not initialized until the tab is activated for the first time. This is
+          useful for tabs with complex child components or content that relies on DOM calculations.
+        </p>
+      </section>
+    </ng-template>
+  </sbb-tab>
+
+  <sbb-tab-label>Also lazily loaded</sbb-tab-label>
+  <sbb-tab>
+    <ng-template sbbTabContent>
+      <section>
+        <p>Another example of lazy loading. Wrap any heavy content here.</p>
+      </section>
+    </ng-template>
+  </sbb-tab>
+</sbb-tab-group>

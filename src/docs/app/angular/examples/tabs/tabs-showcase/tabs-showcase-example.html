@@ -1,0 +1,60 @@
+<sbb-tab-group [size]="tabGroupControls.size().value()" (tabChange)="tabChanged($event)">
+  <sbb-tab-label
+    [iconName]="tabLabelControls.icon().value() ? 'train-small' : ''"
+    [amount]="tabLabelControls.amount().value()"
+  >
+    I am the first
+  </sbb-tab-label>
+  <sbb-tab>Tab content 1</sbb-tab>
+
+  <sbb-tab-label
+    [iconName]="tabLabelControls.icon().value() ? 'train-small' : ''"
+    [amount]="tabLabelControls.amount().value()"
+  >
+    I am the second
+  </sbb-tab-label>
+  <sbb-tab>Tab content 2</sbb-tab>
+
+  <sbb-tab-label
+    [iconName]="tabLabelControls.icon().value() ? 'train-small' : ''"
+    [amount]="tabLabelControls.amount().value()"
+  >
+    I am the third
+  </sbb-tab-label>
+  <sbb-tab>Tab content 3</sbb-tab>
+</sbb-tab-group>
+
+@let _tabChangeEvent = tabChangeEvent();
+@if (_tabChangeEvent) {
+  <p>
+    <sbb-card color="milk">
+      <b>TabChangeEvent</b>
+      <p>
+        <code>
+          {{ '{' }} previousIndex: {{ _tabChangeEvent.previousIndex }}, activeIndex:
+          {{ _tabChangeEvent.activeIndex }}
+          {{ '}' }}
+        </code>
+      </p>
+      <p>See console logs for more event details.</p>
+    </sbb-card>
+  </p>
+}
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="tabGroupControls.size" allowEmptySelection>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="l">l</sbb-radio-button>
+    <sbb-radio-button value="xl">xl</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="icon">Icon (tab-label)</label>
+  <sbb-checkbox id="icon" [formField]="tabLabelControls.icon"></sbb-checkbox>
+
+  <label for="amount">Amount (tab-label)</label>
+  <sbb-form-field size="s">
+    <input id="amount" type="text" [formField]="tabLabelControls.amount" />
+  </sbb-form-field>
+</div>

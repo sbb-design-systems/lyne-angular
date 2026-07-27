@@ -108,12 +108,16 @@
       [routerLink]="''"
       routerLinkActive="sbb-active"
       [routerLinkActiveOptions]="{ exact: true }"
+      #rlaHome="routerLinkActive"
+      [accessibilityCurrent]="rlaHome.isActive ? 'page' : ''"
     ></sbb-icon-sidebar-link>
     @for (packageEntry of packages | keyvalue; track $index) {
       <sbb-icon-sidebar-link
         [iconName]="packageEntry.value.iconName"
         [routerLink]="packageEntry.key"
         routerLinkActive="sbb-active"
+        #rla="routerLinkActive"
+        [accessibilityCurrent]="rla.isActive ? 'page' : ''"
         [style.text-decoration]="packageEntry.value.isDeprecated ? 'line-through' : ''"
         [sbb-tooltip]="packageEntry.value['name']"
         [accessibilityLabel]="packageEntry.value['name']"

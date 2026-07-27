@@ -1,0 +1,26 @@
+<sbb-radio-button-group [formControl]="control">
+  <sbb-radio-button-panel value="CHF 40">
+    <sbb-card-badge>%</sbb-card-badge>
+    Label 1
+    <span slot="subtext">Subtext</span>
+    <span slot="suffix" class="sbb-radio-button-panel-suffix">
+      <sbb-icon name="diamond-small" role="img" aria-hidden="true"></sbb-icon>
+      <span class="sbb-text--bold">CHF 40.00</span>
+    </span>
+  </sbb-radio-button-panel>
+  <sbb-radio-button-panel value="CHF 80">
+    <sbb-card-badge>%</sbb-card-badge>
+    Label 2
+    <span slot="subtext">Subtext</span>
+    <span slot="suffix" class="sbb-radio-button-panel-suffix">
+      <sbb-icon name="diamond-small" role="img" aria-hidden="true"></sbb-icon>
+      <span class="sbb-text--bold">CHF 80.00</span>
+    </span>
+  </sbb-radio-button-panel>
+</sbb-radio-button-group>
+
+<p>
+  <sbb-card color="milk">
+    Value: <code>{{ control.value }}</code>
+  </sbb-card>
+</p>

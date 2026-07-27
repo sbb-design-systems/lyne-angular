@@ -1,1 +1,1 @@
-export { StatusBasicExample } from './status-basic/status-basic-example';
+export { StatusShowcaseExample } from './status-showcase/status-showcase-example';

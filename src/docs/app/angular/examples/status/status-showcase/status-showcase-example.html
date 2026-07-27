@@ -1,0 +1,32 @@
+<sbb-status
+  [type]="controls.type().value()"
+  [iconName]="controls.hasCustomIcon().value() ? 'dog-small' : ''"
+>
+  @if (controls.withTitle().value()) {
+    <sbb-title level="3"> Status title text </sbb-title>
+  }
+  Status {{ controls.type().value() }} text.
+</sbb-status>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Type</label>
+  <sbb-form-field>
+    <sbb-select aria-label="Type" [formField]="controls.type">
+      <sbb-option value="info">info</sbb-option>
+      <sbb-option value="success">success</sbb-option>
+      <sbb-option value="warning">warning</sbb-option>
+      <sbb-option value="error">error</sbb-option>
+      <sbb-option value="pending">pending</sbb-option>
+      <sbb-option value="incomplete">incomplete</sbb-option>
+      <sbb-option value="not-started">not-started</sbb-option>
+      <sbb-option value="in-progress">in-progress</sbb-option>
+    </sbb-select>
+  </sbb-form-field>
+
+  <label for="has-custom-icon">Custom icon</label>
+  <sbb-checkbox id="has-custom-icon" [formField]="controls.hasCustomIcon"></sbb-checkbox>
+
+  <label for="with-title">With title</label>
+  <sbb-checkbox id="with-title" [formField]="controls.withTitle"></sbb-checkbox>
+</div>

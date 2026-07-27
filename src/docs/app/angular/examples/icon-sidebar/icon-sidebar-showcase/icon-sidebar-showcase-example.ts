@@ -1,6 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
+import { RouterModule } from '@angular/router';
 import type { SbbIconSidebar } from '@sbb-esta/lyne-angular/icon-sidebar';
 import { SbbIconSidebarModule } from '@sbb-esta/lyne-angular/icon-sidebar';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
@@ -18,6 +19,7 @@ import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
   imports: [
     FormField,
     NgTemplateOutlet,
+    RouterModule,
     SbbIconSidebarModule,
     SbbTooltipModule,
     SbbRadioButtonModule,

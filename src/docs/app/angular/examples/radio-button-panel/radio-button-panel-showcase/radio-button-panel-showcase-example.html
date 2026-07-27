@@ -1,0 +1,44 @@
+<sbb-radio-button-panel
+  [checked]="controls.checked().value()"
+  [size]="controls.size().value()"
+  [color]="controls.color().value()"
+  [disabled]="controls.disabled().value()"
+  [borderless]="controls.borderless().value()"
+  [allowEmptySelection]="controls.allowEmptySelection().value()"
+>
+  <sbb-card-badge>%</sbb-card-badge>
+  Label
+  <span slot="subtext">Subtext</span>
+  <span slot="suffix" class="sbb-radio-button-panel-suffix">
+    <sbb-icon name="diamond-small" role="img" aria-hidden="true"></sbb-icon>
+    <span class="sbb-text--bold"> CHF 40.00 </span>
+  </span>
+</sbb-radio-button-panel>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>
+    <sbb-radio-button value="xs">xs</sbb-radio-button>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Color</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.color" allowEmptySelection>
+    <sbb-radio-button value="white">White</sbb-radio-button>
+    <sbb-radio-button value="milk">Milk</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="checked">Checked state</label>
+  <sbb-checkbox id="checked" [formField]="controls.checked"></sbb-checkbox>
+
+  <label for="disabled">Disabled state</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label for="borderless">Borderless state</label>
+  <sbb-checkbox id="borderless" [formField]="controls.borderless"></sbb-checkbox>
+
+  <label for="allowEmptySelection">Allow empty selection</label>
+  <sbb-checkbox id="allowEmptySelection" [formField]="controls.allowEmptySelection"></sbb-checkbox>
+</div>

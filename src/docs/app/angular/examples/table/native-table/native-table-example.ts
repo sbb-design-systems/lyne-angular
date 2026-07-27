@@ -44,7 +44,7 @@ const ROW_DATA: RowEntry[] = [
     col3: 'Long text in a link to see how it wraps in the cell.',
     col4: 'Long text in a link to see how exactly the cell wraps',
     col5: '24 882',
-    describedby: 'legend_item_1',
+    describedby: 'legend-item-1',
   },
   {
     col1: 'SZDC (CZ) *2',
@@ -52,7 +52,7 @@ const ROW_DATA: RowEntry[] = [
     col3: '-',
     col4: '161',
     col5: '17 380',
-    describedby: 'legend_item_2',
+    describedby: 'legend-item-2',
   },
   {
     col1: 'DB AG (DE) *3',
@@ -60,7 +60,7 @@ const ROW_DATA: RowEntry[] = [
     col3: '78 542',
     col4: '1 037',
     col5: '286 237',
-    describedby: 'legend_item_3',
+    describedby: 'legend-item-3',
   },
   {
     col1: 'FS (IT) *3',
@@ -68,7 +68,7 @@ const ROW_DATA: RowEntry[] = [
     col3: '22 081',
     col4: '316',
     col5: '72 341',
-    describedby: 'legend_item_3',
+    describedby: 'legend-item-3',
   },
   {
     col1: 'JR (JP) *3',
@@ -76,7 +76,7 @@ const ROW_DATA: RowEntry[] = [
     col3: '20 255',
     col4: '693',
     col5: '127 989',
-    describedby: 'legend_item_3',
+    describedby: 'legend-item-3',
   },
   {
     col1: 'NS (NL) *1',
@@ -84,6 +84,6 @@ const ROW_DATA: RowEntry[] = [
     col3: '-',
     col4: '-',
     col5: '7 959',
-    describedby: 'legend_item_1',
+    describedby: 'legend-item-1',
   },
 ];

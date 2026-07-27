@@ -1,0 +1,12 @@
+<sbb-form-field>
+  <label>Select</label>
+  <sbb-select [formControl]="control">
+    <sbb-option value="Astoro">Astoro</sbb-option>
+    <sbb-option value="Flirt">Flirt</sbb-option>
+    <sbb-option value="Domino">Domino</sbb-option>
+  </sbb-select>
+</sbb-form-field>
+
+<p>
+  <sbb-card color="milk"> <b>Value: </b> {{ control.value }} </sbb-card>
+</p>

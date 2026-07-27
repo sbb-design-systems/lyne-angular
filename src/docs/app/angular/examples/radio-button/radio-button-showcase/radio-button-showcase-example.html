@@ -1,0 +1,28 @@
+<sbb-radio-button
+  [size]="controls.size().value()"
+  [checked]="controls.checked().value()"
+  [disabled]="controls.disabled().value()"
+  [allowEmptySelection]="controls.allowEmptySelection().value()"
+  [value]="controls.model().value()"
+>
+  Option one
+</sbb-radio-button>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" allowEmptySelection [formField]="controls.size">
+    <sbb-radio-button value="xs">xs</sbb-radio-button>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="checked">Checked</label>
+  <sbb-checkbox id="checked" [formField]="controls.checked"></sbb-checkbox>
+
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label for="allowEmptySelection">Allow empty selection</label>
+  <sbb-checkbox id="allowEmptySelection" [formField]="controls.allowEmptySelection"></sbb-checkbox>
+</div>

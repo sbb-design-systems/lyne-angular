@@ -1,0 +1,11 @@
+<sbb-radio-button-group aria-label="Radio group label" [formControl]="control">
+  <sbb-radio-button value="1">Option one</sbb-radio-button>
+  <sbb-radio-button value="2">Option two</sbb-radio-button>
+  <sbb-radio-button value="3">Option three</sbb-radio-button>
+</sbb-radio-button-group>
+
+<p>
+  <sbb-card color="milk">
+    Value: <code>{{ control.value }}</code>
+  </sbb-card>
+</p>
