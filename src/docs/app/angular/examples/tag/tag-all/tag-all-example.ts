@@ -1,7 +1,8 @@
 import { TitleCasePipe } from '@angular/common';
-import { Component, computed, viewChildren } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { form, FormField } from '@angular/forms/signals';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
-import { SbbTag, SbbTagModule } from '@sbb-esta/lyne-angular/tag';
+import { SbbTagModule } from '@sbb-esta/lyne-angular/tag';
 
 /**
  * @title tag-group with all selection
@@ -10,22 +11,28 @@ import { SbbTag, SbbTagModule } from '@sbb-esta/lyne-angular/tag';
 @Component({
   selector: 'sbb-tag-all-example',
   templateUrl: 'tag-all-example.html',
-  imports: [SbbTagModule, TitleCasePipe, SbbCardModule],
+  imports: [SbbTagModule, TitleCasePipe, SbbCardModule, FormField],
 })
 export class TagAllExample {
-  protected tags = viewChildren(SbbTag);
-  protected tagAll = computed<SbbTag>(() => this.tags().find((t) => t.value === 'all')!);
-  protected filteredTags = computed<SbbTag[]>(() =>
-    this.tags().filter((t) => !t.disabled && t.value !== 'all'),
+  protected readonly devices = ['phones', 'computer', 'laptop'] as const;
+  protected tagsForm = form(
+    signal({
+      all: false,
+      phones: false,
+      computer: false,
+      laptop: false,
+    }),
   );
 
-  protected updateTags() {
-    this.filteredTags().forEach((t) => (t.checked = !this.tagAll().checked));
+  protected updateTags(): void {
+    const checked = this.tagsForm.all().value();
+    this.devices.forEach((d) => this.tagsForm[d]().value.set(checked));
   }
 
-  protected updateTagAll() {
-    this.tagAll().checked = this.filteredTags().every((t) => t.checked);
-    if (this.tagAll().checked) {
+  protected updateTagAll(): void {
+    const allChecked = this.devices.every((d) => this.tagsForm[d]().value());
+    this.tagsForm.all().value.set(allChecked);
+    if (allChecked) {
       this.updateTags();
     }
   }

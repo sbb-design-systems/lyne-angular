@@ -1,7 +1,9 @@
 <sbb-tag-group multiple>
-  <sbb-tag value="all" (change)="updateTags()">All</sbb-tag>
-  @for (device of ['phones', 'computer', 'laptop']; track device) {
-    <sbb-tag [value]="device" (change)="updateTagAll()">{{ device | titlecase }}</sbb-tag>
+  <sbb-tag [formField]="tagsForm.all" (change)="updateTags()"> All </sbb-tag>
+  @for (device of devices; track device) {
+    <sbb-tag [formField]="tagsForm[device]" [value]="device" (change)="updateTagAll()">
+      {{ device | titlecase }}
+    </sbb-tag>
   }
 </sbb-tag-group>
 
