@@ -1,0 +1,33 @@
+<sbb-teaser href="https://www.sbb.ch" [alignment]="controls.alignment().value()">
+  <sbb-image
+    slot="image"
+    imageSrc="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Billetkontrolle.jpg"
+    alt="Description"
+  />
+  @if (controls.withChip().value()) {
+    <sbb-chip-label>Teaser chip</sbb-chip-label>
+  }
+  @if (controls.longText().value()) {
+    <sbb-title level="2">{{ loremIpsum }}</sbb-title>
+    {{ loremIpsum }}
+  } @else {
+    <sbb-title level="2">Title</sbb-title>
+    A brief description.
+  }
+</sbb-teaser>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Alignment</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.alignment">
+    <sbb-radio-button value="after">after</sbb-radio-button>
+    <sbb-radio-button value="after-centered">after-centered</sbb-radio-button>
+    <sbb-radio-button value="below">below</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="with-chip">With chip</label>
+  <sbb-checkbox id="with-chip" [formField]="controls.withChip"></sbb-checkbox>
+
+  <label for="long-text">Long text</label>
+  <sbb-checkbox id="long-text" [formField]="controls.longText"></sbb-checkbox>
+</div>

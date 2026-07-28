@@ -1,0 +1,16 @@
+<ul class="teaser-list">
+  @for (item of [1, 2, 3]; track item) {
+    <li class="teaser-item">
+      <sbb-teaser href="https://www.sbb.ch">
+        <sbb-image
+          slot="image"
+          imageSrc="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Billetkontrolle.jpg"
+          alt="Description"
+        />
+        <sbb-chip-label>Teaser chip</sbb-chip-label>
+        <sbb-title level="2">Item {{ item }}</sbb-title>
+        A brief description.
+      </sbb-teaser>
+    </li>
+  }
+</ul>

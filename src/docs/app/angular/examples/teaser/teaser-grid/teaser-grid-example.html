@@ -1,0 +1,14 @@
+<div class="teaser-grid">
+  @for (item of [1, 2, 3, 4]; track item) {
+    <sbb-teaser href="https://www.sbb.ch">
+      <figure slot="image" class="sbb-figure">
+        <sbb-image
+          slot="image"
+          imageSrc="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Einheitswagen-IV-EuroCity.jpg"
+          alt="Description"
+        />
+      </figure>
+      Item {{ item }} - A brief description.
+    </sbb-teaser>
+  }
+</div>
