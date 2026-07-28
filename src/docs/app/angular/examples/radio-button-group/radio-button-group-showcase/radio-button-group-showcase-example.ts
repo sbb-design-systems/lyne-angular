@@ -11,7 +11,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
  * @order 1
  */
 @Component({
-  selector: 'sbb-radio-button-group-basic-example',
+  selector: 'sbb-radio-button-group-showcase-example',
   templateUrl: 'radio-button-group-showcase-example.html',
   imports: [FormField, SbbRadioButtonModule, SbbCheckboxModule, SbbTitleModule, SbbCardModule],
 })

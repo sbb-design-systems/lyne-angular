@@ -8,7 +8,7 @@ import { type SbbTitle, SbbTitleModule } from '@sbb-esta/lyne-angular/title';
  * @title title with configurable properties
  */
 @Component({
-  selector: 'sbb-title-basic-example',
+  selector: 'sbb-title-showcase-example',
   templateUrl: 'title-showcase-example.html',
   imports: [FormField, SbbTitleModule, SbbRadioButtonModule, SbbCheckboxModule],
 })
