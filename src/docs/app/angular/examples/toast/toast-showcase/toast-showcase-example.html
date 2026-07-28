@@ -1,5 +1,6 @@
-<sbb-button (click)="openToast()">Open toast</sbb-button>
+<sbb-button (click)="toast.open()">Open toast</sbb-button>
 <sbb-toast
+  #toast="sbbToast"
   [position]="controls.position().value()"
   [iconName]="controls.withIcon().value() ? 'pie-small' : ''"
   [readOnly]="controls.readonly().value()"

@@ -24,7 +24,7 @@ export class ToastServiceContentExample {
   imports: [SbbActionGroupModule, SbbToastModule, SbbButtonModule, SbbLinkModule],
 })
 export class ToastServiceExample {
-  protected link = viewChild.required('toastTemplate', { read: TemplateRef });
+  protected template = viewChild.required('toastTemplate', { read: TemplateRef });
   #toastService = inject(SbbToastService);
 
   openToast(): void {
@@ -32,7 +32,7 @@ export class ToastServiceExample {
   }
 
   openToastTemplate(): void {
-    this.#toastService.open(this.link());
+    this.#toastService.open(this.template());
   }
 
   openToastComponent(): void {

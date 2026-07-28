@@ -1,11 +1,11 @@
-import { Component, signal, viewChild } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { form, FormField, min } from '@angular/forms/signals';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
-import { SbbToast, SbbToastModule } from '@sbb-esta/lyne-angular/toast';
+import { type SbbToast, SbbToastModule } from '@sbb-esta/lyne-angular/toast';
 
 /**
  * @title toast with configurable properties
@@ -34,9 +34,4 @@ export class ToastShowcaseExample {
     }),
     (s) => min(s.timeout, 0),
   );
-  protected toast = viewChild.required(SbbToast);
-
-  openToast(): void {
-    this.toast().open();
-  }
 }
