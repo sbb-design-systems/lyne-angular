@@ -1,8 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, ElementRef, forwardRef, viewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  forwardRef,
+  inject,
+  input,
+  model,
+  output,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import type { ControlValueAccessor } from '@angular/forms';
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  disabled,
+  form,
+  FormField,
+  readonly,
+  required,
+  type FormValueControl,
+} from '@angular/forms/signals';
 import { Subject } from 'rxjs';
 
 import { SbbFormField } from './form-field';
@@ -46,6 +64,11 @@ describe('sbb-form-field', () => {
     let fixture: ComponentFixture<CustomControlTestComponent>,
       component: CustomControlTestComponent;
 
+    const hasState = (state: string): boolean =>
+      (fixture.nativeElement as HTMLElement)
+        .querySelector('sbb-form-field')!
+        .matches(`:state(${state})`);
+
     beforeEach(async () => {
       fixture = TestBed.createComponent(CustomControlTestComponent);
       component = fixture.componentInstance;
@@ -80,11 +103,7 @@ describe('sbb-form-field', () => {
       input.disabled = true;
       input.stateChanges.next();
       await fixture.whenStable();
-      expect(
-        (fixture.nativeElement as HTMLElement)
-          .querySelector('sbb-form-field')!
-          .matches(':state(disabled)'),
-      ).toBeTruthy();
+      expect(hasState('disabled')).toBeTruthy();
     });
 
     it('should reflect changed empty state', async () => {
@@ -92,11 +111,7 @@ describe('sbb-form-field', () => {
       input.empty = true;
       input.stateChanges.next();
       await fixture.whenStable();
-      expect(
-        (fixture.nativeElement as HTMLElement)
-          .querySelector('sbb-form-field')!
-          .matches(':state(empty)'),
-      ).toBeTruthy();
+      expect(hasState('empty')).toBeTruthy();
     });
 
     it('should reflect changed readOnly state', async () => {
@@ -104,11 +119,7 @@ describe('sbb-form-field', () => {
       input.readOnly = true;
       input.stateChanges.next();
       await fixture.whenStable();
-      expect(
-        (fixture.nativeElement as HTMLElement)
-          .querySelector('sbb-form-field')!
-          .matches(':state(readonly)'),
-      ).toBeTruthy();
+      expect(hasState('readonly')).toBeTruthy();
     });
 
     it('should focus the inner input with onContainerClick', async () => {
@@ -116,6 +127,83 @@ describe('sbb-form-field', () => {
       const focusSpy = vi.spyOn(input.input()!.nativeElement!, 'focus');
       input.onContainerClick(new MouseEvent('click'));
       expect(focusSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('signal custom control', () => {
+    let fixture: ComponentFixture<SignalCustomControlTestComponent>,
+      component: SignalCustomControlTestComponent;
+
+    const hasState = (state: string): boolean =>
+      (fixture.nativeElement as HTMLElement)
+        .querySelector('sbb-form-field')!
+        .matches(`:state(${state})`);
+
+    beforeEach(async () => {
+      fixture = TestBed.createComponent(SignalCustomControlTestComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should create', async () => {
+      expect(component).toBeDefined();
+    });
+
+    it('should detect invalid state', async () => {
+      component.input()!.touch.emit();
+
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      const formField = component.formField();
+      const state = formField.state();
+
+      expect(state.invalid()).toBe(true);
+      expect(state.touched()).toBe(true);
+
+      // Wait for attribute observer to run
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      expect(
+        getComputedStyle(
+          (fixture.nativeElement as HTMLElement).querySelector('sbb-form-field')!,
+        ).getPropertyValue('--sbb-form-field-border-color'),
+      ).toBe('light-dark(#c60018, #ff3838)');
+    });
+
+    it('should reflect changed disabled state', async () => {
+      component.disabled.set(true);
+      await fixture.whenStable();
+      expect(hasState('disabled')).toBeTruthy();
+      component.disabled.set(false);
+      await fixture.whenStable();
+      expect(hasState('disabled')).toBeFalsy();
+    });
+
+    it('should reflect changed empty state', async () => {
+      await fixture.whenStable();
+      expect(hasState('empty')).toBeTruthy();
+      component.control().value.set('value');
+      await fixture.whenStable();
+      expect(hasState('empty')).toBeFalsy();
+    });
+
+    it('should reflect changed readOnly state', async () => {
+      component.readonly.set(true);
+      await fixture.whenStable();
+      expect(hasState('readonly')).toBeTruthy();
+      component.readonly.set(false);
+      await fixture.whenStable();
+      expect(hasState('readonly')).toBeFalsy();
+    });
+
+    it('should focus the inner input with onContainerClick', async () => {
+      const formField = component.formField();
+      formField.focus();
+
+      const focusedElement = document.activeElement;
+      expect(focusedElement).toBeDefined();
+      expect(focusedElement).toHaveClass('sbb-signal-custom-control-span');
     });
   });
 });
@@ -181,6 +269,7 @@ class CustomControlComponent implements SbbFormFieldControl, ControlValueAccesso
 }
 
 @Component({
+  selector: 'sbb-custom-control-test',
   template: `<sbb-form-field
     ><sbb-custom-control [formControl]="control" #input
   /></sbb-form-field>`,
@@ -189,4 +278,40 @@ class CustomControlComponent implements SbbFormFieldControl, ControlValueAccesso
 class CustomControlTestComponent {
   control = new FormControl('', Validators.required);
   input = viewChild<CustomControlComponent>('input');
+}
+
+@Component({
+  selector: 'sbb-signal-custom-control',
+  template: `<span class="sbb-signal-custom-control-span" tabindex="0">{{ value() }}</span>`,
+})
+class SignalCustomControlComponent implements FormValueControl<string> {
+  #element = inject(ElementRef<HTMLElement>);
+  value = model('');
+  disabled = input(false);
+  readonly = input(false);
+  touched = input(false);
+  touch = output();
+
+  focus?(options?: FocusOptions): void {
+    this.#element.nativeElement.querySelector('.sbb-signal-custom-control-span')?.focus(options);
+  }
+}
+
+@Component({
+  selector: 'sbb-signal-custom-control-test',
+  template: `<sbb-form-field
+    ><sbb-signal-custom-control [formField]="control" #input
+  /></sbb-form-field>`,
+  imports: [SbbFormField, SignalCustomControlComponent, FormField],
+})
+class SignalCustomControlTestComponent {
+  input = viewChild<SignalCustomControlComponent>('input');
+  formField = viewChild.required(FormField<string>);
+  disabled = signal(false);
+  readonly = signal(false);
+  control = form(signal(''), (s) => {
+    required(s);
+    disabled(s, { when: this.disabled });
+    readonly(s, { when: this.readonly });
+  });
 }

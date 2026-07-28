@@ -1,1 +1,1 @@
-export { TimetableOccupancyBasicExample } from './timetable-occupancy-basic/timetable-occupancy-basic-example';
+export { TimetableOccupancyShowcaseExample } from './timetable-occupancy-showcase/timetable-occupancy-showcase-example';

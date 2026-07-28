@@ -145,11 +145,15 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'selection-action-panel-with-expansion',
     'selection-action-panel-group',
   ],
-  'selection-expansion-panel': ['selection-expansion-panel-basic'],
+  'selection-expansion-panel': [
+    { id: 'selection-expansion-panel-showcase', hasStyle: true },
+    { id: 'selection-expansion-panel-group', hasStyle: true },
+    { id: 'selection-expansion-panel-ticket-options', hasStyle: true },
+  ],
   sidebar: [{ id: 'sidebar-showcase', hasStyle: true }, 'sidebar-nested'],
   signet: [{ id: 'signet-showcase', hasStyle: true }],
   'skiplink-list': ['skiplink-list-basic'],
-  slider: ['slider-basic'],
+  slider: ['slider-showcase', 'slider-signal', 'slider-reactive', 'slider-template-driven'],
   status: ['status-showcase'],
   stepper: ['stepper-basic'],
   table: [
@@ -170,9 +174,13 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'tabs-tab-nav-bar',
     'tabs-lazy-content',
   ],
-  tag: ['tag-basic'],
-  teaser: ['teaser-basic'],
-  'teaser-hero': ['teaser-hero-basic'],
+  tag: ['tag-showcase', 'tag-exclusive', 'tag-all'],
+  teaser: [
+    'teaser-showcase',
+    { id: 'teaser-list', hasStyle: true },
+    { id: 'teaser-grid', hasStyle: true },
+  ],
+  'teaser-hero': ['teaser-hero-basic', 'teaser-hero-with-chip', 'teaser-hero-chip-only'],
   'teaser-panel': ['teaser-panel-basic'],
   'teaser-product': ['teaser-product-basic'],
   'time-input': [
@@ -182,9 +190,9 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'time-input-template-driven',
   ],
   'timetable-form': ['timetable-form-basic'],
-  'timetable-occupancy': ['timetable-occupancy-basic'],
-  'timetable-occupancy-icon': ['timetable-occupancy-icon-basic'],
-  title: ['title-basic'],
+  'timetable-occupancy': ['timetable-occupancy-showcase'],
+  'timetable-occupancy-icon': ['timetable-occupancy-icon-showcase'],
+  title: ['title-showcase'],
   toast: ['toast-basic'],
   toggle: ['toggle-basic'],
   'toggle-check': ['toggle-check-basic'],
@@ -408,7 +416,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'selection-action-panel-group':
     case 'selection-action-panel-with-expansion':
       return import('../angular/examples/selection-action-panel');
-    case 'selection-expansion-panel-basic':
+    case 'selection-expansion-panel-group':
+    case 'selection-expansion-panel-showcase':
+    case 'selection-expansion-panel-ticket-options':
       return import('../angular/examples/selection-expansion-panel');
     case 'sidebar-nested':
     case 'sidebar-showcase':
@@ -419,7 +429,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/table');
     case 'skiplink-list-basic':
       return import('../angular/examples/skiplink-list');
-    case 'slider-basic':
+    case 'slider-reactive':
+    case 'slider-showcase':
+    case 'slider-signal':
+    case 'slider-template-driven':
       return import('../angular/examples/slider');
     case 'sortable-table':
       return import('../angular/examples/table');
@@ -434,16 +447,24 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'tabs-showcase':
     case 'tabs-tab-nav-bar':
       return import('../angular/examples/tabs');
-    case 'tag-basic':
+    case 'tag-all':
+    case 'tag-exclusive':
+    case 'tag-showcase':
       return import('../angular/examples/tag');
-    case 'teaser-basic':
+    case 'teaser-grid':
       return import('../angular/examples/teaser');
     case 'teaser-hero-basic':
+    case 'teaser-hero-chip-only':
+    case 'teaser-hero-with-chip':
       return import('../angular/examples/teaser-hero');
+    case 'teaser-list':
+      return import('../angular/examples/teaser');
     case 'teaser-panel-basic':
       return import('../angular/examples/teaser-panel');
     case 'teaser-product-basic':
       return import('../angular/examples/teaser-product');
+    case 'teaser-showcase':
+      return import('../angular/examples/teaser');
     case 'time-input-reactive':
     case 'time-input-showcase':
     case 'time-input-signal':
@@ -451,11 +472,11 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/time-input');
     case 'timetable-form-basic':
       return import('../angular/examples/timetable-form');
-    case 'timetable-occupancy-basic':
-      return import('../angular/examples/timetable-occupancy');
-    case 'timetable-occupancy-icon-basic':
+    case 'timetable-occupancy-icon-showcase':
       return import('../angular/examples/timetable-occupancy-icon');
-    case 'title-basic':
+    case 'timetable-occupancy-showcase':
+      return import('../angular/examples/timetable-occupancy');
+    case 'title-showcase':
       return import('../angular/examples/title');
     case 'toast-basic':
       return import('../angular/examples/toast');

@@ -1,0 +1,55 @@
+<sbb-slider
+  [formField]="form.slider"
+  [min]="controls.min().value().toString()"
+  [max]="controls.max().value().toString()"
+  [readOnly]="controls.readOnly().value()"
+  [startIcon]="controls.startIcon().value() ? 'walk-slow-small' : ''"
+  [endIcon]="controls.endIcon().value() ? 'walk-fast-small' : ''"
+></sbb-slider>
+<p>
+  <sbb-card color="milk">
+    Value: <code>{{ form.slider().value() }}</code>
+  </sbb-card>
+</p>
+
+<sbb-form-field>
+  <label>In form field</label>
+  <sbb-slider
+    [formField]="form.inFormField"
+    [min]="controls.min().value().toString()"
+    [max]="controls.max().value().toString()"
+    [readOnly]="controls.readOnly().value()"
+    [startIcon]="controls.startIcon().value() ? 'walk-slow-small' : ''"
+    [endIcon]="controls.endIcon().value() ? 'walk-fast-small' : ''"
+  ></sbb-slider>
+</sbb-form-field>
+<p>
+  <sbb-card color="milk">
+    Value: <code>{{ form.inFormField().value() }}</code>
+  </sbb-card>
+</p>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="min">Min</label>
+  <sbb-form-field size="s">
+    <input id="min" type="number" [formField]="controls.min" />
+  </sbb-form-field>
+
+  <label for="max">Max</label>
+  <sbb-form-field size="s">
+    <input id="max" type="number" [formField]="controls.max" />
+  </sbb-form-field>
+
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label for="readOnly">Readonly</label>
+  <sbb-checkbox id="readOnly" [formField]="controls.readOnly"></sbb-checkbox>
+
+  <label for="startIcon">Start icon</label>
+  <sbb-checkbox id="startIcon" [formField]="controls.startIcon"></sbb-checkbox>
+
+  <label for="endIcon">End icon</label>
+  <sbb-checkbox id="endIcon" [formField]="controls.endIcon"></sbb-checkbox>
+</div>
