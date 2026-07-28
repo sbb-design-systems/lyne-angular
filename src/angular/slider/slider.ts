@@ -50,7 +50,7 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
   public set value(value: string | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
   }
-  public get value(): string | null {
+  public get value(): string {
     return this.#element.nativeElement.value;
   }
 
@@ -69,8 +69,8 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
    * Minimum acceptable value for the inner HTMLInputElement.
    */
   @Input()
-  public set min(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.min = value));
+  public set min(value: string | undefined) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.min = value ?? ''));
   }
   public get min(): string {
     return this.#element.nativeElement.min;
@@ -80,8 +80,8 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
    * Maximum acceptable value for the inner HTMLInputElement.
    */
   @Input()
-  public set max(value: string) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.max = value));
+  public set max(value: string | undefined) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.max = value ?? ''));
   }
   public get max(): string {
     return this.#element.nativeElement.max;

@@ -1,0 +1,33 @@
+.ticket-price {
+  display: flex;
+  align-items: center;
+  margin-inline-start: auto;
+}
+
+.ticket-flexibility {
+  width: 100%;
+
+  &-price {
+    margin-inline-start: auto;
+    color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+  }
+}
+
+sbb-divider {
+  margin-block: var(--sbb-spacing-responsive-xxs);
+}
+
+.description-wrapper {
+  color: light-dark(var(--sbb-color-granite), var(--sbb-color-smoke));
+}
+
+.description {
+  display: flex;
+  align-items: center;
+  gap: var(--sbb-spacing-fixed-1x);
+  color: var(--sbb-color-2);
+}
+
+sbb-popover sbb-title {
+  margin-block-start: 0;
+}
