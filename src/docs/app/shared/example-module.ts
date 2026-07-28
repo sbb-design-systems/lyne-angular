@@ -174,7 +174,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'tabs-tab-nav-bar',
     'tabs-lazy-content',
   ],
-  tag: ['tag-basic'],
+  tag: ['tag-showcase', 'tag-exclusive', 'tag-all'],
   teaser: [
     'teaser-showcase',
     { id: 'teaser-list', hasStyle: true },
@@ -439,7 +439,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'tabs-showcase':
     case 'tabs-tab-nav-bar':
       return import('../angular/examples/tabs');
-    case 'tag-basic':
+    case 'tag-all':
+    case 'tag-exclusive':
+    case 'tag-showcase':
       return import('../angular/examples/tag');
     case 'teaser-grid':
       return import('../angular/examples/teaser');
