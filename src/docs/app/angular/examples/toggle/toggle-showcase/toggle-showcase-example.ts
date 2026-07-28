@@ -8,7 +8,8 @@ import type { SbbToggle } from '@sbb-esta/lyne-angular/toggle';
 import { SbbToggleModule } from '@sbb-esta/lyne-angular/toggle';
 
 /**
- * @title Basic toggle
+ * @title sbb-toggle with configurable properties
+ * @order 1
  */
 @Component({
   selector: 'sbb-toggle-showcase-example',
@@ -26,7 +27,7 @@ import { SbbToggleModule } from '@sbb-esta/lyne-angular/toggle';
 export class ToggleShowcaseExample {
   protected readonly controls = form(
     signal({
-      toggle: 'Zürich',
+      toggle: 'Bern',
       size: null as SbbToggle['size'],
       disabled: false,
       even: false,
