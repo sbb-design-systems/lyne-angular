@@ -176,7 +176,10 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'teaser-panel': ['teaser-panel-basic'],
   'teaser-product': ['teaser-product-basic'],
   'time-input': ['time-input-basic'],
-  'timetable-form': ['timetable-form-basic', 'timetable-form-via'],
+  'timetable-form': [
+    { id: 'timetable-form-basic', hasStyle: true },
+    { id: 'timetable-form-via', hasStyle: true },
+  ],
   'timetable-occupancy': ['timetable-occupancy-showcase'],
   'timetable-occupancy-icon': ['timetable-occupancy-icon-showcase'],
   title: ['title-basic'],
