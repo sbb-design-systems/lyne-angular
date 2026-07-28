@@ -1,0 +1,45 @@
+<sbb-toggle
+  [formField]="controls.toggle"
+  [size]="controls.size().value()"
+  [even]="controls.even().value()"
+>
+  <sbb-toggle-option
+    value="Bern"
+    [iconName]="controls.hasIcon().value() ? 'arrow-right-small' : ''"
+  >
+    {{ controls.hasLabel().value() ? 'Bern' : null }}
+  </sbb-toggle-option>
+  <sbb-toggle-option
+    value="Zürich"
+    [iconName]="controls.hasIcon().value() ? 'arrows-right-left-small' : ''"
+  >
+    {{ controls.hasLabel().value() ? 'Zürich' : null }}
+  </sbb-toggle-option>
+</sbb-toggle>
+
+<p>
+  <sbb-card color="milk">
+    Value: <code>{{ controls.toggle().value() }}</code>
+  </sbb-card>
+</p>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size" allowEmptySelection>
+    <sbb-radio-button value="s">s</sbb-radio-button>
+    <sbb-radio-button value="m">m</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label for="even">Even</label>
+  <sbb-checkbox id="even" [formField]="controls.even"></sbb-checkbox>
+
+  <label for="hasLabel">With label</label>
+  <sbb-checkbox id="hasLabel" [formField]="controls.hasLabel"></sbb-checkbox>
+
+  <label for="hasIcon">With icon</label>
+  <sbb-checkbox id="hasIcon" [formField]="controls.hasIcon"></sbb-checkbox>
+</div>

@@ -1,1 +1,1 @@
-export { ToggleBasicExample } from './toggle-basic/toggle-basic-example';
+export { ToggleShowcaseExample } from './toggle-showcase/toggle-showcase-example';
