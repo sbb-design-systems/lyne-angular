@@ -16,6 +16,7 @@ import { SbbToggleModule } from '@sbb-esta/lyne-angular/toggle';
 @Component({
   selector: 'sbb-timetable-form-via-example',
   templateUrl: 'timetable-form-via-example.html',
+  styleUrl: 'timetable-form-via-example.scss',
   imports: [
     FormField,
     SbbButtonModule,
