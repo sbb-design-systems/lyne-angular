@@ -24,7 +24,11 @@
   </sbb-radio-button-group>
 
   <label>Visual level</label>
-  <sbb-radio-button-group aria-label="Visual level" [formField]="controls.visualLevel">
+  <sbb-radio-button-group
+    aria-label="Visual level"
+    [formField]="controls.visualLevel"
+    allowEmptySelection
+  >
     <sbb-radio-button value="1">1</sbb-radio-button>
     <sbb-radio-button value="2">2</sbb-radio-button>
     <sbb-radio-button value="3">3</sbb-radio-button>
