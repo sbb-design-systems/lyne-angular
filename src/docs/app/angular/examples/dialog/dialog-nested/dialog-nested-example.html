@@ -1,0 +1,30 @@
+<sbb-secondary-button [sbbDialog]="dialog">Open Dialog</sbb-secondary-button>
+
+<sbb-dialog #dialog="sbbDialog">
+  <sbb-dialog-title>A describing title of the dialog</sbb-dialog-title>
+  <sbb-dialog-close-button></sbb-dialog-close-button>
+  <sbb-dialog-content>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sit amet tellus massa.
+      Aliquam maximus fringilla pulvinar. Pellentesque eget ex a nisi vestibulum tempor. Duis
+      maximus urna a dolor tristique, nec congue nibh ultricies. Mauris sodales, urna at aliquam
+      iaculis, nisl mauris rhoncus nunc, sed pretium dui orci in sapien.
+    </p>
+  </sbb-dialog-content>
+  <sbb-dialog-actions>
+    <sbb-accent-button [sbbDialog]="nestedDialog">Open nested overlay</sbb-accent-button>
+  </sbb-dialog-actions>
+
+  <sbb-dialog #nestedDialog="sbbDialog">
+    <sbb-dialog-title>Nested dialog</sbb-dialog-title>
+    <sbb-dialog-close-button></sbb-dialog-close-button>
+    <sbb-dialog-content>
+      <p>
+        Nam nec libero blandit, ultricies enim eget, bibendum nibh. Aliquam erat volutpat. Ut in
+        massa consectetur, molestie elit eu, lobortis diam. Aenean eget nisl massa. Proin nec
+        vestibulum lorem. Suspendisse potenti. Interdum et malesuada fames ac ante ipsum primis in
+        faucibus. Morbi pulvinar neque sit amet dignissim pulvinar.
+      </p>
+    </sbb-dialog-content>
+  </sbb-dialog>
+</sbb-dialog>
