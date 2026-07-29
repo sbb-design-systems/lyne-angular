@@ -110,6 +110,6 @@ It's suggested to have a different value for each variant, e.g.:
 ></sbb-file-selector-dropzone>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-file-selector--docs)

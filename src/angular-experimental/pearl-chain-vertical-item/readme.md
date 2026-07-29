@@ -34,6 +34,6 @@ The `pearlChainVerticalItemAttributes` property is mandatory.
 The component has many styling options, which can be configured through the 'pearlChainVerticalItemAttributes' property.
 The slots themselves are unstyled, so that they can be used in various ways.
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/experimental-pearl-chain-vertical-item--docs)

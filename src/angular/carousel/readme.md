@@ -92,6 +92,6 @@ To not break the accessibility when links are used together with images, please 
 </sbb-carousel>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-carousel--docs)

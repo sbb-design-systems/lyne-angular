@@ -114,6 +114,6 @@ the component may not be fully accessible due to the small dimensions of `<sbb-m
 the usage of a grid implementation for the `<sbb-mini-calendar-month>`
 (differently from the `<sbb-calendar>`, which has a table implementation).
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-mini-calendar--docs)

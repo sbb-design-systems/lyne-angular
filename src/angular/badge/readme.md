@@ -53,6 +53,6 @@ As workaround, a figure element can be used:
 For screen readers it's important to output the meaning of the badge. This attribute itself doesn't
 output anything to screen readers. As an example, add `aria-label` text or `aria-describedby` references.
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-badge--docs)

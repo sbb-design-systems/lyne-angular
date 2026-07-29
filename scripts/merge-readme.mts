@@ -175,7 +175,7 @@ async function mergeReadme(path: string, newContent: string) {
     }
   }
 
-  newContent += `\n\n## @sbb-esta/lyne-elements Docs \n\n[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/${path.includes('elements-experimental/') ? 'experimental' : 'elements'}-${moduleDirectory}--docs)`;
+  newContent += `\n\n## Docs on @sbb-esta/lyne-elements \n\n[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/${path.includes('elements-experimental/') ? 'experimental' : 'elements'}-${moduleDirectory}--docs)`;
 
   const options = await resolveConfig(localPath);
   writeFileSync(localPath, await format(newContent, { ...options, filepath: localPath }), 'utf8');

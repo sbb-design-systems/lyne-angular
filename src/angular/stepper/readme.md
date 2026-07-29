@@ -162,6 +162,6 @@ The components internally manage aria states, like `aria-setsize`, `aria-posinse
 `aria-labelledby`.
 If important content needs to be announced when a step is changed, use the `aria-live=‘polite’` attribute.
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-stepper--docs)

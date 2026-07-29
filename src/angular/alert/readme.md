@@ -103,6 +103,6 @@ and therefore interrupts screen reader flow, to immediately read out the alert c
 
 **Note that with role `alert`, in some combinations of screen readers and browsers not every part of the alert is fully read.**
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-alert--docs)

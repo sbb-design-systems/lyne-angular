@@ -16,6 +16,6 @@ and it can be set using the `title-content` property.
 </sbb-skiplink-list>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-skiplink-list--docs)

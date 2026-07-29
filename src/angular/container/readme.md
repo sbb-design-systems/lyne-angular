@@ -102,6 +102,6 @@ The color is only applied when the sticky bar is sticking, and will become trans
 
 The component has two sizes, `s` and `m`, that can be set using the `size` property.
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-container--docs)

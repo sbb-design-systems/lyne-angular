@@ -190,6 +190,6 @@ This will visually highlight the wagon with a thicker border.
 <sbb-train-wagon class="sbb-active" wagonType="wagon" label="38" occupancy="low"></sbb-train-wagon>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-train--docs)

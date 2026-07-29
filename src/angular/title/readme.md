@@ -29,6 +29,6 @@ This can be removed or customized via simple CSS rules.
 
 With the `lean` theme, the title is given smaller sizes and spacings.
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-title--docs)

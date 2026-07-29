@@ -399,26 +399,43 @@ const createDocsEnumerations = (enums: any[], type: string): string => {
 };
 
 const createInputsTable = (inputs: any[], accessors?: Record<string, any>): string => {
+  let accessorsToAdd = [];
   if (accessors) {
-    const inputsNames = new Set(inputs.map((input) => input.name));
-    const accessorsToAdd = Object.keys(accessors)
+    const inputsNames = new Set(inputs.map((input) => input.actualName ?? input.name));
+    accessorsToAdd = Object.keys(accessors)
       .filter((key) => !inputsNames.has(key))
       .map((acc) => {
         const accessor = accessors[acc];
         return accessor['getSignature'] ?? accessor['setSignature'];
       }) as any[];
-    inputs = [...inputs, ...accessorsToAdd];
   }
+
   return `### Properties
 
 | Name | Type | Description |
 | --- | --- | --- |
-${inputs
-  .map(
-    (input) =>
-      `| ${input['name']} | ${createTypeForTable(input['returnType'] ?? input['type'])} | ${createDescriptionForTable(input['rawdescription'])}|\n`,
-  )
-  .join('')}\n`;
+${[
+  inputs
+    .map(
+      (input) =>
+        `| ${createInputsName(input)} | ${createTypeForTable(input['returnType'] ?? input['type'])} | ${createDescriptionForTable(input['rawdescription'])}|\n`,
+    )
+    .join(''),
+  accessorsToAdd
+    .map(
+      (input) =>
+        `| ${input['name']} | ${createTypeForTable(input['returnType'] ?? input['type'])} | ${createDescriptionForTable(input['rawdescription'])}|\n`,
+    )
+    .join(''),
+].join('')}\n`;
+};
+
+const createInputsName = (input: any): string => {
+  if (input.actualName) {
+    return `@Input('${input.name}')<br/>${input.actualName}`;
+  } else {
+    return `@Input()<br/>${input.name}`;
+  }
 };
 
 const createOutputTable = (directive: any): string => {
@@ -465,7 +482,7 @@ const createSlotsTable = (slots: { name: string; description: string }[]): strin
 
 | Name | Description |
 | --- | --- |
-${slots.map((slot) => `| ${slot.name} | ${slot.description} |\n`).join('')}\n`;
+${slots.map((slot) => `| ${slot.name === '' ? '-' : slot.name} | ${slot.description} |\n`).join('')}\n`;
 };
 
 const createCssPropsTable = (

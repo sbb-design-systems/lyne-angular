@@ -20,6 +20,6 @@ and a [sbb-button](/angular/components/button/overview) to provide a custom acti
 </sbb-message>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-message--docs)

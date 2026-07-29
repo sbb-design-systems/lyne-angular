@@ -90,6 +90,6 @@ todayStub = stub(defaultDateAdapter, 'today').returns(new Date(2022, 4, 1, 0, 0,
 todayStub.restore();
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-datepicker--docs)

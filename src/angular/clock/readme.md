@@ -17,6 +17,6 @@ This is helpful if you need a specific state of the component.
 <sbb-clock now="23:23:00"></sbb-clock>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-clock--docs)
