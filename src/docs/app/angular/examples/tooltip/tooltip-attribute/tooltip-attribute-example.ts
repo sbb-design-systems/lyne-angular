@@ -3,12 +3,12 @@ import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
 
 /**
- * @title Basic tooltip
- * @order 2
+ * @title tooltip example with attribute usage
+ * @order 3
  */
 @Component({
-  selector: 'sbb-tooltip-basic-example',
-  templateUrl: 'tooltip-basic-example.html',
+  selector: 'sbb-tooltip-attribute-example',
+  templateUrl: 'tooltip-attribute-example.html',
   imports: [SbbTooltipModule, SbbButtonModule],
 })
-export class TooltipBasicExample {}
+export class TooltipAttributeExample {}
