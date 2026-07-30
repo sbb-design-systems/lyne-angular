@@ -194,7 +194,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   toast: ['toast-showcase', 'toast-service'],
   toggle: ['toggle-showcase', 'toggle-signal', 'toggle-reactive', 'toggle-template-driven'],
   'toggle-check': ['toggle-check-showcase'],
-  tooltip: ['tooltip-basic'],
+  tooltip: [{ id: 'tooltip-showcase', hasStyle: true }, 'tooltip-basic', 'tooltip-attribute'],
   train: ['train-basic', 'train-vertical'],
 };
 
@@ -485,7 +485,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'toggle-signal':
     case 'toggle-template-driven':
       return import('../angular/examples/toggle');
+    case 'tooltip-attribute':
     case 'tooltip-basic':
+    case 'tooltip-showcase':
       return import('../angular/examples/tooltip');
     case 'train-basic':
     case 'train-vertical':

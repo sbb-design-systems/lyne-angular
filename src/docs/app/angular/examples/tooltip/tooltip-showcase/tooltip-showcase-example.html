@@ -1,0 +1,38 @@
+<sbb-button class="tooltip-showcase-button" [sbbTooltip]="tooltip">Button</sbb-button>
+<sbb-tooltip
+  #tooltip="sbbTooltip"
+  [style]="
+    controls.position().value() ? `--sbb-overlay-position-area: ${controls.position().value()}` : ''
+  "
+  [openDelay]="controls.openDelay().value()"
+  [closeDelay]="controls.closeDelay().value()"
+  >Tooltip message
+</sbb-tooltip>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Position</label>
+  <sbb-form-field size="s" type="select">
+    <sbb-select [formField]="controls.position">
+      <sbb-option [value]="null">unset</sbb-option>
+      <sbb-option value="block-end">block-end</sbb-option>
+      <sbb-option value="block-start">block-start</sbb-option>
+      <sbb-option value="inline-start">inline-start</sbb-option>
+      <sbb-option value="inline-end">inline-end</sbb-option>
+      <sbb-option value="bottom">bottom</sbb-option>
+      <sbb-option value="top">top</sbb-option>
+      <sbb-option value="left">left</sbb-option>
+      <sbb-option value="right">right</sbb-option>
+    </sbb-select>
+  </sbb-form-field>
+
+  <label for="open-delay">Open delay (ms)</label>
+  <sbb-form-field size="s" type="select">
+    <input id="open-delay" type="number" [formField]="controls.openDelay" />
+  </sbb-form-field>
+
+  <label for="close-delay">Close delay (ms)</label>
+  <sbb-form-field size="s" type="select">
+    <input id="close-delay" type="number" [formField]="controls.closeDelay" />
+  </sbb-form-field>
+</div>
