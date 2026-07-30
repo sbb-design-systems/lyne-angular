@@ -4,12 +4,7 @@
   [labelPosition]="controls.labelPosition().value()"
   [iconName]="controls.withCustomIcon().value() ? 'eye-small' : ''"
 >
-  {{
-    controls.withLabel().value()
-      ? `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in diam ullamcorper, condimentum felis sit amet, volutpat nibh.
-      Ut malesuada, erat nec egestas eleifend, sem metus accumsan leo, nec luctus justo ligula at ipsum.`
-      : null
-  }}
+  {{ controls.withLabel().value() ? 'Label' : null }}
 </sbb-toggle-check>
 
 <sbb-title level="5">Properties</sbb-title>
