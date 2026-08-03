@@ -1,0 +1,52 @@
+<sbb-train-formation>
+  <sbb-train>
+    <sbb-train-wagon
+      [wagonType]="controls.wagonType().value()"
+      [occupancy]="controls.occupancy().value()"
+      [wagonClass]="controls.wagonClass().value()"
+      [label]="controls.label().value()"
+    ></sbb-train-wagon>
+  </sbb-train>
+</sbb-train-formation>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Wagon type</label>
+  <sbb-form-field size="s">
+    <sbb-select [formField]="controls.wagonType">
+      <sbb-option value="wagon">wagon</sbb-option>
+      <sbb-option value="wagon-end-left">wagon-end-left</sbb-option>
+      <sbb-option value="wagon-end-right">wagon-end-right</sbb-option>
+      <sbb-option value="couchette">couchette</sbb-option>
+      <sbb-option value="sleeping">sleeping</sbb-option>
+      <sbb-option value="restaurant">restaurant</sbb-option>
+      <sbb-option value="locomotive">locomotive</sbb-option>
+      <sbb-option value="closed">closed</sbb-option>
+    </sbb-select>
+  </sbb-form-field>
+
+  <label>Occupancy</label>
+  <sbb-radio-button-group
+    aria-label="Occupancy"
+    [formField]="controls.occupancy"
+    allowEmptySelection
+  >
+    <sbb-radio-button value="none">none</sbb-radio-button>
+    <sbb-radio-button value="low">low</sbb-radio-button>
+    <sbb-radio-button value="medium">medium</sbb-radio-button>
+    <sbb-radio-button value="high">high</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Wagon class</label>
+  <sbb-radio-button-group aria-label="Wagon class" [formField]="controls.wagonClass">
+    <sbb-radio-button value="1">1</sbb-radio-button>
+    <sbb-radio-button value="2">2</sbb-radio-button>
+    <sbb-radio-button value="1-2">1-2</sbb-radio-button>
+    <sbb-radio-button value="2-1">2-1</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label for="label">Label</label>
+  <sbb-form-field size="s">
+    <input id="label" type="text" [formField]="controls.label" />
+  </sbb-form-field>
+</div>
