@@ -1,15 +1,23 @@
-<sbb-train-formation>
+<sbb-train-formation
+  [view]="controls.view().value()"
+  [orientation]="controls.orientation().value()"
+>
   <sbb-train>
     <sbb-train-wagon
       [wagonType]="controls.wagonType().value()"
-      [occupancy]="controls.occupancy().value()"
-      [wagonClass]="controls.wagonClass().value()"
+      [occupancy]="controls.occupancy().disabled() ? null : controls.occupancy().value()"
+      [wagonClass]="controls.wagonClass().disabled() ? null : controls.wagonClass().value()"
       [label]="controls.label().value()"
-    ></sbb-train-wagon>
+    >
+      @if (controls.withIcons().value()) {
+        <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
+        <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
+      }
+    </sbb-train-wagon>
   </sbb-train>
 </sbb-train-formation>
 
-<sbb-title level="5">Properties</sbb-title>
+<sbb-title level="5">Train wagon</sbb-title>
 <div class="sbb-controls-table">
   <label for="wagon-type">Wagon type</label>
   <sbb-form-field size="s">
@@ -38,15 +46,37 @@
   </sbb-radio-button-group>
 
   <label>Wagon class</label>
-  <sbb-radio-button-group aria-label="Wagon class" [formField]="controls.wagonClass">
+  <sbb-radio-button-group
+    aria-label="Wagon class"
+    [formField]="controls.wagonClass"
+    allowEmptySelection
+  >
     <sbb-radio-button value="1">1</sbb-radio-button>
     <sbb-radio-button value="2">2</sbb-radio-button>
     <sbb-radio-button value="1-2">1-2</sbb-radio-button>
     <sbb-radio-button value="2-1">2-1</sbb-radio-button>
   </sbb-radio-button-group>
 
+  <label for="with-icons">With icons</label>
+  <sbb-checkbox id="with-icons" [formField]="controls.withIcons"></sbb-checkbox>
+
   <label for="label">Label</label>
   <sbb-form-field size="s">
     <input id="label" type="text" [formField]="controls.label" />
   </sbb-form-field>
+</div>
+
+<sbb-title level="5">Train formation</sbb-title>
+<div class="sbb-controls-table">
+  <label>View</label>
+  <sbb-radio-button-group aria-label="View" [formField]="controls.view">
+    <sbb-radio-button value="side">side</sbb-radio-button>
+    <sbb-radio-button value="top">top</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Orientation</label>
+  <sbb-radio-button-group aria-label="Orientation" [formField]="controls.orientation">
+    <sbb-radio-button value="horizontal">horizontal</sbb-radio-button>
+    <sbb-radio-button value="vertical">vertical</sbb-radio-button>
+  </sbb-radio-button-group>
 </div>
