@@ -464,9 +464,9 @@ ${[
 
 const createInputsName = (input: any): string => {
   if (input.actualName) {
-    return `@Input('${input.name}')<br/>${input.actualName}`;
+    return `<code>@Input('${input.name}')</code><br/>${input.actualName}`;
   } else {
-    return `@Input()<br/>${input.name}`;
+    return `<code>@Input()</code><br/>${input.name}`;
   }
 };
 
