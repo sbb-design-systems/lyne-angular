@@ -1,0 +1,10 @@
+<sbb-toggle [formField]="signalForm.toggle">
+  <sbb-toggle-option value="Bern"> Bern </sbb-toggle-option>
+  <sbb-toggle-option value="Zürich"> Zürich </sbb-toggle-option>
+</sbb-toggle>
+
+<p>
+  <sbb-card color="milk">
+    Value: <code>{{ signalForm.toggle().value() }}</code>
+  </sbb-card>
+</p>

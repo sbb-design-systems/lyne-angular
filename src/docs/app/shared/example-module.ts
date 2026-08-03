@@ -71,7 +71,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'date-input-template-driven',
   ],
   datepicker: ['datepicker-showcase', 'datepicker-basic'],
-  dialog: ['dialog-showcase', 'dialog-service'],
+  dialog: ['dialog-showcase', 'dialog-service', 'dialog-nested'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
   download: ['download-showcase', 'download-custom-content'],
   'expansion-panel': ['expansion-panel-showcase', 'expansion-panel-basic'],
@@ -189,14 +189,17 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'time-input-reactive',
     'time-input-template-driven',
   ],
-  'timetable-form': ['timetable-form-basic'],
+  'timetable-form': [
+    { id: 'timetable-form-basic', hasStyle: true },
+    { id: 'timetable-form-via', hasStyle: true },
+  ],
   'timetable-occupancy': ['timetable-occupancy-showcase'],
   'timetable-occupancy-icon': ['timetable-occupancy-icon-showcase'],
   title: ['title-showcase'],
-  toast: ['toast-basic'],
-  toggle: ['toggle-basic'],
-  'toggle-check': ['toggle-check-basic'],
-  tooltip: ['tooltip-basic'],
+  toast: ['toast-showcase', 'toast-service'],
+  toggle: ['toggle-showcase', 'toggle-signal', 'toggle-reactive', 'toggle-template-driven'],
+  'toggle-check': ['toggle-check-showcase'],
+  tooltip: [{ id: 'tooltip-showcase', hasStyle: true }, 'tooltip-basic', 'tooltip-attribute'],
   train: ['train-basic', 'train-vertical'],
 };
 
@@ -286,6 +289,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'datepicker-basic':
     case 'datepicker-showcase':
       return import('../angular/examples/datepicker');
+    case 'dialog-nested':
     case 'dialog-service':
     case 'dialog-showcase':
       return import('../angular/examples/dialog');
@@ -471,6 +475,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'time-input-template-driven':
       return import('../angular/examples/time-input');
     case 'timetable-form-basic':
+    case 'timetable-form-via':
       return import('../angular/examples/timetable-form');
     case 'timetable-occupancy-icon-showcase':
       return import('../angular/examples/timetable-occupancy-icon');
@@ -478,13 +483,19 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/timetable-occupancy');
     case 'title-showcase':
       return import('../angular/examples/title');
-    case 'toast-basic':
+    case 'toast-service':
+    case 'toast-showcase':
       return import('../angular/examples/toast');
-    case 'toggle-basic':
-      return import('../angular/examples/toggle');
-    case 'toggle-check-basic':
+    case 'toggle-check-showcase':
       return import('../angular/examples/toggle-check');
+    case 'toggle-reactive':
+    case 'toggle-showcase':
+    case 'toggle-signal':
+    case 'toggle-template-driven':
+      return import('../angular/examples/toggle');
+    case 'tooltip-attribute':
     case 'tooltip-basic':
+    case 'tooltip-showcase':
       return import('../angular/examples/tooltip');
     case 'train-basic':
     case 'train-vertical':

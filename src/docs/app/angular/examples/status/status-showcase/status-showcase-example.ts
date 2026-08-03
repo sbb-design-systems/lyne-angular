@@ -10,7 +10,7 @@ import { SbbTitle } from '@sbb-esta/lyne-angular/title';
  * @title status with configurable properties
  */
 @Component({
-  selector: 'sbb-status-basic-example',
+  selector: 'sbb-status-showcase-example',
   templateUrl: 'status-showcase-example.html',
   imports: [
     FormField,
