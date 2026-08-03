@@ -160,6 +160,6 @@ For types other than string, the `value` must be set via property.
 </sbb-select>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-select--docs)

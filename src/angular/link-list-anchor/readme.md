@@ -36,6 +36,6 @@ and it will sync its `size` and `negative` property with the inner links.
 </sbb-link-list-anchor>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-link-list-anchor--docs)

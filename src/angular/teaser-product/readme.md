@@ -78,6 +78,6 @@ The `<sbb-teaser-product-static>` is a non-interactive version of the `<sbb-teas
 which can be used to tease a product without making the whole component interactive.
 It should be used if there is more than one interactive action.
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-teaser-product--docs)

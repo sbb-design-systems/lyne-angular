@@ -48,6 +48,6 @@ The following one will be read as (locale: EN): `Connection from Point A to Poin
 <sbb-journey-header origin="Point A" destination="Point B" roundTrip></sbb-journey-header>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-journey-header--docs)

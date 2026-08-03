@@ -71,6 +71,6 @@ of all the inner `<sbb-checkbox>` or `<sbb-checkbox-panel>` elements. Available 
 <sbb-checkbox-group size="s"> ... </sbb-checkbox-group>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-checkbox-group--docs)

@@ -119,6 +119,6 @@ via `aria-controls` and `aria-labelledby` when placed inside an `<sbb-expansion-
 The `expanded` attribute is used to correctly set the `aria-expanded` attribute on the header
 and the `aria-hidden` attribute on the content.
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-expansion-panel--docs)

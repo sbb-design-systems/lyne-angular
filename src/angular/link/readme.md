@@ -61,6 +61,6 @@ One possible use case would be to use it within the `<sbb-sidebar>`.
 <sbb-block-link class="sbb-active" accessibilityCurrent="page">Refunds</sbb-block-link>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-link--docs)

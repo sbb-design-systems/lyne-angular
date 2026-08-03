@@ -100,6 +100,6 @@ Use the `sbb-image-${ratio}` utility classes to set the image aspect ratio.
 <img class="sbb-image-4-3" />
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-image--docs)

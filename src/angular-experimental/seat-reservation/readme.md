@@ -284,6 +284,6 @@ The component `<sbb-seat-reservation-area>` represents a grey or white backgroun
 | `--sbb-seat-reservation-area-width`  | `<number>` | -       | Area width  |
 | `--sbb-seat-reservation-area-height` | `<number>` | -       | Area height |
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/experimental-seat-reservation--docs)

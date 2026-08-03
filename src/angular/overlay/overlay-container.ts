@@ -61,14 +61,23 @@ export class SbbOverlayContainer extends SbbOverlayContainerBase<SbbOverlay> {
     return this.elementInstance.isOpen ? SbbOverlayState.opened : SbbOverlayState.closed;
   }
 
+  /**
+   * Observable that notifies when the overlay has finished opening.
+   */
   public override afterOpened: Observable<Event> = outputToObservable(
     this.elementInstance.openOutput,
   );
 
+  /**
+   * Observable that notifies when the overlay has finished closing.
+   */
   public override afterClosed: Observable<SbbOverlayCloseEvent> = outputToObservable(
     this.elementInstance.closeOutput,
   );
 
+  /**
+   * Observable that notifies when the overlay has started closing.
+   */
   public override beforeClosed: Observable<SbbOverlayCloseEvent> = outputToObservable(
     this.elementInstance.beforeCloseOutput,
   );

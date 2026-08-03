@@ -6,6 +6,17 @@ import ts from 'typescript';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const documentation = JSON.parse(readFileSync(join(root, `/src/docs/documentation.json`), 'utf8'));
 const ignoredFolders = ['core'];
+const docsKeyList = [
+  'inputsClass',
+  'accessors',
+  'properties',
+  'propertiesClass',
+  'methods',
+  'methodsClass',
+  'slots',
+  'cssProps',
+  'cssParts',
+];
 
 type DocEntry = {
   file: string;
@@ -338,11 +349,32 @@ const addToReadme = (
   keys: string[],
   type: string,
   createFn: (entities: any[], type: string) => string,
-) => {
+): string => {
   const listElements = keys.reduce((acc, key) => acc?.[key], documentation) as any[];
-  const found = listElements.filter((obj) => dirname(obj.file) === modulePath);
-  if (found?.length > 0) {
-    return createFn(found, type);
+  // The element to be added to the readmes
+  let foundElements = listElements.filter((obj) => dirname(obj.file) === modulePath);
+  if (foundElements?.length > 0) {
+    foundElements = foundElements.map((element) => {
+      // Check if the element is derived from a base class - strip away types and constructor
+      const parentClasses = element.extends?.map((e) => e.replace(/\(.*\)|<.*>/gs, ''));
+      if (parentClasses?.length > 0) {
+        parentClasses.forEach((parentClass) => {
+          // Check if the base class is in the doc file (skip the logic if the element extends e.g. an Angular Material class)
+          const foundParents = listElements.filter((obj) => obj.name === parentClass);
+          foundParents.forEach((parent) => {
+            // If the base class has extra properties that the element has not, add them to the element;
+            // possibly a compodoc bug, noticed only on accessors (e.g. SbbToastRef is missing accessors from SbbOverlayBaseRef).
+            docsKeyList.forEach((docsKey) => {
+              if (parent[docsKey] && !element[docsKey]) {
+                element = { ...element, [docsKey]: parent[docsKey] };
+              }
+            });
+          });
+        });
+      }
+      return element;
+    });
+    return createFn(foundElements, type);
   }
   return '';
 };
@@ -399,33 +431,51 @@ const createDocsEnumerations = (enums: any[], type: string): string => {
 };
 
 const createInputsTable = (inputs: any[], accessors?: Record<string, any>): string => {
+  let accessorsToAdd = [];
   if (accessors) {
-    const inputsNames = new Set(inputs.map((input) => input.name));
-    const accessorsToAdd = Object.keys(accessors)
+    const inputsNames = new Set(inputs.map((input) => input.actualName ?? input.name));
+    accessorsToAdd = Object.keys(accessors)
       .filter((key) => !inputsNames.has(key))
       .map((acc) => {
         const accessor = accessors[acc];
         return accessor['getSignature'] ?? accessor['setSignature'];
       }) as any[];
-    inputs = [...inputs, ...accessorsToAdd];
   }
+
   return `### Properties
 
 | Name | Type | Description |
 | --- | --- | --- |
-${inputs
-  .map(
-    (input) =>
-      `| ${input['name']} | ${createTypeForTable(input['returnType'] ?? input['type'])} | ${createDescriptionForTable(input['rawdescription'])}|\n`,
-  )
-  .join('')}\n`;
+${[
+  inputs
+    .map(
+      (input) =>
+        `| ${createInputsName(input)} | ${createTypeForTable(input['returnType'] ?? input['type'])} | ${createDescriptionForTable(input['rawdescription'])}|\n`,
+    )
+    .join(''),
+  accessorsToAdd
+    .map(
+      (input) =>
+        `| ${input['name']} | ${createTypeForTable(input['returnType'] ?? input['type'])} | ${createDescriptionForTable(input['rawdescription'])}|\n`,
+    )
+    .join(''),
+].join('')}\n`;
+};
+
+const createInputsName = (input: any): string => {
+  if (input.actualName) {
+    return `<code>@Input('${input.name}')</code><br/>${input.actualName}`;
+  } else {
+    return `<code>@Input()</code><br/>${input.name}`;
+  }
 };
 
 const createOutputTable = (directive: any): string => {
   const outputs = (directive['propertiesClass'] as any[]).filter(
     (prop) =>
-      prop['name'].toLowerCase().includes('output') &&
-      prop['defaultValue'].toLowerCase().includes('outputfromobservable('),
+      (prop['name'].toLowerCase().includes('output') &&
+        prop['defaultValue'].toLowerCase().includes('outputfromobservable(')) ||
+      prop['defaultValue'].toLowerCase().includes('outputtoobservable('),
   );
   if (outputs.length > 0) {
     return `### Events
@@ -465,7 +515,7 @@ const createSlotsTable = (slots: { name: string; description: string }[]): strin
 
 | Name | Description |
 | --- | --- |
-${slots.map((slot) => `| ${slot.name} | ${slot.description} |\n`).join('')}\n`;
+${slots.map((slot) => `| ${slot.name === '' ? '-' : slot.name} | ${slot.description} |\n`).join('')}\n`;
 };
 
 const createCssPropsTable = (

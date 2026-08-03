@@ -58,6 +58,6 @@ to describe what context the breadcrumbs have.
 Whenever the `<sbb-breadcrumb>` list within the component is loaded or updated,
 the last element of the list receives the attribute `accessibility-current="page"`.
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-breadcrumb--docs)

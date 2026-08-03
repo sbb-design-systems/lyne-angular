@@ -27,6 +27,6 @@ Possible values are `ideal` (default), `minimal` and `none`.
 <sbb-logo protectiveRoom="minimal"></sbb-logo>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-logo--docs)

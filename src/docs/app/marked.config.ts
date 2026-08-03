@@ -17,9 +17,14 @@ const DocsMarkedRenderer: RendererObject = {
     const text = this.parser.parseInline(tokens);
     const headingId = slugger.slug(text);
     const href = `${window.location.origin}${window.location.pathname}#${headingId}`;
-    // Create the items for the table of content.
 
-    if (depth <= 2) {
+    // Remove the main header since it will be displayed at the top, outside the tab-nav-bar
+    if (depth === 1) {
+      return '';
+    }
+
+    // Create the items for the table of content.
+    if (depth === 2) {
       toc.push(`<sbb-block-link href="${href}">${text}</sbb-block-link>`);
     }
 

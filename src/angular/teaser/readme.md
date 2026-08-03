@@ -71,6 +71,6 @@ It's important to set the `accessibilityLabel` on the `<sbb-teaser>`, which desc
 
 The description text is wrapped into an `<p>` element to guarantee the semantic meaning.
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-teaser--docs)

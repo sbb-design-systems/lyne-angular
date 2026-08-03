@@ -846,6 +846,6 @@ E.g. when the table-wrapper is placed inside a dark container, the focus outline
 </div>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-table--docs)
