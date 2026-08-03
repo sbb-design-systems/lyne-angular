@@ -182,7 +182,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   ],
   'teaser-hero': ['teaser-hero-basic', 'teaser-hero-with-chip', 'teaser-hero-chip-only'],
   'teaser-panel': ['teaser-panel-basic'],
-  'teaser-product': ['teaser-product-basic'],
+  'teaser-product': ['teaser-product-showcase'],
   'time-input': [
     'time-input-showcase',
     'time-input-signal',
@@ -466,7 +466,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/teaser');
     case 'teaser-panel-basic':
       return import('../angular/examples/teaser-panel');
-    case 'teaser-product-basic':
+    case 'teaser-product-showcase':
       return import('../angular/examples/teaser-product');
     case 'teaser-showcase':
       return import('../angular/examples/teaser');
