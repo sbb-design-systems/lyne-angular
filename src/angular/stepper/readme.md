@@ -43,10 +43,12 @@ Step contents can be lazy loaded by declaring the body in a ng-template with the
 ```ts
 @Component({
   imports: [SbbStepperModule],
-  template: `<sbb-step-label active>Label</sbb-step-label>
+  template: `
+    <sbb-step-label active>Label</sbb-step-label>
     <sbb-step>
-      <ng-template sbbStepContent>${text}</ng-template>
-    </sbb-step>`,
+      <ng-template sbbStepContent>{{ text }}</ng-template>
+    </sbb-step>
+  `,
 })
 class StepComponent {}
 ```
