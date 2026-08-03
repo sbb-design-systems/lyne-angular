@@ -38,6 +38,6 @@ console.log(egg.score); // current score of the finished/running game
 The visible labels — the dialog title (**Swiss Boa Express.**), the score label (**Score**), and the start / restart button — are localized in English, German, French and Italian. They follow the current UI language, read from the `lang` attribute on `<html>`.
 The screen-reader announcement (`accessibilityLabel`) is kept in sync automatically.
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/experimental-easter-egg--docs)

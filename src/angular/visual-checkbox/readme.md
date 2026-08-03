@@ -24,6 +24,6 @@ The component has three `size`, named `xs`, `s` and `m` (default).
 <sbb-visual-checkbox size="s"></sbb-visual-checkbox>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-visual-checkbox--docs)

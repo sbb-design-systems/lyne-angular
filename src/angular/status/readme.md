@@ -68,6 +68,6 @@ If needed, the `role="status"` attribute can be added on the component's tag.
 <sbb-status role="status" type="error">An error occurred.</sbb-status>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-status--docs)

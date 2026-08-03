@@ -70,14 +70,23 @@ export class SbbDialogContainer extends SbbOverlayContainerBase<SbbDialog> {
     return this.elementInstance.isOpen ? SbbOverlayState.opened : SbbOverlayState.closed;
   }
 
+  /**
+   * Observable that notifies when the dialog has finished opening.
+   */
   public override afterOpened: Observable<Event> = outputToObservable(
     this.elementInstance.openOutput,
   );
 
+  /**
+   * Observable that notifies when the dialog has finished closing.
+   */
   public override afterClosed: Observable<SbbDialogCloseEvent> = outputToObservable(
     this.elementInstance.closeOutput,
   );
 
+  /**
+   * Observable that notifies when the dialog has started closing.
+   */
   public override beforeClosed: Observable<SbbDialogCloseEvent> = outputToObservable(
     this.elementInstance.beforeCloseOutput,
   );

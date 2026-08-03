@@ -5,10 +5,3 @@
 sbb-title {
   margin-block: 0 var(--sbb-spacing-responsive-s);
 }
-
-::ng-deep {
-  // Hide title level one from readmes as we display it here above the navigation
-  sbb-markdown-viewer sbb-title[level='1'] {
-    display: none;
-  }
-}

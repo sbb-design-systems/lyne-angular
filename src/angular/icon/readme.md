@@ -62,6 +62,6 @@ In thinking about accessibility, it is useful to place icon use into one of thre
 3. **Indicator**: the icon is not interactive, but it conveys some information, such as a status.
    This includes using the icon in place of a text inside a larger message.
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-icon--docs)

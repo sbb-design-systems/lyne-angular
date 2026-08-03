@@ -90,6 +90,6 @@ The type can be specified using the generic type parameter `T` of `SbbCheckbox<T
 <sbb-checkbox [value]="{value: 'value', name: 'name'}" name="name">Checkbox</sbb-checkbox>
 ```
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-checkbox--docs)

@@ -70,6 +70,6 @@ The `<sbb-slider>` has the following behavior on keypress when focused:
 | End         | Set the value to the maximum.                     |
 | Home        | Set the value to the minimum.                     |
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-slider--docs)

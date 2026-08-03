@@ -45,6 +45,6 @@ To simulate the current datetime, you can use the `now` property,
 which accepts a `Date` or a timestamp in milliseconds (as number or string).
 This is helpful if you need a specific state of the component.
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/experimental-timetable-row--docs)

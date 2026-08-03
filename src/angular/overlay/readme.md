@@ -286,6 +286,6 @@ by setting the `skipFocusRestoration` property to `true`.
 As this is an accessibility feature, it is recommended to focus
 an alternative element by listening to the `didClose` event.
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-overlay--docs)

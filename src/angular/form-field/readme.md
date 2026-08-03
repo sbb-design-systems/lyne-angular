@@ -400,6 +400,6 @@ When you provide a hint via `<sbb-hint>`, it automatically links the hint elemen
 via `ariaDescribedByElements`. When an `<sbb-error>` is present, the hint is unlinked and hidden,
 as the error takes precedence.
 
-## @sbb-esta/lyne-elements Docs
+## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-form-field--docs)
