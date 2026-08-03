@@ -71,7 +71,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'date-input-template-driven',
   ],
   datepicker: ['datepicker-showcase', 'datepicker-basic'],
-  dialog: ['dialog-showcase', 'dialog-service'],
+  dialog: ['dialog-showcase', 'dialog-service', 'dialog-nested'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
   download: ['download-showcase', 'download-custom-content'],
   'expansion-panel': ['expansion-panel-showcase', 'expansion-panel-basic'],
@@ -153,9 +153,9 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   sidebar: [{ id: 'sidebar-showcase', hasStyle: true }, 'sidebar-nested'],
   signet: [{ id: 'signet-showcase', hasStyle: true }],
   'skiplink-list': ['skiplink-list-basic'],
-  slider: ['slider-basic'],
+  slider: ['slider-showcase', 'slider-signal', 'slider-reactive', 'slider-template-driven'],
   status: ['status-showcase'],
-  stepper: ['stepper-basic'],
+  stepper: ['stepper-showcase', 'stepper-lazy-loaded'],
   table: [
     'simple-table',
     { id: 'sticky-table', hasStyle: true },
@@ -183,15 +183,23 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'teaser-hero': ['teaser-hero-basic', 'teaser-hero-with-chip', 'teaser-hero-chip-only'],
   'teaser-panel': ['teaser-panel-basic'],
   'teaser-product': ['teaser-product-basic'],
-  'time-input': ['time-input-basic'],
-  'timetable-form': ['timetable-form-basic'],
+  'time-input': [
+    'time-input-showcase',
+    'time-input-signal',
+    'time-input-reactive',
+    'time-input-template-driven',
+  ],
+  'timetable-form': [
+    { id: 'timetable-form-basic', hasStyle: true },
+    { id: 'timetable-form-via', hasStyle: true },
+  ],
   'timetable-occupancy': ['timetable-occupancy-showcase'],
   'timetable-occupancy-icon': ['timetable-occupancy-icon-showcase'],
-  title: ['title-basic'],
-  toast: ['toast-basic'],
-  toggle: ['toggle-basic'],
-  'toggle-check': ['toggle-check-basic'],
-  tooltip: ['tooltip-basic'],
+  title: ['title-showcase'],
+  toast: ['toast-showcase', 'toast-service'],
+  toggle: ['toggle-showcase', 'toggle-signal', 'toggle-reactive', 'toggle-template-driven'],
+  'toggle-check': ['toggle-check-showcase'],
+  tooltip: [{ id: 'tooltip-showcase', hasStyle: true }, 'tooltip-basic', 'tooltip-attribute'],
   train: ['train-basic', 'train-vertical'],
 };
 
@@ -281,6 +289,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'datepicker-basic':
     case 'datepicker-showcase':
       return import('../angular/examples/datepicker');
+    case 'dialog-nested':
     case 'dialog-service':
     case 'dialog-showcase':
       return import('../angular/examples/dialog');
@@ -424,13 +433,17 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/table');
     case 'skiplink-list-basic':
       return import('../angular/examples/skiplink-list');
-    case 'slider-basic':
+    case 'slider-reactive':
+    case 'slider-showcase':
+    case 'slider-signal':
+    case 'slider-template-driven':
       return import('../angular/examples/slider');
     case 'sortable-table':
       return import('../angular/examples/table');
     case 'status-showcase':
       return import('../angular/examples/status');
-    case 'stepper-basic':
+    case 'stepper-lazy-loaded':
+    case 'stepper-showcase':
       return import('../angular/examples/stepper');
     case 'sticky-table':
       return import('../angular/examples/table');
@@ -457,23 +470,33 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/teaser-product');
     case 'teaser-showcase':
       return import('../angular/examples/teaser');
-    case 'time-input-basic':
+    case 'time-input-reactive':
+    case 'time-input-showcase':
+    case 'time-input-signal':
+    case 'time-input-template-driven':
       return import('../angular/examples/time-input');
     case 'timetable-form-basic':
+    case 'timetable-form-via':
       return import('../angular/examples/timetable-form');
     case 'timetable-occupancy-icon-showcase':
       return import('../angular/examples/timetable-occupancy-icon');
     case 'timetable-occupancy-showcase':
       return import('../angular/examples/timetable-occupancy');
-    case 'title-basic':
+    case 'title-showcase':
       return import('../angular/examples/title');
-    case 'toast-basic':
+    case 'toast-service':
+    case 'toast-showcase':
       return import('../angular/examples/toast');
-    case 'toggle-basic':
-      return import('../angular/examples/toggle');
-    case 'toggle-check-basic':
+    case 'toggle-check-showcase':
       return import('../angular/examples/toggle-check');
+    case 'toggle-reactive':
+    case 'toggle-showcase':
+    case 'toggle-signal':
+    case 'toggle-template-driven':
+      return import('../angular/examples/toggle');
+    case 'tooltip-attribute':
     case 'tooltip-basic':
+    case 'tooltip-showcase':
       return import('../angular/examples/tooltip');
     case 'train-basic':
     case 'train-vertical':

@@ -1,0 +1,37 @@
+<sbb-form-field width="collapse" errorSpace="reserve">
+  <label>Time</label>
+  <sbb-time-input
+    [formField]="controls.model"
+    [readOnly]="controls.readonly().value()"
+  ></sbb-time-input>
+  @if (controls.withIcons().value()) {
+    <sbb-icon slot="prefix" name="clock-small"></sbb-icon>
+    <sbb-icon slot="suffix" name="circle-information-small"></sbb-icon>
+  }
+  @for (error of controls.model().errors(); track error.kind) {
+    @if (error.kind === 'sbbTimeParse') {
+      <sbb-error>Input is wrongly formatted.</sbb-error>
+    }
+    @if (error.kind === 'sbbTimeMax') {
+      <sbb-error>Date overflow.</sbb-error>
+    }
+  }
+</sbb-form-field>
+
+<p>
+  <sbb-card color="milk">
+    Value: <code> {{ controls.model().value() }} </code>
+  </sbb-card>
+</p>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="with-icons">With icons</label>
+  <sbb-checkbox id="with-icons" [formField]="controls.withIcons"></sbb-checkbox>
+
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+
+  <label for="readonly">Readonly</label>
+  <sbb-checkbox id="readonly" [formField]="controls.readonly"></sbb-checkbox>
+</div>

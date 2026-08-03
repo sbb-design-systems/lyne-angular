@@ -4,6 +4,7 @@ import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
 
 /**
  * @title Basic tooltip
+ * @order 2
  */
 @Component({
   selector: 'sbb-tooltip-basic-example',

@@ -3,13 +3,33 @@
   <sbb-timetable-form>
     <sbb-timetable-form-field>
       <label>From</label>
-      <input type="text" name="from" />
+      <input type="text" [formField]="form.from" />
     </sbb-timetable-form-field>
     <sbb-timetable-form-swap-button></sbb-timetable-form-swap-button>
     <sbb-timetable-form-field>
       <label>To</label>
-      <input type="text" name="to" />
+      <input type="text" [formField]="form.to" />
     </sbb-timetable-form-field>
-    <sbb-timetable-form-details> ... </sbb-timetable-form-details>
+    <sbb-timetable-form-details>
+      <sbb-form-field width="collapse" size="l" borderless class="sbb-timetable-form-mobile-block">
+        <sbb-date-input [formField]="form.date"></sbb-date-input>
+        <sbb-datepicker-previous-day
+          class="sbb-timetable-form-mobile-hidden"
+        ></sbb-datepicker-previous-day>
+        <sbb-datepicker-toggle></sbb-datepicker-toggle>
+        <sbb-datepicker-next-day class="sbb-timetable-form-mobile-hidden"></sbb-datepicker-next-day>
+        <sbb-datepicker></sbb-datepicker>
+      </sbb-form-field>
+      <sbb-divider orientation="vertical" class="sbb-timetable-form-mobile-hidden"></sbb-divider>
+      <sbb-form-field width="collapse" size="l" borderless>
+        <sbb-time-input [formField]="form.time"></sbb-time-input>
+      </sbb-form-field>
+      <sbb-toggle size="s" [formField]="form.departureArrival">
+        <sbb-toggle-option value="departure">Dep</sbb-toggle-option>
+        <sbb-toggle-option value="arrival">Arr</sbb-toggle-option>
+      </sbb-toggle>
+      <div class="spacer"></div>
+      <sbb-button>Search</sbb-button>
+    </sbb-timetable-form-details>
   </sbb-timetable-form>
 </form>
