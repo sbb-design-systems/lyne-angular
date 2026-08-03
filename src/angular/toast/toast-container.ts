@@ -60,21 +60,21 @@ export class SbbToastContainer extends SbbOverlayContainerBase<SbbToast> {
   }
 
   /**
-   * Gets an observable that is notified when the toast is finished opening.
+   * Observable that notifies when the toast has finished opening.
    */
   public override afterOpened: Observable<Event> = outputToObservable(
     this.elementInstance.openOutput,
   );
 
   /**
-   * Gets an observable that is notified when the toast is finished closing.
+   * Observable that notifies when the toast has finished closing.
    */
   public override afterClosed: Observable<Event> = outputToObservable(
     this.elementInstance.closeOutput,
   );
 
   /**
-   * Gets an observable that is notified when the toast has started closing.
+   * Observable that notifies when the toast has started closing.
    */
   public override beforeClosed: Observable<Event> = outputToObservable(
     this.elementInstance.beforeCloseOutput,
