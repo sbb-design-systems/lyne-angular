@@ -1,5 +1,30 @@
 # Changelog
 
+## [22.2.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.1.1...v22.2.0) (2026-08-03)
+
+
+### Features
+
+* **form-field:** implement support for Signal Forms ([#522](https://github.com/sbb-design-systems/lyne-angular/issues/522)) ([547bce0](https://github.com/sbb-design-systems/lyne-angular/commit/547bce0f377ffaf4ebf3bc463bc43e37f3ea8d6b))
+
+
+### Documentation
+
+* improve docs app ([#534](https://github.com/sbb-design-systems/lyne-angular/issues/534)) ([d171cac](https://github.com/sbb-design-systems/lyne-angular/commit/d171cac0d656b6293e340207474fa891fc684ccc))
+* **selection-expansion-panel:** add examples ([#511](https://github.com/sbb-design-systems/lyne-angular/issues/511)) ([36c00ff](https://github.com/sbb-design-systems/lyne-angular/commit/36c00ff4f74a03a10181ed48a5428a926ff4c44c))
+* **slider:** add examples ([#516](https://github.com/sbb-design-systems/lyne-angular/issues/516)) ([72d6834](https://github.com/sbb-design-systems/lyne-angular/commit/72d6834f693c52b5cf547874f409238603ec4c61))
+* **stepper:** update examples ([#512](https://github.com/sbb-design-systems/lyne-angular/issues/512)) ([56e2682](https://github.com/sbb-design-systems/lyne-angular/commit/56e26821b653fcf7903d37144e4b5d24007b311f))
+* **tag:** add examples ([#514](https://github.com/sbb-design-systems/lyne-angular/issues/514)) ([7d5027d](https://github.com/sbb-design-systems/lyne-angular/commit/7d5027d66761dcfb61f15618316e424750fd89a1))
+* **teaser:** improve examples ([#515](https://github.com/sbb-design-systems/lyne-angular/issues/515)) ([8a0c1de](https://github.com/sbb-design-systems/lyne-angular/commit/8a0c1de2ed141c5ddd38cd9295c5d8355c90f2c2))
+* **time-input:** add examples ([#529](https://github.com/sbb-design-systems/lyne-angular/issues/529)) ([2c529dc](https://github.com/sbb-design-systems/lyne-angular/commit/2c529dc99e2b896074f6ca717308cec022406d8a))
+* **timetable-form:** add examples ([#531](https://github.com/sbb-design-systems/lyne-angular/issues/531)) ([b8b06fe](https://github.com/sbb-design-systems/lyne-angular/commit/b8b06fe0304fa67973afd572ebf8df9168884d3a))
+* **timetable-occupancy:** add examples ([#510](https://github.com/sbb-design-systems/lyne-angular/issues/510)) ([fe752c5](https://github.com/sbb-design-systems/lyne-angular/commit/fe752c5947bff8f41bfe7e17f86117052c4cdb10))
+* **timetable-occupancy:** minor fixes ([#526](https://github.com/sbb-design-systems/lyne-angular/issues/526)) ([19a4fa4](https://github.com/sbb-design-systems/lyne-angular/commit/19a4fa4af01629dd6f82d1a965409deae4a54147))
+* **title:** refactor example ([#525](https://github.com/sbb-design-systems/lyne-angular/issues/525)) ([1c31de6](https://github.com/sbb-design-systems/lyne-angular/commit/1c31de62ed1ce59535725cefe7947e8c399c0242))
+* **toast:** add examples ([#528](https://github.com/sbb-design-systems/lyne-angular/issues/528)) ([5126e91](https://github.com/sbb-design-systems/lyne-angular/commit/5126e91f0123116e58de9903b15ea7996c9499a1))
+* **toggle:** create examples ([#532](https://github.com/sbb-design-systems/lyne-angular/issues/532)) ([4c0d259](https://github.com/sbb-design-systems/lyne-angular/commit/4c0d2598ca49042418cc8700aa38f4e8db68a58c))
+* **tooltip:** refactor examples ([#533](https://github.com/sbb-design-systems/lyne-angular/issues/533)) ([7534da6](https://github.com/sbb-design-systems/lyne-angular/commit/7534da674c729b66c7d37ca7de9f8749ff04c4ad))
+
 ## [22.1.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.1.0...v22.1.1) (2026-07-20)
 
 
