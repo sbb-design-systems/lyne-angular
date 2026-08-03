@@ -1,23 +1,23 @@
 <sbb-train-formation [view]="controls.view().value()">
   <sbb-train
-    direction-label="Direction of travel"
+    directionLabel="Direction of travel"
     station="Bern"
     direction="left"
-    accessibility-label="The top of the train is in Sector A. The train leaves the station in this direction"
+    accessibilityLabel="The top of the train is in Sector A. The train leaves the station in this direction"
   >
     <sbb-train-wagon
-      wagon-type="locomotive"
-      additional-accessibility-text="Top of the train"
+      wagonType="locomotive"
+      additionalAccessibilityText="Top of the train"
       sector="A"
     ></sbb-train-wagon>
-    <sbb-train-wagon wagon-type="closed" sector="A" label="37"></sbb-train-wagon>
+    <sbb-train-wagon wagonType="closed" sector="A" label="37"></sbb-train-wagon>
     <sbb-train-blocked-passage></sbb-train-blocked-passage>
     <sbb-train-wagon
-      wagon-type="wagon"
+      wagonType="wagon"
       label="38"
       occupancy="low"
-      blocked-passage="previous"
-      wagon-class="1"
+      blockedPassage="previous"
+      wagonClass="1"
       sector="A"
     >
       <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
@@ -33,32 +33,32 @@
         name="sa-bz"
       ></sbb-icon>
     </sbb-train-wagon>
-    <sbb-train-wagon wagon-type="wagon" label="39" occupancy="none" wagon-class="1" sector="B">
+    <sbb-train-wagon wagonType="wagon" label="39" occupancy="none" wagonClass="1" sector="B">
       <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
     </sbb-train-wagon>
-    <sbb-train-wagon wagon-type="restaurant" label="40" sector="B">
+    <sbb-train-wagon wagonType="restaurant" label="40" sector="B">
       <sbb-icon aria-hidden="false" aria-label="wheelchair space" name="sa-rs"></sbb-icon>
     </sbb-train-wagon>
-    <sbb-train-wagon wagon-type="wagon" label="41" occupancy="high" wagon-class="2" sector="B">
+    <sbb-train-wagon wagonType="wagon" label="41" occupancy="high" wagonClass="2" sector="B">
       <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
     </sbb-train-wagon>
     <sbb-train-wagon
-      wagon-type="wagon"
+      wagonType="wagon"
       label="42"
       occupancy="low"
-      wagon-class="2"
-      blocked-passage="next"
+      wagonClass="2"
+      blockedPassage="next"
       sector="C"
     >
       <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
     </sbb-train-wagon>
     <sbb-train-blocked-passage></sbb-train-blocked-passage>
     <sbb-train-wagon
-      wagon-type="wagon"
+      wagonType="wagon"
       label="43"
       occupancy="low"
-      wagon-class="2"
-      blocked-passage="both"
+      wagonClass="2"
+      blockedPassage="both"
       sector="C"
     >
       <sbb-icon
@@ -70,97 +70,97 @@
     </sbb-train-wagon>
     <sbb-train-blocked-passage></sbb-train-blocked-passage>
     <sbb-train-wagon
-      blocked-passage="previous"
-      wagon-type="wagon"
+      blockedPassage="previous"
+      wagonType="wagon"
       label="44"
       occupancy="low"
-      wagon-class="2"
+      wagonClass="2"
       sector="C"
     >
       <sbb-icon aria-hidden="false" aria-label="low-floor entry" name="sa-nf"></sbb-icon>
       <sbb-icon aria-hidden="false" aria-label="Family zone" name="sa-fz"></sbb-icon>
     </sbb-train-wagon>
     <sbb-train-wagon
-      wagon-type="wagon"
+      wagonType="wagon"
       label="45"
       occupancy="low"
-      wagon-class="2"
+      wagonClass="2"
       sector="D"
     ></sbb-train-wagon>
-    <sbb-train-wagon wagon-type="couchette" label="46" sector="D"></sbb-train-wagon>
+    <sbb-train-wagon wagonType="couchette" label="46" sector="D"></sbb-train-wagon>
     <sbb-train-wagon
-      wagon-type="sleeping"
+      wagonType="sleeping"
       label="47"
-      additional-accessibility-text="End of the train"
+      additionalAccessibilityText="End of the train"
       sector="D"
-      blocked-passage="next"
+      blockedPassage="next"
     ></sbb-train-wagon>
     <sbb-train-blocked-passage></sbb-train-blocked-passage>
   </sbb-train>
 
   <sbb-train
-    direction-label="Direction of travel"
+    directionLabel="Direction of travel"
     station="Luzern"
     direction="left"
-    accessibility-label="The top of the train is in Sector E. The train leaves the station in this direction"
+    accessibilityLabel="The top of the train is in Sector E. The train leaves the station in this direction"
   >
     <sbb-train-wagon
-      wagon-type="wagon-end-left"
-      additional-accessibility-text="Top of the train"
-      blocked-passage="previous"
+      wagonType="wagon-end-left"
+      additionalAccessibilityText="Top of the train"
+      blockedPassage="previous"
       occupancy="none"
-      wagon-class="2"
+      wagonClass="2"
       sector="E"
     ></sbb-train-wagon>
     <sbb-train-wagon
-      wagon-type="wagon"
+      wagonType="wagon"
       label="50"
       occupancy="low"
-      wagon-class="2"
+      wagonClass="2"
       sector="E"
     ></sbb-train-wagon>
     <sbb-train-wagon-button
-      wagon-type="wagon"
+      wagonType="wagon"
       label="51"
       occupancy="low"
-      wagon-class="2"
+      wagonClass="2"
       sector="F (buttons)"
     ></sbb-train-wagon-button>
     <sbb-train-wagon-button
-      wagon-type="wagon"
+      wagonType="wagon"
       label="52"
       occupancy="low"
-      wagon-class="2"
+      wagonClass="2"
       sector="F (buttons)"
     ></sbb-train-wagon-button>
     <sbb-train-wagon-button
-      wagon-type="wagon"
+      wagonType="wagon"
       label="53"
       occupancy="low"
-      wagon-class="2"
+      wagonClass="2"
       sector="F (buttons)"
     ></sbb-train-wagon-button>
     <sbb-train-wagon-link
-      wagon-type="wagon"
+      wagonType="wagon"
       label="54"
       occupancy="low"
-      wagon-class="2"
+      wagonClass="2"
       sector="G (links)"
       routerLink="./"
     ></sbb-train-wagon-link>
     <sbb-train-wagon-link
-      wagon-type="wagon"
+      wagonType="wagon"
       label="55"
       occupancy="low"
-      wagon-class="2"
+      wagonClass="2"
       sector="G (links)"
       routerLink="./"
     ></sbb-train-wagon-link>
     <sbb-train-wagon-link
-      wagon-type="wagon"
+      wagonType="wagon"
       label="56"
       occupancy="low"
-      wagon-class="2"
+      wagonClass="2"
       sector="G (links)"
       routerLink="./"
     ></sbb-train-wagon-link>
