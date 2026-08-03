@@ -155,7 +155,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'skiplink-list': ['skiplink-list-basic'],
   slider: ['slider-showcase', 'slider-signal', 'slider-reactive', 'slider-template-driven'],
   status: ['status-showcase'],
-  stepper: ['stepper-basic'],
+  stepper: ['stepper-showcase', 'stepper-lazy-loaded'],
   table: [
     'simple-table',
     { id: 'sticky-table', hasStyle: true },
@@ -183,7 +183,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'teaser-hero': ['teaser-hero-basic', 'teaser-hero-with-chip', 'teaser-hero-chip-only'],
   'teaser-panel': ['teaser-panel-basic'],
   'teaser-product': ['teaser-product-basic'],
-  'time-input': ['time-input-basic'],
+  'time-input': [
+    'time-input-showcase',
+    'time-input-signal',
+    'time-input-reactive',
+    'time-input-template-driven',
+  ],
   'timetable-form': [
     { id: 'timetable-form-basic', hasStyle: true },
     { id: 'timetable-form-via', hasStyle: true },
@@ -192,9 +197,9 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'timetable-occupancy-icon': ['timetable-occupancy-icon-showcase'],
   title: ['title-showcase'],
   toast: ['toast-showcase', 'toast-service'],
-  toggle: ['toggle-basic'],
-  'toggle-check': ['toggle-check-basic'],
-  tooltip: ['tooltip-basic'],
+  toggle: ['toggle-showcase', 'toggle-signal', 'toggle-reactive', 'toggle-template-driven'],
+  'toggle-check': ['toggle-check-showcase'],
+  tooltip: [{ id: 'tooltip-showcase', hasStyle: true }, 'tooltip-basic', 'tooltip-attribute'],
   train: ['train-basic', 'train-vertical'],
 };
 
@@ -437,7 +442,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/table');
     case 'status-showcase':
       return import('../angular/examples/status');
-    case 'stepper-basic':
+    case 'stepper-lazy-loaded':
+    case 'stepper-showcase':
       return import('../angular/examples/stepper');
     case 'sticky-table':
       return import('../angular/examples/table');
@@ -464,7 +470,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/teaser-product');
     case 'teaser-showcase':
       return import('../angular/examples/teaser');
-    case 'time-input-basic':
+    case 'time-input-reactive':
+    case 'time-input-showcase':
+    case 'time-input-signal':
+    case 'time-input-template-driven':
       return import('../angular/examples/time-input');
     case 'timetable-form-basic':
     case 'timetable-form-via':
@@ -478,11 +487,16 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'toast-service':
     case 'toast-showcase':
       return import('../angular/examples/toast');
-    case 'toggle-basic':
-      return import('../angular/examples/toggle');
-    case 'toggle-check-basic':
+    case 'toggle-check-showcase':
       return import('../angular/examples/toggle-check');
+    case 'toggle-reactive':
+    case 'toggle-showcase':
+    case 'toggle-signal':
+    case 'toggle-template-driven':
+      return import('../angular/examples/toggle');
+    case 'tooltip-attribute':
     case 'tooltip-basic':
+    case 'tooltip-showcase':
       return import('../angular/examples/tooltip');
     case 'train-basic':
     case 'train-vertical':
