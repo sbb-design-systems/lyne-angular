@@ -11,7 +11,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
  * @title notification with configurable properties
  */
 @Component({
-  selector: 'sbb-notification-basic-example',
+  selector: 'sbb-notification-showcase-example',
   templateUrl: 'notification-showcase-example.html',
   imports: [
     FormField,
