@@ -13,7 +13,7 @@ import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
  * @order 1
  */
 @Component({
-  selector: 'sbb-icon-sidebar-basic-example',
+  selector: 'sbb-icon-sidebar-showcase-example',
   templateUrl: 'icon-sidebar-showcase-example.html',
   styleUrl: 'icon-sidebar-showcase-example.scss',
   imports: [
