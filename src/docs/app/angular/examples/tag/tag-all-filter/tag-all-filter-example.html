@@ -1,0 +1,25 @@
+<sbb-tag-group multiple accessibilityLabel="Filter your desired transport vehicles">
+  <sbb-tag [formField]="filterForm.all" (change)="allTagChanged()">All</sbb-tag>
+  @for (category of categories; track $index) {
+    <sbb-tag
+      [formField]="filterForm[category.name]"
+      [iconName]="category.iconName"
+      [amount]="category.amount.toString()"
+    >
+      {{ category.name | titlecase }}
+    </sbb-tag>
+  }
+</sbb-tag-group>
+
+<div class="sbb-tag-filter-entries">
+  @for (entry of filteredEntries(); track entry.title) {
+    <sbb-card color="transparent-bordered" class="sbb-card-spacing-3x-xxs">
+      <sbb-title visualLevel="6">{{ entry.title }}</sbb-title>
+      <p class="sbb-text-xs">{{ entry.description }}</p>
+    </sbb-card>
+  } @empty {
+    <sbb-card>
+      <p>No entries match the selected filter.</p>
+    </sbb-card>
+  }
+</div>

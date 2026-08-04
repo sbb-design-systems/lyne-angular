@@ -1,0 +1,13 @@
+.sbb-tag-filter-entries {
+  margin-block-start: var(--sbb-spacing-responsive-s);
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+  gap: var(--sbb-spacing-fixed-2x);
+}
+
+sbb-card {
+  p {
+    margin-block: 0;
+  }
+}
