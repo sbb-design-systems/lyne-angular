@@ -1,0 +1,66 @@
+<sbb-mini-calendar [orientation]="controls.miniCalendar.orientation().value()">
+  @for (month of months(); track $index; let mIndex = $index) {
+    <sbb-mini-calendar-month [date]="(month[0] | date: 'yyyy-MM') ?? '2025-01'">
+      @for (day of month; track $index; let dIndex = $index) {
+        <sbb-mini-calendar-day
+          [date]="(day | date: 'yyyy-MM-dd')!"
+          [marker]="
+            day.getDay() === 0 || day.getDay() === 6 ? 'circle' : controls.day.marker().value()!
+          "
+          [sbb-tooltip]="
+            controls.miniCalendar.withTooltip().value() ? (day | date: 'dd.MM.yyyy') : null
+          "
+          [sbb-tooltip-open-delay]="controls.miniCalendar.withTooltip().value() ? '200' : null"
+          [color]="controls.day.color().value()!"
+        >
+        </sbb-mini-calendar-day>
+      }
+    </sbb-mini-calendar-month>
+  }
+</sbb-mini-calendar>
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label>Orientation</label>
+  <sbb-radio-button-group
+    aria-label="Orientation"
+    allowEmptySelection
+    [formField]="controls.miniCalendar.orientation"
+  >
+    <sbb-radio-button value="horizontal">horizontal</sbb-radio-button>
+    <sbb-radio-button value="vertical">vertical</sbb-radio-button>
+  </sbb-radio-button-group>
+  <label for="year">Year</label>
+  <sbb-form-field size="s">
+    <input id="year" type="number" [formField]="controls.miniCalendar.year" />
+  </sbb-form-field>
+  <label for="close-delay">Offset</label>
+  <sbb-form-field size="s">
+    <input id="close-delay" type="number" [formField]="controls.miniCalendar.offset" />
+  </sbb-form-field>
+  <label for="tooltip">With Tooltip</label>
+  <sbb-checkbox id="tooltip" [formField]="controls.miniCalendar.withTooltip"></sbb-checkbox>
+</div>
+<sbb-title level="5">Day Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="color">Color</label>
+  <sbb-form-field size="s" type="select">
+    <sbb-select [formField]="controls.day.color" id="color">
+      <sbb-option [value]="null">unset</sbb-option>
+      <sbb-option value="charcoal">charcoal</sbb-option>
+      <sbb-option value="cloud">cloud</sbb-option>
+      <sbb-option value="orange">orange</sbb-option>
+      <sbb-option value="red">red</sbb-option>
+      <sbb-option value="sky">sky</sbb-option>
+    </sbb-select>
+  </sbb-form-field>
+  <label for="marker">Marker</label>
+  <sbb-form-field size="s" type="select" id="marker">
+    <sbb-select [formField]="controls.day.marker">
+      <sbb-option [value]="null">unset</sbb-option>
+      <sbb-option value="circle">circle</sbb-option>
+      <sbb-option value="target">target</sbb-option>
+      <sbb-option value="slash">slash</sbb-option>
+      <sbb-option value="cross">cross</sbb-option>
+    </sbb-select>
+  </sbb-form-field>
+</div>
