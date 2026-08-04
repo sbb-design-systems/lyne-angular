@@ -7,12 +7,12 @@ import { SbbTableModule } from '@sbb-esta/lyne-angular/table';
  * @order 120
  */
 @Component({
-  selector: 'sbb-expandable-table-example',
-  templateUrl: 'expandable-table-example.html',
-  styleUrl: 'expandable-table-example.scss',
+  selector: 'sbb-table-expandable-example',
+  templateUrl: 'table-expandable-example.html',
+  styleUrl: 'table-expandable-example.scss',
   imports: [SbbTableModule, SbbIconModule],
 })
-export class ExpandableTableExample {
+export class TableExpandableExample {
   protected displayedColumns: string[] = ['connection', 'time', 'duration'];
   protected dataSource = TABLE_EXAMPLE_DATA;
   protected selectedId = signal<number | null>(null);

@@ -1,8 +1,9 @@
-import { SelectionModel } from '@angular/cdk/collections';
-import { JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
-import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
+import { Component, effect, signal, viewChild } from '@angular/core';
+import { form, FormField, max, min } from '@angular/forms/signals';
+import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
+import { SbbPaginator, SbbPaginatorModule } from '@sbb-esta/lyne-angular/paginator';
 import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table';
+import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 interface VehicleExampleItem {
   position: number;
@@ -13,51 +14,33 @@ interface VehicleExampleItem {
 }
 
 /**
- * @title Selectable Table
- * @order 70
+ * @title Paginator Table
+ * @order 60
  */
 @Component({
-  selector: 'sbb-selectable-table-example',
-  templateUrl: 'selectable-table-example.html',
-  imports: [SbbTableModule, SbbCheckboxModule, JsonPipe],
+  selector: 'sbb-table-paginator-example',
+  templateUrl: 'table-paginator-example.html',
+  styleUrl: 'table-paginator-example.scss',
+  imports: [FormField, SbbTableModule, SbbPaginatorModule, SbbFormFieldModule, SbbTitleModule],
 })
-export class SelectableTableExample {
-  protected columns = [
-    { title: 'select' },
-    { title: 'position' },
-    { title: 'name', subtitle: 'technical' },
-    { title: 'power', subtitle: 'horsepower' },
-    { title: 'description', subtitle: 'common name' },
-    { title: 'category' },
-  ];
-  protected dataSource = new SbbTableDataSource<VehicleExampleItem>(
-    VEHICLE_EXAMPLE_DATA.slice(0, 7),
-  );
-  protected selection = new SelectionModel<VehicleExampleItem>(true, []);
-  protected displayedColumns = this.columns.map((column) => column.title);
+export class TablePaginatorExample {
+  private readonly paginator = viewChild.required(SbbPaginator);
+  protected dataSource = new SbbTableDataSource<VehicleExampleItem>(VEHICLE_EXAMPLE_DATA);
+  protected displayedColumns: string[] = ['position', 'name', 'power', 'description'];
+  protected form = form(signal({ pageSize: 5, rowCount: 20 }), (s) => {
+    min(s.pageSize, 1);
+    min(s.rowCount, 0);
+    max(s.rowCount, 20);
+  });
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  protected isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.filteredData.length;
-    return numSelected === numRows;
-  }
+  constructor() {
+    effect(() => {
+      this.dataSource.paginator = this.paginator();
+    });
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  protected parentToggle() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-    } else {
-      this.dataSource.filteredData.forEach((row) => this.selection.select(row));
-    }
-  }
-
-  /** The label for the checkbox on the passed row */
-  protected checkboxLabel(row?: VehicleExampleItem): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+    effect(() => {
+      this.dataSource.data = VEHICLE_EXAMPLE_DATA.slice(0, this.form.rowCount().value());
+    });
   }
 }
 

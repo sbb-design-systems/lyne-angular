@@ -32,9 +32,9 @@ interface VehicleFilter extends SbbTableFilter {
  * @order 80
  */
 @Component({
-  selector: 'sbb-filter-sort-paginator-table-example',
-  styleUrl: 'filter-sort-paginator-table-example.scss',
-  templateUrl: 'filter-sort-paginator-table-example.html',
+  selector: 'sbb-table-filter-sort-paginator-example',
+  styleUrl: 'table-filter-sort-paginator-example.scss',
+  templateUrl: 'table-filter-sort-paginator-example.html',
   imports: [
     FormField,
     SbbFormFieldModule,
@@ -44,7 +44,7 @@ interface VehicleFilter extends SbbTableFilter {
     SbbPaginatorModule,
   ],
 })
-export class FilterSortPaginatorTableExample {
+export class TableFilterSortPaginatorExample {
   private readonly paginator = viewChild.required(SbbPaginator);
   private readonly sort = viewChild.required(SbbSort);
   private readonly table = viewChild.required(SbbTable);

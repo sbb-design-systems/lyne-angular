@@ -157,16 +157,16 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   status: ['status-showcase'],
   stepper: ['stepper-showcase', 'stepper-lazy-loaded'],
   table: [
-    'simple-table',
-    { id: 'sticky-table', hasStyle: true },
-    'grouped-columns-table',
-    'grouped-rows-and-columns-table',
-    'sortable-table',
-    { id: 'paginator-table', hasStyle: true },
-    'selectable-table',
-    { id: 'filter-sort-paginator-table', hasStyle: true },
-    { id: 'native-table', hasStyle: true },
-    { id: 'expandable-table', hasStyle: true },
+    'table-simple',
+    { id: 'table-sticky', hasStyle: true },
+    'table-grouped-columns',
+    'table-grouped-rows-and-columns',
+    'table-sortable',
+    { id: 'table-paginator', hasStyle: true },
+    'table-selectable',
+    { id: 'table-filter-sort-paginator', hasStyle: true },
+    { id: 'table-native', hasStyle: true },
+    { id: 'table-expandable', hasStyle: true },
   ],
   tabs: [
     'tabs-showcase',
@@ -295,8 +295,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'download-custom-content':
     case 'download-showcase':
       return import('../angular/examples/download');
-    case 'expandable-table':
-      return import('../angular/examples/table');
     case 'expansion-panel-basic':
     case 'expansion-panel-showcase':
       return import('../angular/examples/expansion-panel');
@@ -306,8 +304,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'file-selector-signal':
     case 'file-selector-template-driven':
       return import('../angular/examples/file-selector');
-    case 'filter-sort-paginator-table':
-      return import('../angular/examples/table');
     case 'flip-card-basic':
     case 'flip-card-chip':
     case 'flip-card-showcase':
@@ -322,9 +318,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'form-field-showcase':
     case 'form-field-text-counter':
       return import('../angular/examples/form-field');
-    case 'grouped-columns-table':
-    case 'grouped-rows-and-columns-table':
-      return import('../angular/examples/table');
     case 'header-environment':
     case 'header-scroll-origin':
     case 'header-showcase':
@@ -368,8 +361,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'mini-calendar-showcase':
     case 'mini-calendar-with-tooltip':
       return import('../angular/examples/mini-calendar');
-    case 'native-table':
-      return import('../angular/examples/table');
     case 'navigation-basic':
     case 'navigation-section':
       return import('../angular/examples/navigation');
@@ -384,8 +375,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'paginator-compact':
     case 'paginator-showcase':
       return import('../angular/examples/paginator');
-    case 'paginator-table':
-      return import('../angular/examples/table');
     case 'popover-showcase':
       return import('../angular/examples/popover');
     case 'radio-button-group-reactive':
@@ -411,8 +400,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'select-signal':
     case 'select-template-driven':
       return import('../angular/examples/select');
-    case 'selectable-table':
-      return import('../angular/examples/table');
     case 'selection-action-panel-basic':
     case 'selection-action-panel-group':
     case 'selection-action-panel-with-expansion':
@@ -426,8 +413,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/sidebar');
     case 'signet-showcase':
       return import('../angular/examples/signet');
-    case 'simple-table':
-      return import('../angular/examples/table');
     case 'skiplink-list-basic':
       return import('../angular/examples/skiplink-list');
     case 'slider-reactive':
@@ -435,14 +420,29 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'slider-signal':
     case 'slider-template-driven':
       return import('../angular/examples/slider');
-    case 'sortable-table':
-      return import('../angular/examples/table');
     case 'status-showcase':
       return import('../angular/examples/status');
     case 'stepper-lazy-loaded':
     case 'stepper-showcase':
       return import('../angular/examples/stepper');
-    case 'sticky-table':
+    case 'table-expandable':
+      return import('../angular/examples/table');
+    case 'table-filter-sort-paginator':
+      return import('../angular/examples/table');
+    case 'table-grouped-columns':
+    case 'table-grouped-rows-and-columns':
+      return import('../angular/examples/table');
+    case 'table-native':
+      return import('../angular/examples/table');
+    case 'table-paginator':
+      return import('../angular/examples/table');
+    case 'table-selectable':
+      return import('../angular/examples/table');
+    case 'table-simple':
+      return import('../angular/examples/table');
+    case 'table-sortable':
+      return import('../angular/examples/table');
+    case 'table-sticky':
       return import('../angular/examples/table');
     case 'tabs-fixed-height':
     case 'tabs-lazy-content':

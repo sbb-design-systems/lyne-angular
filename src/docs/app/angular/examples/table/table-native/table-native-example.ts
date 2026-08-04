@@ -18,12 +18,12 @@ interface RowEntry {
  * @order 100
  */
 @Component({
-  selector: 'sbb-native-table-example',
-  templateUrl: 'native-table-example.html',
-  styleUrl: 'native-table-example.scss',
+  selector: 'sbb-table-native-example',
+  templateUrl: 'table-native-example.html',
+  styleUrl: 'table-native-example.scss',
   imports: [SbbTableModule, SbbFormFieldModule, FormsModule, FormField],
 })
-export class NativeTableExample {
+export class TableNativeExample {
   protected filter = form(signal(''));
 
   protected rows = computed(() =>

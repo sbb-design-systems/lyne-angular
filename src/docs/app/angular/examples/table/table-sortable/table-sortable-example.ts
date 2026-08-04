@@ -9,11 +9,11 @@ import { SbbSort, SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angu
  * @order 50
  */
 @Component({
-  selector: 'sbb-sortable-table-example',
-  templateUrl: 'sortable-table-example.html',
+  selector: 'sbb-table-sortable-example',
+  templateUrl: 'table-sortable-example.html',
   imports: [SbbTableModule, DatePipe],
 })
-export class SortableTableExample {
+export class TableSortableExample {
   protected displayedColumns: string[] = ['letter', 'number', 'word', 'date'];
   protected dataSource = new SbbTableDataSource(TABLE_EXAMPLE_DATA);
 
