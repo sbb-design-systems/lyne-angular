@@ -10,10 +10,10 @@ import type { SbbEasterEgg } from './easter-egg';
 export class SbbEasterEggTrigger extends SbbTriggerBase<SbbEasterEgg> {
   /** The easter-egg to be attached to this trigger. */
   @Input('sbbEasterEgg')
-  get dialog(): SbbEasterEgg | null {
+  get easterEgg(): SbbEasterEgg | null {
     return this.referenceElement;
   }
-  set dialog(dialog: SbbEasterEgg) {
-    this.referenceElement = dialog;
+  set easterEgg(easterEgg: SbbEasterEgg) {
+    this.referenceElement = easterEgg;
   }
 }
