@@ -1,6 +1,8 @@
 <sbb-tag-group>
-  @for (device of ['phones', 'computer', 'laptop']; track device) {
-    <sbb-tag [value]="device" [checked]="false"> {{ device | titlecase }} </sbb-tag>
+  @for (device of ['smartphone', 'display', 'laptop']; track device) {
+    <sbb-tag [value]="device" [checked]="false" [iconName]="device + '-small'">
+      {{ device | titlecase }}
+    </sbb-tag>
   }
 </sbb-tag-group>
 

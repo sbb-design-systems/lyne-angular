@@ -29,6 +29,7 @@ export class TagShowcaseExample {
       disabled: false,
       size: null as SbbTag['size'],
       amount: '' as SbbTag['amount'],
+      withIcons: false,
     }),
   );
 }
