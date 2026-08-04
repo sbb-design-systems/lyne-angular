@@ -273,16 +273,13 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'clock-paused':
       return import('../angular/examples/clock');
     case 'container-background-image':
-      return import('../angular/examples/container');
     case 'container-showcase':
-      return import('../angular/examples/container');
     case 'container-sticky-bar':
       return import('../angular/examples/container');
     case 'container-sticky-bar-control-sticky-state':
       return import('../angular/examples/container');
     case 'date-input-reactive':
     case 'date-input-showcase':
-      return import('../angular/examples/date-input');
     case 'date-input-signal':
     case 'date-input-template-driven':
       return import('../angular/examples/date-input');
@@ -316,7 +313,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'flip-card-showcase':
       return import('../angular/examples/flip-card');
     case 'footer-basic':
-      return import('../angular/examples/footer');
     case 'footer-clock':
       return import('../angular/examples/footer');
     case 'form-field-clear':
@@ -370,7 +366,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'mini-button-showcase':
       return import('../angular/examples/button');
     case 'mini-calendar-showcase':
-      return import('../angular/examples/mini-calendar');
     case 'mini-calendar-with-tooltip':
       return import('../angular/examples/mini-calendar');
     case 'native-table':
