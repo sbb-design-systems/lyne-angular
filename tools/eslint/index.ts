@@ -1,6 +1,7 @@
 import type { ESLintUtils, TSESLint } from '@typescript-eslint/utils';
 
 import exampleComponentRule from './example-component-rule.ts';
+import exampleDuplicateIdsRule from './example-duplicate-ids-rule.ts';
 import exampleIndexRule from './example-index-rule.ts';
 import exampleModuleRule from './example-module-rule.ts';
 
@@ -21,6 +22,7 @@ const plugin: TSESLint.FlatConfig.Plugin = {
   rules: {
     ...rules,
     'example-component-rule': exampleComponentRule,
+    'example-duplicate-ids-rule': exampleDuplicateIdsRule,
     'example-module-rule': exampleModuleRule,
     'example-index-rule': exampleIndexRule,
   },
@@ -50,6 +52,11 @@ plugin.configs!['recommended'] = [
     files: ['**/examples/**/*-example.ts'],
     plugins: { lyne: plugin },
     rules: { 'lyne/example-component-rule': 'error' },
+  },
+  {
+    files: ['**/examples/**/*-example.html'],
+    plugins: { lyne: plugin },
+    rules: { 'lyne/example-duplicate-ids-rule': 'error' },
   },
 ];
 
