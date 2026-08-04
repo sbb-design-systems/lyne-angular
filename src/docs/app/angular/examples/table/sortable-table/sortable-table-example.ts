@@ -27,7 +27,7 @@ export class SortableTableExample {
   }
 
   /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: SbbSortState) {
+  protected announceSortChange(sortState: SbbSortState) {
     // This example uses English messages. If your application supports
     // multiple language, you would internationalize these strings.
     // Furthermore, you can customize the message to add additional

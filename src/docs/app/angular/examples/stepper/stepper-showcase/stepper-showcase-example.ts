@@ -9,11 +9,11 @@ import { type SbbStepper, SbbStepperModule } from '@sbb-esta/lyne-angular/steppe
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
- * @title Basic stepper
+ * @title Stepper showcase
  * @order 1
  */
 @Component({
-  selector: 'sbb-stepper-basic-example',
+  selector: 'sbb-stepper-showcase-example',
   templateUrl: 'stepper-showcase-example.html',
   imports: [
     FormField,

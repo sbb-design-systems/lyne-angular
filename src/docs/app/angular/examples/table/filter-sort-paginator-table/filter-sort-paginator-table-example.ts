@@ -33,7 +33,7 @@ interface VehicleFilter extends SbbTableFilter {
  */
 @Component({
   selector: 'sbb-filter-sort-paginator-table-example',
-  styleUrls: ['filter-sort-paginator-table-example.scss'],
+  styleUrl: 'filter-sort-paginator-table-example.scss',
   templateUrl: 'filter-sort-paginator-table-example.html',
   imports: [
     FormField,
@@ -93,7 +93,7 @@ export class FilterSortPaginatorTableExample {
   }
 
   /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: SbbSortState) {
+  protected announceSortChange(sortState: SbbSortState) {
     // This example uses English messages. If your application supports
     // multiple language, you would internationalize these strings.
     // Furthermore, you can customize the message to add additional

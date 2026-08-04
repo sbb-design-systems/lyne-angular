@@ -9,7 +9,7 @@ import { SbbTableModule } from '@sbb-esta/lyne-angular/table';
 @Component({
   selector: 'sbb-expandable-table-example',
   templateUrl: 'expandable-table-example.html',
-  styleUrls: ['expandable-table-example.scss'],
+  styleUrl: 'expandable-table-example.scss',
   imports: [SbbTableModule, SbbIconModule],
 })
 export class ExpandableTableExample {
