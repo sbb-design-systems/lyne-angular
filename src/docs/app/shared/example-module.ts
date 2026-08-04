@@ -107,7 +107,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'map-container': ['map-container-basic'],
   menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
   message: [{ id: 'message-basic', hasStyle: true }],
-  'mini-calendar': ['mini-calendar-basic'],
+  'mini-calendar': ['mini-calendar-showcase', 'mini-calendar-with-tooltip'],
   navigation: ['navigation-basic', 'navigation-section'],
   notification: ['notification-showcase'],
   option: ['option-showcase'],
@@ -369,7 +369,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'mini-button-group':
     case 'mini-button-showcase':
       return import('../angular/examples/button');
-    case 'mini-calendar-basic':
+    case 'mini-calendar-showcase':
+      return import('../angular/examples/mini-calendar');
+    case 'mini-calendar-with-tooltip':
       return import('../angular/examples/mini-calendar');
     case 'native-table':
       return import('../angular/examples/table');
