@@ -1,10 +1,10 @@
 <sbb-tag-group multiple accessibilityLabel="Filter your desired transport vehicles">
   <sbb-tag [formField]="filterForm.all" (change)="allTagChanged()">All</sbb-tag>
-  @for (category of categories; track $index) {
+  @for (category of categories; track category.name) {
     <sbb-tag
       [formField]="filterForm[category.name]"
       [iconName]="category.iconName"
-      [amount]="category.amount.toString()"
+      [amount]="category.entries.length.toString()"
     >
       {{ category.name | titlecase }}
     </sbb-tag>
