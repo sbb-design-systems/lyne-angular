@@ -1,4 +1,5 @@
 import { Directive, ElementRef, inject } from '@angular/core';
+import { SbbDialog } from '@sbb-esta/lyne-angular/dialog';
 import { SbbEasterEggElement } from '@sbb-esta/lyne-elements-experimental/easter-egg.pure.js';
 
 /**
@@ -13,7 +14,7 @@ the readonly `score` getter.
   selector: 'sbb-easter-egg',
   exportAs: 'sbbEasterEgg',
 })
-export class SbbEasterEgg {
+export class SbbEasterEgg extends SbbDialog {
   static {
     SbbEasterEggElement.define();
   }
