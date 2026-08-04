@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { disabled, form, FormField } from '@angular/forms/signals';
-import { SbbCard } from '@sbb-esta/lyne-angular/card';
+import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { type SbbDateInput, SbbDateInputModule } from '@sbb-esta/lyne-angular/date-input';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
@@ -24,7 +24,7 @@ interface Filters {
   imports: [
     DatePipe,
     FormField,
-    SbbCard,
+    SbbCardModule,
     SbbCheckboxModule,
     SbbDateInputModule,
     SbbFormFieldModule,
