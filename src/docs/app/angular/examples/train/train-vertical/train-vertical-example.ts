@@ -3,6 +3,7 @@ import { SbbTrainModule } from '@sbb-esta/lyne-angular/train';
 
 /**
  * @title Vertical train
+ * @order 3
  */
 @Component({
   selector: 'sbb-train-vertical-example',
