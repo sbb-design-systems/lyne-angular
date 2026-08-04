@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { form, FormField } from '@angular/forms/signals';
+import { form, FormField, minDate } from '@angular/forms/signals';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbDateInputModule } from '@sbb-esta/lyne-angular/date-input';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
@@ -14,5 +14,7 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
   imports: [FormField, SbbDateInputModule, SbbFormFieldModule, SbbCardModule],
 })
 export class DateInputSignalExample {
-  protected readonly form = form(signal<Date>(new Date('2024-12-12')));
+  protected readonly form = form(signal<Date>(new Date('2024-12-12')), (s) => {
+    minDate(s, new Date('2024-12-01'));
+  });
 }

@@ -3,6 +3,14 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Test",
+      "request": "launch",
+      "runtimeArgs": ["test", "angular", "--include=${relativeFile}"],
+      "runtimeExecutable": "ng",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
       "name": "Lint",
       "request": "launch",
       "runtimeArgs": ["eslint"],
