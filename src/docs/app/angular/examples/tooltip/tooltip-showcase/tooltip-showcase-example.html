@@ -11,9 +11,9 @@
 
 <sbb-title level="5">Properties</sbb-title>
 <div class="sbb-controls-table">
-  <label>Position</label>
-  <sbb-form-field size="s" type="select">
-    <sbb-select [formField]="controls.position">
+  <label for="position">Position</label>
+  <sbb-form-field size="s">
+    <sbb-select [formField]="controls.position" id="position">
       <sbb-option [value]="null">unset</sbb-option>
       <sbb-option value="block-end">block-end</sbb-option>
       <sbb-option value="block-start">block-start</sbb-option>
@@ -27,12 +27,12 @@
   </sbb-form-field>
 
   <label for="open-delay">Open delay (ms)</label>
-  <sbb-form-field size="s" type="select">
+  <sbb-form-field size="s">
     <input id="open-delay" type="number" [formField]="controls.openDelay" />
   </sbb-form-field>
 
   <label for="close-delay">Close delay (ms)</label>
-  <sbb-form-field size="s" type="select">
+  <sbb-form-field size="s">
     <input id="close-delay" type="number" [formField]="controls.closeDelay" />
   </sbb-form-field>
 </div>

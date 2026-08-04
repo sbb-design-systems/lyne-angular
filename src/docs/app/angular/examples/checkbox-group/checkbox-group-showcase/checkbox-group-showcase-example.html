@@ -24,9 +24,9 @@
     <sbb-radio-button value="s">s</sbb-radio-button>
     <sbb-radio-button value="m">m</sbb-radio-button>
   </sbb-radio-button-group>
-  <label>Horizontal From</label>
-  <sbb-form-field size="s" type="select">
-    <sbb-select [formField]="controls.horizontalFrom">
+  <label for="horizontal-from">Horizontal From</label>
+  <sbb-form-field size="s">
+    <sbb-select [formField]="controls.horizontalFrom" id="horizontal-from">
       <sbb-option [value]="null">unset</sbb-option>
       <sbb-option value="zero">zero</sbb-option>
       <sbb-option value="small">small</sbb-option>
