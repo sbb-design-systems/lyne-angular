@@ -5,8 +5,13 @@ import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbTagModule } from '@sbb-esta/lyne-angular/tag';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
-const CATEGORIES = {
-  trains: {
+const CATEGORIES: {
+  name: 'trains' | 'buses' | 'boats';
+  iconName: string;
+  entries: { description: string; title: string }[];
+}[] = [
+  {
+    name: 'trains',
     iconName: 'train-small',
     entries: [
       {
@@ -23,7 +28,8 @@ const CATEGORIES = {
       },
     ],
   },
-  buses: {
+  {
+    name: 'buses',
     iconName: 'bus-stop-small',
     entries: [
       {
@@ -36,7 +42,8 @@ const CATEGORIES = {
       },
     ],
   },
-  boats: {
+  {
+    name: 'boats',
     iconName: 'boat-small',
     entries: [
       {
@@ -49,7 +56,7 @@ const CATEGORIES = {
       },
     ],
   },
-};
+];
 
 /**
  * @title tag-group filter
@@ -62,14 +69,10 @@ const CATEGORIES = {
   imports: [SbbCardModule, SbbTagModule, SbbTitleModule, FormField, TitleCasePipe],
 })
 export class TagAllFilterExample {
-  protected readonly categories = Object.entries(CATEGORIES).map(([key, value]) => ({
-    name: key as keyof typeof CATEGORIES,
-    iconName: value.iconName,
-    entries: value.entries,
-  }));
+  protected readonly categories = CATEGORIES;
 
   protected readonly filterForm = form(
-    signal<Record<keyof typeof CATEGORIES | 'all', boolean>>({
+    signal<Record<(typeof CATEGORIES)[number]['name'] | 'all', boolean>>({
       all: true,
       trains: false,
       buses: false,
@@ -77,7 +80,7 @@ export class TagAllFilterExample {
     }),
   );
 
-  protected readonly filteredEntries = computed(() => {
+  protected readonly filteredCategories = computed(() => {
     return (
       this.filterForm.all().value()
         ? this.categories
@@ -96,8 +99,7 @@ export class TagAllFilterExample {
 
   protected allTagChanged() {
     // Sync tags to `all` tag
-    this.categories.forEach((entry) =>
-      this.filterForm[entry.name]().value.set(!this.filterForm.all().value()),
-    );
+    const allTagChecked = this.filterForm.all().value();
+    this.categories.forEach((entry) => this.filterForm[entry.name]().value.set(!allTagChecked));
   }
 }

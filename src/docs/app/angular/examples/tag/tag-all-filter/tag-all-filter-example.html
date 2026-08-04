@@ -12,7 +12,7 @@
 </sbb-tag-group>
 
 <div class="sbb-tag-filter-entries">
-  @for (entry of filteredEntries(); track entry.title) {
+  @for (entry of filteredCategories(); track entry.title) {
     <sbb-card color="transparent-bordered" class="sbb-card-spacing-3x-xxs">
       <sbb-title visualLevel="6">{{ entry.title }}</sbb-title>
       <p class="sbb-text-xs">{{ entry.description }}</p>
