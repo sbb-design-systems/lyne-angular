@@ -11,6 +11,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title teaser-product with configurable properties
+ * @order 1
  */
 @Component({
   selector: 'sbb-teaser-product-showcase-example',
