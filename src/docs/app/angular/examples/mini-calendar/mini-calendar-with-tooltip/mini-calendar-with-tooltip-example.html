@@ -2,10 +2,10 @@
   <sbb-mini-calendar-month date="2025-01">
     @for (day of days; track $index; let dIndex = $index) {
       <sbb-mini-calendar-day
-        [attr.date]="`2025-01-${day}`"
-        [attr.sbb-tooltip]="`${day}.01.2025`"
+        [date]="`2025-01-${day}`"
+        [sbb-tooltip]="`${day}.01.2025`"
         sbb-tooltip-open-delay="200"
-        [attr.marker]="(dIndex - 3) % 7 === 0 || (dIndex - 4) % 7 === 0 ? 'circle' : null"
+        [marker]="(dIndex - 3) % 7 === 0 || (dIndex - 4) % 7 === 0 ? 'circle' : ''"
       >
       </sbb-mini-calendar-day>
     }

@@ -11,6 +11,7 @@ import {
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
+import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
 
 /**
  * @title Mini-calendar showcase
@@ -27,6 +28,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     DatePipe,
     SbbFormFieldModule,
     SbbSelectModule,
+    SbbTooltipModule,
   ],
 })
 export class MiniCalendarShowcaseExample {
