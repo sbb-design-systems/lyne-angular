@@ -56,7 +56,14 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     { id: 'checkbox-panel-reactive', hasStyle: true },
     { id: 'checkbox-panel-template-driven', hasStyle: true },
   ],
-  chip: ['chip-showcase', 'chip-basic', 'chip-autocomplete', 'chip-complex-value'],
+  chip: [
+    'chip-showcase',
+    'chip-autocomplete',
+    'chip-complex-value',
+    'chip-signal',
+    'chip-reactive',
+    'chip-template-driven',
+  ],
   'chip-label': ['chip-label-showcase'],
   clock: ['clock-basic', 'clock-paused'],
   container: [
@@ -273,9 +280,11 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'checkbox-panel-template-driven':
       return import('../angular/examples/checkbox-panel');
     case 'chip-autocomplete':
-    case 'chip-basic':
     case 'chip-complex-value':
+    case 'chip-reactive':
     case 'chip-showcase':
+    case 'chip-signal':
+    case 'chip-template-driven':
       return import('../angular/examples/chip');
     case 'chip-label-showcase':
       return import('../angular/examples/chip-label');
