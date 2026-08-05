@@ -52,6 +52,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   ],
   'checkbox-panel': [
     { id: 'checkbox-panel-showcase', hasStyle: true },
+    { id: 'checkbox-panel-signal', hasStyle: true },
     { id: 'checkbox-panel-reactive', hasStyle: true },
     { id: 'checkbox-panel-template-driven', hasStyle: true },
   ],
@@ -198,7 +199,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   title: ['title-showcase'],
   toast: ['toast-showcase', 'toast-service'],
   toggle: ['toggle-showcase', 'toggle-signal', 'toggle-reactive', 'toggle-template-driven'],
-  'toggle-check': ['toggle-check-showcase'],
+  'toggle-check': [
+    'toggle-check-showcase',
+    'toggle-check-signal',
+    'toggle-check-reactive',
+    'toggle-check-template-driven',
+  ],
   tooltip: [{ id: 'tooltip-showcase', hasStyle: true }, 'tooltip-basic', 'tooltip-attribute'],
   train: ['train-showcase', 'train-wagon-showcase', 'train-vertical'],
 };
@@ -263,6 +269,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/checkbox-group');
     case 'checkbox-panel-reactive':
     case 'checkbox-panel-showcase':
+    case 'checkbox-panel-signal':
     case 'checkbox-panel-template-driven':
       return import('../angular/examples/checkbox-panel');
     case 'chip-autocomplete':
@@ -477,7 +484,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'toggle-signal':
     case 'toggle-template-driven':
       return import('../angular/examples/toggle');
+    case 'toggle-check-reactive':
     case 'toggle-check-showcase':
+    case 'toggle-check-signal':
+    case 'toggle-check-template-driven':
       return import('../angular/examples/toggle-check');
     case 'tooltip-attribute':
     case 'tooltip-basic':

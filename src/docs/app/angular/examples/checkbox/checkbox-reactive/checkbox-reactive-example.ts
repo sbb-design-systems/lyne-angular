@@ -13,5 +13,5 @@ import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
   imports: [SbbCheckboxModule, ReactiveFormsModule, SbbCardModule],
 })
 export class CheckboxReactiveExample {
-  protected control = new FormControl<boolean | null>(null);
+  protected control = new FormControl(false);
 }

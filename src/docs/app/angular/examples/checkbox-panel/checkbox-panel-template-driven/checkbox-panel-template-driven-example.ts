@@ -6,7 +6,7 @@ import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
 
 /**
  * @title sbb-checkbox-panel in a template-driven form
- * @order 3
+ * @order 4
  */
 @Component({
   selector: 'sbb-checkbox-panel-template-driven-example',
@@ -15,5 +15,5 @@ import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
   imports: [FormsModule, SbbCheckboxPanelModule, SbbCardModule, SbbIconModule],
 })
 export class CheckboxPanelTemplateDrivenExample {
-  protected model: boolean | null = null;
+  protected model = false;
 }
