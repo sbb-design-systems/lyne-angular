@@ -8,7 +8,7 @@ import { NEVER, fromEvent } from 'rxjs';
 /**
  * It displays an item contained into the `sbb-carousel` component.
  *
- * @slot  - Use the unnamed slot to add images for the carousel, as <img>, <sbb-image>, <picture>, ...
+ * @slot  - Use the unnamed slot to add images for the carousel, as `<img>`, `<sbb-image>`, `<picture>`, ...
  */
 @Directive({
   selector: 'sbb-carousel-item',

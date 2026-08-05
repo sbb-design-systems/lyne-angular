@@ -337,7 +337,7 @@ function createClassJSDoc(
   const slots = classManifestDeclaration.slots;
   const cssProps = classManifestDeclaration.cssProperties;
   const cssParts = classManifestDeclaration.cssParts;
-  let classDescr = `/**\n * ${classManifestDeclaration.description}\n`;
+  let classDescr = `/**\n * ${classManifestDeclaration.description?.replaceAll('\n', '\n * ')}\n`;
   if (slots && slots?.length) {
     classDescr += ` *\n${slots.map((slot) => ` * @slot ${slot.name} - ${slot.description}`).join('\n')}\n`;
   }
