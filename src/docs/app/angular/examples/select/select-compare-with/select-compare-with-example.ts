@@ -6,32 +6,46 @@ import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
 
 /**
- * @title Select with complex value
- * @order 3
+ * @title Select with compare-with function
+ * @order 4
  */
 @Component({
-  selector: 'sbb-select-complex-value-example',
-  templateUrl: 'select-complex-value-example.html',
+  selector: 'sbb-select-compare-with-example',
+  templateUrl: 'select-compare-with-example.html',
   imports: [JsonPipe, FormField, SbbCardModule, SbbFormFieldModule, SbbSelectModule],
 })
-export class SelectComplexValueExample {
-  protected readonly options = [
+export class SelectCompareWithExample {
+  protected readonly simplifiedOptions = [
     {
       id: 1,
       name: 'Option 1',
-      price: 9.99,
     },
     {
       id: 2,
       name: 'Option 2',
-      price: 4.99,
     },
     {
       id: 3,
       name: 'Option 3',
-      price: 19.99,
     },
   ];
 
-  protected readonly form = form(signal({ select: null as null | typeof this.options }));
+  protected readonly form = form(
+    signal({
+      select: [
+        {
+          id: 1,
+          name: 'Option 1',
+          price: 9.99,
+        },
+        {
+          id: 2,
+          name: 'Option 2',
+          price: 4.99,
+        },
+      ],
+    }),
+  );
+  protected compareWith = (v1: { id: string } | null, v2: { id: string } | null) =>
+    v1?.id === v2?.id;
 }

@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
+import { SbbNotificationModule } from '@sbb-esta/lyne-angular/notification';
 import { SbbOptionModule } from '@sbb-esta/lyne-angular/option';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
@@ -11,7 +12,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 @Component({
   selector: 'sbb-option-showcase-example',
   templateUrl: 'option-showcase-example.html',
-  imports: [FormField, SbbCheckboxModule, SbbOptionModule, SbbTitleModule],
+  imports: [FormField, SbbCheckboxModule, SbbOptionModule, SbbTitleModule, SbbNotificationModule],
 })
 export class OptionShowcaseExample {
   protected controls = form(

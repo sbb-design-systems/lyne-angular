@@ -1,3 +1,10 @@
 .controls-wrapper {
   padding: var(--sbb-spacing-fixed-6x);
 }
+
+.background-expanded {
+  display: flex;
+  gap: var(--sbb-spacing-fixed-3x);
+  align-items: center;
+  flex-wrap: wrap;
+}
