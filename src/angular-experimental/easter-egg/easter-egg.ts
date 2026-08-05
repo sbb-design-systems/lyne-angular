@@ -12,6 +12,9 @@ import { NEVER, fromEvent } from 'rxjs';
  * to control the dialog. The dialog can also be triggered from any element
  * via the inherited `trigger` id-reference attribute. Score is exposed via
  * the readonly `score` getter.
+ *
+ * @slot  - Use the unnamed slot to provide a `sbb-dialog-title`, `sbb-dialog-content` and an optional `sbb-dialog-actions`.
+ * @cssprop [--sbb-dialog-z-index=var(--sbb-overlay-default-z-index)] - To specify a custom stack order, the `z-index` can be overridden by defining this CSS variable. The default `z-index` of the component is set to `var(--sbb-overlay-default-z-index)` with a value of `1000`.
  */
 @Directive({
   selector: 'sbb-easter-egg',

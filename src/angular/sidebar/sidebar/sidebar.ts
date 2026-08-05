@@ -19,7 +19,7 @@ import { fromEvent, NEVER } from 'rxjs';
  * This component corresponds to a sidebar that can be opened on the sidebar container.
  *
  * @slot  - Use the unnamed slot to slot any content into the sidebar.
- * @slot title - Use the title slot to add an <sbb-title>.
+ * @slot title-section - Use the title-section slot to add an `<sbb-title>`.
  */
 @Directive({
   selector: 'sbb-sidebar',
