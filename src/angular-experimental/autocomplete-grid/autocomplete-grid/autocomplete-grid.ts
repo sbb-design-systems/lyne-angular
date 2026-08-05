@@ -27,7 +27,8 @@ export class SbbAutocompleteGrid<T = string> implements SbbAutocompleteType<T> {
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Size variant, either m or s.
+   * Size variant, either s (lean theme default) or m (standard theme default).
+   * When placed inside an `<sbb-form-field>`, the size is inherited from the form field.
    */
   @Input()
   public set size(value: 'm' | 's' | null) {
@@ -171,7 +172,7 @@ export class SbbAutocompleteGrid<T = string> implements SbbAutocompleteType<T> {
   }
 
   /**
-   * Returns the element where autocomplete overlay is attached to.
+   * Returns the element where the autocomplete overlay is attached to.
    */
   public get originElement(): HTMLElement | null {
     return this.#element.nativeElement.originElement;
