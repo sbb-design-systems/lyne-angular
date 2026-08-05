@@ -12,7 +12,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
  * @order 1
  */
 @Component({
-  selector: 'sbb-time-input-basic-example',
+  selector: 'sbb-time-input-showcase-example',
   templateUrl: 'time-input-showcase-example.html',
   imports: [
     FormField,

@@ -10,12 +10,12 @@ import { SbbSort, SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angu
  * @order 20
  */
 @Component({
-  selector: 'sbb-sticky-table-example',
-  styleUrls: ['sticky-table-example.scss'],
-  templateUrl: 'sticky-table-example.html',
+  selector: 'sbb-table-sticky-example',
+  styleUrl: 'table-sticky-example.scss',
+  templateUrl: 'table-sticky-example.html',
   imports: [SbbTableModule, SbbLoadingIndicatorModule],
 })
-export class StickyTableExample {
+export class TableStickyExample {
   protected displayedColumns: string[] = [
     'line',
     'from',
@@ -66,7 +66,7 @@ export class StickyTableExample {
   }
 
   /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: SbbSortState) {
+  protected announceSortChange(sortState: SbbSortState) {
     // This example uses English messages. If your application supports
     // multiple language, you would internationalize these strings.
     // Furthermore, you can customize the message to add additional

@@ -4,13 +4,13 @@
 ></sbb-file-selector>
 
 <p>
-  <sbb-card color="milk"
-    >Value: <code>{{ stringifiedValue(control.value) | json }}</code></sbb-card
-  >
+  <sbb-card color="milk">
+    Value: <code>{{ stringifiedValue(control.value) | json }}</code>
+  </sbb-card>
 </p>
 
 <sbb-title level="5">Properties</sbb-title>
 <div class="sbb-controls-table">
-  <label for="multiple">Multiple</label>
-  <sbb-checkbox id="multiple" [formField]="controls.multiple"></sbb-checkbox>
+  <label for="reactive-multiple">Multiple</label>
+  <sbb-checkbox id="reactive-multiple" [formField]="controls.multiple"></sbb-checkbox>
 </div>

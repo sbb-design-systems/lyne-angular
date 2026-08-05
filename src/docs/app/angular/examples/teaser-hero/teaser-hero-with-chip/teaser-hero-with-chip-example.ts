@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SbbChipLabelModule } from '@sbb-esta/lyne-angular/chip-label';
 import { SbbImageModule } from '@sbb-esta/lyne-angular/image';
-import { SbbTeaserHero } from '@sbb-esta/lyne-angular/teaser-hero';
+import { SbbTeaserHeroModule } from '@sbb-esta/lyne-angular/teaser-hero';
 
 /**
  * @title teaser-hero with image, chip and content
@@ -10,6 +10,6 @@ import { SbbTeaserHero } from '@sbb-esta/lyne-angular/teaser-hero';
 @Component({
   selector: 'sbb-teaser-hero-with-chip-example',
   templateUrl: 'teaser-hero-with-chip-example.html',
-  imports: [SbbChipLabelModule, SbbImageModule, SbbTeaserHero],
+  imports: [SbbChipLabelModule, SbbImageModule, SbbTeaserHeroModule],
 })
 export class TeaserHeroWithChipExample {}

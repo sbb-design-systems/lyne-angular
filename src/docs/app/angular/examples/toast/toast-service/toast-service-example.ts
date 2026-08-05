@@ -25,18 +25,18 @@ export class ToastServiceContentExample {
 })
 export class ToastServiceExample {
   protected template = viewChild.required('toastTemplate', { read: TemplateRef });
-  #toastService = inject(SbbToastService);
+  private toastService = inject(SbbToastService);
 
-  openToast(): void {
-    this.#toastService.open('I am a simple toast message.');
+  protected openToast(): void {
+    this.toastService.open('I am a simple toast message.');
   }
 
-  openToastTemplate(): void {
-    this.#toastService.open(this.template());
+  protected openToastTemplate(): void {
+    this.toastService.open(this.template());
   }
 
-  openToastComponent(): void {
-    this.#toastService.open<ToastServiceContentExample>(ToastServiceContentExample, {
+  protected openToastComponent(): void {
+    this.toastService.open<ToastServiceContentExample>(ToastServiceContentExample, {
       data: { name: 'Yoshi' },
       setupContainer: (t) => {
         t.readOnly = true;

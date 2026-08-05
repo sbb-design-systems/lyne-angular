@@ -7,7 +7,7 @@ import { SbbDividerModule } from '@sbb-esta/lyne-angular/divider';
  * @order 50
  */
 @Component({
-  selector: 'sbb-button-group-example',
+  selector: 'sbb-mini-button-group-example',
   templateUrl: 'mini-button-group-example.html',
   imports: [SbbButtonModule, SbbDividerModule],
 })

@@ -52,6 +52,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   ],
   'checkbox-panel': [
     { id: 'checkbox-panel-showcase', hasStyle: true },
+    { id: 'checkbox-panel-signal', hasStyle: true },
     { id: 'checkbox-panel-reactive', hasStyle: true },
     { id: 'checkbox-panel-template-driven', hasStyle: true },
   ],
@@ -157,16 +158,16 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   status: ['status-showcase'],
   stepper: ['stepper-showcase', 'stepper-lazy-loaded'],
   table: [
-    'simple-table',
-    { id: 'sticky-table', hasStyle: true },
-    'grouped-columns-table',
-    'grouped-rows-and-columns-table',
-    'sortable-table',
-    { id: 'paginator-table', hasStyle: true },
-    'selectable-table',
-    { id: 'filter-sort-paginator-table', hasStyle: true },
-    { id: 'native-table', hasStyle: true },
-    { id: 'expandable-table', hasStyle: true },
+    'table-simple',
+    { id: 'table-sticky', hasStyle: true },
+    'table-grouped-columns',
+    'table-grouped-rows-and-columns',
+    'table-sortable',
+    { id: 'table-paginator', hasStyle: true },
+    'table-selectable',
+    { id: 'table-filter-sort-paginator', hasStyle: true },
+    { id: 'table-native', hasStyle: true },
+    { id: 'table-expandable', hasStyle: true },
   ],
   tabs: [
     'tabs-showcase',
@@ -198,13 +199,22 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   title: ['title-showcase'],
   toast: ['toast-showcase', 'toast-service'],
   toggle: ['toggle-showcase', 'toggle-signal', 'toggle-reactive', 'toggle-template-driven'],
-  'toggle-check': ['toggle-check-showcase'],
+  'toggle-check': [
+    'toggle-check-showcase',
+    'toggle-check-signal',
+    'toggle-check-reactive',
+    'toggle-check-template-driven',
+  ],
   tooltip: [{ id: 'tooltip-showcase', hasStyle: true }, 'tooltip-basic', 'tooltip-attribute'],
   train: ['train-showcase', 'train-wagon-showcase', 'train-vertical'],
 };
 
 export async function loadExample(id: string): Promise<Record<string, Type<unknown>> | undefined> {
   switch (id) {
+    case 'seat-reservation-basic':
+    case 'seat-reservation-bus':
+    case 'seat-reservation-multiple-decks':
+      return import('../angular-experimental/examples/seat-reservation');
     case 'accordion-basic':
     case 'accordion-nested-lazy':
     case 'accordion-showcase':
@@ -226,13 +236,13 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'badge-before':
     case 'badge-header-button':
       return import('../angular/examples/badge');
-    case 'block-link-showcase':
-      return import('../angular/examples/link');
     case 'breadcrumb-basic':
       return import('../angular/examples/breadcrumb');
     case 'button-link-basic':
     case 'button-showcase':
     case 'button-static-basic':
+    case 'mini-button-group':
+    case 'mini-button-showcase':
       return import('../angular/examples/button');
     case 'calendar-enhanced':
     case 'calendar-fixed-month':
@@ -248,41 +258,37 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'carousel-button':
     case 'carousel-link':
       return import('../angular/examples/carousel');
+    case 'checkbox-reactive':
+    case 'checkbox-showcase':
+    case 'checkbox-signal':
+    case 'checkbox-template-driven':
+      return import('../angular/examples/checkbox');
     case 'checkbox-group-panel-showcase':
     case 'checkbox-group-showcase':
     case 'checkbox-group-with-error':
       return import('../angular/examples/checkbox-group');
     case 'checkbox-panel-reactive':
     case 'checkbox-panel-showcase':
+    case 'checkbox-panel-signal':
     case 'checkbox-panel-template-driven':
       return import('../angular/examples/checkbox-panel');
-    case 'checkbox-reactive':
-    case 'checkbox-showcase':
-    case 'checkbox-signal':
-    case 'checkbox-template-driven':
-      return import('../angular/examples/checkbox');
     case 'chip-autocomplete':
     case 'chip-basic':
     case 'chip-complex-value':
+    case 'chip-showcase':
       return import('../angular/examples/chip');
     case 'chip-label-showcase':
       return import('../angular/examples/chip-label');
-    case 'chip-showcase':
-      return import('../angular/examples/chip');
     case 'clock-basic':
     case 'clock-paused':
       return import('../angular/examples/clock');
     case 'container-background-image':
-      return import('../angular/examples/container');
     case 'container-showcase':
-      return import('../angular/examples/container');
     case 'container-sticky-bar':
-      return import('../angular/examples/container');
     case 'container-sticky-bar-control-sticky-state':
       return import('../angular/examples/container');
     case 'date-input-reactive':
     case 'date-input-showcase':
-      return import('../angular/examples/date-input');
     case 'date-input-signal':
     case 'date-input-template-driven':
       return import('../angular/examples/date-input');
@@ -298,8 +304,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'download-custom-content':
     case 'download-showcase':
       return import('../angular/examples/download');
-    case 'expandable-table':
-      return import('../angular/examples/table');
     case 'expansion-panel-basic':
     case 'expansion-panel-showcase':
       return import('../angular/examples/expansion-panel');
@@ -309,14 +313,11 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'file-selector-signal':
     case 'file-selector-template-driven':
       return import('../angular/examples/file-selector');
-    case 'filter-sort-paginator-table':
-      return import('../angular/examples/table');
     case 'flip-card-basic':
     case 'flip-card-chip':
     case 'flip-card-showcase':
       return import('../angular/examples/flip-card');
     case 'footer-basic':
-      return import('../angular/examples/footer');
     case 'footer-clock':
       return import('../angular/examples/footer');
     case 'form-field-clear':
@@ -326,9 +327,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'form-field-showcase':
     case 'form-field-text-counter':
       return import('../angular/examples/form-field');
-    case 'grouped-columns-table':
-    case 'grouped-rows-and-columns-table':
-      return import('../angular/examples/table');
     case 'header-environment':
     case 'header-scroll-origin':
     case 'header-showcase':
@@ -346,16 +344,17 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/journey-header');
     case 'lead-container-basic':
       return import('../angular/examples/lead-container');
-    case 'link-list-anchor-showcase':
-      return import('../angular/examples/link-list-anchor');
-    case 'link-list-showcase':
-      return import('../angular/examples/link-list');
+    case 'block-link-showcase':
     case 'link-showcase':
       return import('../angular/examples/link');
-    case 'loading-indicator-circle-showcase':
-      return import('../angular/examples/loading-indicator-circle');
+    case 'link-list-showcase':
+      return import('../angular/examples/link-list');
+    case 'link-list-anchor-showcase':
+      return import('../angular/examples/link-list-anchor');
     case 'loading-indicator-showcase':
       return import('../angular/examples/loading-indicator');
+    case 'loading-indicator-circle-showcase':
+      return import('../angular/examples/loading-indicator-circle');
     case 'logo-showcase':
       return import('../angular/examples/logo');
     case 'map-container-basic':
@@ -366,15 +365,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/menu');
     case 'message-basic':
       return import('../angular/examples/message');
-    case 'mini-button-group':
-    case 'mini-button-showcase':
-      return import('../angular/examples/button');
     case 'mini-calendar-showcase':
-      return import('../angular/examples/mini-calendar');
     case 'mini-calendar-with-tooltip':
       return import('../angular/examples/mini-calendar');
-    case 'native-table':
-      return import('../angular/examples/table');
     case 'navigation-basic':
     case 'navigation-section':
       return import('../angular/examples/navigation');
@@ -389,10 +382,10 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'paginator-compact':
     case 'paginator-showcase':
       return import('../angular/examples/paginator');
-    case 'paginator-table':
-      return import('../angular/examples/table');
     case 'popover-showcase':
       return import('../angular/examples/popover');
+    case 'radio-button-showcase':
+      return import('../angular/examples/radio-button');
     case 'radio-button-group-reactive':
     case 'radio-button-group-showcase':
     case 'radio-button-group-signal':
@@ -403,12 +396,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'radio-button-panel-signal':
     case 'radio-button-panel-template-driven':
       return import('../angular/examples/radio-button-panel');
-    case 'radio-button-showcase':
-      return import('../angular/examples/radio-button');
-    case 'seat-reservation-basic':
-    case 'seat-reservation-bus':
-    case 'seat-reservation-multiple-decks':
-      return import('../angular-experimental/examples/seat-reservation');
     case 'select-complex-value':
     case 'select-optgroup':
     case 'select-reactive':
@@ -416,8 +403,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'select-signal':
     case 'select-template-driven':
       return import('../angular/examples/select');
-    case 'selectable-table':
-      return import('../angular/examples/table');
     case 'selection-action-panel-basic':
     case 'selection-action-panel-group':
     case 'selection-action-panel-with-expansion':
@@ -431,8 +416,6 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/sidebar');
     case 'signet-showcase':
       return import('../angular/examples/signet');
-    case 'simple-table':
-      return import('../angular/examples/table');
     case 'skiplink-list-basic':
       return import('../angular/examples/skiplink-list');
     case 'slider-reactive':
@@ -440,14 +423,21 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'slider-signal':
     case 'slider-template-driven':
       return import('../angular/examples/slider');
-    case 'sortable-table':
-      return import('../angular/examples/table');
     case 'status-showcase':
       return import('../angular/examples/status');
     case 'stepper-lazy-loaded':
     case 'stepper-showcase':
       return import('../angular/examples/stepper');
-    case 'sticky-table':
+    case 'table-expandable':
+    case 'table-filter-sort-paginator':
+    case 'table-grouped-columns':
+    case 'table-grouped-rows-and-columns':
+    case 'table-native':
+    case 'table-paginator':
+    case 'table-selectable':
+    case 'table-simple':
+    case 'table-sortable':
+    case 'table-sticky':
       return import('../angular/examples/table');
     case 'tabs-fixed-height':
     case 'tabs-lazy-content':
@@ -459,21 +449,19 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'tag-showcase':
       return import('../angular/examples/tag');
     case 'teaser-grid':
+    case 'teaser-list':
+    case 'teaser-showcase':
       return import('../angular/examples/teaser');
     case 'teaser-hero-basic':
     case 'teaser-hero-chip-only':
     case 'teaser-hero-with-chip':
       return import('../angular/examples/teaser-hero');
-    case 'teaser-list':
-      return import('../angular/examples/teaser');
     case 'teaser-panel-basic':
       return import('../angular/examples/teaser-panel');
     case 'teaser-product-chip':
     case 'teaser-product-showcase':
     case 'teaser-product-static':
       return import('../angular/examples/teaser-product');
-    case 'teaser-showcase':
-      return import('../angular/examples/teaser');
     case 'time-input-reactive':
     case 'time-input-showcase':
     case 'time-input-signal':
@@ -482,22 +470,25 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'timetable-form-basic':
     case 'timetable-form-via':
       return import('../angular/examples/timetable-form');
-    case 'timetable-occupancy-icon-showcase':
-      return import('../angular/examples/timetable-occupancy-icon');
     case 'timetable-occupancy-showcase':
       return import('../angular/examples/timetable-occupancy');
+    case 'timetable-occupancy-icon-showcase':
+      return import('../angular/examples/timetable-occupancy-icon');
     case 'title-showcase':
       return import('../angular/examples/title');
     case 'toast-service':
     case 'toast-showcase':
       return import('../angular/examples/toast');
-    case 'toggle-check-showcase':
-      return import('../angular/examples/toggle-check');
     case 'toggle-reactive':
     case 'toggle-showcase':
     case 'toggle-signal':
     case 'toggle-template-driven':
       return import('../angular/examples/toggle');
+    case 'toggle-check-reactive':
+    case 'toggle-check-showcase':
+    case 'toggle-check-signal':
+    case 'toggle-check-template-driven':
+      return import('../angular/examples/toggle-check');
     case 'tooltip-attribute':
     case 'tooltip-basic':
     case 'tooltip-showcase':

@@ -9,7 +9,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
  * @order 2
  */
 @Component({
-  selector: 'sbb-teaser-composed-example',
+  selector: 'sbb-teaser-list-example',
   templateUrl: 'teaser-list-example.html',
   styleUrl: 'teaser-list-example.scss',
   imports: [SbbTeaserModule, SbbChipLabelModule, SbbTitleModule, SbbImageModule],
