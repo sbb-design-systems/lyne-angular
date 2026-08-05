@@ -21,7 +21,7 @@ interface Fruit {
 
 /**
  * @title sbb-chip with complex value
- * @order 10
+ * @order 3
  */
 @Component({
   selector: 'sbb-chip-complex-value-example',
