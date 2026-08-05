@@ -43,7 +43,7 @@
 <sbb-title level="5">Day Properties</sbb-title>
 <div class="sbb-controls-table">
   <label for="color">Color</label>
-  <sbb-form-field size="s" type="select">
+  <sbb-form-field size="s">
     <sbb-select [formField]="controls.day.color" id="color">
       <sbb-option [value]="null">unset</sbb-option>
       <sbb-option value="charcoal">charcoal</sbb-option>
@@ -54,7 +54,7 @@
     </sbb-select>
   </sbb-form-field>
   <label for="marker">Marker</label>
-  <sbb-form-field size="s" type="select" id="marker">
+  <sbb-form-field size="s" id="marker">
     <sbb-select [formField]="controls.day.marker">
       <sbb-option [value]="null">unset</sbb-option>
       <sbb-option value="circle">circle</sbb-option>

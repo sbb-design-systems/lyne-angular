@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { disabled, form, FormField } from '@angular/forms/signals';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
-import { SbbRadioButton, SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
+import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 import type { SbbToggle } from '@sbb-esta/lyne-angular/toggle';
 import { SbbToggleModule } from '@sbb-esta/lyne-angular/toggle';
@@ -20,7 +20,6 @@ import { SbbToggleModule } from '@sbb-esta/lyne-angular/toggle';
     SbbTitleModule,
     SbbRadioButtonModule,
     SbbCheckboxModule,
-    SbbRadioButton,
     SbbCardModule,
   ],
 })

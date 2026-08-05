@@ -20,12 +20,12 @@ import { SbbDialogModule, SbbDialogRef, SbbDialogService } from '@sbb-esta/lyne-
 })
 export class DialogServiceContentExample {
   // Fetch the dialog data using the injection token
-  dialogData = inject<{ name: string }>(SBB_OVERLAY_DATA);
-  #dialogRef = inject(SbbDialogRef);
+  protected dialogData = inject<{ name: string }>(SBB_OVERLAY_DATA);
+  private dialogRef = inject(SbbDialogRef);
 
   protected anotherClose(): void {
     // You can use the injected `dialogRef` to close the dialog programmatically.
-    this.#dialogRef.close('another-close-result');
+    this.dialogRef.close('another-close-result');
   }
 }
 

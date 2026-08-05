@@ -13,5 +13,5 @@ import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
   imports: [SbbCheckboxModule, SbbCardModule, FormField],
 })
 export class CheckboxSignalExample {
-  protected signalForm = form(signal({ checkbox: null }));
+  protected signalForm = form(signal({ checkbox: false }));
 }

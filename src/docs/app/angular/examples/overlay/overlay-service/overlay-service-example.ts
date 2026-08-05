@@ -22,11 +22,11 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 export class OverlayServiceContentExample {
   // Fetch the overlay data using the injection token
   protected overlayData = inject<{ name: string }>(SBB_OVERLAY_DATA);
-  #overlayRef = inject(SbbOverlayRef);
+  private overlayRef = inject(SbbOverlayRef);
 
   protected anotherClose(): void {
     // You can use the injected `overlayRef` to close the dialog programmatically.
-    this.#overlayRef.close('another-close-result');
+    this.overlayRef.close('another-close-result');
   }
 }
 

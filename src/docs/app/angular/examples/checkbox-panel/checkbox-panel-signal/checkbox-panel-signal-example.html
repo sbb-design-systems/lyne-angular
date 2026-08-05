@@ -1,4 +1,4 @@
-<sbb-checkbox-panel [(ngModel)]="model">
+<sbb-checkbox-panel [formField]="control">
   <sbb-card-badge>%</sbb-card-badge>
   Label
   <span slot="subtext">Subtext</span>
@@ -10,6 +10,6 @@
 
 <p>
   <sbb-card color="milk">
-    Value: <code>{{ model }}</code>
+    Value: <code>{{ control.checkbox().value() }}</code>
   </sbb-card>
 </p>

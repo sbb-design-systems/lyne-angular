@@ -8,6 +8,7 @@ import { type SbbToggleCheck, SbbToggleCheckModule } from '@sbb-esta/lyne-angula
 
 /**
  * @title toggle-check with configurable properties
+ * @order 1
  */
 @Component({
   selector: 'sbb-toggle-check-showcase-example',

@@ -13,5 +13,5 @@ import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
   imports: [SbbCheckboxModule, FormsModule, SbbCardModule],
 })
 export class CheckboxTemplateDrivenExample {
-  protected model: boolean | null = null;
+  protected model = false;
 }

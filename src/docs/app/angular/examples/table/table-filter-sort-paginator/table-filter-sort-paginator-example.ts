@@ -32,9 +32,9 @@ interface VehicleFilter extends SbbTableFilter {
  * @order 80
  */
 @Component({
-  selector: 'sbb-filter-sort-paginator-table-example',
-  styleUrls: ['filter-sort-paginator-table-example.scss'],
-  templateUrl: 'filter-sort-paginator-table-example.html',
+  selector: 'sbb-table-filter-sort-paginator-example',
+  styleUrl: 'table-filter-sort-paginator-example.scss',
+  templateUrl: 'table-filter-sort-paginator-example.html',
   imports: [
     FormField,
     SbbFormFieldModule,
@@ -44,7 +44,7 @@ interface VehicleFilter extends SbbTableFilter {
     SbbPaginatorModule,
   ],
 })
-export class FilterSortPaginatorTableExample {
+export class TableFilterSortPaginatorExample {
   private readonly paginator = viewChild.required(SbbPaginator);
   private readonly sort = viewChild.required(SbbSort);
   private readonly table = viewChild.required(SbbTable);
@@ -93,7 +93,7 @@ export class FilterSortPaginatorTableExample {
   }
 
   /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: SbbSortState) {
+  protected announceSortChange(sortState: SbbSortState) {
     // This example uses English messages. If your application supports
     // multiple language, you would internationalize these strings.
     // Furthermore, you can customize the message to add additional

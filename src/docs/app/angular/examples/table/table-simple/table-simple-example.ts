@@ -6,11 +6,11 @@ import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table
  * @order 10
  */
 @Component({
-  selector: 'sbb-simple-table-example',
-  templateUrl: 'simple-table-example.html',
+  selector: 'sbb-table-simple-example',
+  templateUrl: 'table-simple-example.html',
   imports: [SbbTableModule],
 })
-export class SimpleTableExample {
+export class TableSimpleExample {
   protected displayedColumns: string[] = [
     'columnOne',
     'columnTwo',

@@ -6,11 +6,11 @@ import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table
  * @order 30
  */
 @Component({
-  selector: 'sbb-grouped-columns-table-example',
-  templateUrl: 'grouped-columns-table-example.html',
+  selector: 'sbb-table-grouped-columns-example',
+  templateUrl: 'table-grouped-columns-example.html',
   imports: [SbbTableModule],
 })
-export class GroupedColumnsTableExample {
+export class TableGroupedColumnsExample {
   protected displayedColumns: string[] = [
     'leftAligned',
     'groupedOne',

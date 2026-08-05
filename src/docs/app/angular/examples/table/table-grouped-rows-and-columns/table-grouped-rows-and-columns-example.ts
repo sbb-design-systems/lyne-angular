@@ -6,11 +6,11 @@ import { SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angular/table
  * @order 40
  */
 @Component({
-  selector: 'sbb-grouped-rows-and-columns-table-example',
-  templateUrl: 'grouped-rows-and-columns-table-example.html',
+  selector: 'sbb-table-grouped-rows-and-columns-example',
+  templateUrl: 'table-grouped-rows-and-columns-example.html',
   imports: [SbbTableModule],
 })
-export class GroupedRowsAndColumnsTableExample {
+export class TableGroupedRowsAndColumnsExample {
   protected displayedColumns: string[] = [
     'deviceName',
     'orderDate',

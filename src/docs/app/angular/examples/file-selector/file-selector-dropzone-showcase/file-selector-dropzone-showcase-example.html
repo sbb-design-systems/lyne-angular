@@ -7,18 +7,18 @@
 ></sbb-file-selector-dropzone>
 
 <p>
-  <sbb-card color="milk"
-    >Value: <code>{{ stringifiedValue() | json }}</code></sbb-card
-  >
+  <sbb-card color="milk">
+    Value: <code>{{ stringifiedValue() | json }}</code>
+  </sbb-card>
 </p>
 
 <sbb-title level="5">Properties</sbb-title>
 <div class="sbb-controls-table">
-  <label for="disabled">Disabled</label>
-  <sbb-checkbox id="disabled" [formField]="controls.disabled"></sbb-checkbox>
+  <label for="dropzone-disabled">Disabled</label>
+  <sbb-checkbox id="dropzone-disabled" [formField]="controls.disabled"></sbb-checkbox>
 
-  <label for="multiple">Multiple</label>
-  <sbb-checkbox id="multiple" [formField]="controls.multiple"></sbb-checkbox>
+  <label for="dropzone-multiple">Multiple</label>
+  <sbb-checkbox id="dropzone-multiple" [formField]="controls.multiple"></sbb-checkbox>
 
   <label>Multiple mode</label>
   <sbb-radio-button-group aria-label="Multiple mode" [formField]="controls.multipleMode">

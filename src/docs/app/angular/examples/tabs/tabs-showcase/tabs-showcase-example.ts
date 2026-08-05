@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
-import { SbbCard } from '@sbb-esta/lyne-angular/card';
+import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
@@ -16,13 +16,13 @@ import type { SbbTabChangeEvent } from '@sbb-esta/lyne-elements/tabs.pure.js';
   selector: 'sbb-tabs-showcase-example',
   templateUrl: 'tabs-showcase-example.html',
   imports: [
-    SbbTabsModule,
+    FormField,
+    SbbCardModule,
     SbbCheckboxModule,
     SbbFormFieldModule,
     SbbRadioButtonModule,
+    SbbTabsModule,
     SbbTitleModule,
-    FormField,
-    SbbCard,
   ],
 })
 export class TabsShowcaseExample {

@@ -9,11 +9,11 @@ import { SbbSort, SbbTableDataSource, SbbTableModule } from '@sbb-esta/lyne-angu
  * @order 50
  */
 @Component({
-  selector: 'sbb-sortable-table-example',
-  templateUrl: 'sortable-table-example.html',
+  selector: 'sbb-table-sortable-example',
+  templateUrl: 'table-sortable-example.html',
   imports: [SbbTableModule, DatePipe],
 })
-export class SortableTableExample {
+export class TableSortableExample {
   protected displayedColumns: string[] = ['letter', 'number', 'word', 'date'];
   protected dataSource = new SbbTableDataSource(TABLE_EXAMPLE_DATA);
 
@@ -27,7 +27,7 @@ export class SortableTableExample {
   }
 
   /** Announce the change in sort state for assistive technology. */
-  announceSortChange(sortState: SbbSortState) {
+  protected announceSortChange(sortState: SbbSortState) {
     // This example uses English messages. If your application supports
     // multiple language, you would internationalize these strings.
     // Furthermore, you can customize the message to add additional
