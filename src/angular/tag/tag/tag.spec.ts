@@ -160,6 +160,8 @@ describe(`sbb-tag`, () => {
       lyneElement.click();
       fixture.detectChanges();
       await fixture.whenStable();
+      // A second wait is needed until everything settled.
+      await fixture.whenStable();
 
       expect(lyneElement.classList.contains('ng-valid')).toBe(true);
     });

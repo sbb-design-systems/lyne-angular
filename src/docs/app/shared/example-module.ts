@@ -18,7 +18,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'autocomplete-complex-value',
   ],
   badge: ['badge-basic', 'badge-before', 'badge-header-button'],
-  breadcrumb: ['breadcrumb-basic'],
+  breadcrumb: ['breadcrumb-basic', 'breadcrumb-collapsed'],
   button: [
     'button-showcase',
     'button-link-basic',
@@ -79,7 +79,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'date-input-template-driven',
   ],
   datepicker: ['datepicker-showcase', 'datepicker-basic'],
-  dialog: ['dialog-showcase', 'dialog-service', 'dialog-nested'],
+  dialog: ['dialog-showcase', 'dialog-service', 'dialog-nested', 'dialog-shared-data'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
   download: ['download-showcase', 'download-custom-content'],
   'easter-egg': ['easter-egg-basic'],
@@ -118,7 +118,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   message: [{ id: 'message-basic', hasStyle: true }],
   'mini-calendar': ['mini-calendar-showcase', 'mini-calendar-with-tooltip'],
   navigation: ['navigation-basic', 'navigation-section'],
-  notification: ['notification-showcase'],
+  notification: ['notification-showcase', 'notification-static'],
   option: ['option-showcase'],
   overlay: ['overlay-showcase', 'overlay-service', 'overlay-nested'],
   paginator: ['paginator-showcase', 'paginator-compact'],
@@ -145,6 +145,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'select-showcase',
     'select-optgroup',
     'select-complex-value',
+    'select-compare-with',
     'select-signal',
     'select-reactive',
     'select-template-driven',
@@ -183,7 +184,15 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'tabs-tab-nav-bar',
     'tabs-lazy-content',
   ],
-  tag: ['tag-showcase', 'tag-exclusive', { id: 'tag-all-filter', hasStyle: true }],
+  tag: [
+    'tag-showcase',
+    'tag-exclusive',
+    { id: 'tag-all-filter', hasStyle: true },
+    'tag-signal',
+    'tag-reactive',
+    'tag-template-driven',
+    'tag-signal-exclusive',
+  ],
   teaser: [
     'teaser-showcase',
     { id: 'teaser-list', hasStyle: true },
@@ -247,6 +256,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'badge-header-button':
       return import('../angular/examples/badge');
     case 'breadcrumb-basic':
+    case 'breadcrumb-collapsed':
       return import('../angular/examples/breadcrumb');
     case 'button-link-basic':
     case 'button-showcase':
@@ -309,6 +319,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/datepicker');
     case 'dialog-nested':
     case 'dialog-service':
+    case 'dialog-shared-data':
     case 'dialog-showcase':
       return import('../angular/examples/dialog');
     case 'divider-basic':
@@ -384,6 +395,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'navigation-section':
       return import('../angular/examples/navigation');
     case 'notification-showcase':
+    case 'notification-static':
       return import('../angular/examples/notification');
     case 'option-showcase':
       return import('../angular/examples/option');
@@ -408,6 +420,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'radio-button-panel-signal':
     case 'radio-button-panel-template-driven':
       return import('../angular/examples/radio-button-panel');
+    case 'select-compare-with':
     case 'select-complex-value':
     case 'select-optgroup':
     case 'select-reactive':
@@ -458,7 +471,11 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/tabs');
     case 'tag-all-filter':
     case 'tag-exclusive':
+    case 'tag-reactive':
     case 'tag-showcase':
+    case 'tag-signal':
+    case 'tag-signal-exclusive':
+    case 'tag-template-driven':
       return import('../angular/examples/tag');
     case 'teaser-grid':
     case 'teaser-list':

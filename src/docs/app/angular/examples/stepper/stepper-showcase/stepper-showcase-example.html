@@ -8,29 +8,37 @@
   <sbb-step-label>Step label 1</sbb-step-label>
   <sbb-step>
     <p>Step content 1</p>
-    <sbb-button sbb-stepper-next>Next</sbb-button>
+    <sbb-action-group>
+      <sbb-button sbb-stepper-next>Next</sbb-button>
+    </sbb-action-group>
   </sbb-step>
 
-  <sbb-step-label [iconName]="controls.stepLabelHasIcon().value() ? 'pie-small' : ''"
-    >Step label 2</sbb-step-label
-  >
+  <sbb-step-label [iconName]="controls.stepLabelHasIcon().value() ? 'pie-small' : ''">
+    Step label 2
+  </sbb-step-label>
   <sbb-step>
     <p>Step content 2</p>
-    <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
-    <sbb-button sbb-stepper-next>Next</sbb-button>
+    <sbb-action-group>
+      <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
+      <sbb-button sbb-stepper-next>Next</sbb-button>
+    </sbb-action-group>
   </sbb-step>
 
   <sbb-step-label [disabled]="controls.stepLabelDisabled().value()">Step label 3</sbb-step-label>
   <sbb-step>
     <p>Step content 3</p>
-    <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
-    <sbb-button sbb-stepper-next>Next</sbb-button>
+    <sbb-action-group>
+      <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
+      <sbb-button sbb-stepper-next>Next</sbb-button>
+    </sbb-action-group>
   </sbb-step>
 
   <sbb-step-label>Step label 4</sbb-step-label>
   <sbb-step>
     <p>Step content 4</p>
-    <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
+    <sbb-action-group>
+      <sbb-secondary-button sbb-stepper-previous>Back</sbb-secondary-button>
+    </sbb-action-group>
   </sbb-step>
 </sbb-stepper>
 

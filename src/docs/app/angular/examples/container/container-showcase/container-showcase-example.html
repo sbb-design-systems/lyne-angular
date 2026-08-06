@@ -29,12 +29,12 @@
     <label for="expanded">Expanded</label>
     <sbb-checkbox [formField]="controls.expanded" id="expanded"></sbb-checkbox>
     <label for="background-expanded">Background Expanded</label>
-    <sbb-checkbox
-      iconName="circle-exclamation-point-small"
-      iconPlacement="start"
-      id="background-expanded"
-      [formField]="controls.backgroundExpanded"
-      >Only visible on large screens or fullscreen</sbb-checkbox
-    >
+    <div class="background-expanded">
+      <sbb-checkbox
+        id="background-expanded"
+        [formField]="controls.backgroundExpanded"
+      ></sbb-checkbox>
+      <sbb-status type="info" size="xs">Only visible on large screens or fullscreen</sbb-status>
+    </div>
   </div>
 </div>

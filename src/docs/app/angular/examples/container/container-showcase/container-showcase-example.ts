@@ -5,6 +5,7 @@ import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { type SbbContainer, SbbContainerModule } from '@sbb-esta/lyne-angular/container';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
+import { SbbStatusModule } from '@sbb-esta/lyne-angular/status';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
@@ -23,6 +24,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbCheckboxModule,
     SbbFormFieldModule,
     SbbSelectModule,
+    SbbStatusModule,
     FormField,
   ],
 })
