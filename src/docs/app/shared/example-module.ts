@@ -82,6 +82,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   dialog: ['dialog-showcase', 'dialog-service', 'dialog-nested'],
   divider: [{ id: 'divider-basic', hasStyle: true }],
   download: ['download-showcase', 'download-custom-content'],
+  'easter-egg': ['easter-egg-basic'],
   'expansion-panel': ['expansion-panel-showcase', 'expansion-panel-basic'],
   'file-selector': [
     'file-selector-showcase',
@@ -218,6 +219,8 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
 
 export async function loadExample(id: string): Promise<Record<string, Type<unknown>> | undefined> {
   switch (id) {
+    case 'easter-egg-basic':
+      return import('../angular-experimental/examples/easter-egg');
     case 'seat-reservation-basic':
     case 'seat-reservation-bus':
     case 'seat-reservation-multiple-decks':
