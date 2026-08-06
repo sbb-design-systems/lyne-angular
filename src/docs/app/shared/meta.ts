@@ -494,6 +494,11 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
             keywords: keywordsMap.angularExperimental.components.autocompleteGrid,
           },
           {
+            label: 'Easter egg',
+            link: './components/easter-egg',
+            keywords: keywordsMap.angularExperimental.components.easterEgg,
+          },
+          {
             label: 'Journey Summary',
             link: './components/journey-summary',
             keywords: keywordsMap.angularExperimental.components.journeySummary,
