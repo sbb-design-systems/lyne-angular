@@ -1,7 +1,7 @@
 <sbb-form-field>
   <label>Select</label>
-  <sbb-select [formField]="form.select">
-    @for (opt of options; track opt.id) {
+  <sbb-select [formField]="form.select" [compareWith]="compareWith" multiple>
+    @for (opt of simplifiedOptions; track opt.id) {
       <sbb-option [value]="opt">{{ opt.name }}</sbb-option>
     }
   </sbb-select>

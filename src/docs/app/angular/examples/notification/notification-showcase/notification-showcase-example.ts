@@ -9,6 +9,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title notification with configurable properties
+ * @order 1
  */
 @Component({
   selector: 'sbb-notification-showcase-example',

@@ -1,0 +1,12 @@
+<sbb-tag-group accessibilityLabel="Select your desired devices">
+  @for (device of devices; track device) {
+    <sbb-tag [formField]="form[device]">
+      {{ device | titlecase }}
+    </sbb-tag>
+  }
+</sbb-tag-group>
+<p>
+  <sbb-card color="milk">
+    Value: <code>{{ selectedDevice() }}</code>
+  </sbb-card>
+</p>

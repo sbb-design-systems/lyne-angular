@@ -1,0 +1,19 @@
+<p>This implementation shows how to share data between parent component and dialog component.</p>
+<ol class="sbb-list">
+  <li>
+    <sbb-form-field>
+      <input type="text" [formField]="form.name" placeholder="What's your name?" />
+    </sbb-form-field>
+  </li>
+  <li>
+    <sbb-secondary-button (click)="openDialog()">Choose an animal…</sbb-secondary-button>
+  </li>
+
+  @let animal = form.animal().value();
+
+  @if (animal) {
+    <li>
+      You chose: <i>{{ animal }}</i>
+    </li>
+  }
+</ol>

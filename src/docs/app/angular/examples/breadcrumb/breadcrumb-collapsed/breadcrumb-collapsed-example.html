@@ -1,0 +1,9 @@
+<sbb-breadcrumb-group aria-label="You are here:">
+  <sbb-breadcrumb routerLink="/" iconName="house-small"></sbb-breadcrumb>
+
+  @for (_ of [].constructor(20); track $index) {
+    <sbb-breadcrumb [routerLink]="'/level-' + ($index + 1)">
+      Level {{ $index + 1 }}
+    </sbb-breadcrumb>
+  }
+</sbb-breadcrumb-group>
