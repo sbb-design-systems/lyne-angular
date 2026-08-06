@@ -148,7 +148,10 @@ export abstract class SbbOverlayBaseService<
   }
 
   /** Method meant to be overridden by derived class (e.g. dialog) to configure the element after attaching it. */
-  protected configureContainer(_element: HTMLElement, _config: SbbOverlayBaseConfig<C, I>): void {
+  protected setupContainerElement(
+    _element: HTMLElement,
+    _config: SbbOverlayBaseConfig<C, I>,
+  ): void {
     // no-op
   }
 
@@ -192,7 +195,9 @@ export abstract class SbbOverlayBaseService<
     );
     const componentRef = portalOutlet.attach(containerPortal);
 
-    this.configureContainer(componentRef.location.nativeElement, config);
+    this.setupContainerElement(componentRef.location.nativeElement, config);
+
+    config.setupContainer?.(componentRef.instance.elementInstance as I);
 
     const ngZone = this.#injector.get(NgZone);
     if (typeof componentRef?.onDestroy === 'function') {
@@ -216,9 +221,6 @@ export abstract class SbbOverlayBaseService<
         }
       });
     }
-
-    config.setupContainer?.(componentRef.instance.elementInstance as I);
-
     return componentRef.instance;
   }
 

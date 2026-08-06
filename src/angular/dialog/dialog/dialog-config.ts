@@ -9,16 +9,16 @@ export class SbbDialogConfig<
   I = SbbDialog,
   D = unknown,
 > extends SbbOverlayBaseConfig<C, I, D> {
-  /** The width of the dialog. If a number is provided, pixel units are assumed. */
+  /** The width of the dialog. Can be any valid CSS value, also including CSS variables. If a number is provided, pixel units are assumed. */
   width?: number | string;
 
-  /** The height of the dialog. If a number is provided, pixel units are assumed. */
+  /** The height of the dialog. Can be any valid CSS value, also including CSS variables. If a number is provided, pixel units are assumed. */
   height?: number | string;
 
-  /** The max-width of the dialog. If a number is provided, pixel units are assumed. */
+  /** The max-width of the dialog. Can be any valid CSS value, also including CSS variables. If a number is provided, pixel units are assumed. */
   maxWidth?: number | string;
 
-  /** The max-height of the dialog. If a number is provided, pixel units are assumed. */
+  /** The max-height of the dialog. Can be any valid CSS value, also including CSS variables. If a number is provided, pixel units are assumed. */
   maxHeight?: number | string;
 
   /**

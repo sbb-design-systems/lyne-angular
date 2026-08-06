@@ -18,7 +18,7 @@ export class SbbDialogService extends SbbOverlayBaseService<
   protected refConstructor = SbbDialogRef;
   protected configType = SbbDialogConfig;
 
-  protected override configureContainer(
+  protected override setupContainerElement(
     element: HTMLElement,
     config: SbbDialogConfig<SbbDialogContainer>,
   ): void {
