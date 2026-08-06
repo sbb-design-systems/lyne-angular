@@ -1,0 +1,12 @@
+<sbb-form-field>
+  <label>Field label</label>
+  <sbb-chip-group [(ngModel)]="model">
+    <input placeholder="Type and press enter." />
+  </sbb-chip-group>
+</sbb-form-field>
+
+<p>
+  <sbb-card color="milk">
+    Value: <code>{{ model | json }}</code>
+  </sbb-card>
+</p>

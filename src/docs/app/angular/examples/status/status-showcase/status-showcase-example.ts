@@ -4,7 +4,7 @@ import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
 import { type SbbStatus, SbbStatusModule } from '@sbb-esta/lyne-angular/status';
-import { SbbTitle } from '@sbb-esta/lyne-angular/title';
+import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title status with configurable properties
@@ -15,7 +15,7 @@ import { SbbTitle } from '@sbb-esta/lyne-angular/title';
   imports: [
     FormField,
     SbbStatusModule,
-    SbbTitle,
+    SbbTitleModule,
     SbbCheckboxModule,
     SbbSelectModule,
     SbbFormFieldModule,

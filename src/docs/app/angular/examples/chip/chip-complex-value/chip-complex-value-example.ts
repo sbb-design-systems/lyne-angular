@@ -21,7 +21,7 @@ interface Fruit {
 
 /**
  * @title sbb-chip with complex value
- * @order 10
+ * @order 3
  */
 @Component({
   selector: 'sbb-chip-complex-value-example',
@@ -44,9 +44,9 @@ export class ChipComplexValueExample {
 
   protected input: Signal<ElementRef<HTMLInputElement>> = viewChild.required('input');
   protected favoriteFruits = form(signal<Fruit[]>([]));
-  protected remainingFruits = computed(() => {
-    return this.availableFruits.filter((fruit) => !this.favoriteFruits().value()!.includes(fruit));
-  });
+  protected remainingFruits = computed(() =>
+    this.availableFruits.filter((fruit) => !this.favoriteFruits().value()!.includes(fruit)),
+  );
 
   protected add(chipTokenEndEvent: SbbChipInputTokenEndEvent<Fruit | string>): void {
     if (
@@ -66,7 +66,7 @@ export class ChipComplexValueExample {
       (fruit) => fruit.name.toUpperCase() === value.toUpperCase(),
     );
     if (foundFruit) {
-      this.#addValueToControl(foundFruit);
+      this.addValueToControl(foundFruit);
       this.input().nativeElement.value = '';
     }
   }
@@ -75,7 +75,7 @@ export class ChipComplexValueExample {
     return `${value.name} (${value.color})`;
   };
 
-  #addValueToControl(foundFruit: Fruit) {
+  private addValueToControl(foundFruit: Fruit) {
     this.favoriteFruits().value.set([...this.favoriteFruits().value()!, foundFruit]);
     this.favoriteFruits().markAsDirty();
   }

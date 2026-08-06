@@ -13,7 +13,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
  * @order 1
  */
 @Component({
-  selector: 'sbb-checkbox-panel-variants-example',
+  selector: 'sbb-checkbox-panel-showcase-example',
   templateUrl: 'checkbox-panel-showcase-example.html',
   styleUrl: 'checkbox-panel-showcase-example.scss',
   imports: [

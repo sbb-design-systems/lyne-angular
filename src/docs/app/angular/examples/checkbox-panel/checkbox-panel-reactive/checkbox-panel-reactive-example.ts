@@ -6,7 +6,7 @@ import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
 
 /**
  * @title sbb-checkbox-panel in a reactive form
- * @order 2
+ * @order 3
  */
 @Component({
   selector: 'sbb-checkbox-panel-reactive-example',
@@ -15,5 +15,5 @@ import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
   imports: [ReactiveFormsModule, SbbCheckboxPanelModule, SbbCardModule, SbbIconModule],
 })
 export class CheckboxPanelReactiveExample {
-  protected control = new FormControl<boolean | null>(null);
+  protected control = new FormControl(false);
 }

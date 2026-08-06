@@ -255,6 +255,135 @@ function collectExamplesStructure(): Map<string, ExampleMeta[]> {
 }
 
 /**
+ * Builds the canonical grouped structure from configuredExamples:
+ *   [ [importPath, sortedCaseNames[]], ... ] sorted by importPath.
+ */
+function buildExpectedGroups(
+  configuredExamples: Map<string, Set<string>>,
+  importPathByExample: Map<string, string>,
+): [string, string[]][] {
+  const groups = new Map<string, string[]>();
+  for (const [moduleId, examples] of configuredExamples.entries()) {
+    for (const example of examples) {
+      const importPath = importPathByExample.get(example) ?? `../angular/examples/${moduleId}`;
+      const group = groups.get(importPath);
+      if (group) {
+        group.push(example);
+      } else {
+        groups.set(importPath, [example]);
+      }
+    }
+  }
+  for (const cases of groups.values()) {
+    cases.sort((a, b) => a.localeCompare(b));
+  }
+  return [...groups.entries()].sort(([a], [b]) => a.localeCompare(b));
+}
+
+/**
+ * Parses the loadExample switch into:
+ *   caseToImport  – maps each case name to its import path
+ *   groups        – ordered list of [importPath, caseNames[]] as they appear
+ *                   (duplicate import paths are merged into one group)
+ *   hasUngrouped  – true when the same import path appeared in separate groups
+ */
+function parseActualSwitchGroups(switchNode: TSESTree.SwitchStatement): {
+  caseToImport: Map<string, string>;
+  groups: [string, string[]][];
+  hasUngrouped: boolean;
+} {
+  const caseToImport = new Map<string, string>();
+  const orderedGroups: [string, string[]][] = [];
+  const groupByImportPath = new Map<string, string[]>();
+  const importPathAppearances = new Map<string, number>();
+  let pendingCases: string[] = [];
+
+  for (const c of switchNode.cases) {
+    if (!c.test) {
+      continue;
+    }
+    const caseName =
+      c.test.type === 'Literal' && typeof c.test.value === 'string'
+        ? (c.test.value as string)
+        : null;
+    if (!caseName) {
+      continue;
+    }
+    pendingCases.push(caseName);
+
+    if (c.consequent.length > 0) {
+      const returnStmt = c.consequent.find((s) => s.type === 'ReturnStatement') as
+        TSESTree.ReturnStatement | undefined;
+      if (
+        returnStmt?.argument?.type === 'ImportExpression' &&
+        returnStmt.argument.source.type === 'Literal'
+      ) {
+        const importPath = returnStmt.argument.source.value as string;
+        for (const name of pendingCases) {
+          caseToImport.set(name, importPath);
+        }
+        importPathAppearances.set(importPath, (importPathAppearances.get(importPath) ?? 0) + 1);
+        const existing = groupByImportPath.get(importPath);
+        if (existing) {
+          existing.push(...pendingCases);
+        } else {
+          const newGroup = [...pendingCases];
+          orderedGroups.push([importPath, newGroup]);
+          groupByImportPath.set(importPath, newGroup);
+        }
+      }
+      pendingCases = [];
+    }
+  }
+
+  return {
+    caseToImport,
+    groups: orderedGroups,
+    hasUngrouped: [...importPathAppearances.values()].some((n) => n > 1),
+  };
+}
+
+/**
+ * Generates the canonical switch-body text for all named cases.
+ * Indentation: 4 spaces for case labels, 6 spaces for the return statement.
+ * Ends with '\n    ' so the default: clause starts on a correctly indented line.
+ */
+function generateSwitchCasesText(sortedGroups: [string, string[]][]): string {
+  const groupTexts = sortedGroups.map(([importPath, cases]) => {
+    const caseLines = cases.map((c) => `case '${c}':`).join('\n    ');
+    return `${caseLines}\n      return import('${importPath}');`;
+  });
+  return groupTexts.join('\n    ') + '\n    ';
+}
+
+/**
+ * Returns a fixer that replaces all named switch cases with the canonical
+ * grouped & sorted form produced by generateSwitchCasesText.
+ */
+function rewriteSwitchCases(
+  fixer: TSESLint.RuleFixer,
+  switchNode: TSESTree.SwitchStatement,
+  sortedGroups: [string, string[]][],
+): TSESLint.RuleFix {
+  const newText = generateSwitchCasesText(sortedGroups);
+  const namedCases = switchNode.cases.filter((c) => c.test !== null);
+  const defaultCase = switchNode.cases.find((c) => c.test === null) ?? null;
+
+  if (namedCases.length > 0) {
+    const start = namedCases[0].range[0];
+    const end = defaultCase ? defaultCase.range[0] : namedCases[namedCases.length - 1].range[1];
+    return fixer.replaceTextRange([start, end], newText);
+  }
+  if (defaultCase) {
+    return fixer.insertTextBefore(defaultCase, newText);
+  }
+  return fixer.insertTextAfterRange(
+    [switchNode.range[0], switchNode.range[1] - 1],
+    '\n    ' + newText,
+  );
+}
+
+/**
  * Removes a node together with its surrounding comma so no stray comma remains.
  * Prefers removing the preceding comma; falls back to the trailing one.
  */
@@ -304,7 +433,9 @@ export default ESLintUtils.RuleCreator.withoutDocs({
       examplesNotSorted:
         'The examples in module "{{module}}" are not sorted alphabetically. "{{example}}" should come before "{{before}}".',
       switchCasesNotSorted:
-        'The cases in the loadExample switch are not sorted alphabetically. "{{example}}" should come before "{{before}}".',
+        'The loadExample switch is not sorted (primary: import path, secondary: case name). Found "{{example}}" but expected "{{before}}" at this position.',
+      switchNotGrouped:
+        'Cases with the same import path in loadExample must be grouped using fall-through (each import path must appear exactly once).',
       hasStyleMissing:
         'The example "{{example}}" of module "{{module}}" has a style file but is missing "hasStyle: true".',
       hasStyleSuperfluous:
@@ -321,8 +452,9 @@ export default ESLintUtils.RuleCreator.withoutDocs({
     const onDiskExamples = collectExamplesStructure();
     const configuredExamples = new Map<string, Set<string>>();
     let hasExampleComponents = false;
-    // Populated by FunctionDeclaration, used by VariableDeclarator fixes
+    // Both populated by FunctionDeclaration, captured by VariableDeclarator fixer lambdas
     let switchNode: TSESTree.SwitchStatement | null = null;
+    let expectedGroups: [string, string[]][] | null = null;
     // Built once from onDiskExamples for use in FunctionDeclaration
     const importPathByExample = new Map(
       [...onDiskExamples.values()].flat().map((m) => [m.id, m.importPath]),
@@ -579,76 +711,87 @@ export default ESLintUtils.RuleCreator.withoutDocs({
           return;
         }
 
-        const defaultNode = switchNode.cases.find((c) => !c.test)!;
-        const importedExamples = switchNode.cases
-          .map((c) => (c.test?.type === 'Literal' ? (c.test.value as string) : null))
-          .filter((v): v is string => v !== null);
+        // Build the canonical expected structure (sorted by import path, then by case name).
+        expectedGroups = buildExpectedGroups(configuredExamples, importPathByExample);
 
-        // Check that all configured examples have a case in the switch
+        const {
+          caseToImport: actualCaseToImport,
+          groups: actualGroups,
+          hasUngrouped,
+        } = parseActualSwitchGroups(switchNode);
+
+        const allConfiguredIds = new Set([...configuredExamples.values()].flatMap((s) => [...s]));
+
+        // ── Missing cases ────────────────────────────────────────────────
         for (const [moduleId, examples] of configuredExamples.entries()) {
           for (const example of examples) {
-            if (importedExamples.includes(example)) {
-              continue;
+            if (!actualCaseToImport.has(example)) {
+              context.report({
+                node: switchNode,
+                messageId: 'exampleNotImported',
+                data: { module: moduleId, example },
+                fix: (fixer) => rewriteSwitchCases(fixer, switchNode!, expectedGroups!),
+              });
             }
-            const importPath =
-              importPathByExample.get(example) ?? `../angular/examples/${moduleId}`;
-            const caseText = `case '${example}':\n      return import('${importPath}');\n    `;
-            const afterCase = switchNode.cases.find(
-              (c) =>
-                c.test?.type === 'Literal' &&
-                typeof c.test.value === 'string' &&
-                c.test.value.localeCompare(example) > 0,
+          }
+        }
+
+        // ── Extra cases ──────────────────────────────────────────────────
+        for (const caseName of actualCaseToImport.keys()) {
+          if (!allConfiguredIds.has(caseName)) {
+            const caseNode = switchNode.cases.find(
+              (c) => c.test?.type === 'Literal' && c.test.value === caseName,
             );
             context.report({
-              node: switchNode,
-              messageId: 'exampleNotImported',
-              data: { module: moduleId, example },
-              fix: (fixer) =>
-                afterCase
-                  ? fixer.insertTextBefore(afterCase, caseText)
-                  : fixer.insertTextBefore(defaultNode, caseText),
-            });
-          }
-        }
-
-        // Check that all switch cases are configured in EXAMPLE_COMPONENTS
-        const allConfiguredIds = [...configuredExamples.values()].flatMap((s) => [...s]);
-        for (const example of importedExamples) {
-          if (!allConfiguredIds.includes(example)) {
-            context.report({
-              node:
-                switchNode.cases.find(
-                  (c) => c.test?.type === 'Literal' && c.test.value === example,
-                ) ?? switchNode,
+              node: caseNode ?? switchNode,
               messageId: 'importedExampleDoesNotExist',
-              data: { example },
+              data: { example: caseName },
+              fix: (fixer) => rewriteSwitchCases(fixer, switchNode!, expectedGroups!),
             });
           }
         }
 
-        // Check that switch cases are sorted alphabetically
-        const namedCases = switchNode.cases.filter(
-          (c): c is TSESTree.SwitchCase & { test: TSESTree.Literal } =>
-            c.test?.type === 'Literal' && typeof c.test.value === 'string',
-        );
-        for (let i = 1; i < namedCases.length; i++) {
-          const prevVal = namedCases[i - 1].test.value as string;
-          const currVal = namedCases[i].test.value as string;
-          if (prevVal.localeCompare(currVal) > 0) {
+        // ── Grouping: same import path must not appear in separate groups ─
+        if (hasUngrouped) {
+          context.report({
+            node: switchNode,
+            messageId: 'switchNotGrouped',
+            fix: (fixer) => rewriteSwitchCases(fixer, switchNode!, expectedGroups!),
+          });
+          return; // sorting check is moot while grouping is wrong
+        }
+
+        // ── Sorting: groups by import path, cases within group by name ────
+        // Compare import-path order
+        const actualGroupOrder = actualGroups.map(([ip]) => ip);
+        const expectedGroupOrder = expectedGroups.map(([ip]) => ip);
+        for (let i = 0; i < Math.max(actualGroupOrder.length, expectedGroupOrder.length); i++) {
+          if (actualGroupOrder[i] !== expectedGroupOrder[i]) {
             context.report({
-              node: namedCases[i].test,
+              node: switchNode,
               messageId: 'switchCasesNotSorted',
-              data: { example: currVal, before: prevVal },
-              fix: (fixer) => {
-                const sorted = [...namedCases].sort((a, b) =>
-                  (a.test.value as string).localeCompare(b.test.value as string),
-                );
-                return sorted.map((c, idx) =>
-                  fixer.replaceText(namedCases[idx], context.sourceCode.getText(c)),
-                );
+              data: {
+                example: actualGroupOrder[i] ?? '(missing)',
+                before: expectedGroupOrder[i] ?? '(missing)',
               },
+              fix: (fixer) => rewriteSwitchCases(fixer, switchNode!, expectedGroups!),
             });
-            break; // one report is enough, the fix sorts all
+            return;
+          }
+        }
+        // Compare case-name order within each group
+        for (const [, actualCases] of actualGroups) {
+          const sorted = [...actualCases].sort((a, b) => a.localeCompare(b));
+          for (let i = 0; i < actualCases.length; i++) {
+            if (actualCases[i] !== sorted[i]) {
+              context.report({
+                node: switchNode,
+                messageId: 'switchCasesNotSorted',
+                data: { example: actualCases[i], before: sorted[i] },
+                fix: (fixer) => rewriteSwitchCases(fixer, switchNode!, expectedGroups!),
+              });
+              return;
+            }
           }
         }
       },
