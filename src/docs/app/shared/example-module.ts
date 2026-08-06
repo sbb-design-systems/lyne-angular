@@ -191,6 +191,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'tag-signal',
     'tag-reactive',
     'tag-template-driven',
+    'tag-signal-exclusive',
   ],
   teaser: [
     'teaser-showcase',
@@ -473,6 +474,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'tag-reactive':
     case 'tag-showcase':
     case 'tag-signal':
+    case 'tag-signal-exclusive':
     case 'tag-template-driven':
       return import('../angular/examples/tag');
     case 'teaser-grid':
