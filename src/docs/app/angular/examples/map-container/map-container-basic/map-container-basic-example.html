@@ -1,4 +1,26 @@
+<sbb-header expanded>
+  <sbb-header-button iconName="hamburger-menu-small" hideLabelBelow="small">
+    Menu
+  </sbb-header-button>
+  <div class="sbb-header-spacer"></div>
+  <sbb-logo protectiveRoom="none" class="sbb-header-logo"></sbb-logo>
+</sbb-header>
+
 <sbb-map-container>
-  <div>Content</div>
-  <div slot="map">Here comes the map.</div>
+  <div class="side-content">
+    <sbb-form-field class="search-field">
+      <sbb-icon slot="prefix" name="magnifying-glass-small"></sbb-icon>
+      <input name="keyword" autocomplete="off" placeholder="Search" />
+      <sbb-form-field-clear></sbb-form-field-clear>
+    </sbb-form-field>
+    <sbb-title level="4">Operations & Disruptions</sbb-title>
+
+    @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+      <sbb-card color="milk" class="card">
+        <p>Situation {{ i }}</p>
+      </sbb-card>
+    }
+  </div>
+
+  <div slot="map" class="map-placeholder">Here goes the map!</div>
 </sbb-map-container>
