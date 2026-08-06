@@ -1,0 +1,9 @@
+<sbb-tag-group accessibilityLabel="Select your desired devices" multiple>
+  <sbb-tag [formField]="form.computers">Computers</sbb-tag>
+  <sbb-tag [formField]="form.phones">Phones</sbb-tag>
+</sbb-tag-group>
+<p>
+  <sbb-card color="milk">
+    Values: <code>{{ form().value() | json }}</code>
+  </sbb-card>
+</p>
