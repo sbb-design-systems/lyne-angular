@@ -9,6 +9,18 @@ export class SbbDialogConfig<
   I = SbbDialog,
   D = unknown,
 > extends SbbOverlayBaseConfig<C, I, D> {
+  /** The width of the dialog. If a number is provided, pixel units are assumed. */
+  width?: number | string;
+
+  /** The height of the dialog. If a number is provided, pixel units are assumed. */
+  height?: number | string;
+
+  /** The max-width of the dialog. If a number is provided, pixel units are assumed. */
+  maxWidth?: number | string;
+
+  /** The max-height of the dialog. If a number is provided, pixel units are assumed. */
+  maxHeight?: number | string;
+
   /**
    * Providers that will be exposed to the contents of the dialog. Can also
    * be provided as a function in order to generate the providers lazily.
