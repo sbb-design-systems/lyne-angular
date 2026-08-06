@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { disabled, form, FormField } from '@angular/forms/signals';
+import { SbbActionGroupModule } from '@sbb-esta/lyne-angular/action-group';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
@@ -24,6 +25,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
     SbbFormFieldModule,
     SbbSelectModule,
     SbbButtonModule,
+    SbbActionGroupModule,
   ],
 })
 export class StepperShowcaseExample {

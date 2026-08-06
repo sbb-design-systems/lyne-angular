@@ -1,3 +1,4 @@
+export { SelectCompareWithExample } from './select-compare-with/select-compare-with-example';
 export { SelectComplexValueExample } from './select-complex-value/select-complex-value-example';
 export { SelectOptgroupExample } from './select-optgroup/select-optgroup-example';
 export { SelectReactiveExample } from './select-reactive/select-reactive-example';

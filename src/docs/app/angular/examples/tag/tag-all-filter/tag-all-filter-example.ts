@@ -44,7 +44,7 @@ const CATEGORIES: {
   },
   {
     name: 'boats',
-    iconName: 'boat-small',
+    iconName: 'boat-profile-small',
     entries: [
       {
         title: 'Lake Geneva Ferry',
