@@ -113,7 +113,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'loading-indicator': ['loading-indicator-showcase'],
   'loading-indicator-circle': ['loading-indicator-circle-showcase'],
   logo: [{ id: 'logo-showcase', hasStyle: true }],
-  'map-container': ['map-container-basic'],
+  'map-container': [{ id: 'map-container-basic', hasStyle: true }],
   menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
   message: [{ id: 'message-basic', hasStyle: true }],
   'mini-calendar': ['mini-calendar-showcase', 'mini-calendar-with-tooltip'],

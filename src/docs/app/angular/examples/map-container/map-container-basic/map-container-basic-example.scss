@@ -1,0 +1,19 @@
+.side-content {
+  padding: var(--sbb-spacing-fixed-4x);
+}
+
+.search-field {
+  width: 100%;
+}
+
+.card {
+  margin-block-end: var(--sbb-spacing-fixed-4x);
+}
+
+.map-placeholder {
+  background-color: var(--sbb-background-color-4);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
