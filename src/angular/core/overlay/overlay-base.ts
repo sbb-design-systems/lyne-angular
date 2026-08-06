@@ -194,6 +194,7 @@ export abstract class SbbOverlayBaseService<
 
     this.configureContainer(componentRef.location.nativeElement, config);
 
+    const ngZone = this.#injector.get(NgZone);
     if (typeof componentRef?.onDestroy === 'function') {
       // In most cases we control the portal and we know when it is being detached so that
       // we can finish the disposal process. The exception is if the user passes in a custom
@@ -202,7 +203,6 @@ export abstract class SbbOverlayBaseService<
       // reattach the overlay at a later point. It also has the advantage of waiting for animations.
       componentRef.onDestroy(() => {
         if (portalOutlet.hasAttached()) {
-          const ngZone = this.#injector.get(NgZone);
           // We have to delay the `detach` call, because detaching immediately prevents
           // other destroy hooks from running. This is likely a framework bug similar to
           // https://github.com/angular/angular/issues/46119
