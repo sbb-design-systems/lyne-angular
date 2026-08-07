@@ -22,6 +22,7 @@ import type { SbbOverlayBaseRef } from './overlay-base-ref';
 import type { SbbOverlayBaseConfig } from './overlay-config-base';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
 
+// TODO before next major, move to overlay service
 /** Injection token that can be used to access the data that was passed in to an overlay. */
 export const SBB_OVERLAY_DATA = new InjectionToken<unknown>('SbbOverlayData');
 
@@ -239,6 +240,7 @@ export abstract class SbbOverlayBaseService<
   protected abstract containerType: Type<C>;
   protected abstract refConstructor: Type<R>;
   protected abstract configType: Type<unknown>;
+  // TODO before next major, make abstract and move assignment to overlay-service
   protected overlayDataToken: InjectionToken<unknown> = SBB_OVERLAY_DATA;
 
   #injector = inject(Injector);

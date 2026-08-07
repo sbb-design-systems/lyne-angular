@@ -1,8 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
-import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core';
-import { SbbDialogModule, SbbDialogRef, SbbDialogService } from '@sbb-esta/lyne-angular/dialog';
+import {
+  SBB_DIALOG_DATA,
+  SbbDialogModule,
+  SbbDialogRef,
+  SbbDialogService,
+} from '@sbb-esta/lyne-angular/dialog';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 export interface DialogData {
@@ -64,7 +68,7 @@ export class DialogSharedDataExample {
   imports: [SbbDialogModule, SbbFormFieldModule, FormField, SbbButtonModule],
 })
 export class SharedDataDialogComponent {
-  protected readonly data = inject<DialogData>(SBB_OVERLAY_DATA);
+  protected readonly data = inject<DialogData>(SBB_DIALOG_DATA);
   protected readonly dialogRef = inject(SbbDialogRef<SharedDataDialogComponent>);
   protected readonly form = form(signal(this.data.animal));
 
