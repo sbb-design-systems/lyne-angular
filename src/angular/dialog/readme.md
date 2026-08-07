@@ -178,7 +178,7 @@ export class ParentComponent {
   template: 'passed in {{ data.name }}',
 })
 export class YourDialog {
-  dialogData = inject<{ name: string }>(SBB_OVERLAY_DATA);
+  dialogData = inject<{ name: string }>(SBB_DIALOG_DATA);
 }
 ```
 

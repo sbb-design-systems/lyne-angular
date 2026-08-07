@@ -100,7 +100,7 @@ export class ParentComponent {
   template: 'passed in {{ data.name }}',
 })
 export class YourToast {
-  toastData = inject<{ name: string }>(SBB_OVERLAY_DATA);
+  toastData = inject<{ name: string }>(SBB_TOAST_DATA);
 }
 ```
 
