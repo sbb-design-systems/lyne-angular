@@ -1,5 +1,24 @@
 # Changelog
 
+## [22.2.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.2.0...v22.2.1) (2026-08-08)
+
+
+### Bug Fixes
+
+* **easter-egg:** add missing properties ([#547](https://github.com/sbb-design-systems/lyne-angular/issues/547)) ([8f7700a](https://github.com/sbb-design-systems/lyne-angular/commit/8f7700afe6c9b1f2a1276380e02cfe4972b31eeb))
+
+
+### Documentation
+
+* add various examples ([#548](https://github.com/sbb-design-systems/lyne-angular/issues/548)) ([495da14](https://github.com/sbb-design-systems/lyne-angular/commit/495da145668979950414a063fb5b6c65eb5f493b))
+* **chip:** enhance examples ([#546](https://github.com/sbb-design-systems/lyne-angular/issues/546)) ([ad3aaad](https://github.com/sbb-design-systems/lyne-angular/commit/ad3aaadeb20d00b1da8914852b30134429333818))
+* **easter-egg:** add 'easter-egg' doc ([#543](https://github.com/sbb-design-systems/lyne-angular/issues/543)) ([cb7d87b](https://github.com/sbb-design-systems/lyne-angular/commit/cb7d87b3b41dc6b92dd818c17ee20fc8ffd85496))
+* **map-container:** improve examples ([#549](https://github.com/sbb-design-systems/lyne-angular/issues/549)) ([82b33f0](https://github.com/sbb-design-systems/lyne-angular/commit/82b33f04c02b2e665df8354c30bb364c33ac0721))
+* **mini-calendar:** add examples ([#537](https://github.com/sbb-design-systems/lyne-angular/issues/537)) ([b03b7c5](https://github.com/sbb-design-systems/lyne-angular/commit/b03b7c55ba97aa2506ea1665e6fe39a1e5236890))
+* **tag:** add filter example ([#542](https://github.com/sbb-design-systems/lyne-angular/issues/542)) ([b496827](https://github.com/sbb-design-systems/lyne-angular/commit/b49682702b1aeaafadff4b2239e1ea4632879a07))
+* **teaser-product:** add examples ([#540](https://github.com/sbb-design-systems/lyne-angular/issues/540)) ([10252aa](https://github.com/sbb-design-systems/lyne-angular/commit/10252aad5913b0285023e86f106ceb8b8e5ce218))
+* **train:** add examples ([#536](https://github.com/sbb-design-systems/lyne-angular/issues/536)) ([12cc008](https://github.com/sbb-design-systems/lyne-angular/commit/12cc008c263ee83b1f4ab273efcf9c0eb765ca92))
+
 ## [22.2.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.1.1...v22.2.0) (2026-08-03)
 
 
