@@ -157,6 +157,26 @@ export class ParentComponent {
 }
 ```
 
+The configuration object also allows to explicitly set the dialog dimensions when the dialog is opened via `SbbDialogService`.
+The variables accept both numbers, which are converted in pixel, and strings.
+Note that the dimensions are not applied when in mobile view. The dimensions of the mobile view are fixed by design.
+
+```ts
+@Component({/* ... */})
+export class ParentComponent {
+  dialogService = inject(SbbDialogService);
+
+  openDialog() {
+    let dialogRef = dialog.open(YourDialog, {
+      height: '16rem',
+      width: 400,
+      minHeight: 'calc(100% - var(--sbb-spacing-fixed-2x))',
+      minWidth: 'auto',
+    });
+  }
+}
+```
+
 ### Sharing data with the slotted component.
 
 If you want to share data with the component rendered in your dialog, you can use the `data` property in the configuration object.
