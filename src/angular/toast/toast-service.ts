@@ -1,6 +1,6 @@
 import type { ComponentType } from '@angular/cdk/overlay';
-import { inject, Service, type TemplateRef } from '@angular/core';
-import { SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core';
+import { inject, type InjectionToken, Service, type TemplateRef } from '@angular/core';
+import { SBB_TOAST_DATA, SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core';
 
 import { SbbSimpleToast } from './simple-toast';
 import type { SbbToast } from './toast';
@@ -18,6 +18,7 @@ export class SbbToastService extends SbbOverlayBaseService<
   protected containerType = SbbToastContainer;
   protected refConstructor = SbbToastRef;
   protected configType = SbbToastConfig;
+  protected override overlayDataToken: InjectionToken<unknown> = SBB_TOAST_DATA;
 
   override open<T = unknown | SbbSimpleToast>(
     content: ComponentType<T> | TemplateRef<T> | string,

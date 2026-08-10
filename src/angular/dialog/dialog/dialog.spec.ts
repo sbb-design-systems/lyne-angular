@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
-import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core';
+import { SBB_DIALOG_DATA } from '@sbb-esta/lyne-angular/core';
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 
 import { SbbDialog } from './dialog';
@@ -305,7 +305,7 @@ class ServiceTestComponent {
   template: `This is a dummy component meant for testing. Dummy string: {{ data?.dummyText }}`,
 })
 class SbbDummyComponent {
-  readonly data = inject<SampleData>(SBB_OVERLAY_DATA, { optional: true });
+  readonly data = inject<SampleData>(SBB_DIALOG_DATA, { optional: true });
   readonly ref = inject(SbbDialogRef);
   readonly injector = inject(Injector);
 }

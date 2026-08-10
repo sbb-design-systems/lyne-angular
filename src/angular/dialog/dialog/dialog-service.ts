@@ -1,6 +1,6 @@
 import type { ComponentType } from '@angular/cdk/overlay';
-import { inject, Service, type TemplateRef } from '@angular/core';
-import { SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core';
+import { inject, type InjectionToken, Service, type TemplateRef } from '@angular/core';
+import { SBB_DIALOG_DATA, SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core';
 
 import type { SbbDialog } from './dialog';
 import { SbbDialogConfig } from './dialog-config';
@@ -17,6 +17,7 @@ export class SbbDialogService extends SbbOverlayBaseService<
   protected containerType = SbbDialogContainer;
   protected refConstructor = SbbDialogRef;
   protected configType = SbbDialogConfig;
+  protected override overlayDataToken: InjectionToken<unknown> = SBB_DIALOG_DATA;
 
   protected override setupContainerElement(
     element: HTMLElement,
