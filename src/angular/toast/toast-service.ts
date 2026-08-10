@@ -8,7 +8,7 @@ import { SbbToastConfig } from './toast-config';
 import { SbbToastContainer } from './toast-container';
 import { SbbToastRef } from './toast-ref';
 
-// TODO before next major, create specific InjectionToken
+// TODO: @breaking-change before next major, create specific InjectionToken
 /** Injection token that can be used to access the data that was passed in to a toast. */
 export const SBB_TOAST_DATA = SBB_OVERLAY_DATA;
 

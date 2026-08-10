@@ -7,7 +7,7 @@ import { SbbDialogConfig } from './dialog-config';
 import { SbbDialogContainer } from './dialog-container';
 import { SbbDialogRef } from './dialog-ref';
 
-// TODO before next major, create specific InjectionToken
+// TODO: @breaking-change before next major, create specific InjectionToken
 /** Injection token that can be used to access the data that was passed in to a dialog. */
 export const SBB_DIALOG_DATA = SBB_OVERLAY_DATA;
 
