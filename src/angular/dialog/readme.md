@@ -195,7 +195,7 @@ export class ParentComponent {
 
 @Component({
   selector: 'your-dialog',
-  template: 'passed in {{ data.name }}',
+  template: 'passed in {{ dialogData.name }}',
 })
 export class YourDialog {
   dialogData = inject<{ name: string }>(SBB_DIALOG_DATA);
