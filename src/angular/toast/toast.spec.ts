@@ -9,10 +9,11 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
+import { SBB_TOAST_DATA } from '@sbb-esta/lyne-angular/core';
 
 import { SbbToast } from './toast';
 import { SbbToastRef } from './toast-ref';
-import { SBB_TOAST_DATA, SbbToastService } from './toast-service';
+import { SbbToastService } from './toast-service';
 
 describe('sbb-toast', () => {
   describe('component renders', () => {

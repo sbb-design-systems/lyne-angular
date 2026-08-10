@@ -26,6 +26,14 @@ import type { SbbOverlayContainerBase } from './overlay-container-base';
 /** Injection token that can be used to access the data that was passed in to an overlay. */
 export const SBB_OVERLAY_DATA = new InjectionToken<unknown>('SbbOverlayData');
 
+// TODO: @breaking-change before next major, create specific InjectionToken and move to dialog-service
+/** Injection token that can be used to access the data that was passed in to a dialog. */
+export const SBB_DIALOG_DATA = SBB_OVERLAY_DATA;
+
+// TODO: @breaking-change before next major, create specific InjectionToken and move to toast-service
+/** Injection token that can be used to access the data that was passed in to a toast. */
+export const SBB_TOAST_DATA = SBB_OVERLAY_DATA;
+
 @Injectable()
 export abstract class SbbOverlayBaseService<
   C extends SbbOverlayContainerBase,

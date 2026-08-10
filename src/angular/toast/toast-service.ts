@@ -1,16 +1,12 @@
 import type { ComponentType } from '@angular/cdk/overlay';
 import { inject, type InjectionToken, Service, type TemplateRef } from '@angular/core';
-import { SBB_OVERLAY_DATA, SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core';
+import { SBB_TOAST_DATA, SbbOverlayBaseService } from '@sbb-esta/lyne-angular/core';
 
 import { SbbSimpleToast } from './simple-toast';
 import type { SbbToast } from './toast';
 import { SbbToastConfig } from './toast-config';
 import { SbbToastContainer } from './toast-container';
 import { SbbToastRef } from './toast-ref';
-
-// TODO: @breaking-change before next major, create specific InjectionToken
-/** Injection token that can be used to access the data that was passed in to a toast. */
-export const SBB_TOAST_DATA = SBB_OVERLAY_DATA;
 
 @Service()
 export class SbbToastService extends SbbOverlayBaseService<

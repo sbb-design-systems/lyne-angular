@@ -13,11 +13,12 @@ import {
 } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
+import { SBB_DIALOG_DATA } from '@sbb-esta/lyne-angular/core';
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
 
 import { SbbDialog } from './dialog';
 import { SbbDialogRef } from './dialog-ref';
-import { SBB_DIALOG_DATA, SbbDialogService } from './dialog-service';
+import { SbbDialogService } from './dialog-service';
 import { SbbDialogTrigger } from './dialog-trigger';
 
 describe('sbb-dialog', () => {

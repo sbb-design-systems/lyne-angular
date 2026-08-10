@@ -1,12 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
-import {
-  SBB_DIALOG_DATA,
-  SbbDialogModule,
-  SbbDialogRef,
-  SbbDialogService,
-} from '@sbb-esta/lyne-angular/dialog';
+import { SBB_DIALOG_DATA } from '@sbb-esta/lyne-angular/core';
+import { SbbDialogModule, SbbDialogRef, SbbDialogService } from '@sbb-esta/lyne-angular/dialog';
 
 @Component({
   selector: 'sbb-dialog-service-content-example',

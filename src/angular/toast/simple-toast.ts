@@ -1,6 +1,5 @@
 import { Component, inject, ViewEncapsulation } from '@angular/core';
-
-import { SBB_TOAST_DATA } from './toast-service';
+import { SBB_TOAST_DATA } from '@sbb-esta/lyne-angular/core';
 
 /**
  * A component used to open as the default toast, matching digital.sbb.ch spec.

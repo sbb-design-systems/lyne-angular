@@ -1,12 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
-import {
-  SBB_DIALOG_DATA,
-  SbbDialogModule,
-  SbbDialogRef,
-  SbbDialogService,
-} from '@sbb-esta/lyne-angular/dialog';
+import { SBB_DIALOG_DATA } from '@sbb-esta/lyne-angular/core';
+import { SbbDialogModule, SbbDialogRef, SbbDialogService } from '@sbb-esta/lyne-angular/dialog';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 
 export interface DialogData {
