@@ -159,6 +159,7 @@ export class ParentComponent {
 
 The configuration object also allows to explicitly set the dialog dimensions when the dialog is opened via `SbbDialogService`.
 The variables accept both numbers, which are converted in pixel, and strings.
+Note that the dimensions are not applied when in mobile view. The dimensions of the mobile view are fixed by design. 
 
 ```ts
 @Component({/* ... */})
