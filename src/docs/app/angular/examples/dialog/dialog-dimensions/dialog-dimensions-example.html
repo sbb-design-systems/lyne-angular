@@ -1,0 +1,35 @@
+<sbb-secondary-button (click)="openDialog()">Open Dialog</sbb-secondary-button>
+<p>
+  Use controls to set the dialog dimensions; any value is accepted as per specification (e.g.
+  <sbb-link
+    href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/height#formal_syntax"
+    target="_blank"
+    >height formal syntax</sbb-link
+  >).
+</p>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="long-content">Long content</label>
+  <sbb-checkbox id="long-content" [formField]="dimensions.longContent"></sbb-checkbox>
+
+  <label for="height">Height</label>
+  <sbb-form-field size="s">
+    <input id="height" [formField]="dimensions.height" />
+  </sbb-form-field>
+
+  <label for="width">Width</label>
+  <sbb-form-field size="s">
+    <input id="width" [formField]="dimensions.width" />
+  </sbb-form-field>
+
+  <label for="max-height">Max height</label>
+  <sbb-form-field size="s">
+    <input id="max-height" [formField]="dimensions.maxHeight" />
+  </sbb-form-field>
+
+  <label for="max-width">Max width</label>
+  <sbb-form-field size="s">
+    <input id="max-width" [formField]="dimensions.maxWidth" />
+  </sbb-form-field>
+</div>

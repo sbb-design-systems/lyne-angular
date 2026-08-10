@@ -34,10 +34,128 @@ export abstract class SbbOverlayBaseService<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   R extends SbbOverlayBaseRef<any> = SbbOverlayBaseRef<any>,
 > implements OnDestroy {
-  #openOverlaysAtThisLevel: R[] = [];
+  /**
+   * Stream that emits when all open overlays have finished closing.
+   * Will emit on subscribe if there are no open overlays to begin with.
+   */
+  readonly afterAllClosed: Observable<void> = defer(
+    () =>
+      this.openOverlays.length
+        ? this.#getAfterAllClosed()
+        : this.#getAfterAllClosed().pipe(startWith(undefined)),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ) as Observable<any>;
+
+  protected abstract parentService: SbbOverlayBaseService<C, I, R> | null;
+  protected abstract containerType: Type<C>;
+  protected abstract refConstructor: Type<R>;
+  protected abstract configType: Type<unknown>;
+  // TODO: @breaking-change before next major, make abstract and move assignment to overlay-service
+  protected overlayDataToken: InjectionToken<unknown> = SBB_OVERLAY_DATA;
+
   readonly #afterAllClosedAtThisLevel = new Subject<void>();
   readonly #afterOpenedAtThisLevel = new Subject<R>();
+
+  #openOverlaysAtThisLevel: R[] = [];
   #idGenerator = inject(_IdGenerator);
+  #injector = inject(Injector);
+
+  protected constructor() {
+    /* empty */
+  }
+
+  /** Keeps track of the currently-open overlays. */
+  get openOverlays(): R[] {
+    return this.parentService ? this.parentService.openOverlays : this.#openOverlaysAtThisLevel;
+  }
+
+  /** Stream that emits when an overlay has been opened. */
+  get afterOpened(): Subject<R> {
+    return this.parentService ? this.parentService.afterOpened : this.#afterOpenedAtThisLevel;
+  }
+
+  open<T = unknown>(
+    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+    config: SbbOverlayBaseConfig<C, I> = {},
+  ): SbbOverlayBaseRef<T> {
+    config.id = config.id || this.#idGenerator.getId('cdk-overlay-');
+
+    if (
+      config.id &&
+      this.getOverlayById(config.id) &&
+      (typeof ngDevMode === 'undefined' || ngDevMode)
+    ) {
+      throw Error(`Overlay with id "${config.id}" exists already. The overlay id must be unique.`);
+    }
+
+    const overlayContainerElement = this.#injector.get(OverlayContainer).getContainerElement();
+
+    // Additional element is needed as DomPortalOutlet would remove the overlayContainerElement element on dispose.
+    // We must not remove the entire overlay container as it is considered living forever after first instantiation.
+    const host = this.#injector.get(DOCUMENT).createElement('div');
+    overlayContainerElement.appendChild(host);
+
+    const portalOutlet = new DomPortalOutlet(
+      host,
+      this.#injector.get(ApplicationRef),
+      this.#injector,
+    );
+    const overlayContainer = this.#attachContainer(portalOutlet, config);
+
+    const overlayRefConstructed = new this.refConstructor(
+      overlayContainer,
+      config,
+      portalOutlet,
+      this.#injector.get(Location),
+    );
+
+    this.#attachContent(componentOrTemplateRef, overlayRefConstructed, overlayContainer, config);
+
+    this.openOverlays.push(overlayRefConstructed);
+    this.afterOpened.next(overlayRefConstructed);
+
+    overlayRefConstructed.afterClosed.subscribe(() =>
+      this.#removeOpenOverlay(overlayRefConstructed, true),
+    );
+
+    overlayContainer.open();
+
+    return overlayRefConstructed;
+  }
+
+  /**
+   * Finds an open overlay by its id.
+   * @param id ID to use when looking up the overlay.
+   */
+  getOverlayById(id: string): R | undefined {
+    return this.openOverlays.find((overlay) => overlay.id === id);
+  }
+
+  /**
+   * Closes all currently-open overlays.
+   */
+  closeAll(): void {
+    // We have to copy the array first as the array is mutated during the iteration.
+    this.openOverlays.slice().forEach((ref: R) => ref.close());
+  }
+
+  ngOnDestroy() {
+    // Make a second pass and close the remaining dialogs. We do this second pass in order to
+    // correctly dispatch the `afterAllClosed` event in case we have a mixed array of dialogs
+    // that should be closed and dialogs that should not.
+    this.#openOverlaysAtThisLevel.reverse().forEach((dialog) => dialog.close());
+    this.#afterAllClosedAtThisLevel.complete();
+    this.#afterOpenedAtThisLevel.complete();
+    this.#openOverlaysAtThisLevel = [];
+  }
+
+  /** Method meant to be overridden by derived class (e.g. dialog) to configure the element after attaching it. */
+  protected setupContainerElement(
+    _element: HTMLElement,
+    _config: SbbOverlayBaseConfig<C, I>,
+  ): void {
+    // no-op
+  }
 
   #createInjector<D>(
     config: SbbOverlayBaseConfig<C, I, D>,
@@ -79,8 +197,11 @@ export abstract class SbbOverlayBaseService<
     );
     const componentRef = portalOutlet.attach(containerPortal);
 
-    const ngZone = this.#injector.get(NgZone);
+    this.setupContainerElement(componentRef.location.nativeElement, config);
 
+    config.setupContainer?.(componentRef.instance.elementInstance as I);
+
+    const ngZone = this.#injector.get(NgZone);
     if (typeof componentRef?.onDestroy === 'function') {
       // In most cases we control the portal and we know when it is being detached so that
       // we can finish the disposal process. The exception is if the user passes in a custom
@@ -102,9 +223,6 @@ export abstract class SbbOverlayBaseService<
         }
       });
     }
-
-    config.setupContainer?.(componentRef.instance.elementInstance as I);
-
     return componentRef.instance;
   }
 
@@ -144,119 +262,9 @@ export abstract class SbbOverlayBaseService<
     }
   }
 
-  open<T = unknown>(
-    componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-    config: SbbOverlayBaseConfig<C, I> = {},
-  ): SbbOverlayBaseRef<T> {
-    config.id = config.id || this.#idGenerator.getId('cdk-overlay-');
-
-    if (
-      config.id &&
-      this.getOverlayById(config.id) &&
-      (typeof ngDevMode === 'undefined' || ngDevMode)
-    ) {
-      throw Error(`Overlay with id "${config.id}" exists already. The overlay id must be unique.`);
-    }
-
-    const overlayContainerElement = this.#injector.get(OverlayContainer).getContainerElement();
-
-    // Additional element is needed as DomPortalOutlet would remove the overlayContainerElement element on
-    // dispose. We must not remove the entire overlay container as it is considered living forever after first instantiation.
-    const host = this.#injector.get(DOCUMENT).createElement('div');
-    overlayContainerElement.appendChild(host);
-
-    const portalOutlet = new DomPortalOutlet(
-      host,
-      this.#injector.get(ApplicationRef),
-      this.#injector,
-    );
-    const overlayContainer = this.#attachContainer(portalOutlet, config);
-
-    const overlayRefConstructed = new this.refConstructor(
-      overlayContainer,
-      config,
-      portalOutlet,
-      this.#injector.get(Location),
-    );
-
-    this.#attachContent(componentOrTemplateRef, overlayRefConstructed, overlayContainer, config);
-
-    this.openOverlays.push(overlayRefConstructed);
-    this.afterOpened.next(overlayRefConstructed);
-
-    overlayRefConstructed.afterClosed.subscribe(() =>
-      this.#removeOpenOverlay(overlayRefConstructed, true),
-    );
-
-    overlayContainer.open();
-
-    return overlayRefConstructed;
-  }
-
-  /**
-   * Finds an open overlay by its id.
-   * @param id ID to use when looking up the overlay.
-   */
-  getOverlayById(id: string): R | undefined {
-    return this.openOverlays.find((overlay) => overlay.id === id);
-  }
-
-  /** Keeps track of the currently-open overlays. */
-  get openOverlays(): R[] {
-    return this.parentService ? this.parentService.openOverlays : this.#openOverlaysAtThisLevel;
-  }
-
-  /**
-   * Closes all currently-open overlays.
-   */
-  closeAll(): void {
-    // We have to copy the array first as the array is mutated during the iteration.
-    this.openOverlays.slice().forEach((ref: R) => ref.close());
-  }
-
   #getAfterAllClosed(): Subject<void> {
     const parent = this.parentService;
     return parent ? parent.#getAfterAllClosed() : this.#afterAllClosedAtThisLevel;
-  }
-
-  /**
-   * Stream that emits when all open overlays have finished closing.
-   * Will emit on subscribe if there are no open overlays to begin with.
-   */
-  readonly afterAllClosed: Observable<void> = defer(
-    () =>
-      this.openOverlays.length
-        ? this.#getAfterAllClosed()
-        : this.#getAfterAllClosed().pipe(startWith(undefined)),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) as Observable<any>;
-
-  /** Stream that emits when an overlay has been opened. */
-  get afterOpened(): Subject<R> {
-    return this.parentService ? this.parentService.afterOpened : this.#afterOpenedAtThisLevel;
-  }
-
-  protected abstract parentService: SbbOverlayBaseService<C, I, R> | null;
-  protected abstract containerType: Type<C>;
-  protected abstract refConstructor: Type<R>;
-  protected abstract configType: Type<unknown>;
-  // TODO: @breaking-change before next major, make abstract and move assignment to overlay-service
-  protected overlayDataToken: InjectionToken<unknown> = SBB_OVERLAY_DATA;
-
-  #injector = inject(Injector);
-
-  protected constructor() {
-    /* empty */
-  }
-
-  ngOnDestroy() {
-    // Make a second pass and close the remaining dialogs. We do this second pass in order to
-    // correctly dispatch the `afterAllClosed` event in case we have a mixed array of dialogs
-    // that should be closed and dialogs that should not.
-    this.#openOverlaysAtThisLevel.reverse().forEach((dialog) => dialog.close());
-    this.#afterAllClosedAtThisLevel.complete();
-    this.#afterOpenedAtThisLevel.complete();
-    this.#openOverlaysAtThisLevel = [];
   }
 
   #removeOpenOverlay(overlayRef: R, emitEvent: boolean): void {

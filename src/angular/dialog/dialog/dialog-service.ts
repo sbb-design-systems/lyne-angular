@@ -23,6 +23,23 @@ export class SbbDialogService extends SbbOverlayBaseService<
   protected configType = SbbDialogConfig;
   protected override overlayDataToken: InjectionToken<unknown> = SBB_DIALOG_DATA;
 
+  protected override setupContainerElement(
+    element: HTMLElement,
+    config: SbbDialogConfig<SbbDialogContainer>,
+  ): void {
+    this.#updateSizeProp(element, '--sbb-dialog-width', config.width);
+    this.#updateSizeProp(element, '--sbb-dialog-height', config.height);
+    this.#updateSizeProp(element, '--sbb-dialog-max-width', config.maxWidth);
+    this.#updateSizeProp(element, '--sbb-dialog-max-height', config.maxHeight);
+  }
+
+  #updateSizeProp(element: HTMLElement, cssVar: string, prop: string | number | undefined): void {
+    if (!prop) {
+      return;
+    }
+    element.style.setProperty(cssVar, typeof prop === 'string' ? prop : `${prop}px`);
+  }
+
   public override open<T = unknown, R = unknown>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     config?: SbbDialogConfig<SbbDialogContainer>,
