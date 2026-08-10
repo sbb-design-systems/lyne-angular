@@ -9,7 +9,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
-import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core';
+import { SBB_TOAST_DATA } from '@sbb-esta/lyne-angular/core';
 
 import { SbbToast } from './toast';
 import { SbbToastRef } from './toast-ref';
@@ -237,7 +237,7 @@ class ServiceTestComponent {
   template: `This is a dummy component meant for testing. Dummy string: {{ data?.dummyText }}`,
 })
 class SbbDummyComponent {
-  readonly data = inject<SampleData>(SBB_OVERLAY_DATA, { optional: true });
+  readonly data = inject<SampleData>(SBB_TOAST_DATA, { optional: true });
   readonly ref = inject(SbbToastRef);
   readonly injector = inject(Injector);
 }

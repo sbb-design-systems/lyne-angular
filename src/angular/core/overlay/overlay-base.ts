@@ -22,8 +22,17 @@ import type { SbbOverlayBaseRef } from './overlay-base-ref';
 import type { SbbOverlayBaseConfig } from './overlay-config-base';
 import type { SbbOverlayContainerBase } from './overlay-container-base';
 
+// TODO: @breaking-change before next major, move to overlay-service
 /** Injection token that can be used to access the data that was passed in to an overlay. */
 export const SBB_OVERLAY_DATA = new InjectionToken<unknown>('SbbOverlayData');
+
+// TODO: @breaking-change before next major, create specific InjectionToken and move to dialog-service
+/** Injection token that can be used to access the data that was passed in to a dialog. */
+export const SBB_DIALOG_DATA = SBB_OVERLAY_DATA;
+
+// TODO: @breaking-change before next major, create specific InjectionToken and move to toast-service
+/** Injection token that can be used to access the data that was passed in to a toast. */
+export const SBB_TOAST_DATA = SBB_OVERLAY_DATA;
 
 @Injectable()
 export abstract class SbbOverlayBaseService<
@@ -49,6 +58,7 @@ export abstract class SbbOverlayBaseService<
   protected abstract containerType: Type<C>;
   protected abstract refConstructor: Type<R>;
   protected abstract configType: Type<unknown>;
+  // TODO: @breaking-change before next major, make abstract and move assignment to overlay-service
   protected overlayDataToken: InjectionToken<unknown> = SBB_OVERLAY_DATA;
 
   readonly #afterAllClosedAtThisLevel = new Subject<void>();

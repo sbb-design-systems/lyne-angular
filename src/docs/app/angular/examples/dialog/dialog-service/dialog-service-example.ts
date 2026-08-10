@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
-import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core';
+import { SBB_DIALOG_DATA } from '@sbb-esta/lyne-angular/core';
 import { SbbDialogModule, SbbDialogRef, SbbDialogService } from '@sbb-esta/lyne-angular/dialog';
 
 @Component({
@@ -20,7 +20,7 @@ import { SbbDialogModule, SbbDialogRef, SbbDialogService } from '@sbb-esta/lyne-
 })
 export class DialogServiceContentExample {
   // Fetch the dialog data using the injection token
-  protected dialogData = inject<{ name: string }>(SBB_OVERLAY_DATA);
+  protected dialogData = inject<{ name: string }>(SBB_DIALOG_DATA);
   private dialogRef = inject(SbbDialogRef);
 
   protected anotherClose(): void {
