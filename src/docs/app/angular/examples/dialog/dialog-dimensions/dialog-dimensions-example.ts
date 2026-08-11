@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
-import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core';
+import { SBB_DIALOG_DATA } from '@sbb-esta/lyne-angular/core';
 import { SbbDialogModule, SbbDialogService } from '@sbb-esta/lyne-angular/dialog';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
@@ -29,7 +29,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   imports: [SbbButtonModule, SbbDialogModule],
 })
 export class DialogDimensionsContentExample {
-  protected dialogData = inject<string>(SBB_OVERLAY_DATA, { optional: true }) ?? null;
+  protected dialogData = inject<string>(SBB_DIALOG_DATA, { optional: true }) ?? null;
 }
 
 /**
