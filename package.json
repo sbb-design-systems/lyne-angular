@@ -75,7 +75,7 @@
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import-x": "4.17.1",
     "github-slugger": "2.0.0",
-    "globals": "17.9.0",
+    "globals": "17.10.0",
     "highlight.js": "11.11.2",
     "husky": "9.1.7",
     "jiti": "2.7.0",
