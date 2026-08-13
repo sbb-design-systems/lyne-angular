@@ -5,7 +5,7 @@ import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 
 /**
- * @title radio-button group with compareWith function
+ * @title radio-button-group with compareWith function
  * @order 5
  */
 @Component({

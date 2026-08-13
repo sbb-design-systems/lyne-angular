@@ -95,7 +95,7 @@ const complexValues = [
   { id: 2, name: 'Option 2' },
   { id: 3, name: 'Option 3' },
 ];
-const compareWith = (v1: { id: string } | null, v2: { id: string } | null) => v1?.id === v2?.id;
+const compareWith = (v1: { id: number } | null, v2: { id: number } | null) => v1?.id === v2?.id;
 ```
 
 ```html
