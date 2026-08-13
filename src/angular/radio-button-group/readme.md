@@ -85,6 +85,29 @@ const values = [
 </sbb-radio-button-group>
 ```
 
+When using complex objects, it is possible to provide a custom `compareWith` function to control how values are matched:
+
+<!-- #region override radio-group-compare-with-example -->
+
+```ts
+const complexValues = [
+  { id: 1, name: 'Option 1' },
+  { id: 2, name: 'Option 2' },
+  { id: 3, name: 'Option 3' },
+];
+const compareWith = (v1: { id: string } | null, v2: { id: string } | null) => v1?.id === v2?.id;
+```
+
+```html
+<sbb-radio-button-group [compareWith]="compareWith" [value]="complexValues[0]">
+  @for (opt of complexValues; track opt.id) {
+  <sbb-radio-button [value]="opt">{{ opt.name }}</sbb-radio-button>
+  }
+</sbb-radio-button-group>
+```
+
+<!-- #endregion -->
+
 ## Docs on @sbb-esta/lyne-elements
 
 [Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/elements-radio-button-group--docs)

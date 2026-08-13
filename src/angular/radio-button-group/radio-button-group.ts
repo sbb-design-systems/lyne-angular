@@ -136,6 +136,17 @@ export class SbbRadioButtonGroup<T = string> extends SbbControlValueAccessorMixi
   }
 
   /**
+   * Function used to compare values.
+   */
+  @Input()
+  public set compareWith(value: (v1: T | null, v2: T | null) => boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.compareWith = value));
+  }
+  public get compareWith(): (v1: T | null, v2: T | null) => boolean {
+    return this.#element.nativeElement.compareWith;
+  }
+
+  /**
    * List of contained radio buttons.
    */
   public get radioButtons(): (SbbRadioButtonElement<T> | SbbRadioButtonPanelElement<T>)[] {
