@@ -74,6 +74,30 @@ describe('sbb-radio-button-group', () => {
     });
   });
 
+  describe('compareWith', () => {
+    let fixture: ComponentFixture<ComplexValueTestComponent>, component: ComplexValueTestComponent;
+
+    beforeEach(async () => {
+      fixture = TestBed.createComponent(ComplexValueTestComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should create', async () => {
+      expect(component).toBeDefined();
+      expect(component.radioButtonGroup().value).toMatchObject({ id: 1, name: 'one' });
+      expect(component.radioButtons()![0].checked).toBe(true);
+    });
+
+    it('should update value', async () => {
+      component.radioButtonGroup().value = { id: 0 };
+      expect(component.radioButtons()!.every((e) => e.checked)).toBe(false);
+
+      component.radioButtonGroup().value = { id: 3 };
+      expect(component.radioButtons()!.map((e) => e.checked)).toEqual([false, false, true]);
+    });
+  });
+
   describe('reactive forms', () => {
     let fixture: ComponentFixture<ReactiveTestComponent>, component: ReactiveTestComponent;
 
@@ -166,4 +190,24 @@ class ReactiveTestComponent {
   control = new FormControl('opt2');
   radioButtonGroup = viewChild.required(SbbRadioButtonGroup);
   radioButtons = viewChildren(SbbRadioButton);
+}
+
+@Component({
+  template: `<sbb-radio-button-group [formField]="control" [compareWith]="compareWith">
+    <sbb-radio-button name="test" [value]="values[0]"></sbb-radio-button>
+    <sbb-radio-button name="test" [value]="values[1]"></sbb-radio-button>
+    <sbb-radio-button name="test" [value]="values[2]"></sbb-radio-button>
+  </sbb-radio-button-group>`,
+  imports: [SbbRadioButtonGroup, FormField, SbbRadioButton],
+})
+class ComplexValueTestComponent {
+  control = form(signal({ id: 1 }));
+  radioButtonGroup = viewChild.required(SbbRadioButtonGroup);
+  radioButtons = viewChildren(SbbRadioButton);
+  values = [
+    { id: 1, name: 'one' },
+    { id: 2, name: 'two' },
+    { id: 3, name: 'three' },
+  ];
+  compareWith = (v1: { id: number } | null, v2: { id: number } | null) => v1?.id === v2?.id;
 }
