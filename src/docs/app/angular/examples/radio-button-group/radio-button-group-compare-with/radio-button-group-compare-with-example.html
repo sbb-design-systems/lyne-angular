@@ -1,0 +1,15 @@
+<sbb-radio-button-group
+  aria-label="Radio group label"
+  [formField]="form.radio"
+  [compareWith]="compareWith"
+>
+  @for (opt of options; track opt.id) {
+    <sbb-radio-button [value]="opt">{{ opt.name }}</sbb-radio-button>
+  }
+</sbb-radio-button-group>
+
+<p>
+  <sbb-card color="milk">
+    Value: <code>{{ form.radio().value() | json }}</code>
+  </sbb-card>
+</p>

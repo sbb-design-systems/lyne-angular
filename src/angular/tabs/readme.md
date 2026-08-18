@@ -68,7 +68,7 @@ Tab contents can be lazy loaded by declaring the body in a ng-template with the 
   imports: [SbbTabsModule],
   template: `<sbb-tab-label active>Label</sbb-tab-label>
     <sbb-tab>
-      <ng-template sbbTabContent>${text}</ng-template>
+      <ng-template sbbTabContent>{{ text }}</ng-template>
     </sbb-tab>`,
 })
 class TabsComponent {}

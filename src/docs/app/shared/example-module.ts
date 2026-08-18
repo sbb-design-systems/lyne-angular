@@ -135,6 +135,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'radio-button-group-signal',
     'radio-button-group-reactive',
     'radio-button-group-template-driven',
+    'radio-button-group-compare-with',
   ],
   'radio-button-panel': [
     { id: 'radio-button-panel-showcase', hasStyle: true },
@@ -417,6 +418,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/popover');
     case 'radio-button-showcase':
       return import('../angular/examples/radio-button');
+    case 'radio-button-group-compare-with':
     case 'radio-button-group-reactive':
     case 'radio-button-group-showcase':
     case 'radio-button-group-signal':
