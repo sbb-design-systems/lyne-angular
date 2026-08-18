@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
-import { SBB_DIALOG_DATA } from '@sbb-esta/lyne-angular/core';
-import { SbbDialogModule } from '@sbb-esta/lyne-angular/dialog';
+import { SBB_DIALOG_DATA, SbbDialogModule } from '@sbb-esta/lyne-angular/dialog';
 import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 

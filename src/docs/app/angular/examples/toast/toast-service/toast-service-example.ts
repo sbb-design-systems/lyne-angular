@@ -1,9 +1,8 @@
 import { Component, inject, TemplateRef, viewChild } from '@angular/core';
 import { SbbActionGroupModule } from '@sbb-esta/lyne-angular/action-group';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
-import { SBB_TOAST_DATA } from '@sbb-esta/lyne-angular/core';
 import { SbbLinkModule } from '@sbb-esta/lyne-angular/link';
-import { SbbToastModule, SbbToastService } from '@sbb-esta/lyne-angular/toast';
+import { SBB_TOAST_DATA, SbbToastModule, SbbToastService } from '@sbb-esta/lyne-angular/toast';
 
 @Component({
   selector: 'sbb-toast-service-content-example',
