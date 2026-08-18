@@ -10,3 +10,5 @@ export * from './dialog-close/dialog-close';
 export * from './dialog-content/dialog-content';
 export * from './dialog-title/dialog-title';
 export * from './dialog.module';
+
+export { SBB_DIALOG_DATA } from '@sbb-esta/lyne-angular/core';

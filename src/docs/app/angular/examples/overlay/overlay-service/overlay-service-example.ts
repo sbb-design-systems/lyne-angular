@@ -2,9 +2,8 @@ import { Component, inject, signal } from '@angular/core';
 import { SbbActionGroupModule } from '@sbb-esta/lyne-angular/action-group';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
-import { SBB_OVERLAY_DATA } from '@sbb-esta/lyne-angular/core';
 import { SbbDialogModule } from '@sbb-esta/lyne-angular/dialog';
-import { SbbOverlayRef, SbbOverlayService } from '@sbb-esta/lyne-angular/overlay';
+import { SBB_OVERLAY_DATA, SbbOverlayRef, SbbOverlayService } from '@sbb-esta/lyne-angular/overlay';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 @Component({
