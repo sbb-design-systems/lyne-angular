@@ -1,5 +1,17 @@
 # Changelog
 
+## [22.4.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.3.0...v22.4.0) (2026-08-18)
+
+
+### Features
+
+* **radio-button-group:** add compareWith function ([#559](https://github.com/sbb-design-systems/lyne-angular/issues/559)) ([8a06245](https://github.com/sbb-design-systems/lyne-angular/commit/8a062452c5c396e134c6409940985e567d86a042))
+
+
+### Documentation
+
+* **dialog:** use new data token in dimension example ([#557](https://github.com/sbb-design-systems/lyne-angular/issues/557)) ([ffc4df7](https://github.com/sbb-design-systems/lyne-angular/commit/ffc4df7577825734f9b3545e8452827bc6e4b669))
+
 ## [22.3.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.2.0...v22.3.0) (2026-08-10)
 
 
