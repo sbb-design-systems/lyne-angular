@@ -46,6 +46,6 @@ export class SelectCompareWithExample {
       ],
     }),
   );
-  protected compareWith = (v1: { id: string } | null, v2: { id: string } | null) =>
+  protected compareWith = (v1: { id: number } | null, v2: { id: number } | null) =>
     v1?.id === v2?.id;
 }
