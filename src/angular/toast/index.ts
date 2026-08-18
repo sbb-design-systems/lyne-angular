@@ -6,3 +6,5 @@ export * from './toast-container';
 export * from './toast-ref';
 export * from './toast-service';
 export * from './toast.module';
+
+export { SBB_TOAST_DATA } from '@sbb-esta/lyne-angular/core';
