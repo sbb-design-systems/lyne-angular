@@ -37,7 +37,7 @@ interface Filters {
   ],
 })
 export class DateInputShowcaseExample {
-  protected readonly filters = {
+  protected readonly filters: Filters = {
     none: () => true,
     odd: (d: Date) => d.getFullYear() % 2 === 0,
     even: (d: Date) => d.getFullYear() % 2 === 1,
