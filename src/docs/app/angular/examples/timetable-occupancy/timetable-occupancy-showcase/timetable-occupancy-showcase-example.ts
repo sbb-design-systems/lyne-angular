@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
-import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import {
   type SbbTimetableOccupancy,
@@ -14,13 +13,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 @Component({
   selector: 'sbb-timetable-occupancy-showcase-example',
   templateUrl: 'timetable-occupancy-showcase-example.html',
-  imports: [
-    FormField,
-    SbbTimetableOccupancyModule,
-    SbbTitleModule,
-    SbbCheckboxModule,
-    SbbRadioButtonModule,
-  ],
+  imports: [FormField, SbbTimetableOccupancyModule, SbbTitleModule, SbbRadioButtonModule],
 })
 export class TimetableOccupancyShowcaseExample {
   protected controls = form(
