@@ -1,9 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { disabled, form, FormField } from '@angular/forms/signals';
+import { disabled, form, FormField, maxDate, minDate } from '@angular/forms/signals';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
-import { type SbbDateInput, SbbDateInputModule } from '@sbb-esta/lyne-angular/date-input';
+import {
+  dateFilter,
+  type SbbDateInput,
+  SbbDateInputModule,
+} from '@sbb-esta/lyne-angular/date-input';
 import { type SbbDatepicker, SbbDatepickerModule } from '@sbb-esta/lyne-angular/datepicker';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
@@ -50,14 +54,21 @@ export class DatepickerShowcaseExample {
     signal({
       model: new Date('2024-12-12') as Date | null,
       disabled: false,
-      min: new Date('2024-01-01') as Date | null,
-      max: new Date('2027-01-01') as Date | null,
+      min: new Date('2024-01-01'),
+      max: new Date('2027-01-01'),
       dateFilter: 'none' as keyof Filters,
       wide: false,
       view: 'day' as SbbDatepicker['view'],
     }),
     (s) => {
       disabled(s.model, { when: ({ valueOf }) => valueOf(s.disabled) });
+      minDate(s.model, ({ valueOf }) => valueOf(s.min), {
+        when: ({ valueOf }) => !!valueOf(s.min),
+      });
+      maxDate(s.model, ({ valueOf }) => valueOf(s.max), {
+        when: ({ valueOf }) => !!valueOf(s.max),
+      });
+      dateFilter(s.model, (ctx) => this.filters[ctx.valueOf(s.dateFilter)]);
     },
   );
 }

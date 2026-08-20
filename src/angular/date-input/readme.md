@@ -33,6 +33,54 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Constraint_validation
 
 The validation state can be checked via the `validityState` property.
 
+<!-- #region override validation-end -->
+
+We have also implemented validation support for Angular Forms and Angular
+Signal Forms.
+
+With Signal Forms it is quite straightforward to configure the various
+validation options.
+
+```ts
+import { SbbDateInputModule, dateFilter } from '@sbb-esta/lyne-angular/date-input';
+
+@Component({
+  ...
+})
+export class DateInputExample {
+  protected readonly controls = form(
+    signal({
+      model: new Date('2024-12-12') as Date | null,
+      disabled: false,
+      min: new Date('2024-01-01'),
+      max: new Date('2027-01-01'),
+    }),
+    (s) => {
+      disabled(s.model, { when: ({ valueOf }) => valueOf(s.disabled) });
+      minDate(s.model, ({ valueOf }) => valueOf(s.min), {
+        when: ({ valueOf }) => !!valueOf(s.min),
+      });
+      maxDate(s.model, ({ valueOf }) => valueOf(s.max), {
+        when: ({ valueOf }) => !!valueOf(s.max),
+      });
+      // Exclude Saturday and Sunday
+      dateFilter(s.model, (_ctx) => (date: Date) => date.getDay() !== 0 && date.getDay() !== 6));
+    },
+  );
+}
+```
+
+Please note that the dateFilter validation function always requires a function that
+returns a filter function. This is due to a typing limitation.
+
+The Signal Forms integration will internally synchronize the `min`, `max`, `required`,
+`disabled`, `readOnly` and `dateFilter` properties (if defined as validations) and
+update the validity.
+
+Consult the sections below, if you want to use the classic Angular Forms.
+
+<!-- #endregion -->
+
 ### min/max
 
 It is possible to set a min and/or max date. Dates outside this range will
@@ -50,11 +98,19 @@ An attached `<sbb-datepicker>` will also respect these limits.
 You can pass a function to the `dateFilter` property, which will
 be used to validate the given date.
 
+<!-- #region override date-filter-example -->
+
 ```ts
-const input = document.querySelector('sbb-date-input');
-// Exclude Saturday and Sunday
-input.dateFilter = (d: Date): boolean => d.getDay() !== 6 && d.getDay() !== 0;
+export class DateInputExample {
+  excludeWeekend = (d: Date): boolean => d.getDay() !== 6 && d.getDay() !== 0;
+}
 ```
+
+```html
+<sbb-date-input [dateFilter]="excludeWeekend"></sbb-date-input>
+```
+
+<!-- #endregion -->
 
 An attached `<sbb-datepicker>` will also use this function to
 calculate selectable dates.
