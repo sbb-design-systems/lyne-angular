@@ -8,5 +8,6 @@
     "declarationMap": true,
     "types": []
   },
-  "exclude": ["**/*.spec.ts"]
+  "include": ["**/*.ts"],
+  "exclude": ["**/*.spec.ts", "./eslint.config.ts"]
 }

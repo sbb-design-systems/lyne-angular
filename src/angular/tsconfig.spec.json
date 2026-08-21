@@ -4,10 +4,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../out-tsc/spec",
-    "types": ["vitest/globals"],
-    "paths": {
-      "@sbb-esta/lyne-angular/*": ["./*"]
-    }
+    "types": ["vitest/globals"]
   },
   "files": ["../test-setup.ts"],
   "include": ["**/*.spec.ts", "**/*.d.ts", "../typings.d.ts"],

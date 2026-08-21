@@ -2,7 +2,7 @@ import { Component, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { form, FormField } from '@angular/forms/signals';
+import { disabled, form, FormField, readonly, required } from '@angular/forms/signals';
 import type { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.pure.js';
 
 import { SbbTimeInput } from './time-input';
@@ -11,13 +11,13 @@ describe('sbb-time-input', () => {
   describe('signal forms', () => {
     let fixture: ComponentFixture<SignalTestComponent>,
       component: SignalTestComponent,
-      lyneElement: SbbTimeInputElement;
+      element: SbbTimeInputElement;
 
     beforeEach(async () => {
       fixture = TestBed.createComponent(SignalTestComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
-      lyneElement = (fixture.nativeElement as HTMLElement).querySelector('sbb-time-input')!;
+      element = (fixture.nativeElement as HTMLElement).querySelector('sbb-time-input')!;
     });
 
     it('should create', async () => {
@@ -25,11 +25,11 @@ describe('sbb-time-input', () => {
     });
 
     it('should handle formField', async () => {
-      expect(lyneElement.textContent).toEqual('14:48');
+      expect(element.textContent).toEqual('14:48');
       const oldValue = component.control().value();
 
       component.timeInput().value = '15:20';
-      lyneElement.dispatchEvent(new Event('change'));
+      element.dispatchEvent(new Event('change'));
 
       expect(component.control().value()).not.toBe(oldValue);
     });
@@ -59,20 +59,60 @@ describe('sbb-time-input', () => {
     });
 
     it('should have correct state with user input', async () => {
-      lyneElement.dispatchEvent(new InputEvent('beforeinput'));
-      lyneElement.textContent = '12:12';
-      lyneElement.dispatchEvent(new InputEvent('input'));
+      element.dispatchEvent(new InputEvent('beforeinput'));
+      element.textContent = '12:12';
+      element.dispatchEvent(new InputEvent('input'));
 
       expect(component.control().value()).toEqual(new Date('1970-01-01T12:12:00'));
     });
 
     it('should be invalid and have errors when user types 12345', async () => {
-      lyneElement.dispatchEvent(new InputEvent('beforeinput'));
-      lyneElement.textContent = '12345';
-      lyneElement.dispatchEvent(new InputEvent('input'));
+      element.dispatchEvent(new InputEvent('beforeinput'));
+      element.textContent = '12345';
+      element.dispatchEvent(new InputEvent('input'));
 
       expect(component.control().valid()).toBe(false);
-      expect(component.control().errors()).not.toBeNull();
+      const errors = component.control().errors();
+      expect(errors).not.toBeNull();
+      expect(errors[0].kind).toEqual('sbbTimeParse');
+    });
+
+    it('should be invalid and have errors with value above 24:00', async () => {
+      element.dispatchEvent(new InputEvent('beforeinput'));
+      element.textContent = '24:01';
+      element.dispatchEvent(new InputEvent('input'));
+
+      expect(component.control().valid()).toBe(false);
+      const errors = component.control().errors();
+      expect(errors).not.toBeNull();
+      expect(errors[0].kind).toEqual('sbbTimeMax');
+    });
+
+    it('should sync disabled', async () => {
+      component.disabled.set(true);
+      await fixture.whenStable();
+      expect(element).toHaveAttribute('disabled');
+      component.disabled.set(false);
+      await fixture.whenStable();
+      expect(element).not.toHaveAttribute('disabled');
+    });
+
+    it('should sync readonly', async () => {
+      component.readonly.set(true);
+      await fixture.whenStable();
+      expect(element).toHaveAttribute('readonly');
+      component.readonly.set(false);
+      await fixture.whenStable();
+      expect(element).not.toHaveAttribute('readonly');
+    });
+
+    it('should sync required', async () => {
+      component.required.set(true);
+      await fixture.whenStable();
+      expect(element).toHaveAttribute('required');
+      component.required.set(false);
+      await fixture.whenStable();
+      expect(element).not.toHaveAttribute('required');
     });
   });
 
@@ -206,7 +246,14 @@ describe('sbb-time-input', () => {
 })
 class SignalTestComponent {
   timeInput = viewChild.required(SbbTimeInput);
-  control = form(signal<Date | null>(new Date('1970-01-01T14:48:00')));
+  disabled = signal(false);
+  readonly = signal(false);
+  required = signal(false);
+  control = form(signal<Date | null>(new Date('1970-01-01T14:48:00')), (s) => {
+    disabled(s, { when: this.disabled });
+    readonly(s, { when: this.readonly });
+    required(s, { when: this.required });
+  });
 }
 
 @Component({
