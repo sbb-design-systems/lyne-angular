@@ -1,7 +1,20 @@
-import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
+import {
+  Directive,
+  effect,
+  ElementRef,
+  forwardRef,
+  inject,
+  Injector,
+  Input,
+  NgZone,
+} from '@angular/core';
 import type { AbstractControl, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
+import {
+  syncFormAssociatedElement,
+  booleanAttribute,
+  SbbControlValueAccessorMixin,
+} from '@sbb-esta/lyne-angular/core';
 import { SbbTimeInputElement } from '@sbb-esta/lyne-elements/time-input.pure.js';
 
 /**
@@ -30,6 +43,7 @@ export class SbbTimeInput extends SbbControlValueAccessorMixin(class {}) impleme
   #element: ElementRef<SbbTimeInputElement> = inject(ElementRef<SbbTimeInputElement>);
   #ngZone: NgZone = inject(NgZone);
   #lastValue: Date | null = null;
+  #injector = inject(Injector);
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected validatorOnChange = () => {};
@@ -160,6 +174,11 @@ export class SbbTimeInput extends SbbControlValueAccessorMixin(class {}) impleme
 
   /** The combined form control validator for this input. */
   #validator: ValidatorFn | null = Validators.compose([this.#parseValidator, this.#maxValidator]);
+
+  constructor() {
+    super();
+    effect(syncFormAssociatedElement(this.#element, this.#injector));
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   override writeValue(value: any): void {

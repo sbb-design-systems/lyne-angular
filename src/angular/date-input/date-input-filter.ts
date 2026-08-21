@@ -56,7 +56,7 @@ export function dateFilter<TValue extends Date | null, TPathKind extends PathKin
 ): void {
   const FILTER_MEMO = createMetadataKey<SbbDateFilterFn | undefined>();
 
-  // Memoize the minimum valid date.
+  // Memoize the date filter function.
   metadata(path, FILTER_MEMO, (ctx) => {
     if (config?.when && !config.when(ctx)) {
       return undefined;

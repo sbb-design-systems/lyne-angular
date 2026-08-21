@@ -6,10 +6,8 @@
     "outDir": "../../out-tsc/lib",
     "declaration": true,
     "declarationMap": true,
-    "types": [],
-    "paths": {
-      "@sbb-esta/lyne-angular/*": ["./*"]
-    }
+    "types": []
   },
-  "exclude": ["**/*.spec.ts"]
+  "include": ["**/*.ts"],
+  "exclude": ["**/*.spec.ts", "./eslint.config.ts"]
 }
