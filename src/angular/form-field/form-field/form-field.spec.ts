@@ -58,6 +58,11 @@ describe('sbb-form-field', () => {
         ).getPropertyValue('--sbb-form-field-border-color'),
       ).toBe('light-dark(#c60018, #ff3838)');
     });
+
+    it('should focus input on container click', async () => {
+      component.label().nativeElement.click();
+      expect(document.activeElement).toBe(component.input().nativeElement);
+    });
   });
 
   describe('custom control', () => {
@@ -209,12 +214,15 @@ describe('sbb-form-field', () => {
 });
 
 @Component({
-  template: `<sbb-form-field><input [formControl]="control" #input /></sbb-form-field>`,
+  template: `<sbb-form-field
+    ><label #label>Label</label><input [formControl]="control" #input
+  /></sbb-form-field>`,
   imports: [SbbFormField, ReactiveFormsModule],
 })
 class TestComponent {
   control = new FormControl('', Validators.required);
-  input = viewChild<ElementRef<HTMLInputElement>>(ElementRef<HTMLInputElement>);
+  input = viewChild.required<ElementRef<HTMLInputElement>>('input');
+  label = viewChild.required<ElementRef<HTMLElement>>('label');
 }
 
 @Component({
