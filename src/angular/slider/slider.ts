@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import type { FieldState } from '@angular/forms/signals';
 import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { SbbSliderElement } from '@sbb-esta/lyne-elements/slider.pure.js';
 import { fromEvent } from 'rxjs';
@@ -47,8 +48,11 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
    * If no value is provided, default is the middle point between min and max.
    */
   @Input()
-  public set value(value: string | null) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.value = value));
+  public set value(value: string | number | null) {
+    // The value additionally has the type number for FormField compatibility.
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.value = value as string | null),
+    );
   }
   public get value(): string {
     return this.#element.nativeElement.value;
@@ -69,8 +73,12 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
    * Minimum acceptable value for the inner HTMLInputElement.
    */
   @Input()
-  public set min(value: string | undefined) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.min = value ?? ''));
+  public set min(value: string | number | undefined) {
+    // TODO(breaking-change): The value additionally has the type number for FormField compatibility.
+    // Remove type string with next breaking change.
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.min = (value as string | null) ?? ''),
+    );
   }
   public get min(): string {
     return this.#element.nativeElement.min;
@@ -80,8 +88,12 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
    * Maximum acceptable value for the inner HTMLInputElement.
    */
   @Input()
-  public set max(value: string | undefined) {
-    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.max = value ?? ''));
+  public set max(value: string | number | undefined) {
+    // TODO(breaking-change): The value additionally has the type number for FormField compatibility.
+    // Remove type string with next breaking change.
+    this.#ngZone.runOutsideAngular(
+      () => (this.#element.nativeElement.max = (value as string | null) ?? ''),
+    );
   }
   public get max(): string {
     return this.#element.nativeElement.max;
@@ -216,4 +228,18 @@ export class SbbSlider extends SbbControlValueAccessorMixin(class {}) {
     fromEvent<Event>(this.#element.nativeElement, 'didChange'),
     { alias: 'didChange' },
   );
+
+  protected override updateFormFieldElement(state: FieldState<unknown>): void {
+    const element = this.#element.nativeElement;
+    this.#assignMinMaxAttribute(element, 'min', state.min?.());
+    this.#assignMinMaxAttribute(element, 'max', state.max?.());
+  }
+
+  #assignMinMaxAttribute(element: HTMLElement, attribute: 'min' | 'max', value: unknown): void {
+    if (typeof value === 'number' || (typeof value === 'string' && value !== '')) {
+      element.setAttribute(attribute, String(value));
+    } else {
+      element.removeAttribute(attribute);
+    }
+  }
 }

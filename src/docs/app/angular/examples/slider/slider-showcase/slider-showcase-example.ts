@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { disabled, form, FormField } from '@angular/forms/signals';
+import { disabled, form, FormField, max, min, readonly } from '@angular/forms/signals';
 import { SbbCardModule } from '@sbb-esta/lyne-angular/card';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
 import { SbbFormFieldModule } from '@sbb-esta/lyne-angular/form-field';
@@ -23,15 +23,6 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   ],
 })
 export class SliderShowcaseExample {
-  protected form = form(signal({ slider: '50', inFormField: '50' }), (schemaPath) => {
-    disabled(schemaPath.slider, {
-      when: () => this.controls.disabled().value(),
-    });
-    disabled(schemaPath.inFormField, {
-      when: () => this.controls.disabled().value(),
-    });
-  });
-
   protected controls = form(
     signal({
       min: 0,
@@ -42,4 +33,22 @@ export class SliderShowcaseExample {
       endIcon: true,
     }),
   );
+  protected form = form(signal({ slider: 50, inFormField: 50 }), (schemaPath) => {
+    min(schemaPath.slider, () => this.controls.min().value());
+    min(schemaPath.inFormField, () => this.controls.min().value());
+    max(schemaPath.slider, () => this.controls.max().value());
+    max(schemaPath.inFormField, () => this.controls.max().value());
+    readonly(schemaPath.slider, {
+      when: () => this.controls.readOnly().value(),
+    });
+    readonly(schemaPath.inFormField, {
+      when: () => this.controls.readOnly().value(),
+    });
+    disabled(schemaPath.slider, {
+      when: () => this.controls.disabled().value(),
+    });
+    disabled(schemaPath.inFormField, {
+      when: () => this.controls.disabled().value(),
+    });
+  });
 }

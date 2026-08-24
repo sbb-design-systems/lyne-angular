@@ -1,20 +1,8 @@
-import {
-  Directive,
-  effect,
-  ElementRef,
-  forwardRef,
-  inject,
-  Injector,
-  Input,
-  NgZone,
-} from '@angular/core';
+import { Directive, ElementRef, forwardRef, inject, Input, NgZone } from '@angular/core';
 import type { AbstractControl, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import {
-  syncFormAssociatedElement,
-  booleanAttribute,
-  SbbControlValueAccessorMixin,
-} from '@sbb-esta/lyne-angular/core';
+import type { FieldState } from '@angular/forms/signals';
+import { booleanAttribute, SbbControlValueAccessorMixin } from '@sbb-esta/lyne-angular/core';
 import { defaultDateAdapter, readConfig } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbDateInputAssociated } from '@sbb-esta/lyne-elements/date-input.pure.js';
 import { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.pure.js';
@@ -60,8 +48,6 @@ export class SbbDateInput<T = Date>
   #ngZone: NgZone = inject(NgZone);
   #dateAdapter = readConfig().datetime?.dateAdapter ?? defaultDateAdapter;
   #lastValue: T | null = null;
-  #injector = inject(Injector);
-  #hasFormField = false;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected validatorOnChange = () => {};
@@ -260,20 +246,6 @@ export class SbbDateInput<T = Date>
     this.#filterValidator,
   ]);
 
-  constructor() {
-    super();
-    effect(
-      syncFormAssociatedElement(this.#element, this.#injector, (state) => {
-        this.#hasFormField = true;
-        const element = this.#element.nativeElement;
-        this.#assignDateAttribute(element, 'min', state.min?.());
-        this.#assignDateAttribute(element, 'max', state.max?.());
-        const dateFilter = state.metadata(SBB_DATE_FILTER)?.();
-        element.dateFilter = (dateFilter as (date: T) => boolean) ?? (() => true);
-      }),
-    );
-  }
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   override writeValue(value: any): void {
     if (
@@ -296,9 +268,7 @@ export class SbbDateInput<T = Date>
   validate(control: AbstractControl): ValidationErrors | null {
     // With FormField usage we only validate parsing, as everything
     // else should be handled via model validation configuration.
-    return this.#hasFormField
-      ? this.#parseValidator(control)
-      : (this.#validator?.(control) ?? null);
+    return this.formField ? this.#parseValidator(control) : (this.#validator?.(control) ?? null);
   }
 
   public focus(options: FocusOptions): void {
@@ -365,6 +335,14 @@ export class SbbDateInput<T = Date>
     if (!this.valueAsDate || !this.#dateAdapter.sameDate(this.valueAsDate, this.#lastValue)) {
       this.onChangeFn(this.valueAsDate);
     }
+  }
+
+  protected override updateFormFieldElement(state: FieldState<unknown>): void {
+    const element = this.#element.nativeElement;
+    this.#assignDateAttribute(element, 'min', state.min?.());
+    this.#assignDateAttribute(element, 'max', state.max?.());
+    const dateFilter = state.metadata(SBB_DATE_FILTER)?.();
+    element.dateFilter = (dateFilter as (date: T) => boolean) ?? (() => true);
   }
 
   #assignDateAttribute(element: HTMLElement, attribute: 'min' | 'max', value: unknown): void {

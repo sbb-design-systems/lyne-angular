@@ -1,8 +1,5 @@
 <sbb-slider
   [formField]="form.slider"
-  [min]="controls.min().value().toString()"
-  [max]="controls.max().value().toString()"
-  [readOnly]="controls.readOnly().value()"
   [startIcon]="controls.startIcon().value() ? 'walk-slow-small' : ''"
   [endIcon]="controls.endIcon().value() ? 'walk-fast-small' : ''"
 ></sbb-slider>
@@ -16,9 +13,6 @@
   <label>In form field</label>
   <sbb-slider
     [formField]="form.inFormField"
-    [min]="controls.min().value().toString()"
-    [max]="controls.max().value().toString()"
-    [readOnly]="controls.readOnly().value()"
     [startIcon]="controls.startIcon().value() ? 'walk-slow-small' : ''"
     [endIcon]="controls.endIcon().value() ? 'walk-fast-small' : ''"
   ></sbb-slider>
