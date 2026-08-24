@@ -1,5 +1,21 @@
 # Changelog
 
+## [22.5.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.4.0...v22.5.0) (2026-08-24)
+
+
+### Features
+
+* **date-input:** support FormField validation ([#527](https://github.com/sbb-design-systems/lyne-angular/issues/527)) ([150cdee](https://github.com/sbb-design-systems/lyne-angular/commit/150cdeebbccfdd02911fc3537541beb1de7d13e1))
+* **slider:** support FormField validation ([#571](https://github.com/sbb-design-systems/lyne-angular/issues/571)) ([cc7a1e7](https://github.com/sbb-design-systems/lyne-angular/commit/cc7a1e72aa4fa21c04110943c133cb1350939e58))
+* **time-input:** support FormField validation ([#567](https://github.com/sbb-design-systems/lyne-angular/issues/567)) ([5edf2f7](https://github.com/sbb-design-systems/lyne-angular/commit/5edf2f7e48759ce0ab85043d412ab91f9908a4b2))
+
+
+### Bug Fixes
+
+* **form-field:** preserve default behavior on container click ([#568](https://github.com/sbb-design-systems/lyne-angular/issues/568)) ([a8addf7](https://github.com/sbb-design-systems/lyne-angular/commit/a8addf7bc2d60f6abf28cdd8c5e0509b0875bc11))
+* re-export data-tokens in dedicated modules ([#563](https://github.com/sbb-design-systems/lyne-angular/issues/563)) ([bc51bd7](https://github.com/sbb-design-systems/lyne-angular/commit/bc51bd7ae9b3cfacaa5a7686845555abde29d38c))
+* **table:** fix sort header icon margin ([#566](https://github.com/sbb-design-systems/lyne-angular/issues/566)) ([5f5f566](https://github.com/sbb-design-systems/lyne-angular/commit/5f5f5665d0c144b2c08bb050fe0fc2bd27d4d25a))
+
 ## [22.4.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.3.0...v22.4.0) (2026-08-18)
 
 
