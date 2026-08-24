@@ -89,7 +89,6 @@ export class SbbFormField {
           type: type ? String(type) : undefined,
           invalid: state.invalid(),
           interacted: state.touched(),
-          onContainerClick: () => formField.focus(),
         }),
       );
     });
