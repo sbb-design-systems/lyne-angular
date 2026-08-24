@@ -1,6 +1,8 @@
-import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
+import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import { SbbChipElement } from '@sbb-esta/lyne-elements/chip.pure.js';
+import { fromEvent, NEVER } from 'rxjs';
 
 /**
  * It displays a chip. Usually used in combination with `sbb-chip-group`.
@@ -62,4 +64,15 @@ export class SbbChip<T = string> {
   public get disabled(): boolean {
     return this.#element.nativeElement.disabled;
   }
+
+  protected _deleteOutput: OutputRef<Event> = outputFromObservable<Event>(NEVER, {
+    alias: 'delete',
+  });
+
+  /**
+   * The `delete` event is emitted when a chip gets deleted by a user action (click or keyboard).
+   */
+  public deleteOutput: OutputRef<Event> = internalOutputFromObservable(
+    fromEvent<Event>(this.#element.nativeElement, 'delete'),
+  );
 }
