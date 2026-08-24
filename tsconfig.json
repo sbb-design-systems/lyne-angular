@@ -6,10 +6,16 @@
     // Due to a bug, vitest/globals are additionally also in this file than just in the spec tsconfig.
     "types": ["vitest/globals"],
     "paths": {
-      "@sbb-esta/lyne-angular": ["./dist/angular"],
-      "@sbb-esta/lyne-angular/*": ["./dist/angular/*"],
-      "@sbb-esta/lyne-angular-experimental": ["./dist/angular-experimental"],
-      "@sbb-esta/lyne-angular-experimental/*": ["./dist/angular-experimental/*"]
+      "@sbb-esta/lyne-angular": ["./dist/angular", "./src/angular"],
+      "@sbb-esta/lyne-angular/*": ["./dist/angular/*", "./src/angular/*"],
+      "@sbb-esta/lyne-angular-experimental": [
+        "./dist/angular-experimental",
+        "./src/angular-experimental"
+      ],
+      "@sbb-esta/lyne-angular-experimental/*": [
+        "./dist/angular-experimental/*",
+        "./src/angular-experimental/*"
+      ]
     },
     "outDir": "./dist/out-tsc",
     "noImplicitOverride": true,
@@ -35,6 +41,24 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./src/angular/tsconfig.lib.json"
+    },
+    {
+      "path": "./src/angular/tsconfig.spec.json"
+    },
+    {
+      "path": "./src/angular-experimental/tsconfig.lib.json"
+    },
+    {
+      "path": "./src/angular-experimental/tsconfig.spec.json"
+    },
+    {
+      "path": "./src/docs/tsconfig.json"
+    },
+    {
+      "path": "./src/docs/tsconfig.spec.json"
     }
   ]
 }

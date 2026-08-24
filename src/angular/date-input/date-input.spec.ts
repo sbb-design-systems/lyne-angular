@@ -2,7 +2,15 @@ import { Component, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { form, FormField, maxDate, minDate } from '@angular/forms/signals';
+import {
+  disabled,
+  form,
+  FormField,
+  maxDate,
+  minDate,
+  readonly,
+  required,
+} from '@angular/forms/signals';
 import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core.js';
 import type { SbbDateInputElement } from '@sbb-esta/lyne-elements/date-input.pure.js';
 
@@ -71,7 +79,7 @@ describe('sbb-date-input', () => {
       expect(component.control().value()).toEqual(new Date('2025-12-12T00:00:00'));
     });
 
-    it('should be invalid and have errors when user types 12345', () => {
+    it('should be invalid and have errors when user types bad input', () => {
       element.dispatchEvent(new InputEvent('beforeinput'));
       element.textContent = 'bad input';
       element.dispatchEvent(new InputEvent('input'));
@@ -110,6 +118,33 @@ describe('sbb-date-input', () => {
       component.dateFilter.set(() => true);
       await fixture.whenStable();
       expect(component.control().errors()).toEqual([]);
+    });
+
+    it('should sync disabled', async () => {
+      component.disabled.set(true);
+      await fixture.whenStable();
+      expect(element).toHaveAttribute('disabled');
+      component.disabled.set(false);
+      await fixture.whenStable();
+      expect(element).not.toHaveAttribute('disabled');
+    });
+
+    it('should sync readonly', async () => {
+      component.readonly.set(true);
+      await fixture.whenStable();
+      expect(element).toHaveAttribute('readonly');
+      component.readonly.set(false);
+      await fixture.whenStable();
+      expect(element).not.toHaveAttribute('readonly');
+    });
+
+    it('should sync required', async () => {
+      component.required.set(true);
+      await fixture.whenStable();
+      expect(element).toHaveAttribute('required');
+      component.required.set(false);
+      await fixture.whenStable();
+      expect(element).not.toHaveAttribute('required');
     });
   });
 
@@ -287,7 +322,13 @@ class SignalTestComponent {
   minDate = signal<Date | undefined>(undefined);
   maxDate = signal<Date | undefined>(undefined);
   dateFilter = signal<(date: Date) => boolean>(() => true);
+  disabled = signal(false);
+  readonly = signal(false);
+  required = signal(false);
   control = form(signal<Date | null>(new Date('2025-04-30')), (s) => {
+    disabled(s, { when: this.disabled });
+    readonly(s, { when: this.readonly });
+    required(s, { when: this.required });
     minDate(s, this.minDate);
     maxDate(s, this.maxDate);
     dateFilter(s, this.dateFilter);

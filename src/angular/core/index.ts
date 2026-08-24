@@ -3,7 +3,7 @@ export * from './datetime/provide-native-date-adapter';
 export * from './datetime/provide-temporal-date-adapter';
 export * from './deferred-animation';
 export * from './forms/control-value-accessor-mixin';
-export * from './forms/lazy-form-field';
+export * from './forms/sync-form-associated-element';
 export * from './internal-output-from-observable';
 export * from './overlay/focus-initial';
 export * from './overlay/overlay-base';
