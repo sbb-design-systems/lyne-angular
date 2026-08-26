@@ -1,2 +1,2 @@
 #!/bin/sh
-ngssc insert --nginx
+ngssc insert --nginx --nonce=CSP_NONCE
