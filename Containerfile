@@ -26,6 +26,6 @@ RUN find /usr/share/nginx/html -name "index.html" -exec chmod a+w {} \; && \
     nginx -t
 
 # Download ngssc binary
-ADD --chmod=555 https://bin.sbb.ch/artifactory/angular-server-side-configuration/download/v22.0.2/ngssc_amd64 /usr/sbin/ngssc
+ADD --chmod=555 https://github.com/kyubisation/angular-server-side-configuration/releases/download/v22.0.2/ngssc_amd64 /usr/sbin/ngssc
 
 USER $UID
