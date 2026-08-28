@@ -122,7 +122,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'map-container': [{ id: 'map-container-basic', hasStyle: true }],
   menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
   message: [{ id: 'message-basic', hasStyle: true }],
-  'mini-calendar': ['mini-calendar-showcase', 'mini-calendar-with-tooltip'],
+  'mini-calendar': [
+    'mini-calendar-showcase',
+    'mini-calendar-with-data-source',
+    'mini-calendar-with-tooltip',
+    'mini-calendar-with-tooltip-and-data-source',
+  ],
   navigation: ['navigation-basic', 'navigation-section'],
   notification: ['notification-showcase', 'notification-static'],
   option: ['option-showcase'],
@@ -397,7 +402,9 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'message-basic':
       return import('../angular/examples/message');
     case 'mini-calendar-showcase':
+    case 'mini-calendar-with-data-source':
     case 'mini-calendar-with-tooltip':
+    case 'mini-calendar-with-tooltip-and-data-source':
       return import('../angular/examples/mini-calendar');
     case 'navigation-basic':
     case 'navigation-section':
