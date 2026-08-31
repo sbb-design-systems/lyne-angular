@@ -1,12 +1,67 @@
 # Mini Calendar
 
-The `<sbb-mini-calendar>` is a component used to display a minimal calendar.
+The `<sbb-mini-calendar>`, together with `<sbb-mini-calendar-month>` and `<sbb-mini-calendar-day>`,
+are components used to display a minimal calendar.
 
-It must be used in combination with one or more `<sbb-mini-calendar-month>`,
-each one slotting the required `<sbb-mini-calendar-day>`.
+<!-- #region override intro-start -->
+
+For convenience the `SbbMiniCalendarDataSource<T>` can be used to configure
+the mini calendar. It enables a configuration of the range, an optional creation
+function and a click handler for a day.
+
+```html
+<sbb-mini-calendar [dataSource]="dataSource"></sbb-mini-calendar>
+```
+
+```ts
+@Component({
+  ...
+})
+export class Example {
+  protected dataSource = new SbbMiniCalendarDataSource({
+    from: '2024-01',
+    to: '2024-12',
+    create: (date) => {
+      const day = date.getDate();
+      const marker = day % 5 === 0 ? 'target' : null;
+      const color = day % 3 === 0 ? 'orange' : null;
+      return { date: this._dateAdapter.toIso8601(date), marker, color };
+    },
+    click: (day) => {
+      ...
+    }
+  });
+}
+```
+
+Using the `dataSource` input will automatically render both months and days
+with a default assignment.
+If you need more flexibility in configuring the day, you can use the
+`SbbMiniCalendarDayTemplate` structural directive (`*sbbMiniCalendarDay`) to
+template the `<sbb-mini-calendar-day>`. This allows more flexible usage, at
+the cost of manually assigning properties.
+
+```html
+<sbb-mini-calendar [dataSource]="dataSource">
+  <sbb-mini-calendar-day
+    *sbbMiniCalendarDay="let day"
+    [date]="day().date"
+    [value]="day().value ?? ''"
+    [marker]="day().marker ?? ''"
+    [color]="day().color ?? ''"
+    (click)="handleClick(day)"
+    [sbb-tooltip]="day().date"
+    [sbb-tooltip-open-delay]="200"
+  >
+  </sbb-mini-calendar-day>
+</sbb-mini-calendar>
+```
+
+If you want to manually render months and days, you need to consider the following:
+
+<!-- #endregion -->
 
 The `<sbb-mini-calendar-month>` requires usage of the `date` property/attribute in ISO string format (YYYY-MM).
-
 The `<sbb-mini-calendar-day>` requires usage of the `date` property/attribute in ISO string format (YYYY-MM-DD).
 
 ```html
@@ -30,16 +85,11 @@ It's also possible to display a tooltip on hover using the `sbb-tooltip` attribu
 For better usability, it's suggested to set the `sbb-tooltip-open-delay` attribute too.
 
 ```html
-<sbb-mini-calendar>
-  <sbb-mini-calendar-month date="2025-01">
-    <sbb-mini-calendar-day
-      date="2025-01-01"
-      sbb-tooltip="01.01.2025"
-      sbb-tooltip-open-delay="200"
-    ></sbb-mini-calendar-day>
-    ...
-  </sbb-mini-calendar-month>
-</sbb-mini-calendar>
+<sbb-mini-calendar-day
+  date="2025-01-01"
+  sbb-tooltip="01.01.2025"
+  sbb-tooltip-open-delay="200"
+></sbb-mini-calendar-day>
 ```
 
 ## Style
@@ -59,16 +109,17 @@ The `<sbb-mini-calendar-day>` component has a `color` property, which is used to
 Default colors are provided for `charcoal`, `cloud`, `orange`, `red` and `sky` values;
 moreover, consumers can write their own CSS rules for custom values.
 
+```css
+sbb-mini-calendar-day[color='my-custom-color'] {
+  color: lightskyblue;
+}
+```
+
 ```html
 <!-- default style -->
 <sbb-mini-calendar-day date="2025-01-01" color="orange"></sbb-mini-calendar-day>
 
 <!-- custom value -->
-<style>
-  sbb-mini-calendar-day[color='my-custom-color'] {
-    color: lightskyblue;
-  }
-</style>
 <sbb-mini-calendar-day date="2025-01-01" color="my-custom-color"></sbb-mini-calendar-day>
 ```
 

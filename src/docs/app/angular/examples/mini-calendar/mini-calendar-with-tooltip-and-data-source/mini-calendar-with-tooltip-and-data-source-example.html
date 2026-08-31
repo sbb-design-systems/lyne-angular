@@ -1,0 +1,17 @@
+<sbb-mini-calendar [dataSource]="dataSource">
+  <sbb-mini-calendar-day
+    *sbbMiniCalendarDay="let day"
+    [date]="day().date"
+    [value]="day().value ?? ''"
+    [marker]="day().marker ?? ''"
+    [color]="day().color ?? ''"
+    (click)="handleClick(day)"
+    [sbb-tooltip]="day().date"
+    [sbb-tooltip-open-delay]="200"
+  >
+  </sbb-mini-calendar-day>
+</sbb-mini-calendar>
+
+@if (selectedDay() !== null) {
+  <p>Selected day: {{ selectedDay() | json }}</p>
+}

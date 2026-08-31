@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { SbbMiniCalendar } from './mini-calendar/mini-calendar';
+import { SbbMiniCalendarDayTemplate } from './mini-calendar/mini-calendar-day-template';
 import { SbbMiniCalendarDay } from './mini-calendar-day/mini-calendar-day';
 import { SbbMiniCalendarMonth } from './mini-calendar-month/mini-calendar-month';
 
@@ -8,6 +9,7 @@ const SBB_MINI_CALENDAR_EXPORTED_DECLARATIONS = [
   SbbMiniCalendar,
   SbbMiniCalendarMonth,
   SbbMiniCalendarDay,
+  SbbMiniCalendarDayTemplate,
 ];
 @NgModule({
   imports: SBB_MINI_CALENDAR_EXPORTED_DECLARATIONS,
