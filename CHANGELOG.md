@@ -1,5 +1,12 @@
 # Changelog
 
+## [22.6.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.5.0...v22.6.0) (2026-08-31)
+
+
+### Features
+
+* **mini-calendar:** implement `SbbMiniCalendarDataSource` usage ([#578](https://github.com/sbb-design-systems/lyne-angular/issues/578)) ([a202ed8](https://github.com/sbb-design-systems/lyne-angular/commit/a202ed8cf93037d5ce0ce1cb22d62861bb9b571a))
+
 ## [22.5.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.4.0...v22.5.0) (2026-08-24)
 
 
