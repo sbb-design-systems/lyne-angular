@@ -47,7 +47,7 @@
       </sbb-secondary-button>
     }
 
-    <sbb-toggle-check #codeToggle (change)="showSource.set(codeToggle.checked)">
+    <sbb-toggle-check #codeToggle="sbbToggleCheck" (change)="showSource.set(codeToggle.checked)">
       View code
     </sbb-toggle-check>
   </div>
