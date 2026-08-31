@@ -10,12 +10,42 @@ if (!packageName) {
   throw new Error('Expected this script to be called via yarn script!');
 }
 
-const packageJsonPath = join(distDir, packageName, 'package.json');
+const packagePath = join(distDir, packageName);
+const packageJsonPath = join(packagePath, 'package.json');
 if (!existsSync(packageJsonPath)) {
   throw new Error(
     `${relative(fileURLToPath(import.meta.resolve('../')), packageJsonPath)} does not exist!`,
   );
 }
+
+// Patch Types
+
+// The Angular CLI does not preserve type imports, that would include the global
+// tag name declaration. Due to this, we add a side effect import to the .d.ts files.
+
+interface PackageJson {
+  exports?: Record<string, string | Record<string, string>>;
+}
+
+const pkg: PackageJson = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
+for (const [key, value] of Object.entries(pkg.exports ?? {})) {
+  if (key === '.' || typeof value !== 'object' || !('types' in value)) {
+    continue;
+  }
+  const moduleName = key.replace(/^\.\//, '');
+  const typesPath = join(packagePath, value['types']);
+  const moduleImport = `@sbb-esta/lyne-elements/${moduleName}.pure.js`;
+  if (!existsSync(join(projectRoot, 'node_modules', moduleImport))) {
+    continue;
+  }
+  const sideEffectImport = `import '${moduleImport}';\n`;
+  const typesContent = readFileSync(typesPath, 'utf8');
+  if (!typesContent.includes(sideEffectImport)) {
+    writeFileSync(typesPath, sideEffectImport + typesContent, 'utf8');
+  }
+}
+
+// Patch Version
 
 const { version, dependencies } = JSON.parse(
   readFileSync(join(projectRoot, 'package.json'), 'utf8'),
