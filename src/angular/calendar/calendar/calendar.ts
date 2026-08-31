@@ -164,8 +164,22 @@ export class SbbCalendar<T = Date> extends SbbControlValueAccessorMixin(class {}
   }
 
   /**
+   * Set this with the format `YYYY-MM` to have the calendar show this month.
+   * This will not update when a user changes the month, and will not prevent navigation to other months.
+   * Changing this property will reset the calendar view to the given month.
+   */
+  @Input()
+  public set activeMonth(value: string) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.activeMonth = value));
+  }
+  public get activeMonth(): string {
+    return this.#element.nativeElement.activeMonth;
+  }
+
+  /**
    * Set this with the format `YYYY-MM` to limit the calendar to a specific month,
    * and prevent navigation to other months.
+   * This will override any other month selection.
    */
   @Input()
   public set fixedMonth(value: string) {
