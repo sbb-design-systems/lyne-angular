@@ -67,6 +67,10 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
             label: 'Icon Overview',
             link: 'guides/icon-overview',
           },
+          {
+            label: 'I18n',
+            link: 'guides/i18n',
+          },
         ],
       },
       {
