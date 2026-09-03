@@ -2015,10 +2015,10 @@
     "@napi-rs/lzma-linux-x64-gnu" "1.5.1"
     fsevents "~2.3.2"
 
-"@sbb-esta/lyne-design-tokens@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-2.1.0.tgz#ad70da233af18a21a306956fbfa7aa9d77b37950"
-  integrity sha512-l1In9Sq/jf5Smsphr4LtYndGtpi3VJjrVA2qpnBLVNZyh6Tyg/2Uzj8XZ71WAje8NSw1J4rlyJ3yF2JHZuIH5w==
+"@sbb-esta/lyne-design-tokens@2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-design-tokens/-/lyne-design-tokens-2.1.3.tgz#a62c4b47ca02928407da18dda5c2d905d0c32b57"
+  integrity sha512-ZkLBJqaE/IYkND7whCZKajnuI8V9R1c/y1rRIaAeRsK4ZlEoL3csmiDUumAXZ9XartRmluRKUhKdzj18Yg0V5Q==
 
 "@sbb-esta/lyne-elements-experimental@npm:@sbb-esta/lyne-elements-experimental-dev@v5-dev":
   version "5.7.0-dev.1788189212"
