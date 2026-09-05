@@ -79,7 +79,7 @@
     "highlight.js": "11.12.0",
     "husky": "9.1.7",
     "jiti": "2.7.0",
-    "lint-staged": "17.4.1",
+    "lint-staged": "17.5.0",
     "marked": "18.0.11",
     "marked-highlight": "2.2.4",
     "ng-packagr": "22.1.1",
