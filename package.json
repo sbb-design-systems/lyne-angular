@@ -84,7 +84,7 @@
     "marked-highlight": "2.2.4",
     "ng-packagr": "22.1.1",
     "npm-run-all2": "9.0.3",
-    "playwright": "1.62.1",
+    "playwright": "1.63.0",
     "prettier": "3.9.6",
     "tsx": "4.23.13",
     "typescript": "6.0.3",
