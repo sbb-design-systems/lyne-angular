@@ -79,6 +79,10 @@ if neither the trigger element nor the popover are on hover or if another action
 
 The `<sbb-popover>` automatically calculates where it should place itself, based on available space. Default is below and center.
 
+The component has a negative variant which can be set using the `negative` property.
+The `<sbb-popover-close-button>` component, if present, is automatically rendered in the `negative` variant,
+while consumers need to set it manually on other components, or adjust styling accordingly.
+
 ## Accessibility
 
 As the popover opens, the focus will automatically be set to the first focusable item within the component.

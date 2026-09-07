@@ -1,4 +1,8 @@
-<sbb-teaser href="https://www.sbb.ch" [alignment]="controls.alignment().value()">
+<sbb-teaser
+  href="https://www.sbb.ch"
+  [alignment]="controls.alignment().value()"
+  [size]="controls.size().value()"
+>
   <sbb-image
     slot="image"
     imageSrc="https://cdn.img.sbb.ch/content/dam/internet/externe-assets/lyne/Billetkontrolle.jpg"
@@ -20,9 +24,17 @@
 <div class="sbb-controls-table">
   <label>Alignment</label>
   <sbb-radio-button-group aria-label="Alignment" [formField]="controls.alignment">
+    <sbb-radio-button value="before">before</sbb-radio-button>
+    <sbb-radio-button value="before-centered">before-centered</sbb-radio-button>
     <sbb-radio-button value="after">after</sbb-radio-button>
     <sbb-radio-button value="after-centered">after-centered</sbb-radio-button>
     <sbb-radio-button value="below">below</sbb-radio-button>
+  </sbb-radio-button-group>
+
+  <label>Size</label>
+  <sbb-radio-button-group aria-label="Size" [formField]="controls.size">
+    <sbb-radio-button value="m">m</sbb-radio-button>
+    <sbb-radio-button value="l">l</sbb-radio-button>
   </sbb-radio-button-group>
 
   <label for="with-chip">With chip</label>

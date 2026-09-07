@@ -209,6 +209,8 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'teaser-showcase',
     { id: 'teaser-list', hasStyle: true },
     { id: 'teaser-grid', hasStyle: true },
+    'teaser-with-button',
+    'teaser-static',
   ],
   'teaser-hero': ['teaser-hero-basic', 'teaser-hero-with-chip', 'teaser-hero-chip-only'],
   'teaser-panel': ['teaser-panel-basic'],
@@ -496,6 +498,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'teaser-grid':
     case 'teaser-list':
     case 'teaser-showcase':
+    case 'teaser-static':
+    case 'teaser-with-button':
       return import('../angular/examples/teaser');
     case 'teaser-hero-basic':
     case 'teaser-hero-chip-only':
