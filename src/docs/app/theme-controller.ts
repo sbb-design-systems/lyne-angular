@@ -11,6 +11,12 @@ import type { Observable } from 'rxjs';
 
 const themeLocalstorageKey = 'sbbTheme';
 
+// We use the Inter font for off-brand themes
+const interFontElement = document.createElement('link');
+interFontElement.href =
+  'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap';
+interFontElement.rel = 'stylesheet';
+
 type SbbTheme =
   'standard' | 'standard-off-brand' | 'standard-safety' | 'lean' | 'lean-off-brand' | 'lean-safety';
 
@@ -46,10 +52,21 @@ export class ThemeController implements CanActivate {
       this.#document.head
         .querySelector('#theme-experimental')
         ?.setAttribute('href', `assets/themes/angular-experimental/${fileName}`);
+
       localStorage.setItem(
         themeLocalstorageKey,
         untracked(() => this.#theme()),
       );
+    });
+
+    effect(() => {
+      const brand = this.brand();
+
+      if (brand === 'off-brand' && !interFontElement.isConnected) {
+        this.#document.head.appendChild(interFontElement);
+      } else {
+        interFontElement.remove();
+      }
     });
   }
 
