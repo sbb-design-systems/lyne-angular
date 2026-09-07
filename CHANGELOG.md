@@ -1,5 +1,13 @@
 # Changelog
 
+## [22.6.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.6.0...v22.6.1) (2026-09-07)
+
+
+### Documentation
+
+* add i18n guide ([#582](https://github.com/sbb-design-systems/lyne-angular/issues/582)) ([af3b68b](https://github.com/sbb-design-systems/lyne-angular/commit/af3b68bdc448e811860afdd3bf1cc48645d9c450))
+* use Inter Font for off-brand theme ([#592](https://github.com/sbb-design-systems/lyne-angular/issues/592)) ([8593ad6](https://github.com/sbb-design-systems/lyne-angular/commit/8593ad6f7b0c2b2fb2d7dc8e8f0ee18a344881c7))
+
 ## [22.6.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.5.0...v22.6.0) (2026-08-31)
 
 
