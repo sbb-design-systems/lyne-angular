@@ -5,6 +5,7 @@
   [hoverTrigger]="controls.hoverTrigger().value()"
   [openDelay]="controls.openDelay().value()"
   [closeDelay]="controls.closeDelay().value()"
+  [negative]="controls.negative().value()"
 >
   @if (controls.showCloseButton().value()) {
     <sbb-popover-close-button></sbb-popover-close-button>
@@ -31,4 +32,7 @@
   <sbb-form-field size="s">
     <input id="close-delay" type="number" [formField]="controls.closeDelay" />
   </sbb-form-field>
+
+  <label for="negative">Negative</label>
+  <sbb-checkbox id="negative" [formField]="controls.negative"></sbb-checkbox>
 </div>

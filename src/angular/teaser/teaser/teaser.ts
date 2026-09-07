@@ -5,8 +5,9 @@ import { SbbTeaserElement } from '@sbb-esta/lyne-elements/teaser.pure.js';
 /**
  * It displays an interactive image with caption.
  *
- * @slot image - Slot used to render the image.
+ * @slot action - Slot for a static action, e.g. a `<sbb-secondary-button-static>` element. The action is displayed below the description.
  * @slot chip - Slot for the `sbb-chip-label` element. The slot on the `sbb-chip-label` element is automatically assigned when slotted in the unnamed slot.
+ * @slot image - Slot used to render the image.
  * @slot title - Slot for the title. For the standard `sbb-title` element, the slot is automatically assigned when slotted in the unnamed slot.
  * @slot  - Use the unnamed slot to render the description, the sbb-title and the sbb-chip-label.
  */
@@ -26,11 +27,22 @@ export class SbbTeaser {
    * Teaser variant - define the position and the alignment of the text block.
    */
   @Input()
-  public set alignment(value: 'after-centered' | 'after' | 'below') {
+  public set alignment(value: 'before' | 'before-centered' | 'after' | 'after-centered' | 'below') {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.alignment = value));
   }
-  public get alignment(): 'after-centered' | 'after' | 'below' {
+  public get alignment(): 'before' | 'before-centered' | 'after' | 'after-centered' | 'below' {
     return this.#element.nativeElement.alignment;
+  }
+
+  /**
+   * Size variant, either m (default) or l.
+   */
+  @Input()
+  public set size(value: 'm' | 'l' | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.size = value));
+  }
+  public get size(): 'm' | 'l' | null {
+    return this.#element.nativeElement.size;
   }
 
   /**

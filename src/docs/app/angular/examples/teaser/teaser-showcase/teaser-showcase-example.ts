@@ -35,6 +35,7 @@ export class TeaserShowcaseExample {
   protected readonly controls = form(
     signal({
       alignment: 'after' as SbbTeaser['alignment'],
+      size: 'm' as SbbTeaser['size'],
       withChip: false,
       longText: false,
     }),

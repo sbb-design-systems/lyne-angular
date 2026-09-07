@@ -84,6 +84,17 @@ export class SbbPopover {
   }
 
   /**
+   * Negative coloring variant flag.
+   */
+  @Input({ transform: booleanAttribute })
+  public set negative(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.negative = value));
+  }
+  public get negative(): boolean {
+    return this.#element.nativeElement.negative;
+  }
+
+  /**
    * Whether the element is open.
    */
   public get isOpen(): boolean {

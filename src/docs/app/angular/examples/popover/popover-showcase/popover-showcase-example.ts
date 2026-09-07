@@ -32,6 +32,7 @@ export class PopoverShowcaseExample {
       showCloseButton: true,
       openDelay: 0,
       closeDelay: 0,
+      negative: false,
     }),
     (schemaPath) => {
       disabled(schemaPath.openDelay, {
