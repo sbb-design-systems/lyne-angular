@@ -3,6 +3,7 @@
   [color]="controls.color().value()"
   [label]="controls.label().value()"
   [iconName]="controls.iconName().value()"
+  [download]="controls.download().value()"
 >
   <sbb-download-info changed="2026-12-24" size="4096"></sbb-download-info>
 </sbb-download>
@@ -31,4 +32,6 @@
   <sbb-form-field>
     <input id="label" [formField]="controls.label" />
   </sbb-form-field>
+  <label for="download">Download (flag of anchor element)</label>
+  <sbb-checkbox id="download" [formField]="controls.download"></sbb-checkbox>
 </div>
