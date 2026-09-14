@@ -33,6 +33,7 @@ export class DownloadShowcaseExample {
       color: 'white' as SbbDownload['color'],
       label: '',
       iconName: '',
+      download: false,
     }),
   );
 }

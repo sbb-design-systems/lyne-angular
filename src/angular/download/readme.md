@@ -1,8 +1,7 @@
 # Download
 
 The `<sbb-download>` is a component that displays a downloadable document, styled as a
-[sbb-card](/angular/components/card/overview). The whole area is rendered as a link with the download
-behavior always enabled, so activating it triggers the browser download dialog.
+[sbb-card](/angular/components/card/overview). The whole area is rendered as a link.
 
 ```html
 <sbb-download href="annual-report.pdf">
@@ -13,11 +12,35 @@ behavior always enabled, so activating it triggers the browser download dialog.
 The `label` shown as the title defaults to the file name extracted from the `href`,
 but can be set explicitly.
 
-It's possible to set the link related properties `href`, `rel` and `target`.
-
 ```html
 <sbb-download href="files/2026/annual-report.pdf" label="Annual report"></sbb-download>
 ```
+
+## Download vs. inline
+
+Whether the referenced document is downloaded or shown inline in the browser is up to the consumer:
+
+- With the `download` attribute, activating the component triggers the browser download.
+- Without it, the document is opened inline. In this case the link opens in a new browser tab
+  (`target="_blank"`) by default and an "opens in new window" hint is provided to assistive
+  technology. An explicitly set `target` takes precedence; an empty `target` attribute
+  opts out of the new tab behavior without specifying a target.
+
+```html
+<!-- Triggers the browser download -->
+<sbb-download href="annual-report.pdf" download></sbb-download>
+
+<!-- Opens the document inline in a new tab -->
+<sbb-download href="annual-report.pdf"></sbb-download>
+
+<!-- Opens the document inline in the same tab -->
+<sbb-download href="annual-report.pdf" target="_self"></sbb-download>
+
+<!-- Opens the document inline without a target -->
+<sbb-download href="annual-report.pdf" target=""></sbb-download>
+```
+
+It's possible to set the other link related properties `rel` and `target` as well.
 
 ## Icon
 

@@ -4,8 +4,11 @@ import { SbbDownloadElement } from '@sbb-esta/lyne-elements/download.pure.js';
 
 /**
  * It displays a downloadable document, styled as a card.
- * Inherits link properties from `SbbLinkBaseElement`: `href`, `target`, `rel`
- * and `accessibilityLabel`. The download behavior is always enabled.
+ *
+ * Inherits link properties from `SbbLinkBaseElement`: `href`, `target`, `rel`,
+ * `download` and `accessibilityLabel`. Without the `download` attribute the
+ * referenced document is opened inline in a new browser tab, unless a `target`
+ * is explicitly set.
  *
  * @slot  - Use the unnamed slot to add custom content. Optional.
  * @slot info - Slot used to render a `sbb-download-info`. A `sbb-download-info` placed in the unnamed slot is automatically moved to this slot. Optional.
@@ -46,8 +49,7 @@ export class SbbDownload {
   }
 
   /**
-   * The download behavior is always enabled and handled internally, therefore
-   * this property cannot be disabled and is not reflected to the host element.
+   * Whether the browser will show the download dialog on click.
    */
   @Input({ transform: booleanAttribute })
   public set download(value: boolean) {
