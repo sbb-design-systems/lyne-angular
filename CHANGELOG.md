@@ -1,5 +1,12 @@
 # Changelog
 
+## [22.7.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.6.1...v22.7.0) (2026-09-15)
+
+
+### Features
+
+* **logo:** add SBB Cargo and Elvetino logos ([#598](https://github.com/sbb-design-systems/lyne-angular/issues/598)) ([ed759d6](https://github.com/sbb-design-systems/lyne-angular/commit/ed759d6eb44ac5b0e643e9655aacd00beab35a87))
+
 ## [22.6.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.6.0...v22.6.1) (2026-09-07)
 
 
