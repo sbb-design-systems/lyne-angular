@@ -1,26 +1,26 @@
 import { Component, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
 import { SbbCheckboxModule } from '@sbb-esta/lyne-angular/checkbox';
-import { type SbbLogo, SbbLogoModule } from '@sbb-esta/lyne-angular/logo';
+import { type SbbLogoCargo, SbbLogoModule } from '@sbb-esta/lyne-angular/logo';
 import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
- * @title <sbb-logo> with configurable properties
+ * @title <sbb-logo-cargo> with configurable properties
  *
- * @order 1
+ * @order 2
  */
 @Component({
-  selector: 'sbb-logo-showcase-example',
-  templateUrl: 'logo-showcase-example.html',
-  styleUrl: 'logo-showcase-example.scss',
+  selector: 'sbb-logo-cargo-showcase-example',
+  templateUrl: 'logo-cargo-showcase-example.html',
+  styleUrl: 'logo-cargo-showcase-example.scss',
   imports: [FormField, SbbCheckboxModule, SbbLogoModule, SbbRadioButtonModule, SbbTitleModule],
 })
-export class LogoShowcaseExample {
+export class LogoCargoShowcaseExample {
   protected controls = form(
     signal({
       negative: false,
-      protectiveRoom: 'ideal' as SbbLogo['protectiveRoom'],
+      protectiveRoom: 'ideal' as SbbLogoCargo['protectiveRoom'],
     }),
   );
 }
