@@ -62,7 +62,7 @@ export class MiniCalendarShowcaseExample {
         return {
           date,
           marker: this._calculateMarker(date),
-          color: this._calculateColor(m, d + 1),
+          color: this._calculateColor(date),
         };
       });
     });
@@ -72,10 +72,12 @@ export class MiniCalendarShowcaseExample {
     return defaultDateAdapter.getDayOfWeek(date) % 6 === 0 ? 'circle' : '';
   }
 
-  private _calculateColor(month: number, day: number): string {
+  private _calculateColor(date: Date): string {
+    const month = date.getMonth();
     if (month < 2 || month > 6) {
       return '';
     }
+    const day = date.getDate();
     if (month === 5 && day > 14 && day < 29) {
       return 'sky';
     }
