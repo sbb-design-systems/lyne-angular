@@ -1,17 +1,15 @@
 <sbb-mini-calendar [orientation]="controls.miniCalendar.orientation().value()">
   @for (month of months(); track $index; let mIndex = $index) {
-    <sbb-mini-calendar-month [date]="(month[0] | date: 'yyyy-MM') ?? '2025-01'">
-      @for (day of month; track $index; let dIndex = $index) {
+    <sbb-mini-calendar-month [date]="(month[0].date | date: 'yyyy-MM') ?? '2025-01'">
+      @for (day of month; track $index) {
         <sbb-mini-calendar-day
-          [date]="(day | date: 'yyyy-MM-dd')!"
-          [marker]="
-            day.getDay() === 0 || day.getDay() === 6 ? 'circle' : controls.day.marker().value()!
-          "
+          [date]="(day.date | date: 'yyyy-MM-dd')!"
+          [marker]="controls.day.marker().value()! ?? day.marker"
+          [color]="controls.day.color().value()! ?? day.color"
           [sbb-tooltip]="
-            controls.miniCalendar.withTooltip().value() ? (day | date: 'dd.MM.yyyy') : null
+            controls.miniCalendar.withTooltip().value() ? (day.date | date: 'dd.MM.yyyy') : null
           "
           [sbb-tooltip-open-delay]="controls.miniCalendar.withTooltip().value() ? '200' : null"
-          [color]="controls.day.color().value()!"
         >
         </sbb-mini-calendar-day>
       }

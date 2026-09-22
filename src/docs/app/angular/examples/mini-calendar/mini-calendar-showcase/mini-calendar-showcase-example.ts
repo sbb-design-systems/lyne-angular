@@ -12,6 +12,7 @@ import { SbbRadioButtonModule } from '@sbb-esta/lyne-angular/radio-button';
 import { SbbSelectModule } from '@sbb-esta/lyne-angular/select';
 import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 import { SbbTooltipModule } from '@sbb-esta/lyne-angular/tooltip';
+import { defaultDateAdapter } from '@sbb-esta/lyne-elements/core.js';
 
 /**
  * @title Mini-calendar showcase
@@ -56,7 +57,30 @@ export class MiniCalendarShowcaseExample {
     const offset = this.controls.miniCalendar.offset().value();
     return Array.from({ length: 13 }, (_, m) => {
       const daysInMonth = new Date(year, m + offset + 1, 0).getDate();
-      return Array.from({ length: daysInMonth }, (_, d) => new Date(year, m + offset, d + 1));
+      return Array.from({ length: daysInMonth }, (_, d) => {
+        const date = new Date(year, m + offset, d + 1);
+        return {
+          date,
+          marker: this._calculateMarker(date),
+          color: this._calculateColor(date),
+        };
+      });
     });
   });
+
+  private _calculateMarker(date: Date): string {
+    return defaultDateAdapter.getDayOfWeek(date) % 6 === 0 ? 'circle' : '';
+  }
+
+  private _calculateColor(date: Date): string {
+    const month = date.getMonth();
+    if (month < 2 || month > 6) {
+      return '';
+    }
+    const day = date.getDate();
+    if (month === 5 && day > 14 && day < 29) {
+      return 'sky';
+    }
+    return 'charcoal';
+  }
 }
