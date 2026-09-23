@@ -2,3 +2,4 @@ export { AutocompleteBasicExample } from './autocomplete-basic/autocomplete-basi
 export { AutocompleteComplexValueExample } from './autocomplete-complex-value/autocomplete-complex-value-example';
 export { AutocompleteHintOptgroupExample } from './autocomplete-hint-optgroup/autocomplete-hint-optgroup-example';
 export { AutocompleteShowcaseExample } from './autocomplete-showcase/autocomplete-showcase-example';
+export { AutocompleteWithActionsExample } from './autocomplete-with-actions/autocomplete-with-actions-example';

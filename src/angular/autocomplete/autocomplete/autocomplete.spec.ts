@@ -1,12 +1,13 @@
 import { Component, input, viewChild, viewChildren } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SbbFormField } from '@sbb-esta/lyne-angular/form-field';
-import { SbbOption } from '@sbb-esta/lyne-angular/option';
+import { SbbFormField } from '@sbb-esta/lyne-angular/types/sbb-esta-lyne-angular-form-field';
+import { SbbOption } from '@sbb-esta/lyne-angular/types/sbb-esta-lyne-angular-option';
+
+import { SbbAutocompleteModule } from '../autocomplete.module';
 
 import { SbbAutocomplete } from './autocomplete';
 import { SbbAutocompleteTrigger } from './autocomplete-trigger';
-import { SbbAutocompleteModule } from './autocomplete.module';
 
 describe('sbb-autocomplete', () => {
   describe('with string value', () => {
