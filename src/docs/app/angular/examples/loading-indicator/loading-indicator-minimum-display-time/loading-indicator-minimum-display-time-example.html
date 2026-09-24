@@ -1,0 +1,11 @@
+<sbb-button (click)="loadData()">Load data </sbb-button>
+
+@if (loading()) {
+  <sbb-loading-indicator></sbb-loading-indicator>
+}
+
+<p>
+  Here's an example of how to implement a minimum display time for the loading indicator. <br />
+  It will be displayed for at least 500 milliseconds, even if the API call completes faster than
+  that.
+</p>
