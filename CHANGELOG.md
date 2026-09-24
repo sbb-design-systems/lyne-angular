@@ -1,5 +1,12 @@
 # Changelog
 
+## [22.7.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.7.0...v22.7.1) (2026-09-24)
+
+
+### Documentation
+
+* **loading-indicator:** add 'minimumDisplayTime' examples ([#601](https://github.com/sbb-design-systems/lyne-angular/issues/601)) ([d934825](https://github.com/sbb-design-systems/lyne-angular/commit/d934825dcc2a33cb38e679a3a3d2c086a14c2175))
+
 ## [22.7.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.6.1...v22.7.0) (2026-09-15)
 
 
