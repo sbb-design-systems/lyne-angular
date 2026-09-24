@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 
 import { SbbLogo } from './logo/logo';
+import { SbbLogoAnniversary } from './logo-anniversary/logo-anniversary';
 import { SbbLogoCargo } from './logo-cargo/logo-cargo';
 import { SbbLogoCargoInternational } from './logo-cargo-international/logo-cargo-international';
 import { SbbLogoElvetino } from './logo-elvetino/logo-elvetino';
 
 const SBB_LOGO_EXPORTED_DECLARATIONS = [
   SbbLogo,
+  SbbLogoAnniversary,
   SbbLogoCargo,
   SbbLogoCargoInternational,
   SbbLogoElvetino,
