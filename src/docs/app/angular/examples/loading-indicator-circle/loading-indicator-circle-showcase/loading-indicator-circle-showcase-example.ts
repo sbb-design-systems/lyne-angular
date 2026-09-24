@@ -9,6 +9,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 
 /**
  * @title loading-indicator-circle showcase
+ * @order 1
  */
 @Component({
   selector: 'sbb-loading-indicator-circle-showcase-example',
