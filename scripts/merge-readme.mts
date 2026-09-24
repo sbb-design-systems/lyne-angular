@@ -188,7 +188,7 @@ function convertHtmlExamples(content: string) {
 
   // This is a simplified DOM parser implementation. It WILL break
   // if any complex HTML usage is encountered (e.g. example="test\"").
-  return content.replace(/(```html\n)([\s\S]*?)(\n```)/g, (html) =>
+  return content.replace(/^([ \t]*)```html\n([\s\S]*?)\n\1```$/gm, (html) =>
     html.replace(/<\w[\w\W]+?[^=]>/g, (tag) => {
       const firstWhitespace = tag.match(/\s+/);
       if (!firstWhitespace) {
