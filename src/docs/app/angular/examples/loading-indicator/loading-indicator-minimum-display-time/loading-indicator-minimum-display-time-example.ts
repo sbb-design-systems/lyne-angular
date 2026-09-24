@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { SbbLoadingIndicatorModule } from '@sbb-esta/lyne-angular/loading-indicator';
-import { delay, finalize, forkJoin, of, timer } from 'rxjs';
+import { delay, forkJoin, of, timer } from 'rxjs';
 
 const MINIMUM_DISPLAY_TIME = 500;
 
@@ -27,8 +27,6 @@ export class LoadingIndicatorMinimumDisplayTimeExample {
     // Simulates an api call with a random duration between 250ms and 1500ms.
     const apiCall$ = of(null).pipe(delay(250 + Math.random() * (1500 - 250)));
 
-    forkJoin([apiCall$, timer(MINIMUM_DISPLAY_TIME)])
-      .pipe(finalize(() => this.loading.set(false)))
-      .subscribe();
+    forkJoin([apiCall$, timer(MINIMUM_DISPLAY_TIME)]).subscribe(() => this.loading.set(false));
   }
 }
