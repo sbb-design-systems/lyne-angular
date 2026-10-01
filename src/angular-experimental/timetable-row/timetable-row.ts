@@ -150,4 +150,26 @@ export class SbbTimetableRow {
   public get now(): Date {
     return this.#element.nativeElement.now;
   }
+
+  /**
+   * The label for the badge. Can be used to override the content of the badge.
+   */
+  @Input()
+  public set badgeLabel(value: string) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.badgeLabel = value));
+  }
+  public get badgeLabel(): string {
+    return this.#element.nativeElement.badgeLabel;
+  }
+
+  /**
+   * Forces the badge color. If not set, the color is derived from `price.isDiscount`.
+   */
+  @Input()
+  public set badgeColor(value: 'light' | 'dark' | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.badgeColor = value));
+  }
+  public get badgeColor(): 'light' | 'dark' | null {
+    return this.#element.nativeElement.badgeColor;
+  }
 }

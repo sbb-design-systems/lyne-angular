@@ -722,6 +722,10 @@ class inside a `th` element:
 </table>
 ```
 
+<!-- #region override table-docs-sorting -->
+
+<!-- #endregion -->
+
 ### Row hover
 
 To highlight a row when the user hovers over it, apply `sbb-table--hover` to the `<table>` element.
