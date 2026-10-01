@@ -59,7 +59,6 @@ export interface SbbArrowViewStateTransition {
   selector: '[sbb-sort-header]',
   exportAs: 'sbbSortHeader',
   templateUrl: 'sort-header.html',
-  styleUrls: ['sort-header.scss'],
   host: {
     class: 'sbb-sort-header',
     '(click)': '_handleClick()',
