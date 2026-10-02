@@ -17,10 +17,67 @@ import type {
   WorkspaceDefinition,
 } from '@schematics/angular/utility/workspace';
 import { updateWorkspace } from '@schematics/angular/utility/workspace';
+import ts from 'typescript';
+
+export interface ImportRewriteOptions {
+  /** Old import path to replace (e.g., '@sbb-esta/angular/button') */
+  oldImport: string;
+  /** New import path (e.g., '@sbb-esta/lyne-angular/button') */
+  newImport: string;
+}
 
 interface Package {
   dependencies?: Record<string, string>;
   peerDependencies?: Record<string, string>;
+}
+
+/**
+ *11 Rewrite module specifiers in TypeScript source files.
+ * Replaces exact matches and sub-paths.
+ *
+ * Example:
+ * - oldImport: '@sbb-esta/angular/button'
+ * - newImport: '@sbb-esta/lyne-angular/button'
+ * - '@sbb-esta/angular/button' → '@sbb-esta/lyne-angular/button'
+ * - '@sbb-esta/angular/button/accent' → '@sbb-esta/lyne-angular/button/accent'
+ */
+export function rewriteImportPaths(
+  filePath: string,
+  fileContent: string,
+  options: ImportRewriteOptions,
+): string {
+  const { oldImport, newImport } = options;
+  const sourceFile = ts.createSourceFile(filePath, fileContent, ts.ScriptTarget.Latest, true);
+  const edits: Array<{ start: number; end: number; text: string }> = [];
+
+  const visit = (node: ts.Node) => {
+    if (
+      (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) &&
+      node.moduleSpecifier &&
+      ts.isStringLiteral(node.moduleSpecifier)
+    ) {
+      const specifier = node.moduleSpecifier;
+      if (specifier.text === oldImport || specifier.text.startsWith(`${oldImport}/`)) {
+        const newPath = specifier.text.replace(oldImport, newImport);
+        const start = specifier.getStart(sourceFile);
+        const end = specifier.getEnd();
+        const quote = fileContent[start];
+        edits.push({ start, end, text: `${quote}${newPath}${quote}` });
+      }
+    }
+
+    ts.forEachChild(node, visit);
+  };
+
+  visit(sourceFile);
+
+  // Apply edits (back to front to keep offsets stable)
+  return edits
+    .sort((a, b) => b.start - a.start)
+    .reduce(
+      (text, edit) => text.slice(0, edit.start) + edit.text + text.slice(edit.end),
+      fileContent,
+    );
 }
 
 /**

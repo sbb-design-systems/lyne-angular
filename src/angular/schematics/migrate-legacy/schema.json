@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "migrate-legacy",
+  "title": "Migrate Legacy Lyne Angular Usage",
+  "description": "Migrates @sbb-esta/angular usages to @sbb-esta/lyne-angular.",
+  "type": "object",
+  "properties": {
+    "module": {
+      "description": "Legacy module name(s) to migrate. Space-separated list. Omit to migrate all supported modules.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    }
+  }
+}

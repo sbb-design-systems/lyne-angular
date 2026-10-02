@@ -6,6 +6,11 @@
       "factory": "./ng-add/index.cjs#ngAdd",
       "schema": "./ng-add/schema.json"
     },
+    "migrate-legacy": {
+      "description": "Partially migrates @sbb-esta/angular usages to @sbb-esta/lyne-angular.",
+      "factory": "./migrate-legacy/index.cjs#migrateLegacy",
+      "schema": "./migrate-legacy/schema.json"
+    },
     "ng-add-setup-project": {
       "description": "Sets up the specified project after the ng-add dependencies have been installed.",
       "private": true,
