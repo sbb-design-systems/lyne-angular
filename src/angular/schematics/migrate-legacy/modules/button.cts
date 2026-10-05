@@ -1,42 +1,43 @@
-import { Rule, Tree } from '@angular-devkit/schematics';
+import { chain, Rule } from '@angular-devkit/schematics';
 
-import { rewriteImportPaths } from '../../utils.cjs';
+import { ImportRewriteOptions } from '../../utils.cjs';
+import { createImportPathMigrationRule } from '../common/import-path-migration.cjs';
+import {
+  createTemplateSelectorMigrationRule,
+  RemovableAttribute,
+  SelectorMigration,
+} from '../common/template-selector-migration.cjs';
 
-const OLD_BUTTON_IMPORT = '@sbb-esta/angular/button';
-const NEW_BUTTON_IMPORT = '@sbb-esta/lyne-angular/button';
+const IMPORT_PATHS: ImportRewriteOptions[] = [
+  { oldImport: '@sbb-esta/angular/button', newImport: '@sbb-esta/lyne-angular/button' },
+];
+
+/** `type="button"` is the default of the Lyne buttons and therefore redundant. */
+const REDUNDANT_ATTRIBUTES: RemovableAttribute[] = [{ name: 'type', value: 'button' }];
+
+const SELECTORS: SelectorMigration[] = [
+  { selector: 'button[sbb-button]', replaceWith: 'sbb-button' },
+  { selector: 'button[sbb-secondary-button]', replaceWith: 'sbb-secondary-button' },
+  { selector: 'button[sbb-alt-button]', replaceWith: 'sbb-accent-button' },
+  { selector: 'button[sbb-ghost-button]', replaceWith: 'sbb-transparent-button' },
+].map((selector) => ({ ...selector, removeAttributes: REDUNDANT_ATTRIBUTES }));
 
 /**
- * Migrate button module from @sbb-esta/angular to @sbb-esta/lyne-angular.
+ * Migrate the button module from `@sbb-esta/angular` to `@sbb-esta/lyne-angular`.
  *
  * Transformations:
  * 1. ✓ Rewrite import paths
- * 2. TODO: Rename component classes (SbbButton* → SbbButton*)
- * 3. TODO: Update template selectors (sbb-* → sbb-*)
- * 4. TODO: Update input/output binding names
- * 5. TODO: Update CSS class names
- * 6. TODO: Add migration comments for manual review items
+ * 2. ✓ Replace attribute selectors with the Lyne elements
+ *      (`<button type="button" sbb-button>` → `<sbb-button>`)
+ * 3. TODO: Migrate `<a sbb-button>` link buttons
+ * 4. TODO: Migrate icon only buttons (`sbb-icon-button`)
+ * 5. TODO: Update input/output binding names
+ * 6. TODO: Update CSS class names
+ * 7. TODO: Add FIXME comments for cases which cannot be migrated automatically
  */
 export function migrateButton(): Rule {
-  return (tree: Tree) => {
-    tree.visit((filePath) => {
-      if (!filePath.endsWith('.ts') || filePath.endsWith('.d.ts')) {
-        return;
-      }
-
-      const buffer = tree.read(filePath);
-      if (!buffer) {
-        return;
-      }
-
-      const original = buffer.toString('utf-8');
-      const updated = rewriteImportPaths(filePath, original, {
-        oldImport: OLD_BUTTON_IMPORT,
-        newImport: NEW_BUTTON_IMPORT,
-      });
-
-      if (updated !== original) {
-        tree.overwrite(filePath, updated);
-      }
-    });
-  };
+  return chain([
+    createImportPathMigrationRule(IMPORT_PATHS),
+    createTemplateSelectorMigrationRule(SELECTORS),
+  ]);
 }

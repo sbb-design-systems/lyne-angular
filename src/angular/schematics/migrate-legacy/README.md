@@ -14,6 +14,12 @@ This directory contains the migration schematic for converting `@sbb-esta/angula
 - **`modules/`**
   Per-module custom migration implementations; each module (e.g., `button.cts`, `checkbox.cts`, ... ) exports a `migrate<Module>()` function which performs custom transformations for that module.
 
+- **`common/import-path-migration.cts`**
+  Reusable rule factory which rewrites import/export module specifiers (including sub-paths) in all TypeScript files of the workspace.
+
+- **`common/template-selector-migration.cts`**
+  Reusable rule factory which replaces legacy selectors (`'tag[attribute]'`, `'tag'` or `'[attribute]'`) with a new element, in external templates (`templateUrl`) as well as in inline templates (`template`). Optionally removes attributes which became obsolete.
+
 - **`schema.json` / `schema.d.ts`**
   CLI schema definition
 
@@ -21,27 +27,43 @@ This directory contains the migration schematic for converting `@sbb-esta/angula
 
 ### 1. Create migration file
 
-Create `modules/<module-name>.cts`:
+Create `modules/<module-name>.cts`, preferably declaratively by composing the shared rule factories:
 
 ```typescript
-import { Rule, Tree } from '@angular-devkit/schematics';
+import { chain, Rule } from '@angular-devkit/schematics';
 
-import { rewriteImportPaths } from '../../utils.cjs';
+import { ImportRewriteOptions } from '../../utils.cjs';
+import { createImportPathMigrationRule } from '../import-path-migration.cjs';
+import {
+  createTemplateSelectorMigrationRule,
+  SelectorMigration,
+} from '../template-selector-migration.cjs';
 
-const OLD_IMPORT = '@sbb-esta/angular/<module>';
-const NEW_IMPORT = '@sbb-esta/lyne-angular/<module>';
+const IMPORT_PATHS: ImportRewriteOptions[] = [
+  { oldImport: '@sbb-esta/angular/<module>', newImport: '@sbb-esta/lyne-angular/<module>' },
+];
+
+const SELECTORS: SelectorMigration[] = [
+  // <button type="button" sbb-button>x</button> → <sbb-button>x</sbb-button>
+  {
+    selector: 'button[sbb-button]',
+    replaceWith: 'sbb-button',
+    removeAttributes: [{ name: 'type', value: 'button' }],
+  },
+];
 
 /**
  * Migrate <Module> module from @sbb-esta/angular to @sbb-esta/lyne-angular.
  */
 export function migrate<Module>(): Rule {
-  return (tree: Tree) => {
-    tree.visit((filePath) => {
-      // do stuff
-    });
-  };
+  return chain([
+    createImportPathMigrationRule(IMPORT_PATHS),
+    createTemplateSelectorMigrationRule(SELECTORS),
+  ]);
 }
 ```
+
+For transformations which cannot be expressed declaratively, add a custom `Rule` to the `chain()` and build the changes with `MigrationEdit` + `applyEdits()` from `../../utils.cjs`.
 
 ### 2. Register in orchestrator
 
@@ -63,7 +85,7 @@ function loadModuleMigration(module: LegacyModuleName): Rule {
 
 ### 3. Test your module migration
 
-Create `test/modules/<module-name>.spec.ts` using the `SchematicTestRunner` pattern from `migrate-legacy.spec.ts`.
+Create `test/<module-name>.spec.ts` using the `SchematicTestRunner` pattern from `test/button.spec.ts`.
 
 ## Usage
 
@@ -82,20 +104,20 @@ For each module, use this checklist:
 
 - [ ] Create `modules/<module>.cts` with `migrate<Module>()` function
 - [ ] Transformation list:
-  - [ ] Change import path (using `rewriteImportPaths()`)
+  - [ ] Change import path (using `createImportPathMigrationRule()`)
+  - [ ] Template selector updates (using `createTemplateSelectorMigrationRule()`)
   - [ ] Component class renames
-  - [ ] Template selector updates
   - [ ] Input/output binding renames
   - [ ] CSS class/token updates
   - [ ] Manual migration comments
 - [ ] Register in `index.cts` switch statement
-- [ ] Create test file: `test/modules/<module>.spec.ts`
+- [ ] Create test file: `test/<module>.spec.ts`
 
 ## Notes
 
 - Migrations run AFTER dependency setup and theme configuration
 - Each module's migration is isolated and can be run independently
 - Migrations are idempotent (safe to run multiple times)
-- Use `tree.visit()` to iterate and modify source files
-- Reuse `rewriteImportPaths()` from utils for common import path transformations
-- For complex transformations, extend the TypeScript AST visitor pattern used in shared utils
+- `node_modules` and `*.d.ts` files are never migrated
+- Templates which cannot be parsed, and elements without a closing tag, are skipped instead of being corrupted
+- Edits are collected as `MigrationEdit`s and applied in reverse offset order, so offsets stay stable; every edit can carry a `log` callback

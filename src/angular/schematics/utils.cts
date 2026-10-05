@@ -17,7 +17,6 @@ import type {
   WorkspaceDefinition,
 } from '@schematics/angular/utility/workspace';
 import { updateWorkspace } from '@schematics/angular/utility/workspace';
-import ts from 'typescript';
 
 export interface ImportRewriteOptions {
   /** Old import path to replace (e.g., '@sbb-esta/angular/button') */
@@ -26,58 +25,39 @@ export interface ImportRewriteOptions {
   newImport: string;
 }
 
+/**
+ * A single, position based source edit.
+ *
+ * `length` characters are removed at `offset`, then `insertion` (if any) is
+ * inserted at the very same offset. `index` is a monotonically increasing
+ * counter used as a stable tiebreaker when multiple edits share an offset.
+ */
+export interface MigrationEdit {
+  offset: number;
+  index: number;
+  length: number;
+  insertion?: string;
+  log?: () => void;
+}
+
 interface Package {
   dependencies?: Record<string, string>;
   peerDependencies?: Record<string, string>;
 }
 
-/**
- *11 Rewrite module specifiers in TypeScript source files.
- * Replaces exact matches and sub-paths.
- *
- * Example:
- * - oldImport: '@sbb-esta/angular/button'
- * - newImport: '@sbb-esta/lyne-angular/button'
- * - '@sbb-esta/angular/button' → '@sbb-esta/lyne-angular/button'
- * - '@sbb-esta/angular/button/accent' → '@sbb-esta/lyne-angular/button/accent'
- */
-export function rewriteImportPaths(
-  filePath: string,
-  fileContent: string,
-  options: ImportRewriteOptions,
-): string {
-  const { oldImport, newImport } = options;
-  const sourceFile = ts.createSourceFile(filePath, fileContent, ts.ScriptTarget.Latest, true);
-  const edits: Array<{ start: number; end: number; text: string }> = [];
+/** Only files which can actually be authored by a consumer are migrated. */
+export function isMigratableFile(filePath: string): boolean {
+  return !filePath.includes('/node_modules/') && !filePath.startsWith('node_modules/');
+}
 
-  const visit = (node: ts.Node) => {
-    if (
-      (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) &&
-      node.moduleSpecifier &&
-      ts.isStringLiteral(node.moduleSpecifier)
-    ) {
-      const specifier = node.moduleSpecifier;
-      if (specifier.text === oldImport || specifier.text.startsWith(`${oldImport}/`)) {
-        const newPath = specifier.text.replace(oldImport, newImport);
-        const start = specifier.getStart(sourceFile);
-        const end = specifier.getEnd();
-        const quote = fileContent[start];
-        edits.push({ start, end, text: `${quote}${newPath}${quote}` });
-      }
-    }
+/** Whether the given file is a TypeScript source file (declaration files excluded). */
+export function isTypeScriptFile(filePath: string): boolean {
+  return isMigratableFile(filePath) && filePath.endsWith('.ts') && !filePath.endsWith('.d.ts');
+}
 
-    ts.forEachChild(node, visit);
-  };
-
-  visit(sourceFile);
-
-  // Apply edits (back to front to keep offsets stable)
-  return edits
-    .sort((a, b) => b.start - a.start)
-    .reduce(
-      (text, edit) => text.slice(0, edit.start) + edit.text + text.slice(edit.end),
-      fileContent,
-    );
+/** Whether the given file is an external (`templateUrl`) template. */
+export function isHtmlFile(filePath: string): boolean {
+  return isMigratableFile(filePath) && filePath.endsWith('.html');
 }
 
 /**
@@ -316,4 +296,25 @@ export function visitElements(nodes: TmplAstNode[], cb: (el: TmplAstElement) => 
       }
     }
   }
+}
+
+/**
+ * Applies the given edits to `content` and invokes the (optional) `log`
+ * callback of every applied edit.
+ *
+ * Edits are applied in reverse offset order so that earlier edits never shift
+ * the offsets of edits which still have to be applied.
+ */
+export function applyEdits(content: string, edits: MigrationEdit[]): string {
+  let result = content;
+
+  for (const edit of [...edits].sort((a, b) => b.offset - a.offset || b.index - a.index)) {
+    result =
+      result.slice(0, edit.offset) +
+      (edit.insertion ?? '') +
+      result.slice(edit.offset + edit.length);
+    edit.log?.();
+  }
+
+  return result;
 }

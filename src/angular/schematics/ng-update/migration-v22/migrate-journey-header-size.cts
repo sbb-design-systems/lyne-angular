@@ -1,9 +1,6 @@
 import { ResolvedResource } from '@angular/cdk/schematics';
-import {
-  AttributeMigrationBase,
-  MigrationEdit,
-  queueFixmeComment,
-} from './attribute-migration-base.cjs';
+import { AttributeMigrationBase, queueFixmeComment } from './attribute-migration-base.cjs';
+import { MigrationEdit } from '../../utils.cjs';
 
 const SIZE_TO_VISUAL_LEVEL: Record<string, string> = {
   s: '6',

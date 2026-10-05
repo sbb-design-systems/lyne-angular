@@ -1,9 +1,6 @@
 import { ResolvedResource } from '@angular/cdk/schematics';
-import {
-  AttributeMigrationBase,
-  MigrationEdit,
-  queueFixmeComment,
-} from './attribute-migration-base.cjs';
+import { AttributeMigrationBase, queueFixmeComment } from './attribute-migration-base.cjs';
+import { MigrationEdit } from '../../utils.cjs';
 
 /**
  * Migration that removes `alignSelf` or `align-self` properties from buttons and adds a comment to check layout styles manually.
