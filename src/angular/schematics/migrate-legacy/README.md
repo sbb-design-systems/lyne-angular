@@ -29,6 +29,12 @@ This directory contains the migration schematic for converting `@sbb-esta/angula
 - **`common/type-migration.cts`**
   Reusable rule factory which renames type/class/symbol usages in TypeScript files, e.g. `SbbBreadcrumbs` → `SbbBreadcrumbGroup`. Only files which import the legacy symbol are touched.
 
+- **`common/comment-migration.cts`**
+  Reusable rule factory which adds comments (the configured message, rendered as is) to elements, attributes and TypeScript symbols without a counterpart in the new library. Rendering is shared with the `ng update` `AddCommentBase` via `../comment-utils.cts`.
+
+- **`common/symbol-references.cts`**
+  Shared lookup of imported TypeScript symbols, used by the type and the comment migration.
+
 - **`schema.json` / `schema.d.ts`**
   CLI schema definition
 
@@ -52,6 +58,7 @@ import {
   SelectorMigration,
 } from '../common/template-selector-migration.cjs';
 import { createTypeMigrationRule, TypeMigration } from '../common/type-migration.cjs';
+import { CommentMigration, createCommentMigrationRule } from '../common/comment-migration.cjs';
 
 const IMPORT_PATHS: ImportRewriteOptions[] = [
   { oldImport: '@sbb-esta/angular/<module>', newImport: '@sbb-esta/lyne-angular/<module>' },
@@ -81,6 +88,15 @@ const TYPES: TypeMigration[] = [
   },
 ];
 
+const COMMENTS: CommentMigration[] = [
+  // Element: <!-- message --> above every <sbb-captcha>; the message is rendered as is
+  { selector: 'sbb-captcha', message: 'FIXME: <sbb-captcha> has no counterpart in lyne-angular.' },
+  // Attribute: only <sbb-button> elements using `mode`
+  { selector: 'sbb-button', attribute: 'mode', message: 'TODO: `mode` was removed.' },
+  // Symbol: // message above every usage (import included)
+  { symbol: 'SbbCaptchaModule', importedFrom: '@sbb-esta/angular/<module>', message: '...' },
+];
+
 /**
  * Migrate <Module> module from @sbb-esta/angular to @sbb-esta/lyne-angular.
  */
@@ -90,6 +106,7 @@ export function migrate<Module>(): Rule {
     createTypeMigrationRule(TYPES),
     createTemplateSelectorMigrationRule(SELECTORS),
     createAttributeMigrationRule(ATTRIBUTES),
+    createCommentMigrationRule(COMMENTS),
   ]);
 }
 ```

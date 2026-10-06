@@ -38,6 +38,10 @@ export interface TemplateMigrationContext {
   baseOffset: number;
   /** Path of the file which contains the template. */
   filePath: string;
+  /** Full, unmodified content of `filePath` (equals `content` for external templates). */
+  fileContent: string;
+  /** Whether the template is declared inline via the `template` property of `@Component`. */
+  inline: boolean;
   /** Collected edits; push the required changes here. */
   edits: MigrationEdit[];
   /** Stable tiebreaker for edits sharing the same offset. */
@@ -322,6 +326,8 @@ export function createTemplateMigrationRule(
             content: template.content,
             baseOffset: template.start,
             filePath,
+            fileContent: original,
+            inline: !isHtml,
             edits,
             nextIndex,
             logger: context.logger,
