@@ -18,8 +18,7 @@ const IMPORT_PATHS: ImportRewriteOptions[] = [
 const SELECTORS: SelectorMigration[] = [
   { selector: 'button[sbb-button]', replaceWith: 'sbb-button' },
   { selector: 'button[sbb-secondary-button]', replaceWith: 'sbb-secondary-button' },
-  { selector: 'button[sbb-alt-button]', replaceWith: 'sbb-accent-button' },
-  { selector: 'button[sbb-ghost-button]', replaceWith: 'sbb-transparent-button' },
+  { selector: 'button[sbb-ghost-button]', replaceWith: 'sbb-accent-button' },
   { selector: 'button[sbb-frameless-button]', replaceWith: 'sbb-transparent-button' },
 ];
 

@@ -81,11 +81,8 @@ describe('sbb-button', () => {
       expect(await migrateHtml('<button sbb-secondary-button>A</button>')).toBe(
         '<sbb-secondary-button>A</sbb-secondary-button>',
       );
-      expect(await migrateHtml('<button sbb-alt-button>A</button>')).toBe(
-        '<sbb-accent-button>A</sbb-accent-button>',
-      );
       expect(await migrateHtml('<button sbb-ghost-button>A</button>')).toBe(
-        '<sbb-transparent-button>A</sbb-transparent-button>',
+        '<sbb-accent-button>A</sbb-accent-button>',
       );
       expect(await migrateHtml('<button sbb-frameless-button>A</button>')).toBe(
         '<sbb-transparent-button>A</sbb-transparent-button>',
@@ -151,7 +148,7 @@ describe('sbb-button', () => {
           '  <button sbb-ghost-button>Else</button>',
           '}',
           '@for (item of items; track item) {',
-          '  <button sbb-alt-button>{{ item }}</button>',
+          '  <button sbb-frameless-button>{{ item }}</button>',
           '}',
         ].join('\n'),
       );
@@ -162,10 +159,10 @@ describe('sbb-button', () => {
           '@if (visible) {',
           '  <sbb-secondary-button>New</sbb-secondary-button>',
           '} @else {',
-          '  <sbb-transparent-button>Else</sbb-transparent-button>',
+          '  <sbb-accent-button>Else</sbb-accent-button>',
           '}',
           '@for (item of items; track item) {',
-          '  <sbb-accent-button>{{ item }}</sbb-accent-button>',
+          '  <sbb-transparent-button>{{ item }}</sbb-transparent-button>',
           '}',
         ].join('\n'),
       );
@@ -184,7 +181,9 @@ describe('sbb-button', () => {
 
     it('should migrate multiple buttons within one template', async () => {
       expect(
-        await migrateHtml('<button sbb-button>One</button><button sbb-ghost-button>Two</button>'),
+        await migrateHtml(
+          '<button sbb-button>One</button><button sbb-frameless-button>Two</button>',
+        ),
       ).toBe('<sbb-button>One</sbb-button><sbb-transparent-button>Two</sbb-transparent-button>');
     });
   });
@@ -200,7 +199,7 @@ describe('sbb-button', () => {
       expect(await migrateHtml('<button sbb-secondary-button [svgIcon]="icon">A</button>')).toBe(
         '<sbb-secondary-button [iconName]="icon">A</sbb-secondary-button>',
       );
-      expect(await migrateHtml('<button sbb-alt-button [svgIcon]="icon">A</button>')).toBe(
+      expect(await migrateHtml('<button sbb-ghost-button [svgIcon]="icon">A</button>')).toBe(
         '<sbb-accent-button [iconName]="icon">A</sbb-accent-button>',
       );
       expect(await migrateHtml('<button sbb-frameless-button svg-icon="arrow">A</button>')).toBe(
@@ -262,7 +261,7 @@ describe('sbb-button', () => {
           "  selector: 'app-root',",
           '  template: `',
           '    <button sbb-button (click)="go()">Go</button>',
-          '    <button sbb-alt-button>Alt</button>',
+          '    <button sbb-ghost-button>Alt</button>',
           '  `,',
           '})',
           'export class AppComponent {}',
@@ -295,7 +294,7 @@ describe('sbb-button', () => {
 
       const content = tree.read('/src/app/app.component.ts')!.toString('utf-8');
       expect(content).toContain("template: '<sbb-button>A</sbb-button>',");
-      expect(content).toContain("template: '<sbb-transparent-button>B</sbb-transparent-button>',");
+      expect(content).toContain("template: '<sbb-accent-button>B</sbb-accent-button>',");
     });
 
     it('should not touch templates of other decorators or template literals with substitutions', async () => {
