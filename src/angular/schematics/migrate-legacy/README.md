@@ -14,17 +14,20 @@ This directory contains the migration schematic for converting `@sbb-esta/angula
 - **`modules/`**
   Per-module custom migration implementations; each module (e.g., `button.cts`, `checkbox.cts`, ... ) exports a `migrate<Module>()` function which performs custom transformations for that module.
 
-- **`common/import-path-migration.cts`**
-  Reusable rule factory which rewrites import/export module specifiers (including sub-paths) in all TypeScript files of the workspace.
-
 - **`common/template-migration.cts`**
   Shared foundation of all template migrations: file traversal, inline template lookup, template parsing, selector parsing/matching, attribute removal and edit application. Concrete migrations only describe their edits.
+
+- **`common/import-path-migration.cts`**
+  Reusable rule factory which rewrites import/export module specifiers (including sub-paths) in all TypeScript files of the workspace.
 
 - **`common/template-selector-migration.cts`**
   Reusable rule factory which replaces legacy selectors (`'tag[attribute]'`, `'tag'` or `'[attribute]'`) with a new element, in external templates (`templateUrl`) as well as in inline templates (`template`). Optionally removes attributes which became obsolete.
 
 - **`common/attribute-migration.cts`**
   Reusable rule factory which renames (or removes) attributes, inputs and outputs of given elements, e.g. `svgIcon` → `iconName` on `<sbb-button>`.
+
+- **`common/type-migration.cts`**
+  Reusable rule factory which renames type/class/symbol usages in TypeScript files, e.g. `SbbBreadcrumbs` → `SbbBreadcrumbGroup`. Only files which import the legacy symbol are touched.
 
 - **`schema.json` / `schema.d.ts`**
   CLI schema definition
@@ -48,6 +51,7 @@ import {
   createTemplateSelectorMigrationRule,
   SelectorMigration,
 } from '../common/template-selector-migration.cjs';
+import { createTypeMigrationRule, TypeMigration } from '../common/type-migration.cjs';
 
 const IMPORT_PATHS: ImportRewriteOptions[] = [
   { oldImport: '@sbb-esta/angular/<module>', newImport: '@sbb-esta/lyne-angular/<module>' },
@@ -67,21 +71,31 @@ const ATTRIBUTES: AttributeMigration[] = [
   // { selector: 'sbb-button', attribute: 'obsoleteFlag' },
 ];
 
+const TYPES: TypeMigration[] = [
+  // SbbBreadcrumbs → SbbBreadcrumbGroup
+  {
+    from: 'SbbBreadcrumbs',
+    to: 'SbbBreadcrumbGroup',
+    // Optional guard; list the legacy and the new path, because the import path migration runs first.
+    importedFrom: ['@sbb-esta/angular/<module>', '@sbb-esta/lyne-angular/<module>'],
+  },
+];
+
 /**
  * Migrate <Module> module from @sbb-esta/angular to @sbb-esta/lyne-angular.
  */
 export function migrate<Module>(): Rule {
   return chain([
     createImportPathMigrationRule(IMPORT_PATHS),
-    // The selector migration runs first, so the attribute migration can
-    // already target the new Lyne elements.
+    createTypeMigrationRule(TYPES),
     createTemplateSelectorMigrationRule(SELECTORS),
     createAttributeMigrationRule(ATTRIBUTES),
   ]);
 }
 ```
 
-For transformations which cannot be expressed declaratively, add a custom `Rule` to the `chain()`. Template based rules should build on `createTemplateMigrationRule()` from `../common/template-migration.cjs`, which provides the element traversal and applies the collected `MigrationEdit`s.
+For transformations which cannot be expressed declaratively, add a custom `Rule` to the `chain()`.
+Template based rules should build on `createTemplateMigrationRule()` from `../common/template-migration.cjs`, which provides the element traversal and applies the collected `MigrationEdit`s.
 
 ### 2. Register in orchestrator
 
@@ -125,9 +139,7 @@ For each module, use this checklist:
   - [ ] Change import path (using `createImportPathMigrationRule()`)
   - [ ] Template selector updates (using `createTemplateSelectorMigrationRule()`)
   - [ ] Attribute/input/output renames (using `createAttributeMigrationRule()`)
-  - [ ] Component class renames
-  - [ ] Input/output binding renames
-  - [ ] CSS class/token updates
+  - [ ] Type/class renames (using `createTypeMigrationRule()`)
   - [ ] Manual migration comments
 - [ ] Register in `index.cts` switch statement
 - [ ] Create test file: `test/<module>.spec.ts`
