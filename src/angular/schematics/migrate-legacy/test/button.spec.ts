@@ -87,11 +87,14 @@ describe('sbb-button', () => {
       expect(await migrateHtml('<button sbb-ghost-button>A</button>')).toBe(
         '<sbb-transparent-button>A</sbb-transparent-button>',
       );
+      expect(await migrateHtml('<button sbb-frameless-button>A</button>')).toBe(
+        '<sbb-transparent-button>A</sbb-transparent-button>',
+      );
     });
 
-    it('should drop a redundant type="button"', async () => {
+    it('should keep the type attribute', async () => {
       expect(await migrateHtml('<button type="button" sbb-button>other stuff</button>')).toBe(
-        '<sbb-button>other stuff</sbb-button>',
+        '<sbb-button type="button">other stuff</sbb-button>',
       );
     });
 
@@ -128,6 +131,7 @@ describe('sbb-button', () => {
         [
           '<div class="wrapper">',
           '  <sbb-button',
+          '    type="button"',
           '    (click)="save()"',
           '  >',
           '    <span>Save</span>',
@@ -185,6 +189,49 @@ describe('sbb-button', () => {
     });
   });
 
+  describe('attributes', () => {
+    it('should rename svgIcon to iconName on migrated buttons', async () => {
+      expect(await migrateHtml('<button sbb-button svgIcon="arrow-right">Go</button>')).toBe(
+        '<sbb-button iconName="arrow-right">Go</sbb-button>',
+      );
+    });
+
+    it('should rename a bound svgIcon on every button variant', async () => {
+      expect(await migrateHtml('<button sbb-secondary-button [svgIcon]="icon">A</button>')).toBe(
+        '<sbb-secondary-button [iconName]="icon">A</sbb-secondary-button>',
+      );
+      expect(await migrateHtml('<button sbb-alt-button [svgIcon]="icon">A</button>')).toBe(
+        '<sbb-accent-button [iconName]="icon">A</sbb-accent-button>',
+      );
+      expect(await migrateHtml('<button sbb-frameless-button svg-icon="arrow">A</button>')).toBe(
+        '<sbb-transparent-button icon-name="arrow">A</sbb-transparent-button>',
+      );
+    });
+
+    it('should not rename svgIcon on untouched elements', async () => {
+      const template = '<sbb-icon svgIcon="arrow"></sbb-icon>';
+      expect(await migrateHtml(template)).toBe(template);
+    });
+
+    it('should rename svgIcon in inline templates', async () => {
+      const tree = await migrate({
+        '/src/app/app.component.ts': [
+          "import { Component } from '@angular/core';",
+          '',
+          '@Component({',
+          "  selector: 'app-root',",
+          '  template: \'<button sbb-button svgIcon="arrow">Go</button>\',',
+          '})',
+          'export class AppComponent {}',
+        ].join('\n'),
+      });
+
+      expect(tree.read('/src/app/app.component.ts')!.toString('utf-8')).toContain(
+        'template: \'<sbb-button iconName="arrow">Go</sbb-button>\',',
+      );
+    });
+  });
+
   describe('inline templates', () => {
     it('should migrate a single quoted inline template', async () => {
       const tree = await migrate({
@@ -202,7 +249,7 @@ describe('sbb-button', () => {
       });
 
       const content = tree.read('/src/app/app.component.ts')!.toString('utf-8');
-      expect(content).toContain("template: '<sbb-button>Click</sbb-button>',");
+      expect(content).toContain('template: \'<sbb-button type="button">Click</sbb-button>\',');
       expect(content).toContain("from '@sbb-esta/lyne-angular/button';");
     });
 

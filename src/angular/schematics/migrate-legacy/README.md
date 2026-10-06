@@ -17,8 +17,14 @@ This directory contains the migration schematic for converting `@sbb-esta/angula
 - **`common/import-path-migration.cts`**
   Reusable rule factory which rewrites import/export module specifiers (including sub-paths) in all TypeScript files of the workspace.
 
+- **`common/template-migration.cts`**
+  Shared foundation of all template migrations: file traversal, inline template lookup, template parsing, selector parsing/matching, attribute removal and edit application. Concrete migrations only describe their edits.
+
 - **`common/template-selector-migration.cts`**
   Reusable rule factory which replaces legacy selectors (`'tag[attribute]'`, `'tag'` or `'[attribute]'`) with a new element, in external templates (`templateUrl`) as well as in inline templates (`template`). Optionally removes attributes which became obsolete.
+
+- **`common/attribute-migration.cts`**
+  Reusable rule factory which renames (or removes) attributes, inputs and outputs of given elements, e.g. `svgIcon` → `iconName` on `<sbb-button>`.
 
 - **`schema.json` / `schema.d.ts`**
   CLI schema definition
@@ -33,23 +39,32 @@ Create `modules/<module-name>.cts`, preferably declaratively by composing the sh
 import { chain, Rule } from '@angular-devkit/schematics';
 
 import { ImportRewriteOptions } from '../../utils.cjs';
-import { createImportPathMigrationRule } from '../import-path-migration.cjs';
+import {
+  AttributeMigration,
+  createAttributeMigrationRule,
+} from '../common/attribute-migration.cjs';
+import { createImportPathMigrationRule } from '../common/import-path-migration.cjs';
 import {
   createTemplateSelectorMigrationRule,
   SelectorMigration,
-} from '../template-selector-migration.cjs';
+} from '../common/template-selector-migration.cjs';
 
 const IMPORT_PATHS: ImportRewriteOptions[] = [
   { oldImport: '@sbb-esta/angular/<module>', newImport: '@sbb-esta/lyne-angular/<module>' },
 ];
 
 const SELECTORS: SelectorMigration[] = [
-  // <button type="button" sbb-button>x</button> → <sbb-button>x</sbb-button>
-  {
-    selector: 'button[sbb-button]',
-    replaceWith: 'sbb-button',
-    removeAttributes: [{ name: 'type', value: 'button' }],
-  },
+  // <button sbb-button>x</button> → <sbb-button>x</sbb-button>
+  { selector: 'button[sbb-button]', replaceWith: 'sbb-button' },
+  // Optionally, attributes which became obsolete can be dropped as well:
+  // { selector: 'sbb-foo', replaceWith: 'sbb-bar', removeAttributes: ['legacyFlag'] },
+];
+
+const ATTRIBUTES: AttributeMigration[] = [
+  // <sbb-button svgIcon="x"> → <sbb-button iconName="x">
+  { selector: 'sbb-button', attribute: 'svgIcon', replaceWith: 'iconName' },
+  // Without `replaceWith` the attribute is removed:
+  // { selector: 'sbb-button', attribute: 'obsoleteFlag' },
 ];
 
 /**
@@ -58,12 +73,15 @@ const SELECTORS: SelectorMigration[] = [
 export function migrate<Module>(): Rule {
   return chain([
     createImportPathMigrationRule(IMPORT_PATHS),
+    // The selector migration runs first, so the attribute migration can
+    // already target the new Lyne elements.
     createTemplateSelectorMigrationRule(SELECTORS),
+    createAttributeMigrationRule(ATTRIBUTES),
   ]);
 }
 ```
 
-For transformations which cannot be expressed declaratively, add a custom `Rule` to the `chain()` and build the changes with `MigrationEdit` + `applyEdits()` from `../../utils.cjs`.
+For transformations which cannot be expressed declaratively, add a custom `Rule` to the `chain()`. Template based rules should build on `createTemplateMigrationRule()` from `../common/template-migration.cjs`, which provides the element traversal and applies the collected `MigrationEdit`s.
 
 ### 2. Register in orchestrator
 
@@ -106,6 +124,7 @@ For each module, use this checklist:
 - [ ] Transformation list:
   - [ ] Change import path (using `createImportPathMigrationRule()`)
   - [ ] Template selector updates (using `createTemplateSelectorMigrationRule()`)
+  - [ ] Attribute/input/output renames (using `createAttributeMigrationRule()`)
   - [ ] Component class renames
   - [ ] Input/output binding renames
   - [ ] CSS class/token updates
