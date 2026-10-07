@@ -15,5 +15,8 @@ jobs:
   backport:
     if: join(github.event.pull_request.labels) != '' &&
       github.event.pull_request.merged == true
+    permissions:
+      actions: write
+      issues: write
     uses: sbb-design-systems/actions/.github/workflows/backport.yml@main
     secrets: inherit
