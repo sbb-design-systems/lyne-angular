@@ -87,6 +87,16 @@ describe('sbb-button', () => {
       expect(await migrateHtml('<button sbb-frameless-button>A</button>')).toBe(
         '<sbb-transparent-button>A</sbb-transparent-button>',
       );
+      expect(await migrateHtml('<a sbb-button>A</a>')).toBe('<sbb-button-link>A</sbb-button-link>');
+      expect(await migrateHtml('<a sbb-secondary-button>A</a>')).toBe(
+        '<sbb-secondary-button-link>A</sbb-secondary-button-link>',
+      );
+      expect(await migrateHtml('<a sbb-ghost-button>A</a>')).toBe(
+        '<sbb-accent-button-link>A</sbb-accent-button-link>',
+      );
+      expect(await migrateHtml('<a sbb-frameless-button>A</a>')).toBe(
+        '<sbb-transparent-button-link>A</sbb-transparent-button-link>',
+      );
     });
 
     it('should keep the type attribute', async () => {
@@ -181,10 +191,10 @@ describe('sbb-button', () => {
 
     it('should migrate multiple buttons within one template', async () => {
       expect(
-        await migrateHtml(
-          '<button sbb-button>One</button><button sbb-frameless-button>Two</button>',
-        ),
-      ).toBe('<sbb-button>One</sbb-button><sbb-transparent-button>Two</sbb-transparent-button>');
+        await migrateHtml('<a sbb-button>One</a><button sbb-frameless-button>Two</button>'),
+      ).toBe(
+        '<sbb-button-link>One</sbb-button-link><sbb-transparent-button>Two</sbb-transparent-button>',
+      );
     });
   });
 
@@ -261,7 +271,7 @@ describe('sbb-button', () => {
           "  selector: 'app-root',",
           '  template: `',
           '    <button sbb-button (click)="go()">Go</button>',
-          '    <button sbb-ghost-button>Alt</button>',
+          '    <a sbb-ghost-button>Alt</a>',
           '  `,',
           '})',
           'export class AppComponent {}',
@@ -270,7 +280,7 @@ describe('sbb-button', () => {
 
       const content = tree.read('/src/app/app.component.ts')!.toString('utf-8');
       expect(content).toContain('<sbb-button (click)="go()">Go</sbb-button>');
-      expect(content).toContain('<sbb-accent-button>Alt</sbb-accent-button>');
+      expect(content).toContain('<sbb-accent-button-link>Alt</sbb-accent-button-link>');
     });
 
     it('should migrate multiple components within the same file', async () => {
