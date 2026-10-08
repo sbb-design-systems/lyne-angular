@@ -10,6 +10,7 @@ import {
   createTemplateSelectorMigrationRule,
   SelectorMigration,
 } from '../common/template-selector-migration.cjs';
+import { CommentMigration, createCommentMigrationRule } from '../common/comment-migration.cjs';
 
 const IMPORT_PATHS: ImportRewriteOptions[] = [
   { oldImport: '@sbb-esta/angular/button', newImport: '@sbb-esta/lyne-angular/button' },
@@ -20,32 +21,43 @@ const SELECTORS: SelectorMigration[] = [
   { selector: 'button[sbb-secondary-button]', replaceWith: 'sbb-secondary-button' },
   { selector: 'button[sbb-ghost-button]', replaceWith: 'sbb-accent-button' },
   { selector: 'button[sbb-frameless-button]', replaceWith: 'sbb-transparent-button' },
+  { selector: 'a[sbb-button]', replaceWith: 'sbb-button-link' },
+  { selector: 'a[sbb-secondary-button]', replaceWith: 'sbb-secondary-button-link' },
+  { selector: 'a[sbb-ghost-button]', replaceWith: 'sbb-accent-button-link' },
+  { selector: 'a[sbb-frameless-button]', replaceWith: 'sbb-transparent-button-link' },
+  { selector: 'button[sbb-link]', replaceWith: 'sbb-link-button' },
+  { selector: 'a[sbb-link]', replaceWith: 'sbb-link' },
 ];
 
 /** All Lyne elements the legacy buttons are migrated to. */
 const BUTTON_ELEMENTS = [...new Set(SELECTORS.map((selector) => selector.replaceWith))];
 
+/** The selector migration runs first, so that the attribute migration can already target the new Lyne elements. */
 const ATTRIBUTES: AttributeMigration[] = [
   { selector: BUTTON_ELEMENTS, attribute: 'svgIcon', replaceWith: 'iconName' },
+];
+
+const COMMENTS: CommentMigration[] = [
+  {
+    selector: '[sbb-alt-button]',
+    message: 'FIXME: this component has no counterpart in lyne-angular.',
+  },
 ];
 
 /**
  * Migrate the button module from `@sbb-esta/angular` to `@sbb-esta/lyne-angular`.
  *
  * Transformations:
- * 1. ✓ Rewrite import paths
- * 2. ✓ Replace attribute selectors with the Lyne elements
- *      (`<button sbb-button>` → `<sbb-button>`)
- * 3. ✓ Rename inputs (`svgIcon` → `iconName`)
- * 4. TODO: Migrate `<a sbb-button>` link buttons
- * 5. TODO: Add FIXME comments for cases which cannot be migrated automatically
+ * 1. Rewrite import paths
+ * 2. Replace attribute selectors with the Lyne elements
+ * 3. Rename inputs
+ * 4. Add comments for cases which cannot be migrated automatically
  */
 export function migrateButton(): Rule {
   return chain([
     createImportPathMigrationRule(IMPORT_PATHS),
-    // The selector migration runs first, so that the attribute migration can
-    // already target the new Lyne elements.
     createTemplateSelectorMigrationRule(SELECTORS),
     createAttributeMigrationRule(ATTRIBUTES),
+    createCommentMigrationRule(COMMENTS),
   ]);
 }
