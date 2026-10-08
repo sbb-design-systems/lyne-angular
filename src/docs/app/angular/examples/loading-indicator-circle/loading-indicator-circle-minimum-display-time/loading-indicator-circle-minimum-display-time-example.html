@@ -1,8 +1,12 @@
-<sbb-button (click)="loadData()"> Load data </sbb-button>
+<sbb-secondary-button (click)="loadData()"> Load data </sbb-secondary-button>
 
-@if (loading()) {
-  <sbb-loading-indicator-circle></sbb-loading-indicator-circle>
-}
+<p>
+  @if (loading()) {
+    <sbb-loading-indicator-circle></sbb-loading-indicator-circle>
+  } @else if (dataAvailable()) {
+    Data successfully loaded
+  }
+</p>
 
 <p>
   Here's an example of how to implement a minimum display time for the loading indicator. <br />

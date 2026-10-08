@@ -16,6 +16,7 @@ const MINIMUM_DISPLAY_TIME = 500;
 })
 export class LoadingIndicatorMinimumDisplayTimeExample {
   protected loading = signal(false);
+  protected dataAvailable = signal(false);
 
   protected loadData(): void {
     if (this.loading()) {
@@ -23,10 +24,14 @@ export class LoadingIndicatorMinimumDisplayTimeExample {
     }
 
     this.loading.set(true);
+    this.dataAvailable.set(false);
 
     // Simulates an api call with a random duration between 250ms and 1500ms.
     const apiCall$ = of(null).pipe(delay(250 + Math.random() * (1500 - 250)));
 
-    forkJoin([apiCall$, timer(MINIMUM_DISPLAY_TIME)]).subscribe(() => this.loading.set(false));
+    forkJoin([apiCall$, timer(MINIMUM_DISPLAY_TIME)]).subscribe(() => {
+      this.loading.set(false);
+      this.dataAvailable.set(true);
+    });
   }
 }

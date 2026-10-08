@@ -1,0 +1,15 @@
+<sbb-secondary-button (click)="loadData()">Load data </sbb-secondary-button>
+
+<p>
+  @if (loading()) {
+    <sbb-loading-indicator-circle></sbb-loading-indicator-circle>
+  } @else if (dataAvailable()) {
+    Data successfully loaded
+  }
+</p>
+
+<p>
+  Here's an example of how to delay the loading indicator until one second has elapsed since the
+  action started. <br />
+  This avoids showing the indicator immediately for short loading states.
+</p>
