@@ -126,6 +126,8 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   'loading-indicator-circle': [
     'loading-indicator-circle-showcase',
     'loading-indicator-circle-minimum-display-time',
+    'loading-indicator-circle-expected-short-loading-time',
+    'loading-indicator-circle-expected-long-loading-time',
   ],
   logo: [
     { id: 'logo-showcase', hasStyle: true },
@@ -410,6 +412,8 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'loading-indicator-minimum-display-time':
     case 'loading-indicator-showcase':
       return import('../angular/examples/loading-indicator');
+    case 'loading-indicator-circle-expected-long-loading-time':
+    case 'loading-indicator-circle-expected-short-loading-time':
     case 'loading-indicator-circle-minimum-display-time':
     case 'loading-indicator-circle-showcase':
       return import('../angular/examples/loading-indicator-circle');

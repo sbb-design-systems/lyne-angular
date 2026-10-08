@@ -1,10 +1,12 @@
 <sbb-secondary-button (click)="loadData()">Load data </sbb-secondary-button>
 
-@if (loading()) {
-  <sbb-loading-indicator></sbb-loading-indicator>
-} @else if (dataAvailable()) {
-  <p>Data successfully loaded</p>
-}
+<p>
+  @if (loading()) {
+    <sbb-loading-indicator-circle></sbb-loading-indicator-circle>
+  } @else if (dataAvailable()) {
+    Data successfully loaded
+  }
+</p>
 
 <p>
   Here's an example of how to show the loading indicator immediately when a long loading time is

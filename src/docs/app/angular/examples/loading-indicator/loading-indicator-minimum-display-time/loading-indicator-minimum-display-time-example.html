@@ -2,9 +2,7 @@
 
 @if (loading()) {
   <sbb-loading-indicator></sbb-loading-indicator>
-}
-
-@if (dataAvailable()) {
+} @else if (dataAvailable()) {
   <p>Data successfully loaded</p>
 }
 
