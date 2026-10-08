@@ -8,8 +8,8 @@ import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/te
 import { firstValueFrom } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 
-import { createTypeMigrationRule } from '../common/type-migration.cjs';
-import type { TypeMigration } from '../common/type-migration.cjs';
+import { createTypeMigrationRule } from './type-migration.cjs';
+import type { TypeMigration } from './type-migration.cjs';
 
 describe('sbb-type-migration', () => {
   const tempCollectionPath = path.join(os.tmpdir(), 'lyne-angular-type-migration-collection.json');

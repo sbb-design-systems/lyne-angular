@@ -8,8 +8,8 @@ import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/te
 import { firstValueFrom } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 
-import { createCommentMigrationRule } from '../common/comment-migration.cjs';
-import type { CommentMigration } from '../common/comment-migration.cjs';
+import { createCommentMigrationRule } from './comment-migration.cjs';
+import type { CommentMigration } from './comment-migration.cjs';
 
 describe('sbb-comment-migration', () => {
   const tempCollectionPath = path.join(

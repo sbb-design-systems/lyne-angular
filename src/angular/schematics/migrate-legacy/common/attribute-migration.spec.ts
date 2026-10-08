@@ -8,8 +8,8 @@ import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/te
 import { firstValueFrom } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 
-import { createAttributeMigrationRule } from '../common/attribute-migration.cjs';
-import type { AttributeMigration } from '../common/attribute-migration.cjs';
+import { createAttributeMigrationRule } from './attribute-migration.cjs';
+import type { AttributeMigration } from './attribute-migration.cjs';
 
 describe('sbb-attribute-migration', () => {
   const tempCollectionPath = path.join(

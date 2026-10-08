@@ -8,7 +8,7 @@ import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/te
 import { firstValueFrom } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 
-import { migrateButton } from '../modules/button.cjs';
+import { migrateButton } from './button.cjs';
 
 describe('sbb-button', () => {
   const tempCollectionPath = path.join(os.tmpdir(), 'lyne-angular-migrate-button-collection.json');

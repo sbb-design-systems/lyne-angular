@@ -7,7 +7,7 @@
       "schema": "./ng-add/schema.json"
     },
     "migrate-legacy": {
-      "description": "Partially migrates @sbb-esta/angular usages to @sbb-esta/lyne-angular.",
+      "description": "Migrates @sbb-esta/angular usages to @sbb-esta/lyne-angular.",
       "factory": "./migrate-legacy/index.cjs#migrateLegacy",
       "schema": "./migrate-legacy/schema.json"
     },

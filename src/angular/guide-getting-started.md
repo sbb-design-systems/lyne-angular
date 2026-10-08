@@ -60,10 +60,13 @@ Use `--module` to limit the migration scope:
 
 ```sh
 ng generate @sbb-esta/lyne-angular:migrate-legacy --module button
-ng generate @sbb-esta/lyne-angular:migrate-legacy --module button card icon
 ```
 
 If `--module` is omitted, all supported modules are migrated. Specify multiple modules by separating them with spaces.
+
+```sh
+ng generate @sbb-esta/lyne-angular:migrate-legacy --module button card icon
+```
 
 ## Import and use Lyne components
 

@@ -134,7 +134,7 @@ function loadModuleMigration(module: LegacyModuleName): Rule {
 
 ### 3. Test your module migration
 
-Create `test/<module-name>.spec.ts` using the `SchematicTestRunner` pattern from `test/button.spec.ts`.
+Create `test/<module-name>.spec.ts` using the `SchematicTestRunner` pattern from `schematics/migrate-legacy/modules/button.spec.ts`.
 
 ## Usage
 
