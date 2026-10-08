@@ -153,11 +153,11 @@ For each module, use this checklist:
 
 - [ ] Create `modules/<module>.cts` with `migrate<Module>()` function
 - [ ] Transformation list:
-  - [ ] Change import path (using `createImportPathMigrationRule()`)
-  - [ ] Template selector updates (using `createTemplateSelectorMigrationRule()`)
-  - [ ] Attribute/input/output renames (using `createAttributeMigrationRule()`)
-  - [ ] Type/class renames (using `createTypeMigrationRule()`)
-  - [ ] Manual migration comments
+  - [ ] Change import path (using `createImportPathMigrationRule(...)`)
+  - [ ] Template selector updates (using `createTemplateSelectorMigrationRule(...)`)
+  - [ ] Attribute/input/output renames (using `createAttributeMigrationRule(...)`)
+  - [ ] Type/class renames (using `createTypeMigrationRule(...)`)
+  - [ ] Manual migration comments (using `createCommentMigrationRule(...)`)
 - [ ] Register in `index.cts` switch statement
 - [ ] Create test file: `test/<module>.spec.ts`
 
