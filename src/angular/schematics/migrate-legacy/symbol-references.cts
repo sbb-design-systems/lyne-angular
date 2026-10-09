@@ -86,38 +86,53 @@ function collectDeclaredNames(node: ts.Node, nameSet: Set<string>): void {
 /**
  * Extracts all new identifier names declared in scoping statements/nodes.
  */
-function getScopeDeclaredNames(node: ts.Node): Set<string> {
+function collectScopeDeclarations(scopeNode: ts.Node): Set<string> {
   const names = new Set<string>();
 
-  if (
-    ts.isFunctionDeclaration(node) ||
-    ts.isFunctionExpression(node) ||
-    ts.isArrowFunction(node) ||
-    ts.isMethodDeclaration(node) ||
-    ts.isGetAccessorDeclaration(node) ||
-    ts.isSetAccessorDeclaration(node) ||
-    ts.isConstructorDeclaration(node)
-  ) {
-    if (ts.isFunctionDeclaration(node) && node.name) {
-      names.add(node.name.text);
+  const addFromNode = (node: ts.Node) => {
+    if (
+      ts.isFunctionDeclaration(node) ||
+      ts.isFunctionExpression(node) ||
+      ts.isArrowFunction(node) ||
+      ts.isMethodDeclaration(node) ||
+      ts.isGetAccessorDeclaration(node) ||
+      ts.isSetAccessorDeclaration(node) ||
+      ts.isConstructorDeclaration(node)
+    ) {
+      if (ts.isFunctionDeclaration(node) && node.name) {
+        names.add(node.name.text);
+      }
+      for (const param of node.parameters) {
+        collectDeclaredNames(param.name, names);
+      }
+    } else if (ts.isVariableDeclarationList(node)) {
+      for (const decl of node.declarations) {
+        collectDeclaredNames(decl.name, names);
+      }
+    } else if (ts.isVariableStatement(node)) {
+      for (const decl of node.declarationList.declarations) {
+        collectDeclaredNames(decl.name, names);
+      }
+    } else if (ts.isCatchClause(node) && node.variableDeclaration) {
+      collectDeclaredNames(node.variableDeclaration.name, names);
+    } else if (
+      ts.isClassDeclaration(node) ||
+      ts.isInterfaceDeclaration(node) ||
+      ts.isTypeAliasDeclaration(node) ||
+      ts.isEnumDeclaration(node)
+    ) {
+      if (node.name) {
+        names.add(node.name.text);
+      }
     }
-    for (const param of node.parameters) {
-      collectDeclaredNames(param.name, names);
-    }
-  } else if (ts.isVariableStatement(node)) {
-    for (const decl of node.declarationList.declarations) {
-      collectDeclaredNames(decl.name, names);
-    }
-  } else if (ts.isCatchClause(node) && node.variableDeclaration) {
-    collectDeclaredNames(node.variableDeclaration.name, names);
-  } else if (
-    ts.isClassDeclaration(node) ||
-    ts.isInterfaceDeclaration(node) ||
-    ts.isTypeAliasDeclaration(node) ||
-    ts.isEnumDeclaration(node)
-  ) {
-    if (node.name) {
-      names.add(node.name.text);
+  };
+
+  // If node is block or function, collect declarations
+  addFromNode(scopeNode);
+
+  if (ts.isBlock(scopeNode) || ts.isSourceFile(scopeNode)) {
+    for (const statement of scopeNode.statements) {
+      addFromNode(statement);
     }
   }
 
@@ -200,17 +215,25 @@ export function findSymbolReferences<T extends SymbolTarget>(
 
   // 2. Traversal with lexical scope and shadowing awareness.
   const visit = (node: ts.Node, currentShadowed: Set<string>): void => {
-    // Determine if this node introduces new declarations that shadow existing bindings
-    const declared = getScopeDeclaredNames(node);
     let nextShadowed = currentShadowed;
 
-    if (declared.size > 0) {
-      for (const name of declared) {
-        if (bindings.has(name)) {
-          if (nextShadowed === currentShadowed) {
-            nextShadowed = new Set(currentShadowed);
+    // Whether entering scope (Block, Function, CatchClause, etc.)
+    if (
+      ts.isBlock(node) ||
+      ts.isFunctionLike(node) ||
+      ts.isCatchClause(node) ||
+      ts.isSourceFile(node)
+    ) {
+      // Determine if this node introduces new declarations that shadow existing bindings
+      const declared = collectScopeDeclarations(node);
+      if (declared.size > 0) {
+        for (const name of declared) {
+          if (bindings.has(name)) {
+            if (nextShadowed === currentShadowed) {
+              nextShadowed = new Set(currentShadowed);
+            }
+            nextShadowed.add(name);
           }
-          nextShadowed.add(name);
         }
       }
     }
