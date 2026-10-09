@@ -65,7 +65,7 @@ ng generate @sbb-esta/lyne-angular:migrate-legacy --module button
 If `--module` is omitted, all supported modules are migrated. Specify multiple modules by separating them with spaces.
 
 ```sh
-ng generate @sbb-esta/lyne-angular:migrate-legacy --module button card icon
+ng generate @sbb-esta/lyne-angular:migrate-legacy --module button checkbox icon
 ```
 
 ## Import and use Lyne components

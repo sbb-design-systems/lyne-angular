@@ -11,6 +11,9 @@
       "items": {
         "type": "string"
       },
+      "$default": {
+        "$source": "positional"
+      },
       "default": []
     }
   }
