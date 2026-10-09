@@ -48,6 +48,26 @@
       ...
     ```
 
+## Legacy migration
+
+If you migrate from `@sbb-esta/angular`, run:
+
+```sh
+ng generate @sbb-esta/lyne-angular:migrate-legacy
+```
+
+Use `--module` to limit the migration scope:
+
+```sh
+ng generate @sbb-esta/lyne-angular:migrate-legacy --module button
+```
+
+If `--module` is omitted, all supported modules are migrated. Specify multiple modules by separating them with spaces.
+
+```sh
+ng generate @sbb-esta/lyne-angular:migrate-legacy --module button checkbox icon
+```
+
 ## Import and use Lyne components
 
 Use the desired Lyne components in your Angular components:
