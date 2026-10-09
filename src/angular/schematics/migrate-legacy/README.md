@@ -14,25 +14,28 @@ This directory contains the migration schematic for converting `@sbb-esta/angula
 - **`modules/`**
   Per-module custom migration implementations; each module (e.g., `button.cts`, `checkbox.cts`, ... ) exports a `migrate<Module>()` function which performs custom transformations for that module.
 
-- **`schematics/migrate-legacy/migrations`**
-  Shared foundation of all template migrations: file traversal, inline template lookup, template parsing, selector parsing/matching, attribute removal and edit application. Concrete migrations only describe their edits.
-
-- **`schematics/migrate-legacy/migrations`**
+- **`migrations/import-path-migration.cts`**
   Reusable rule factory which rewrites import/export module specifiers (including sub-paths) in all TypeScript files of the workspace.
 
-- **`schematics/migrate-legacy/migrations`**
-  Reusable rule factory which replaces legacy selectors (`'tag[attribute]'`, `'tag'` or `'[attribute]'`) with a new element, in external templates (`templateUrl`) as well as in inline templates (`template`). Optionally removes attributes which became obsolete.
+- **`migrations/template-selector-migration.cts`**
+  Reusable rule factory which replaces legacy selectors (`'tag[attribute]'`, `'tag'` or `'[attribute]'`) with a new element,
+  in external templates (`templateUrl`) as well as in inline templates (`template`). Optionally removes attributes which became obsolete.
 
-- **`schematics/migrate-legacy/migrations`**
+- **`migrations/attribute-migration.cts`**
   Reusable rule factory which renames (or removes) attributes, inputs and outputs of given elements, e.g. `svgIcon` → `iconName` on `<sbb-button>`.
 
-- **`schematics/migrate-legacy/migrations`**
-  Reusable rule factory which renames type/class/symbol usages in TypeScript files, e.g. `SbbBreadcrumbs` → `SbbBreadcrumbGroup`. Only files which import the legacy symbol are touched.
+- **`migrations/type-migration.cts`**
+  Reusable rule factory which renames type/class/symbol usages in TypeScript files, e.g. `SbbBreadcrumbs` → `SbbBreadcrumbGroup`.
+  Only files which import the legacy symbol are touched.
 
-- **`schematics/migrate-legacy/migrations`**
-  Reusable rule factory which adds comments (the configured message, rendered as is) to elements, attributes and TypeScript symbols without a counterpart in the new library. Rendering is shared with the `ng update` `AddCommentBase` via `../comment-utils.cts`.
+- **`migrations/comment-migration.cts`**
+  Reusable rule factory which adds comments (the configured message, rendered as is) to elements, attributes and TypeScript symbols without a counterpart in the new library.
 
-- **`schematics/migrate-legacy/migrations`**
+- **`template-migration.cts`**
+  Shared foundation of all template migrations: file traversal, inline template lookup, template parsing, selector parsing/matching, attribute removal and edit application.
+  Concrete migrations only describe their edits.
+
+- **`symbol-references.cts`**
   Shared lookup of imported TypeScript symbols, used by the type and the comment migration.
 
 - **`schema.json` / `schema.d.ts`**
@@ -83,7 +86,7 @@ const TYPES: TypeMigration[] = [
   {
     from: 'SbbBreadcrumbs',
     to: 'SbbBreadcrumbGroup',
-    // Optional guard; list the legacy and the new path, because the import path migration runs first.
+    // Optional guard; list the legacy and the new path, because the import path migration can run first.
     importedFrom: ['@sbb-esta/angular/<module>', '@sbb-esta/lyne-angular/<module>'],
   },
 ];
@@ -112,7 +115,8 @@ export function migrate<Module>(): Rule {
 ```
 
 For transformations which cannot be expressed declaratively, add a custom `Rule` to the `chain()`.
-Template based rules should build on `createTemplateMigrationRule()` from `../common/template-migration.cjs`, which provides the element traversal and applies the collected `MigrationEdit`s.
+Template based rules should build on `createTemplateMigrationRule()` from `../common/template-migration.cjs`,
+which provides the element traversal and applies the collected `MigrationEdit`s.
 
 ### 2. Register in orchestrator
 
@@ -158,6 +162,7 @@ For each module, use this checklist:
   - [ ] Attribute/input/output renames (using `createAttributeMigrationRule(...)`)
   - [ ] Type/class renames (using `createTypeMigrationRule(...)`)
   - [ ] Manual migration comments (using `createCommentMigrationRule(...)`)
+  - [ ] Custom rules (can be built on `createTemplateMigrationRule(...)`)
 - [ ] Register in `index.cts` switch statement
 - [ ] Create test file: `test/<module>.spec.ts`
 
