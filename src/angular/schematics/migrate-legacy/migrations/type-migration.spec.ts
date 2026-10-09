@@ -284,5 +284,58 @@ describe('sbb-type-migration', () => {
       const tree = await migrate({ '/src/app/app.component.html': template });
       expect(tree.read('/src/app/app.component.html')!.toString('utf-8')).toBe(template);
     });
+
+    it('should ignore local variables and parameters that shadow the imported symbol name', async () => {
+      const source = [
+        "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+        '',
+        'export function process(SbbBreadcrumbs: string) {',
+        '  return SbbBreadcrumbs.toLowerCase();',
+        '}',
+        '',
+        'export class AppComponent {',
+        '  test() {',
+        '    const SbbBreadcrumbs = "local";',
+        '    console.log(SbbBreadcrumbs);',
+        '  }',
+        '  realUsage: SbbBreadcrumbs | null = null;',
+        '}',
+      ].join('\n');
+
+      const result = await migrateSource(source);
+
+      // Import and real case should be migrated
+      expect(result).toContain(
+        "import { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+      );
+      expect(result).toContain('realUsage: SbbBreadcrumbGroup | null = null;');
+
+      // Parameter and shadowed local variable should not be touched
+      expect(result).toContain('export function process(SbbBreadcrumbs: string)');
+      expect(result).toContain('return SbbBreadcrumbs.toLowerCase();');
+      expect(result).toContain('const SbbBreadcrumbs = "local";');
+      expect(result).toContain('console.log(SbbBreadcrumbs);');
+    });
+
+    it('should ignore shadowed symbols inside destructuring parameters and patterns', async () => {
+      const source = [
+        "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+        '',
+        'export function handle({ SbbBreadcrumbs }: { SbbBreadcrumbs: string }) {',
+        '  return SbbBreadcrumbs;',
+        '}',
+      ].join('\n');
+
+      const result = await migrateSource(source);
+
+      expect(result).toContain(
+        "import { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+      );
+      // Parameter's key and shadowed destructured identifier should not be touched
+      expect(result).toContain(
+        'export function handle({ SbbBreadcrumbs }: { SbbBreadcrumbs: string })',
+      );
+      expect(result).toContain('return SbbBreadcrumbs;');
+    });
   });
 });

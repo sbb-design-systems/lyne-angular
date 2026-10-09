@@ -69,13 +69,67 @@ function isDeclarationName(identifier: ts.Identifier): boolean {
 }
 
 /**
+ * Collects local binding names declared directly within a parameter list or variable declaration.
+ */
+function collectDeclaredNames(node: ts.Node, nameSet: Set<string>): void {
+  if (ts.isIdentifier(node)) {
+    nameSet.add(node.text);
+  } else if (ts.isObjectBindingPattern(node) || ts.isArrayBindingPattern(node)) {
+    for (const element of node.elements) {
+      if (ts.isBindingElement(element)) {
+        collectDeclaredNames(element.name, nameSet);
+      }
+    }
+  }
+}
+
+/**
+ * Extracts all new identifier names declared in scoping statements/nodes.
+ */
+function getScopeDeclaredNames(node: ts.Node): Set<string> {
+  const names = new Set<string>();
+
+  if (
+    ts.isFunctionDeclaration(node) ||
+    ts.isFunctionExpression(node) ||
+    ts.isArrowFunction(node) ||
+    ts.isMethodDeclaration(node) ||
+    ts.isGetAccessorDeclaration(node) ||
+    ts.isSetAccessorDeclaration(node) ||
+    ts.isConstructorDeclaration(node)
+  ) {
+    if (ts.isFunctionDeclaration(node) && node.name) {
+      names.add(node.name.text);
+    }
+    for (const param of node.parameters) {
+      collectDeclaredNames(param.name, names);
+    }
+  } else if (ts.isVariableStatement(node)) {
+    for (const decl of node.declarationList.declarations) {
+      collectDeclaredNames(decl.name, names);
+    }
+  } else if (ts.isCatchClause(node) && node.variableDeclaration) {
+    collectDeclaredNames(node.variableDeclaration.name, names);
+  } else if (
+    ts.isClassDeclaration(node) ||
+    ts.isInterfaceDeclaration(node) ||
+    ts.isTypeAliasDeclaration(node) ||
+    ts.isEnumDeclaration(node)
+  ) {
+    if (node.name) {
+      names.add(node.name.text);
+    }
+  }
+
+  return names;
+}
+
+/**
  * Finds all references of the given symbols within a source file.
  *
  * Only symbols which are actually imported (or re-exported) by the file are considered,
  * so unrelated symbols sharing the name are ignored.
- * Member names (`foo.Name`, except on a namespace import), object keys and declaration names are never reported.
- * Usages of aliased imports (`{ Name as Alias }`) are not reported either, as they refer to the alias;
- * only the import itself is.
+ * Lexical shadowing (local parameters/variables with matching names) is accounted for.
  */
 export function findSymbolReferences<T extends SymbolTarget>(
   sourceFile: ts.SourceFile,
@@ -144,54 +198,74 @@ export function findSymbolReferences<T extends SymbolTarget>(
     return references;
   }
 
-  // 2. Find every usage of the resolved bindings.
-  const visit = (node: ts.Node): void => {
-    if (!ts.isIdentifier(node)) {
-      ts.forEachChild(node, visit);
-      return;
+  // 2. Traversal with lexical scope and shadowing awareness.
+  const visit = (node: ts.Node, currentShadowed: Set<string>): void => {
+    // Determine if this node introduces new declarations that shadow existing bindings
+    const declared = getScopeDeclaredNames(node);
+    let nextShadowed = currentShadowed;
+
+    if (declared.size > 0) {
+      for (const name of declared) {
+        if (bindings.has(name)) {
+          if (nextShadowed === currentShadowed) {
+            nextShadowed = new Set(currentShadowed);
+          }
+          nextShadowed.add(name);
+        }
+      }
     }
 
-    const parent = node.parent;
+    if (ts.isIdentifier(node)) {
+      const parent = node.parent;
 
-    if (ts.isShorthandPropertyAssignment(parent)) {
-      const target = bindings.get(node.text);
-      if (target) {
-        references.push({ node, target, kind: 'shorthand' });
+      if (ts.isShorthandPropertyAssignment(parent)) {
+        if (!nextShadowed.has(node.text)) {
+          const target = bindings.get(node.text);
+          if (target) {
+            references.push({ node, target, kind: 'shorthand' });
+          }
+        }
+        return;
+      }
+
+      if (isMemberName(node)) {
+        // `ns.Name` of a namespace import is a real usage.
+        const qualifier = ts.isPropertyAccessExpression(parent)
+          ? parent.expression
+          : (parent as ts.QualifiedName).left;
+        const target = ts.isIdentifier(qualifier)
+          ? namespaces.get(qualifier.text)?.find((candidate) => candidate.name === node.text)
+          : undefined;
+
+        if (target) {
+          references.push({ node, target, kind: 'usage' });
+        }
+        return;
+      }
+
+      if (isDeclarationName(node) || ts.isImportSpecifier(parent) || ts.isImportClause(parent)) {
+        return;
+      }
+
+      // In `export { Local as Exported }` only `Local` refers to the binding.
+      if (ts.isExportSpecifier(parent) && parent.propertyName && parent.name === node) {
+        return;
+      }
+
+      // Skip reference if the identifier name is currently shadowed in this scope
+      if (!nextShadowed.has(node.text)) {
+        const target = bindings.get(node.text);
+        if (target) {
+          references.push({ node, target, kind: 'usage' });
+        }
       }
       return;
     }
 
-    if (isMemberName(node)) {
-      // `ns.Name` of a namespace import is a real usage.
-      const qualifier = ts.isPropertyAccessExpression(parent)
-        ? parent.expression
-        : (parent as ts.QualifiedName).left;
-      const target = ts.isIdentifier(qualifier)
-        ? namespaces.get(qualifier.text)?.find((candidate) => candidate.name === node.text)
-        : undefined;
-
-      if (target) {
-        references.push({ node, target, kind: 'usage' });
-      }
-      return;
-    }
-
-    if (isDeclarationName(node) || ts.isImportSpecifier(parent) || ts.isImportClause(parent)) {
-      return;
-    }
-
-    // In `export { Local as Exported }` only `Local` refers to the binding.
-    if (ts.isExportSpecifier(parent) && parent.propertyName && parent.name === node) {
-      return;
-    }
-
-    const target = bindings.get(node.text);
-    if (target) {
-      references.push({ node, target, kind: 'usage' });
-    }
+    ts.forEachChild(node, (child) => visit(child, nextShadowed));
   };
 
-  ts.forEachChild(sourceFile, visit);
+  ts.forEachChild(sourceFile, (child) => visit(child, new Set()));
 
   return references;
 }
