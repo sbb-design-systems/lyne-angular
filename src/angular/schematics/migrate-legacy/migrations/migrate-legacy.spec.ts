@@ -133,8 +133,11 @@ describe('sbb-migrate-legacy', () => {
 
     // Verify button imports rewritten
     const sourceCode = resultTree.read('/src/app/app.component.ts')?.toString('utf-8') ?? '';
-    expect(sourceCode).toContain("from '@sbb-esta/lyne-angular/button'");
-    expect(sourceCode).toContain("from '@sbb-esta/lyne-angular/button/button'");
+    expect(sourceCode).toContain(
+      "import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';",
+    );
+    expect(sourceCode).toContain("import { SbbButtonGroup } from '@sbb-esta/lyne-angular/button';");
+    expect(sourceCode).not.toContain('@sbb-esta/lyne-angular/button/button');
     // Other modules unchanged
     expect(sourceCode).toContain("from '@sbb-esta/angular';");
 

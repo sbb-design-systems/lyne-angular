@@ -70,10 +70,17 @@ export function createTypeMigrationRule(migrations: TypeMigration[]): Rule {
         const { migration } = target;
 
         if (kind === 'shorthand') {
-          context.logger.warn(
-            `  ⚠ Skipped shorthand property '${node.text}' in ${filePath}: ` +
-              `renaming it would also rename the object key.`,
-          );
+          const offset = node.getStart(sourceFile);
+          if (editedOffsets.has(offset)) {
+            continue;
+          }
+          editedOffsets.add(offset);
+          edits.push({
+            offset,
+            index: index++,
+            length: node.getEnd() - offset,
+            insertion: `${node.text}: ${migration.to}`,
+          });
           continue;
         }
 

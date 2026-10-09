@@ -77,8 +77,14 @@ export function rewriteImportPaths(
       );
 
       if (mapping) {
-        // Only the prefix is replaced; the (possibly repeating) rest of the specifier is kept as is.
-        const newPath = mapping.newImport + specifier.text.slice(mapping.oldImport.length);
+        const isExactOrSubpath =
+          specifier.text === mapping.oldImport ||
+          specifier.text.startsWith(`${mapping.oldImport}/`);
+
+        const newPath = isExactOrSubpath
+          ? mapping.newImport
+          : mapping.newImport + specifier.text.slice(mapping.oldImport.length);
+
         const start = specifier.getStart(sourceFile);
         const quote = fileContent[start];
         edits.push({

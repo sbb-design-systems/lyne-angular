@@ -251,7 +251,7 @@ describe('sbb-type-migration', () => {
       expect(result).toContain('import { SbbBreadcrumbGroup }');
     });
 
-    it('should skip shorthand properties', async () => {
+    it('should handle shorthand properties', async () => {
       const source = [
         "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
         '',
@@ -261,7 +261,7 @@ describe('sbb-type-migration', () => {
       const result = await migrateSource(source);
       // The import is migrated, the shorthand stays untouched and is reported.
       expect(result).toContain('import { SbbBreadcrumbGroup }');
-      expect(result).toContain('export const registry = { SbbBreadcrumbs };');
+      expect(result).toContain('export const registry = { SbbBreadcrumbs: SbbBreadcrumbGroup };');
     });
 
     it('should not touch node_modules or declaration files', async () => {

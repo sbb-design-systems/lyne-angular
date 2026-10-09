@@ -31,22 +31,20 @@ describe('sbb-button', () => {
   };
 
   describe('import paths', () => {
-    it('should rewrite button imports and sub paths', async () => {
+    it('should rewrite button imports and merge subpaths', async () => {
       const tree = await migrate({
         '/src/app/app.component.ts': [
           "import { SbbButtonModule } from '@sbb-esta/angular/button';",
           "import { SbbButton } from '@sbb-esta/angular/button/button';",
-          "export { SbbButtonModule } from '@sbb-esta/angular/button';",
           "import { SbbCore } from '@sbb-esta/angular';",
           "import { SbbIconModule } from '@sbb-esta/angular/icon';",
+          "export { SbbButtonModule } from '@sbb-esta/angular/button';",
         ].join('\n'),
       });
 
       const content = tree.read('/src/app/app.component.ts')!.toString('utf-8');
       expect(content).toContain("import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';");
-      expect(content).toContain(
-        "import { SbbButton } from '@sbb-esta/lyne-angular/button/button';",
-      );
+      expect(content).toContain("import { SbbButton } from '@sbb-esta/lyne-angular/button';");
       expect(content).toContain("export { SbbButtonModule } from '@sbb-esta/lyne-angular/button';");
       // Unrelated imports stay untouched.
       expect(content).toContain("from '@sbb-esta/angular';");
