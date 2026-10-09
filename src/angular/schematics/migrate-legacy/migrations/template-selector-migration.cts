@@ -7,9 +7,9 @@ import {
   parseSelector,
   queueAttributeRemovals,
   RemovableAttribute,
-} from './template-migration.cjs';
+} from '../template-migration.cjs';
 
-export type { RemovableAttribute } from './template-migration.cjs';
+export type { RemovableAttribute } from '../template-migration.cjs';
 
 export interface SelectorMigration {
   /**

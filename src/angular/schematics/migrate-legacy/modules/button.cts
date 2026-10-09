@@ -4,13 +4,13 @@ import { ImportRewriteOptions } from '../../utils.cjs';
 import {
   AttributeMigration,
   createAttributeMigrationRule,
-} from '../common/attribute-migration.cjs';
-import { createImportPathMigrationRule } from '../common/import-path-migration.cjs';
+} from '../migrations/attribute-migration.cjs';
+import { createImportPathMigrationRule } from '../migrations/import-path-migration.cjs';
 import {
   createTemplateSelectorMigrationRule,
   SelectorMigration,
-} from '../common/template-selector-migration.cjs';
-import { CommentMigration, createCommentMigrationRule } from '../common/comment-migration.cjs';
+} from '../migrations/template-selector-migration.cjs';
+import { CommentMigration, createCommentMigrationRule } from '../migrations/comment-migration.cjs';
 
 const IMPORT_PATHS: ImportRewriteOptions[] = [
   { oldImport: '@sbb-esta/angular/button', newImport: '@sbb-esta/lyne-angular/button' },

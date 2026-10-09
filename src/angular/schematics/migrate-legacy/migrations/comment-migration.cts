@@ -13,14 +13,14 @@ import {
   TS_DELIMITERS,
 } from '../../comment-utils.cjs';
 import { applyEdits, isTypeScriptFile, MigrationEdit } from '../../utils.cjs';
-import { findSymbolReferences } from './symbol-references.cjs';
+import { findSymbolReferences } from '../symbol-references.cjs';
 import {
   attributeNameVariants,
   createTemplateMigrationRule,
   elementMatches,
   ParsedSelector,
   parseSelector,
-} from './template-migration.cjs';
+} from '../template-migration.cjs';
 
 interface CommentMigrationBase {
   /**

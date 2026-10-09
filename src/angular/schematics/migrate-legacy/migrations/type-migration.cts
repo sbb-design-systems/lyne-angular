@@ -2,7 +2,7 @@ import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import ts from 'typescript';
 
 import { applyEdits, isTypeScriptFile, MigrationEdit } from '../../utils.cjs';
-import { findSymbolReferences } from './symbol-references.cjs';
+import { findSymbolReferences } from '../symbol-references.cjs';
 
 export interface TypeMigration {
   /** Legacy symbol name, e.g. `'SbbBreadcrumbs'`. */

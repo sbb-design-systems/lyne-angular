@@ -12,7 +12,7 @@ import {
   resolveKeySpan,
   toCamelCase,
   toDashCase,
-} from './template-migration.cjs';
+} from '../template-migration.cjs';
 
 export interface AttributeMigration {
   /**

@@ -97,33 +97,6 @@ describe('sbb-migrate-legacy', () => {
     return tree;
   };
 
-  it('should migrate button module with import path rewrite', async () => {
-    const tree = createTree();
-    const resultTree = await firstValueFrom(
-      runner.callRule(migrateLegacy({ module: ['button'] }), tree),
-    );
-
-    // Verify button imports rewritten
-    const sourceCode = resultTree.read('/src/app/app.component.ts')?.toString('utf-8') ?? '';
-    expect(sourceCode).toContain("from '@sbb-esta/lyne-angular/button'");
-    expect(sourceCode).toContain("from '@sbb-esta/lyne-angular/button/button'");
-    // Other modules unchanged
-    expect(sourceCode).toContain("from '@sbb-esta/angular';");
-
-    // Verify dependencies and theme setup
-    const packageJson = JSON.parse(resultTree.read('/package.json')?.toString('utf-8') ?? '{}');
-    expect(packageJson.dependencies['@sbb-esta/lyne-elements']).toBeDefined();
-  });
-
-  it('should migrate all modules when no specific module requested', async () => {
-    const tree = createTree();
-    const resultTree = await firstValueFrom(runner.callRule(migrateLegacy({}), tree));
-
-    // Verify button imports rewritten ( (to be completed))
-    const sourceCode = resultTree.read('/src/app/app.component.ts')?.toString('utf-8') ?? '';
-    expect(sourceCode).toContain("from '@sbb-esta/lyne-angular/button'");
-  });
-
   it('should setup lyne dependencies and theme', async () => {
     const tree = createTree();
     const resultTree = await firstValueFrom(
@@ -148,6 +121,33 @@ describe('sbb-migrate-legacy', () => {
     );
 
     // Button imports should be rewritten ( (to be completed))
+    const sourceCode = resultTree.read('/src/app/app.component.ts')?.toString('utf-8') ?? '';
+    expect(sourceCode).toContain("from '@sbb-esta/lyne-angular/button'");
+  });
+
+  it('should migrate button module with import path rewrite', async () => {
+    const tree = createTree();
+    const resultTree = await firstValueFrom(
+      runner.callRule(migrateLegacy({ module: ['button'] }), tree),
+    );
+
+    // Verify button imports rewritten
+    const sourceCode = resultTree.read('/src/app/app.component.ts')?.toString('utf-8') ?? '';
+    expect(sourceCode).toContain("from '@sbb-esta/lyne-angular/button'");
+    expect(sourceCode).toContain("from '@sbb-esta/lyne-angular/button/button'");
+    // Other modules unchanged
+    expect(sourceCode).toContain("from '@sbb-esta/angular';");
+
+    // Verify dependencies and theme setup
+    const packageJson = JSON.parse(resultTree.read('/package.json')?.toString('utf-8') ?? '{}');
+    expect(packageJson.dependencies['@sbb-esta/lyne-elements']).toBeDefined();
+  });
+
+  it('should migrate all modules when no specific module requested', async () => {
+    const tree = createTree();
+    const resultTree = await firstValueFrom(runner.callRule(migrateLegacy({}), tree));
+
+    // Verify button imports rewritten ( (to be completed))
     const sourceCode = resultTree.read('/src/app/app.component.ts')?.toString('utf-8') ?? '';
     expect(sourceCode).toContain("from '@sbb-esta/lyne-angular/button'");
   });

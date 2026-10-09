@@ -11,7 +11,7 @@ import {
   isTypeScriptFile,
   MigrationEdit,
   visitElements,
-} from '../../utils.cjs';
+} from '../utils.cjs';
 
 /** A template which is declared inline via the `template` property of `@Component`. */
 export interface InlineTemplate {
