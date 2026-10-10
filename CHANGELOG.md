@@ -1,5 +1,17 @@
 # Changelog
 
+## [22.8.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.7.1...v22.8.0) (2026-10-10)
+
+
+### Features
+
+* **table:** removal of table-header sorting styles ([#604](https://github.com/sbb-design-systems/lyne-angular/issues/604)) ([d1266aa](https://github.com/sbb-design-systems/lyne-angular/commit/d1266aa524c278a4b72f340160827e3ed7bcbcd5))
+
+
+### Documentation
+
+* **loading-indicator:** clarify timinigs ([#608](https://github.com/sbb-design-systems/lyne-angular/issues/608)) ([f94a1ab](https://github.com/sbb-design-systems/lyne-angular/commit/f94a1abef4cdf756b88a85df448e63e4154f10c6))
+
 ## [22.7.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.7.0...v22.7.1) (2026-09-24)
 
 
