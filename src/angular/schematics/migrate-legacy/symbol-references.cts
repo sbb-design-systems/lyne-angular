@@ -228,7 +228,7 @@ export function findSymbolReferences<T extends SymbolTarget>(
       const declared = collectScopeDeclarations(node);
       if (declared.size > 0) {
         for (const name of declared) {
-          if (bindings.has(name)) {
+          if (bindings.has(name) || namespaces.has(name)) {
             if (nextShadowed === currentShadowed) {
               nextShadowed = new Set(currentShadowed);
             }
@@ -256,9 +256,11 @@ export function findSymbolReferences<T extends SymbolTarget>(
         const qualifier = ts.isPropertyAccessExpression(parent)
           ? parent.expression
           : (parent as ts.QualifiedName).left;
-        const target = ts.isIdentifier(qualifier)
-          ? namespaces.get(qualifier.text)?.find((candidate) => candidate.name === node.text)
-          : undefined;
+        // A shadowed qualifier (e.g. a parameter named like the namespace) is not the import.
+        const target =
+          ts.isIdentifier(qualifier) && !nextShadowed.has(qualifier.text)
+            ? namespaces.get(qualifier.text)?.find((candidate) => candidate.name === node.text)
+            : undefined;
 
         if (target) {
           references.push({ node, target, kind: 'usage' });

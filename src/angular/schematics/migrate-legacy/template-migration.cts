@@ -66,6 +66,40 @@ export function findInlineTemplates(filePath: string, fileContent: string): Inli
   const sourceFile = ts.createSourceFile(filePath, fileContent, ts.ScriptTarget.Latest, true);
   const templates: InlineTemplate[] = [];
 
+  // Local bindings of `Component` imported from `@angular/core`, e.g.
+  // `import { Component as NgComponent }` or `import * as ng from '@angular/core'`.
+  const componentNames = new Set<string>();
+  const coreNamespaces = new Set<string>();
+
+  for (const statement of sourceFile.statements) {
+    if (
+      !ts.isImportDeclaration(statement) ||
+      !ts.isStringLiteral(statement.moduleSpecifier) ||
+      statement.moduleSpecifier.text !== '@angular/core' ||
+      !statement.importClause ||
+      ts.isTypeOnlyImportDeclaration(statement.importClause)
+    ) {
+      continue;
+    }
+
+    const bindings = statement.importClause.namedBindings;
+    if (!bindings) {
+      continue;
+    }
+
+    if (ts.isNamespaceImport(bindings)) {
+      coreNamespaces.add(bindings.name.text);
+    } else {
+      for (const specifier of bindings.elements) {
+        // `propertyName` is the exported name when the import is aliased.
+        const importedName = (specifier.propertyName ?? specifier.name).text;
+        if (importedName === 'Component' && !ts.isTypeOnlyImportDeclaration(specifier)) {
+          componentNames.add(specifier.name.text);
+        }
+      }
+    }
+  }
+
   const isComponentDecorator = (
     node: ts.Decorator,
   ): node is ts.Decorator & {
@@ -75,10 +109,18 @@ export function findInlineTemplates(filePath: string, fileContent: string): Inli
     if (!ts.isCallExpression(expression)) {
       return false;
     }
-    const identifier = ts.isPropertyAccessExpression(expression.expression)
-      ? expression.expression.name
-      : expression.expression;
-    return ts.isIdentifier(identifier) && identifier.text === 'Component';
+
+    const callee = expression.expression;
+    if (ts.isIdentifier(callee)) {
+      return componentNames.has(callee.text);
+    }
+
+    return (
+      ts.isPropertyAccessExpression(callee) &&
+      ts.isIdentifier(callee.expression) &&
+      coreNamespaces.has(callee.expression.text) &&
+      callee.name.text === 'Component'
+    );
   };
 
   const visit = (node: ts.Node): void => {
