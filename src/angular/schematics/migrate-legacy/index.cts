@@ -1,6 +1,5 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 
-import { addDependenciesRule, setupLyneTheme } from '../setup-lyne.cjs';
 import { migrateButton } from './modules/button.cjs';
 import { MigrateLegacyOptionsSchema } from './schema';
 import { isStandardThemeSet } from '../utils.cjs';
@@ -87,8 +86,6 @@ function loadModuleMigration(module: LegacyModuleName): Rule {
 
 export function migrateLegacy(options: MigrateLegacyOptionsSchema): Rule {
   return chain([
-    addDependenciesRule(),
-    setupLyneTheme(),
     ...resolveLegacyModules(options.module).map((module) => loadModuleMigration(module)),
   ]);
 }

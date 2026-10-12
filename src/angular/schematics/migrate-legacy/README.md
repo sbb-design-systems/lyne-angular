@@ -5,11 +5,8 @@ This directory contains the migration schematic for converting `@sbb-esta/angula
 ## Architecture
 
 - **`index.cts`**
-  Main orchestrator that handles:
-  - Resolving selected modules
-  - Adding Lyne dependencies
-  - Setting up theme
-  - Loading and running per-module custom migrations
+  Main orchestrator that resolves the selected modules and executes their migration scripts.
+  It also retrieves the configured theme, which can be passed to the module migration scripts to handle theme-specific logic.
 
 - **`modules/`**
   Per-module custom migration implementations; each module (e.g., `button.cts`, `checkbox.cts`, ... ) exports a `migrate<Module>()` function which performs custom transformations for that module.
@@ -131,16 +128,24 @@ which provides the element traversal and applies the collected `MigrationEdit`s.
 Update `index.cts`:
 
 ```typescript
+import { isStandardThemeSet } from '../utils.cjs';
+
 import { migrate<Module> } from './modules/<module-name>.cjs';
 
 function loadModuleMigration(module: LegacyModuleName): Rule {
-  switch (module) {
-    case '<module>':
-      return migrate<Module>();
-    // ... other cases
-    default:
-      return noop();
-  }
+  return async (tree: Tree, context: SchematicContext) => {
+    // The information about the configured theme is already retrieved, and can be used to perform conditional logic on migration functions.
+    const isStandardTheme = await isStandardThemeSet(tree, context);
+
+    // TODO: Add more modules as they are implemented
+    switch (module) {
+      case '<module>':
+        return migrate<Module>();
+      // ... other cases
+      default:
+        return noop();
+    }
+  };
 }
 ```
 
@@ -151,7 +156,10 @@ Create `test/<module-name>.spec.ts` using the `SchematicTestRunner` pattern from
 ## Usage
 
 ```bash
-# Migrate all modules (add Lyne dependencies and theme)
+# Install lyne-angular with automatic setup
+ng add @sbb-esta/lyne-angular
+
+# Migrate all modules
 ng generate @sbb-esta/lyne-angular:migrate-legacy
 
 # Migrate specific modules
@@ -176,7 +184,6 @@ For each module, use this checklist:
 
 ## Notes
 
-- Migrations run AFTER dependency setup and theme configuration
 - Each module's migration is isolated and can be run independently
 - Migrations are idempotent (safe to run multiple times)
 - `node_modules` and `*.d.ts` files are never migrated

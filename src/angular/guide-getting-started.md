@@ -50,7 +50,8 @@
 
 ## Legacy migration
 
-If you migrate from `@sbb-esta/angular`, run:
+If you are migrating from `@sbb-esta/angular` and have already installed `lyne-angular` by following one of the procedures outlined above,
+you can perform the automatic migration using:
 
 ```sh
 ng generate @sbb-esta/lyne-angular:migrate-legacy
