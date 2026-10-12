@@ -70,6 +70,11 @@ const COMMENTS: CommentMigration[] = [
     selector: '[sbb-alt-button]',
     message: 'FIXME: this component has no counterpart in lyne-angular.',
   },
+  {
+    selector: ['sbb-link', 'sbb-link-button'],
+    message:
+      "FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the component's imports.",
+  },
 ];
 
 /**
