@@ -1,0 +1,11 @@
+<!-- Trigger element -->
+<sbb-secondary-button [sbbMenu]="menu">Menu trigger</sbb-secondary-button>
+
+<!-- Menu component with menu actions -->
+<sbb-menu #menu="sbbMenu" hideIconSpace>
+  <sbb-menu-link href="https://www.sbb.ch/en">View</sbb-menu-link>
+  <sbb-menu-button>Edit</sbb-menu-button>
+  <sbb-menu-button aria-label="Details, containing 12 items">Details</sbb-menu-button>
+  <sbb-divider></sbb-divider>
+  <sbb-menu-button>Cancel</sbb-menu-button>
+</sbb-menu>
