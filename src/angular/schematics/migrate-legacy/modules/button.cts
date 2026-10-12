@@ -16,7 +16,7 @@ const IMPORT_PATHS: ImportRewriteOptions[] = [
   { oldImport: '@sbb-esta/angular/button', newImport: '@sbb-esta/lyne-angular/button' },
 ];
 
-const SELECTORS: SelectorMigration[] = [
+const BUTTON_SELECTORS: SelectorMigration[] = [
   { selector: 'button[sbb-button]', replaceWith: 'sbb-button' },
   { selector: 'button[sbb-secondary-button]', replaceWith: 'sbb-secondary-button' },
   { selector: 'button[sbb-ghost-button]', replaceWith: 'sbb-accent-button' },
@@ -25,12 +25,17 @@ const SELECTORS: SelectorMigration[] = [
   { selector: 'a[sbb-secondary-button]', replaceWith: 'sbb-secondary-button-link' },
   { selector: 'a[sbb-ghost-button]', replaceWith: 'sbb-accent-button-link' },
   { selector: 'a[sbb-frameless-button]', replaceWith: 'sbb-transparent-button-link' },
+];
+
+const LINK_SELECTORS: SelectorMigration[] = [
   { selector: 'button[sbb-link]', replaceWith: 'sbb-link-button' },
   { selector: 'a[sbb-link]', replaceWith: 'sbb-link' },
 ];
 
+const BUTTON_ELEMENTS = BUTTON_SELECTORS.map((selector) => selector.replaceWith);
+const LINK_ELEMENTS = LINK_SELECTORS.map((selector) => selector.replaceWith);
+
 /** All Lyne elements the legacy buttons are migrated to. */
-const BUTTON_ELEMENTS = [...new Set(SELECTORS.map((selector) => selector.replaceWith))];
 
 /** The selector migration runs first, so that the attribute migration can already target the new Lyne elements. */
 const ATTRIBUTES: (hasStandardTheme: boolean) => AttributeMigration[] = (
@@ -63,7 +68,15 @@ const ATTRIBUTES: (hasStandardTheme: boolean) => AttributeMigration[] = (
           replaceWith: 'iconName',
         },
       ]
-    : [{ selector: BUTTON_ELEMENTS, attribute: 'svgIcon', replaceWith: 'iconName' }];
+    : [
+        { selector: BUTTON_ELEMENTS, attribute: 'svgIcon', replaceWith: 'iconName' },
+        {
+          selector: LINK_ELEMENTS,
+          attribute: 'svgIcon',
+          replaceWith: 'iconName',
+          defaultValue: 'arrow-right-small',
+        },
+      ];
 
 const COMMENTS: CommentMigration[] = [
   {
@@ -89,7 +102,7 @@ const COMMENTS: CommentMigration[] = [
 export function migrateButton(hasStandardTheme: boolean): Rule {
   return chain([
     createImportPathMigrationRule(IMPORT_PATHS),
-    createTemplateSelectorMigrationRule(SELECTORS),
+    createTemplateSelectorMigrationRule([...BUTTON_SELECTORS, ...LINK_SELECTORS]),
     createAttributeMigrationRule(ATTRIBUTES(hasStandardTheme)),
     createCommentMigrationRule(COMMENTS),
   ]);

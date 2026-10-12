@@ -243,24 +243,50 @@ describe('sbb-button', () => {
   });
 
   describe('attributes and default values based on theme', () => {
-    it('should rename svgIcon to iconName without defaults when standard theme is false (lean)', async () => {
+    it('should handle cases in lean theme', async () => {
       expect(await migrateHtml('<button sbb-button>Go</button>', false)).toBe(
         '<sbb-button>Go</sbb-button>',
       );
+      expect(await migrateHtml('<button sbb-link>Go</button>', false)).toContain(
+        '<sbb-link-button iconName="arrow-right-small">Go</sbb-link-button>',
+      );
     });
 
-    it('should add default iconName when standard theme is true and svgIcon is missing', async () => {
+    it('should add default iconName when theme is standard and svgIcon is missing', async () => {
       expect(await migrateHtml('<button sbb-button>Go</button>', true)).toBe(
         '<sbb-button iconName="arrow-right-small">Go</sbb-button>',
       );
       expect(await migrateHtml('<button sbb-frameless-button>Go</button>', true)).toBe(
         '<sbb-transparent-button iconName="plus-small">Go</sbb-transparent-button>',
       );
+      expect(await migrateHtml('<a sbb-link>Go</a>', false)).toContain(
+        '<sbb-link iconName="arrow-right-small">Go</sbb-link>',
+      );
     });
 
     it('should preserve existing svgIcon by renaming it when standard theme is true', async () => {
       expect(await migrateHtml('<button sbb-button svgIcon="custom-icon">Go</button>', true)).toBe(
         '<sbb-button iconName="custom-icon">Go</sbb-button>',
+      );
+    });
+  });
+
+  describe('comments', () => {
+    it('should add comments for links', async () => {
+      expect(await migrateHtml('<a sbb-link>Go</a>', false)).toContain(
+        "FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the component's imports.",
+      );
+      expect(await migrateHtml('<button sbb-link>Go</button>', false)).toContain(
+        "FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the component's imports.",
+      );
+    });
+
+    it('should add comments for sbb-alt-button', async () => {
+      expect(await migrateHtml('<button sbb-alt-button>Go</button>', false)).toContain(
+        'FIXME: this component has no counterpart in lyne-angular.',
+      );
+      expect(await migrateHtml('<a sbb-alt-button>Go</a>', false)).toContain(
+        'FIXME: this component has no counterpart in lyne-angular.',
       );
     });
   });
