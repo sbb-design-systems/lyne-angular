@@ -1,6 +1,6 @@
 import { Directive, ElementRef, inject, Input, NgZone, type OutputRef } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
+import { internalOutputFromObservable, booleanAttribute } from '@sbb-esta/lyne-angular/core';
 import { SbbMenuElement } from '@sbb-esta/lyne-elements/menu.pure.js';
 import { fromEvent, NEVER } from 'rxjs';
 
@@ -35,6 +35,17 @@ export class SbbMenu {
   }
   public get trigger(): HTMLElement | null {
     return this.#element.nativeElement.trigger;
+  }
+
+  /**
+   * Whether the space reserved for the icon should be hidden.
+   */
+  @Input({ transform: booleanAttribute })
+  public set hideIconSpace(value: boolean) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.hideIconSpace = value));
+  }
+  public get hideIconSpace(): boolean {
+    return this.#element.nativeElement.hideIconSpace;
   }
 
   /**
