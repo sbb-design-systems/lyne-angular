@@ -1,8 +1,9 @@
-import { chain, noop, Rule } from '@angular-devkit/schematics';
+import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 
 import { addDependenciesRule, setupLyneTheme } from '../setup-lyne.cjs';
 import { migrateButton } from './modules/button.cjs';
 import { MigrateLegacyOptionsSchema } from './schema';
+import { isStandardThemeSet } from '../utils.cjs';
 
 // TODO: Add more modules as they are implemented
 const LEGACY_MODULES = [
@@ -71,13 +72,17 @@ function resolveLegacyModules(module: string[] | undefined): LegacyModuleName[] 
 
 /** Load migration rule for a specific legacy module. */
 function loadModuleMigration(module: LegacyModuleName): Rule {
-  // TODO: Add more modules as they are implemented
-  switch (module) {
-    case 'button':
-      return migrateButton();
-    default:
-      return noop();
-  }
+  return async (tree: Tree, context: SchematicContext) => {
+    const isStandardTheme = await isStandardThemeSet(tree, context);
+
+    // TODO: Add more modules as they are implemented
+    switch (module) {
+      case 'button':
+        return migrateButton(isStandardTheme);
+      default:
+        return noop();
+    }
+  };
 }
 
 export function migrateLegacy(options: MigrateLegacyOptionsSchema): Rule {

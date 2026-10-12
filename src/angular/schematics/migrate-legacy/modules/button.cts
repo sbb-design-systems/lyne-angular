@@ -33,9 +33,37 @@ const SELECTORS: SelectorMigration[] = [
 const BUTTON_ELEMENTS = [...new Set(SELECTORS.map((selector) => selector.replaceWith))];
 
 /** The selector migration runs first, so that the attribute migration can already target the new Lyne elements. */
-const ATTRIBUTES: AttributeMigration[] = [
-  { selector: BUTTON_ELEMENTS, attribute: 'svgIcon', replaceWith: 'iconName' },
-];
+const ATTRIBUTES: (hasStandardTheme: boolean) => AttributeMigration[] = (
+  hasStandardTheme: boolean,
+) =>
+  hasStandardTheme
+    ? [
+        {
+          selector: [
+            'sbb-button',
+            'sbb-secondary-button',
+            'sbb-link',
+            'sbb-button-link',
+            'sbb-secondary-button-link',
+            'sbb-link-button',
+          ],
+          attribute: 'svgIcon',
+          replaceWith: 'iconName',
+          defaultValue: 'arrow-right-small',
+        },
+        {
+          selector: ['sbb-transparent-button', 'sbb-transparent-button-link'],
+          attribute: 'svgIcon',
+          replaceWith: 'iconName',
+          defaultValue: 'plus-small',
+        },
+        {
+          selector: ['sbb-accent-button', 'sbb-accent-button-link'],
+          attribute: 'svgIcon',
+          replaceWith: 'iconName',
+        },
+      ]
+    : [{ selector: BUTTON_ELEMENTS, attribute: 'svgIcon', replaceWith: 'iconName' }];
 
 const COMMENTS: CommentMigration[] = [
   {
@@ -53,11 +81,11 @@ const COMMENTS: CommentMigration[] = [
  * 3. Rename inputs
  * 4. Add comments for cases which cannot be migrated automatically
  */
-export function migrateButton(): Rule {
+export function migrateButton(hasStandardTheme: boolean): Rule {
   return chain([
     createImportPathMigrationRule(IMPORT_PATHS),
     createTemplateSelectorMigrationRule(SELECTORS),
-    createAttributeMigrationRule(ATTRIBUTES),
+    createAttributeMigrationRule(ATTRIBUTES(hasStandardTheme)),
     createCommentMigrationRule(COMMENTS),
   ]);
 }

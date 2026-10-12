@@ -27,6 +27,8 @@ export interface AttributeMigration {
   attribute: string;
   /** New name. When omitted, the attribute is removed instead of renamed. */
   replaceWith?: string;
+  /** If attribute is not found, add a new `replaceWith` attribute with this value set. */
+  defaultValue?: string;
 }
 
 type ParsedAttributeMigration = AttributeMigration & { parsedSelectors: ParsedSelector[] };
@@ -84,13 +86,12 @@ export function createAttributeMigrationRule(migrations: AttributeMigration[]): 
       }
 
       const variants = attributeNameVariants(migration.attribute);
+      const nodes = attributeNodes(element);
+      const matchingNode = nodes.find((node) => variants.includes(node.name));
 
-      for (const node of attributeNodes(element)) {
-        if (!variants.includes(node.name)) {
-          continue;
-        }
-
-        const keySpan = resolveKeySpan(node, node.name, content);
+      // The legacy attributes exists in the element to migrate.
+      if (matchingNode) {
+        const keySpan = resolveKeySpan(matchingNode, matchingNode.name, content);
         if (!keySpan) {
           continue;
         }
@@ -103,16 +104,16 @@ export function createAttributeMigrationRule(migrations: AttributeMigration[]): 
         }
 
         if (!migration.replaceWith) {
-          if (handledOffsets.has(node.sourceSpan.start.offset)) {
+          if (handledOffsets.has(matchingNode.sourceSpan.start.offset)) {
             continue;
           }
-          handledOffsets.add(node.sourceSpan.start.offset);
+          handledOffsets.add(matchingNode.sourceSpan.start.offset);
 
           queueAttributeRemoval(
             content,
             baseOffset,
-            node.sourceSpan.start.offset,
-            node.sourceSpan.end.offset,
+            matchingNode.sourceSpan.start.offset,
+            matchingNode.sourceSpan.end.offset,
             edits,
             nextIndex,
             () => logger.info(`  → Removed '${migration.attribute}' in ${filePath}`),
@@ -146,6 +147,40 @@ export function createAttributeMigrationRule(migrations: AttributeMigration[]): 
           log: () =>
             logger.info(
               `  → Renamed '${writtenKey}' to '${replacement}' on <${element.name}> in ${filePath}`,
+            ),
+        });
+      }
+      // The legacy attributes doesn't exist in the element to migrate, but a defaultValue is required.
+      else if (migration.replaceWith && migration.defaultValue !== undefined) {
+        // Don't add default if already migrated
+        if (hasAttribute(element, migration.replaceWith)) {
+          continue;
+        }
+
+        const elementUniqueKey = element.startSourceSpan.start.offset;
+        if (handledOffsets.has(elementUniqueKey)) {
+          continue;
+        }
+        handledOffsets.add(elementUniqueKey);
+
+        const tagStartOffset = element.startSourceSpan.start.offset;
+        const tagName = element.name;
+        const insertionOffset = tagStartOffset + 1 + tagName.length;
+
+        const replacement = migration.attribute.includes('-')
+          ? toDashCase(migration.replaceWith)
+          : toCamelCase(migration.replaceWith);
+
+        const insertionText = ` ${replacement}="${migration.defaultValue}"`;
+
+        edits.push({
+          offset: baseOffset + insertionOffset,
+          index: nextIndex(),
+          length: 0,
+          insertion: insertionText,
+          log: () =>
+            logger.info(
+              `  → Added default '${replacement}="${migration.defaultValue}"' to <${tagName}> in ${filePath}`,
             ),
         });
       }

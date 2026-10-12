@@ -213,4 +213,37 @@ describe('sbb-attribute-migration', () => {
       expect(tree.read('/src/app/app.component.ts')!.toString('utf-8')).toBe(source);
     });
   });
+
+  describe('default value', () => {
+    const migrationWithDefault: AttributeMigration[] = [
+      {
+        selector: 'sbb-button',
+        attribute: 'svgIcon',
+        replaceWith: 'iconName',
+        defaultValue: 'default-icon',
+      },
+    ];
+
+    const migrateWithDefaultHtml = async (template: string): Promise<string> => {
+      const tree = await migrate({ '/src/app/app.component.html': template }, migrationWithDefault);
+      return tree.read('/src/app/app.component.html')!.toString('utf-8');
+    };
+
+    it('should add the default attribute when the legacy attribute is missing', async () => {
+      expect(await migrateWithDefaultHtml('<sbb-button>A</sbb-button>')).toBe(
+        '<sbb-button iconName="default-icon">A</sbb-button>',
+      );
+    });
+
+    it('should rename the legacy attribute instead of adding default when present', async () => {
+      expect(await migrateWithDefaultHtml('<sbb-button svgIcon="arrow">A</sbb-button>')).toBe(
+        '<sbb-button iconName="arrow">A</sbb-button>',
+      );
+    });
+
+    it('should skip adding the default attribute if the target attribute already exists', async () => {
+      const template = '<sbb-button iconName="existing">A</sbb-button>';
+      expect(await migrateWithDefaultHtml(template)).toBe(template);
+    });
+  });
 });

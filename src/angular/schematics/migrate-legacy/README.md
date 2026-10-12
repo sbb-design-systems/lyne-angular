@@ -23,6 +23,7 @@ This directory contains the migration schematic for converting `@sbb-esta/angula
 
 - **`migrations/attribute-migration.cts`**
   Reusable rule factory which renames (or removes) attributes, inputs and outputs of given elements, e.g. `svgIcon` → `iconName` on `<sbb-button>`.
+  Supports configuring a `defaultValue` to automatically inject an attribute if the legacy attribute is missing.
 
 - **`migrations/type-migration.cts`**
   Reusable rule factory which renames type/class/symbol usages in TypeScript files, e.g. `SbbBreadcrumbs` → `SbbBreadcrumbGroup`.
@@ -36,10 +37,10 @@ This directory contains the migration schematic for converting `@sbb-esta/angula
   Concrete migrations only describe their edits.
 
 - **`symbol-references.cts`**
-  Shared lookup of imported TypeScript symbols, used by the type and the comment migration.
+  Shared lookup of imported TypeScript symbols (used by type and comment migrations), featuring lexical scope and shadowing awareness to safely ignore local parameters or variables sharing the imported name.
 
 - **`schema.json` / `schema.d.ts`**
-  CLI schema definition
+  CLI schema definition supporting positional variadic arguments for modules.
 
 ## Adding a Custom Module Migration
 
@@ -78,7 +79,14 @@ const ATTRIBUTES: AttributeMigration[] = [
   // <sbb-button svgIcon="x"> → <sbb-button iconName="x">
   { selector: 'sbb-button', attribute: 'svgIcon', replaceWith: 'iconName' },
   // Without `replaceWith` the attribute is removed:
-  // { selector: 'sbb-button', attribute: 'obsoleteFlag' },
+  { selector: 'sbb-button', attribute: 'obsoleteFlag' },
+  // If oldAttr is missing, defaultValue can automatically supply a fallback:
+  {
+    selector: 'sbb-button',
+    attribute: 'oldAttr',
+    replaceWith: 'newOne',
+    defaultValue: 'default-icon',
+  },
 ];
 
 const TYPES: TypeMigration[] = [

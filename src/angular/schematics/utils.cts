@@ -11,10 +11,11 @@ import { getProjectFromWorkspace } from '@angular/cdk/schematics';
 import type { logging } from '@angular-devkit/core';
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { SchematicsException } from '@angular-devkit/schematics';
-import type {
-  ProjectDefinition,
-  TargetDefinition,
-  WorkspaceDefinition,
+import {
+  getWorkspace,
+  type ProjectDefinition,
+  type TargetDefinition,
+  type WorkspaceDefinition,
 } from '@schematics/angular/utility/workspace';
 import { updateWorkspace } from '@schematics/angular/utility/workspace';
 
@@ -166,6 +167,40 @@ export function validateDefaultTargetBuilder(
   }
 
   return target;
+}
+
+export async function isStandardThemeSet(tree: Tree, context: SchematicContext): Promise<boolean> {
+  try {
+    const workspace = await getWorkspace(tree);
+    const projectName = getProjectName({}, workspace);
+    const project = workspace.projects.get(projectName);
+
+    if (!project) {
+      return false;
+    }
+
+    const buildTarget = project.targets.get('build');
+    if (!buildTarget || !buildTarget.options) {
+      return false;
+    }
+
+    const styles =
+      (buildTarget.options['styles'] as (string | { input: string; [key: string]: any })[]) || [];
+
+    for (const style of styles) {
+      const stylePath = typeof style === 'string' ? style : style?.input;
+      if (stylePath) {
+        const fileName = stylePath.split('/').pop() || '';
+        if (fileName.includes('theme') && !fileName.startsWith('lean')) {
+          return true;
+        }
+      }
+    }
+  } catch (e) {
+    context.logger.debug('Could not read workspace or build styles to check theme.');
+  }
+
+  return false;
 }
 
 export function addThemeToProject(

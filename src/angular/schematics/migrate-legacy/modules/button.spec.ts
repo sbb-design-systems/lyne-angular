@@ -17,16 +17,19 @@ describe('sbb-button', () => {
   const runner = new SchematicTestRunner('test', tempCollectionPath);
 
   /** Runs the button migration against a tree containing the given files. */
-  const migrate = async (files: Record<string, string>): Promise<Tree> => {
+  const migrate = async (
+    files: Record<string, string>,
+    hasStandardTheme = false,
+  ): Promise<Tree> => {
     const tree = new UnitTestTree(new HostTree());
     for (const [filePath, content] of Object.entries(files)) {
       tree.create(filePath, content);
     }
-    return firstValueFrom(runner.callRule(migrateButton(), tree));
+    return firstValueFrom(runner.callRule(migrateButton(hasStandardTheme), tree));
   };
 
-  const migrateHtml = async (template: string): Promise<string> => {
-    const tree = await migrate({ '/src/app/app.component.html': template });
+  const migrateHtml = async (template: string, hasStandardTheme = false): Promise<string> => {
+    const tree = await migrate({ '/src/app/app.component.html': template }, hasStandardTheme);
     return tree.read('/src/app/app.component.html')!.toString('utf-8');
   };
 
@@ -235,6 +238,29 @@ describe('sbb-button', () => {
 
       expect(tree.read('/src/app/app.component.ts')!.toString('utf-8')).toContain(
         'template: \'<sbb-button iconName="arrow">Go</sbb-button>\',',
+      );
+    });
+  });
+
+  describe('attributes and default values based on theme', () => {
+    it('should rename svgIcon to iconName without defaults when standard theme is false (lean)', async () => {
+      expect(await migrateHtml('<button sbb-button>Go</button>', false)).toBe(
+        '<sbb-button>Go</sbb-button>',
+      );
+    });
+
+    it('should add default iconName when standard theme is true and svgIcon is missing', async () => {
+      expect(await migrateHtml('<button sbb-button>Go</button>', true)).toBe(
+        '<sbb-button iconName="arrow-right-small">Go</sbb-button>',
+      );
+      expect(await migrateHtml('<button sbb-frameless-button>Go</button>', true)).toBe(
+        '<sbb-transparent-button iconName="plus-small">Go</sbb-transparent-button>',
+      );
+    });
+
+    it('should preserve existing svgIcon by renaming it when standard theme is true', async () => {
+      expect(await migrateHtml('<button sbb-button svgIcon="custom-icon">Go</button>', true)).toBe(
+        '<sbb-button iconName="custom-icon">Go</sbb-button>',
       );
     });
   });
