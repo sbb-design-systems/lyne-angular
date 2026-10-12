@@ -54,14 +54,14 @@ import { ImportRewriteOptions } from '../../utils.cjs';
 import {
   AttributeMigration,
   createAttributeMigrationRule,
-} from '../common/attribute-migration.cjs';
-import { createImportPathMigrationRule } from '../common/import-path-migration.cjs';
+} from '../migrations/attribute-migration.cjs';
+import { createImportPathMigrationRule } from '../migrations/import-path-migration.cjs';
 import {
   createTemplateSelectorMigrationRule,
   SelectorMigration,
-} from '../common/template-selector-migration.cjs';
-import { createTypeMigrationRule, TypeMigration } from '../common/type-migration.cjs';
-import { CommentMigration, createCommentMigrationRule } from '../common/comment-migration.cjs';
+} from '../migrations/template-selector-migration.cjs';
+import { createTypeMigrationRule, TypeMigration } from '../migrations/type-migration.cjs';
+import { CommentMigration, createCommentMigrationRule } from '../migrations/comment-migration.cjs';
 
 const IMPORT_PATHS: ImportRewriteOptions[] = [
   { oldImport: '@sbb-esta/angular/<module>', newImport: '@sbb-esta/lyne-angular/<module>' },
@@ -115,7 +115,7 @@ export function migrate<Module>(): Rule {
 ```
 
 For transformations which cannot be expressed declaratively, add a custom `Rule` to the `chain()`.
-Template based rules should build on `createTemplateMigrationRule()` from `../common/template-migration.cjs`,
+Template based rules should build on `createTemplateMigrationRule()` from `./template-migration.cjs`,
 which provides the element traversal and applies the collected `MigrationEdit`s.
 
 ### 2. Register in orchestrator
