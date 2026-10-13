@@ -102,8 +102,10 @@ function collectScopeDeclarations(scopeNode: ts.Node): Set<string> {
       if (ts.isFunctionDeclaration(node) && node.name) {
         names.add(node.name.text);
       }
-      for (const param of node.parameters) {
-        collectDeclaredNames(param.name, names);
+      if (node === scopeNode) {
+        for (const param of node.parameters) {
+          collectDeclaredNames(param.name, names);
+        }
       }
     } else if (ts.isVariableDeclarationList(node)) {
       for (const decl of node.declarations) {
