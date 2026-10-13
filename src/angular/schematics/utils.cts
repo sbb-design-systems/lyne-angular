@@ -15,9 +15,9 @@ import {
   getWorkspace,
   type ProjectDefinition,
   type TargetDefinition,
+  updateWorkspace,
   type WorkspaceDefinition,
 } from '@schematics/angular/utility/workspace';
-import { updateWorkspace } from '@schematics/angular/utility/workspace';
 
 export interface ImportRewriteOptions {
   /** Old import path to replace (e.g., '@sbb-esta/angular/button') */
@@ -169,38 +169,34 @@ export function validateDefaultTargetBuilder(
   return target;
 }
 
-export async function isStandardThemeSet(
-  tree: Tree,
-  context: SchematicContext,
-  projectName: string,
-): Promise<boolean> {
-  try {
-    const workspace = await getWorkspace(tree);
-    const project = workspace.projects.get(projectName);
+export async function isStandardThemeSet(tree: Tree, projectName: string): Promise<boolean> {
+  const workspace = await getWorkspace(tree);
+  const project = workspace.projects.get(projectName);
 
-    if (!project) {
-      return false;
-    }
+  if (!project) {
+    throw new SchematicsException(
+      `Could not find project ${projectName}; please check your \`angular.json.\``,
+    );
+  }
 
-    const buildTarget = project.targets.get('build');
-    if (!buildTarget || !buildTarget.options) {
-      return false;
-    }
+  const buildTarget = project.targets.get('build');
+  if (!buildTarget || !buildTarget.options) {
+    throw new SchematicsException(
+      `Could not find build configuration for project ${projectName}; please check your \`angular.json.\``,
+    );
+  }
 
-    const styles =
-      (buildTarget.options['styles'] as (string | { input: string; [key: string]: any })[]) || [];
+  const styles =
+    (buildTarget.options['styles'] as (string | { input: string; [key: string]: any })[]) || [];
 
-    for (const style of styles) {
-      const stylePath = typeof style === 'string' ? style : style?.input;
-      if (stylePath) {
-        const fileName = stylePath.split('/').pop() || '';
-        if (fileName.includes('theme') && !fileName.startsWith('lean')) {
-          return true;
-        }
+  for (const style of styles) {
+    const stylePath = typeof style === 'string' ? style : style?.input;
+    if (stylePath) {
+      const fileName = stylePath.split('/').pop() || '';
+      if (fileName.includes('theme') && !fileName.startsWith('lean')) {
+        return true;
       }
     }
-  } catch (e) {
-    context.logger.debug('Could not read workspace or build styles to check theme.');
   }
 
   return false;

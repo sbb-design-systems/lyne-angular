@@ -162,6 +162,9 @@ ng add @sbb-esta/lyne-angular
 # Migrate all modules
 ng generate @sbb-esta/lyne-angular:migrate-legacy
 
+# Migrate specific project (for multi-application workspace).
+ng generate @sbb-esta/lyne-angular:migrate-legacy --project my-project
+
 # Migrate specific modules
 ng generate @sbb-esta/lyne-angular:migrate-legacy --module button
 ng generate @sbb-esta/lyne-angular:migrate-legacy --module button checkbox

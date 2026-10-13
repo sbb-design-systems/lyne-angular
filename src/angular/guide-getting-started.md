@@ -69,6 +69,15 @@ If `--module` is omitted, all supported modules are migrated. Specify multiple m
 ng generate @sbb-esta/lyne-angular:migrate-legacy --module button checkbox icon
 ```
 
+In a multi-application workspace, you can use the `--project` flag to migrate a single project.
+If not passed, the Angular project in the bash's current folder is taken as default value.
+
+```sh
+ng generate @sbb-esta/lyne-angular:migrate-legacy --project my-project
+ng generate @sbb-esta/lyne-angular:migrate-legacy --project my-project --module button
+ng generate @sbb-esta/lyne-angular:migrate-legacy --project my-project --module button checkbox icon
+```
+
 ## Import and use Lyne components
 
 Use the desired Lyne components in your Angular components:
