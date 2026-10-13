@@ -169,10 +169,13 @@ export function validateDefaultTargetBuilder(
   return target;
 }
 
-export async function isStandardThemeSet(tree: Tree, context: SchematicContext): Promise<boolean> {
+export async function isStandardThemeSet(
+  tree: Tree,
+  context: SchematicContext,
+  projectName: string,
+): Promise<boolean> {
   try {
     const workspace = await getWorkspace(tree);
-    const projectName = getProjectName({}, workspace);
     const project = workspace.projects.get(projectName);
 
     if (!project) {

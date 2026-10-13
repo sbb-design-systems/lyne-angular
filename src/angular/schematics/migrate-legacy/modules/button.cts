@@ -16,7 +16,7 @@ const IMPORT_PATHS: ImportRewriteOptions[] = [
   { oldImport: '@sbb-esta/angular/button', newImport: '@sbb-esta/lyne-angular/button' },
 ];
 
-const BUTTON_SELECTORS: SelectorMigration[] = [
+const BUTTON_MIGRATIONS: SelectorMigration[] = [
   { selector: 'button[sbb-button]', replaceWith: 'sbb-button' },
   { selector: 'button[sbb-secondary-button]', replaceWith: 'sbb-secondary-button' },
   { selector: 'button[sbb-ghost-button]', replaceWith: 'sbb-accent-button' },
@@ -27,17 +27,17 @@ const BUTTON_SELECTORS: SelectorMigration[] = [
   { selector: 'a[sbb-frameless-button]', replaceWith: 'sbb-transparent-button-link' },
 ];
 
-const LINK_SELECTORS: SelectorMigration[] = [
+const LINK_MIGRATIONS: SelectorMigration[] = [
   { selector: 'button[sbb-link]', replaceWith: 'sbb-link-button' },
   { selector: 'a[sbb-link]', replaceWith: 'sbb-link' },
 ];
 
-const BUTTON_ELEMENTS = BUTTON_SELECTORS.map((selector) => selector.replaceWith);
-const LINK_ELEMENTS = LINK_SELECTORS.map((selector) => selector.replaceWith);
+/** Selectors for template migrations. */
+const TEMPLATE_MIGRATION_SELECTORS = [...BUTTON_MIGRATIONS, ...LINK_MIGRATIONS];
 
-/** All Lyne elements the legacy buttons are migrated to. */
-
-/** The selector migration runs first, so that the attribute migration can already target the new Lyne elements. */
+/** The attribute migration runs first, so it has to target the old elements. */
+const BUTTON_SELECTORS = BUTTON_MIGRATIONS.map((selector) => selector.selector);
+const LINK_SELECTORS = LINK_MIGRATIONS.map((selector) => selector.selector);
 const ATTRIBUTES: (hasStandardTheme: boolean) => AttributeMigration[] = (
   hasStandardTheme: boolean,
 ) =>
@@ -45,32 +45,32 @@ const ATTRIBUTES: (hasStandardTheme: boolean) => AttributeMigration[] = (
     ? [
         {
           selector: [
-            'sbb-button',
-            'sbb-secondary-button',
-            'sbb-button-link',
-            'sbb-secondary-button-link',
+            'button[sbb-button]',
+            'button[sbb-secondary-button]',
+            'a[sbb-button]',
+            'a[sbb-secondary-button]',
           ],
           attribute: 'svgIcon',
           replaceWith: 'iconName',
           defaultValue: 'arrow-right-small',
         },
         {
-          selector: ['sbb-transparent-button', 'sbb-transparent-button-link'],
+          selector: ['button[sbb-frameless-button]', 'a[sbb-frameless-button]'],
           attribute: 'svgIcon',
           replaceWith: 'iconName',
           defaultValue: 'plus-small',
         },
         {
-          selector: ['sbb-accent-button', 'sbb-accent-button-link'],
+          selector: ['button[sbb-ghost-button]', 'a[sbb-ghost-button]'],
           attribute: 'svgIcon',
           replaceWith: 'iconName',
         },
         // Links in lyne-angular have no icon - only block link have.
-        { selector: LINK_ELEMENTS, attribute: 'svgIcon' },
+        { selector: LINK_SELECTORS, attribute: 'svgIcon' },
       ]
     : [
-        { selector: BUTTON_ELEMENTS, attribute: 'svgIcon', replaceWith: 'iconName' },
-        { selector: LINK_ELEMENTS, attribute: 'svgIcon' },
+        { selector: BUTTON_SELECTORS, attribute: 'svgIcon', replaceWith: 'iconName' },
+        { selector: LINK_SELECTORS, attribute: 'svgIcon' },
       ];
 
 const COMMENTS: CommentMigration[] = [
@@ -97,8 +97,8 @@ const COMMENTS: CommentMigration[] = [
 export function migrateButton(hasStandardTheme: boolean): Rule {
   return chain([
     createImportPathMigrationRule(IMPORT_PATHS),
-    createTemplateSelectorMigrationRule([...BUTTON_SELECTORS, ...LINK_SELECTORS]),
     createAttributeMigrationRule(ATTRIBUTES(hasStandardTheme)),
+    createTemplateSelectorMigrationRule(TEMPLATE_MIGRATION_SELECTORS),
     createCommentMigrationRule(COMMENTS),
   ]);
 }

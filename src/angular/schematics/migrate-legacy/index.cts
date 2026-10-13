@@ -70,22 +70,24 @@ function resolveLegacyModules(module: string[] | undefined): LegacyModuleName[] 
 }
 
 /** Load migration rule for a specific legacy module. */
-function loadModuleMigration(module: LegacyModuleName): Rule {
-  return async (tree: Tree, context: SchematicContext) => {
-    const isStandardTheme = await isStandardThemeSet(tree, context);
-
-    // TODO: Add more modules as they are implemented
-    switch (module) {
-      case 'button':
-        return migrateButton(isStandardTheme);
-      default:
-        return noop();
-    }
-  };
+function loadModuleMigration(module: LegacyModuleName, isStandardTheme: boolean): Rule {
+  // TODO: Add more modules as they are implemented
+  switch (module) {
+    case 'button':
+      return migrateButton(isStandardTheme);
+    default:
+      return noop();
+  }
 }
 
 export function migrateLegacy(options: MigrateLegacyOptionsSchema): Rule {
-  return chain([
-    ...resolveLegacyModules(options.module).map((module) => loadModuleMigration(module)),
-  ]);
+  return async (tree: Tree, context: SchematicContext) => {
+    const isStandardTheme = await isStandardThemeSet(tree, context, options.project);
+
+    return chain([
+      ...resolveLegacyModules(options.module).map((module) =>
+        loadModuleMigration(module, isStandardTheme),
+      ),
+    ]);
+  };
 }
