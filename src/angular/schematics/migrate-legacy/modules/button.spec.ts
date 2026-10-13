@@ -98,6 +98,10 @@ describe('sbb-button', () => {
       expect(await migrateHtml('<a sbb-frameless-button>A</a>')).toBe(
         '<sbb-transparent-button-link>A</sbb-transparent-button-link>',
       );
+      expect(await migrateHtml('<button sbb-link>A</button>')).toContain(
+        '<sbb-link-button>A</sbb-link-button>',
+      );
+      expect(await migrateHtml('<a sbb-link>A</a>')).toContain('<sbb-link>A</sbb-link>');
     });
 
     it('should keep the type attribute', async () => {
@@ -242,32 +246,106 @@ describe('sbb-button', () => {
     });
   });
 
-  describe('attributes and default values based on theme', () => {
-    it('should handle cases in lean theme', async () => {
+  describe('attributes with default values based on theme', () => {
+    it('should handle lean theme', async () => {
+      // set no default iconName
       expect(await migrateHtml('<button sbb-button>Go</button>', false)).toBe(
         '<sbb-button>Go</sbb-button>',
       );
-      expect(await migrateHtml('<button sbb-link>Go</button>', false)).toContain(
-        '<sbb-link-button iconName="arrow-right-small">Go</sbb-link-button>',
+      expect(await migrateHtml('<button sbb-secondary-button>Go</button>', false)).toBe(
+        '<sbb-secondary-button>Go</sbb-secondary-button>',
+      );
+      expect(await migrateHtml('<button sbb-frameless-button>Go</button>', false)).toBe(
+        '<sbb-transparent-button>Go</sbb-transparent-button>',
+      );
+      expect(await migrateHtml('<button sbb-ghost-button>Go</button>', false)).toBe(
+        '<sbb-accent-button>Go</sbb-accent-button>',
+      );
+      expect(await migrateHtml('<a sbb-button>Go</a>', false)).toBe(
+        '<sbb-button-link>Go</sbb-button-link>',
+      );
+      expect(await migrateHtml('<a sbb-secondary-button>Go</a>', false)).toBe(
+        '<sbb-secondary-button-link>Go</sbb-secondary-button-link>',
+      );
+      expect(await migrateHtml('<a sbb-frameless-button>Go</a>', false)).toBe(
+        '<sbb-transparent-button-link>Go</sbb-transparent-button-link>',
+      );
+      expect(await migrateHtml('<a sbb-ghost-button>Go</a>', false)).toBe(
+        '<sbb-accent-button-link>Go</sbb-accent-button-link>',
+      );
+
+      // replace svgIcon with iconName keeping value
+      expect(await migrateHtml('<button sbb-button svgIcon="test">Go</button>', false)).toBe(
+        '<sbb-button iconName="test">Go</sbb-button>',
+      );
+      expect(
+        await migrateHtml('<button sbb-secondary-button svgIcon="test">Go</button>', false),
+      ).toBe('<sbb-secondary-button iconName="test">Go</sbb-secondary-button>');
+      expect(
+        await migrateHtml('<button sbb-frameless-button svgIcon="test">Go</button>', false),
+      ).toBe('<sbb-transparent-button iconName="test">Go</sbb-transparent-button>');
+      expect(await migrateHtml('<button sbb-ghost-button svgIcon="test">Go</button>', false)).toBe(
+        '<sbb-accent-button iconName="test">Go</sbb-accent-button>',
+      );
+      expect(await migrateHtml('<a sbb-button>Go</a>', false)).toBe(
+        '<sbb-button-link>Go</sbb-button-link>',
+      );
+      expect(await migrateHtml('<a sbb-secondary-button>Go</a>', false)).toBe(
+        '<sbb-secondary-button-link>Go</sbb-secondary-button-link>',
+      );
+      expect(await migrateHtml('<a sbb-frameless-button>Go</a>', false)).toBe(
+        '<sbb-transparent-button-link>Go</sbb-transparent-button-link>',
+      );
+      expect(await migrateHtml('<a sbb-ghost-button>Go</a>', false)).toBe(
+        '<sbb-accent-button-link>Go</sbb-accent-button-link>',
+      );
+
+      // Remove icon
+      expect(await migrateHtml('<button sbb-link svgIcon="test">Go</button>', false)).toContain(
+        '<sbb-link-button>Go</sbb-link-button>',
+      );
+      expect(await migrateHtml('<a sbb-link svgIcon="test">Go</a>', false)).toContain(
+        '<sbb-link>Go</sbb-link>',
       );
     });
 
-    it('should add default iconName when theme is standard and svgIcon is missing', async () => {
+    it('should handle non-lean theme', async () => {
       expect(await migrateHtml('<button sbb-button>Go</button>', true)).toBe(
         '<sbb-button iconName="arrow-right-small">Go</sbb-button>',
+      );
+      expect(await migrateHtml('<button sbb-secondary-button>Go</button>', true)).toBe(
+        '<sbb-secondary-button iconName="arrow-right-small">Go</sbb-secondary-button>',
       );
       expect(await migrateHtml('<button sbb-frameless-button>Go</button>', true)).toBe(
         '<sbb-transparent-button iconName="plus-small">Go</sbb-transparent-button>',
       );
-      expect(await migrateHtml('<a sbb-link>Go</a>', false)).toContain(
-        '<sbb-link iconName="arrow-right-small">Go</sbb-link>',
+      expect(await migrateHtml('<button sbb-ghost-button>Go</button>', true)).toBe(
+        '<sbb-accent-button>Go</sbb-accent-button>',
       );
-    });
+      expect(await migrateHtml('<button sbb-ghost-button svgIcon="test">Go</button>', true)).toBe(
+        '<sbb-accent-button iconName="test">Go</sbb-accent-button>',
+      );
 
-    it('should preserve existing svgIcon by renaming it when standard theme is true', async () => {
-      expect(await migrateHtml('<button sbb-button svgIcon="custom-icon">Go</button>', true)).toBe(
-        '<sbb-button iconName="custom-icon">Go</sbb-button>',
+      expect(await migrateHtml('<a sbb-button>Go</a>', true)).toBe(
+        '<sbb-button-link iconName="arrow-right-small">Go</sbb-button-link>',
       );
+      expect(await migrateHtml('<a sbb-secondary-button>Go</a>', true)).toBe(
+        '<sbb-secondary-button-link iconName="arrow-right-small">Go</sbb-secondary-button-link>',
+      );
+      expect(await migrateHtml('<a sbb-frameless-button>Go</a>', true)).toBe(
+        '<sbb-transparent-button-link iconName="plus-small">Go</sbb-transparent-button-link>',
+      );
+      expect(await migrateHtml('<a sbb-ghost-button>Go</a>', true)).toBe(
+        '<sbb-accent-button-link>Go</sbb-accent-button-link>',
+      );
+      expect(await migrateHtml('<a sbb-ghost-button svgIcon="test">Go</a>', true)).toBe(
+        '<sbb-accent-button-link iconName="test">Go</sbb-accent-button-link>',
+      );
+
+      expect(await migrateHtml('<button sbb-link>Go</button>', true)).toContain(
+        '<sbb-link-button>Go</sbb-link-button>',
+      );
+      expect(await migrateHtml('<a sbb-link>Go</a>', true)).toContain('<sbb-link>Go</sbb-link>');
     });
   });
 

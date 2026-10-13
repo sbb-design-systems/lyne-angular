@@ -47,10 +47,8 @@ const ATTRIBUTES: (hasStandardTheme: boolean) => AttributeMigration[] = (
           selector: [
             'sbb-button',
             'sbb-secondary-button',
-            'sbb-link',
             'sbb-button-link',
             'sbb-secondary-button-link',
-            'sbb-link-button',
           ],
           attribute: 'svgIcon',
           replaceWith: 'iconName',
@@ -67,15 +65,12 @@ const ATTRIBUTES: (hasStandardTheme: boolean) => AttributeMigration[] = (
           attribute: 'svgIcon',
           replaceWith: 'iconName',
         },
+        // Links in lyne-angular have no icon - only block link have.
+        { selector: LINK_ELEMENTS, attribute: 'svgIcon' },
       ]
     : [
         { selector: BUTTON_ELEMENTS, attribute: 'svgIcon', replaceWith: 'iconName' },
-        {
-          selector: LINK_ELEMENTS,
-          attribute: 'svgIcon',
-          replaceWith: 'iconName',
-          defaultValue: 'arrow-right-small',
-        },
+        { selector: LINK_ELEMENTS, attribute: 'svgIcon' },
       ];
 
 const COMMENTS: CommentMigration[] = [
