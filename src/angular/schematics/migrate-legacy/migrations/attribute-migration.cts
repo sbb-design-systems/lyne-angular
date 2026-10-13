@@ -79,6 +79,8 @@ export function createAttributeMigrationRule(migrations: AttributeMigration[]): 
     const { content, baseOffset, filePath, edits, nextIndex, logger } = context;
     // Several bindings can share a key span (e.g. the input and the output of a `[(x)]` two-way binding); every span must only be edited once.
     const handledOffsets = new Set<number>();
+    // Target attributes (dash-case) which already received a default on this element.
+    const handledDefaults = new Set<string>();
 
     for (const migration of parsedMigrations) {
       if (!migration.parsedSelectors.some((selector) => elementMatches(element, selector))) {
@@ -157,11 +159,12 @@ export function createAttributeMigrationRule(migrations: AttributeMigration[]): 
           continue;
         }
 
-        const elementUniqueKey = element.startSourceSpan.start.offset;
-        if (handledOffsets.has(elementUniqueKey)) {
+        // One default per target attribute: distinct targets may share the insertion offset.
+        const defaultKey = toDashCase(migration.replaceWith);
+        if (handledDefaults.has(defaultKey)) {
           continue;
         }
-        handledOffsets.add(elementUniqueKey);
+        handledDefaults.add(defaultKey);
 
         const tagStartOffset = element.startSourceSpan.start.offset;
         const tagName = element.name;

@@ -103,9 +103,24 @@ function collectScopeDeclarations(scopeNode: ts.Node): Set<string> {
         names.add(node.name.text);
       }
       if (node === scopeNode) {
+        // A named function expression binds its own name inside its body.
+        if (ts.isFunctionExpression(node) && node.name) {
+          names.add(node.name.text);
+        }
+        for (const typeParameter of node.typeParameters ?? []) {
+          names.add(typeParameter.name.text);
+        }
         for (const param of node.parameters) {
           collectDeclaredNames(param.name, names);
         }
+      }
+    } else if (
+      (ts.isForStatement(node) || ts.isForInStatement(node) || ts.isForOfStatement(node)) &&
+      node === scopeNode
+    ) {
+      // `for (const x of …)`: the initializer declarations are scoped to the loop.
+      if (node.initializer && ts.isVariableDeclarationList(node.initializer)) {
+        addFromNode(node.initializer);
       }
     } else if (ts.isVariableDeclarationList(node)) {
       for (const decl of node.declarations) {
@@ -132,13 +147,35 @@ function collectScopeDeclarations(scopeNode: ts.Node): Set<string> {
   // If node is block or function, collect declarations
   addFromNode(scopeNode);
 
-  if (ts.isBlock(scopeNode) || ts.isSourceFile(scopeNode)) {
+  if (ts.isBlock(scopeNode) || ts.isSourceFile(scopeNode) || ts.isModuleBlock(scopeNode)) {
     for (const statement of scopeNode.statements) {
       addFromNode(statement);
+    }
+  } else if (ts.isCaseBlock(scopeNode)) {
+    // All clauses of a `switch` share one lexical scope.
+    for (const clause of scopeNode.clauses) {
+      for (const statement of clause.statements) {
+        addFromNode(statement);
+      }
     }
   }
 
   return names;
+}
+
+/** Whether the node opens a lexical scope which may shadow imported bindings. */
+function isScopeNode(node: ts.Node): boolean {
+  return (
+    ts.isSourceFile(node) ||
+    ts.isBlock(node) ||
+    ts.isModuleBlock(node) ||
+    ts.isCaseBlock(node) ||
+    ts.isCatchClause(node) ||
+    ts.isForStatement(node) ||
+    ts.isForInStatement(node) ||
+    ts.isForOfStatement(node) ||
+    ts.isFunctionLike(node)
+  );
 }
 
 /**
@@ -220,12 +257,7 @@ export function findSymbolReferences<T extends SymbolTarget>(
     let nextShadowed = currentShadowed;
 
     // Whether entering scope (Block, Function, CatchClause, etc.)
-    if (
-      ts.isBlock(node) ||
-      ts.isFunctionLike(node) ||
-      ts.isCatchClause(node) ||
-      ts.isSourceFile(node)
-    ) {
+    if (isScopeNode(node)) {
       // Determine if this node introduces new declarations that shadow existing bindings
       const declared = collectScopeDeclarations(node);
       if (declared.size > 0) {

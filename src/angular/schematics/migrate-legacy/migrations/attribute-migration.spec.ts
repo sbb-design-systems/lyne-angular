@@ -245,5 +245,23 @@ describe('sbb-attribute-migration', () => {
       const template = '<sbb-button iconName="existing">A</sbb-button>';
       expect(await migrateWithDefaultHtml(template)).toBe(template);
     });
+
+    it('should add distinct defaults to the same element', async () => {
+      expect(
+        await migrateHtml('<sbb-button>A</sbb-button>', [
+          ...migrationWithDefault,
+          { selector: 'sbb-button', attribute: 'mode', replaceWith: 'size', defaultValue: 'm' },
+        ]),
+      ).toBe('<sbb-button iconName="default-icon" size="m">A</sbb-button>');
+    });
+
+    it('should add a default only once per target attribute', async () => {
+      expect(
+        await migrateHtml('<sbb-button>A</sbb-button>', [
+          ...migrationWithDefault,
+          { selector: 'sbb-button', attribute: 'icon', replaceWith: 'iconName', defaultValue: 'x' },
+        ]),
+      ).toBe('<sbb-button iconName="default-icon">A</sbb-button>');
+    });
   });
 });

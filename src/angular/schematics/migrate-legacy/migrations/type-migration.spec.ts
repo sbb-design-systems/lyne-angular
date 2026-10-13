@@ -337,5 +337,68 @@ describe('sbb-type-migration', () => {
       );
       expect(result).toContain('return SbbBreadcrumbs;');
     });
+
+    it('should ignore loop variables that shadow the imported symbol name', async () => {
+      const source = [
+        "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+        '',
+        'export function run(values: string[], registry: unknown[]) {',
+        '  for (const SbbBreadcrumbs of values) { registry.push({ SbbBreadcrumbs }); }',
+        '  for (const SbbBreadcrumbs in registry) { registry.push(SbbBreadcrumbs); }',
+        '  for (let SbbBreadcrumbs = 0; SbbBreadcrumbs < 1; SbbBreadcrumbs++) {}',
+        '  return registry.push(SbbBreadcrumbs);',
+        '}',
+      ].join('\n');
+
+      const result = await migrateSource(source);
+
+      expect(result).toContain(
+        'for (const SbbBreadcrumbs of values) { registry.push({ SbbBreadcrumbs }); }',
+      );
+      expect(result).toContain(
+        'for (const SbbBreadcrumbs in registry) { registry.push(SbbBreadcrumbs); }',
+      );
+      expect(result).toContain(
+        'for (let SbbBreadcrumbs = 0; SbbBreadcrumbs < 1; SbbBreadcrumbs++) {}',
+      );
+      // Outside the loops the import is referenced again.
+      expect(result).toContain('return registry.push(SbbBreadcrumbGroup);');
+    });
+
+    it('should ignore switch-scoped declarations that shadow the imported symbol name', async () => {
+      const source = [
+        "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+        '',
+        'export function run(mode: number) {',
+        '  switch (mode) {',
+        '    case 1:',
+        '      const SbbBreadcrumbs = "local";',
+        '      return SbbBreadcrumbs;',
+        '    default:',
+        '      return { SbbBreadcrumbs };',
+        '  }',
+        '}',
+        'export const real = SbbBreadcrumbs;',
+      ].join('\n');
+
+      const result = await migrateSource(source);
+
+      expect(result).toContain('const SbbBreadcrumbs = "local";');
+      expect(result).toContain('return SbbBreadcrumbs;');
+      expect(result).toContain('return { SbbBreadcrumbs };');
+      expect(result).toContain('export const real = SbbBreadcrumbGroup;');
+    });
+
+    it('should ignore the name of a named function expression inside its body', async () => {
+      const source = [
+        "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+        '',
+        'export const fn = function SbbBreadcrumbs() { return SbbBreadcrumbs; };',
+      ].join('\n');
+
+      const result = await migrateSource(source);
+
+      expect(result).toContain('function SbbBreadcrumbs() { return SbbBreadcrumbs; }');
+    });
   });
 });
