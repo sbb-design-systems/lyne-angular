@@ -77,7 +77,7 @@ export class SbbPearlChainNode {
    * The arrival date/time at this node. Accepts ISO 8601 datetime strings.
    */
   @Input()
-  public set arrival(value: Date | null) {
+  public set arrival(value: Date | string | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.arrival = value));
   }
   public get arrival(): Date | null {
@@ -88,7 +88,7 @@ export class SbbPearlChainNode {
    * The departure date/time at this node. Accepts ISO 8601 datetime strings.
    */
   @Input()
-  public set departure(value: Date | null) {
+  public set departure(value: Date | string | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.departure = value));
   }
   public get departure(): Date | null {
