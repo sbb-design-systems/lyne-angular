@@ -1,21 +1,21 @@
 import { Directive, ElementRef, inject, Input, NgZone } from '@angular/core';
-import { booleanAttribute } from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute } from '@sbb-esta/lyne-angular/types/sbb-esta-lyne-angular-core';
 import type { Leg, PtRideLeg } from '@sbb-esta/lyne-elements-experimental/core.js';
-import { SbbPearlChainElement } from '@sbb-esta/lyne-elements-experimental/pearl-chain.pure.js';
+import { SbbPearlChainLegacyElement } from '@sbb-esta/lyne-elements-experimental/pearl-chain-legacy.pure.js';
 
 /**
  * It visually displays journey information.
  */
 @Directive({
-  selector: 'sbb-pearl-chain',
-  exportAs: 'sbbPearlChain',
+  selector: 'sbb-pearl-chain-legacy',
+  exportAs: 'sbbPearlChainLegacy',
 })
-export class SbbPearlChain {
+export class SbbPearlChainLegacy {
   static {
-    SbbPearlChainElement.define();
+    SbbPearlChainLegacyElement.define();
   }
 
-  #element: ElementRef<SbbPearlChainElement> = inject(ElementRef<SbbPearlChainElement>);
+  #element: ElementRef<SbbPearlChainLegacyElement> = inject(ElementRef<SbbPearlChainLegacyElement>);
   #ngZone: NgZone = inject(NgZone);
 
   /**
