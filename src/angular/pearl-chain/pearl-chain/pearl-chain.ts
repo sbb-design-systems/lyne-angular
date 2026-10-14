@@ -1,6 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject, contentChildren } from '@angular/core';
-import { SbbPearlChainNode } from '@sbb-esta/lyne-angular/pearl-chain';
 import { SbbPearlChainElement } from '@sbb-esta/lyne-elements/pearl-chain.pure.js';
+
+import { SbbPearlChainNode } from '../pearl-chain-node/pearl-chain-node';
 
 /**
  * It displays a chain of `sbb-pearl-chain-node` elements connected by lines,
@@ -17,7 +18,7 @@ export class SbbPearlChain {
 
   #element: ElementRef<SbbPearlChainElement> = inject(ElementRef<SbbPearlChainElement>);
   #ngZone: NgZone = inject(NgZone);
-  private _nodes = contentChildren(SbbPearlChainNode);
+  private _nodes = contentChildren(SbbPearlChainNode, { descendants: true });
 
   /**
    * A configured date which acts as the current date instead of the real current date.

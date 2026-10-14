@@ -515,7 +515,7 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
           {
             label: 'Pearl Chain',
             link: './components/pearl-chain',
-            keywords: keywordsMap.angularExperimental.components.pearlChain,
+            keywords: keywordsMap.angularExperimental.components.pearlChainLegacy,
           },
           {
             label: 'Pearl Chain Time',
