@@ -137,7 +137,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     { id: 'logo-anniversary-showcase', hasStyle: true },
   ],
   'map-container': [{ id: 'map-container-basic', hasStyle: true }],
-  menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
+  menu: [
+    'menu-basic',
+    { id: 'menu-custom-content', hasStyle: true },
+    'menu-nested',
+    'menu-without-icons',
+  ],
   message: [{ id: 'message-basic', hasStyle: true }],
   'mini-calendar': [
     'mini-calendar-showcase',
@@ -428,6 +433,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'menu-basic':
     case 'menu-custom-content':
     case 'menu-nested':
+    case 'menu-without-icons':
       return import('../angular/examples/menu');
     case 'message-basic':
       return import('../angular/examples/message');
