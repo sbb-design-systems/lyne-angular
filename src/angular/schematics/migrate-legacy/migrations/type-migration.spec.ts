@@ -656,6 +656,84 @@ describe('sbb-type-migration', () => {
     });
   });
 
+  describe('export conflicts', () => {
+    it('should drop the legacy re-export when the new symbol is re-exported as well', async () => {
+      const result = await migrateSource(
+        "export { SbbBreadcrumbs, SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+      );
+
+      expect(result).toBe("export { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';");
+    });
+
+    it('should drop the whole legacy re-export declaration when it becomes empty', async () => {
+      const result = await migrateSource(
+        [
+          "export { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+          "export { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+        ].join('\n'),
+      );
+
+      expect(result).toBe("export { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';");
+    });
+
+    it('should alias the legacy re-export when another symbol is exported with the new name', async () => {
+      const source = [
+        "export { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+        "export { SbbBreadcrumbGroup } from 'other-lib';",
+      ].join('\n');
+
+      expect(await migrateSource(source)).toBe(
+        source.replace(
+          'export { SbbBreadcrumbs }',
+          'export { SbbBreadcrumbGroup as SbbBreadcrumbs }',
+        ),
+      );
+    });
+
+    it('should alias the legacy re-export when a local declaration is exported with the new name', async () => {
+      const source = [
+        "export { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+        'export class SbbBreadcrumbGroup {}',
+      ].join('\n');
+
+      expect(await migrateSource(source)).toBe(
+        source.replace(
+          'export { SbbBreadcrumbs }',
+          'export { SbbBreadcrumbGroup as SbbBreadcrumbs }',
+        ),
+      );
+    });
+
+    it('should drop the legacy local export when the deduped symbol is exported', async () => {
+      const result = await migrateSource(
+        [
+          "import { SbbBreadcrumbs, SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+          'export { SbbBreadcrumbs, SbbBreadcrumbGroup };',
+        ].join('\n'),
+      );
+
+      expect(result).toBe(
+        [
+          "import { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+          'export { SbbBreadcrumbGroup };',
+        ].join('\n'),
+      );
+    });
+
+    it('should still rename re-exports without conflict', async () => {
+      expect(
+        await migrateSource("export { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';"),
+      ).toBe("export { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';");
+    });
+
+    it('should be idempotent', async () => {
+      const once = await migrateSource(
+        "export { SbbBreadcrumbs, SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+      );
+      expect(await migrateSource(once)).toBe(once);
+    });
+  });
+
   describe('project scope', () => {
     const scope: MigrationScope = {
       root: 'projects/app-a',
