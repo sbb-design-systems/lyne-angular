@@ -180,7 +180,7 @@ describe(`sbb-utils`, () => {
     expect(isStandard).toBe(true);
   });
 
-  it('should log a warning and return false if no themes match anywhere', async () => {
+  it('should log a warning and return true if no themes match anywhere', async () => {
     const targets = {
       build: {
         builder: '@angular-devkit/build-angular:browser',

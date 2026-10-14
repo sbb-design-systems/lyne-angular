@@ -205,7 +205,7 @@ function stylesheetImports(content: string): string[] {
 /**
  * It checks whether a non-lean Lyne theme is configured for the project,
  * first in the `angular.json` file (`styles` property under `build` target), then
- * in the imports of the default global stylesheet.
+ * in the imports of the default global stylesheets.
  */
 export async function isStandardThemeSet(
   tree: Tree,
@@ -241,15 +241,14 @@ export async function isStandardThemeSet(
     context.logger.info(
       `No \`@sbb-esta/lyne-elements\` theme found in the \`angular.json\` file for project ${projectName}.`,
     );
-    const globalStylePath =
-      styles.find((style) => /styles\.(css|scss|sass)$/.test(style)) ?? styles[0];
-    const content = globalStylePath ? tree.read(globalStylePath)?.toString('utf-8') : undefined;
-
-    themes = content
-      ? stylesheetImports(content)
-          .map(lyneThemeKind)
-          .filter((theme): theme is LyneThemeKind => Boolean(theme))
-      : [];
+    themes = styles.flatMap((style) => {
+      const content = tree.read(style)?.toString('utf-8');
+      return content
+        ? stylesheetImports(content)
+            .map(lyneThemeKind)
+            .filter((theme): theme is LyneThemeKind => Boolean(theme))
+        : [];
+    });
   }
 
   if (themes.includes('lean')) {
