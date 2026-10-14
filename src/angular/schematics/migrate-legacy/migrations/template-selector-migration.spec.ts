@@ -2,14 +2,17 @@ import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
 
-import { HostTree } from '@angular-devkit/schematics';
-import type { Tree } from '@angular-devkit/schematics';
+import { HostTree, type Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { firstValueFrom } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 
-import { createTemplateSelectorMigrationRule } from './template-selector-migration.cjs';
-import type { SelectorMigration } from './template-selector-migration.cjs';
+import type { MigrationScope } from '../../utils.cjs';
+
+import {
+  createTemplateSelectorMigrationRule,
+  type SelectorMigration,
+} from './template-selector-migration.cjs';
 
 describe('sbb-template-selector-migration', () => {
   const tempCollectionPath = path.join(
@@ -192,6 +195,66 @@ describe('sbb-template-selector-migration', () => {
 
       const tree = await migrate({ '/src/app/app.component.ts': source }, defaultMigrations);
       expect(tree.read('/src/app/app.component.ts')!.toString('utf-8')).toBe(source);
+    });
+  });
+
+  describe('project scope', () => {
+    const scope: MigrationScope = {
+      root: 'projects/app-a',
+      excludedRoots: ['projects/app-a/lib'],
+    };
+    const scopedDirs = ['projects/app-a/src', 'projects/app-a/lib/src', 'projects/app-b/src'];
+
+    /** Creates the same file in the scoped project, a nested project and a sibling project. */
+    const createScopedTree = (fileName: string, content: string): UnitTestTree => {
+      const tree = new UnitTestTree(new HostTree());
+      for (const scopedDir of scopedDirs) {
+        tree.create(`/${scopedDir}/${fileName}`, content);
+      }
+      return tree;
+    };
+
+    /** Asserts that only the file of the scoped project changed. */
+    const expectOnlyScopedFile = (
+      tree: Tree,
+      fileName: string,
+      original: string,
+      assert: (content: string) => void,
+    ): void => {
+      assert(tree.readText(`/projects/app-a/src/${fileName}`));
+      expect(tree.readText(`/projects/app-a/lib/src/${fileName}`)).toBe(original);
+      expect(tree.readText(`/projects/app-b/src/${fileName}`)).toBe(original);
+    };
+
+    const migrations: SelectorMigration[] = [
+      { selector: 'button[sbb-button]', replaceWith: 'sbb-button' },
+    ];
+
+    it('should only migrate the external templates of the given scope', async () => {
+      const template = '<button sbb-button>A</button>';
+      const tree = createScopedTree('app.component.html', template);
+
+      await firstValueFrom(
+        runner.callRule(createTemplateSelectorMigrationRule(migrations, scope), tree),
+      );
+
+      expectOnlyScopedFile(tree, 'app.component.html', template, (content) =>
+        expect(content).toBe('<sbb-button>A</sbb-button>'),
+      );
+    });
+
+    it('should only migrate the inline templates of the given scope', async () => {
+      const source =
+        "import { Component } from '@angular/core';\n@Component({ template: '<button sbb-button>A</button>' })\nexport class A {}";
+      const tree = createScopedTree('app.component.ts', source);
+
+      await firstValueFrom(
+        runner.callRule(createTemplateSelectorMigrationRule(migrations, scope), tree),
+      );
+
+      expectOnlyScopedFile(tree, 'app.component.ts', source, (content) =>
+        expect(content).toContain("template: '<sbb-button>A</sbb-button>'"),
+      );
     });
   });
 });

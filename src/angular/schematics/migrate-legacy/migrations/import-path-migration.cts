@@ -1,11 +1,18 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 
-import { applyEdits, ImportRewriteOptions, isTypeScriptFile, MigrationEdit } from '../../utils.cjs';
+import {
+  applyEdits,
+  ImportRewriteOptions,
+  isTypeScriptFile,
+  MigrationEdit,
+  MigrationScope,
+  visitScopedFiles,
+} from '../../utils.cjs';
 import ts from 'typescript';
 
 /**
  * Creates a rule which rewrites all given import/export module specifiers in
- * every TypeScript file of the workspace.
+ * every TypeScript file of the workspace (or of the given `scope` only).
  * Module migrations only have to declare their path mappings:
  *
  * ```ts
@@ -16,9 +23,10 @@ import ts from 'typescript';
  */
 export function createImportPathMigrationRule(
   mappings: ImportRewriteOptions | ImportRewriteOptions[],
+  scope?: MigrationScope,
 ): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    tree.visit((filePath) => {
+    visitScopedFiles(tree, scope, (filePath) => {
       if (!isTypeScriptFile(filePath)) {
         return;
       }

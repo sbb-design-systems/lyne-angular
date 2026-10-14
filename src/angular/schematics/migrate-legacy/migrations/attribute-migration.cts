@@ -1,7 +1,7 @@
-import type { TmplAstElement } from '@angular/compiler';
-import type { ParseSourceSpan } from '@angular/compiler';
+import type { ParseSourceSpan, TmplAstElement } from '@angular/compiler';
 import type { Rule } from '@angular-devkit/schematics';
 
+import type { MigrationScope } from '../../utils.cjs';
 import {
   attributeNameVariants,
   createTemplateMigrationRule,
@@ -62,7 +62,10 @@ function hasAttribute(element: TmplAstElement, name: string): boolean {
  * (e.g. the synthetic `xChange` output of a `[(x)]` two-way binding)
  * are only migrated once, through their written key.
  */
-export function createAttributeMigrationRule(migrations: AttributeMigration[]): Rule {
+export function createAttributeMigrationRule(
+  migrations: AttributeMigration[],
+  scope?: MigrationScope,
+): Rule {
   const parsedMigrations: ParsedAttributeMigration[] = migrations.map((migration) => ({
     ...migration,
     parsedSelectors: (Array.isArray(migration.selector)
@@ -188,5 +191,5 @@ export function createAttributeMigrationRule(migrations: AttributeMigration[]): 
         });
       }
     }
-  });
+  }, scope);
 }

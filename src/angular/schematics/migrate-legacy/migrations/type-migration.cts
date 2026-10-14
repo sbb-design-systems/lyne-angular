@@ -1,7 +1,13 @@
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import ts from 'typescript';
 
-import { applyEdits, isTypeScriptFile, MigrationEdit } from '../../utils.cjs';
+import {
+  applyEdits,
+  isTypeScriptFile,
+  MigrationEdit,
+  MigrationScope,
+  visitScopedFiles,
+} from '../../utils.cjs';
 import { findSymbolReferences } from '../symbol-references.cjs';
 
 export interface TypeMigration {
@@ -33,7 +39,7 @@ export interface TypeMigration {
  * Only files which actually import the legacy symbol are touched, so unrelated symbols sharing the name stay untouched.
  * Member names (`foo.SbbBreadcrumbs`, except on a namespace import), object keys and declaration names are never renamed.
  */
-export function createTypeMigrationRule(migrations: TypeMigration[]): Rule {
+export function createTypeMigrationRule(migrations: TypeMigration[], scope?: MigrationScope): Rule {
   const targets = migrations.map((migration) => ({
     name: migration.from,
     importedFrom: migration.importedFrom,
@@ -45,7 +51,7 @@ export function createTypeMigrationRule(migrations: TypeMigration[]): Rule {
       return;
     }
 
-    tree.visit((filePath) => {
+    visitScopedFiles(tree, scope, (filePath) => {
       if (!isTypeScriptFile(filePath)) {
         return;
       }

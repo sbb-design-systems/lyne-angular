@@ -8,7 +8,12 @@ import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/te
 import { firstValueFrom } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 
-import { isStandardThemeSet } from './utils.cjs';
+import {
+  getProjectScope,
+  isStandardThemeSet,
+  type MigrationScope,
+  visitScopedFiles,
+} from './utils.cjs';
 
 describe(`sbb-utils`, () => {
   const tempCollectionPath = path.join(os.tmpdir(), 'sbb-dummy-collection.json');
@@ -195,12 +200,87 @@ describe(`sbb-utils`, () => {
       isStandard = await isStandardThemeSet(inlineTree, context, 'test-app');
 
       expect(context.logger.warn).toHaveBeenCalledWith(
-        expect.stringContaining('No @sbb-esta/lyne-elements theme found in the global styles'),
+        expect.stringContaining('No `@sbb-esta/lyne-elements` theme found in the global styles'),
       );
       return inlineTree;
     };
 
     await firstValueFrom(runner.callRule(testRule, tree));
-    expect(isStandard).toBe(false);
+    expect(isStandard).toBe(true);
+  });
+
+  describe('project scope', () => {
+    /** Workspace with a root app, a nested library and a sibling app. */
+    const createMultiProjectTree = (): UnitTestTree => {
+      const tree = new UnitTestTree(new HostTree());
+      tree.create(
+        '/angular.json',
+        JSON.stringify({
+          version: 1,
+          projects: {
+            'root-app': { root: '', projectType: 'application' },
+            'app-a': { root: 'projects/app-a/', projectType: 'application' },
+            lib: { root: './projects/app-a/lib', projectType: 'library' },
+            'app-b': { root: 'projects/app-b', projectType: 'application' },
+          },
+        }),
+      );
+      for (const file of [
+        '/src/main.ts',
+        '/projects/app-a/src/main.ts',
+        '/projects/app-a/lib/src/index.ts',
+        '/projects/app-b/src/main.ts',
+      ]) {
+        tree.create(file, '');
+      }
+      return tree;
+    };
+
+    const visitedFiles = (tree: Tree, scope?: MigrationScope): string[] => {
+      const files: string[] = [];
+      visitScopedFiles(tree, scope, (filePath) => {
+        if (filePath.endsWith('.ts')) {
+          files.push(filePath);
+        }
+      });
+      return files.sort();
+    };
+
+    it('should resolve the root and the nested projects to exclude', async () => {
+      const tree = createMultiProjectTree();
+
+      expect(await getProjectScope(tree, 'app-a')).toEqual({
+        root: 'projects/app-a',
+        excludedRoots: ['projects/app-a/lib'],
+      });
+      expect(await getProjectScope(tree, 'root-app')).toEqual({
+        root: '',
+        excludedRoots: ['projects/app-a', 'projects/app-a/lib', 'projects/app-b'],
+      });
+    });
+
+    it('should throw if the project does not exist', async () => {
+      await expect(getProjectScope(createMultiProjectTree(), 'missing')).rejects.toThrow(
+        SchematicsException,
+      );
+    });
+
+    it('should only visit the files of the selected project', async () => {
+      const tree = createMultiProjectTree();
+
+      expect(visitedFiles(tree, await getProjectScope(tree, 'app-a'))).toEqual([
+        '/projects/app-a/src/main.ts',
+      ]);
+      expect(visitedFiles(tree, await getProjectScope(tree, 'root-app'))).toEqual(['/src/main.ts']);
+    });
+
+    it('should visit the whole workspace without scope', () => {
+      expect(visitedFiles(createMultiProjectTree())).toEqual([
+        '/projects/app-a/lib/src/index.ts',
+        '/projects/app-a/src/main.ts',
+        '/projects/app-b/src/main.ts',
+        '/src/main.ts',
+      ]);
+    });
   });
 });

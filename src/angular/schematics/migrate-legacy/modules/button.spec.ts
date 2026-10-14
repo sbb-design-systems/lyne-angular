@@ -2,8 +2,7 @@ import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
 
-import { HostTree } from '@angular-devkit/schematics';
-import type { Tree } from '@angular-devkit/schematics';
+import { HostTree, type Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { firstValueFrom } from 'rxjs';
 import { describe, expect, it } from 'vitest';
@@ -32,6 +31,31 @@ describe('sbb-button', () => {
     const tree = await migrate({ '/src/app/app.component.html': template }, hasStandardTheme);
     return tree.read('/src/app/app.component.html')!.toString('utf-8');
   };
+
+  describe('project scope', () => {
+    it('should only migrate the files of the given scope', async () => {
+      const template = '<button sbb-button>A</button>';
+      const source = "import { SbbButtonModule } from '@sbb-esta/angular/button';";
+      const tree = new UnitTestTree(new HostTree());
+      for (const project of ['app-a', 'app-b']) {
+        tree.create(`/projects/${project}/src/app.component.html`, template);
+        tree.create(`/projects/${project}/src/app.component.ts`, source);
+      }
+
+      await firstValueFrom(
+        runner.callRule(migrateButton(false, { root: 'projects/app-a', excludedRoots: [] }), tree),
+      );
+
+      expect(tree.readText('/projects/app-a/src/app.component.html')).toBe(
+        '<sbb-button>A</sbb-button>',
+      );
+      expect(tree.readText('/projects/app-a/src/app.component.ts')).toContain(
+        '@sbb-esta/lyne-angular/button',
+      );
+      expect(tree.readText('/projects/app-b/src/app.component.html')).toBe(template);
+      expect(tree.readText('/projects/app-b/src/app.component.ts')).toBe(source);
+    });
+  });
 
   describe('import paths', () => {
     it('should rewrite button imports and merge subpaths', async () => {

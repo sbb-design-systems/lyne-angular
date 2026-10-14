@@ -2,13 +2,12 @@ import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
 
-import { HostTree } from '@angular-devkit/schematics';
-import type { Tree } from '@angular-devkit/schematics';
+import { HostTree, type Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { firstValueFrom } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 
-import type { ImportRewriteOptions } from '../../utils.cjs';
+import type { ImportRewriteOptions, MigrationScope } from '../../utils.cjs';
 
 import { createImportPathMigrationRule, rewriteImportPaths } from './import-path-migration.cjs';
 
@@ -113,6 +112,46 @@ describe('sbb-import-path-migration', () => {
       expect(tree.read('/src/app/app.component.html')!.toString('utf-8')).toBe(source);
       expect(tree.read('/src/app/app.d.ts')!.toString('utf-8')).toBe(source);
       expect(tree.read('/node_modules/lib/index.ts')!.toString('utf-8')).toBe(source);
+    });
+  });
+
+  describe('project scope', () => {
+    const scope: MigrationScope = {
+      root: 'projects/app-a',
+      excludedRoots: ['projects/app-a/lib'],
+    };
+    const scopedDirs = ['projects/app-a/src', 'projects/app-a/lib/src', 'projects/app-b/src'];
+
+    /** Creates the same file in the scoped project, a nested project and a sibling project. */
+    const createScopedTree = (fileName: string, content: string): UnitTestTree => {
+      const tree = new UnitTestTree(new HostTree());
+      for (const scopedDir of scopedDirs) {
+        tree.create(`/${scopedDir}/${fileName}`, content);
+      }
+      return tree;
+    };
+
+    /** Asserts that only the file of the scoped project changed. */
+    const expectOnlyScopedFile = (
+      tree: Tree,
+      fileName: string,
+      original: string,
+      assert: (content: string) => void,
+    ): void => {
+      assert(tree.readText(`/projects/app-a/src/${fileName}`));
+      expect(tree.readText(`/projects/app-a/lib/src/${fileName}`)).toBe(original);
+      expect(tree.readText(`/projects/app-b/src/${fileName}`)).toBe(original);
+    };
+
+    it('should only rewrite the imports of the given scope', async () => {
+      const source = "import { SbbButtonModule } from '@sbb-esta/angular/button';";
+      const tree = createScopedTree('app.component.ts', source);
+
+      await firstValueFrom(runner.callRule(createImportPathMigrationRule(mappings, scope), tree));
+
+      expectOnlyScopedFile(tree, 'app.component.ts', source, (content) =>
+        expect(content).toBe("import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';"),
+      );
     });
   });
 });

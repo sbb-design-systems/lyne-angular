@@ -1,6 +1,6 @@
 import { chain, Rule } from '@angular-devkit/schematics';
 
-import { ImportRewriteOptions } from '../../utils.cjs';
+import { ImportRewriteOptions, MigrationScope } from '../../utils.cjs';
 import {
   AttributeMigration,
   createAttributeMigrationRule,
@@ -94,11 +94,11 @@ const COMMENTS: CommentMigration[] = [
  * 3. Rename inputs
  * 4. Add comments for cases which cannot be migrated automatically
  */
-export function migrateButton(hasStandardTheme: boolean): Rule {
+export function migrateButton(hasStandardTheme: boolean, scope?: MigrationScope): Rule {
   return chain([
-    createImportPathMigrationRule(IMPORT_PATHS),
-    createAttributeMigrationRule(ATTRIBUTES(hasStandardTheme)),
-    createTemplateSelectorMigrationRule(TEMPLATE_MIGRATION_SELECTORS),
-    createCommentMigrationRule(COMMENTS),
+    createImportPathMigrationRule(IMPORT_PATHS, scope),
+    createAttributeMigrationRule(ATTRIBUTES(hasStandardTheme), scope),
+    createTemplateSelectorMigrationRule(TEMPLATE_MIGRATION_SELECTORS, scope),
+    createCommentMigrationRule(COMMENTS, scope),
   ]);
 }

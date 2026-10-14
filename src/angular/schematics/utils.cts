@@ -9,8 +9,12 @@ import {
 } from '@angular/compiler';
 import { getProjectFromWorkspace } from '@angular/cdk/schematics';
 import type { logging } from '@angular-devkit/core';
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { SchematicsException } from '@angular-devkit/schematics';
+import {
+  type Rule,
+  type SchematicContext,
+  SchematicsException,
+  type Tree,
+} from '@angular-devkit/schematics';
 import {
   getWorkspace,
   type ProjectDefinition,
@@ -249,15 +253,83 @@ export async function isStandardThemeSet(
   }
 
   if (themes.includes('lean')) {
+    context.logger.info(`Lean theme found for project ${projectName}.`);
     return false;
   } else if (themes.includes('standard')) {
+    context.logger.info(`Standard theme found for project ${projectName}.`);
     return true;
   } else {
     context.logger.warn(
-      `No @sbb-esta/lyne-elements theme found in the global styles of project ${projectName}; assuming the standard theme.`,
+      `No \`@sbb-esta/lyne-elements\` theme found in the global styles of project ${projectName}; assuming the standard theme.`,
     );
     return true;
   }
+}
+
+/** Part of the workspace a migration is limited to. */
+export interface MigrationScope {
+  /** Root directory of the project, relative to the workspace (`''` for the workspace root). */
+  root: string;
+  /** Roots of other projects nested inside `root` (e.g. `projects/lib` of a root app), which are skipped. */
+  excludedRoots: string[];
+}
+
+/** Normalizes a project root: forward slashes, no leading `./` or `/`, no trailing `/`. */
+function normalizeRoot(root: string | undefined): string {
+  return (root ?? '')
+    .replace(/\\/g, '/')
+    .replace(/^\.\//, '')
+    .replace(/^\/+|\/+$/g, '');
+}
+
+/** Whether the workspace relative `filePath` is `directory` or lies within it. */
+function isWithin(filePath: string, directory: string): boolean {
+  return directory === '' || filePath === directory || filePath.startsWith(`${directory}/`);
+}
+
+/**
+ * Resolves the files of the given project: its root directory, without
+ * the directories of other projects nested inside it.
+ */
+export async function getProjectScope(tree: Tree, projectName: string): Promise<MigrationScope> {
+  const workspace = await getWorkspace(tree);
+  const project = workspace.projects.get(projectName);
+
+  if (!project) {
+    throw new SchematicsException(
+      `Could not find project ${projectName}; please check your \`angular.json.\``,
+    );
+  }
+
+  const root = normalizeRoot(project.root);
+  const excludedRoots = [...workspace.projects.entries()]
+    .filter(([name]) => name !== projectName)
+    .map(([, other]) => normalizeRoot(other.root))
+    .filter((otherRoot) => otherRoot !== root && isWithin(otherRoot, root));
+
+  return { root, excludedRoots };
+}
+
+/**
+ * Visits the files of the given scope, or of the whole workspace when no scope is given.
+ * `visitor` receives the absolute tree path (e.g. `/src/app/app.component.ts`).
+ */
+export function visitScopedFiles(
+  tree: Tree,
+  scope: MigrationScope | undefined,
+  visitor: (filePath: string) => void,
+): void {
+  if (!scope) {
+    tree.visit((filePath) => visitor(filePath));
+    return;
+  }
+
+  tree.getDir(`/${scope.root}`).visit((filePath) => {
+    const relativePath = filePath.replace(/^\/+/, '');
+    if (!scope.excludedRoots.some((excluded) => isWithin(relativePath, excluded))) {
+      visitor(filePath);
+    }
+  });
 }
 
 export function addThemeToProject(

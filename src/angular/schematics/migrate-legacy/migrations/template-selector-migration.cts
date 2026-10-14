@@ -1,5 +1,6 @@
 import type { Rule } from '@angular-devkit/schematics';
 
+import type { MigrationScope } from '../../utils.cjs';
 import {
   createTemplateMigrationRule,
   elementMatches,
@@ -41,7 +42,10 @@ type ParsedSelectorMigration = SelectorMigration & { parsed: ParsedSelector };
  * ]);
  * ```
  */
-export function createTemplateSelectorMigrationRule(migrations: SelectorMigration[]): Rule {
+export function createTemplateSelectorMigrationRule(
+  migrations: SelectorMigration[],
+  scope?: MigrationScope,
+): Rule {
   const parsedMigrations: ParsedSelectorMigration[] = migrations.map((migration) => ({
     ...migration,
     parsed: parseSelector(migration.selector),
@@ -104,5 +108,5 @@ export function createTemplateSelectorMigrationRule(migrations: SelectorMigratio
       ...(migration.removeAttributes ?? []),
     ];
     queueAttributeRemovals(element, removals, content, baseOffset, edits, nextIndex);
-  });
+  }, scope);
 }

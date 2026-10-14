@@ -1,8 +1,12 @@
-import { parseTemplate, TmplAstElement } from '@angular/compiler';
 import type { ParseSourceSpan } from '@angular/compiler';
+import { parseTemplate, TmplAstElement } from '@angular/compiler';
 import type { logging } from '@angular-devkit/core';
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { SchematicsException } from '@angular-devkit/schematics';
+import {
+  type Rule,
+  type SchematicContext,
+  SchematicsException,
+  type Tree,
+} from '@angular-devkit/schematics';
 import ts from 'typescript';
 
 import {
@@ -10,7 +14,9 @@ import {
   isHtmlFile,
   isTypeScriptFile,
   MigrationEdit,
+  MigrationScope,
   visitElements,
+  visitScopedFiles,
 } from '../utils.cjs';
 
 /** A template which is declared inline via the `template` property of `@Component`. */
@@ -221,8 +227,7 @@ export function attributeNameVariants(name: string): string[] {
  * consume the whitespace separating it from the preceding attribute/tag name.
  *
  * If the attribute is the only content of its line, the complete line
- * (including its line break) is removed, so that no blank line is left behind
- * in multiline tags.
+ * (including its line break) is removed, so that no blank line is left behind in multiline tags.
  */
 export function queueAttributeRemoval(
   content: string,
@@ -300,9 +305,8 @@ export function queueAttributeRemovals(
 }
 
 /**
- * Resolves the span of the attribute name itself (without binding syntax and
- * value). Falls back to a lookup inside the full attribute span for parser
- * versions which do not provide a `keySpan`.
+ * Resolves the span of the attribute name itself (without binding syntax and value).
+ * Falls back to a lookup inside the full attribute span for parser versions which do not provide a `keySpan`.
  */
 export function resolveKeySpan(
   node: { sourceSpan: ParseSourceSpan; keySpan?: ParseSourceSpan },
@@ -321,17 +325,18 @@ export function resolveKeySpan(
 
 /**
  * Creates a rule which runs `collectEdits` for every element of every template
- * in the workspace, both for external templates (`templateUrl`) and for inline
- * templates (`template`), and applies the collected edits.
+ * in the workspace (or in the given `scope` only), both for external templates
+ * (`templateUrl`) and for inline templates (`template`), and applies the collected edits.
  *
- * It is the shared foundation of the concrete template migrations (selector,
- * attribute, ...), which only have to describe their edits.
+ * It is the shared foundation of the concrete template migrations (selector, attribute, ...),
+ * which only have to describe their edits.
  */
 export function createTemplateMigrationRule(
   collectEdits: (element: TmplAstElement, context: TemplateMigrationContext) => void,
+  scope?: MigrationScope,
 ): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    tree.visit((filePath) => {
+    visitScopedFiles(tree, scope, (filePath) => {
       const isHtml = isHtmlFile(filePath);
       if (!isHtml && !isTypeScriptFile(filePath)) {
         return;

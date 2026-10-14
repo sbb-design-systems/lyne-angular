@@ -2,7 +2,7 @@ import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schem
 
 import { migrateButton } from './modules/button.cjs';
 import { MigrateLegacyOptionsSchema } from './schema';
-import { isStandardThemeSet } from '../utils.cjs';
+import { getProjectScope, isStandardThemeSet, MigrationScope } from '../utils.cjs';
 
 // TODO: Add more modules as they are implemented
 const LEGACY_MODULES = [
@@ -70,11 +70,15 @@ function resolveLegacyModules(module: string[] | undefined): LegacyModuleName[] 
 }
 
 /** Load migration rule for a specific legacy module. */
-function loadModuleMigration(module: LegacyModuleName, isStandardTheme: boolean): Rule {
+function loadModuleMigration(
+  module: LegacyModuleName,
+  isStandardTheme: boolean,
+  scope: MigrationScope,
+): Rule {
   // TODO: Add more modules as they are implemented
   switch (module) {
     case 'button':
-      return migrateButton(isStandardTheme);
+      return migrateButton(isStandardTheme, scope);
     default:
       return noop();
   }
@@ -83,10 +87,16 @@ function loadModuleMigration(module: LegacyModuleName, isStandardTheme: boolean)
 export function migrateLegacy(options: MigrateLegacyOptionsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     const isStandardTheme = await isStandardThemeSet(tree, context, options.project);
+    // Only the files of the selected project are migrated, not the whole workspace.
+    const scope = await getProjectScope(tree, options.project);
+    context.logger.info(
+      `Migrating project ${options.project} (${scope.root || 'workspace root'}` +
+        `${scope.excludedRoots.length ? `, excluding ${scope.excludedRoots.join(', ')}` : ''}).`,
+    );
 
     return chain([
       ...resolveLegacyModules(options.module).map((module) =>
-        loadModuleMigration(module, isStandardTheme),
+        loadModuleMigration(module, isStandardTheme, scope),
       ),
     ]);
   };

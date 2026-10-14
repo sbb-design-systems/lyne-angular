@@ -12,7 +12,13 @@ import {
   HTML_DELIMITERS,
   TS_DELIMITERS,
 } from '../../comment-utils.cjs';
-import { applyEdits, isTypeScriptFile, MigrationEdit } from '../../utils.cjs';
+import {
+  applyEdits,
+  isTypeScriptFile,
+  MigrationEdit,
+  MigrationScope,
+  visitScopedFiles,
+} from '../../utils.cjs';
 import { findSymbolReferences } from '../symbol-references.cjs';
 import {
   attributeNameVariants,
@@ -132,7 +138,10 @@ function hasAttribute(element: TmplAstElement, variants: string[]): boolean {
  * - external templates: an HTML comment directly above the element line
  * - inline templates: a `//` comment above the `template:` property, because a comment cannot be safely inserted into a string literal
  */
-function createElementCommentRule(migrations: ElementCommentMigration[]): Rule {
+function createElementCommentRule(
+  migrations: ElementCommentMigration[],
+  scope: MigrationScope | undefined,
+): Rule {
   const parsedMigrations: ParsedElementCommentMigration[] = migrations.map((migration) => ({
     ...migration,
     parsedSelectors: (Array.isArray(migration.selector)
@@ -176,7 +185,7 @@ function createElementCommentRule(migrations: ElementCommentMigration[]): Rule {
         () => logger.info(`  → Added comment for ${target} in ${filePath}`),
       );
     }
-  });
+  }, scope);
 }
 
 /**
@@ -197,7 +206,10 @@ function getTsAnchorOffset(node: ts.Node, sourceFile: ts.SourceFile): number {
 }
 
 /** Comments every usage of the given symbols in TypeScript files with a `//` comment. */
-function createSymbolCommentRule(migrations: SymbolCommentMigration[]): Rule {
+function createSymbolCommentRule(
+  migrations: SymbolCommentMigration[],
+  scope: MigrationScope | undefined,
+): Rule {
   const targets = migrations.map((migration) => ({
     name: migration.symbol,
     importedFrom: migration.importedFrom,
@@ -205,7 +217,7 @@ function createSymbolCommentRule(migrations: SymbolCommentMigration[]): Rule {
   }));
 
   return (tree: Tree, context: SchematicContext) => {
-    tree.visit((filePath) => {
+    visitScopedFiles(tree, scope, (filePath) => {
       if (!isTypeScriptFile(filePath)) {
         return;
       }
@@ -264,14 +276,17 @@ function createSymbolCommentRule(migrations: SymbolCommentMigration[]): Rule {
  * Every line receives a comment only once per message, and comments which are
  * already present directly above a line are not added again.
  */
-export function createCommentMigrationRule(migrations: CommentMigration[]): Rule {
+export function createCommentMigrationRule(
+  migrations: CommentMigration[],
+  scope?: MigrationScope,
+): Rule {
   const elementMigrations = migrations.filter(isElementCommentMigration);
   const symbolMigrations = migrations.filter(
     (migration): migration is SymbolCommentMigration => !isElementCommentMigration(migration),
   );
 
   return chain([
-    ...(elementMigrations.length ? [createElementCommentRule(elementMigrations)] : []),
-    ...(symbolMigrations.length ? [createSymbolCommentRule(symbolMigrations)] : []),
+    ...(elementMigrations.length ? [createElementCommentRule(elementMigrations, scope)] : []),
+    ...(symbolMigrations.length ? [createSymbolCommentRule(symbolMigrations, scope)] : []),
   ]);
 }

@@ -2,14 +2,14 @@ import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
 
-import { HostTree } from '@angular-devkit/schematics';
-import type { Tree } from '@angular-devkit/schematics';
+import { HostTree, type Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { firstValueFrom } from 'rxjs';
 import { describe, expect, it } from 'vitest';
 
-import { createAttributeMigrationRule } from './attribute-migration.cjs';
-import type { AttributeMigration } from './attribute-migration.cjs';
+import type { MigrationScope } from '../../utils.cjs';
+
+import { type AttributeMigration, createAttributeMigrationRule } from './attribute-migration.cjs';
 
 describe('sbb-attribute-migration', () => {
   const tempCollectionPath = path.join(
@@ -262,6 +262,57 @@ describe('sbb-attribute-migration', () => {
           { selector: 'sbb-button', attribute: 'icon', replaceWith: 'iconName', defaultValue: 'x' },
         ]),
       ).toBe('<sbb-button iconName="default-icon">A</sbb-button>');
+    });
+  });
+
+  describe('project scope', () => {
+    const scope: MigrationScope = {
+      root: 'projects/app-a',
+      excludedRoots: ['projects/app-a/lib'],
+    };
+    const scopedDirs = ['projects/app-a/src', 'projects/app-a/lib/src', 'projects/app-b/src'];
+
+    /** Creates the same file in the scoped project, a nested project and a sibling project. */
+    const createScopedTree = (fileName: string, content: string): UnitTestTree => {
+      const tree = new UnitTestTree(new HostTree());
+      for (const scopedDir of scopedDirs) {
+        tree.create(`/${scopedDir}/${fileName}`, content);
+      }
+      return tree;
+    };
+
+    /** Asserts that only the file of the scoped project changed. */
+    const expectOnlyScopedFile = (
+      tree: Tree,
+      fileName: string,
+      original: string,
+      assert: (content: string) => void,
+    ): void => {
+      assert(tree.readText(`/projects/app-a/src/${fileName}`));
+      expect(tree.readText(`/projects/app-a/lib/src/${fileName}`)).toBe(original);
+      expect(tree.readText(`/projects/app-b/src/${fileName}`)).toBe(original);
+    };
+
+    it('should only migrate the templates of the given scope', async () => {
+      const template = '<sbb-button svgIcon="arrow">A</sbb-button>';
+      const tree = createScopedTree('app.component.html', template);
+
+      await firstValueFrom(runner.callRule(createAttributeMigrationRule(rename, scope), tree));
+
+      expectOnlyScopedFile(tree, 'app.component.html', template, (content) =>
+        expect(content).toBe('<sbb-button iconName="arrow">A</sbb-button>'),
+      );
+    });
+
+    it('should migrate the whole workspace without scope', async () => {
+      const template = '<sbb-button svgIcon="arrow">A</sbb-button>';
+      const tree = createScopedTree('app.component.html', template);
+
+      await firstValueFrom(runner.callRule(createAttributeMigrationRule(rename), tree));
+
+      for (const scopedDir of scopedDirs) {
+        expect(tree.readText(`/${scopedDir}/app.component.html`)).toContain('iconName');
+      }
     });
   });
 });

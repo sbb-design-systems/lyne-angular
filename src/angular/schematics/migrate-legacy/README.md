@@ -48,7 +48,7 @@ Create `modules/<module-name>.cts`, preferably declaratively by composing the sh
 ```typescript
 import { chain, Rule } from '@angular-devkit/schematics';
 
-import { ImportRewriteOptions } from '../../utils.cjs';
+import { ImportRewriteOptions, MigrationScope } from '../../utils.cjs';
 import {
   AttributeMigration,
   createAttributeMigrationRule,
@@ -108,13 +108,13 @@ const COMMENTS: CommentMigration[] = [
 /**
  * Migrate <Module> module from @sbb-esta/angular to @sbb-esta/lyne-angular.
  */
-export function migrate<Module>(): Rule {
+export function migrate<Module>(scope?: MigrationScope): Rule {
   return chain([
-    createImportPathMigrationRule(IMPORT_PATHS),
-    createTypeMigrationRule(TYPES),
-    createTemplateSelectorMigrationRule(SELECTORS),
-    createAttributeMigrationRule(ATTRIBUTES),
-    createCommentMigrationRule(COMMENTS),
+    createImportPathMigrationRule(IMPORT_PATHS, scope),
+    createTypeMigrationRule(TYPES, scope),
+    createTemplateSelectorMigrationRule(SELECTORS, scope),
+    createAttributeMigrationRule(ATTRIBUTES, scope),
+    createCommentMigrationRule(COMMENTS, scope),
   ]);
 }
 ```
@@ -132,11 +132,15 @@ import { migrate<Module> } from './modules/<module-name>.cjs';
 
 // The `isStandardTheme` parameter is resolved once in `migrateLegacy()` via `isStandardThemeSet()`;
 // it can be used to customize migration rules based on the configured theme.
-function loadModuleMigration(module: LegacyModuleName, isStandardTheme: boolean): Rule {
+function loadModuleMigration(
+  module: LegacyModuleName,
+  isStandardTheme: boolean,
+  scope: MigrationScope,
+): Rule {
   // TODO: Add more modules as they are implemented
   switch (module) {
     case '<module>':
-      return migrate<Module>(isStandardTheme);
+      return migrate<Module>(isStandardTheme, scope);
     // ... other cases
     default:
       return noop();
@@ -183,6 +187,8 @@ For each module, use this checklist:
 ## Notes
 
 - Each module's migration is isolated and can be run independently
+- Only the files of the selected `--project` are migrated: `index.cts` resolves a `MigrationScope` (project root, minus nested projects) via `getProjectScope()`,
+  which modules forward to every rule factory (`create<Module>MigrationRule(migrations, scope)`)
 - Migrations are idempotent (safe to run multiple times)
 - `node_modules` and `*.d.ts` files are never migrated
 - Templates which cannot be parsed, and elements without a closing tag, are skipped instead of being corrupted
