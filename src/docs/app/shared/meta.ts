@@ -317,6 +317,11 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
             keywords: keywordsMap.angular.components.paginator,
           },
           {
+            label: 'Pearl Chain',
+            link: './components/pearl-chain',
+            keywords: keywordsMap.angular.components.pearlChain,
+          },
+          {
             label: 'Popover',
             link: './components/popover',
             keywords: keywordsMap.angular.components.popover,

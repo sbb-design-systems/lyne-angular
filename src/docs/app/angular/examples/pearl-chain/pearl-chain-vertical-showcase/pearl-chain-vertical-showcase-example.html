@@ -1,0 +1,78 @@
+<sbb-pearl-chain [now]="todayNow()">
+  <table class="pearl-chain-table">
+    <tr>
+      <td>
+        <time [attr.datetime]="start.toISOString()">
+          <span class="sbb-screen-reader-only">Departure:&nbsp;</span>
+          {{ start | date: 'HH:mm' }}
+        </time>
+      </td>
+      <td>
+        <sbb-pearl-chain-node type="start" [departure]="start"></sbb-pearl-chain-node>
+      </td>
+      <td>Bern</td>
+    </tr>
+    <tr>
+      <td>
+        <time [attr.datetime]="middle.toISOString()">
+          <span class="sbb-screen-reader-only">Departure:&nbsp;</span>
+          {{ middle | date: 'HH:mm' }}
+        </time>
+      </td>
+      <td>
+        <sbb-pearl-chain-node
+          [type]="controls.type().value()"
+          [disrupted]="controls.disrupted().value()"
+          [irrelevant]="controls.irrelevant().value()"
+          [walk]="controls.walk().value()"
+          [unsure]="controls.unsure().value()"
+          [arrival]="middle"
+          [departure]="middle"
+        ></sbb-pearl-chain-node>
+      </td>
+      <td>Olten</td>
+    </tr>
+    <tr>
+      <td>
+        <time [attr.datetime]="end.toISOString()">
+          <span class="sbb-screen-reader-only">Arrival:&nbsp;</span>
+          {{ end | date: 'HH:mm' }}
+        </time>
+      </td>
+      <td>
+        <sbb-pearl-chain-node type="end" [arrival]="end"></sbb-pearl-chain-node>
+      </td>
+      <td>Zürich HB</td>
+    </tr>
+  </table>
+</sbb-pearl-chain>
+
+<sbb-title level="5">Properties</sbb-title>
+<div class="sbb-controls-table">
+  <label for="vertical-type">Type</label>
+  <sbb-form-field size="s">
+    <sbb-select [formField]="controls.type" id="vertical-type">
+      @for (type of types; track type) {
+        <sbb-option [value]="type">{{ type }}</sbb-option>
+      }
+    </sbb-select>
+  </sbb-form-field>
+
+  <label for="vertical-now">Now</label>
+  <sbb-form-field size="s">
+    <sbb-time-input [formField]="controls.now" id="vertical-now"></sbb-time-input>
+  </sbb-form-field>
+
+  @for (name of flagControls; track name) {
+    <label>{{ name }}</label>
+    <sbb-radio-button-group
+      [attr.aria-label]="name"
+      [formField]="controls[name]"
+      [allowEmptySelection]="true"
+    >
+      <sbb-radio-button [value]="true">true</sbb-radio-button>
+      <sbb-radio-button [value]="'arrival'">arrival</sbb-radio-button>
+      <sbb-radio-button [value]="'departure'">departure</sbb-radio-button>
+    </sbb-radio-button-group>
+  }
+</div>
