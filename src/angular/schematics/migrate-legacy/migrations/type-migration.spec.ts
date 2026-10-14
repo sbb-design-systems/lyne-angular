@@ -573,6 +573,89 @@ describe('sbb-type-migration', () => {
     });
   });
 
+  describe('type-only imports', () => {
+    it('should promote a type-only specifier when the legacy import is used as a value', async () => {
+      const result = await migrateSource(
+        [
+          "import { type SbbBreadcrumbGroup, SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+          'export const a = new SbbBreadcrumbs();',
+        ].join('\n'),
+      );
+
+      expect(result).toBe(
+        [
+          "import { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+          'export const a = new SbbBreadcrumbGroup();',
+        ].join('\n'),
+      );
+    });
+
+    it('should promote a single-binding `import type` declaration', async () => {
+      const result = await migrateSource(
+        [
+          "import type { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+          "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+          'export const a = new SbbBreadcrumbs();',
+        ].join('\n'),
+      );
+
+      expect(result).toBe(
+        [
+          "import { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+          'export const a = new SbbBreadcrumbGroup();',
+        ].join('\n'),
+      );
+    });
+
+    it('should keep an aliased value import when promotion would affect other bindings', async () => {
+      const source = [
+        "import type { SbbBreadcrumbGroup, SbbOther } from '@sbb-esta/angular/breadcrumb';",
+        "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+        'export const a: SbbOther = new SbbBreadcrumbs();',
+      ].join('\n');
+
+      expect(await migrateSource(source)).toBe(
+        source.replace(
+          'import { SbbBreadcrumbs }',
+          'import { SbbBreadcrumbGroup as SbbBreadcrumbs }',
+        ),
+      );
+    });
+
+    it('should dedupe without promotion when the legacy import is type-only as well', async () => {
+      const result = await migrateSource(
+        [
+          "import type { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+          "import type { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+          'export type T = SbbBreadcrumbs;',
+        ].join('\n'),
+      );
+
+      expect(result).toBe(
+        [
+          "import type { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+          'export type T = SbbBreadcrumbGroup;',
+        ].join('\n'),
+      );
+    });
+
+    it('should dedupe a type-only legacy import into an existing value import', async () => {
+      const result = await migrateSource(
+        [
+          "import { SbbBreadcrumbGroup, type SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+          'export type T = SbbBreadcrumbs;',
+        ].join('\n'),
+      );
+
+      expect(result).toBe(
+        [
+          "import { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+          'export type T = SbbBreadcrumbGroup;',
+        ].join('\n'),
+      );
+    });
+  });
+
   describe('project scope', () => {
     const scope: MigrationScope = {
       root: 'projects/app-a',

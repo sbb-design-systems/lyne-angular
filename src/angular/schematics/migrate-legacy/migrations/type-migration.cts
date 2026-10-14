@@ -61,11 +61,23 @@ function importModule(node: ts.Node): string | undefined {
     : undefined;
 }
 
-/** Local import bindings of the file: local name → imported name and module. */
-function collectImportBindings(
-  sourceFile: ts.SourceFile,
-): Map<string, { importedName: string | undefined; module: string }> {
-  const bindings = new Map<string, { importedName: string | undefined; module: string }>();
+/** A local import binding of the file. */
+interface ImportBinding {
+  /** Exported name of the imported symbol; `undefined` for default and namespace imports. */
+  importedName: string | undefined;
+  module: string;
+  /** Whether the binding is only usable in type positions (`import type` or `{ type X }`). */
+  typeOnly: boolean;
+  /**
+   * Range of the `type` modifier to remove to turn a type-only binding into a value binding.
+   * Only set when no other binding is affected (a `{ type X }` specifier or a single-binding `import type`).
+   */
+  promotion?: { offset: number; length: number };
+}
+
+/** Local import bindings of the file: local name → binding. */
+function collectImportBindings(sourceFile: ts.SourceFile): Map<string, ImportBinding> {
+  const bindings = new Map<string, ImportBinding>();
 
   for (const statement of sourceFile.statements) {
     if (!ts.isImportDeclaration(statement) || !ts.isStringLiteral(statement.moduleSpecifier)) {
@@ -73,24 +85,56 @@ function collectImportBindings(
     }
     const module = statement.moduleSpecifier.text;
     const clause = statement.importClause;
+    const clauseTypeOnly = clause?.phaseModifier === ts.SyntaxKind.TypeKeyword;
 
     if (clause?.name) {
-      bindings.set(clause.name.text, { importedName: undefined, module });
+      bindings.set(clause.name.text, { importedName: undefined, module, typeOnly: clauseTypeOnly });
     }
     if (clause?.namedBindings && ts.isNamespaceImport(clause.namedBindings)) {
-      bindings.set(clause.namedBindings.name.text, { importedName: undefined, module });
+      bindings.set(clause.namedBindings.name.text, {
+        importedName: undefined,
+        module,
+        typeOnly: clauseTypeOnly,
+      });
     }
     if (clause?.namedBindings && ts.isNamedImports(clause.namedBindings)) {
-      for (const element of clause.namedBindings.elements) {
+      const elements = clause.namedBindings.elements;
+      for (const element of elements) {
+        let promotion: ImportBinding['promotion'];
+        if (element.isTypeOnly) {
+          // `{ type X }` → `{ X }`
+          const start = element.getStart(sourceFile);
+          promotion = {
+            offset: start,
+            length: (element.propertyName ?? element.name).getStart(sourceFile) - start,
+          };
+        } else if (clauseTypeOnly && elements.length === 1 && !clause.name) {
+          // `import type { X }` → `import { X }`
+          const start = clause.getStart(sourceFile);
+          promotion = {
+            offset: start,
+            length: clause.namedBindings.getStart(sourceFile) - start,
+          };
+        }
+
         bindings.set(element.name.text, {
           importedName: (element.propertyName ?? element.name).text,
           module,
+          typeOnly: clauseTypeOnly || element.isTypeOnly,
+          promotion,
         });
       }
     }
   }
 
   return bindings;
+}
+
+/** Whether the import specifier only imports a type (`import type { X }` or `{ type X }`). */
+function isTypeOnlySpecifier(specifier: ts.ImportSpecifier): boolean {
+  return (
+    specifier.isTypeOnly || specifier.parent.parent.phaseModifier === ts.SyntaxKind.TypeKeyword
+  );
 }
 
 /** Names declared anywhere in the file (variables, parameters, functions, classes, types, ...). */
@@ -123,18 +167,25 @@ function collectDeclaredNames(sourceFile: ts.SourceFile): Set<string> {
   return names;
 }
 
+/** Rename mode of a migration within a file, plus the `type` modifier to drop on a promoted import. */
+interface RenamePlan {
+  mode: RenameMode;
+  promotion?: { offset: number; length: number };
+}
+
 /** Detects, per migration, whether the new name collides with an existing binding of the file. */
 function resolveRenameModes(
   sourceFile: ts.SourceFile,
   references: SymbolReference<SymbolTarget & { migration: TypeMigration }>[],
-): Map<TypeMigration, RenameMode> {
-  const modes = new Map<TypeMigration, RenameMode>();
+): Map<TypeMigration, RenamePlan> {
+  const plans = new Map<TypeMigration, RenamePlan>();
   let importBindings: ReturnType<typeof collectImportBindings> | undefined;
   let declaredNames: Set<string> | undefined;
 
   for (const { node, target, kind } of references) {
     const { migration } = target;
-    if (kind !== 'import' || modes.has(migration) || !localImportSpecifier(node)) {
+    const specifier = kind === 'import' ? localImportSpecifier(node) : undefined;
+    if (!specifier || plans.has(migration)) {
       continue;
     }
 
@@ -142,21 +193,34 @@ function resolveRenameModes(
     declaredNames ??= collectDeclaredNames(sourceFile);
 
     const existing = importBindings.get(migration.to);
-    if (existing) {
-      // The very same symbol is already imported (e.g. a partially migrated file).
-      const legacyModule = importModule(node);
-      const sameSymbol =
-        existing.importedName === migration.to &&
-        (migration.importedFrom
-          ? matchesModule(existing.module, migration.importedFrom)
-          : existing.module === legacyModule);
-      modes.set(migration, sameSymbol ? 'dedupe' : 'alias');
+    if (!existing) {
+      plans.set(migration, { mode: declaredNames.has(migration.to) ? 'alias' : 'rename' });
+      continue;
+    }
+
+    // The very same symbol is already imported (e.g. a partially migrated file).
+    const legacyModule = importModule(node);
+    const sameSymbol =
+      existing.importedName === migration.to &&
+      (migration.importedFrom
+        ? matchesModule(existing.module, migration.importedFrom)
+        : existing.module === legacyModule);
+
+    if (!sameSymbol) {
+      plans.set(migration, { mode: 'alias' });
+    } else if (!existing.typeOnly || isTypeOnlySpecifier(specifier)) {
+      // The existing import can satisfy every usage of the legacy one.
+      plans.set(migration, { mode: 'dedupe' });
+    } else if (existing.promotion) {
+      // Value usages need a value import: promote the existing type-only import.
+      plans.set(migration, { mode: 'dedupe', promotion: existing.promotion });
     } else {
-      modes.set(migration, declaredNames.has(migration.to) ? 'alias' : 'rename');
+      // Promoting would affect other bindings: keep the legacy value import through an alias.
+      plans.set(migration, { mode: 'alias' });
     }
   }
 
-  return modes;
+  return plans;
 }
 
 /**
@@ -252,11 +316,12 @@ export function createTypeMigrationRule(migrations: TypeMigration[], scope?: Mig
       let index = 0;
 
       const references = findSymbolReferences(sourceFile, targets);
-      const modes = resolveRenameModes(sourceFile, references);
+      const plans = resolveRenameModes(sourceFile, references);
 
       for (const { node, target, kind } of references) {
         const { migration } = target;
-        const mode = modes.get(migration) ?? 'rename';
+        const plan = plans.get(migration);
+        const mode = plan?.mode ?? 'rename';
         const specifier = kind === 'import' ? localImportSpecifier(node) : undefined;
 
         if (specifier && mode === 'dedupe') {
@@ -269,6 +334,18 @@ export function createTypeMigrationRule(migrations: TypeMigration[], scope?: Mig
                 `  → Removed '${migration.from}' in favor of the existing '${migration.to}' import in ${filePath}`,
               ),
           });
+          if (plan?.promotion && !editedOffsets.has(plan.promotion.offset)) {
+            // The existing import is type-only, but the legacy one was also used as a value.
+            editedOffsets.add(plan.promotion.offset);
+            edits.push({
+              ...plan.promotion,
+              index: index++,
+              log: () =>
+                context.logger.info(
+                  `  → Turned the type-only import of '${migration.to}' into a value import in ${filePath}`,
+                ),
+            });
+          }
           continue;
         }
 
