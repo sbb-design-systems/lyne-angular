@@ -128,24 +128,19 @@ which provides the element traversal and applies the collected `MigrationEdit`s.
 Update `index.cts`:
 
 ```typescript
-import { isStandardThemeSet } from '../utils.cjs';
-
 import { migrate<Module> } from './modules/<module-name>.cjs';
 
-function loadModuleMigration(module: LegacyModuleName): Rule {
-  return async (tree: Tree, context: SchematicContext) => {
-    // The information about the configured theme is already retrieved, and can be used to perform conditional logic on migration functions.
-    const isStandardTheme = await isStandardThemeSet(tree, context);
-
-    // TODO: Add more modules as they are implemented
-    switch (module) {
-      case '<module>':
-        return migrate<Module>();
-      // ... other cases
-      default:
-        return noop();
-    }
-  };
+// The `isStandardTheme` parameter is resolved once in `migrateLegacy()` via `isStandardThemeSet()`;
+// it can be used to customize migration rules based on the configured theme.
+function loadModuleMigration(module: LegacyModuleName, isStandardTheme: boolean): Rule {
+  // TODO: Add more modules as they are implemented
+  switch (module) {
+    case '<module>':
+      return migrate<Module>(isStandardTheme);
+    // ... other cases
+    default:
+      return noop();
+  }
 }
 ```
 

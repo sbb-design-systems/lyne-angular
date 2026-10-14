@@ -81,8 +81,8 @@ function loadModuleMigration(module: LegacyModuleName, isStandardTheme: boolean)
 }
 
 export function migrateLegacy(options: MigrateLegacyOptionsSchema): Rule {
-  return async (tree: Tree) => {
-    const isStandardTheme = await isStandardThemeSet(tree, options.project);
+  return async (tree: Tree, context: SchematicContext) => {
+    const isStandardTheme = await isStandardThemeSet(tree, context, options.project);
 
     return chain([
       ...resolveLegacyModules(options.module).map((module) =>

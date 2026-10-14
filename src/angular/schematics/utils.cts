@@ -46,6 +46,11 @@ interface Package {
   peerDependencies?: Record<string, string>;
 }
 
+type LyneThemeKind = 'standard' | 'lean';
+
+const LYNE_THEME_REGEX =
+  /(?:^|[/~])@sbb-esta\/lyne-elements\/(lean-(?:off-brand-|safety-)?theme|(?:standard|off-brand|safety)-theme)(?:\.css)?$/;
+
 /** Only files which can actually be authored by a consumer are migrated. */
 export function isMigratableFile(filePath: string): boolean {
   return !filePath.includes('/node_modules/') && !filePath.startsWith('node_modules/');
@@ -169,7 +174,40 @@ export function validateDefaultTargetBuilder(
   return target;
 }
 
-export async function isStandardThemeSet(tree: Tree, projectName: string): Promise<boolean> {
+/** Classifies an import specifier or `styles` entry as a Lyne theme, if it is one. */
+function lyneThemeKind(specifier: string): LyneThemeKind | undefined {
+  const match = specifier.trim().match(LYNE_THEME_REGEX);
+  if (!match) {
+    return undefined;
+  }
+  return match[1].startsWith('lean-') ? 'lean' : 'standard';
+}
+
+/** Extracts the `@import`, `@use` and `@forward` specifiers of a stylesheet, ignoring comments. */
+function stylesheetImports(content: string): string[] {
+  const withoutComments = content.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+  const specifiers: string[] = [];
+
+  for (const [, args] of withoutComments.matchAll(/@(?:import|use|forward)\s+([^;\n]+)/g)) {
+    // `@import 'a', 'b';`, `@import url("a");`, `@use 'a' as b;`
+    for (const [, , quoted, url] of args.matchAll(/(['"])(.+?)\1|url\(\s*([^'")\s]+)\s*\)/g)) {
+      specifiers.push(quoted ?? url);
+    }
+  }
+
+  return specifiers;
+}
+
+/**
+ * It checks whether a non-lean Lyne theme is configured for the project,
+ * first in the `angular.json` file (`styles` property under `build` target), then
+ * in the imports of the default global stylesheet.
+ */
+export async function isStandardThemeSet(
+  tree: Tree,
+  context: SchematicContext,
+  projectName: string,
+): Promise<boolean> {
   const workspace = await getWorkspace(tree);
   const project = workspace.projects.get(projectName);
 
@@ -186,20 +224,40 @@ export async function isStandardThemeSet(tree: Tree, projectName: string): Promi
     );
   }
 
-  const styles =
-    (buildTarget.options['styles'] as (string | { input: string; [key: string]: any })[]) || [];
+  const styles = (
+    (project.targets.get('build')?.options?.['styles'] as
+      (string | { input: string; [key: string]: any })[] | undefined) ?? []
+  )
+    .map((style) => (typeof style === 'string' ? style : style?.input))
+    .filter((style): style is string => !!style);
 
-  for (const style of styles) {
-    const stylePath = typeof style === 'string' ? style : style?.input;
-    if (stylePath) {
-      const fileName = stylePath.split('/').pop() || '';
-      if (fileName.includes('theme') && !fileName.startsWith('lean')) {
-        return true;
-      }
-    }
+  let themes = styles.map(lyneThemeKind).filter((theme): theme is LyneThemeKind => Boolean(theme));
+
+  if (themes.length === 0) {
+    context.logger.info(
+      `No \`@sbb-esta/lyne-elements\` theme found in the \`angular.json\` file for project ${projectName}.`,
+    );
+    const globalStylePath =
+      styles.find((style) => /styles\.(css|scss|sass)$/.test(style)) ?? styles[0];
+    const content = globalStylePath ? tree.read(globalStylePath)?.toString('utf-8') : undefined;
+
+    themes = content
+      ? stylesheetImports(content)
+          .map(lyneThemeKind)
+          .filter((theme): theme is LyneThemeKind => Boolean(theme))
+      : [];
   }
 
-  return false;
+  if (themes.includes('lean')) {
+    return false;
+  } else if (themes.includes('standard')) {
+    return true;
+  } else {
+    context.logger.warn(
+      `No @sbb-esta/lyne-elements theme found in the global styles of project ${projectName}; assuming the standard theme.`,
+    );
+    return true;
+  }
 }
 
 export function addThemeToProject(
