@@ -84,10 +84,36 @@ function collectDeclaredNames(node: ts.Node, nameSet: Set<string>): void {
 }
 
 /**
+ * Collects the `var` bindings declared anywhere within `node`, which are hoisted to the enclosing
+ * function (or module) scope, e.g. a `var` inside an `if` or a loop body.
+ * Nested functions and classes own their `var`s, while `let`/`const` stay block-scoped.
+ */
+function collectHoistedVarNames(node: ts.Node, names: Set<string>): void {
+  ts.forEachChild(node, (child) => {
+    if (ts.isFunctionLike(child) || ts.isClassLike(child)) {
+      return;
+    }
+    if (ts.isVariableDeclarationList(child) && !(child.flags & ts.NodeFlags.BlockScoped)) {
+      for (const declaration of child.declarations) {
+        collectDeclaredNames(declaration.name, names);
+      }
+    }
+    collectHoistedVarNames(child, names);
+  });
+}
+
+/**
  * Extracts all new identifier names declared in scoping statements/nodes.
  */
 function collectScopeDeclarations(scopeNode: ts.Node): Set<string> {
   const names = new Set<string>();
+
+  // `var` declarations nested in blocks belong to the enclosing function or module scope.
+  if (ts.isSourceFile(scopeNode) || ts.isModuleBlock(scopeNode)) {
+    collectHoistedVarNames(scopeNode, names);
+  } else if (ts.isFunctionLike(scopeNode) && 'body' in scopeNode && scopeNode.body) {
+    collectHoistedVarNames(scopeNode.body, names);
+  }
 
   const addFromNode = (node: ts.Node) => {
     if (

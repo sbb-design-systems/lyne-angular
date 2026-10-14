@@ -400,6 +400,177 @@ describe('sbb-type-migration', () => {
 
       expect(result).toContain('function SbbBreadcrumbs() { return SbbBreadcrumbs; }');
     });
+
+    it('should ignore hoisted var declarations nested in blocks of a function', async () => {
+      const source = [
+        "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+        '',
+        'export function run(flag: boolean, local: string) {',
+        '  console.log(SbbBreadcrumbs);',
+        '  if (flag) {',
+        '    for (;;) { var SbbBreadcrumbs = local; break; }',
+        '  }',
+        '  return SbbBreadcrumbs;',
+        '}',
+        'export const real = SbbBreadcrumbs;',
+      ].join('\n');
+
+      const result = await migrateSource(source);
+
+      expect(result).toContain('  console.log(SbbBreadcrumbs);');
+      expect(result).toContain('var SbbBreadcrumbs = local;');
+      expect(result).toContain('  return SbbBreadcrumbs;');
+      expect(result).toContain('export const real = SbbBreadcrumbGroup;');
+    });
+
+    it('should keep let and const declarations block-scoped', async () => {
+      const source = [
+        "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+        '',
+        'export function run(flag: boolean) {',
+        '  if (flag) { const SbbBreadcrumbs = 1; console.log(SbbBreadcrumbs); }',
+        '  return SbbBreadcrumbs;',
+        '}',
+      ].join('\n');
+
+      const result = await migrateSource(source);
+
+      expect(result).toContain('const SbbBreadcrumbs = 1; console.log(SbbBreadcrumbs);');
+      expect(result).toContain('  return SbbBreadcrumbGroup;');
+    });
+
+    it('should not hoist var declarations out of nested functions', async () => {
+      const source = [
+        "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+        '',
+        'export function run() {',
+        '  const inner = () => { if (true) { var SbbBreadcrumbs = 1; } return SbbBreadcrumbs; };',
+        '  return SbbBreadcrumbs;',
+        '}',
+      ].join('\n');
+
+      const result = await migrateSource(source);
+
+      expect(result).toContain('var SbbBreadcrumbs = 1; } return SbbBreadcrumbs; };');
+      expect(result).toContain('  return SbbBreadcrumbGroup;');
+    });
+  });
+
+  describe('name conflicts', () => {
+    it('should drop the legacy specifier when the new symbol is already imported', async () => {
+      const result = await migrateSource(
+        [
+          "import { SbbBreadcrumbs, SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+          'export const a: SbbBreadcrumbs | SbbBreadcrumbGroup = null!;',
+        ].join('\n'),
+      );
+
+      expect(result).toBe(
+        [
+          "import { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+          'export const a: SbbBreadcrumbGroup | SbbBreadcrumbGroup = null!;',
+        ].join('\n'),
+      );
+    });
+
+    it('should drop the legacy specifier when it is the last one of the list', async () => {
+      const result = await migrateSource(
+        "import { SbbBreadcrumbGroup, SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+      );
+
+      expect(result).toBe("import { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';");
+    });
+
+    it('should drop the whole legacy import when the new symbol is imported elsewhere', async () => {
+      const result = await migrateSource(
+        [
+          "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+          "import { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+          'export const a = { SbbBreadcrumbs };',
+        ].join('\n'),
+      );
+
+      expect(result).toBe(
+        [
+          "import { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+          'export const a = { SbbBreadcrumbs: SbbBreadcrumbGroup };',
+        ].join('\n'),
+      );
+    });
+
+    it('should keep a default import when dropping the legacy specifier', async () => {
+      const result = await migrateSource(
+        [
+          "import Default, { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+          "import { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+        ].join('\n'),
+      );
+
+      expect(result).toBe(
+        [
+          "import Default from '@sbb-esta/angular/breadcrumb';",
+          "import { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+        ].join('\n'),
+      );
+    });
+
+    it('should alias the import when the new name is declared locally', async () => {
+      const source = [
+        "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+        'class SbbBreadcrumbGroup {}',
+        'export const a: SbbBreadcrumbs = new SbbBreadcrumbGroup();',
+        'export const b = { SbbBreadcrumbs };',
+      ].join('\n');
+
+      const result = await migrateSource(source);
+
+      expect(result).toBe(
+        source.replace(
+          'import { SbbBreadcrumbs }',
+          'import { SbbBreadcrumbGroup as SbbBreadcrumbs }',
+        ),
+      );
+    });
+
+    it('should alias the import when the new name is imported from another module', async () => {
+      const source = [
+        "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+        "import { SbbBreadcrumbGroup } from 'other-lib';",
+        'export type T = SbbBreadcrumbs | SbbBreadcrumbGroup;',
+      ].join('\n');
+
+      const result = await migrateSource(source);
+
+      expect(result).toBe(
+        source.replace(
+          'import { SbbBreadcrumbs }',
+          'import { SbbBreadcrumbGroup as SbbBreadcrumbs }',
+        ),
+      );
+    });
+
+    it('should not conflict for aliased legacy imports', async () => {
+      const result = await migrateSource(
+        [
+          "import { SbbBreadcrumbs as Legacy } from '@sbb-esta/angular/breadcrumb';",
+          'class SbbBreadcrumbGroup {}',
+        ].join('\n'),
+      );
+
+      expect(result).toContain(
+        "import { SbbBreadcrumbGroup as Legacy } from '@sbb-esta/angular/breadcrumb';",
+      );
+    });
+
+    it('should be idempotent after resolving a conflict', async () => {
+      const source = [
+        "import { SbbBreadcrumbs, SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+        'export type T = SbbBreadcrumbs;',
+      ].join('\n');
+
+      const once = await migrateSource(source);
+      expect(await migrateSource(once)).toBe(once);
+    });
   });
 
   describe('project scope', () => {
