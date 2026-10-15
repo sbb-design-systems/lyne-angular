@@ -134,6 +134,58 @@ describe(`sbb-utils`, () => {
     expect(isStandard).toBe(false);
   });
 
+  it('should consider the configuration set as defaultConfiguration if available', async () => {
+    const targets = {
+      build: {
+        builder: '@angular-devkit/build-angular:browser',
+        options: {
+          styles: ['node_modules/@sbb-esta/lyne-elements/lean-theme.css'],
+        },
+        configurations: {
+          production: {
+            styles: ['node_modules/@sbb-esta/lyne-elements/standard-theme.css'],
+          },
+        },
+        defaultConfiguration: 'production',
+      },
+    };
+    const tree = createMockWorkspace(targets);
+    let isStandard: boolean | undefined;
+
+    const testRule: Rule = async (inlineTree: Tree, context: SchematicContext) => {
+      isStandard = await isStandardThemeSet(inlineTree, context, 'test-app');
+      return inlineTree;
+    };
+
+    await firstValueFrom(runner.callRule(testRule, tree));
+    expect(isStandard).toBe(true);
+  });
+
+  it('should consider the styles under options if the defaultConfiguration does not override styles', async () => {
+    const targets = {
+      build: {
+        builder: '@angular-devkit/build-angular:browser',
+        options: {
+          styles: ['node_modules/@sbb-esta/lyne-elements/lean-theme.css'],
+        },
+        configurations: {
+          production: {},
+        },
+        defaultConfiguration: 'production',
+      },
+    };
+    const tree = createMockWorkspace(targets);
+    let isStandard: boolean | undefined;
+
+    const testRule: Rule = async (inlineTree: Tree, context: SchematicContext) => {
+      isStandard = await isStandardThemeSet(inlineTree, context, 'test-app');
+      return inlineTree;
+    };
+
+    await firstValueFrom(runner.callRule(testRule, tree));
+    expect(isStandard).toBe(false);
+  });
+
   it('should fallback to global stylesheet content if angular.json styles array does not match any theme directly', async () => {
     const targets = {
       build: {

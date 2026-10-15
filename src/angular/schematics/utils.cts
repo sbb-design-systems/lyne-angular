@@ -214,6 +214,7 @@ export async function isStandardThemeSet(
 ): Promise<boolean> {
   const workspace = await getWorkspace(tree);
   const project = workspace.projects.get(projectName);
+  let defaultStyles: (string | { input: string; [key: string]: any })[] | undefined = [];
 
   if (!project) {
     throw new SchematicsException(
@@ -228,10 +229,20 @@ export async function isStandardThemeSet(
     );
   }
 
-  const styles = (
-    (project.targets.get('build')?.options?.['styles'] as
-      (string | { input: string; [key: string]: any })[] | undefined) ?? []
-  )
+  const defaultConfiguration = buildTarget.defaultConfiguration;
+  if (defaultConfiguration) {
+    const configuration = buildTarget.configurations?.[defaultConfiguration] as
+      Record<string, any> | undefined;
+    if (configuration && 'styles' in configuration) {
+      defaultStyles = configuration['styles'];
+    }
+  }
+  if (!defaultStyles || defaultStyles.length === 0) {
+    defaultStyles = project.targets.get('build')?.options?.['styles'] as
+      (string | { input: string; [key: string]: any })[] | undefined;
+  }
+
+  const styles = (defaultStyles ?? [])
     .map((style) => (typeof style === 'string' ? style : style?.input))
     .filter((style): style is string => !!style);
 
