@@ -1731,7 +1731,7 @@
     lit "^3.3.3"
     tslib "^2.8.1"
 
-"@sbb-esta/lyne-elements@npm:@sbb-esta/lyne-elements-dev@5.11.0-dev.1792014846":
+"@sbb-esta/lyne-elements@npm:@sbb-esta/lyne-elements-dev@v5-dev":
   version "5.11.0-dev.1792014846"
   resolved "https://registry.yarnpkg.com/@sbb-esta/lyne-elements-dev/-/lyne-elements-dev-5.11.0-dev.1792014846.tgz#ec8cc1a5284e4294945ac45af51acbff474d7aa9"
   integrity sha512-fm6gTMT0NcHSXRLlDKJINsw9To49G3PvK7vnIAPIzwJOLHa4JY77AquKqBml/wq/lDiMjXVXzZQy7f5zo6u6uw==
