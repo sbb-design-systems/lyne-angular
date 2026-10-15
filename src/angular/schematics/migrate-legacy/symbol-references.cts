@@ -381,7 +381,12 @@ export function findSymbolReferences<T extends SymbolTarget>(
         return;
       }
 
-      if (isDeclarationName(node) || ts.isImportSpecifier(parent) || ts.isImportClause(parent)) {
+      if (
+        isDeclarationName(node) ||
+        ts.isImportSpecifier(parent) ||
+        ts.isImportClause(parent) ||
+        ts.isNamespaceExport(parent)
+      ) {
         return;
       }
 

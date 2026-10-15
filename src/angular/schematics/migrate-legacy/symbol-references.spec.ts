@@ -274,6 +274,10 @@ describe('sbb-symbol-references', () => {
     expectRefs("import { «import:Foo» } from 'lib'; export { «import:Foo» } from 'lib'; «Foo»;");
   });
 
+  it('should not report re-export names', () => {
+    expectRefs("import { «import:Foo» } from 'lib'; export * as Foo from './other'");
+  });
+
   it('should report an import which is exported through a local export', () => {
     check('export { «Foo» };');
   });
