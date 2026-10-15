@@ -16,8 +16,10 @@ import {
 
 export interface AttributeMigration {
   /**
-   * Selector(s) of the elements owning the attribute, e.g. `'sbb-button'`,
-   * `['sbb-button', 'sbb-secondary-button']` or `'button[sbb-button]'`.
+   * Selector(s) of the elements owning the attribute, e.g.
+   *  - `'sbb-button'`
+   *  - `['sbb-button', 'sbb-secondary-button']`
+   *  - `'button[sbb-button]'`.
    */
   selector: string | string[];
   /**

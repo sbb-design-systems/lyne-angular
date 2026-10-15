@@ -2,8 +2,13 @@ import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
 
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { HostTree, SchematicsException } from '@angular-devkit/schematics';
+import {
+  HostTree,
+  type Rule,
+  type SchematicContext,
+  SchematicsException,
+  type Tree,
+} from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { firstValueFrom } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
@@ -153,7 +158,7 @@ describe(`sbb-utils`, () => {
     expect(isStandard).toBe(true);
   });
 
-  it('should fallback to first style file if default is not found', async () => {
+  it('should check all files if default is not found', async () => {
     const targets = {
       build: {
         builder: '@angular-devkit/build-angular:browser',
@@ -178,6 +183,37 @@ describe(`sbb-utils`, () => {
 
     await firstValueFrom(runner.callRule(testRule, tree));
     expect(isStandard).toBe(true);
+  });
+
+  it('should win lean theme if both are imported in different files', async () => {
+    const targets = {
+      build: {
+        builder: '@angular-devkit/build-angular:browser',
+        options: {
+          styles: ['src/lean-default-styles.scss', 'src/standard-default-styles.scss'],
+        },
+      },
+    };
+    const tree = createMockWorkspace(targets);
+
+    tree.create(
+      '/src/lean-default-styles.scss',
+      '@import "@sbb-esta/lyne-elements/standard-theme.css";',
+    );
+    tree.create(
+      '/src/standard-default-styles.scss',
+      '@import "@sbb-esta/lyne-elements/lean-theme.css";',
+    );
+
+    let isStandard: boolean | undefined;
+
+    const testRule: Rule = async (inlineTree: Tree, context: SchematicContext) => {
+      isStandard = await isStandardThemeSet(inlineTree, context, 'test-app');
+      return inlineTree;
+    };
+
+    await firstValueFrom(runner.callRule(testRule, tree));
+    expect(isStandard).toBe(false);
   });
 
   it('should log a warning and return true if no themes match anywhere', async () => {
