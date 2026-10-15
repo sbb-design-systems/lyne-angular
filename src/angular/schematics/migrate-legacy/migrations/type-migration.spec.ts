@@ -787,6 +787,28 @@ describe('sbb-type-migration', () => {
       expect(result).toBe("export { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';");
     });
 
+    it('should promote a declaration-level type-only re-export when deduping', async () => {
+      const result = await migrateSource(
+        [
+          "export { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+          "export type { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+        ].join('\n'),
+      );
+
+      expect(result).toBe("export { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';");
+    });
+
+    it('should promote a specifier-level type-only re-export when deduping', async () => {
+      const result = await migrateSource(
+        [
+          "export { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+          "export { type SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
+        ].join('\n'),
+      );
+
+      expect(result).toBe("export { SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';");
+    });
+
     it('should alias the legacy re-export when another symbol is exported with the new name', async () => {
       const source = [
         "export { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",

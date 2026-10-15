@@ -66,6 +66,10 @@ interface ExportedName {
   module?: string;
   /** Name of the exported binding/symbol (`Local` of `export { Local as Exported }`). */
   referencedName?: string;
+  /** Whether the export is type-only (`export type { … }` or `export { type … }`). */
+  typeOnly?: boolean;
+  /** Range of the `type` modifier to remove to turn a type-only export into a value export. */
+  promotion?: { offset: number; length: number };
 }
 
 /** Whether the identifier is a member name (`ns.Name`) instead of a standalone reference. */
@@ -94,6 +98,11 @@ function localImportSpecifier(node: ts.Identifier): ts.ImportSpecifier | undefin
 function unaliasedExportSpecifier(node: ts.Identifier): ts.ExportSpecifier | undefined {
   const parent = node.parent;
   return ts.isExportSpecifier(parent) && !parent.propertyName ? parent : undefined;
+}
+
+/** Whether the export specifier only exports a type (`export type { X }` or `export { type X }`). */
+function isTypeOnlyExportSpecifier(specifier: ts.ExportSpecifier): boolean {
+  return specifier.isTypeOnly || specifier.parent.parent.isTypeOnly;
 }
 
 /** Module specifier of the import declaration owning `node`. */
@@ -350,11 +359,29 @@ function collectExportedNames(sourceFile: ts.SourceFile): Map<string, ExportedNa
         statement.moduleSpecifier && ts.isStringLiteral(statement.moduleSpecifier)
           ? statement.moduleSpecifier.text
           : undefined;
+      const declarationTypeOnly = statement.isTypeOnly;
       for (const specifier of statement.exportClause.elements) {
+        const typeOnly = declarationTypeOnly || isTypeOnlyExportSpecifier(specifier);
+        let promotion: ExportedName['promotion'];
+        if (declarationTypeOnly) {
+          const start = statement.getStart(sourceFile);
+          promotion = {
+            offset: start + 'export '.length,
+            length: statement.exportClause.getStart(sourceFile) - (start + 'export '.length),
+          };
+        } else if (specifier.isTypeOnly) {
+          const start = specifier.getStart(sourceFile);
+          promotion = {
+            offset: start,
+            length: (specifier.propertyName ?? specifier.name).getStart(sourceFile) - start,
+          };
+        }
         add(specifier.name.text, {
           specifier,
           module,
           referencedName: (specifier.propertyName ?? specifier.name).text,
+          typeOnly,
+          promotion,
         });
       }
       continue;
@@ -520,11 +547,47 @@ export function createTypeMigrationRule(migrations: TypeMigration[], scope?: Mig
             );
 
             if (sameSymbol) {
-              removals.add(exportSpecifier, () =>
-                context.logger.info(
-                  `  → Removed the export of '${migration.from}' in favor of the existing '${migration.to}' export in ${filePath}`,
-                ),
-              );
+              const existingValueExport = existing.find((entry) => !entry.typeOnly);
+              const existingTypeOnlyExport = existing.find((entry) => entry.typeOnly);
+
+              if (existingValueExport) {
+                removals.add(exportSpecifier, () =>
+                  context.logger.info(
+                    `  → Removed the export of '${migration.from}' in favor of the existing '${migration.to}' export in ${filePath}`,
+                  ),
+                );
+              } else if (existingTypeOnlyExport?.promotion) {
+                if (!editedOffsets.has(existingTypeOnlyExport.promotion.offset)) {
+                  editedOffsets.add(existingTypeOnlyExport.promotion.offset);
+                  edits.push({
+                    ...existingTypeOnlyExport.promotion,
+                    index: index++,
+                    log: () =>
+                      context.logger.info(
+                        `  → Turned the type-only export of '${migration.to}' into a value export in ${filePath}`,
+                      ),
+                  });
+                }
+                removals.add(exportSpecifier, () =>
+                  context.logger.info(
+                    `  → Removed the export of '${migration.from}' in favor of the existing '${migration.to}' export in ${filePath}`,
+                  ),
+                );
+              } else {
+                // Keep the legacy export when the retained export cannot be promoted.
+                const offset = node.getStart(sourceFile);
+                edits.push({
+                  offset,
+                  index: index++,
+                  length: node.getEnd() - offset,
+                  insertion: `${migration.to} as ${migration.from}`,
+                  log: () =>
+                    context.logger.warn(
+                      `  ⚠ '${migration.to}' is already exported in ${filePath}; ` +
+                        `exported it as '${migration.from}' instead.`,
+                    ),
+                });
+              }
             } else {
               // A different symbol is already exported as `to`: keep the legacy exported name.
               const offset = node.getStart(sourceFile);
