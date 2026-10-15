@@ -573,6 +573,117 @@ describe('sbb-type-migration', () => {
     });
   });
 
+  describe('adjacent removals', () => {
+    const PAIR: TypeMigration[] = [
+      { from: 'OldA', to: 'NewA', importedFrom: 'pkg' },
+      { from: 'OldB', to: 'NewB', importedFrom: 'pkg' },
+    ];
+
+    it('should not corrupt the declaration when the last specifiers are removed', async () => {
+      const result = await migrateSource(
+        [
+          "import { NewA, NewB, OldA, OldB } from 'pkg';",
+          'export const a = new OldA();',
+          'export const b = new OldB();',
+        ].join('\n'),
+        PAIR,
+      );
+
+      expect(result).toBe(
+        [
+          "import { NewA, NewB } from 'pkg';",
+          'export const a = new NewA();',
+          'export const b = new NewB();',
+        ].join('\n'),
+      );
+    });
+
+    it('should remove adjacent specifiers at the start of the list', async () => {
+      const result = await migrateSource("import { OldA, OldB, NewA, NewB } from 'pkg';", PAIR);
+
+      expect(result).toBe("import { NewA, NewB } from 'pkg';");
+    });
+
+    it('should remove non-adjacent specifiers independently', async () => {
+      const result = await migrateSource("import { OldA, NewA, OldB, NewB } from 'pkg';", PAIR);
+
+      expect(result).toBe("import { NewA, NewB } from 'pkg';");
+    });
+
+    it('should remove a trailing run next to a leading one', async () => {
+      const result = await migrateSource("import { OldA, NewA, NewB, OldB } from 'pkg';", PAIR);
+
+      expect(result).toBe("import { NewA, NewB } from 'pkg';");
+    });
+
+    it('should drop the whole declaration when all its specifiers are removed', async () => {
+      const result = await migrateSource(
+        ["import { OldA, OldB } from 'pkg';", "import { NewA, NewB } from 'pkg';"].join('\n'),
+        PAIR,
+      );
+
+      expect(result).toBe("import { NewA, NewB } from 'pkg';");
+    });
+
+    it('should keep the default import when all named specifiers are removed', async () => {
+      const result = await migrateSource(
+        ["import Default, { OldA, OldB } from 'pkg';", "import { NewA, NewB } from 'pkg';"].join(
+          '\n',
+        ),
+        PAIR,
+      );
+
+      expect(result).toBe(
+        ["import Default from 'pkg';", "import { NewA, NewB } from 'pkg';"].join('\n'),
+      );
+    });
+
+    it('should coordinate adjacent removals with type-only promotions', async () => {
+      const result = await migrateSource(
+        [
+          "import { type NewA, type NewB, OldA, OldB } from 'pkg';",
+          'export const a = new OldA();',
+          'export const b = new OldB();',
+        ].join('\n'),
+        PAIR,
+      );
+
+      expect(result).toBe(
+        [
+          "import { NewA, NewB } from 'pkg';",
+          'export const a = new NewA();',
+          'export const b = new NewB();',
+        ].join('\n'),
+      );
+    });
+
+    it('should coordinate adjacent removals with renames and aliases in the same list', async () => {
+      const result = await migrateSource(
+        [
+          "import { NewA, NewB, OldC, OldA, OldB } from 'pkg';",
+          'export const c = new OldC();',
+        ].join('\n'),
+        [...PAIR, { from: 'OldC', to: 'NewC', importedFrom: 'pkg' }],
+      );
+
+      expect(result).toBe(
+        ["import { NewA, NewB, NewC } from 'pkg';", 'export const c = new NewC();'].join('\n'),
+      );
+    });
+
+    it('should not corrupt a re-export when the last specifiers are removed', async () => {
+      const result = await migrateSource("export { NewA, NewB, OldA, OldB } from 'pkg';", PAIR);
+
+      expect(result).toBe("export { NewA, NewB } from 'pkg';");
+    });
+
+    it('should be idempotent', async () => {
+      const once = await migrateSource("import { NewA, NewB, OldA, OldB } from 'pkg';", PAIR);
+
+      expect(await migrateSource(once, PAIR)).toBe(once);
+    });
+  });
+
   describe('type-only imports', () => {
     it('should promote a type-only specifier when the legacy import is used as a value', async () => {
       const result = await migrateSource(

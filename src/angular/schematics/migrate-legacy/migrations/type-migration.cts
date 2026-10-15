@@ -15,6 +15,9 @@ import {
   type SymbolTarget,
 } from '../symbol-references.cjs';
 
+type NamedSpecifier = ts.ImportSpecifier | ts.ExportSpecifier;
+type NamedSpecifiers = ts.NamedImports | ts.NamedExports;
+
 export interface TypeMigration {
   /** Legacy symbol name, e.g. `'SbbBreadcrumbs'`. */
   from: string;
@@ -209,7 +212,7 @@ function resolveRenameModes(
     declaredNames ??= collectDeclaredNames(sourceFile);
 
     const existing = importBindings.get(migration.to);
-    if (!existing) {
+    if (!existing || declaredNames.has(migration.to)) {
       plans.set(migration, { mode: declaredNames.has(migration.to) ? 'alias' : 'rename' });
       continue;
     }
@@ -240,53 +243,95 @@ function resolveRenameModes(
 }
 
 /**
- * Edit removing an import/export specifier together with its separating comma;
- * the whole declaration is removed when nothing else is imported/exported.
+ * Collects the specifiers to remove per import/export declaration and turns them into
+ * non-overlapping edits. Removing each specifier on its own would produce overlapping edits
+ * for adjacent removals (e.g. the last two specifiers of a list both reach for the comma
+ * before them), which corrupts the declaration once applied.
  */
-function removeSpecifier(
-  specifier: ts.ImportSpecifier | ts.ExportSpecifier,
-  sourceFile: ts.SourceFile,
-  content: string,
-): { offset: number; length: number } {
-  const elements: ts.NodeArray<ts.ImportSpecifier | ts.ExportSpecifier> = specifier.parent.elements;
-  const position = elements.indexOf(specifier);
+class SpecifierRemovals {
+  private readonly groups = new Map<NamedSpecifiers, Map<NamedSpecifier, () => void>>();
 
-  if (elements.length > 1) {
-    // Remove up to the next element, or from the previous element for the last one.
-    const start =
-      position < elements.length - 1
-        ? specifier.getStart(sourceFile)
-        : elements[position - 1].getEnd();
-    const end =
-      position < elements.length - 1
-        ? elements[position + 1].getStart(sourceFile)
-        : specifier.getEnd();
+  /** Queues the removal of `specifier`; `log` is called when its removal is applied. */
+  add(specifier: NamedSpecifier, log: () => void): void {
+    const list = specifier.parent;
+    const group = this.groups.get(list) ?? new Map<NamedSpecifier, () => void>();
+    group.set(specifier, log);
+    this.groups.set(list, group);
+  }
+
+  /** Non-overlapping edits for all queued removals. */
+  toEdits(sourceFile: ts.SourceFile, content: string, nextIndex: () => number): MigrationEdit[] {
+    const edits: MigrationEdit[] = [];
+
+    for (const [list, removed] of this.groups) {
+      const elements: ts.NodeArray<NamedSpecifier> = list.elements;
+      const log = (specifiers: NamedSpecifier[]) => () =>
+        specifiers.forEach((s) => removed.get(s)!());
+
+      if (removed.size < elements.length) {
+        // Merge adjacent removals into runs; every run becomes a single edit.
+        let i = 0;
+        while (i < elements.length) {
+          if (!removed.has(elements[i])) {
+            i++;
+            continue;
+          }
+          let last = i;
+          while (last + 1 < elements.length && removed.has(elements[last + 1])) {
+            last++;
+          }
+
+          // Remove up to the next kept element, or from the previous kept element for a trailing run.
+          const hasNext = last < elements.length - 1;
+          const offset = hasNext ? elements[i].getStart(sourceFile) : elements[i - 1].getEnd();
+          const end = hasNext ? elements[last + 1].getStart(sourceFile) : elements[last].getEnd();
+          edits.push({
+            offset,
+            length: end - offset,
+            index: nextIndex(),
+            log: log(elements.slice(i, last + 1)),
+          });
+          i = last + 1;
+        }
+        continue;
+      }
+
+      // Nothing else is imported/exported: remove the list or the whole declaration.
+      const range = this.removeAll(list, sourceFile, content);
+      edits.push({ ...range, index: nextIndex(), log: log([...elements]) });
+    }
+
+    return edits;
+  }
+
+  private removeAll(
+    list: NamedSpecifiers,
+    sourceFile: ts.SourceFile,
+    content: string,
+  ): { offset: number; length: number } {
+    let declaration: ts.Node;
+    if (ts.isNamedImports(list)) {
+      const clause = list.parent;
+      if (clause.name) {
+        // `import Default, { Legacy } from '…'` → `import Default from '…'`
+        return {
+          offset: clause.name.getEnd(),
+          length: list.getEnd() - clause.name.getEnd(),
+        };
+      }
+      declaration = clause.parent;
+    } else {
+      declaration = list.parent;
+    }
+
+    const start = declaration.getStart(sourceFile);
+    let end = declaration.getEnd();
+    const lineBreak = /^\r?\n/.exec(content.slice(end));
+    if (lineBreak) {
+      end += lineBreak[0].length;
+    }
     return { offset: start, length: end - start };
   }
-
-  let declaration: ts.Node;
-  if (ts.isImportSpecifier(specifier)) {
-    const clause = specifier.parent.parent;
-    if (clause.name) {
-      // `import Default, { Legacy } from '…'` → `import Default from '…'`
-      const namedImports = specifier.parent;
-      return {
-        offset: clause.name.getEnd(),
-        length: namedImports.getEnd() - clause.name.getEnd(),
-      };
-    }
-    declaration = clause.parent;
-  } else {
-    declaration = specifier.parent.parent;
-  }
-
-  const start = declaration.getStart(sourceFile);
-  let end = declaration.getEnd();
-  const lineBreak = /^\r?\n/.exec(content.slice(end));
-  if (lineBreak) {
-    end += lineBreak[0].length;
-  }
-  return { offset: start, length: end - start };
 }
 
 /** All names exported by the file: export specifiers and exported declarations. */
@@ -390,6 +435,7 @@ export function createTypeMigrationRule(migrations: TypeMigration[], scope?: Mig
       const sourceFile = ts.createSourceFile(filePath, original, ts.ScriptTarget.Latest, true);
       const edits: MigrationEdit[] = [];
       const editedOffsets = new Set<number>();
+      const removals = new SpecifierRemovals();
       let index = 0;
 
       const references = findSymbolReferences(sourceFile, targets);
@@ -404,14 +450,11 @@ export function createTypeMigrationRule(migrations: TypeMigration[], scope?: Mig
 
         if (specifier && mode === 'dedupe') {
           // `to` is already imported: drop the legacy specifier, usages are renamed below.
-          edits.push({
-            ...removeSpecifier(specifier, sourceFile, original),
-            index: index++,
-            log: () =>
-              context.logger.info(
-                `  → Removed '${migration.from}' in favor of the existing '${migration.to}' import in ${filePath}`,
-              ),
-          });
+          removals.add(specifier, () =>
+            context.logger.info(
+              `  → Removed '${migration.from}' in favor of the existing '${migration.to}' import in ${filePath}`,
+            ),
+          );
           if (plan?.promotion && !editedOffsets.has(plan.promotion.offset)) {
             // The existing import is type-only, but the legacy one was also used as a value.
             editedOffsets.add(plan.promotion.offset);
@@ -478,14 +521,11 @@ export function createTypeMigrationRule(migrations: TypeMigration[], scope?: Mig
             );
 
             if (sameSymbol) {
-              edits.push({
-                ...removeSpecifier(exportSpecifier, sourceFile, original),
-                index: index++,
-                log: () =>
-                  context.logger.info(
-                    `  → Removed the export of '${migration.from}' in favor of the existing '${migration.to}' export in ${filePath}`,
-                  ),
-              });
+              removals.add(exportSpecifier, () =>
+                context.logger.info(
+                  `  → Removed the export of '${migration.from}' in favor of the existing '${migration.to}' export in ${filePath}`,
+                ),
+              );
             } else {
               // A different symbol is already exported as `to`: keep the legacy exported name.
               const offset = node.getStart(sourceFile);
@@ -540,6 +580,10 @@ export function createTypeMigrationRule(migrations: TypeMigration[], scope?: Mig
               : undefined,
         });
       }
+
+      // Removals are applied last so that all edits of a declaration are coordinated:
+      // adjacent removals are merged, renames/promotions only touch kept specifiers.
+      edits.push(...removals.toEdits(sourceFile, original, () => index++));
 
       const updated = applyEdits(original, edits);
       if (updated !== original) {
