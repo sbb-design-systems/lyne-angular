@@ -149,6 +149,108 @@ describe('sbb-comment-migration', () => {
       );
     });
 
+    describe('elements after markup on the same line', () => {
+      const COMMENT = '<!-- FIXME: sbb-captcha has no Lyne counterpart. -->';
+
+      it('should not insert the comment into a still open parent tag', async () => {
+        const template = '<div\n  class="wrapper"><sbb-captcha></sbb-captcha></div>';
+
+        expect(await migrateHtml(template)).toBe(
+          `<div\n  class="wrapper">${COMMENT}<sbb-captcha></sbb-captcha></div>`,
+        );
+      });
+
+      it('should not insert the comment into a still open parent tag multiline', async () => {
+        const template = '<div\n  class="wrapper">\n<sbb-captcha></sbb-captcha>\n</div>';
+
+        expect(await migrateHtml(template)).toBe(
+          `<div\n  class="wrapper">\n${COMMENT}\n<sbb-captcha></sbb-captcha>\n</div>`,
+        );
+      });
+
+      it('should place the comment before the element for a link in a multiline parent', async () => {
+        expect(
+          await migrateHtml('<div\n class="wrapper"><sbb-link>Go</sbb-link></div>', [
+            { selector: ['sbb-link', 'sbb-link-button'], message: 'FIXME: Check the imports.' },
+          ]),
+        ).toBe(
+          '<div\n class="wrapper"><!-- FIXME: Check the imports. --><sbb-link>Go</sbb-link></div>',
+        );
+      });
+
+      it('should not add the comment again (idempotent)', async () => {
+        const once = await migrateHtml('<div\n  class="wrapper"><sbb-captcha></sbb-captcha></div>');
+
+        expect(await migrateHtml(once)).toBe(once);
+      });
+
+      it('should add several messages and multiline messages before the element', async () => {
+        const migrations: CommentMigration[] = [
+          ...CAPTCHA,
+          { selector: 'sbb-captcha', message: 'TODO: First.\nSecond.' },
+        ];
+        const once = await migrateHtml(
+          '<div\n  class="wrapper"><sbb-captcha></sbb-captcha></div>',
+          migrations,
+        );
+
+        expect(once).toBe(
+          `<div\n  class="wrapper">${COMMENT}<!-- TODO: First. --><!--  Second. --><sbb-captcha></sbb-captcha></div>`,
+        );
+        expect(await migrateHtml(once, migrations)).toBe(once);
+      });
+
+      it('should comment every element of a line at its own position', async () => {
+        expect(
+          await migrateHtml('<div\n  class="a"><sbb-captcha></sbb-captcha><sbb-captcha /></div>'),
+        ).toBe(
+          `<div\n  class="a">${COMMENT}<sbb-captcha></sbb-captcha>${COMMENT}<sbb-captcha /></div>`,
+        );
+      });
+
+      it('should keep the comment above the line when the line starts at a safe boundary', async () => {
+        expect(await migrateHtml('<div><sbb-captcha></sbb-captcha></div>')).toBe(
+          `${COMMENT}\n<div><sbb-captcha></sbb-captcha></div>`,
+        );
+      });
+
+      it('should not insert the comment into a multiline attribute value', async () => {
+        expect(await migrateHtml('<div title="a\nb"><sbb-captcha></sbb-captcha></div>')).toBe(
+          `<div title="a\nb">${COMMENT}<sbb-captcha></sbb-captcha></div>`,
+        );
+      });
+
+      it('should not insert the comment into a closing tag', async () => {
+        expect(await migrateHtml('<div></div\n><sbb-captcha></sbb-captcha>')).toBe(
+          `<div></div\n>${COMMENT}<sbb-captcha></sbb-captcha>`,
+        );
+      });
+
+      it('should not insert the comment into a multiline comment', async () => {
+        expect(await migrateHtml('<!-- note\n  --><sbb-captcha></sbb-captcha>')).toBe(
+          `<!-- note\n  -->${COMMENT}<sbb-captcha></sbb-captcha>`,
+        );
+      });
+
+      it('should not insert the comment into a multiline interpolation', async () => {
+        expect(await migrateHtml('{{ a +\n  b }}<sbb-captcha></sbb-captcha>')).toBe(
+          `{{ a +\n  b }}${COMMENT}<sbb-captcha></sbb-captcha>`,
+        );
+      });
+
+      it('should not insert the comment into multiline block parameters', async () => {
+        expect(await migrateHtml('@if (a &&\n  b) {<sbb-captcha />}')).toBe(
+          `@if (a &&\n  b) {${COMMENT}<sbb-captcha />}`,
+        );
+      });
+
+      it('should not insert the comment into a multiline @let declaration', async () => {
+        expect(await migrateHtml('@let value = a +\n  b; <sbb-captcha />')).toBe(
+          `@let value = a +\n  b; ${COMMENT}<sbb-captcha />`,
+        );
+      });
+    });
+
     it('should not touch templates without matching elements', async () => {
       const template = '<sbb-button>captcha</sbb-button>';
       expect(await migrateHtml(template)).toBe(template);
