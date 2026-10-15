@@ -35,7 +35,7 @@ however they prefer (e.g. table, flexbox, css-grid). The `<sbb-pearl-chain>` wil
         </time>
       </td>
       <td>
-        <sbbPearlChainNode type="start" ...></sbb-pearl-chain-node>
+        <sbbPearlChainNode type="start" departure="..."></sbb-pearl-chain-node>
       </td>
       <td>Bern</td>
     </tr>
@@ -46,7 +46,7 @@ however they prefer (e.g. table, flexbox, css-grid). The `<sbb-pearl-chain>` wil
         </time>
       </td>
       <td>
-        <sbbPearlChainNode type="stop" ...></sbb-pearl-chain-node>
+        <sbbPearlChainNode type="stop" arrival="..." departure="..."></sbb-pearl-chain-node>
       </td>
       <td>Olten</td>
     </tr>
@@ -57,7 +57,7 @@ however they prefer (e.g. table, flexbox, css-grid). The `<sbb-pearl-chain>` wil
         </time>
       </td>
       <td>
-        <sbbPearlChainNode type="end" ...></sbb-pearl-chain-node>
+        <sbbPearlChainNode type="end" arrival="..."></sbb-pearl-chain-node>
       </td>
       <td>Zürich HB</td>
     </tr>
@@ -107,12 +107,12 @@ document.querySelector('sbb-pearl-chain').requestUpdate();
 ### Node weights
 
 The `<sbb-pearl-chain>` does not position the nodes: distributing them proportionally to the journey's duration is up to the consumer.
-The `getNodeWeights()` method helps with that: it returns, for each node in DOM order, a value between `0` (first node) and `1` (last node),
+The `calculateNodeWeights()` method helps with that: it returns, for each node in DOM order, a value between `0` (first node) and `1` (last node),
 proportional to its `departure` time (or `arrival`, if there is no `departure`).
 
 ```js
 const chain = document.querySelector('sbb-pearl-chain');
-const weights = chain.getNodeWeights(); // e.g. [0, 0.43, 1]
+const weights = chain.calculateNodeWeights(); // e.g. [0, 0.43, 1]
 ```
 
 ## Accessibility
