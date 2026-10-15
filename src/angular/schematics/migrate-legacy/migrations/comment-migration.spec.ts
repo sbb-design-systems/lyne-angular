@@ -41,7 +41,10 @@ describe('sbb-comment-migration', () => {
   };
 
   const CAPTCHA: CommentMigration[] = [
-    { selector: 'sbb-captcha', message: 'FIXME: sbb-captcha has no Lyne counterpart.' },
+    {
+      selector: 'sbb-captcha',
+      message: 'FIXME: sbb-captcha has no Lyne counterpart.',
+    },
   ];
 
   describe('elements in external templates', () => {
@@ -72,7 +75,10 @@ describe('sbb-comment-migration', () => {
     it('should render multiline messages', async () => {
       expect(
         await migrateHtml('<sbb-captcha></sbb-captcha>', [
-          { selector: 'sbb-captcha', message: 'FIXME: First line.\nSecond line.' },
+          {
+            selector: 'sbb-captcha',
+            message: 'FIXME: First line.\nSecond line.',
+          },
         ]),
       ).toBe(
         [
@@ -92,7 +98,13 @@ describe('sbb-comment-migration', () => {
             '  <button sbb-lightbox>x</button>',
             '</div>',
           ].join('\n'),
-          [...CAPTCHA, { selector: '[sbb-lightbox]', message: 'TODO: Lightbox is not available.' }],
+          [
+            ...CAPTCHA,
+            {
+              selector: '[sbb-lightbox]',
+              message: 'TODO: Lightbox is not available.',
+            },
+          ],
         ),
       ).toBe(
         [
@@ -145,7 +157,11 @@ describe('sbb-comment-migration', () => {
 
   describe('attributes', () => {
     const MODE: CommentMigration[] = [
-      { selector: 'sbb-button', attribute: 'mode', message: 'FIXME: mode has been removed.' },
+      {
+        selector: 'sbb-button',
+        attribute: 'mode',
+        message: 'FIXME: mode has been removed.',
+      },
     ];
     const migrateHtml = (template: string) =>
       migrateFile('/src/app/app.component.html', template, MODE);
@@ -168,7 +184,13 @@ describe('sbb-comment-migration', () => {
         await migrateFile(
           '/src/app/app.component.html',
           '<sbb-button icon-name="x"></sbb-button>',
-          [{ selector: 'sbb-button', attribute: 'iconName', message: 'FIXME: Check icon.' }],
+          [
+            {
+              selector: 'sbb-button',
+              attribute: 'iconName',
+              message: 'FIXME: Check icon.',
+            },
+          ],
         ),
       ).toBe('<!-- FIXME: Check icon. -->\n<sbb-button icon-name="x"></sbb-button>');
     });
@@ -213,6 +235,39 @@ describe('sbb-comment-migration', () => {
           'export class AppComponent {}',
         ].join('\n'),
       );
+    });
+
+    it('should add the comment unescaped above a template with escape sequences', async () => {
+      const source = [
+        "import { Component } from '@angular/core';",
+        '',
+        '@Component({',
+        "  selector: 'app-root',",
+        String.raw`  template: "<sbb-captcha class=\"a\"></sbb-captcha>",`,
+        '})',
+        'export class AppComponent {}',
+      ].join('\n');
+
+      const once = await migrateFile('/src/app/app.component.ts', source, CAPTCHA);
+
+      expect(once).toBe(
+        source.replace(
+          '  template:',
+          '  // FIXME: sbb-captcha has no Lyne counterpart.\n  template:',
+        ),
+      );
+      expect(await migrateFile('/src/app/app.component.ts', once, CAPTCHA)).toBe(once);
+    });
+
+    it('should comment two templates on the same line only once', async () => {
+      const source = [
+        "import { Component } from '@angular/core';",
+        "@Component({ template: '<sbb-captcha></sbb-captcha>' }) class A {} @Component({ template: '<sbb-captcha></sbb-captcha>' }) class B {}",
+      ].join('\n');
+
+      const result = await migrateFile('/src/app/app.component.ts', source, CAPTCHA);
+
+      expect(result.match(/FIXME/g)).toHaveLength(1);
     });
 
     it('should be idempotent', async () => {
@@ -351,7 +406,13 @@ describe('sbb-comment-migration', () => {
           'export const m = SbbCaptchaModule;',
         ].join('\n'),
       },
-      [...CAPTCHA, { symbol: 'SbbCaptchaModule', message: 'TODO: Remove SbbCaptchaModule.' }],
+      [
+        ...CAPTCHA,
+        {
+          symbol: 'SbbCaptchaModule',
+          message: 'TODO: Remove SbbCaptchaModule.',
+        },
+      ],
     );
 
     expect(tree.read('/src/app/app.component.html')!.toString('utf-8')).toBe(

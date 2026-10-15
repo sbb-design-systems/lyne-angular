@@ -124,7 +124,13 @@ function queueComment(
     return;
   }
 
-  edits.push({ offset: lineStart, index, length: 0, insertion: `${comment}\n`, log });
+  edits.push({
+    offset: lineStart,
+    index,
+    length: 0,
+    insertion: `${comment}\n`,
+    log,
+  });
 }
 
 function hasAttribute(element: TmplAstElement, variants: string[]): boolean {
@@ -154,7 +160,8 @@ function createElementCommentRule(
   const queuedPerFile = new WeakMap<MigrationEdit[], QueuedComments>();
 
   return createTemplateMigrationRule((element, context) => {
-    const { fileContent, baseOffset, inline, filePath, edits, nextIndex, logger } = context;
+    // Comments are placed outside of the template text, so they are file edits.
+    const { fileContent, baseOffset, inline, filePath, fileEdits, nextIndex, logger } = context;
 
     for (const migration of parsedMigrations) {
       if (
@@ -164,10 +171,10 @@ function createElementCommentRule(
         continue;
       }
 
-      let queued = queuedPerFile.get(edits);
+      let queued = queuedPerFile.get(fileEdits);
       if (!queued) {
         queued = new QueuedComments();
-        queuedPerFile.set(edits, queued);
+        queuedPerFile.set(fileEdits, queued);
       }
 
       const target = migration.attribute
@@ -180,7 +187,7 @@ function createElementCommentRule(
         inline ? TS_DELIMITERS : HTML_DELIMITERS,
         migration.message,
         queued,
-        edits,
+        fileEdits,
         nextIndex(),
         () => logger.info(`  → Added comment for ${target} in ${filePath}`),
       );
