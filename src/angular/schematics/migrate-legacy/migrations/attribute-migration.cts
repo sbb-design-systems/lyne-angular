@@ -29,7 +29,11 @@ export interface AttributeMigration {
   attribute: string;
   /** New name. When omitted, the attribute is removed instead of renamed. */
   replaceWith?: string;
-  /** If attribute is not found, add a new `replaceWith` attribute with this value set. */
+  /**
+   * If attribute is not found, add a new `replaceWith` attribute with this value set.
+   * NOTE: defaultValue is inserted verbatim between double quotes,
+   * so it must be valid attribute-value HTML.
+   */
   defaultValue?: string;
 }
 
