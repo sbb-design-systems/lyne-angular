@@ -360,9 +360,8 @@ function collectExportedNames(sourceFile: ts.SourceFile): Map<string, ExportedNa
       continue;
     }
 
-    const isExported = ts.canHaveModifiers(statement)
-      ? ts.getModifiers(statement)?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword)
-      : false;
+    const modifiers = (statement as any).modifiers as ts.NodeArray<ts.Modifier> | undefined;
+    const isExported = modifiers?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword) ?? false;
     if (!isExported) {
       continue;
     }

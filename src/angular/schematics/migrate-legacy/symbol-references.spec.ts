@@ -363,6 +363,16 @@ describe('sbb-symbol-references', () => {
     check('({ Bar });');
   });
 
+  it('should report the initializer of a shorthand destructuring assignment as usage', () => {
+    check('({ x = «Foo» } = obj);');
+    check('({ «shorthand:Foo», x = «Foo» } = obj);');
+    check('let x; for ({ x = «Foo» } of list) {}');
+  });
+
+  it('should respect shadowing in the initializer of a shorthand destructuring assignment', () => {
+    check('function f(Foo) { ({ x = Foo } = obj); }');
+  });
+
   it.each([
     ['string literals', '\'Foo\'; "Foo";'],
     ['comments', '// Foo\n/* Foo */'],
@@ -458,6 +468,30 @@ describe('sbb-symbol-references', () => {
     checkNamespace('function f(ns: ns.«Foo») { return ns.Foo; }');
   });
 
+  it('should resolve the qualifier of a qualified type name in the namespace space', () => {
+    check('function f(Foo: unknown) { let x: «Foo».Inner; }');
+    check('function f(Foo: unknown) { let x: «Foo».A.B; }');
+    check('{ const Foo = 1; let x: «Foo».Inner; }');
+    check('function f() { var Foo = 1; let x: «Foo».Inner; }');
+  });
+
+  it('should hide the qualifier of a qualified type name behind namespaces and enums', () => {
+    check('namespace N { namespace Foo {} let x: Foo.Inner; }');
+    check('{ enum Foo { A } let x: Foo.A; }');
+  });
+
+  it('should keep resolving the qualifier of a typeof query as a value', () => {
+    check('function f(Foo: unknown) { let x: typeof Foo.Inner; }');
+    check('function f(Foo: unknown) { let x: typeof Foo.A.B; }');
+    check('function f() { let x: typeof «Foo».Inner; }');
+  });
+
+  it('should resolve namespace import qualifiers in the namespace space', () => {
+    checkNamespace('function f(ns: any) { let a: ns.«Foo»; }');
+    checkNamespace('namespace N { namespace ns {} let a: ns.Foo; }');
+    checkNamespace('function f(ns: any) { let a: typeof ns.Foo.Bar; }');
+  });
+
   it('should not hide namespace members behind type-only declarations', () => {
     checkNamespace('function f() { interface ns {} return ns.«Foo»; }');
     checkNamespace('function f() { type ns = {}; return ns.«Foo»; }');
@@ -524,6 +558,18 @@ describe('sbb-symbol-references', () => {
     ['var in a namespace', 'namespace N { if (x) { var Foo = 1; } Foo; }'],
   ])('should hide the import behind hoisted %s', (_name, body) => {
     check(body);
+  });
+
+  it('should not hide parameter initializers behind body-hoisted vars', () => {
+    check('function f(value = «Foo») { var Foo = 1; return value; }');
+    check('function f(value = «Foo») { if (x) { var Foo = 1; } return value; }');
+    check('const f = (value = «Foo») => { var Foo = 1; return value; };');
+    check('class A { m(value = «Foo») { var Foo = 1; return value; } }');
+    check('function f({ a = «Foo» }) { for (var Foo of list) {} }');
+  });
+
+  it('should still hide the body behind hoisted vars when parameters use the import', () => {
+    check('function f(value = «Foo») { if (x) { var Foo = 1; } return Foo; }');
   });
 
   it('should not leak a hoisted var out of a nested function', () => {

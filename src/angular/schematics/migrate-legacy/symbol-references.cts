@@ -55,6 +55,9 @@ function isDeclarationName(identifier: ts.Identifier): boolean {
   if (ts.isBindingElement(parent) && parent.propertyName === identifier) {
     return true;
   }
+  if (ts.isModuleDeclaration(parent) && parent.name === identifier) {
+    return true;
+  }
 
   return (
     (ts.isPropertyDeclaration(parent) ||
@@ -93,6 +96,24 @@ function isTypeMeaning(identifier: ts.Identifier): boolean {
     );
   }
   return false;
+}
+
+/**
+ * Whether the identifier is the leftmost qualifier of a qualified name which is resolved in the
+ * namespace space (`x: Name.Inner`, `import A = Name.Inner`). Only namespace-like declarations
+ * can shadow such a qualifier. The qualifier of a `typeof Name.Inner` query is a value reference.
+ */
+function isNamespaceMeaning(identifier: ts.Identifier): boolean {
+  const parent = identifier.parent;
+  if (!ts.isQualifiedName(parent) || parent.left !== identifier) {
+    return false;
+  }
+
+  let top: ts.Node = parent;
+  while (ts.isQualifiedName(top.parent)) {
+    top = top.parent;
+  }
+  return !(ts.isTypeQueryNode(top.parent) && top.parent.exprName === top);
 }
 
 /**
@@ -139,6 +160,8 @@ interface ScopeDeclarations {
   values: Set<string>;
   /** Names which shadow type references (type parameters, interfaces, type aliases, classes, enums). */
   types: Set<string>;
+  /** Names which shadow qualifiers of qualified type names (namespaces, enums). */
+  namespaces: Set<string>;
 }
 
 /**
@@ -147,12 +170,19 @@ interface ScopeDeclarations {
 function collectScopeDeclarations(scopeNode: ts.Node): ScopeDeclarations {
   const values = new Set<string>();
   const types = new Set<string>();
+  const namespaces = new Set<string>();
 
   // `var` declarations nested in blocks belong to the enclosing function or module scope.
-  if (ts.isSourceFile(scopeNode) || ts.isModuleBlock(scopeNode)) {
+  // For functions they are only visible within the body, parameter initializers live in a
+  // separate scope and keep seeing outer bindings.
+  if (
+    ts.isSourceFile(scopeNode) ||
+    ts.isModuleBlock(scopeNode) ||
+    (ts.isBlock(scopeNode) &&
+      ts.isFunctionLike(scopeNode.parent) &&
+      (scopeNode.parent as ts.FunctionLikeDeclaration).body === scopeNode)
+  ) {
     collectHoistedVarNames(scopeNode, values);
-  } else if (ts.isFunctionLike(scopeNode) && 'body' in scopeNode && scopeNode.body) {
-    collectHoistedVarNames(scopeNode.body, values);
   }
 
   const addFromNode = (node: ts.Node) => {
@@ -201,13 +231,18 @@ function collectScopeDeclarations(scopeNode: ts.Node): ScopeDeclarations {
     } else if (ts.isCatchClause(node) && node.variableDeclaration) {
       collectDeclaredNames(node.variableDeclaration.name, values);
     } else if (ts.isClassDeclaration(node) || ts.isEnumDeclaration(node)) {
-      // Classes and enums are both a value and a type.
+      // Classes and enums are both a value and a type, enums are also a namespace.
       if (node.name) {
         values.add(node.name.text);
         types.add(node.name.text);
+        if (ts.isEnumDeclaration(node)) {
+          namespaces.add(node.name.text);
+        }
       }
     } else if (ts.isInterfaceDeclaration(node) || ts.isTypeAliasDeclaration(node)) {
       types.add(node.name.text);
+    } else if (ts.isModuleDeclaration(node) && ts.isIdentifier(node.name)) {
+      namespaces.add(node.name.text);
     }
   };
 
@@ -227,7 +262,7 @@ function collectScopeDeclarations(scopeNode: ts.Node): ScopeDeclarations {
     }
   }
 
-  return { values, types };
+  return { values, types, namespaces };
 }
 
 /** Whether the node opens a lexical scope which may shadow imported bindings. */
@@ -321,9 +356,16 @@ export function findSymbolReferences<T extends SymbolTarget>(
 
   // Traversal with lexical scope and shadowing awareness.
   // Values and types are shadowed independently, e.g. a parameter `Foo` hides the imported value `Foo` but not the imported type `Foo`.
-  const visit = (node: ts.Node, currentValues: Set<string>, currentTypes: Set<string>): void => {
+  // Namespace qualifiers (`x: Name.Inner`) are a third space, shadowed by namespaces and enums only.
+  const visit = (
+    node: ts.Node,
+    currentValues: Set<string>,
+    currentTypes: Set<string>,
+    currentNamespaces: Set<string>,
+  ): void => {
     let shadowedValues = currentValues;
     let shadowedTypes = currentTypes;
+    let shadowedNamespaces = currentNamespaces;
 
     // Whether entering scope (Block, Function, CatchClause, etc.)
     if (isScopeNode(node)) {
@@ -346,12 +388,22 @@ export function findSymbolReferences<T extends SymbolTarget>(
           shadowedTypes.add(name);
         }
       }
+      for (const name of declared.namespaces) {
+        if (bindings.has(name) || namespaces.has(name)) {
+          if (shadowedNamespaces === currentNamespaces) {
+            shadowedNamespaces = new Set(currentNamespaces);
+          }
+          shadowedNamespaces.add(name);
+        }
+      }
     }
 
     if (ts.isIdentifier(node)) {
       const parent = node.parent;
 
-      if (ts.isShorthandPropertyAssignment(parent)) {
+      // Only the property name is the shorthand; in `({ x = Foo } = obj)` the initializer `Foo`
+      // is a regular usage and handled below.
+      if (ts.isShorthandPropertyAssignment(parent) && parent.name === node) {
         if (!shadowedValues.has(node.text)) {
           const target = bindings.get(node.text);
           if (target) {
@@ -366,12 +418,12 @@ export function findSymbolReferences<T extends SymbolTarget>(
         const qualifier = ts.isPropertyAccessExpression(parent)
           ? parent.expression
           : (parent as ts.QualifiedName).left;
-        // A value-shadowed qualifier (e.g. a parameter named like the namespace) is not the import.
-        // In a type position (`x: ns.Name`) the qualifier is a namespace, which values can't shadow.
-        const qualifierIsValue =
-          ts.isPropertyAccessExpression(parent) || ts.isTypeQueryNode(parent.parent);
+        // A shadowed qualifier (e.g. a parameter named like the namespace) is not the import.
+        // In a type position (`x: ns.Name`) the qualifier is a namespace, which values can't shadow,
+        // while `typeof ns.Name` resolves the qualifier as a value.
         const target =
-          ts.isIdentifier(qualifier) && !(qualifierIsValue && shadowedValues.has(qualifier.text))
+          ts.isIdentifier(qualifier) &&
+          !(isNamespaceMeaning(qualifier) ? shadowedNamespaces : shadowedValues).has(qualifier.text)
             ? namespaces.get(qualifier.text)?.find((candidate) => candidate.name === node.text)
             : undefined;
 
@@ -400,7 +452,11 @@ export function findSymbolReferences<T extends SymbolTarget>(
       }
 
       // Skip the reference if the name is shadowed in the declaration space it resolves in.
-      const shadowed = isTypeMeaning(node) ? shadowedTypes : shadowedValues;
+      const shadowed = isNamespaceMeaning(node)
+        ? shadowedNamespaces
+        : isTypeMeaning(node)
+          ? shadowedTypes
+          : shadowedValues;
       if (!shadowed.has(node.text)) {
         const target = bindings.get(node.text);
         if (target) {
@@ -410,10 +466,12 @@ export function findSymbolReferences<T extends SymbolTarget>(
       return;
     }
 
-    ts.forEachChild(node, (child) => visit(child, shadowedValues, shadowedTypes));
+    ts.forEachChild(node, (child) =>
+      visit(child, shadowedValues, shadowedTypes, shadowedNamespaces),
+    );
   };
 
-  ts.forEachChild(sourceFile, (child) => visit(child, new Set(), new Set()));
+  ts.forEachChild(sourceFile, (child) => visit(child, new Set(), new Set(), new Set()));
 
   return references;
 }
