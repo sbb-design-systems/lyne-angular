@@ -1,6 +1,8 @@
-# Pearl Chain
+# Pearl Chain Legacy
 
-The `<sbb-pearl-chain>` component displays all parts of a journey, including changes of trains or other kinds of transports.
+> **Deprecated:** `<sbb-pearl-chain-legacy>` is deprecated. Use `<sbb-pearl-chain>` and `<sbb-pearl-chain-node>` from `@sbb-esta/lyne-elements` instead.
+
+The `<sbb-pearl-chain-legacy>` component displays all parts of a journey, including changes of trains or other kinds of transports.
 Also, it is possible to render the current position.
 
 The `legs` property is mandatory.
@@ -45,7 +47,7 @@ The `legs` property is mandatory.
 ```
 
 ```html
-<sbb-pearl-chain legs="{legs}"></sbb-pearl-chain>
+<sbb-pearl-chain-legacy legs="{legs}"></sbb-pearl-chain-legacy>
 ```
 
 To simulate the current datetime, you can use the `now` property,
@@ -54,4 +56,4 @@ This is helpful if you need a specific state of the component.
 
 ## Docs on @sbb-esta/lyne-elements
 
-[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/experimental-pearl-chain--docs)
+[Link to related @sbb-esta/lyne-elements docs](https://lyne-elements.app.sbb.ch/?path=/docs/experimental-pearl-chain-legacy--docs)

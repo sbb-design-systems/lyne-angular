@@ -1,0 +1,63 @@
+<sbb-pearl-chain [now]="now">
+  <div class="pearl-chain-grid">
+    <div class="pearl-chain-train">
+      <sbb-icon name="picto:train-right"></sbb-icon>
+      <sbb-icon name="ic-61"></sbb-icon>
+      <span>123456</span>
+    </div>
+    <span></span>
+    <div class="pearl-chain-train">
+      <sbb-icon name="picto:train-right"></sbb-icon>
+      <sbb-icon name="ic-61"></sbb-icon>
+      <span>123456</span>
+    </div>
+    <span></span>
+    <span></span>
+
+    <span class="pearl-chain-station">Bern</span>
+    <span></span>
+    <span class="pearl-chain-station">Thun</span>
+    <span></span>
+    <span class="pearl-chain-station pearl-chain-end">Interlaken Ost</span>
+
+    <sbb-pearl-chain-node type="start" [departure]="bernDeparture"></sbb-pearl-chain-node>
+    <span></span>
+    <sbb-pearl-chain-node
+      type="stop"
+      [arrival]="thunArrival"
+      [departure]="thunDeparture"
+    ></sbb-pearl-chain-node>
+    <span></span>
+    <sbb-pearl-chain-node
+      class="pearl-chain-end"
+      type="end"
+      [arrival]="interlakenArrival"
+    ></sbb-pearl-chain-node>
+
+    <span class="pearl-chain-dep-time">
+      <time [attr.datetime]="bernDeparture.toISOString()">
+        <span class="sbb-screen-reader-only">Departure:&nbsp;</span>
+        {{ bernDeparture | date: 'HH:mm' }}
+      </time>
+    </span>
+    <span class="pearl-arr-time pearl-chain-end">
+      <time [attr.datetime]="thunArrival.toISOString()">
+        <span class="sbb-screen-reader-only">Arrival:&nbsp;</span>
+        {{ thunArrival | date: 'HH:mm' }}
+      </time>
+    </span>
+    <span class="pearl-chain-dep-time">
+      <time [attr.datetime]="thunDeparture.toISOString()">
+        <span class="sbb-screen-reader-only">Departure:&nbsp;</span>
+        {{ thunDeparture | date: 'HH:mm' }}
+      </time>
+    </span>
+    <span></span>
+    <span class="pearl-chain-dep-time pearl-chain-end">
+      <time [attr.datetime]="interlakenArrival.toISOString()">
+        <span class="sbb-screen-reader-only">Arrival:&nbsp;</span>
+        {{ interlakenArrival | date: 'HH:mm' }}
+      </time>
+    </span>
+  </div>
+</sbb-pearl-chain>
