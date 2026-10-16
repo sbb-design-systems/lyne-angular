@@ -3,6 +3,7 @@ import {
   SbbPearlChainNodeElement,
   type SbbPearlChainNodeType,
 } from '@sbb-esta/lyne-elements/pearl-chain.pure.js';
+
 /**
  * Represents a station/point of interest within a `sbb-pearl-chain`.
  */

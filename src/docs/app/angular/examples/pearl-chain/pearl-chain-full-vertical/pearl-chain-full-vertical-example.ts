@@ -3,11 +3,7 @@ import { Component } from '@angular/core';
 import { SbbPearlChainModule } from '@sbb-esta/lyne-angular/pearl-chain';
 import { SbbTimetableOccupancyModule } from '@sbb-esta/lyne-angular/timetable-occupancy';
 
-const at = (h: number, m: number): Date => {
-  const date = new Date();
-  date.setHours(h, m, 0, 0);
-  return date;
-};
+import { at } from '../pearl-chain-example-util';
 
 /**
  * @title Full vertical pearl-chain

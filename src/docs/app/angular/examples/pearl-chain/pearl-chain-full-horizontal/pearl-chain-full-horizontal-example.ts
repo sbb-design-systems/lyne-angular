@@ -3,11 +3,7 @@ import { Component } from '@angular/core';
 import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
 import { SbbPearlChainModule } from '@sbb-esta/lyne-angular/pearl-chain';
 
-const at = (h: number, m: number): Date => {
-  const date = new Date();
-  date.setHours(h, m, 0, 0);
-  return date;
-};
+import { at } from '../pearl-chain-example-util';
 
 /**
  * @title Full horizontal pearl-chain

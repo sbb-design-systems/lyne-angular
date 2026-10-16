@@ -70,9 +70,9 @@
       [formField]="controls[name]"
       [allowEmptySelection]="true"
     >
-      <sbb-radio-button [value]="true">true</sbb-radio-button>
-      <sbb-radio-button [value]="'arrival'">arrival</sbb-radio-button>
-      <sbb-radio-button [value]="'departure'">departure</sbb-radio-button>
+      @for (value of [true, 'arrival', 'departure']; track value) {
+        <sbb-radio-button [value]="value">{{ value }}</sbb-radio-button>
+      }
     </sbb-radio-button-group>
   }
 </div>

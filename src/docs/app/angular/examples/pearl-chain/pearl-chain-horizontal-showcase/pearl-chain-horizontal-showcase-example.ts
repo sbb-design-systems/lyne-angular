@@ -13,11 +13,7 @@ import type {
   SbbPearlChainNodeType,
 } from '@sbb-esta/lyne-elements/pearl-chain.pure.js';
 
-const at = (h: number, m: number): Date => {
-  const date = new Date();
-  date.setHours(h, m, 0, 0);
-  return date;
-};
+import { at } from '../pearl-chain-example-util';
 
 /**
  * @title horizontal pearl-chain with configurable properties
