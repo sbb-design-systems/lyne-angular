@@ -184,6 +184,9 @@ export function createAttributeMigrationRule(
           : toCamelCase(migration.replaceWith);
 
         const insertionText = ` ${replacement}="${migration.defaultValue}"`;
+        const { tag, attribute } = migration.parsedSelectors.find((selector) =>
+          elementMatches(element, selector),
+        )!;
 
         edits.push({
           offset: baseOffset + insertionOffset,
@@ -192,7 +195,7 @@ export function createAttributeMigrationRule(
           insertion: insertionText,
           log: () =>
             logger.info(
-              `  → Added default '${replacement}="${migration.defaultValue}"' to <${tagName}> in ${filePath}`,
+              `  → Added default '${replacement}="${migration.defaultValue}"' to ${tag}${!!attribute ? `[${attribute}]` : ''} in ${filePath}`,
             ),
         });
       }
