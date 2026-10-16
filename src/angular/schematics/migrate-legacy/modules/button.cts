@@ -83,6 +83,11 @@ const COMMENTS: CommentMigration[] = [
     message:
       "FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the component's imports.",
   },
+  {
+    symbol: 'SbbAnchor',
+    message:
+      'FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the different link variants in the documentation.',
+  },
 ];
 
 /**
