@@ -1,15 +1,16 @@
 import { Migration, ResolvedResource, TargetVersion } from '@angular/cdk/schematics';
 import * as ts from 'typescript';
 
-/** Used to specify different comment delimiters for different file extensions. */
-export interface CommentDelimiters {
-  start: string;
-  end: string;
-}
-
-const TS_DELIMITERS: CommentDelimiters = { start: '//', end: '' };
-const HTML_DELIMITERS: CommentDelimiters = { start: '<!--', end: '-->' };
-const CSS_DELIMITERS: CommentDelimiters = { start: '/*', end: ' */' };
+import {
+  CommentDelimiters,
+  CSS_DELIMITERS,
+  formatComment,
+  getIndent,
+  getLineStart,
+  HTML_DELIMITERS,
+  ProcessedLines,
+  TS_DELIMITERS,
+} from '../../comment-utils.cjs';
 
 /** Default SyntaxKind for TS processing. */
 const DECLARATION_KINDS = new Set<ts.SyntaxKind>([
@@ -112,34 +113,6 @@ function buildTokenRegex(token: string): RegExp {
   return new RegExp(source, 'g');
 }
 
-/** Formats a comment body, supporting both single-line and multiline comment text. */
-function formatComment(indent: string, delimiters: CommentDelimiters, commentText: string): string {
-  let renderedLineIndex = 0;
-  return (
-    commentText
-      .split('\n')
-      .map((line) => {
-        const trimmedLine = line.trim();
-        // Skip emitting completely empty lines to prevent trailing whitespace issues
-        if (!trimmedLine) {
-          return '';
-        }
-
-        // Add an extra space prefix ONLY from the 2nd actual text line onwards
-        const linePrefix = renderedLineIndex > 0 ? ' ' : '';
-        renderedLineIndex++;
-
-        const body = delimiters.end
-          ? `${delimiters.start} ${linePrefix}${trimmedLine} ${delimiters.end}`
-          : `${delimiters.start} ${linePrefix}${trimmedLine}`;
-        return `${indent}${body}`;
-      })
-      // Filter out empty strings from skipped empty lines
-      .filter((line) => line !== '')
-      .join('\n')
-  );
-}
-
 /**
  * Returns true when the resource is defined inline inside a TypeScript component
  * decorator (i.e. `template: '...'` or `styles: ['...']`).
@@ -159,7 +132,7 @@ export abstract class AddCommentBase extends Migration<null> {
    * so offsets remain stable for the entire duration
    * of a single visitTemplate / visitStylesheet / visitNode call.
    */
-  private readonly _processedLinesCache = new Map<string, Set<number>>();
+  private readonly _processedLines = new ProcessedLines();
 
   /**
    * Accumulated TS insertion counts, keyed by filePath → ruleName → {inserted, skipped}.
@@ -244,20 +217,20 @@ export abstract class AddCommentBase extends Migration<null> {
     // resource.start points just past the opening quote, so stepping back one
     // character puts us inside (or at the boundary of) the `styles:`/`template:` line.
     const hostText = this.fileSystem.read(filePath) ?? '';
-    const hostLineStart = Math.max(0, hostText.lastIndexOf('\n', start - 1) + 1);
+    const hostLineStart = getLineStart(hostText, start);
 
-    if (this._hasBeenProcessed(filePath, hostLineStart)) {
+    if (this._processedLines.has(filePath, hostLineStart)) {
       return;
     }
 
-    const indent = this._getIndent(hostText, hostLineStart);
+    const indent = getIndent(hostText, hostLineStart);
     const block = [...commentTexts]
       .map((text) => formatComment(indent, TS_DELIMITERS, text))
       .join('\n');
 
     const recorder = this.fileSystem.edit(filePath);
     recorder.insertLeft(hostLineStart, `${block}\n`);
-    this._markAsProcessed(filePath, hostLineStart);
+    this._processedLines.add(filePath, hostLineStart);
 
     this.logger.info(
       `  → ${filePath}\n    Added ${commentTexts.size} comment(s) above '${type}' property`,
@@ -366,19 +339,19 @@ export abstract class AddCommentBase extends Migration<null> {
       let skipped = 0;
 
       for (const match of matches) {
-        const lineStart = Math.max(0, content.lastIndexOf('\n', match.index - 1) + 1);
+        const lineStart = getLineStart(content, match.index);
 
-        if (this._hasBeenProcessed(filePath, lineStart)) {
+        if (this._processedLines.has(filePath, lineStart)) {
           skipped++;
           continue;
         }
 
-        const indent = this._getIndent(content, lineStart);
+        const indent = getIndent(content, lineStart);
         const comment = formatComment(indent, delimiters, match.commentText);
 
         recorder.insertLeft(start + lineStart, `${comment}\n`);
         inserted++;
-        this._markAsProcessed(filePath, lineStart);
+        this._processedLines.add(filePath, lineStart);
       }
       fileLog.push(this._formatRuleLog(rule.name, inserted, skipped));
     }
@@ -413,21 +386,21 @@ export abstract class AddCommentBase extends Migration<null> {
     const sourceFile = node.getSourceFile();
     const fileName = sourceFile.fileName;
     const fileText = sourceFile.text;
-    const lineStart = Math.max(0, fileText.lastIndexOf('\n', node.getStart() - 1) + 1);
+    const lineStart = getLineStart(fileText, node.getStart());
 
     const counts = this._tsLogEntry(fileName, ruleLabel);
 
-    if (this._hasBeenProcessed(fileName, lineStart)) {
+    if (this._processedLines.has(fileName, lineStart)) {
       counts.skipped++;
       return;
     }
 
-    const indent = this._getIndent(fileText, lineStart);
+    const indent = getIndent(fileText, lineStart);
     const comment = formatComment(indent, TS_DELIMITERS, commentText);
     const recorder = this.fileSystem.edit(this.fileSystem.resolve(fileName));
 
     recorder.insertLeft(lineStart, `${comment}\n`);
-    this._markAsProcessed(fileName, lineStart);
+    this._processedLines.add(fileName, lineStart);
     counts.inserted++;
   }
 
@@ -472,24 +445,5 @@ export abstract class AddCommentBase extends Migration<null> {
       return `FIXME: "${token}" has been replaced by "${action.replacement}". Check: ${action.prUrl}`;
     }
     return `FIXME: "${token}" has been removed. Check: ${action.prUrl}`;
-  }
-
-  private _getIndent(text: string, lineStart: number): string {
-    const lineEnd = text.indexOf('\n', lineStart);
-    const line = text.slice(lineStart, lineEnd === -1 ? text.length : lineEnd);
-    return line.match(/^\s*/)?.[0] ?? '';
-  }
-
-  private _hasBeenProcessed(fileName: string, lineStart: number): boolean {
-    return !!this._processedLinesCache.get(fileName)?.has(lineStart);
-  }
-
-  private _markAsProcessed(fileName: string, lineStart: number): void {
-    let set = this._processedLinesCache.get(fileName);
-    if (!set) {
-      set = new Set<number>();
-      this._processedLinesCache.set(fileName, set);
-    }
-    set.add(lineStart);
   }
 }

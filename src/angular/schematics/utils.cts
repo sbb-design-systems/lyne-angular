@@ -9,18 +9,65 @@ import {
 } from '@angular/compiler';
 import { getProjectFromWorkspace } from '@angular/cdk/schematics';
 import type { logging } from '@angular-devkit/core';
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { SchematicsException } from '@angular-devkit/schematics';
-import type {
-  ProjectDefinition,
-  TargetDefinition,
-  WorkspaceDefinition,
+import {
+  type Rule,
+  type SchematicContext,
+  SchematicsException,
+  type Tree,
+} from '@angular-devkit/schematics';
+import {
+  getWorkspace,
+  type ProjectDefinition,
+  type TargetDefinition,
+  updateWorkspace,
+  type WorkspaceDefinition,
 } from '@schematics/angular/utility/workspace';
-import { updateWorkspace } from '@schematics/angular/utility/workspace';
+
+export interface ImportRewriteOptions {
+  /** Old import path to replace (e.g., '@sbb-esta/angular/button') */
+  oldImport: string;
+  /** New import path (e.g., '@sbb-esta/lyne-angular/button') */
+  newImport: string;
+}
+
+/**
+ * A single, position based source edit.
+ *
+ * `length` characters are removed at `offset`, then `insertion` (if any) is
+ * inserted at the very same offset. `index` is a monotonically increasing
+ * counter used as a stable tiebreaker when multiple edits share an offset.
+ */
+export interface MigrationEdit {
+  offset: number;
+  index: number;
+  length: number;
+  insertion?: string;
+  log?: () => void;
+}
 
 interface Package {
   dependencies?: Record<string, string>;
   peerDependencies?: Record<string, string>;
+}
+
+type LyneThemeKind = 'standard' | 'lean';
+
+const LYNE_THEME_REGEX =
+  /(?:^|[/~])@sbb-esta\/lyne-elements\/(lean-(?:off-brand-|safety-)?theme|(?:standard|off-brand|safety)-theme)(?:\.css)?$/;
+
+/** Only files which can actually be authored by a consumer are migrated. */
+export function isMigratableFile(filePath: string): boolean {
+  return !filePath.includes('/node_modules/') && !filePath.startsWith('node_modules/');
+}
+
+/** Whether the given file is a TypeScript source file (declaration files excluded). */
+export function isTypeScriptFile(filePath: string): boolean {
+  return isMigratableFile(filePath) && filePath.endsWith('.ts') && !filePath.endsWith('.d.ts');
+}
+
+/** Whether the given file is an external (`templateUrl`) template. */
+export function isHtmlFile(filePath: string): boolean {
+  return isMigratableFile(filePath) && filePath.endsWith('.html');
 }
 
 /**
@@ -129,6 +176,170 @@ export function validateDefaultTargetBuilder(
   }
 
   return target;
+}
+
+/** Classifies an import specifier or `styles` entry as a Lyne theme, if it is one. */
+function lyneThemeKind(specifier: string): LyneThemeKind | undefined {
+  const match = specifier.trim().match(LYNE_THEME_REGEX);
+  if (!match) {
+    return undefined;
+  }
+  return match[1].startsWith('lean-') ? 'lean' : 'standard';
+}
+
+/** Extracts the `@import`, `@use` and `@forward` specifiers of a stylesheet, ignoring comments. */
+function stylesheetImports(content: string): string[] {
+  const withoutComments = content.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+  const specifiers: string[] = [];
+
+  for (const [, args] of withoutComments.matchAll(/@(?:import|use|forward)\s+([^;\n]+)/g)) {
+    // `@import 'a', 'b';`, `@import url("a");`, `@use 'a' as b;`
+    for (const [, , quoted, url] of args.matchAll(/(['"])(.+?)\1|url\(\s*([^'")\s]+)\s*\)/g)) {
+      specifiers.push(quoted ?? url);
+    }
+  }
+
+  return specifiers;
+}
+
+/**
+ * It checks whether a non-lean Lyne theme is configured for the project,
+ * first in the `angular.json` file (`styles` property under `build` target), then
+ * in the imports of the default global stylesheets.
+ */
+export async function isStandardThemeSet(
+  tree: Tree,
+  context: SchematicContext,
+  projectName: string,
+): Promise<boolean> {
+  const workspace = await getWorkspace(tree);
+  const project = workspace.projects.get(projectName);
+  let defaultStyles: (string | { input: string; [key: string]: any })[] | undefined = [];
+
+  if (!project) {
+    throw new SchematicsException(
+      `Could not find project ${projectName}; please check your \`angular.json.\``,
+    );
+  }
+
+  const buildTarget = project.targets.get('build');
+  if (!buildTarget || !buildTarget.options) {
+    throw new SchematicsException(
+      `Could not find build configuration for project ${projectName}; please check your \`angular.json.\``,
+    );
+  }
+
+  const defaultConfiguration = buildTarget.defaultConfiguration;
+  if (defaultConfiguration) {
+    const configuration = buildTarget.configurations?.[defaultConfiguration] as
+      Record<string, any> | undefined;
+    if (configuration && 'styles' in configuration) {
+      defaultStyles = configuration['styles'];
+    }
+  }
+  if (!defaultStyles || defaultStyles.length === 0) {
+    defaultStyles = project.targets.get('build')?.options?.['styles'] as
+      (string | { input: string; [key: string]: any })[] | undefined;
+  }
+
+  const styles = (defaultStyles ?? [])
+    .map((style) => (typeof style === 'string' ? style : style?.input))
+    .filter((style): style is string => !!style);
+
+  let themes = styles.map(lyneThemeKind).filter((theme): theme is LyneThemeKind => Boolean(theme));
+
+  if (themes.length === 0) {
+    context.logger.info(
+      `No \`@sbb-esta/lyne-elements\` theme found in the \`angular.json\` file for project ${projectName}.`,
+    );
+    themes = styles.flatMap((style) => {
+      const content = tree.read(style)?.toString('utf-8');
+      return content
+        ? stylesheetImports(content)
+            .map(lyneThemeKind)
+            .filter((theme): theme is LyneThemeKind => Boolean(theme))
+        : [];
+    });
+  }
+
+  if (themes.includes('lean')) {
+    context.logger.info(`Lean theme found for project ${projectName}.`);
+    return false;
+  } else if (themes.includes('standard')) {
+    context.logger.info(`Standard theme found for project ${projectName}.`);
+    return true;
+  } else {
+    context.logger.warn(
+      `No \`@sbb-esta/lyne-elements\` theme found in the global styles of project ${projectName}; assuming the standard theme.`,
+    );
+    return true;
+  }
+}
+
+/** Part of the workspace a migration is limited to. */
+export interface MigrationScope {
+  /** Root directory of the project, relative to the workspace (`''` for the workspace root). */
+  root: string;
+  /** Roots of other projects nested inside `root` (e.g. `projects/lib` of a root app), which are skipped. */
+  excludedRoots: string[];
+}
+
+/** Normalizes a project root: forward slashes, no leading `./` or `/`, no trailing `/`. */
+function normalizeRoot(root: string | undefined): string {
+  return (root ?? '')
+    .replace(/\\/g, '/')
+    .replace(/^\.\//, '')
+    .replace(/^\/+|\/+$/g, '');
+}
+
+/** Whether the workspace relative `filePath` is `directory` or lies within it. */
+function isWithin(filePath: string, directory: string): boolean {
+  return directory === '' || filePath === directory || filePath.startsWith(`${directory}/`);
+}
+
+/**
+ * Resolves the files of the given project: its root directory, without
+ * the directories of other projects nested inside it.
+ */
+export async function getProjectScope(tree: Tree, projectName: string): Promise<MigrationScope> {
+  const workspace = await getWorkspace(tree);
+  const project = workspace.projects.get(projectName);
+
+  if (!project) {
+    throw new SchematicsException(
+      `Could not find project ${projectName}; please check your \`angular.json.\``,
+    );
+  }
+
+  const root = normalizeRoot(project.root);
+  const excludedRoots = [...workspace.projects.entries()]
+    .filter(([name]) => name !== projectName)
+    .map(([, other]) => normalizeRoot(other.root))
+    .filter((otherRoot) => otherRoot !== root && isWithin(otherRoot, root));
+
+  return { root, excludedRoots };
+}
+
+/**
+ * Visits the files of the given scope, or of the whole workspace when no scope is given.
+ * `visitor` receives the absolute tree path (e.g. `/src/app/app.component.ts`).
+ */
+export function visitScopedFiles(
+  tree: Tree,
+  scope: MigrationScope | undefined,
+  visitor: (filePath: string) => void,
+): void {
+  if (!scope) {
+    tree.visit((filePath) => visitor(filePath));
+    return;
+  }
+
+  tree.getDir(`/${scope.root}`).visit((filePath) => {
+    const relativePath = filePath.replace(/^\/+/, '');
+    if (!scope.excludedRoots.some((excluded) => isWithin(relativePath, excluded))) {
+      visitor(filePath);
+    }
+  });
 }
 
 export function addThemeToProject(
@@ -259,4 +470,25 @@ export function visitElements(nodes: TmplAstNode[], cb: (el: TmplAstElement) => 
       }
     }
   }
+}
+
+/**
+ * Applies the given edits to `content` and invokes the (optional) `log`
+ * callback of every applied edit.
+ *
+ * Edits are applied in reverse offset order so that earlier edits never shift
+ * the offsets of edits which still have to be applied.
+ */
+export function applyEdits(content: string, edits: MigrationEdit[]): string {
+  let result = content;
+
+  for (const edit of [...edits].sort((a, b) => b.offset - a.offset || b.index - a.index)) {
+    result =
+      result.slice(0, edit.offset) +
+      (edit.insertion ?? '') +
+      result.slice(edit.offset + edit.length);
+    edit.log?.();
+  }
+
+  return result;
 }
