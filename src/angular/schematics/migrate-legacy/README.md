@@ -68,8 +68,6 @@ const IMPORT_PATHS: ImportRewriteOptions[] = [
 const SELECTORS: SelectorMigration[] = [
   // <button sbb-button>x</button> → <sbb-button>x</sbb-button>
   { selector: 'button[sbb-button]', replaceWith: 'sbb-button' },
-  // Optionally, attributes which became obsolete can be dropped as well:
-  // { selector: 'sbb-foo', replaceWith: 'sbb-bar', removeAttributes: ['legacyFlag'] },
 ];
 
 const ATTRIBUTES: AttributeMigration[] = [
@@ -167,6 +165,9 @@ ng generate @sbb-esta/lyne-angular:migrate-legacy --project my-project
 # Migrate specific modules
 ng generate @sbb-esta/lyne-angular:migrate-legacy --module button
 ng generate @sbb-esta/lyne-angular:migrate-legacy --module button checkbox
+
+# Usage with both parameters
+ng generate @sbb-esta/lyne-angular:migrate-legacy --project my-project --module button
 ```
 
 ## Implementation Checklist

@@ -22,96 +22,116 @@ describe('sbb-import-path-migration', () => {
 
   const mappings: ImportRewriteOptions[] = [
     { oldImport: '@sbb-esta/angular/button', newImport: '@sbb-esta/lyne-angular/button' },
-    { oldImport: '@sbb-esta/angular', newImport: '@sbb-esta/lyne-angular' },
+    { oldImport: '@sbb-esta/angular/core', newImport: '@sbb-esta/lyne-angular/core' },
   ];
 
-  const migrate = async (
-    files: Record<string, string>,
+  const rewrite = (
+    source: string,
     options: ImportRewriteOptions | ImportRewriteOptions[] = mappings,
-  ): Promise<Tree> => {
+  ) => rewriteImportPaths('/src/app/app.component.ts', source, options);
+
+  const migrate = async (files: Record<string, string>): Promise<Tree> => {
     const tree = new UnitTestTree(new HostTree());
     for (const [filePath, content] of Object.entries(files)) {
       tree.create(filePath, content);
     }
-    return firstValueFrom(runner.callRule(createImportPathMigrationRule(options), tree));
+    return firstValueFrom(runner.callRule(createImportPathMigrationRule(mappings), tree));
   };
 
   describe('rewriteImportPaths function', () => {
-    it('should rewrite exact import paths correctly', () => {
-      const source = "import { SbbButtonModule } from '@sbb-esta/angular/button';";
-      const result = rewriteImportPaths('/src/app/app.component.ts', source, mappings);
-
-      expect(result).toBe("import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';");
-    });
-
-    it('should rewrite sub-paths correctly', () => {
-      const source = "import { SbbButton } from '@sbb-esta/angular/button/button';";
-      const result = rewriteImportPaths('/src/app/app.component.ts', source, mappings);
-
-      expect(result).toBe("import { SbbButton } from '@sbb-esta/lyne-angular/button';");
+    it('should rewrite import paths', () => {
+      expect(rewrite("import { SbbButtonModule } from '@sbb-esta/angular/button';")).toBe(
+        "import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';",
+      );
     });
 
     it('should rewrite export declarations as well as imports', () => {
-      const source = "export { SbbButtonModule } from '@sbb-esta/angular/button';";
-      const result = rewriteImportPaths('/src/app/app.component.ts', source, mappings);
-
-      expect(result).toBe("export { SbbButtonModule } from '@sbb-esta/lyne-angular/button';");
+      expect(rewrite("export { SbbButtonModule } from '@sbb-esta/angular/button';")).toBe(
+        "export { SbbButtonModule } from '@sbb-esta/lyne-angular/button';",
+      );
     });
 
-    it('should preserve original quote styles (single and double quotes)', () => {
-      const sourceDouble = 'import { SbbButton } from "@sbb-esta/angular/button";';
-      const resultDouble = rewriteImportPaths('/src/app/app.component.ts', sourceDouble, mappings);
-
-      expect(resultDouble).toBe('import { SbbButton } from "@sbb-esta/lyne-angular/button";');
+    it('should rewrite every mapped import and export of a file', () => {
+      expect(
+        rewrite(
+          [
+            "import { SbbButton } from '@sbb-esta/angular/button';",
+            "import { SbbCore } from '@sbb-esta/angular/core';",
+            "import { Component } from '@angular/core';",
+            "export * from '@sbb-esta/angular/button';",
+          ].join('\n'),
+        ),
+      ).toBe(
+        [
+          "import { SbbButton } from '@sbb-esta/lyne-angular/button';",
+          "import { SbbCore } from '@sbb-esta/lyne-angular/core';",
+          "import { Component } from '@angular/core';",
+          "export * from '@sbb-esta/lyne-angular/button';",
+        ].join('\n'),
+      );
     });
 
-    it('should return original content if no mappings match', () => {
+    it('should preserve the quote style', () => {
+      expect(rewrite('import { SbbButton } from "@sbb-esta/angular/button";')).toBe(
+        'import { SbbButton } from "@sbb-esta/lyne-angular/button";',
+      );
+    });
+
+    it('should accept a single mapping', () => {
+      expect(rewrite("import { SbbButton } from '@sbb-esta/angular/button';", mappings[0])).toBe(
+        "import { SbbButton } from '@sbb-esta/lyne-angular/button';",
+      );
+    });
+
+    it('should only rewrite exact module paths', () => {
+      const source = [
+        "import { SbbButton } from '@sbb-esta/angular/button/button';",
+        "import { SbbOther } from '@sbb-esta/angular/button-other';",
+        "import { SbbRoot } from '@sbb-esta/angular';",
+      ].join('\n');
+
+      expect(rewrite(source)).toBe(source);
+    });
+
+    it('should return the original content if no mapping matches', () => {
       const source = "import { Component } from '@angular/core';";
-      const result = rewriteImportPaths('/src/app/app.component.ts', source, mappings);
 
-      expect(result).toBe(source);
+      expect(rewrite(source)).toBe(source);
     });
 
-    it('should handle empty mappings list', () => {
+    it('should handle an empty mappings list', () => {
       const source = "import { SbbButton } from '@sbb-esta/angular/button';";
-      const result = rewriteImportPaths('/src/app/app.component.ts', source, []);
 
-      expect(result).toBe(source);
+      expect(rewrite(source, [])).toBe(source);
     });
   });
 
   describe('schematic rule', () => {
     it('should update import paths across TypeScript files in the tree', async () => {
-      const tree = await migrate(
-        {
-          '/src/app/app.component.ts': "import { SbbButton } from '@sbb-esta/angular/button';",
-          '/src/app/app.module.ts': "import { SbbCore } from '@sbb-esta/angular';",
-        },
-        mappings,
-      );
+      const tree = await migrate({
+        '/src/app/app.component.ts': "import { SbbButton } from '@sbb-esta/angular/button';",
+        '/src/app/app.module.ts': "import { SbbCore } from '@sbb-esta/angular/core';",
+      });
 
-      expect(tree.read('/src/app/app.component.ts')!.toString('utf-8')).toBe(
+      expect(tree.readText('/src/app/app.component.ts')).toBe(
         "import { SbbButton } from '@sbb-esta/lyne-angular/button';",
       );
-      expect(tree.read('/src/app/app.module.ts')!.toString('utf-8')).toBe(
-        "import { SbbCore } from '@sbb-esta/lyne-angular';",
+      expect(tree.readText('/src/app/app.module.ts')).toBe(
+        "import { SbbCore } from '@sbb-esta/lyne-angular/core';",
       );
     });
 
-    it('should ignore non-TypeScript files and declaration files', async () => {
+    it('should ignore non-TypeScript files, declaration files and node_modules', async () => {
       const source = "import { SbbButton } from '@sbb-esta/angular/button';";
-      const tree = await migrate(
-        {
-          '/src/app/app.component.html': source,
-          '/src/app/app.d.ts': source,
-          '/node_modules/lib/index.ts': source,
-        },
-        mappings,
-      );
+      const tree = await migrate({
+        '/src/app/app.component.html': source,
+        '/src/app/app.d.ts': source,
+        '/node_modules/lib/index.ts': source,
+      });
 
-      expect(tree.read('/src/app/app.component.html')!.toString('utf-8')).toBe(source);
-      expect(tree.read('/src/app/app.d.ts')!.toString('utf-8')).toBe(source);
-      expect(tree.read('/node_modules/lib/index.ts')!.toString('utf-8')).toBe(source);
+      expect(tree.readText('/src/app/app.component.html')).toBe(source);
+      expect(tree.readText('/src/app/app.d.ts')).toBe(source);
+      expect(tree.readText('/node_modules/lib/index.ts')).toBe(source);
     });
   });
 
@@ -120,38 +140,21 @@ describe('sbb-import-path-migration', () => {
       root: 'projects/app-a',
       excludedRoots: ['projects/app-a/lib'],
     };
-    const scopedDirs = ['projects/app-a/src', 'projects/app-a/lib/src', 'projects/app-b/src'];
-
-    /** Creates the same file in the scoped project, a nested project and a sibling project. */
-    const createScopedTree = (fileName: string, content: string): UnitTestTree => {
-      const tree = new UnitTestTree(new HostTree());
-      for (const scopedDir of scopedDirs) {
-        tree.create(`/${scopedDir}/${fileName}`, content);
-      }
-      return tree;
-    };
-
-    /** Asserts that only the file of the scoped project changed. */
-    const expectOnlyScopedFile = (
-      tree: Tree,
-      fileName: string,
-      original: string,
-      assert: (content: string) => void,
-    ): void => {
-      assert(tree.readText(`/projects/app-a/src/${fileName}`));
-      expect(tree.readText(`/projects/app-a/lib/src/${fileName}`)).toBe(original);
-      expect(tree.readText(`/projects/app-b/src/${fileName}`)).toBe(original);
-    };
 
     it('should only rewrite the imports of the given scope', async () => {
       const source = "import { SbbButtonModule } from '@sbb-esta/angular/button';";
-      const tree = createScopedTree('app.component.ts', source);
+      const tree = new UnitTestTree(new HostTree());
+      for (const dir of ['projects/app-a/src', 'projects/app-a/lib/src', 'projects/app-b/src']) {
+        tree.create(`/${dir}/app.component.ts`, source);
+      }
 
       await firstValueFrom(runner.callRule(createImportPathMigrationRule(mappings, scope), tree));
 
-      expectOnlyScopedFile(tree, 'app.component.ts', source, (content) =>
-        expect(content).toBe("import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';"),
+      expect(tree.readText('/projects/app-a/src/app.component.ts')).toBe(
+        "import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';",
       );
+      expect(tree.readText('/projects/app-a/lib/src/app.component.ts')).toBe(source);
+      expect(tree.readText('/projects/app-b/src/app.component.ts')).toBe(source);
     });
   });
 });

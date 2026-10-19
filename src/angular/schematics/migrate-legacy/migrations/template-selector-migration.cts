@@ -22,11 +22,6 @@ export interface SelectorMigration {
   selector: string;
   /** Tag name of the new element, e.g. `'sbb-button'`. */
   replaceWith: string;
-  /**
-   * Additional attributes to remove during the migration, e.g. an attribute
-   * which became obsolete through the replacement.
-   */
-  removeAttributes?: RemovableAttribute[];
 }
 
 type ParsedSelectorMigration = SelectorMigration & { parsed: ParsedSelector };
@@ -101,12 +96,11 @@ export function createTemplateSelectorMigrationRule(
       });
     }
 
-    // 3. Drop the marker attribute of the selector (it is the tag now) plus any
-    //    attribute which became obsolete through the replacement.
-    const removals: RemovableAttribute[] = [
-      ...(migration.parsed.attribute ? [migration.parsed.attribute] : []),
-      ...(migration.removeAttributes ?? []),
-    ];
+    // 3. Drop the marker attribute of the selector (it is the tag now)
+    const removals: RemovableAttribute[] = migration.parsed.attribute
+      ? [migration.parsed.attribute]
+      : [];
+
     queueAttributeRemovals(element, removals, content, baseOffset, edits, nextIndex);
   }, scope);
 }

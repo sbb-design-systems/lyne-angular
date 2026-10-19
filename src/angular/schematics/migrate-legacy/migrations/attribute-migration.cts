@@ -31,8 +31,7 @@ export interface AttributeMigration {
   replaceWith?: string;
   /**
    * If attribute is not found, add a new `replaceWith` attribute with this value set.
-   * NOTE: defaultValue is inserted verbatim between double quotes,
-   * so it must be valid attribute-value HTML.
+   * NOTE: defaultValue is inserted verbatim between double quotes, so it must be valid attribute-value HTML.
    */
   defaultValue?: string;
 }
@@ -92,9 +91,13 @@ export function createAttributeMigrationRule(
     const handledDefaults = new Set<string>();
 
     for (const migration of parsedMigrations) {
-      if (!migration.parsedSelectors.some((selector) => elementMatches(element, selector))) {
+      const parsedSelector = migration.parsedSelectors.find((selector) =>
+        elementMatches(element, selector),
+      );
+      if (!parsedSelector) {
         continue;
       }
+      const tagAttributeForLogger = `${parsedSelector.tag}${!!parsedSelector.attribute ? `[${parsedSelector.attribute}]` : ''}`;
 
       const variants = attributeNameVariants(migration.attribute);
       const nodes = attributeNodes(element);
@@ -140,7 +143,7 @@ export function createAttributeMigrationRule(
         if (hasAttribute(element, migration.replaceWith)) {
           logger.warn(
             `  ⚠ Skipped renaming '${migration.attribute}' to '${migration.replaceWith}' in ` +
-              `${filePath}: <${element.name}> already uses '${migration.replaceWith}'.`,
+              `${filePath}: ${tagAttributeForLogger} already uses '${migration.replaceWith}'.`,
           );
           continue;
         }
@@ -157,7 +160,7 @@ export function createAttributeMigrationRule(
           insertion: replacement,
           log: () =>
             logger.info(
-              `  → Renamed '${writtenKey}' to '${replacement}' on <${element.name}> in ${filePath}`,
+              `  → Renamed '${writtenKey}' to '${replacement}' on ${tagAttributeForLogger} in ${filePath}`,
             ),
         });
       }
@@ -184,9 +187,6 @@ export function createAttributeMigrationRule(
           : toCamelCase(migration.replaceWith);
 
         const insertionText = ` ${replacement}="${migration.defaultValue}"`;
-        const { tag, attribute } = migration.parsedSelectors.find((selector) =>
-          elementMatches(element, selector),
-        )!;
 
         edits.push({
           offset: baseOffset + insertionOffset,
@@ -195,7 +195,7 @@ export function createAttributeMigrationRule(
           insertion: insertionText,
           log: () =>
             logger.info(
-              `  → Added default '${replacement}="${migration.defaultValue}"' to ${tag}${!!attribute ? `[${attribute}]` : ''} in ${filePath}`,
+              `  → Added default '${replacement}="${migration.defaultValue}"' to ${tagAttributeForLogger} in ${filePath}`,
             ),
         });
       }

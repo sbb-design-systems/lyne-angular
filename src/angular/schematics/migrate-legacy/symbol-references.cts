@@ -11,17 +11,9 @@ export interface SymbolTarget {
   importedFrom?: string | string[];
 }
 
-/**
- * - `import`:    the name inside an import/export specifier
- * - `usage`:     a reference to the imported symbol (incl. `ns.Name` of a namespace import)
- * - `shorthand`: a shorthand property (`{ Name }`), whose identifier is also the object key
- */
-export type SymbolReferenceKind = 'import' | 'usage' | 'shorthand';
-
 export interface SymbolReference<T extends SymbolTarget> {
   node: ts.Identifier;
   target: T;
-  kind: SymbolReferenceKind;
 }
 
 /** Whether `moduleSpecifier` equals one of `importedFrom` or is a sub-path of it. */
@@ -29,449 +21,88 @@ export function matchesModule(moduleSpecifier: string, importedFrom?: string | s
   if (!importedFrom) {
     return true;
   }
-
-  const candidates = Array.isArray(importedFrom) ? importedFrom : [importedFrom];
-  return candidates.some(
-    (candidate) => moduleSpecifier === candidate || moduleSpecifier.startsWith(`${candidate}/`),
-  );
+  return [importedFrom]
+    .flat()
+    .some((module) => moduleSpecifier === module || moduleSpecifier.startsWith(`${module}/`));
 }
 
-/** Whether the identifier is a member name (`x.Name`) instead of a reference. */
-function isMemberName(identifier: ts.Identifier): boolean {
-  const parent = identifier.parent;
-  return (
-    (ts.isPropertyAccessExpression(parent) && parent.name === identifier) ||
-    (ts.isQualifiedName(parent) && parent.right === identifier)
-  );
-}
-
-/** Whether the identifier is the name of a declared member or an object key. */
-function isDeclarationName(identifier: ts.Identifier): boolean {
-  const parent = identifier.parent;
-
-  if (ts.isPropertyAssignment(parent) && parent.name === identifier) {
-    return true;
+/** Whether the identifier refers to a binding, as opposed to a member name or an object/class key. */
+function isReference(node: ts.Identifier): boolean {
+  const parent = node.parent;
+  if (ts.isQualifiedName(parent)) {
+    return parent.left === node;
   }
-  if (ts.isBindingElement(parent) && parent.propertyName === identifier) {
-    return true;
-  }
-  if (ts.isModuleDeclaration(parent) && parent.name === identifier) {
-    return true;
-  }
-
-  return (
-    (ts.isPropertyDeclaration(parent) ||
-      ts.isPropertySignature(parent) ||
-      ts.isMethodDeclaration(parent) ||
-      ts.isMethodSignature(parent) ||
-      ts.isGetAccessorDeclaration(parent) ||
-      ts.isSetAccessorDeclaration(parent) ||
-      ts.isEnumMember(parent)) &&
-    parent.name === identifier
-  );
-}
-
-/**
- * Whether the identifier is resolved in the type space: a type reference (`x: Name`), a heritage
- * type (`implements Name`, `interface X extends Name`) or the name of a type-only declaration.
- * Everything else (including `typeof Name` and `extends Name` of a class) is a value reference.
- */
-function isTypeMeaning(identifier: ts.Identifier): boolean {
-  const parent = identifier.parent;
-
-  if (ts.isTypeReferenceNode(parent)) {
-    return parent.typeName === identifier;
-  }
-  if (ts.isInterfaceDeclaration(parent) || ts.isTypeAliasDeclaration(parent)) {
-    return parent.name === identifier;
-  }
-  if (ts.isTypeParameterDeclaration(parent)) {
-    return parent.name === identifier;
-  }
-  if (ts.isExpressionWithTypeArguments(parent)) {
-    const clause = parent.parent;
-    return (
-      ts.isHeritageClause(clause) &&
-      (clause.token === ts.SyntaxKind.ImplementsKeyword || ts.isInterfaceDeclaration(clause.parent))
-    );
-  }
-  return false;
-}
-
-/**
- * Whether the identifier is the leftmost qualifier of a qualified name which is resolved in the
- * namespace space (`x: Name.Inner`, `import A = Name.Inner`). Only namespace-like declarations
- * can shadow such a qualifier. The qualifier of a `typeof Name.Inner` query is a value reference.
- */
-function isNamespaceMeaning(identifier: ts.Identifier): boolean {
-  const parent = identifier.parent;
-  if (!ts.isQualifiedName(parent) || parent.left !== identifier) {
-    return false;
-  }
-
-  let top: ts.Node = parent;
-  while (ts.isQualifiedName(top.parent)) {
-    top = top.parent;
-  }
-  return !(ts.isTypeQueryNode(top.parent) && top.parent.exprName === top);
-}
-
-/**
- * Collects local binding names declared directly within a parameter list or variable declaration.
- */
-function collectDeclaredNames(node: ts.Node, nameSet: Set<string>): void {
-  if (ts.isIdentifier(node)) {
-    nameSet.add(node.text);
-  } else if (ts.isObjectBindingPattern(node) || ts.isArrayBindingPattern(node)) {
-    for (const element of node.elements) {
-      if (ts.isBindingElement(element)) {
-        collectDeclaredNames(element.name, nameSet);
-      }
-    }
-  }
-}
-
-/**
- * Collects the `var` bindings declared anywhere within `node`, which are hoisted to the enclosing
- * function (or module) scope, e.g. a `var` inside an `if` or a loop body.
- * Nested functions and classes own their `var`s, while `let`/`const` stay block-scoped.
- */
-function collectHoistedVarNames(node: ts.Node, names: Set<string>): void {
-  ts.forEachChild(node, (child) => {
-    if (ts.isFunctionLike(child) || ts.isClassLike(child)) {
-      return;
-    }
-    if (ts.isVariableDeclarationList(child) && !(child.flags & ts.NodeFlags.BlockScoped)) {
-      for (const declaration of child.declarations) {
-        collectDeclaredNames(declaration.name, names);
-      }
-    }
-    collectHoistedVarNames(child, names);
-  });
-}
-
-/**
- * Names declared by a scope, split by the TypeScript declaration space they live in.
- * The two spaces are independent: `function f(Foo: Foo) {}` declares the value `Foo`
- * (the parameter), while the annotation still refers to the type `Foo`.
- */
-interface ScopeDeclarations {
-  /** Names which shadow value references (variables, parameters, functions, classes, enums). */
-  values: Set<string>;
-  /** Names which shadow type references (type parameters, interfaces, type aliases, classes, enums). */
-  types: Set<string>;
-  /** Names which shadow qualifiers of qualified type names (namespaces, enums). */
-  namespaces: Set<string>;
-}
-
-/**
- * Extracts all new identifier names declared in scoping statements/nodes.
- */
-function collectScopeDeclarations(scopeNode: ts.Node): ScopeDeclarations {
-  const values = new Set<string>();
-  const types = new Set<string>();
-  const namespaces = new Set<string>();
-
-  // `var` declarations nested in blocks belong to the enclosing function or module scope.
-  // For functions they are only visible within the body, parameter initializers live in a
-  // separate scope and keep seeing outer bindings.
   if (
-    ts.isSourceFile(scopeNode) ||
-    ts.isModuleBlock(scopeNode) ||
-    (ts.isBlock(scopeNode) &&
-      ts.isFunctionLike(scopeNode.parent) &&
-      (scopeNode.parent as ts.FunctionLikeDeclaration).body === scopeNode)
+    ts.isPropertyAccessExpression(parent) ||
+    ts.isPropertyAssignment(parent) ||
+    ts.isPropertyDeclaration(parent) ||
+    ts.isPropertySignature(parent) ||
+    ts.isMethodDeclaration(parent) ||
+    ts.isMethodSignature(parent) ||
+    ts.isEnumMember(parent)
   ) {
-    collectHoistedVarNames(scopeNode, values);
+    return parent.name !== node;
   }
-
-  const addFromNode = (node: ts.Node) => {
-    if (
-      ts.isFunctionDeclaration(node) ||
-      ts.isFunctionExpression(node) ||
-      ts.isArrowFunction(node) ||
-      ts.isMethodDeclaration(node) ||
-      ts.isGetAccessorDeclaration(node) ||
-      ts.isSetAccessorDeclaration(node) ||
-      ts.isConstructorDeclaration(node)
-    ) {
-      if (ts.isFunctionDeclaration(node) && node.name) {
-        values.add(node.name.text);
-      }
-      if (node === scopeNode) {
-        // A named function expression binds its own name inside its body.
-        if (ts.isFunctionExpression(node) && node.name) {
-          values.add(node.name.text);
-        }
-        // Type parameters only live in the type space.
-        for (const typeParameter of node.typeParameters ?? []) {
-          types.add(typeParameter.name.text);
-        }
-        // Parameters only live in the value space, so `(Foo: Foo) => …` keeps the type reference.
-        for (const param of node.parameters) {
-          collectDeclaredNames(param.name, values);
-        }
-      }
-    } else if (
-      (ts.isForStatement(node) || ts.isForInStatement(node) || ts.isForOfStatement(node)) &&
-      node === scopeNode
-    ) {
-      // `for (const x of …)`: the initializer declarations are scoped to the loop.
-      if (node.initializer && ts.isVariableDeclarationList(node.initializer)) {
-        addFromNode(node.initializer);
-      }
-    } else if (ts.isVariableDeclarationList(node)) {
-      for (const decl of node.declarations) {
-        collectDeclaredNames(decl.name, values);
-      }
-    } else if (ts.isVariableStatement(node)) {
-      for (const decl of node.declarationList.declarations) {
-        collectDeclaredNames(decl.name, values);
-      }
-    } else if (ts.isCatchClause(node) && node.variableDeclaration) {
-      collectDeclaredNames(node.variableDeclaration.name, values);
-    } else if (ts.isClassDeclaration(node) || ts.isEnumDeclaration(node)) {
-      // Classes and enums are both a value and a type, enums are also a namespace.
-      if (node.name) {
-        values.add(node.name.text);
-        types.add(node.name.text);
-        if (ts.isEnumDeclaration(node)) {
-          namespaces.add(node.name.text);
-        }
-      }
-    } else if (ts.isInterfaceDeclaration(node) || ts.isTypeAliasDeclaration(node)) {
-      types.add(node.name.text);
-    } else if (ts.isModuleDeclaration(node) && ts.isIdentifier(node.name)) {
-      namespaces.add(node.name.text);
-    }
-  };
-
-  // If node is block or function, collect declarations
-  addFromNode(scopeNode);
-
-  if (ts.isBlock(scopeNode) || ts.isSourceFile(scopeNode) || ts.isModuleBlock(scopeNode)) {
-    for (const statement of scopeNode.statements) {
-      addFromNode(statement);
-    }
-  } else if (ts.isCaseBlock(scopeNode)) {
-    // All clauses of a `switch` share one lexical scope.
-    for (const clause of scopeNode.clauses) {
-      for (const statement of clause.statements) {
-        addFromNode(statement);
-      }
-    }
-  }
-
-  return { values, types, namespaces };
-}
-
-/** Whether the node opens a lexical scope which may shadow imported bindings. */
-function isScopeNode(node: ts.Node): boolean {
-  return (
-    ts.isSourceFile(node) ||
-    ts.isBlock(node) ||
-    ts.isModuleBlock(node) ||
-    ts.isCaseBlock(node) ||
-    ts.isCatchClause(node) ||
-    ts.isForStatement(node) ||
-    ts.isForInStatement(node) ||
-    ts.isForOfStatement(node) ||
-    ts.isFunctionLike(node)
-  );
+  return true;
 }
 
 /**
- * Finds all references of the given symbols within a source file.
+ * Finds the named imports of the given symbols and every reference to them in the file.
  *
- * Only symbols which are actually imported (or re-exported) by the file are considered,
- * so unrelated symbols sharing the name are ignored.
- * Lexical shadowing (local parameters/variables with matching names) is accounted for.
+ * This is purely name based: scoping and shadowing are not considered, and only
+ * `import { Name } from '…'` is understood (namespace imports and re-exports are ignored).
+ * An aliased import (`Name as Alias`) yields only the import itself, since its usages use the alias.
  */
 export function findSymbolReferences<T extends SymbolTarget>(
   sourceFile: ts.SourceFile,
   targets: T[],
 ): SymbolReference<T>[] {
   const references: SymbolReference<T>[] = [];
-  /** Local name → target, for non-aliased named imports. */
+  /** Local name → target of the non-aliased imports. */
   const bindings = new Map<string, T>();
-  /** Local names of `import * as ns` namespace imports → applicable targets. */
-  const namespaces = new Map<string, T[]>();
 
-  // Resolve which symbols the file actually imports.
   for (const statement of sourceFile.statements) {
-    const isImport = ts.isImportDeclaration(statement);
-    if (!isImport && !ts.isExportDeclaration(statement)) {
-      continue;
-    }
-
-    const moduleSpecifier = statement.moduleSpecifier;
-    if (!moduleSpecifier || !ts.isStringLiteral(moduleSpecifier)) {
-      continue;
-    }
-
-    const applicable = targets.filter((target) =>
-      matchesModule(moduleSpecifier.text, target.importedFrom),
-    );
-    if (!applicable.length) {
-      continue;
-    }
-
-    const namedBindings = isImport ? statement.importClause?.namedBindings : statement.exportClause;
-
-    if (namedBindings && ts.isNamespaceImport(namedBindings)) {
-      namespaces.set(namedBindings.name.text, applicable);
-      continue;
-    }
-
+    const namedImports = ts.isImportDeclaration(statement)
+      ? statement.importClause?.namedBindings
+      : undefined;
     if (
-      !namedBindings ||
-      (!ts.isNamedImports(namedBindings) && !ts.isNamedExports(namedBindings))
+      !namedImports ||
+      !ts.isNamedImports(namedImports) ||
+      !ts.isStringLiteral((statement as ts.ImportDeclaration).moduleSpecifier)
     ) {
       continue;
     }
 
-    for (const specifier of namedBindings.elements) {
-      const importedName = specifier.propertyName ?? specifier.name;
-      if (!ts.isIdentifier(importedName)) {
-        continue;
-      }
+    const module = ((statement as ts.ImportDeclaration).moduleSpecifier as ts.StringLiteral).text;
+    for (const specifier of namedImports.elements) {
+      const imported = specifier.propertyName ?? specifier.name;
+      const target = ts.isIdentifier(imported)
+        ? targets.find((t) => t.name === imported.text && matchesModule(module, t.importedFrom))
+        : undefined;
 
-      const target = applicable.find((candidate) => candidate.name === importedName.text);
-      if (!target) {
-        continue;
-      }
-
-      references.push({ node: importedName, target, kind: 'import' });
-
-      // Aliased imports keep their alias, so their usages do not refer to the name.
-      if (!specifier.propertyName && isImport) {
-        bindings.set(specifier.name.text, target);
+      if (target) {
+        references.push({ node: imported as ts.Identifier, target });
+        if (!specifier.propertyName) {
+          bindings.set(specifier.name.text, target);
+        }
       }
     }
   }
 
-  if (!bindings.size && !namespaces.size) {
-    return references;
-  }
-
-  // Traversal with lexical scope and shadowing awareness.
-  // Values and types are shadowed independently, e.g. a parameter `Foo` hides the imported value `Foo` but not the imported type `Foo`.
-  // Namespace qualifiers (`x: Name.Inner`) are a third space, shadowed by namespaces and enums only.
-  const visit = (
-    node: ts.Node,
-    currentValues: Set<string>,
-    currentTypes: Set<string>,
-    currentNamespaces: Set<string>,
-  ): void => {
-    let shadowedValues = currentValues;
-    let shadowedTypes = currentTypes;
-    let shadowedNamespaces = currentNamespaces;
-
-    // Whether entering scope (Block, Function, CatchClause, etc.)
-    if (isScopeNode(node)) {
-      // Determine if this node introduces new declarations that shadow existing bindings
-      const declared = collectScopeDeclarations(node);
-      for (const name of declared.values) {
-        if (bindings.has(name) || namespaces.has(name)) {
-          if (shadowedValues === currentValues) {
-            shadowedValues = new Set(currentValues);
-          }
-          shadowedValues.add(name);
-        }
-      }
-      // Namespace imports are not affected by type declarations.
-      for (const name of declared.types) {
-        if (bindings.has(name)) {
-          if (shadowedTypes === currentTypes) {
-            shadowedTypes = new Set(currentTypes);
-          }
-          shadowedTypes.add(name);
-        }
-      }
-      for (const name of declared.namespaces) {
-        if (bindings.has(name) || namespaces.has(name)) {
-          if (shadowedNamespaces === currentNamespaces) {
-            shadowedNamespaces = new Set(currentNamespaces);
-          }
-          shadowedNamespaces.add(name);
-        }
-      }
+  const visit = (node: ts.Node): void => {
+    if (ts.isImportDeclaration(node)) {
+      return; // Already handled above.
     }
-
     if (ts.isIdentifier(node)) {
-      const parent = node.parent;
-
-      // Only the property name is the shorthand; in `({ x = Foo } = obj)` the initializer `Foo`
-      // is a regular usage and handled below.
-      if (ts.isShorthandPropertyAssignment(parent) && parent.name === node) {
-        if (!shadowedValues.has(node.text)) {
-          const target = bindings.get(node.text);
-          if (target) {
-            references.push({ node, target, kind: 'shorthand' });
-          }
-        }
-        return;
-      }
-
-      if (isMemberName(node)) {
-        // `ns.Name` of a namespace import is a real usage.
-        const qualifier = ts.isPropertyAccessExpression(parent)
-          ? parent.expression
-          : (parent as ts.QualifiedName).left;
-        // A shadowed qualifier (e.g. a parameter named like the namespace) is not the import.
-        // In a type position (`x: ns.Name`) the qualifier is a namespace, which values can't shadow,
-        // while `typeof ns.Name` resolves the qualifier as a value.
-        const target =
-          ts.isIdentifier(qualifier) &&
-          !(isNamespaceMeaning(qualifier) ? shadowedNamespaces : shadowedValues).has(qualifier.text)
-            ? namespaces.get(qualifier.text)?.find((candidate) => candidate.name === node.text)
-            : undefined;
-
-        if (target) {
-          references.push({ node, target, kind: 'usage' });
-        }
-        return;
-      }
-
-      if (
-        isDeclarationName(node) ||
-        ts.isImportSpecifier(parent) ||
-        ts.isImportClause(parent) ||
-        ts.isNamespaceExport(parent)
-      ) {
-        return;
-      }
-
-      // Re-exports were resolved against their own module in the first pass.
-      // For local exports, only the referenced name denotes a local binding.
-      if (
-        ts.isExportSpecifier(parent) &&
-        (parent.parent.parent.moduleSpecifier || (parent.propertyName && parent.name === node))
-      ) {
-        return;
-      }
-
-      // Skip the reference if the name is shadowed in the declaration space it resolves in.
-      const shadowed = isNamespaceMeaning(node)
-        ? shadowedNamespaces
-        : isTypeMeaning(node)
-          ? shadowedTypes
-          : shadowedValues;
-      if (!shadowed.has(node.text)) {
-        const target = bindings.get(node.text);
-        if (target) {
-          references.push({ node, target, kind: 'usage' });
-        }
+      const target = bindings.get(node.text);
+      if (target && isReference(node)) {
+        references.push({ node, target });
       }
       return;
     }
-
-    ts.forEachChild(node, (child) =>
-      visit(child, shadowedValues, shadowedTypes, shadowedNamespaces),
-    );
+    ts.forEachChild(node, visit);
   };
-
-  ts.forEachChild(sourceFile, (child) => visit(child, new Set(), new Set(), new Set()));
+  ts.forEachChild(sourceFile, visit);
 
   return references;
 }

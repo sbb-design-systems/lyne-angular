@@ -24,7 +24,9 @@ describe('sbb-button', () => {
     for (const [filePath, content] of Object.entries(files)) {
       tree.create(filePath, content);
     }
-    return firstValueFrom(runner.callRule(migrateButton(hasStandardTheme), tree));
+    return firstValueFrom(
+      runner.callRule(migrateButton({ root: '', excludedRoots: [] }, hasStandardTheme), tree),
+    );
   };
 
   const migrateHtml = async (template: string, hasStandardTheme = false): Promise<string> => {
@@ -43,7 +45,7 @@ describe('sbb-button', () => {
       }
 
       await firstValueFrom(
-        runner.callRule(migrateButton(false, { root: 'projects/app-a', excludedRoots: [] }), tree),
+        runner.callRule(migrateButton({ root: 'projects/app-a', excludedRoots: [] }, false), tree),
       );
 
       expect(tree.readText('/projects/app-a/src/app.component.html')).toBe(
@@ -58,11 +60,10 @@ describe('sbb-button', () => {
   });
 
   describe('import paths', () => {
-    it('should rewrite button imports and merge subpaths', async () => {
+    it('should rewrite button imports', async () => {
       const tree = await migrate({
         '/src/app/app.component.ts': [
           "import { SbbButtonModule } from '@sbb-esta/angular/button';",
-          "import { SbbButton } from '@sbb-esta/angular/button/button';",
           "import { SbbCore } from '@sbb-esta/angular';",
           "import { SbbIconModule } from '@sbb-esta/angular/icon';",
           "export { SbbButtonModule } from '@sbb-esta/angular/button';",
@@ -71,7 +72,6 @@ describe('sbb-button', () => {
 
       const content = tree.read('/src/app/app.component.ts')!.toString('utf-8');
       expect(content).toContain("import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';");
-      expect(content).toContain("import { SbbButton } from '@sbb-esta/lyne-angular/button';");
       expect(content).toContain("export { SbbButtonModule } from '@sbb-esta/lyne-angular/button';");
       // Unrelated imports stay untouched.
       expect(content).toContain("from '@sbb-esta/angular';");

@@ -72,13 +72,13 @@ function resolveLegacyModules(module: string[] | undefined): LegacyModuleName[] 
 /** Load migration rule for a specific legacy module. */
 function loadModuleMigration(
   module: LegacyModuleName,
-  isStandardTheme: boolean,
   scope: MigrationScope,
+  isStandardTheme: boolean,
 ): Rule {
   // TODO: Add more modules as they are implemented
   switch (module) {
     case 'button':
-      return migrateButton(isStandardTheme, scope);
+      return migrateButton(scope, isStandardTheme);
     default:
       return noop();
   }
@@ -96,7 +96,7 @@ export function migrateLegacy(options: MigrateLegacyOptionsSchema): Rule {
 
     return chain([
       ...resolveLegacyModules(options.module).map((module) =>
-        loadModuleMigration(module, isStandardTheme, scope),
+        loadModuleMigration(module, scope, isStandardTheme),
       ),
     ]);
   };

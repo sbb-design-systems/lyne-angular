@@ -99,7 +99,7 @@ const COMMENTS: CommentMigration[] = [
  * 3. Rename inputs
  * 4. Add comments for cases which cannot be migrated automatically
  */
-export function migrateButton(hasStandardTheme: boolean, scope?: MigrationScope): Rule {
+export function migrateButton(scope: MigrationScope, hasStandardTheme: boolean): Rule {
   return chain([
     createImportPathMigrationRule(IMPORT_PATHS, scope),
     createAttributeMigrationRule(ATTRIBUTES(hasStandardTheme), scope),

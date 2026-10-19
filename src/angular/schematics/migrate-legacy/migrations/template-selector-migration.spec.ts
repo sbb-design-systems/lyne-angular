@@ -121,36 +121,6 @@ describe('sbb-template-selector-migration', () => {
     });
   });
 
-  describe('removing obsolete attributes', () => {
-    it('should remove extra obsolete attributes specified in removeAttributes', async () => {
-      const migrations: SelectorMigration[] = [
-        {
-          selector: 'button[sbb-button]',
-          replaceWith: 'sbb-button',
-          removeAttributes: ['isPrimary', 'type'],
-        },
-      ];
-
-      expect(
-        await migrateHtml('<button sbb-button isPrimary type="button">Click</button>', migrations),
-      ).toBe('<sbb-button>Click</sbb-button>');
-    });
-
-    it('should remove obsolete attributes bound with input syntax', async () => {
-      const migrations: SelectorMigration[] = [
-        {
-          selector: 'sbb-usermenu',
-          replaceWith: 'sbb-user-menu',
-          removeAttributes: ['obsoleteProperty'],
-        },
-      ];
-
-      expect(
-        await migrateHtml('<sbb-usermenu [obsoleteProperty]="val">Menu</sbb-usermenu>', migrations),
-      ).toBe('<sbb-user-menu>Menu</sbb-user-menu>');
-    });
-  });
-
   describe('edge cases', () => {
     it('should skip migration if element has no closing tag to prevent template corruption', async () => {
       // Tag non chiuso <button sbb-button> senza </button>
