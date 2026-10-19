@@ -1,5 +1,21 @@
 # Changelog
 
+## [22.9.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.8.0...v22.9.0) (2026-10-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* **pearl-chain:** renamed `lyne-angular-experimental/sbb-pearl-chain` into `lyne-angular-experimental/sbb-pearl-chain-legacy`
+
+### Features
+
+* **pearl-chain:** component implementation ([#610](https://github.com/sbb-design-systems/lyne-angular/issues/610)) ([1b12213](https://github.com/sbb-design-systems/lyne-angular/commit/1b12213ec6a41e1b328942721346041b97a549f5))
+
+
+### Miscellaneous Chores
+
+* prepare release 22.9.0 ([5fa88dd](https://github.com/sbb-design-systems/lyne-angular/commit/5fa88ddbf58b692a385ac0826409678a673d9845))
+
 ## [22.8.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.7.1...v22.8.0) (2026-10-12)
 
 
