@@ -16,6 +16,23 @@ const IMPORT_PATHS: ImportRewriteOptions[] = [
   { oldImport: '@sbb-esta/angular/button', newImport: '@sbb-esta/lyne-angular/button' },
 ];
 
+const COMMENTS: CommentMigration[] = [
+  {
+    selector: '[sbb-alt-button]',
+    message: 'FIXME: this component has no counterpart in lyne-angular.',
+  },
+  {
+    selector: '[sbb-link]',
+    message:
+      "FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the component's imports.",
+  },
+  {
+    symbol: 'SbbAnchor',
+    message:
+      'FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the different link variants in the documentation.',
+  },
+];
+
 const BUTTON_MIGRATIONS: SelectorMigration[] = [
   { selector: 'button[sbb-button]', replaceWith: 'sbb-button' },
   { selector: 'button[sbb-secondary-button]', replaceWith: 'sbb-secondary-button' },
@@ -26,18 +43,14 @@ const BUTTON_MIGRATIONS: SelectorMigration[] = [
   { selector: 'a[sbb-ghost-button]', replaceWith: 'sbb-accent-button-link' },
   { selector: 'a[sbb-frameless-button]', replaceWith: 'sbb-transparent-button-link' },
 ];
+const BUTTON_SELECTORS = BUTTON_MIGRATIONS.map((selector) => selector.selector);
 
 const LINK_MIGRATIONS: SelectorMigration[] = [
   { selector: 'button[sbb-link]', replaceWith: 'sbb-link-button' },
   { selector: 'a[sbb-link]', replaceWith: 'sbb-link' },
 ];
-
-/** Selectors for template migrations. */
-const TEMPLATE_MIGRATION_SELECTORS = [...BUTTON_MIGRATIONS, ...LINK_MIGRATIONS];
-
-/** The attribute migration runs first, so it has to target the old elements. */
-const BUTTON_SELECTORS = BUTTON_MIGRATIONS.map((selector) => selector.selector);
 const LINK_SELECTORS = LINK_MIGRATIONS.map((selector) => selector.selector);
+
 const ATTRIBUTES: (hasStandardTheme: boolean) => AttributeMigration[] = (
   hasStandardTheme: boolean,
 ) =>
@@ -73,37 +86,20 @@ const ATTRIBUTES: (hasStandardTheme: boolean) => AttributeMigration[] = (
         { selector: LINK_SELECTORS, attribute: 'svgIcon' },
       ];
 
-const COMMENTS: CommentMigration[] = [
-  {
-    selector: '[sbb-alt-button]',
-    message: 'FIXME: this component has no counterpart in lyne-angular.',
-  },
-  {
-    selector: ['sbb-link', 'sbb-link-button'],
-    message:
-      "FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the component's imports.",
-  },
-  {
-    symbol: 'SbbAnchor',
-    message:
-      'FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the different link variants in the documentation.',
-  },
-];
-
 /**
  * Migrate the button module from `@sbb-esta/angular` to `@sbb-esta/lyne-angular`.
  *
  * Transformations:
  * 1. Rewrite import paths
+ * 2. Add comments for cases which cannot be migrated automatically
  * 2. Replace attribute selectors with the Lyne elements
- * 3. Rename inputs
- * 4. Add comments for cases which cannot be migrated automatically
+ * 3. Rename selectors
  */
 export function migrateButton(scope: MigrationScope, hasStandardTheme: boolean): Rule {
   return chain([
     createImportPathMigrationRule(IMPORT_PATHS, scope),
-    createAttributeMigrationRule(ATTRIBUTES(hasStandardTheme), scope),
-    createTemplateSelectorMigrationRule(TEMPLATE_MIGRATION_SELECTORS, scope),
     createCommentMigrationRule(COMMENTS, scope),
+    createAttributeMigrationRule(ATTRIBUTES(hasStandardTheme), scope),
+    createTemplateSelectorMigrationRule([...BUTTON_MIGRATIONS, ...LINK_MIGRATIONS], scope),
   ]);
 }
