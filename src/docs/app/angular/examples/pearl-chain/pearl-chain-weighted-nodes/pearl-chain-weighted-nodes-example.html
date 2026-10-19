@@ -1,64 +1,28 @@
-<sbb-pearl-chain [now]="now">
-  <div class="pearl-chain-weighted">
-    <div class="pearl-chain-stop pearl-chain-stop-first">
-      <sbb-pearl-chain-node type="start" [departure]="bernDeparture"></sbb-pearl-chain-node>
-      <span class="pearl-chain-bold">Bern</span>
-      <time [attr.datetime]="bernDeparture.toISOString()">
-        <span class="sbb-screen-reader-only">Departure:&nbsp;</span>
-        {{ bernDeparture | date: 'HH:mm' }}
-      </time>
-    </div>
-    <span class="pearl-chain-gap" [style.flex-grow]="gaps()[0]"></span>
+<sbb-journey-header origin="Bern" destination="Interlaken Ost"></sbb-journey-header>
 
-    <div class="pearl-chain-stop">
-      <sbb-pearl-chain-node
-        type="stop"
-        [arrival]="muensingenArrival"
-        [departure]="muensingenDeparture"
-      ></sbb-pearl-chain-node>
-      <span>Münsingen</span>
-      <time [attr.datetime]="muensingenDeparture.toISOString()">
-        <span class="sbb-screen-reader-only">Departure:&nbsp;</span>
-        {{ muensingenDeparture | date: 'HH:mm' }}
-      </time>
-    </div>
-    <span class="pearl-chain-gap" [style.flex-grow]="gaps()[1]"></span>
+<div class="train-route-wrapper">
+  <time [attr.datetime]="departure.toISOString()" class="bold">
+    <span class="sbb-screen-reader-only">Departure:&nbsp;</span>
+    {{ departure | date: 'HH:mm' }}
+  </time>
 
-    <div class="pearl-chain-stop">
-      <sbb-pearl-chain-node
-        type="stop"
-        [arrival]="thunArrival"
-        [departure]="thunDeparture"
-      ></sbb-pearl-chain-node>
-      <span class="pearl-chain-bold">Thun</span>
-      <time [attr.datetime]="thunDeparture.toISOString()">
-        <span class="sbb-screen-reader-only">Departure:&nbsp;</span>
-        {{ thunDeparture | date: 'HH:mm' }}
-      </time>
+  <sbb-pearl-chain [now]="now">
+    <div class="pearl-chain-container">
+      @for (stop of stops; track $index; let last = $last) {
+        <sbb-pearl-chain-node
+          [type]="stop.type"
+          [arrival]="stop.arrival ?? null"
+          [departure]="stop.departure ?? null"
+        ></sbb-pearl-chain-node>
+        @if (!last) {
+          <span class="pearl-chain-gap" [style.flex-grow]="gaps()[$index]"></span>
+        }
+      }
     </div>
-    <span class="pearl-chain-gap" [style.flex-grow]="gaps()[2]"></span>
+  </sbb-pearl-chain>
 
-    <div class="pearl-chain-stop">
-      <sbb-pearl-chain-node
-        type="stop"
-        [arrival]="spiezArrival"
-        [departure]="spiezDeparture"
-      ></sbb-pearl-chain-node>
-      <span>Spiez</span>
-      <time [attr.datetime]="spiezDeparture.toISOString()">
-        <span class="sbb-screen-reader-only">Departure:&nbsp;</span>
-        {{ spiezDeparture | date: 'HH:mm' }}
-      </time>
-    </div>
-    <span class="pearl-chain-gap" [style.flex-grow]="gaps()[3]"></span>
-
-    <div class="pearl-chain-stop pearl-chain-stop-last">
-      <sbb-pearl-chain-node type="end" [arrival]="interlakenArrival"></sbb-pearl-chain-node>
-      <span class="pearl-chain-bold">Interlaken Ost</span>
-      <time [attr.datetime]="interlakenArrival.toISOString()">
-        <span class="sbb-screen-reader-only">Arrival:&nbsp;</span>
-        {{ interlakenArrival | date: 'HH:mm' }}
-      </time>
-    </div>
-  </div>
-</sbb-pearl-chain>
+  <time [attr.datetime]="arrival.toISOString()" class="bold">
+    <span class="sbb-screen-reader-only">Arrival:&nbsp;</span>
+    {{ arrival | date: 'HH:mm' }}
+  </time>
+</div>
