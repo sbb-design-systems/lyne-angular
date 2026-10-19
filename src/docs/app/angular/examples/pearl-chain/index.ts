@@ -2,3 +2,4 @@ export { PearlChainFullHorizontalExample } from './pearl-chain-full-horizontal/p
 export { PearlChainFullVerticalExample } from './pearl-chain-full-vertical/pearl-chain-full-vertical-example';
 export { PearlChainHorizontalShowcaseExample } from './pearl-chain-horizontal-showcase/pearl-chain-horizontal-showcase-example';
 export { PearlChainVerticalShowcaseExample } from './pearl-chain-vertical-showcase/pearl-chain-vertical-showcase-example';
+export { PearlChainWeightedNodesExample } from './pearl-chain-weighted-nodes/pearl-chain-weighted-nodes-example';

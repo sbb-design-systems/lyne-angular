@@ -160,6 +160,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     { id: 'pearl-chain-vertical-showcase', hasStyle: true },
     { id: 'pearl-chain-full-horizontal', hasStyle: true },
     { id: 'pearl-chain-full-vertical', hasStyle: true },
+    { id: 'pearl-chain-weighted-nodes', hasStyle: true },
   ],
   popover: [{ id: 'popover-showcase', hasStyle: true }],
   'radio-button': ['radio-button-showcase'],
@@ -467,6 +468,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'pearl-chain-full-vertical':
     case 'pearl-chain-horizontal-showcase':
     case 'pearl-chain-vertical-showcase':
+    case 'pearl-chain-weighted-nodes':
       return import('../angular/examples/pearl-chain');
     case 'popover-showcase':
       return import('../angular/examples/popover');

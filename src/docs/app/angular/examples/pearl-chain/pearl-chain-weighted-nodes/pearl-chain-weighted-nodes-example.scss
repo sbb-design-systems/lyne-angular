@@ -1,0 +1,31 @@
+.pearl-chain-weighted {
+  display: flex;
+  width: 600px;
+  max-width: 100%;
+}
+
+// Each stop has no width: its content overflows around the position given by the gaps.
+.pearl-chain-stop {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  width: 0;
+  white-space: nowrap;
+}
+
+.pearl-chain-stop-first {
+  align-items: flex-start;
+}
+
+.pearl-chain-stop-last {
+  align-items: flex-end;
+}
+
+.pearl-chain-gap {
+  flex: 0 1 0;
+}
+
+.pearl-chain-bold {
+  font-weight: bold;
+}
