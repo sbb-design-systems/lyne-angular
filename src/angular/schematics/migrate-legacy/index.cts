@@ -3,6 +3,9 @@ import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schem
 import { migrateButton } from './modules/button.cjs';
 import { MigrateLegacyOptionsSchema } from './schema';
 import { getProjectScope, isStandardThemeSet, MigrationScope } from '../utils.cjs';
+import { migrateCaptcha } from './modules/captcha.cjs';
+import { migrateTextarea } from './modules/textarea.cjs';
+import { migrateUsermenu } from './modules/usermenu.cjs';
 
 // TODO: Add more modules as they are implemented
 const LEGACY_MODULES = [
@@ -13,7 +16,7 @@ const LEGACY_MODULES = [
   // 'badge',
   // 'breadcrumb',
   'button',
-  // 'captcha',
+  'captcha',
   // 'checkbox',
   // 'checkbox-panel',
   // 'chips',
@@ -40,12 +43,12 @@ const LEGACY_MODULES = [
   // 'tabs',
   // 'table',
   // 'tag',
-  // 'textexpand',
-  // 'textarea',
+  'textarea',
+  'textexpand',
   // 'time-input',
   // 'toggle',
   // 'tooltip',
-  // 'usermenu',
+  'usermenu',
 ];
 
 type LegacyModuleName = (typeof LEGACY_MODULES)[number];
@@ -79,6 +82,14 @@ function loadModuleMigration(
   switch (module) {
     case 'button':
       return migrateButton(scope, isStandardTheme);
+    case 'captcha':
+      return migrateCaptcha(scope);
+    case 'textarea':
+      return migrateTextarea(scope);
+    case 'textexpand':
+      return migrateTextarea(scope);
+    case 'usermenu':
+      return migrateUsermenu(scope);
     default:
       return noop();
   }
