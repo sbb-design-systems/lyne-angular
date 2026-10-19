@@ -4,7 +4,7 @@ import type { Leg, PtRideLeg } from '@sbb-esta/lyne-elements-experimental/core.j
 import { SbbPearlChainTimeElement } from '@sbb-esta/lyne-elements-experimental/pearl-chain-time.pure.js';
 
 /**
- * Combined with `sbb-pearl-chain`, it displays walk time information.
+ * Combined with `sbb-pearl-chain-legacy`, it displays walk time information.
  */
 @Directive({
   selector: 'sbb-pearl-chain-time',

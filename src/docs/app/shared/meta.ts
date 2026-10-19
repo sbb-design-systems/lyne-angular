@@ -317,6 +317,11 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
             keywords: keywordsMap.angular.components.paginator,
           },
           {
+            label: 'Pearl Chain',
+            link: './components/pearl-chain',
+            keywords: keywordsMap.angular.components.pearlChain,
+          },
+          {
             label: 'Popover',
             link: './components/popover',
             keywords: keywordsMap.angular.components.popover,
@@ -508,9 +513,9 @@ export const PACKAGES: Record<string, ShowcaseMetaPackage> = {
             keywords: keywordsMap.angularExperimental.components.journeySummary,
           },
           {
-            label: 'Pearl Chain',
-            link: './components/pearl-chain',
-            keywords: keywordsMap.angularExperimental.components.pearlChain,
+            label: 'Pearl Chain Legacy',
+            link: './components/pearl-chain-legacy',
+            keywords: keywordsMap.angularExperimental.components.pearlChainLegacy,
           },
           {
             label: 'Pearl Chain Time',

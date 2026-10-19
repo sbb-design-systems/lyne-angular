@@ -1,0 +1,23 @@
+.train-route-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--sbb-spacing-fixed-2x);
+  margin-block-start: var(--sbb-spacing-fixed-2x);
+}
+
+sbb-pearl-chain {
+  flex-grow: 1;
+}
+
+.pearl-chain-container {
+  width: 100%;
+  display: flex;
+}
+
+.pearl-chain-gap {
+  flex: 0 1 0;
+}
+
+.bold {
+  font-weight: bold;
+}
