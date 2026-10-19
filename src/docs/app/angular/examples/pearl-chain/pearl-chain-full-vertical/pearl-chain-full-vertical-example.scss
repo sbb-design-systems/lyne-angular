@@ -1,0 +1,26 @@
+.pearl-chain-grid {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  align-items: center;
+  gap: var(--sbb-spacing-fixed-1x) var(--sbb-spacing-fixed-3x);
+  width: 450px;
+}
+
+.pearl-chain-time {
+  grid-column: 1;
+  font-weight: bold;
+}
+
+.pearl-chain-arr-time {
+  grid-column: 1;
+  color: var(--sbb-color-granite);
+  margin-block-start: 1rem;
+}
+
+.pearl-chain-occupancy {
+  grid-column: 3;
+}
+
+.bold {
+  font-weight: bold;
+}

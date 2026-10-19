@@ -1,0 +1,28 @@
+<sbb-journey-header origin="Bern" destination="Interlaken Ost"></sbb-journey-header>
+
+<div class="train-route-wrapper">
+  <time [attr.datetime]="departure.toISOString()" class="bold">
+    <span class="sbb-screen-reader-only">Departure:&nbsp;</span>
+    {{ departure | date: 'HH:mm' }}
+  </time>
+
+  <sbb-pearl-chain [now]="now">
+    <div class="pearl-chain-container">
+      @for (stop of stops; track $index; let last = $last) {
+        <sbb-pearl-chain-node
+          [type]="stop.type"
+          [arrival]="stop.arrival ?? null"
+          [departure]="stop.departure ?? null"
+        ></sbb-pearl-chain-node>
+        @if (!last) {
+          <span class="pearl-chain-gap" [style.flex-grow]="gaps()[$index]"></span>
+        }
+      }
+    </div>
+  </sbb-pearl-chain>
+
+  <time [attr.datetime]="arrival.toISOString()" class="bold">
+    <span class="sbb-screen-reader-only">Arrival:&nbsp;</span>
+    {{ arrival | date: 'HH:mm' }}
+  </time>
+</div>

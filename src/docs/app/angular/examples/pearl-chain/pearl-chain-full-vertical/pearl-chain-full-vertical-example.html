@@ -1,0 +1,98 @@
+<sbb-pearl-chain [now]="now">
+  <div class="pearl-chain-grid">
+    <span class="pearl-chain-time">
+      <time [attr.datetime]="bernDeparture.toISOString()">
+        <span class="sbb-screen-reader-only">Departure:&nbsp;</span>
+        {{ bernDeparture | date: 'HH:mm' }}
+      </time>
+    </span>
+    <sbb-pearl-chain-node type="start" [departure]="bernDeparture"></sbb-pearl-chain-node>
+    <span>Bern</span>
+    <span>Gl. 3</span>
+
+    <span class="pearl-chain-arr-time">
+      <time [attr.datetime]="muensingenArrival.toISOString()">
+        <span class="sbb-screen-reader-only">Arrival:&nbsp;</span>
+        {{ muensingenArrival | date: 'HH:mm' }}
+      </time>
+    </span>
+
+    <span class="pearl-chain-time">
+      <time [attr.datetime]="muensingenDeparture.toISOString()">
+        <span class="sbb-screen-reader-only">Departure:&nbsp;</span>
+        {{ muensingenDeparture | date: 'HH:mm' }}
+      </time>
+    </span>
+    <sbb-pearl-chain-node
+      type="stop"
+      [arrival]="muensingenArrival"
+      [departure]="muensingenDeparture"
+    ></sbb-pearl-chain-node>
+    <span>Münsingen</span>
+    <span>Gl. 1</span>
+
+    <span class="pearl-chain-arr-time">
+      <time [attr.datetime]="thunArrival.toISOString()">
+        <span class="sbb-screen-reader-only">Arrival:&nbsp;</span>
+        {{ thunArrival | date: 'HH:mm' }}
+      </time>
+    </span>
+
+    <span class="pearl-chain-time">
+      <time [attr.datetime]="thunDeparture.toISOString()">
+        <span class="sbb-screen-reader-only">Departure:&nbsp;</span>
+        {{ thunDeparture | date: 'HH:mm' }}
+      </time>
+    </span>
+    <sbb-pearl-chain-node
+      type="stop"
+      [arrival]="thunArrival"
+      [departure]="thunDeparture"
+    ></sbb-pearl-chain-node>
+    <span class="bold">Thun</span>
+    <span class="bold">Gl. 2</span>
+    <sbb-timetable-occupancy
+      class="pearl-chain-occupancy"
+      firstClassOccupancy="low"
+      secondClassOccupancy="high"
+    ></sbb-timetable-occupancy>
+
+    <span class="pearl-chain-arr-time">
+      <time [attr.datetime]="spiezArrival.toISOString()">
+        <span class="sbb-screen-reader-only">Arrival:&nbsp;</span>
+        {{ spiezArrival | date: 'HH:mm' }}
+      </time>
+    </span>
+
+    <span class="pearl-chain-time">
+      <time [attr.datetime]="spiezDeparture.toISOString()">
+        <span class="sbb-screen-reader-only">Departure:&nbsp;</span>
+        {{ spiezDeparture | date: 'HH:mm' }}
+      </time>
+    </span>
+    <sbb-pearl-chain-node
+      type="stop"
+      [arrival]="spiezArrival"
+      [departure]="spiezDeparture"
+    ></sbb-pearl-chain-node>
+    <span>Spiez</span>
+    <span>Gl. 4</span>
+    <sbb-timetable-occupancy
+      class="pearl-chain-occupancy"
+      firstClassOccupancy="low"
+      secondClassOccupancy="medium"
+    ></sbb-timetable-occupancy>
+
+    <span class="pearl-chain-arr-time"></span>
+
+    <span class="pearl-chain-time">
+      <time [attr.datetime]="interlakenArrival.toISOString()">
+        <span class="sbb-screen-reader-only">Arrival:&nbsp;</span>
+        {{ interlakenArrival | date: 'HH:mm' }}
+      </time>
+    </span>
+    <sbb-pearl-chain-node type="end" [arrival]="interlakenArrival"></sbb-pearl-chain-node>
+    <span class="bold">Interlaken Ost</span>
+    <span class="bold">Gl. 1</span>
+  </div>
+</sbb-pearl-chain>
