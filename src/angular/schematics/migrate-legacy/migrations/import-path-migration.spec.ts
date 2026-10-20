@@ -25,10 +25,8 @@ describe('sbb-import-path-migration', () => {
     { oldImport: '@sbb-esta/angular/core', newImport: '@sbb-esta/lyne-angular/core' },
   ];
 
-  const rewrite = (
-    source: string,
-    options: ImportRewriteOptions | ImportRewriteOptions[] = mappings,
-  ) => rewriteImportPaths('/src/app/app.component.ts', source, options);
+  const rewrite = (source: string, options: ImportRewriteOptions[] = mappings) =>
+    rewriteImportPaths('/src/app/app.component.ts', source, options);
 
   const migrate = async (files: Record<string, string>): Promise<Tree> => {
     const tree = new UnitTestTree(new HostTree());
@@ -74,12 +72,6 @@ describe('sbb-import-path-migration', () => {
     it('should preserve the quote style', () => {
       expect(rewrite('import { SbbButton } from "@sbb-esta/angular/button";')).toBe(
         'import { SbbButton } from "@sbb-esta/lyne-angular/button";',
-      );
-    });
-
-    it('should accept a single mapping', () => {
-      expect(rewrite("import { SbbButton } from '@sbb-esta/angular/button';", mappings[0])).toBe(
-        "import { SbbButton } from '@sbb-esta/lyne-angular/button';",
       );
     });
 

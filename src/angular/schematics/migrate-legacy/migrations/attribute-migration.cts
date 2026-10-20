@@ -116,7 +116,7 @@ export function createAttributeMigrationRule(
             matchingNode.sourceSpan.end.offset,
             edits,
             nextIndex,
-            () => logger.info(`  → Removed '${migration.attribute}' in ${filePath}`),
+            () => logger.info(`  → Removed '${migration.attribute}' in '${filePath}'`),
           );
           continue;
         }
@@ -129,7 +129,7 @@ export function createAttributeMigrationRule(
         if (hasAttribute(element, migration.replaceWith)) {
           logger.warn(
             `  ⚠ Skipped renaming '${migration.attribute}' to '${migration.replaceWith}' in ` +
-              `${filePath}: ${tagAttributeForLogger} already uses '${migration.replaceWith}'.`,
+              `'${filePath}': '${tagAttributeForLogger}' already uses '${migration.replaceWith}'.`,
           );
           continue;
         }
@@ -146,7 +146,7 @@ export function createAttributeMigrationRule(
           insertion: replacement,
           log: () =>
             logger.info(
-              `  → Renamed '${writtenKey}' to '${replacement}' on ${tagAttributeForLogger} in ${filePath}`,
+              `  → Renamed '${writtenKey}' to '${replacement}' on '${tagAttributeForLogger}' in '${filePath}'`,
             ),
         });
       }
@@ -174,7 +174,7 @@ export function createAttributeMigrationRule(
           insertion: insertionText,
           log: () =>
             logger.info(
-              `  → Added default '${replacement}="${migration.defaultValue}"' to ${tagAttributeForLogger} in ${filePath}`,
+              `  → Added default '${replacement}="${migration.defaultValue}"' to '${tagAttributeForLogger}' in '${filePath}'`,
             ),
         });
       }

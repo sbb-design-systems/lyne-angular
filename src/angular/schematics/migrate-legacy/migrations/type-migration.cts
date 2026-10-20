@@ -132,7 +132,7 @@ export function createTypeMigrationRule(migrations: TypeMigration[], scope?: Mig
           length: node.getEnd() - offset,
           insertion: to,
           log: specifier
-            ? () => context.logger.info(`  → Renamed '${from}' to '${to}' in ${filePath}`)
+            ? () => context.logger.info(`  → Renamed '${from}' to '${to}' in '${filePath}'`)
             : undefined,
         });
       }
@@ -147,7 +147,7 @@ export function createTypeMigrationRule(migrations: TypeMigration[], scope?: Mig
               i === 0
                 ? () =>
                     context.logger.info(
-                      `  → Removed ${names} in ${filePath}, its replacement is already imported`,
+                      `  → Removed ${names} in '${filePath}', its replacement is already imported`,
                     )
                 : undefined,
           }),

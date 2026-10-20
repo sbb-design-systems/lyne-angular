@@ -24,7 +24,7 @@ import {
  * Sub-paths (`@sbb-esta/angular/button/button`) are not rewritten.
  */
 export function createImportPathMigrationRule(
-  mappings: ImportRewriteOptions | ImportRewriteOptions[],
+  mappings: ImportRewriteOptions[],
   scope?: MigrationScope,
 ): Rule {
   return (tree: Tree, context: SchematicContext) => {
@@ -37,7 +37,9 @@ export function createImportPathMigrationRule(
       const updated = rewriteImportPaths(filePath, original, mappings);
       if (updated !== original) {
         tree.overwrite(filePath, updated);
-        context.logger.info(`  → Updated imports in ${filePath}`);
+        context.logger.info(
+          `  → Updated '${mappings.map((e) => e.oldImport).join("', '")}\' imports in '${filePath}'.`,
+        );
       }
     });
   };
@@ -47,11 +49,9 @@ export function createImportPathMigrationRule(
 export function rewriteImportPaths(
   filePath: string,
   fileContent: string,
-  mappings: ImportRewriteOptions | ImportRewriteOptions[],
+  mappings: ImportRewriteOptions[],
 ): string {
-  const newImports = new Map(
-    [mappings].flat().map(({ oldImport, newImport }) => [oldImport, newImport]),
-  );
+  const newImports = new Map(mappings.map(({ oldImport, newImport }) => [oldImport, newImport]));
   const sourceFile = ts.createSourceFile(filePath, fileContent, ts.ScriptTarget.Latest, true);
   const edits: MigrationEdit[] = [];
 

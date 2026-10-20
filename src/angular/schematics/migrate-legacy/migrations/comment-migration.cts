@@ -123,8 +123,8 @@ function createElementCommentRule(
       }
 
       const target = migration.attribute
-        ? `'${migration.attribute}' on <${element.name}>`
-        : `<${element.name}>`;
+        ? `'${migration.attribute}' on ${element.name}`
+        : `${element.name}`;
 
       queueComment(
         fileContent,
@@ -133,7 +133,7 @@ function createElementCommentRule(
         migration.message,
         fileEdits,
         nextIndex(),
-        () => logger.info(`  → Added comment for ${target} in ${filePath}`),
+        () => logger.info(`  → Added comment for '${target}' in '${filePath}'`),
       );
     }
   }, scope);
@@ -170,7 +170,7 @@ function createSymbolCommentRule(
           target.migration.message,
           edits,
           index++,
-          () => context.logger.info(`  → Added comment for '${target.name}' in ${filePath}`),
+          () => context.logger.info(`  → Added comment for '${target.name}' in '${filePath}'`),
         );
       }
 

@@ -66,7 +66,7 @@ export function createTemplateSelectorMigrationRule(
     // opening tag would corrupt the template, so it is skipped.
     if (!endSpan) {
       logger.warn(
-        `  ⚠ Skipped '${migration.selector}' in ${filePath}: the element has no closing tag.`,
+        `  ⚠ Skipped '${migration.selector}' in '${filePath}': the element has no closing tag.`,
       );
       return;
     }
@@ -79,7 +79,7 @@ export function createTemplateSelectorMigrationRule(
       insertion: migration.replaceWith,
       log: () =>
         logger.info(
-          `  → Replaced '${migration.selector}' with '${migration.replaceWith}' in ${filePath}`,
+          `  → Replaced '${migration.selector}' with '${migration.replaceWith}' in '${filePath}'`,
         ),
     });
 
