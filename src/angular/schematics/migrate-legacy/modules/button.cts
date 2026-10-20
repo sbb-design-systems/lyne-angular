@@ -51,40 +51,10 @@ const LINK_MIGRATIONS: SelectorMigration[] = [
 ];
 const LINK_SELECTORS = LINK_MIGRATIONS.map((selector) => selector.selector);
 
-const ATTRIBUTES: (hasStandardTheme: boolean) => AttributeMigration[] = (
-  hasStandardTheme: boolean,
-) =>
-  hasStandardTheme
-    ? [
-        {
-          selector: [
-            'button[sbb-button]',
-            'button[sbb-secondary-button]',
-            'a[sbb-button]',
-            'a[sbb-secondary-button]',
-          ],
-          attribute: 'svgIcon',
-          replaceWith: 'iconName',
-          defaultValue: 'arrow-right-small',
-        },
-        {
-          selector: ['button[sbb-frameless-button]', 'a[sbb-frameless-button]'],
-          attribute: 'svgIcon',
-          replaceWith: 'iconName',
-          defaultValue: 'plus-small',
-        },
-        {
-          selector: ['button[sbb-ghost-button]', 'a[sbb-ghost-button]'],
-          attribute: 'svgIcon',
-          replaceWith: 'iconName',
-        },
-        // Links in lyne-angular have no icon - only block link have.
-        { selector: LINK_SELECTORS, attribute: 'svgIcon' },
-      ]
-    : [
-        { selector: BUTTON_SELECTORS, attribute: 'svgIcon', replaceWith: 'iconName' },
-        { selector: LINK_SELECTORS, attribute: 'svgIcon' },
-      ];
+const ATTRIBUTES: AttributeMigration[] = [
+  { selector: BUTTON_SELECTORS, attribute: 'svgIcon', replaceWith: 'iconName' },
+  { selector: LINK_SELECTORS, attribute: 'svgIcon' },
+];
 
 /**
  * Migrate the button module from `@sbb-esta/angular` to `@sbb-esta/lyne-angular`.
@@ -95,11 +65,11 @@ const ATTRIBUTES: (hasStandardTheme: boolean) => AttributeMigration[] = (
  * 2. Replace attribute selectors with the Lyne elements
  * 3. Rename selectors
  */
-export function migrateButton(scope: MigrationScope, hasStandardTheme: boolean): Rule {
+export function migrateButton(scope: MigrationScope): Rule {
   return chain([
     createImportPathMigrationRule(IMPORT_PATHS, scope),
     createCommentMigrationRule(COMMENTS, scope),
-    createAttributeMigrationRule(ATTRIBUTES(hasStandardTheme), scope),
+    createAttributeMigrationRule(ATTRIBUTES, scope),
     createTemplateSelectorMigrationRule([...BUTTON_MIGRATIONS, ...LINK_MIGRATIONS], scope),
   ]);
 }

@@ -16,21 +16,16 @@ describe('sbb-button', () => {
   const runner = new SchematicTestRunner('test', tempCollectionPath);
 
   /** Runs the button migration against a tree containing the given files. */
-  const migrate = async (
-    files: Record<string, string>,
-    hasStandardTheme = false,
-  ): Promise<Tree> => {
+  const migrate = async (files: Record<string, string>): Promise<Tree> => {
     const tree = new UnitTestTree(new HostTree());
     for (const [filePath, content] of Object.entries(files)) {
       tree.create(filePath, content);
     }
-    return firstValueFrom(
-      runner.callRule(migrateButton({ root: '', excludedRoots: [] }, hasStandardTheme), tree),
-    );
+    return firstValueFrom(runner.callRule(migrateButton({ root: '', excludedRoots: [] }), tree));
   };
 
-  const migrateHtml = async (template: string, hasStandardTheme = false): Promise<string> => {
-    const tree = await migrate({ '/src/app/app.component.html': template }, hasStandardTheme);
+  const migrateHtml = async (template: string): Promise<string> => {
+    const tree = await migrate({ '/src/app/app.component.html': template });
     return tree.read('/src/app/app.component.html')!.toString('utf-8');
   };
 
@@ -45,7 +40,7 @@ describe('sbb-button', () => {
       }
 
       await firstValueFrom(
-        runner.callRule(migrateButton({ root: 'projects/app-a', excludedRoots: [] }, false), tree),
+        runner.callRule(migrateButton({ root: 'projects/app-a', excludedRoots: [] }), tree),
       );
 
       expect(tree.readText('/projects/app-a/src/app.component.html')).toBe(
@@ -126,18 +121,6 @@ describe('sbb-button', () => {
         '<sbb-link-button>A</sbb-link-button>',
       );
       expect(await migrateHtml('<a sbb-link>A</a>')).toContain('<sbb-link>A</sbb-link>');
-    });
-
-    it('should keep the type attribute', async () => {
-      expect(await migrateHtml('<button type="button" sbb-button>other stuff</button>')).toBe(
-        '<sbb-button type="button">other stuff</sbb-button>',
-      );
-    });
-
-    it('should keep a non default type', async () => {
-      expect(await migrateHtml('<button type="submit" sbb-button>Send</button>')).toBe(
-        '<sbb-button type="submit">Send</sbb-button>',
-      );
     });
 
     it('should keep all other attributes and bindings', async () => {
@@ -270,124 +253,21 @@ describe('sbb-button', () => {
     });
   });
 
-  describe('attributes with default values based on theme', () => {
-    it('should handle lean theme', async () => {
-      // set no default iconName
-      expect(await migrateHtml('<button sbb-button>Go</button>', false)).toBe(
-        '<sbb-button>Go</sbb-button>',
-      );
-      expect(await migrateHtml('<button sbb-secondary-button>Go</button>', false)).toBe(
-        '<sbb-secondary-button>Go</sbb-secondary-button>',
-      );
-      expect(await migrateHtml('<button sbb-frameless-button>Go</button>', false)).toBe(
-        '<sbb-transparent-button>Go</sbb-transparent-button>',
-      );
-      expect(await migrateHtml('<button sbb-ghost-button>Go</button>', false)).toBe(
-        '<sbb-accent-button>Go</sbb-accent-button>',
-      );
-      expect(await migrateHtml('<a sbb-button>Go</a>', false)).toBe(
-        '<sbb-button-link>Go</sbb-button-link>',
-      );
-      expect(await migrateHtml('<a sbb-secondary-button>Go</a>', false)).toBe(
-        '<sbb-secondary-button-link>Go</sbb-secondary-button-link>',
-      );
-      expect(await migrateHtml('<a sbb-frameless-button>Go</a>', false)).toBe(
-        '<sbb-transparent-button-link>Go</sbb-transparent-button-link>',
-      );
-      expect(await migrateHtml('<a sbb-ghost-button>Go</a>', false)).toBe(
-        '<sbb-accent-button-link>Go</sbb-accent-button-link>',
-      );
-
-      // replace svgIcon with iconName keeping value
-      expect(await migrateHtml('<button sbb-button svgIcon="test">Go</button>', false)).toBe(
-        '<sbb-button iconName="test">Go</sbb-button>',
-      );
-      expect(
-        await migrateHtml('<button sbb-secondary-button svgIcon="test">Go</button>', false),
-      ).toBe('<sbb-secondary-button iconName="test">Go</sbb-secondary-button>');
-      expect(
-        await migrateHtml('<button sbb-frameless-button svgIcon="test">Go</button>', false),
-      ).toBe('<sbb-transparent-button iconName="test">Go</sbb-transparent-button>');
-      expect(await migrateHtml('<button sbb-ghost-button svgIcon="test">Go</button>', false)).toBe(
-        '<sbb-accent-button iconName="test">Go</sbb-accent-button>',
-      );
-      expect(await migrateHtml('<a sbb-button>Go</a>', false)).toBe(
-        '<sbb-button-link>Go</sbb-button-link>',
-      );
-      expect(await migrateHtml('<a sbb-secondary-button>Go</a>', false)).toBe(
-        '<sbb-secondary-button-link>Go</sbb-secondary-button-link>',
-      );
-      expect(await migrateHtml('<a sbb-frameless-button>Go</a>', false)).toBe(
-        '<sbb-transparent-button-link>Go</sbb-transparent-button-link>',
-      );
-      expect(await migrateHtml('<a sbb-ghost-button>Go</a>', false)).toBe(
-        '<sbb-accent-button-link>Go</sbb-accent-button-link>',
-      );
-
-      // Remove icon
-      expect(await migrateHtml('<button sbb-link svgIcon="test">Go</button>', false)).toContain(
-        '<sbb-link-button>Go</sbb-link-button>',
-      );
-      expect(await migrateHtml('<a sbb-link svgIcon="test">Go</a>', false)).toContain(
-        '<sbb-link>Go</sbb-link>',
-      );
-    });
-
-    it('should handle non-lean theme', async () => {
-      expect(await migrateHtml('<button sbb-button>Go</button>', true)).toBe(
-        '<sbb-button iconName="arrow-right-small">Go</sbb-button>',
-      );
-      expect(await migrateHtml('<button sbb-secondary-button>Go</button>', true)).toBe(
-        '<sbb-secondary-button iconName="arrow-right-small">Go</sbb-secondary-button>',
-      );
-      expect(await migrateHtml('<button sbb-frameless-button>Go</button>', true)).toBe(
-        '<sbb-transparent-button iconName="plus-small">Go</sbb-transparent-button>',
-      );
-      expect(await migrateHtml('<button sbb-ghost-button>Go</button>', true)).toBe(
-        '<sbb-accent-button>Go</sbb-accent-button>',
-      );
-      expect(await migrateHtml('<button sbb-ghost-button svgIcon="test">Go</button>', true)).toBe(
-        '<sbb-accent-button iconName="test">Go</sbb-accent-button>',
-      );
-
-      expect(await migrateHtml('<a sbb-button>Go</a>', true)).toBe(
-        '<sbb-button-link iconName="arrow-right-small">Go</sbb-button-link>',
-      );
-      expect(await migrateHtml('<a sbb-secondary-button>Go</a>', true)).toBe(
-        '<sbb-secondary-button-link iconName="arrow-right-small">Go</sbb-secondary-button-link>',
-      );
-      expect(await migrateHtml('<a sbb-frameless-button>Go</a>', true)).toBe(
-        '<sbb-transparent-button-link iconName="plus-small">Go</sbb-transparent-button-link>',
-      );
-      expect(await migrateHtml('<a sbb-ghost-button>Go</a>', true)).toBe(
-        '<sbb-accent-button-link>Go</sbb-accent-button-link>',
-      );
-      expect(await migrateHtml('<a sbb-ghost-button svgIcon="test">Go</a>', true)).toBe(
-        '<sbb-accent-button-link iconName="test">Go</sbb-accent-button-link>',
-      );
-
-      expect(await migrateHtml('<button sbb-link>Go</button>', true)).toContain(
-        '<sbb-link-button>Go</sbb-link-button>',
-      );
-      expect(await migrateHtml('<a sbb-link>Go</a>', true)).toContain('<sbb-link>Go</sbb-link>');
-    });
-  });
-
   describe('comments', () => {
     it('should add comments for links', async () => {
-      expect(await migrateHtml('<a sbb-link>Go</a>', false)).toContain(
+      expect(await migrateHtml('<a sbb-link>Go</a>')).toContain(
         "FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the component's imports.",
       );
-      expect(await migrateHtml('<button sbb-link>Go</button>', false)).toContain(
+      expect(await migrateHtml('<button sbb-link>Go</button>')).toContain(
         "FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the component's imports.",
       );
     });
 
     it('should add comments for sbb-alt-button', async () => {
-      expect(await migrateHtml('<button sbb-alt-button>Go</button>', false)).toContain(
+      expect(await migrateHtml('<button sbb-alt-button>Go</button>')).toContain(
         'FIXME: this component has no counterpart in lyne-angular.',
       );
-      expect(await migrateHtml('<a sbb-alt-button>Go</a>', false)).toContain(
+      expect(await migrateHtml('<a sbb-alt-button>Go</a>')).toContain(
         'FIXME: this component has no counterpart in lyne-angular.',
       );
     });

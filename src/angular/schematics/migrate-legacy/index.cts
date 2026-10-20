@@ -76,12 +76,12 @@ function resolveLegacyModules(module: string[] | undefined): LegacyModuleName[] 
 function loadModuleMigration(
   module: LegacyModuleName,
   scope: MigrationScope,
-  isStandardTheme: boolean,
+  _isStandardTheme: boolean,
 ): Rule {
   // TODO: Add more modules as they are implemented
   switch (module) {
     case 'button':
-      return migrateButton(scope, isStandardTheme);
+      return migrateButton(scope);
     case 'captcha':
       return migrateCaptcha(scope);
     case 'textarea':
