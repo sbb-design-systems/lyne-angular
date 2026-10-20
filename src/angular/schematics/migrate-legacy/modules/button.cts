@@ -62,8 +62,8 @@ const ATTRIBUTES: AttributeMigration[] = [
  * Transformations:
  * 1. Rewrite import paths
  * 2. Add comments for cases which cannot be migrated automatically
- * 2. Replace attribute selectors with the Lyne elements
- * 3. Rename selectors
+ * 3. Replace attribute selectors with the Lyne elements
+ * 4. Rename selectors
  */
 export function migrateButton(scope: MigrationScope): Rule {
   return chain([
