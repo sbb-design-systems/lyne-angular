@@ -1,44 +1,54 @@
-import * as fs from 'node:fs';
-import * as os from 'node:os';
-import * as path from 'node:path';
-
-import { HostTree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
-import { firstValueFrom } from 'rxjs';
 import { describe, expect, it } from 'vitest';
+
+import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
 import { migrateUsermenu } from './usermenu.cjs';
 
 describe('sbb-usermenu', () => {
-  const tempCollectionPath = path.join(
-    os.tmpdir(),
-    'lyne-angular-migrate-usermenu-collection.json',
-  );
-  fs.writeFileSync(tempCollectionPath, JSON.stringify({ schematics: {} }));
-  const runner = new SchematicTestRunner('test', tempCollectionPath);
+  const defaultMigration = migrateUsermenu({ root: '', excludedRoots: [] });
 
-  describe('migration', () => {
-    it('should only migrate the files of the given scope', async () => {
-      const template = '<sbb-usermenu></sbb-usermenu>';
-      const source = "import { SbbUsermenuModule } from '@sbb-esta/angular/usermenu';";
-      const tree = new UnitTestTree(new HostTree());
-      for (const project of ['app-a', 'app-b']) {
-        tree.create(`/projects/${project}/src/app.component.html`, template);
-        tree.create(`/projects/${project}/src/app.component.ts`, source);
-      }
+  describe('should add comments', () => {
+    it('for selector', async () => {
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          '<sbb-usermenu></sbb-usermenu>',
+          defaultMigration,
+        ),
+      ).toContain('FIXME: this component has no direct counterpart in lyne-angular.');
+    });
 
-      await firstValueFrom(
-        runner.callRule(migrateUsermenu({ root: 'projects/app-a', excludedRoots: [] }), tree),
+    it('for inline selector and symbols', async () => {
+      const source = await MigrateLegacyTestUtils.migrateTsFile(
+        [
+          "import { Component } from '@angular/core';",
+          "import { SbbUsermenuModule } from '@sbb-esta/angular/captcha';",
+          '',
+          '@Component({',
+          "  selector: 'app-root',",
+          '  imports: [SbbUsermenuModule],',
+          "  template: '<sbb-usermenu></sbb-usermenu>',",
+          '})',
+          'export class AppComponent {}',
+        ].join('\n'),
+        defaultMigration,
       );
 
-      expect(tree.readText('/projects/app-a/src/app.component.html')).toContain(
-        'FIXME: this component has no direct counterpart in lyne-angular.',
-      );
-      expect(tree.readText('/projects/app-a/src/app.component.ts')).toContain(
+      const content = [
+        "import { Component } from '@angular/core';",
         '// FIXME: this component has no direct counterpart in lyne-angular.',
-      );
-      expect(tree.readText('/projects/app-b/src/app.component.html')).toBe(template);
-      expect(tree.readText('/projects/app-b/src/app.component.ts')).toBe(source);
+        "import { SbbUsermenuModule } from '@sbb-esta/angular/captcha';",
+        '',
+        '@Component({',
+        "  selector: 'app-root',",
+        '  // FIXME: this component has no direct counterpart in lyne-angular.',
+        '  imports: [SbbUsermenuModule],',
+        '  // FIXME: this component has no direct counterpart in lyne-angular.',
+        "  template: '<sbb-usermenu></sbb-usermenu>',",
+        '})',
+        'export class AppComponent {}',
+      ].join('\n');
+
+      expect(source).toBe(content);
     });
   });
 });

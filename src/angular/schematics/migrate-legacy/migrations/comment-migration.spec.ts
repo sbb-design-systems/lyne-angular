@@ -1,57 +1,25 @@
-import * as fs from 'node:fs';
-import * as os from 'node:os';
-import * as path from 'node:path';
-
-import { HostTree, type Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
-import { firstValueFrom } from 'rxjs';
 import { describe, expect, it } from 'vitest';
+
+import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
 import { type CommentMigration, createCommentMigrationRule } from './comment-migration.cjs';
 
 describe('sbb-comment-migration', () => {
-  const tempCollectionPath = path.join(
-    os.tmpdir(),
-    'lyne-angular-comment-migration-collection.json',
-  );
-  fs.writeFileSync(tempCollectionPath, JSON.stringify({ schematics: {} }));
-
-  const runner = new SchematicTestRunner('test', tempCollectionPath);
-
-  const migrate = async (
-    files: Record<string, string>,
-    migrations: CommentMigration[],
-  ): Promise<Tree> => {
-    const tree = new UnitTestTree(new HostTree());
-    for (const [filePath, content] of Object.entries(files)) {
-      tree.create(filePath, content);
-    }
-    return firstValueFrom(runner.callRule(createCommentMigrationRule(migrations), tree));
-  };
-
-  const migrateFile = async (
-    filePath: string,
-    content: string,
-    migrations: CommentMigration[],
-  ): Promise<string> => {
-    const tree = await migrate({ [filePath]: content }, migrations);
-    return tree.read(filePath)!.toString('utf-8');
-  };
-
   const CAPTCHA: CommentMigration[] = [
     {
       selector: 'sbb-captcha',
       message: 'FIXME: sbb-captcha has no Lyne counterpart.',
     },
   ];
+  const basicMigrationRule = createCommentMigrationRule(CAPTCHA);
 
   describe('elements in external templates', () => {
-    const migrateHtml = (template: string, migrations: CommentMigration[] = CAPTCHA) =>
-      migrateFile('/src/app/app.component.html', template, migrations);
-
     it('should add a FIXME comment above the element', async () => {
       expect(
-        await migrateHtml(['<div>', '  <sbb-captcha></sbb-captcha>', '</div>'].join('\n')),
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          ['<div>', '  <sbb-captcha></sbb-captcha>', '</div>'].join('\n'),
+          basicMigrationRule,
+        ),
       ).toBe(
         [
           '<div>',
@@ -66,18 +34,24 @@ describe('sbb-comment-migration', () => {
       const template = '<sbb-captcha></sbb-captcha>';
 
       expect(
-        await migrateHtml(template, [{ selector: 'sbb-captcha', message: 'Plain message.' }]),
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          template,
+          createCommentMigrationRule([{ selector: 'sbb-captcha', message: 'Plain message.' }]),
+        ),
       ).toBe(`<!-- Plain message. -->\n${template}`);
     });
 
     it('should render multiline messages', async () => {
       expect(
-        await migrateHtml('<sbb-captcha></sbb-captcha>', [
-          {
-            selector: 'sbb-captcha',
-            message: 'FIXME: First line.\nSecond line.',
-          },
-        ]),
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          '<sbb-captcha></sbb-captcha>',
+          createCommentMigrationRule([
+            {
+              selector: 'sbb-captcha',
+              message: 'FIXME: First line.\nSecond line.',
+            },
+          ]),
+        ),
       ).toBe(
         [
           '<!-- FIXME: First line. -->',
@@ -89,20 +63,20 @@ describe('sbb-comment-migration', () => {
 
     it('should comment every matching element and support attribute selectors', async () => {
       expect(
-        await migrateHtml(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
           [
             '<sbb-captcha></sbb-captcha>',
             '<div>',
             '  <button sbb-lightbox>x</button>',
             '</div>',
           ].join('\n'),
-          [
+          createCommentMigrationRule([
             ...CAPTCHA,
             {
               selector: '[sbb-lightbox]',
               message: 'TODO: Lightbox is not available.',
             },
-          ],
+          ]),
         ),
       ).toBe(
         [
@@ -118,10 +92,13 @@ describe('sbb-comment-migration', () => {
 
     it('should add each message only once per line', async () => {
       expect(
-        await migrateHtml('<sbb-captcha></sbb-captcha><sbb-captcha></sbb-captcha>', [
-          ...CAPTCHA,
-          { selector: 'sbb-captcha', message: 'TODO: Second hint.' },
-        ]),
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          '<sbb-captcha></sbb-captcha><sbb-captcha></sbb-captcha>',
+          createCommentMigrationRule([
+            ...CAPTCHA,
+            { selector: 'sbb-captcha', message: 'TODO: Second hint.' },
+          ]),
+        ),
       ).toBe(
         [
           '<!-- FIXME: sbb-captcha has no Lyne counterpart. -->',
@@ -132,12 +109,20 @@ describe('sbb-comment-migration', () => {
     });
 
     it('should be idempotent', async () => {
-      const once = await migrateHtml('<div>\n  <sbb-captcha></sbb-captcha>\n</div>');
-      expect(await migrateHtml(once)).toBe(once);
+      const once = await MigrateLegacyTestUtils.migrateHtmlFile(
+        '<div>\n  <sbb-captcha></sbb-captcha>\n</div>',
+        basicMigrationRule,
+      );
+      expect(await MigrateLegacyTestUtils.migrateHtmlFile(once, basicMigrationRule)).toBe(once);
     });
 
     it('should comment elements inside control flow blocks', async () => {
-      expect(await migrateHtml(['@if (show) {', '  <sbb-captcha />', '}'].join('\n'))).toBe(
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          ['@if (show) {', '  <sbb-captcha />', '}'].join('\n'),
+          basicMigrationRule,
+        ),
+      ).toBe(
         [
           '@if (show) {',
           '  <!-- FIXME: sbb-captcha has no Lyne counterpart. -->',
@@ -156,8 +141,6 @@ describe('sbb-comment-migration', () => {
         message: 'FIXME: mode has been removed.',
       },
     ];
-    const migrateHtml = (template: string) =>
-      migrateFile('/src/app/app.component.html', template, MODE);
 
     it('should comment static attributes, inputs and outputs', async () => {
       const expected = (tag: string) => `<!-- FIXME: mode has been removed. -->\n${tag}`;
@@ -168,15 +151,16 @@ describe('sbb-comment-migration', () => {
         '<sbb-button (mode)="m()"></sbb-button>',
         '<sbb-button [(mode)]="m"></sbb-button>',
       ]) {
-        expect(await migrateHtml(tag)).toBe(expected(tag));
+        expect(
+          await MigrateLegacyTestUtils.migrateHtmlFile(tag, createCommentMigrationRule(MODE)),
+        ).toBe(expected(tag));
       }
     });
   });
 
   describe('inline templates', () => {
     it('should add a // comment above the template property', async () => {
-      const result = await migrateFile(
-        '/src/app/app.component.ts',
+      const result = await MigrateLegacyTestUtils.migrateTsFile(
         [
           "import { Component } from '@angular/core';",
           '',
@@ -188,7 +172,7 @@ describe('sbb-comment-migration', () => {
           '})',
           'export class AppComponent {}',
         ].join('\n'),
-        CAPTCHA,
+        basicMigrationRule,
       );
 
       expect(result).toBe(
@@ -209,19 +193,9 @@ describe('sbb-comment-migration', () => {
   });
 
   describe('symbols', () => {
-    const MODULE: CommentMigration[] = [
-      {
-        symbol: 'SbbCaptchaModule',
-        importedFrom: '@sbb-esta/angular/captcha',
-        message: 'FIXME: SbbCaptchaModule has no Lyne counterpart.',
-      },
-    ];
-    const migrateTs = (source: string, migrations: CommentMigration[] = MODULE) =>
-      migrateFile('/src/app/app.component.ts', source, migrations);
-
     it('should comment the import and every usage', async () => {
       expect(
-        await migrateTs(
+        await MigrateLegacyTestUtils.migrateTsFile(
           [
             "import { SbbCaptchaModule } from '@sbb-esta/angular/captcha';",
             '',
@@ -232,6 +206,13 @@ describe('sbb-comment-migration', () => {
             '})',
             'export class AppComponent {}',
           ].join('\n'),
+          createCommentMigrationRule([
+            {
+              symbol: 'SbbCaptchaModule',
+              importedFrom: '@sbb-esta/angular/captcha',
+              message: 'FIXME: SbbCaptchaModule has no Lyne counterpart.',
+            },
+          ]),
         ),
       ).toBe(
         [

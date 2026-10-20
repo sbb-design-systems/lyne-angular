@@ -1,46 +1,18 @@
-import * as fs from 'node:fs';
-import * as os from 'node:os';
-import * as path from 'node:path';
-
-import { HostTree, type Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
-import { firstValueFrom } from 'rxjs';
 import { describe, expect, it } from 'vitest';
+
+import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
 import { createTypeMigrationRule, type TypeMigration } from './type-migration.cjs';
 
 describe('sbb-type-migration', () => {
-  const tempCollectionPath = path.join(os.tmpdir(), 'lyne-angular-type-migration-collection.json');
-  fs.writeFileSync(tempCollectionPath, JSON.stringify({ schematics: {} }));
-
-  const runner = new SchematicTestRunner('test', tempCollectionPath);
-
   const BREADCRUMBS: TypeMigration[] = [
     { from: 'SbbBreadcrumbs', to: 'SbbBreadcrumbGroup', importedFrom: '@sbb-esta/angular' },
   ];
-
-  const migrate = async (
-    files: Record<string, string>,
-    migrations: TypeMigration[] = BREADCRUMBS,
-  ): Promise<Tree> => {
-    const tree = new UnitTestTree(new HostTree());
-    for (const [filePath, content] of Object.entries(files)) {
-      tree.create(filePath, content);
-    }
-    return firstValueFrom(runner.callRule(createTypeMigrationRule(migrations), tree));
-  };
-
-  const migrateSource = async (
-    source: string,
-    migrations: TypeMigration[] = BREADCRUMBS,
-  ): Promise<string> => {
-    const tree = await migrate({ '/src/app/app.component.ts': source }, migrations);
-    return tree.read('/src/app/app.component.ts')!.toString('utf-8');
-  };
+  const defaultMigrationType = createTypeMigrationRule(BREADCRUMBS);
 
   describe('renaming', () => {
     it('should rename the import and all usages', async () => {
-      const result = await migrateSource(
+      const result = await MigrateLegacyTestUtils.migrateTsFile(
         [
           "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
           '',
@@ -51,6 +23,7 @@ describe('sbb-type-migration', () => {
           '  }',
           '}',
         ].join('\n'),
+        defaultMigrationType,
       );
 
       expect(result).toBe(
@@ -68,13 +41,14 @@ describe('sbb-type-migration', () => {
     });
 
     it('should rename type-only imports and generic usages', async () => {
-      const result = await migrateSource(
+      const result = await MigrateLegacyTestUtils.migrateTsFile(
         [
           "import type { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
           '',
           'export const items: Array<SbbBreadcrumbs> = [];',
           'export type Maybe = SbbBreadcrumbs | null;',
         ].join('\n'),
+        defaultMigrationType,
       );
 
       expect(result).toContain('import type { SbbBreadcrumbGroup }');
@@ -83,7 +57,7 @@ describe('sbb-type-migration', () => {
     });
 
     it('should rename usages in decorators and viewChild queries', async () => {
-      const result = await migrateSource(
+      const result = await MigrateLegacyTestUtils.migrateTsFile(
         [
           "import { ViewChild } from '@angular/core';",
           "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
@@ -92,23 +66,24 @@ describe('sbb-type-migration', () => {
           '  @ViewChild(SbbBreadcrumbs) breadcrumbs!: SbbBreadcrumbs;',
           '}',
         ].join('\n'),
+        defaultMigrationType,
       );
 
       expect(result).toContain('@ViewChild(SbbBreadcrumbGroup) breadcrumbs!: SbbBreadcrumbGroup;');
     });
 
     it('should support multiple migrations in one file', async () => {
-      const result = await migrateSource(
+      const result = await MigrateLegacyTestUtils.migrateTsFile(
         [
           "import { SbbBreadcrumbs, SbbBreadcrumb } from '@sbb-esta/angular/breadcrumb';",
           '',
           'export const a: SbbBreadcrumbs | null = null;',
           'export const b: SbbBreadcrumb | null = null;',
         ].join('\n'),
-        [
+        createTypeMigrationRule([
           { from: 'SbbBreadcrumbs', to: 'SbbBreadcrumbGroup' },
           { from: 'SbbBreadcrumb', to: 'SbbBreadcrumbItem' },
-        ],
+        ]),
       );
 
       expect(result).toContain(
@@ -126,8 +101,8 @@ describe('sbb-type-migration', () => {
         'export const x: SbbBreadcrumbs | null = null;',
       ].join('\n');
 
-      const once = await migrateSource(source);
-      expect(await migrateSource(once)).toBe(once);
+      const once = await MigrateLegacyTestUtils.migrateTsFile(source, defaultMigrationType);
+      expect(await MigrateLegacyTestUtils.migrateTsFile(once, defaultMigrationType)).toBe(once);
     });
   });
 
@@ -139,7 +114,7 @@ describe('sbb-type-migration', () => {
         'export const x: SbbBreadcrumbs | null = null;',
       ].join('\n');
 
-      expect(await migrateSource(source)).toBe(source);
+      expect(await MigrateLegacyTestUtils.migrateTsFile(source, defaultMigrationType)).toBe(source);
     });
 
     it('should respect the importedFrom filter', async () => {
@@ -149,17 +124,17 @@ describe('sbb-type-migration', () => {
         'export const x: SbbBreadcrumbs | null = null;',
       ].join('\n');
 
-      expect(await migrateSource(source)).toBe(source);
+      expect(await MigrateLegacyTestUtils.migrateTsFile(source, defaultMigrationType)).toBe(source);
     });
 
     it('should migrate from any module when importedFrom is omitted', async () => {
-      const result = await migrateSource(
+      const result = await MigrateLegacyTestUtils.migrateTsFile(
         [
           "import { SbbBreadcrumbs } from './local-breadcrumbs';",
           '',
           'export const x: SbbBreadcrumbs | null = null;',
         ].join('\n'),
-        [{ from: 'SbbBreadcrumbs', to: 'SbbBreadcrumbGroup' }],
+        createTypeMigrationRule([{ from: 'SbbBreadcrumbs', to: 'SbbBreadcrumbGroup' }]),
       );
 
       expect(result).toContain("import { SbbBreadcrumbGroup } from './local-breadcrumbs';");
@@ -167,7 +142,7 @@ describe('sbb-type-migration', () => {
     });
 
     it('should not rename member names, object keys or strings', async () => {
-      const result = await migrateSource(
+      const result = await MigrateLegacyTestUtils.migrateTsFile(
         [
           "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
           '',
@@ -178,6 +153,7 @@ describe('sbb-type-migration', () => {
           '  value: SbbBreadcrumbs | null = null;',
           '}',
         ].join('\n'),
+        defaultMigrationType,
       );
 
       expect(result).toContain('  SbbBreadcrumbs = 1;');
@@ -193,10 +169,13 @@ describe('sbb-type-migration', () => {
         'export declare const x: SbbBreadcrumbs;',
       ].join('\n');
 
-      const tree = await migrate({
-        '/node_modules/some-lib/index.ts': source,
-        '/src/app/app.d.ts': source,
-      });
+      const tree = await MigrateLegacyTestUtils.migrateFiles(
+        {
+          '/node_modules/some-lib/index.ts': source,
+          '/src/app/app.d.ts': source,
+        },
+        defaultMigrationType,
+      );
 
       expect(tree.read('/node_modules/some-lib/index.ts')!.toString('utf-8')).toBe(source);
       expect(tree.read('/src/app/app.d.ts')!.toString('utf-8')).toBe(source);
@@ -204,18 +183,19 @@ describe('sbb-type-migration', () => {
 
     it('should not touch html files', async () => {
       const template = '<sbb-breadcrumbs>SbbBreadcrumbs</sbb-breadcrumbs>';
-      const tree = await migrate({ '/src/app/app.component.html': template });
-      expect(tree.read('/src/app/app.component.html')!.toString('utf-8')).toBe(template);
+      const content = await MigrateLegacyTestUtils.migrateHtmlFile(template, defaultMigrationType);
+      expect(content).toBe(template);
     });
   });
 
   describe('name conflicts', () => {
     it('should drop the legacy specifier when the new symbol is already imported', async () => {
-      const result = await migrateSource(
+      const result = await MigrateLegacyTestUtils.migrateTsFile(
         [
           "import { SbbBreadcrumbs, SbbBreadcrumbGroup } from '@sbb-esta/angular/breadcrumb';",
           'export const a: SbbBreadcrumbs | SbbBreadcrumbGroup = null!;',
         ].join('\n'),
+        defaultMigrationType,
       );
 
       expect(result).toBe(
