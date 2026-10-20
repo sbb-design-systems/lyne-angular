@@ -63,6 +63,11 @@ export interface ParsedSelector {
   attribute?: string;
 }
 
+export interface Span {
+  start: number;
+  end: number;
+}
+
 /** Everything a template migration needs to describe its edits. */
 export interface TemplateMigrationContext {
   /**
@@ -520,7 +525,7 @@ export function resolveKeySpan(
   node: { sourceSpan: ParseSourceSpan; keySpan?: ParseSourceSpan },
   name: string,
   content: string,
-): { start: number; end: number } | undefined {
+): Span | undefined {
   if (node.keySpan) {
     return { start: node.keySpan.start.offset, end: node.keySpan.end.offset };
   }

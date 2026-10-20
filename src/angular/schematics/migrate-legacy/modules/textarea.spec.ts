@@ -2,10 +2,12 @@ import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
 
-import { HostTree } from '@angular-devkit/schematics';
+import { HostTree, type Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { firstValueFrom } from 'rxjs';
 import { describe, expect, it } from 'vitest';
+
+import type { MigrationScope } from '../../utils.cjs';
 
 import { migrateTextarea } from './textarea.cjs';
 
@@ -15,30 +17,307 @@ describe('sbb-textarea', () => {
     'lyne-angular-migrate-textarea-collection.json',
   );
   fs.writeFileSync(tempCollectionPath, JSON.stringify({ schematics: {} }));
+
   const runner = new SchematicTestRunner('test', tempCollectionPath);
 
-  describe('migration', () => {
-    it('should only migrate the files of the given scope', async () => {
-      const template = '<sbb-textarea></sbb-textarea>';
-      const source = "import { SbbTextareaModule } from '@sbb-esta/angular/textarea';";
-      const tree = new UnitTestTree(new HostTree());
-      for (const project of ['app-a', 'app-b']) {
-        tree.create(`/projects/${project}/src/app.component.html`, template);
-        tree.create(`/projects/${project}/src/app.component.ts`, source);
+  const migrate = async (
+    files: Record<string, string>,
+    scope: MigrationScope = { root: '', excludedRoots: [] },
+  ): Promise<Tree> => {
+    const tree = new UnitTestTree(new HostTree());
+    for (const [filePath, content] of Object.entries(files)) {
+      tree.create(filePath, content);
+    }
+    return firstValueFrom(runner.callRule(migrateTextarea(scope), tree));
+  };
+
+  const COUNTER = '<sbb-form-field-text-counter></sbb-form-field-text-counter>';
+
+  /** Wraps the lines in a `sbb-form-field`, each indented by one level. */
+  const inField = (...lines: string[]): string =>
+    [
+      '<sbb-form-field>',
+      ...lines.map((line) => (line.startsWith(' ') ? line : `  ${line}`)),
+      '</sbb-form-field>',
+    ].join('\n');
+
+  const migrateHtml = async (template: string): Promise<string> =>
+    (await migrate({ '/src/app/app.component.html': template })).readText(
+      '/src/app/app.component.html',
+    );
+
+  /** Inline templates are only detected on a `Component` imported from `@angular/core`. */
+  const inlineComponent = (template: string): string =>
+    [
+      "import { Component } from '@angular/core';",
+      `@Component({ template: '${template}' })`,
+      'export class AppComponent {}',
+    ].join('\n');
+
+  const migrateInline = async (template: string): Promise<string> =>
+    (await migrate({ '/src/app/app.component.ts': inlineComponent(template) })).readText(
+      '/src/app/app.component.ts',
+    );
+
+  describe('without maxlength', () => {
+    it('should replace sbb-textarea with textarea', async () => {
+      expect(await migrateHtml('<sbb-textarea></sbb-textarea>')).toBe('<textarea></textarea>');
+    });
+
+    it('should keep attributes and content', async () => {
+      expect(
+        await migrateHtml('<sbb-textarea formControlName="comment" rows="3">Hello</sbb-textarea>'),
+      ).toBe('<textarea formControlName="comment" rows="3">Hello</textarea>');
+    });
+
+    it('should replace multiline elements', async () => {
+      expect(
+        await migrateHtml(
+          [
+            '<div>',
+            '  <sbb-textarea',
+            '    formControlName="comment"',
+            '  ></sbb-textarea>',
+            '</div>',
+          ].join('\n'),
+        ),
+      ).toBe(
+        ['<div>', '  <textarea', '    formControlName="comment"', '  ></textarea>', '</div>'].join(
+          '\n',
+        ),
+      );
+    });
+
+    it('should replace every sbb-textarea of a template', async () => {
+      expect(
+        await migrateHtml(
+          ['<sbb-textarea></sbb-textarea>', '<div><sbb-textarea></sbb-textarea></div>'].join('\n'),
+        ),
+      ).toBe(['<textarea></textarea>', '<div><textarea></textarea></div>'].join('\n'));
+    });
+
+    it('should replace elements with a structural directive or inside control flow', async () => {
+      expect(await migrateHtml('<sbb-textarea *ngIf="show"></sbb-textarea>')).toBe(
+        '<textarea *ngIf="show"></textarea>',
+      );
+      expect(await migrateHtml('@if (show) {\n  <sbb-textarea></sbb-textarea>\n}')).toBe(
+        '@if (show) {\n  <textarea></textarea>\n}',
+      );
+    });
+  });
+
+  describe('with maxlength inside a sbb-form-field', () => {
+    it.each([
+      ['a static attribute', 'maxlength="100"'],
+      ['a single-quoted attribute', "maxlength='100'"],
+      ['an attribute in another casing', 'maxLength="100"'],
+      ['an interpolated attribute', 'maxlength="{{ max }}"'],
+      ['a property binding', '[maxlength]="max"'],
+      ['an attribute binding', '[attr.maxlength]="max"'],
+    ])(
+      'should replace the element and add the counter after it for %s',
+      async (_name, attribute) => {
+        expect(await migrateHtml(inField(`<sbb-textarea ${attribute}></sbb-textarea>`))).toBe(
+          inField(`<textarea ${attribute}></textarea>`, `  ${COUNTER}`),
+        );
+      },
+    );
+
+    it('should indent the counter like the textarea', async () => {
+      expect(
+        await migrateHtml(
+          [
+            '<sbb-form-field>',
+            '  <div>',
+            '    <sbb-textarea maxlength="100"></sbb-textarea>',
+            '  </div>',
+            '</sbb-form-field>',
+          ].join('\n'),
+        ),
+      ).toBe(
+        [
+          '<sbb-form-field>',
+          '  <div>',
+          '    <textarea maxlength="100"></textarea>',
+          `    ${COUNTER}`,
+          '  </div>',
+          '</sbb-form-field>',
+        ].join('\n'),
+      );
+    });
+
+    it('should keep the content of the textarea', async () => {
+      expect(
+        await migrateHtml(
+          inField(
+            '<sbb-textarea maxlength="100">Hello</sbb-textarea>',
+            '  <sbb-hint>Hint</sbb-hint>',
+          ),
+        ),
+      ).toBe(
+        [
+          '<sbb-form-field>',
+          '  <textarea maxlength="100">Hello</textarea>',
+          `  ${COUNTER}`,
+          '  <sbb-hint>Hint</sbb-hint>',
+          '</sbb-form-field>',
+        ].join('\n'),
+      );
+    });
+
+    it('should add the counter after multiline elements', async () => {
+      expect(
+        await migrateHtml(
+          [
+            '<sbb-form-field>',
+            '  <sbb-textarea',
+            '    maxlength="100"',
+            '    formControlName="comment"',
+            '  ></sbb-textarea>',
+            '</sbb-form-field>',
+          ].join('\n'),
+        ),
+      ).toBe(
+        [
+          '<sbb-form-field>',
+          '  <textarea',
+          '    maxlength="100"',
+          '    formControlName="comment"',
+          '  ></textarea>',
+          `  ${COUNTER}`,
+          '</sbb-form-field>',
+        ].join('\n'),
+      );
+    });
+
+    it('should handle elements with a structural directive', async () => {
+      expect(
+        await migrateHtml(inField('<sbb-textarea *ngIf="show" maxlength="100"></sbb-textarea>')),
+      ).toBe(inField('<textarea *ngIf="show" maxlength="100"></textarea>', `  ${COUNTER}`));
+    });
+
+    it('should handle elements inside control flow', async () => {
+      expect(
+        await migrateHtml(
+          [
+            '<sbb-form-field>',
+            '  @if (show) {',
+            '    <sbb-textarea maxlength="100"></sbb-textarea>',
+            '  }',
+            '</sbb-form-field>',
+          ].join('\n'),
+        ),
+      ).toBe(
+        [
+          '<sbb-form-field>',
+          '  @if (show) {',
+          '    <textarea maxlength="100"></textarea>',
+          `    ${COUNTER}`,
+          '  }',
+          '</sbb-form-field>',
+        ].join('\n'),
+      );
+    });
+  });
+
+  describe('safety', () => {
+    it('should not touch other elements', async () => {
+      const source = [
+        '<textarea maxlength="100"></textarea>',
+        '<sbb-textarea-other maxlength="100"></sbb-textarea-other>',
+        '<sbb-input maxlength="100"></sbb-input>',
+      ].join('\n');
+
+      expect(await migrateHtml(source)).toBe(source);
+    });
+
+    it('should handle several elements in one template', async () => {
+      expect(
+        await migrateHtml(
+          [
+            '<sbb-textarea></sbb-textarea>',
+            '<sbb-textarea maxlength="10"></sbb-textarea>',
+            '<sbb-form-field>',
+            '  <sbb-textarea maxlength="10"></sbb-textarea>',
+            '</sbb-form-field>',
+          ].join('\n'),
+        ),
+      ).toBe(
+        [
+          '<textarea></textarea>',
+          '<textarea maxlength="10"></textarea>',
+          '<sbb-form-field>',
+          '  <textarea maxlength="10"></textarea>',
+          `  ${COUNTER}`,
+          '</sbb-form-field>',
+        ].join('\n'),
+      );
+    });
+
+    it('should be idempotent', async () => {
+      for (const source of [
+        '<sbb-textarea></sbb-textarea>',
+        '<sbb-textarea maxlength="100"></sbb-textarea>',
+        inField('<sbb-textarea maxlength="100"></sbb-textarea>'),
+      ]) {
+        const once = await migrateHtml(source);
+        expect(await migrateHtml(once)).toBe(once);
       }
+    });
+  });
 
-      await firstValueFrom(
-        runner.callRule(migrateTextarea({ root: 'projects/app-a', excludedRoots: [] }), tree),
+  describe('inline templates', () => {
+    it('should replace sbb-textarea with textarea', async () => {
+      expect(await migrateInline('<sbb-textarea></sbb-textarea>')).toBe(
+        inlineComponent('<textarea></textarea>'),
+      );
+    });
+
+    it('should add the counter without line breaks', async () => {
+      expect(
+        await migrateInline(
+          '<sbb-form-field><sbb-textarea maxlength="100"></sbb-textarea></sbb-form-field>',
+        ),
+      ).toBe(
+        inlineComponent(
+          `<sbb-form-field><textarea maxlength="100"></textarea>${COUNTER}</sbb-form-field>`,
+        ),
+      );
+    });
+
+    it('should be idempotent', async () => {
+      for (const template of [
+        '<sbb-textarea maxlength="100"></sbb-textarea>',
+        '<sbb-form-field><sbb-textarea maxlength="100"></sbb-textarea></sbb-form-field>',
+      ]) {
+        const once = await migrateInline(template);
+        const tree = await migrate({ '/src/app/app.component.ts': once });
+
+        expect(tree.readText('/src/app/app.component.ts')).toBe(once);
+      }
+    });
+  });
+
+  describe('project scope', () => {
+    const scope: MigrationScope = {
+      root: 'projects/app-a',
+      excludedRoots: ['projects/app-a/lib'],
+    };
+
+    it('should only migrate the templates of the given scope', async () => {
+      const template = '<sbb-textarea></sbb-textarea>';
+      const tree = await migrate(
+        {
+          '/projects/app-a/src/app.component.html': template,
+          '/projects/app-a/lib/src/app.component.html': template,
+          '/projects/app-b/src/app.component.html': template,
+        },
+        scope,
       );
 
-      expect(tree.readText('/projects/app-a/src/app.component.html')).toContain(
-        'FIXME: this component has no direct counterpart in lyne-angular; use sbb-form-field with a textarea.',
-      );
-      expect(tree.readText('/projects/app-a/src/app.component.ts')).toContain(
-        '// FIXME: this component has no direct counterpart in lyne-angular; use sbb-form-field with a textarea.',
-      );
+      expect(tree.readText('/projects/app-a/src/app.component.html')).toBe('<textarea></textarea>');
+      expect(tree.readText('/projects/app-a/lib/src/app.component.html')).toBe(template);
       expect(tree.readText('/projects/app-b/src/app.component.html')).toBe(template);
-      expect(tree.readText('/projects/app-b/src/app.component.ts')).toBe(source);
     });
   });
 });
