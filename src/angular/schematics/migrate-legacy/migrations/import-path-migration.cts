@@ -20,8 +20,8 @@ import {
  * ]);
  * ```
  *
- * Module specifiers are matched exactly, which is enough for first-level entry points. Sub-paths
- * (`@sbb-esta/angular/button/button`) are not rewritten.
+ * Module specifiers are matched exactly, which is enough for first-level entry points.
+ * Sub-paths (`@sbb-esta/angular/button/button`) are not rewritten.
  */
 export function createImportPathMigrationRule(
   mappings: ImportRewriteOptions | ImportRewriteOptions[],

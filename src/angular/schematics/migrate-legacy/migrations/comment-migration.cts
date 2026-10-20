@@ -1,4 +1,3 @@
-import type { TmplAstElement } from '@angular/compiler';
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { chain } from '@angular-devkit/schematics';
 import ts from 'typescript';
@@ -21,9 +20,9 @@ import {
 } from '../../utils.cjs';
 import { findSymbolReferences } from '../symbol-references.cjs';
 import {
-  attributeNameVariants,
   createTemplateMigrationRule,
   elementMatches,
+  hasAttribute,
   parseSelector,
 } from '../template-migration.cjs';
 
@@ -97,12 +96,6 @@ function queueComment(
   }
 }
 
-function hasAttribute(element: TmplAstElement, variants: string[]): boolean {
-  return [...element.attributes, ...element.inputs, ...element.outputs].some((node) =>
-    variants.includes(node.name),
-  );
-}
-
 /**
  * Comments in templates:
  * - external templates: an HTML comment above the line of the element
@@ -115,7 +108,6 @@ function createElementCommentRule(
   const parsed = migrations.map((migration) => ({
     ...migration,
     selectors: [migration.selector].flat().map(parseSelector),
-    attributeVariants: migration.attribute ? attributeNameVariants(migration.attribute) : undefined,
   }));
 
   return createTemplateMigrationRule((element, context) => {
@@ -125,7 +117,7 @@ function createElementCommentRule(
     for (const migration of parsed) {
       if (
         !migration.selectors.some((selector) => elementMatches(element, selector)) ||
-        (migration.attributeVariants && !hasAttribute(element, migration.attributeVariants))
+        (migration.attribute && !hasAttribute(element, migration.attribute))
       ) {
         continue;
       }

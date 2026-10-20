@@ -50,6 +50,13 @@ export interface DecodedTemplate {
 /** An attribute which should be dropped, optionally only for a specific value. */
 export type RemovableAttribute = string | { name: string; value?: string };
 
+/** Static attribute, bound input or output of an element. */
+export type AttributeNode = {
+  name: string;
+  sourceSpan: ParseSourceSpan;
+  keySpan?: ParseSourceSpan;
+};
+
 /** A selector which has been split into its tag and attribute part. */
 export interface ParsedSelector {
   tag?: string;
@@ -104,8 +111,8 @@ const SELECTOR_PATTERN = /^([a-zA-Z][\w-]*)?(?:\[([\w-]+)\])?$/;
  * effective content is only known at runtime.
  *
  * The returned `content` is the raw source slice (not `node.text`) together with the `quote`
- * of its literal. Decode it with {@link decodeInlineTemplate} before parsing it: the decoded
- * offsets are mapped back to the file through the returned `offsets`.
+ * of its literal. Decode it with {@link decodeInlineTemplate} before parsing it:
+ * the decoded offsets are mapped back to the file through the returned `offsets`.
  */
 export function findInlineTemplates(filePath: string, fileContent: string): InlineTemplate[] {
   const sourceFile = ts.createSourceFile(filePath, fileContent, ts.ScriptTarget.Latest, true);
@@ -411,6 +418,16 @@ export function toCamelCase(name: string): string {
  */
 export function attributeNameVariants(name: string): string[] {
   return [...new Set([name, toCamelCase(name), toDashCase(name)])];
+}
+
+export function attributeNodes(element: TmplAstElement): AttributeNode[] {
+  return [...element.attributes, ...element.inputs, ...element.outputs];
+}
+
+/** Whether the element already uses the target name, which would create a duplicate. */
+export function hasAttribute(element: TmplAstElement, name: string): boolean {
+  const variants = attributeNameVariants(name);
+  return attributeNodes(element).some((node) => variants.includes(node.name));
 }
 
 /**

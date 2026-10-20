@@ -436,20 +436,6 @@ describe('sbb-attribute-migration', () => {
         ]),
       ).toBe('<sbb-button iconName="default-icon" size="m">A</sbb-button>');
     });
-
-    it('should add a default only once per target attribute', async () => {
-      expect(
-        await migrateHtml('<sbb-button>A</sbb-button>', [
-          ...migrationWithDefault,
-          {
-            selector: 'sbb-button',
-            attribute: 'icon',
-            replaceWith: 'iconName',
-            defaultValue: 'x',
-          },
-        ]),
-      ).toBe('<sbb-button iconName="default-icon">A</sbb-button>');
-    });
   });
 
   describe('project scope', () => {

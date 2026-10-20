@@ -45,7 +45,7 @@ describe('sbb-import-path-migration', () => {
       );
     });
 
-    it('should rewrite export declarations as well as imports', () => {
+    it('should rewrite export declarations', () => {
       expect(rewrite("export { SbbButtonModule } from '@sbb-esta/angular/button';")).toBe(
         "export { SbbButtonModule } from '@sbb-esta/lyne-angular/button';",
       );

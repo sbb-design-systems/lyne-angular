@@ -83,8 +83,6 @@ function getRemovalRanges(
  * Only files which import the legacy symbol (`import { Legacy } from '…'`) are touched. The import
  * and every identifier of the same name are renamed. If the file already imports `to`, the legacy
  * import specifier is removed instead of being renamed into a duplicate.
- *
- * Not handled: shadowing, namespace imports, re-exports, name clashes with local declarations.
  */
 export function createTypeMigrationRule(migrations: TypeMigration[], scope?: MigrationScope): Rule {
   const targets = migrations.map((migration) => ({

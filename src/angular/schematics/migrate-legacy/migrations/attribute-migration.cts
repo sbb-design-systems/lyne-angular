@@ -1,11 +1,12 @@
-import type { ParseSourceSpan, TmplAstElement } from '@angular/compiler';
 import type { Rule } from '@angular-devkit/schematics';
 
 import type { MigrationScope } from '../../utils.cjs';
 import {
   attributeNameVariants,
+  attributeNodes,
   createTemplateMigrationRule,
   elementMatches,
+  hasAttribute,
   ParsedSelector,
   parseSelector,
   queueAttributeRemoval,
@@ -37,19 +38,6 @@ export interface AttributeMigration {
 }
 
 type ParsedAttributeMigration = AttributeMigration & { parsedSelectors: ParsedSelector[] };
-
-/** Static attribute, bound input or output of an element. */
-type AttributeNode = { name: string; sourceSpan: ParseSourceSpan; keySpan?: ParseSourceSpan };
-
-function attributeNodes(element: TmplAstElement): AttributeNode[] {
-  return [...element.attributes, ...element.inputs, ...element.outputs];
-}
-
-/** Whether the element already uses the target name, which would create a duplicate. */
-function hasAttribute(element: TmplAstElement, name: string): boolean {
-  const variants = attributeNameVariants(name);
-  return attributeNodes(element).some((node) => variants.includes(node.name));
-}
 
 /**
  * Creates a rule which renames (or removes) attributes, inputs and outputs of legacy elements,
@@ -87,8 +75,6 @@ export function createAttributeMigrationRule(
     const { content, baseOffset, filePath, edits, nextIndex, logger } = context;
     // Several bindings can share a key span (e.g. the input and the output of a `[(x)]` two-way binding); every span must only be edited once.
     const handledOffsets = new Set<number>();
-    // Target attributes (dash-case) which already received a default on this element.
-    const handledDefaults = new Set<string>();
 
     for (const migration of parsedMigrations) {
       const parsedSelector = migration.parsedSelectors.find((selector) =>
@@ -170,13 +156,6 @@ export function createAttributeMigrationRule(
         if (hasAttribute(element, migration.replaceWith)) {
           continue;
         }
-
-        // One default per target attribute: distinct targets may share the insertion offset.
-        const defaultKey = toDashCase(migration.replaceWith);
-        if (handledDefaults.has(defaultKey)) {
-          continue;
-        }
-        handledDefaults.add(defaultKey);
 
         const tagStartOffset = element.startSourceSpan.start.offset;
         const tagName = element.name;

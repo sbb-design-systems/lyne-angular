@@ -71,7 +71,7 @@ export function createTemplateSelectorMigrationRule(
       return;
     }
 
-    // 1. Rename the opening tag (`<button` → `<sbb-button`).
+    // Rename the opening tag (`<button` → `<sbb-button`).
     edits.push({
       offset: baseOffset + element.startSourceSpan.start.offset + 1,
       index: nextIndex(),
@@ -83,7 +83,7 @@ export function createTemplateSelectorMigrationRule(
         ),
     });
 
-    // 2. Rename the closing tag, unless the element is self-closing or void.
+    // Rename the closing tag, unless the element is self-closing or void.
     if (
       endSpan.start.offset !== element.startSourceSpan.start.offset &&
       content.startsWith('</', endSpan.start.offset)
@@ -96,7 +96,7 @@ export function createTemplateSelectorMigrationRule(
       });
     }
 
-    // 3. Drop the marker attribute of the selector (it is the tag now)
+    // Drop the marker attribute of the selector (it is the tag now)
     const removals: RemovableAttribute[] = migration.parsed.attribute
       ? [migration.parsed.attribute]
       : [];
