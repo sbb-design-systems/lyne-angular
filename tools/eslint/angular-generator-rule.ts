@@ -266,8 +266,12 @@ export class Sbb${toPascalCase(moduleName)}Module {}
   }
 };
 
-generateStructure(elementsManifest, join(root, 'src/angular'));
-generateStructure(elementsExperimentalManifest, join(root, 'src/angular-experimental'));
+// Scaffolds component files so that the rules are run. We keep it outside the lint rule to avoid running it on every file.
+// Only run when the command is explicitly called (does not run on IDE checks).
+if (process.argv.some((arg) => arg === 'lint')) {
+  generateStructure(elementsManifest, join(root, 'src/angular'));
+  generateStructure(elementsExperimentalManifest, join(root, 'src/angular-experimental'));
+}
 
 /**
  * The `typescript/eslint-parser` doesn't consider the JSDoc comments as part of the node they refers to,
