@@ -137,7 +137,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     { id: 'logo-anniversary-showcase', hasStyle: true },
   ],
   'map-container': [{ id: 'map-container-basic', hasStyle: true }],
-  menu: ['menu-basic', { id: 'menu-custom-content', hasStyle: true }, 'menu-nested'],
+  menu: [
+    'menu-basic',
+    { id: 'menu-custom-content', hasStyle: true },
+    'menu-nested',
+    'menu-without-icons',
+  ],
   message: [{ id: 'message-basic', hasStyle: true }],
   'mini-calendar': [
     'mini-calendar-showcase',
@@ -150,6 +155,13 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
   option: ['option-showcase'],
   overlay: ['overlay-showcase', 'overlay-service', 'overlay-nested'],
   paginator: ['paginator-showcase', 'paginator-compact'],
+  'pearl-chain': [
+    { id: 'pearl-chain-horizontal-showcase', hasStyle: true },
+    { id: 'pearl-chain-vertical-showcase', hasStyle: true },
+    { id: 'pearl-chain-full-horizontal', hasStyle: true },
+    { id: 'pearl-chain-full-vertical', hasStyle: true },
+    { id: 'pearl-chain-weighted-nodes', hasStyle: true },
+  ],
   popover: [{ id: 'popover-showcase', hasStyle: true }],
   'radio-button': ['radio-button-showcase'],
   'radio-button-group': [
@@ -428,6 +440,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'menu-basic':
     case 'menu-custom-content':
     case 'menu-nested':
+    case 'menu-without-icons':
       return import('../angular/examples/menu');
     case 'message-basic':
       return import('../angular/examples/message');
@@ -451,6 +464,12 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'paginator-compact':
     case 'paginator-showcase':
       return import('../angular/examples/paginator');
+    case 'pearl-chain-full-horizontal':
+    case 'pearl-chain-full-vertical':
+    case 'pearl-chain-horizontal-showcase':
+    case 'pearl-chain-vertical-showcase':
+    case 'pearl-chain-weighted-nodes':
+      return import('../angular/examples/pearl-chain');
     case 'popover-showcase':
       return import('../angular/examples/popover');
     case 'radio-button-showcase':
