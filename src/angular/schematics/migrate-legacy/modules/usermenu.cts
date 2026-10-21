@@ -6,7 +6,7 @@ import { CommentMigration, createCommentMigrationRule } from '../migrations/comm
 const COMMENTS: CommentMigration[] = [
   {
     selector: 'sbb-usermenu',
-    message: 'FIXME: this component has no direct counterpart in lyne-angular.',
+    message: `FIXME: this component has no direct counterpart in lyne-angular; you can replace it with a 'sbb-header-button' adapting its properties.`,
   },
   {
     symbol: 'SbbUsermenuModule',

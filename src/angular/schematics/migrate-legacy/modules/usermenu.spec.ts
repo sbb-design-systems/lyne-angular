@@ -14,7 +14,9 @@ describe('sbb-usermenu', () => {
           '<sbb-usermenu></sbb-usermenu>',
           defaultMigration,
         ),
-      ).toContain('FIXME: this component has no direct counterpart in lyne-angular.');
+      ).toContain(
+        "FIXME: this component has no direct counterpart in lyne-angular; you can replace it with a 'sbb-header-button' adapting its properties.",
+      );
     });
 
     it('for inline selector and symbols', async () => {
@@ -42,7 +44,7 @@ describe('sbb-usermenu', () => {
         "  selector: 'app-root',",
         '  // FIXME: this component has no direct counterpart in lyne-angular.',
         '  imports: [SbbUsermenuModule],',
-        '  // FIXME: this component has no direct counterpart in lyne-angular.',
+        "  // FIXME: this component has no direct counterpart in lyne-angular; you can replace it with a 'sbb-header-button' adapting its properties.",
         "  template: '<sbb-usermenu></sbb-usermenu>',",
         '})',
         'export class AppComponent {}',
