@@ -38,8 +38,17 @@ interface CommentMigrationBase {
  */
 export interface ElementCommentMigration extends CommentMigrationBase {
   /**
-   * Selector(s) of the targeted elements, e.g. `'sbb-captcha'`,
-   * `['sbb-usermenu', 'sbb-usermenu-item']` or `'button[sbb-button]'`.
+   * CSS-like selector of the target element, using the Angular selector syntax. Examples:
+   * - `'sbb-usermenu'`                     — tag name
+   * - `'[sbb-button]'`                     — attribute on any tag
+   * - `'button[sbb-button]'`               — tag name combined with an attribute
+   * - `'a.link'`                           — class
+   * - `'a[href=foo].link'`                 — attribute value and class
+   * - `'a:not(.link)'`                     — excluding a class
+   * - `'a:not([download])'`                — excluding an attribute
+   * - `'a:not([href="/"])'`                — excluding an attribute value
+   * - `'a.link[sbb-link]:not([download])'` — any combination of the above
+   * - `'a[sbb-link], button[sbb-link]'`    — list of alternatives
    */
   selector: string | string[];
   /**

@@ -77,13 +77,10 @@ export function createAttributeMigrationRule(
     const handledOffsets = new Set<number>();
 
     for (const migration of parsedMigrations) {
-      const parsedSelector = migration.parsedSelectors.find((selector) =>
-        elementMatches(element, selector),
-      );
-      if (!parsedSelector) {
+      if (!migration.parsedSelectors.some((selector) => elementMatches(element, selector))) {
         continue;
       }
-      const tagAttributeForLogger = `${parsedSelector.tag}${!!parsedSelector.attribute ? `[${parsedSelector.attribute}]` : ''}`;
+      const tagAttributeForLogger = element.name;
 
       const variants = attributeNameVariants(migration.attribute);
       const nodes = attributeNodes(element);

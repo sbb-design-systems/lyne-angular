@@ -44,7 +44,8 @@ const MIGRATIONS: SelectorMigration[] = [
   { selector: 'a[sbb-frameless-button]', replaceWith: 'sbb-transparent-button-link' },
   { selector: 'button[sbb-link]', replaceWith: 'sbb-block-link-button' },
   { selector: 'a[sbb-link]', replaceWith: 'sbb-block-link' },
-];
+  { selector: 'a:not([sbb-link]):not(.sbb-link-reset)', replaceWith: 'sbb-link' },
+].map((e) => ({ ...e, removeSelectorAttributes: true }));
 
 const ATTRIBUTES: AttributeMigration[] = [
   {

@@ -1,5 +1,5 @@
 import type { ParseSourceSpan } from '@angular/compiler';
-import { parseTemplate, TmplAstElement } from '@angular/compiler';
+import { CssSelector, parseTemplate, TmplAstElement } from '@angular/compiler';
 import type { logging } from '@angular-devkit/core';
 import {
   type Rule,
@@ -57,10 +57,14 @@ export type AttributeNode = {
   keySpan?: ParseSourceSpan;
 };
 
-/** A selector which has been split into its tag and attribute part. */
+/**
+ * A parsed CSS selector. A comma separated selector list yields one alternative per entry;
+ * an element matches if it matches any of them.
+ */
 export interface ParsedSelector {
-  tag?: string;
-  attribute?: string;
+  /** The selector as it has been written. */
+  source: string;
+  alternatives: CssSelector[];
 }
 
 export interface Span {
@@ -106,7 +110,12 @@ export interface TemplateMigrationContext {
   logger: logging.LoggerApi;
 }
 
-const SELECTOR_PATTERN = /^([a-zA-Z][\w-]*)?(?:\[([\w-]+)\])?$/;
+/** `tag`, `.class` and `[attr]` / `[attr=value]` parts which can be combined freely. */
+const COMPOUND_PATTERN = String.raw`(?:[a-zA-Z*][\w-]*)?(?:\.[\w-]+|\[[^\]\s=]+(?:=(?:"[^"]*"|'[^']*'|[^\]\s"']*))?\])*`;
+/** A compound selector, optionally followed by `:not(<compound>)` parts, which must not be empty. */
+const SELECTOR_PATTERN = new RegExp(
+  `^${COMPOUND_PATTERN}(?::not\\((?=[^)])${COMPOUND_PATTERN}\\))*$`,
+);
 
 /**
  * Collects all inline templates (`@Component({ template: ... })`) of a file.
@@ -372,39 +381,138 @@ function toSourceEdit(
   };
 }
 
-/**
- * Parses a CSS-like selector. Supported forms:
- * - `'button[sbb-button]'` — tag name combined with an attribute
- * - `'sbb-button'`         — plain tag name
- * - `'[sbb-button]'`       — attribute on any tag
- */
-export function parseSelector(selector: string): ParsedSelector {
-  const match = SELECTOR_PATTERN.exec(selector.trim());
-  const parsed = match ? { tag: match[1], attribute: match[2] } : undefined;
+/** Splits a selector list at the commas which are not nested in `[]` or `()`. */
+function splitSelectorList(selector: string): string[] {
+  const parts: string[] = [];
+  let depth = 0;
+  let quote: string | undefined;
+  let current = '';
 
-  if (!parsed || (!parsed.tag && !parsed.attribute)) {
-    throw new SchematicsException(
-      `Unsupported selector "${selector}". Supported formats: 'tag', 'tag[attribute]', '[attribute]'.`,
-    );
+  for (const char of selector) {
+    if (quote) {
+      quote = char === quote ? undefined : quote;
+    } else if (char === '"' || char === "'") {
+      quote = char;
+    } else if (char === '[' || char === '(') {
+      depth++;
+    } else if (char === ']' || char === ')') {
+      depth--;
+    } else if (char === ',' && depth === 0) {
+      parts.push(current);
+      current = '';
+      continue;
+    }
+    current += char;
   }
 
-  return parsed;
+  parts.push(current);
+  return parts;
+}
+
+/**
+ * Parses a CSS-like selector, using the same selector syntax as Angular components. Supported:
+ * - `'sbb-button'`                        — tag name
+ * - `'[sbb-button]'`                      — attribute on any tag
+ * - `'button[sbb-button]'`                — tag name combined with an attribute
+ * - `'a.link'`                            — class
+ * - `'a[href=foo].link'`                  — attribute value and class
+ * - `'a:not(.link)'`                      — exclusion of a class
+ * - `'a:not([download])'`                 — exclusion of an attribute
+ * - `'a:not([href="/"])'`                 — exclusion of an attribute value
+ * - `'a.link[sbb-link]:not([download])'`  — any combination of the above
+ * - `'a[sbb-link], button[sbb-link]'`     — list of alternatives
+ *
+ * Combinators (`a b`, `a > b`) are not supported, because Angular selectors have none either.
+ */
+export function parseSelector(selector: string): ParsedSelector {
+  const unsupported = (): SchematicsException =>
+    new SchematicsException(
+      `Unsupported selector "${selector}". Supported: tag, .class, [attr], [attr=value], ` +
+        `:not(<one of those>) and comma separated lists of them. Combinators are not supported.`,
+    );
+
+  const entries = splitSelectorList(selector).map((entry) => entry.trim());
+  // `CssSelector.parse` is lenient (e.g. it turns `a b` into `b`), so the syntax is validated first.
+  if (entries.some((entry) => !entry || !SELECTOR_PATTERN.test(entry))) {
+    throw unsupported();
+  }
+
+  let alternatives: CssSelector[];
+  try {
+    alternatives = CssSelector.parse(selector);
+  } catch {
+    throw unsupported();
+  }
+
+  return { source: selector, alternatives };
+}
+
+/** Whether the element satisfies one compound selector (without evaluating its `:not` parts). */
+function matchesCompound(element: TmplAstElement, compound: CssSelector): boolean {
+  if (compound.element && compound.element !== '*' && compound.element !== element.name) {
+    return false;
+  }
+
+  if (compound.classNames.length) {
+    const classAttribute = element.attributes.find((attribute) => attribute.name === 'class');
+    const classes = new Set((classAttribute?.value ?? '').split(/\s+/));
+    if (!compound.classNames.every((className) => classes.has(className))) {
+      return false;
+    }
+  }
+
+  // `attrs` is a flat list of name / value pairs; the value is empty if none was required.
+  for (let i = 0; i < compound.attrs.length; i += 2) {
+    const name = compound.attrs[i];
+    const value = compound.attrs[i + 1];
+
+    const matches = value
+      ? // Angular lowercases the values of selectors. Bound values are not known statically.
+        element.attributes.some(
+          (attribute) => attribute.name === name && attribute.value.toLowerCase() === value,
+        )
+      : element.attributes.some((attribute) => attribute.name === name) ||
+        element.inputs.some((input) => input.name === name);
+
+    if (!matches) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/**
+ * Returns the alternative of the selector which matches the element, if any.
+ *
+ * Classes are only matched against a static `class` attribute, `[class.x]` bindings are not evaluated.
+ */
+export function matchSelector(
+  element: TmplAstElement,
+  selector: ParsedSelector,
+): CssSelector | undefined {
+  return selector.alternatives.find(
+    (alternative) =>
+      matchesCompound(element, alternative) &&
+      !alternative.notSelectors.some((excluded) => matchesCompound(element, excluded)),
+  );
 }
 
 /** Whether the given element is matched by the parsed selector. */
 export function elementMatches(element: TmplAstElement, selector: ParsedSelector): boolean {
-  if (selector.tag && element.name !== selector.tag) {
-    return false;
-  }
+  return matchSelector(element, selector) !== undefined;
+}
 
-  if (!selector.attribute) {
-    return true;
+/**
+ * Names of the attributes a matched selector alternative requires, e.g. `['sbb-button']` for
+ * `button[sbb-button]`. Attributes of `:not()` parts are excluded, as the element does not have them.
+ */
+export function selectorAttributes(alternative: CssSelector): string[] {
+  const names = new Set<string>();
+  for (let i = 0; i < alternative.attrs.length; i += 2) {
+    names.add(alternative.attrs[i]);
   }
-
-  return (
-    element.attributes.some((attribute) => attribute.name === selector.attribute) ||
-    element.inputs.some((input) => input.name === selector.attribute)
-  );
+  return [...names];
 }
 
 /** `'iconName'` → `'icon-name'` */

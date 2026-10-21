@@ -85,6 +85,10 @@ describe('sbb-button', () => {
       expect(await migrateTemplate('<a sbb-link>A</a>')).toContain(
         '<sbb-block-link>A</sbb-block-link>',
       );
+      expect(await migrateTemplate('<a class="sbb-link-reset">A</a>')).toContain(
+        '<a class="sbb-link-reset">A</a>',
+      );
+      expect(await migrateTemplate('<a>A</a>')).toContain('<sbb-link>A</sbb-link>');
     });
 
     it('should keep all other attributes and bindings', async () => {
@@ -298,6 +302,8 @@ describe('sbb-button', () => {
           '  template: `',
           '    <button sbb-button (click)="go()">Go</button>',
           '    <a sbb-ghost-button>Alt</a>',
+          '    <a>To sbb-link</a>',
+          '    <a class="sbb-link-reset">Link</a>',
           '  `,',
           '})',
           'export class AppComponent {}',
@@ -307,6 +313,8 @@ describe('sbb-button', () => {
 
       expect(content).toContain('<sbb-button (click)="go()">Go</sbb-button>');
       expect(content).toContain('<sbb-accent-button-link>Alt</sbb-accent-button-link>');
+      expect(content).toContain('<sbb-link>To sbb-link</sbb-link>');
+      expect(content).toContain('<a class="sbb-link-reset">Link</a>');
     });
 
     it('should migrate multiple components within the same file', async () => {
