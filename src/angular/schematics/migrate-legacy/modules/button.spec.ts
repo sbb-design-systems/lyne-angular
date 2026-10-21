@@ -80,9 +80,11 @@ describe('sbb-button', () => {
         '<sbb-transparent-button-link>A</sbb-transparent-button-link>',
       );
       expect(await migrateTemplate('<button sbb-link>A</button>')).toContain(
-        '<sbb-link-button>A</sbb-link-button>',
+        '<sbb-block-link-button>A</sbb-block-link-button>',
       );
-      expect(await migrateTemplate('<a sbb-link>A</a>')).toContain('<sbb-link>A</sbb-link>');
+      expect(await migrateTemplate('<a sbb-link>A</a>')).toContain(
+        '<sbb-block-link>A</sbb-block-link>',
+      );
     });
 
     it('should keep all other attributes and bindings', async () => {
@@ -174,8 +176,39 @@ describe('sbb-button', () => {
 
   describe('attributes', () => {
     it('should rename svgIcon to iconName on migrated buttons', async () => {
-      expect(await migrateTemplate('<button sbb-button svgIcon="arrow-right">Go</button>')).toBe(
-        '<sbb-button iconName="arrow-right">Go</sbb-button>',
+      expect(
+        await migrateTemplate(
+          [
+            '<button sbb-button svgIcon="arrow-right">Go</button>',
+            '<button sbb-secondary-button svgIcon="arrow-right">A</button>',
+            '<button sbb-ghost-button svgIcon="arrow-right">A</button>',
+            '<button sbb-frameless-button svgIcon="arrow-right">A</button>',
+            '<a sbb-button svgIcon="arrow-right">A</a>',
+            '<a sbb-secondary-button svgIcon="arrow-right">A</a>',
+            '<a sbb-ghost-button svgIcon="arrow-right">A</a>',
+            '<a sbb-frameless-button svgIcon="arrow-right">A</a>',
+          ].join('\n'),
+        ),
+      ).toBe(
+        [
+          '<sbb-button iconName="arrow-right">Go</sbb-button>',
+          '<sbb-secondary-button iconName="arrow-right">A</sbb-secondary-button>',
+          '<sbb-accent-button iconName="arrow-right">A</sbb-accent-button>',
+          '<sbb-transparent-button iconName="arrow-right">A</sbb-transparent-button>',
+          '<sbb-button-link iconName="arrow-right">A</sbb-button-link>',
+          '<sbb-secondary-button-link iconName="arrow-right">A</sbb-secondary-button-link>',
+          '<sbb-accent-button-link iconName="arrow-right">A</sbb-accent-button-link>',
+          '<sbb-transparent-button-link iconName="arrow-right">A</sbb-transparent-button-link>',
+        ].join('\n'),
+      );
+    });
+
+    it('should rename svgIcon to iconName on migrated links', async () => {
+      expect(await migrateTemplate('<button sbb-link svgIcon="arrow-right">A</button>')).toContain(
+        '<sbb-block-link-button iconName="arrow-right">A</sbb-block-link-button>',
+      );
+      expect(await migrateTemplate('<a sbb-link svgIcon="arrow-right">A</a>')).toContain(
+        '<sbb-block-link iconName="arrow-right">A</sbb-block-link>',
       );
     });
 
@@ -183,8 +216,8 @@ describe('sbb-button', () => {
       expect(
         await migrateTemplate('<button sbb-secondary-button [svgIcon]="icon">A</button>'),
       ).toBe('<sbb-secondary-button [iconName]="icon">A</sbb-secondary-button>');
-      expect(await migrateTemplate('<button sbb-ghost-button [svgIcon]="icon">A</button>')).toBe(
-        '<sbb-accent-button [iconName]="icon">A</sbb-accent-button>',
+      expect(await migrateTemplate('<button sbb-ghost-button [(svgIcon)]="icon">A</button>')).toBe(
+        '<sbb-accent-button [(iconName)]="icon">A</sbb-accent-button>',
       );
       expect(
         await migrateTemplate('<button sbb-frameless-button svg-icon="arrow">A</button>'),
@@ -197,24 +230,20 @@ describe('sbb-button', () => {
     });
 
     it('should rename svgIcon in inline templates', async () => {
-      const tree = await MigrateLegacyTestUtils.migrateFiles(
-        {
-          '/src/app/app.component.ts': [
-            "import { Component } from '@angular/core';",
-            '',
-            '@Component({',
-            "  selector: 'app-root',",
-            '  template: \'<button sbb-button svgIcon="arrow">Go</button>\',',
-            '})',
-            'export class AppComponent {}',
-          ].join('\n'),
-        },
+      const content = await MigrateLegacyTestUtils.migrateTsFile(
+        [
+          "import { Component } from '@angular/core';",
+          '',
+          '@Component({',
+          "  selector: 'app-root',",
+          '  template: \'<button sbb-button svgIcon="arrow">Go</button>\',',
+          '})',
+          'export class AppComponent {}',
+        ].join('\n'),
         defaultMigration,
       );
 
-      expect(tree.read('/src/app/app.component.ts')!.toString('utf-8')).toContain(
-        'template: \'<sbb-button iconName="arrow">Go</sbb-button>\',',
-      );
+      expect(content).toContain('template: \'<sbb-button iconName="arrow">Go</sbb-button>\',');
     });
   });
 
@@ -240,24 +269,21 @@ describe('sbb-button', () => {
 
   describe('inline templates', () => {
     it('should migrate a single quoted inline template', async () => {
-      const tree = await MigrateLegacyTestUtils.migrateFiles(
-        {
-          '/src/app/app.component.ts': [
-            "import { Component } from '@angular/core';",
-            "import { SbbButtonModule } from '@sbb-esta/angular/button';",
-            '',
-            '@Component({',
-            "  selector: 'app-root',",
-            '  imports: [SbbButtonModule],',
-            '  template: \'<button type="button" sbb-button>Click</button>\',',
-            '})',
-            'export class AppComponent {}',
-          ].join('\n'),
-        },
+      const content = await MigrateLegacyTestUtils.migrateTsFile(
+        [
+          "import { Component } from '@angular/core';",
+          "import { SbbButtonModule } from '@sbb-esta/angular/button';",
+          '',
+          '@Component({',
+          "  selector: 'app-root',",
+          '  imports: [SbbButtonModule],',
+          '  template: \'<button type="button" sbb-button>Click</button>\',',
+          '})',
+          'export class AppComponent {}',
+        ].join('\n'),
         defaultMigration,
       );
 
-      const content = tree.read('/src/app/app.component.ts')!.toString('utf-8');
       expect(content).toContain('template: \'<sbb-button type="button">Click</sbb-button>\',');
       expect(content).toContain("from '@sbb-esta/lyne-angular/button';");
     });

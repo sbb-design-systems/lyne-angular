@@ -33,7 +33,7 @@ const COMMENTS: CommentMigration[] = [
   },
 ];
 
-const BUTTON_MIGRATIONS: SelectorMigration[] = [
+const MIGRATIONS: SelectorMigration[] = [
   { selector: 'button[sbb-button]', replaceWith: 'sbb-button' },
   { selector: 'button[sbb-secondary-button]', replaceWith: 'sbb-secondary-button' },
   { selector: 'button[sbb-ghost-button]', replaceWith: 'sbb-accent-button' },
@@ -42,18 +42,16 @@ const BUTTON_MIGRATIONS: SelectorMigration[] = [
   { selector: 'a[sbb-secondary-button]', replaceWith: 'sbb-secondary-button-link' },
   { selector: 'a[sbb-ghost-button]', replaceWith: 'sbb-accent-button-link' },
   { selector: 'a[sbb-frameless-button]', replaceWith: 'sbb-transparent-button-link' },
+  { selector: 'button[sbb-link]', replaceWith: 'sbb-block-link-button' },
+  { selector: 'a[sbb-link]', replaceWith: 'sbb-block-link' },
 ];
-const BUTTON_SELECTORS = BUTTON_MIGRATIONS.map((selector) => selector.selector);
-
-const LINK_MIGRATIONS: SelectorMigration[] = [
-  { selector: 'button[sbb-link]', replaceWith: 'sbb-link-button' },
-  { selector: 'a[sbb-link]', replaceWith: 'sbb-link' },
-];
-const LINK_SELECTORS = LINK_MIGRATIONS.map((selector) => selector.selector);
 
 const ATTRIBUTES: AttributeMigration[] = [
-  { selector: BUTTON_SELECTORS, attribute: 'svgIcon', replaceWith: 'iconName' },
-  { selector: LINK_SELECTORS, attribute: 'svgIcon' },
+  {
+    selector: MIGRATIONS.map((selector) => selector.selector),
+    attribute: 'svgIcon',
+    replaceWith: 'iconName',
+  },
 ];
 
 /**
@@ -70,6 +68,6 @@ export function migrateButton(scope: MigrationScope): Rule {
     createImportPathMigrationRule(IMPORT_PATHS, scope),
     createCommentMigrationRule(COMMENTS, scope),
     createAttributeMigrationRule(ATTRIBUTES, scope),
-    createTemplateSelectorMigrationRule([...BUTTON_MIGRATIONS, ...LINK_MIGRATIONS], scope),
+    createTemplateSelectorMigrationRule(MIGRATIONS, scope),
   ]);
 }
