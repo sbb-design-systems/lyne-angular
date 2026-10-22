@@ -6,7 +6,7 @@ import { HostTree, type Rule, type Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { firstValueFrom } from 'rxjs';
 
-// Unique per worker, so parallel spec files never write the same file.
+// Unique per test module, so parallel spec files never write the same file.
 const collectionPath = path.join(
   fs.mkdtempSync(path.join(os.tmpdir(), 'lyne-angular-migration-')),
   'collection.json',
@@ -17,11 +17,11 @@ export const runner = new SchematicTestRunner('test', collectionPath);
 
 export class MigrateLegacyTestUtils {
   static migrateHtmlFile(content: string, rule: Rule): Promise<string> {
-    return this._migrateFile('/src/app/app.component.html', content, rule);
+    return MigrateLegacyTestUtils._migrateFile('/src/app/app.component.html', content, rule);
   }
 
   static migrateTsFile(content: string, rule: Rule): Promise<string> {
-    return this._migrateFile('/src/app/app.component.ts', content, rule);
+    return MigrateLegacyTestUtils._migrateFile('/src/app/app.component.ts', content, rule);
   }
 
   static async migrateFiles(files: Record<string, string>, rule: Rule): Promise<Tree> {

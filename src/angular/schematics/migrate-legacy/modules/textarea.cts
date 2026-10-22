@@ -10,7 +10,7 @@ const COUNTER = 'sbb-form-field-text-counter';
 const FORM_FIELD = 'sbb-form-field';
 
 /**
- * Creates a rule which migrates `<sbb-textarea>`:*
+ * Creates a rule which migrates `<sbb-textarea>`:
  * - without `maxlength`, it is replaced by a native `<textarea>`:
  * - with a static or bound `maxlength` inside an `<sbb-form-field>`, it is replaced by a native `<textarea>` and a character counter is added right after it:
  * - with `maxlength` outside an `<sbb-form-field>`, the element is left as is and a comment is added.

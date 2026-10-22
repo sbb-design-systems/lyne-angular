@@ -69,7 +69,7 @@ const COMMENTS: CommentMigration[] = [
   // Element: <!-- message --> above every <sbb-captcha>; the message is rendered as is
   { selector: 'sbb-captcha', message: 'FIXME: <sbb-captcha> has no counterpart in lyne-angular.' },
   // Attribute: only <sbb-button> elements using `mode`
-  { selector: 'sbb-button', attribute: 'mode', message: 'TODO: `mode` was removed.' },
+  { selector: 'sbb-button[mode]', message: 'TODO: `mode` was removed.' },
   // Symbol: // message above every usage (import included)
   { symbol: 'SbbCaptchaModule', importedFrom: '@sbb-esta/angular/<module>', message: '...' },
 ];
@@ -148,6 +148,31 @@ function loadModuleMigration(
 ### 3. Test your module migration
 
 Create `test/<module-name>.spec.ts` using the `SchematicTestRunner` pattern from `schematics/migrate-legacy/modules/button.spec.ts`.
+
+The `MigrateLegacyTestUtils` class can be used to easily test a rule on an `HTML`/`TS` file;
+it also handles the schematic and the test runner creation.
+
+```ts
+const rule = migrate<module>({ root: '', excludedRoots: [] });
+
+const contentHTML = '<sbb-<module>>Content<sbb-<module>>';
+const migratedContentHTML = await MigrateLegacyTestUtils.migrateHtmlFile(contentHTML, rule);
+expect(migratedContentHTML).toBe('...');
+
+const contentTS = [
+  "import { Component } from '@angular/core';",
+  "import { <module> } from '@sbb-esta/angular/<module>';",
+  '',
+  '@Component({',
+  "  selector: 'app-root',",
+  '  imports: [<module>],',
+  "  template: '<sbb-<module>></sbb-<module>>',",
+  '})',
+  'export class AppComponent {}',
+].join('\n');
+const migratedContentTS = await MigrateLegacyTestUtils.migrateTsFile(contentTs, rule);
+expect(migratedContentTS).toBe('...');
+```
 
 ## Usage
 
