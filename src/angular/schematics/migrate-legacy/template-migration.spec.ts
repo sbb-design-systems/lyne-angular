@@ -235,10 +235,29 @@ describe('sbb-template-migration', () => {
         expect(elementMatches(first('<a sbb-button></a>'), selector)).toBe(false);
       });
 
-      it('should not match an output as an attribute', () => {
+      it('should match an output and a two-way binding like Angular does', () => {
+        const selector = parseSelector('a[sbb-link]');
+        expect(elementMatches(first('<a (sbb-link)="x()"></a>'), selector)).toBe(true);
+        expect(elementMatches(first('<a [(sbb-link)]="x"></a>'), selector)).toBe(true);
+      });
+
+      it('should not match attribute, class and style bindings as an attribute', () => {
+        const selector = parseSelector('a[sbb-link]');
+        expect(elementMatches(first('<a [attr.sbb-link]="x"></a>'), selector)).toBe(false);
+        expect(elementMatches(first('<a [class.sbb-link]="x"></a>'), selector)).toBe(false);
+        expect(elementMatches(first('<a [style.sbb-link]="x"></a>'), selector)).toBe(false);
+      });
+
+      it('should exclude an element with the output of an exclusion', () => {
         expect(
-          elementMatches(first('<a (sbb-link)="x()"></a>'), parseSelector('a[sbb-link]')),
+          elementMatches(first('<a (download)="f()"></a>'), parseSelector('a:not([download])')),
         ).toBe(false);
+      });
+
+      it('should not match an output against an attribute value', () => {
+        expect(elementMatches(first('<a (href)="f()"></a>'), parseSelector('a[href=foo]'))).toBe(
+          false,
+        );
       });
 
       it('should match an attribute value only against a static attribute', () => {

@@ -31,8 +31,8 @@ export interface AttributeMigration {
    */
   selector: string | string[];
   /**
-   * Legacy attribute, input or output name. Both the camelCase and the
-   * dash-case spelling are matched, the original spelling is preserved.
+   * Legacy attribute, input or output name.
+   * Both the camelCase and the dash-case spelling are matched, the original spelling is preserved.
    */
   attribute: string;
   /** New name. When omitted, the attribute is removed instead of renamed. */
@@ -52,8 +52,12 @@ type ParsedAttributeMigration = AttributeMigration & { parsedSelectors: ParsedSe
  *
  * ```ts
  * createAttributeMigrationRule([
+ *   // Update attribute
  *   { selector: 'sbb-button', attribute: 'svgIcon', replaceWith: 'iconName' },
- *   { selector: 'sbb-button', attribute: 'obsoleteFlag' }, // removed
+ *   // Remove attribute
+ *   { selector: 'sbb-button', attribute: 'obsoleteFlag' },
+ *   // Add attribute if not present
+ *   { selector: 'sbb-button', attribute: 'svgIcon', replaceWith: 'iconName', defaultValue: 'arrow-right-small' },
  * ]);
  * ```
  *

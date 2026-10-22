@@ -189,6 +189,42 @@ describe('sbb-template-selector-migration', () => {
       ).toBe('<sbb-button>Go</sbb-button>');
     });
 
+    it('should remove a marker which is an output', async () => {
+      expect(
+        await migrate('<button (sbb-button)="go()" type="button">Go</button>', [
+          {
+            selector: 'button[sbb-button]',
+            replaceWith: 'sbb-button',
+            removeSelectorAttributes: true,
+          },
+        ]),
+      ).toBe('<sbb-button type="button">Go</sbb-button>');
+    });
+
+    it('should remove a two-way bound marker', async () => {
+      expect(
+        await migrate('<button [(sbb-button)]="on" type="button">Go</button>', [
+          {
+            selector: 'button[sbb-button]',
+            replaceWith: 'sbb-button',
+            removeSelectorAttributes: true,
+          },
+        ]),
+      ).toBe('<sbb-button type="button">Go</sbb-button>');
+    });
+
+    it('should not remove an attribute binding which only has the name of the marker', async () => {
+      expect(
+        await migrate('<button sbb-button [attr.sbb-button]="x">Go</button>', [
+          {
+            selector: 'button[sbb-button]',
+            replaceWith: 'sbb-button',
+            removeSelectorAttributes: true,
+          },
+        ]),
+      ).toBe('<sbb-button [attr.sbb-button]="x">Go</sbb-button>');
+    });
+
     it('should remove the line of a marker attribute in a multiline tag', async () => {
       expect(
         await migrate(

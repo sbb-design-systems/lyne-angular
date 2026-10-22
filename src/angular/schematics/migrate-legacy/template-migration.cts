@@ -1,5 +1,11 @@
 import type { ParseSourceSpan } from '@angular/compiler';
-import { CssSelector, parseTemplate, TmplAstElement } from '@angular/compiler';
+import {
+  BindingType,
+  CssSelector,
+  parseTemplate,
+  type TmplAstBoundAttribute,
+  TmplAstElement,
+} from '@angular/compiler';
 import type { logging } from '@angular-devkit/core';
 import {
   type Rule,
@@ -447,6 +453,14 @@ export function parseSelector(selector: string): ParsedSelector {
   return { source: selector, alternatives };
 }
 
+/**
+ * Whether an input takes part in selector matching. Like in Angular, this is the case for property
+ * and two-way bindings (`[x]`, `[(x)]`), but not for `[attr.x]`, `[class.x]` or `[style.x]`.
+ */
+function isMatchableInput(input: TmplAstBoundAttribute): boolean {
+  return input.type === BindingType.Property || input.type === BindingType.TwoWay;
+}
+
 /** Whether the element satisfies one compound selector (without evaluating its `:not` parts). */
 function matchesCompound(element: TmplAstElement, compound: CssSelector): boolean {
   if (compound.element && compound.element !== '*' && compound.element !== element.name) {
@@ -472,7 +486,8 @@ function matchesCompound(element: TmplAstElement, compound: CssSelector): boolea
           (attribute) => attribute.name === name && attribute.value.toLowerCase() === value,
         )
       : element.attributes.some((attribute) => attribute.name === name) ||
-        element.inputs.some((input) => input.name === name);
+        element.inputs.some((input) => isMatchableInput(input) && input.name === name) ||
+        element.outputs.some((output) => output.name === name);
 
     if (!matches) {
       return false;
@@ -484,8 +499,7 @@ function matchesCompound(element: TmplAstElement, compound: CssSelector): boolea
 
 /**
  * Returns the alternative of the selector which matches the element, if any.
- *
- * Classes are only matched against a static `class` attribute, `[class.x]` bindings are not evaluated.
+ * Attributes are matched like Angular does for directives: static attributes, property and two-way bindings and outputs count.
  */
 export function matchSelector(
   element: TmplAstElement,
@@ -609,7 +623,11 @@ export function queueAttributeRemovals(
     // A bound attribute has no statically known value, so it is only removed
     // when the migration does not require a specific value.
     const boundAttribute =
-      value === undefined ? element.inputs.find((input) => input.name === name) : undefined;
+      value === undefined
+        ? [...element.inputs.filter(isMatchableInput), ...element.outputs].find(
+            (bound) => bound.name === name,
+          )
+        : undefined;
     const node = staticAttribute ?? boundAttribute;
 
     if (node) {

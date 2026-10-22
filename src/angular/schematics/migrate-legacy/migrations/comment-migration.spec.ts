@@ -136,8 +136,7 @@ describe('sbb-comment-migration', () => {
   describe('attributes', () => {
     const MODE: CommentMigration[] = [
       {
-        selector: 'sbb-button',
-        attribute: 'mode',
+        selector: 'sbb-button[mode]',
         message: 'FIXME: mode has been removed.',
       },
     ];
@@ -155,6 +154,82 @@ describe('sbb-comment-migration', () => {
           await MigrateLegacyTestUtils.migrateHtmlFile(tag, createCommentMigrationRule(MODE)),
         ).toBe(expected(tag));
       }
+    });
+
+    it('should comment an attribute among other attributes and in multiline tags', async () => {
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          [
+            '<div>',
+            '  <sbb-button',
+            '    type="button"',
+            '    (mode)="m()"',
+            '  ></sbb-button>',
+            '</div>',
+          ].join('\n'),
+          createCommentMigrationRule(MODE),
+        ),
+      ).toBe(
+        [
+          '<div>',
+          '  <!-- FIXME: mode has been removed. -->',
+          '  <sbb-button',
+          '    type="button"',
+          '    (mode)="m()"',
+          '  ></sbb-button>',
+          '</div>',
+        ].join('\n'),
+      );
+    });
+
+    it('should only comment the elements which match the exclusions of a selector', async () => {
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          [
+            '<sbb-button mode="a"></sbb-button>',
+            '<sbb-button mode="a" class="keep"></sbb-button>',
+            '<sbb-button mode="a" (done)="d()"></sbb-button>',
+          ].join('\n'),
+          createCommentMigrationRule([
+            { selector: 'sbb-button[mode]:not(.keep):not([done])', message: 'FIXME: mode.' },
+          ]),
+        ),
+      ).toBe(
+        [
+          '<!-- FIXME: mode. -->',
+          '<sbb-button mode="a"></sbb-button>',
+          '<sbb-button mode="a" class="keep"></sbb-button>',
+          '<sbb-button mode="a" (done)="d()"></sbb-button>',
+        ].join('\n'),
+      );
+    });
+
+    it('should support selector lists and classes', async () => {
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          ['<a class="legacy">1</a>', '<sbb-button mode="a">2</sbb-button>', '<a>3</a>'].join('\n'),
+          createCommentMigrationRule([
+            { selector: ['a.legacy', 'sbb-button[mode]'], message: 'FIXME: legacy.' },
+          ]),
+        ),
+      ).toBe(
+        [
+          '<!-- FIXME: legacy. -->',
+          '<a class="legacy">1</a>',
+          '<!-- FIXME: legacy. -->',
+          '<sbb-button mode="a">2</sbb-button>',
+          '<a>3</a>',
+        ].join('\n'),
+      );
+    });
+
+    it('should be idempotent for attribute selectors', async () => {
+      const rule = createCommentMigrationRule(MODE);
+      const once = await MigrateLegacyTestUtils.migrateHtmlFile(
+        '<sbb-button mode="m"></sbb-button>',
+        rule,
+      );
+      expect(await MigrateLegacyTestUtils.migrateHtmlFile(once, rule)).toBe(once);
     });
   });
 

@@ -22,7 +22,6 @@ import { findSymbolReferences } from '../symbol-references.cjs';
 import {
   createTemplateMigrationRule,
   elementMatches,
-  hasAttribute,
   parseSelector,
 } from '../template-migration.cjs';
 
@@ -51,11 +50,6 @@ export interface ElementCommentMigration extends CommentMigrationBase {
    * - `'a[sbb-link], button[sbb-link]'`    — list of alternatives
    */
   selector: string | string[];
-  /**
-   * Only comment elements which use this attribute, input or output (in any spelling or binding syntax).
-   * When omitted, every matched element is commented.
-   */
-  attribute?: string;
 }
 
 /** Comments every usage of a TypeScript symbol, e.g. `SbbCaptchaModule`. */
@@ -124,16 +118,11 @@ function createElementCommentRule(
     const anchor = inline ? baseOffset : baseOffset + element.startSourceSpan.start.offset;
 
     for (const migration of parsed) {
-      if (
-        !migration.selectors.some((selector) => elementMatches(element, selector)) ||
-        (migration.attribute && !hasAttribute(element, migration.attribute))
-      ) {
+      if (!migration.selectors.some((selector) => elementMatches(element, selector))) {
         continue;
       }
 
-      const target = migration.attribute
-        ? `'${migration.attribute}' on ${element.name}`
-        : `${element.name}`;
+      const target = `${element.name}`;
 
       queueComment(
         fileContent,
@@ -199,7 +188,7 @@ function createSymbolCommentRule(
  *   // Element: comment above every <sbb-captcha>
  *   { selector: 'sbb-captcha', message: 'FIXME: sbb-captcha has no Lyne counterpart.' },
  *   // Attribute: comment above every <sbb-button> using `mode`
- *   { selector: 'sbb-button', attribute: 'mode', message: 'TODO: ...' },
+ *   { selector: 'sbb-button[mode]', message: 'TODO: ...' },
  *   // Symbol: comment above every usage of SbbCaptchaModule
  *   { symbol: 'SbbCaptchaModule', importedFrom: '@sbb-esta/angular/captcha', message: '...' },
  * ]);
