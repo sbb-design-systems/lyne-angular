@@ -1,6 +1,7 @@
 import { ResolvedResource } from '@angular/cdk/schematics';
 
-import { AttributeMigrationBase, MigrationEdit } from './attribute-migration-base.cjs';
+import { AttributeMigrationBase } from './attribute-migration-base.cjs';
+import { MigrationEdit } from '../../utils.cjs';
 
 /**
  * Migration that removes the `size` property from `sbb-navigation-button` and `sbb-navigation-link`.

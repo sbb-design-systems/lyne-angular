@@ -1,5 +1,6 @@
 import { ResolvedResource } from '@angular/cdk/schematics';
-import { AttributeMigrationBase, MigrationEdit } from './attribute-migration-base.cjs';
+import { AttributeMigrationBase } from './attribute-migration-base.cjs';
+import { MigrationEdit } from '../../utils.cjs';
 
 /**
  * Checks for a standalone 'sbb-table' class name (ignoring modifier variants like sbb-table--*)

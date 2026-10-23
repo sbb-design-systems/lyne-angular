@@ -1,0 +1,223 @@
+# Migration schematics for `sbb-angular`
+
+This directory contains the migration schematic for converting `@sbb-esta/angular` usages to `@sbb-esta/lyne-angular`.
+
+## Architecture
+
+- **`index.cts`**
+  Main orchestrator that resolves the selected modules and executes their migration scripts.
+  It also retrieves the configured theme, which can be passed to the module migration scripts to handle theme-specific logic.
+
+- **`modules/`**
+  Per-module custom migration implementations; each module (e.g., `button.cts`, `checkbox.cts`, ... ) exports a `migrate<Module>()` function which performs custom transformations for that module.
+
+- **`migrations/import-path-migration.cts`**
+  Reusable rule factory which rewrites import/export module specifiers in all TypeScript files of the workspace.
+
+- **`migrations/comment-migration.cts`**
+  Reusable rule factory which adds comments to elements, attributes and TypeScript symbols. Can be used for components without a counterpart in the new library.
+
+- **`migrations/type-migration.cts`**
+  Reusable rule factory which renames type/class/symbol usages in TypeScript files, e.g. `SbbBreadcrumbs` → `SbbBreadcrumbGroup`.
+  Only files which import the legacy symbol are touched.
+
+- **`migrations/attribute-migration.cts`**
+  Reusable rule factory which renames (or removes) attributes, inputs and outputs of given elements, e.g. `svgIcon` → `iconName` on `<sbb-button>`.
+  Supports configuring a `defaultValue` to automatically inject an attribute if the legacy attribute is missing.
+
+- **`migrations/template-selector-migration.cts`**
+  Reusable rule factory which replaces legacy selectors (`'tag[attribute]'`, `'tag'` or `'[attribute]'`) with a new element,
+  in external templates (`templateUrl`) as well as in inline templates (`template`).
+
+- **`template-migration.cts`**
+  Shared foundation of all template migrations: file traversal, inline template lookup, template parsing, selector parsing/matching, attribute removal and edit application.
+  Concrete migrations only describe their edits.
+
+- **`symbol-references.cts`**
+  Shared lookup of imported TypeScript symbols (used by type and comment migrations).
+
+- **`schema.json` / `schema.d.ts`**
+  CLI schema definition.
+
+## Adding a Custom Module Migration
+
+It is possible to generate the boilerplate code for a module migration running `npm run generate-migration <module name>`;
+it generates both the basic migration script and the corresponding test file under the folder `migrate-legacy/modules`.
+
+### 1. Create migration file
+
+Create `modules/<module-name>.cts`, preferably declaratively by composing the shared rule factories:
+
+```typescript
+import { chain, Rule } from '@angular-devkit/schematics';
+
+import { ImportRewriteOptions, MigrationScope } from '../../utils.cjs';
+import {
+  AttributeMigration,
+  createAttributeMigrationRule,
+} from '../migrations/attribute-migration.cjs';
+import { createImportPathMigrationRule } from '../migrations/import-path-migration.cjs';
+import {
+  createTemplateSelectorMigrationRule,
+  SelectorMigration,
+} from '../migrations/template-selector-migration.cjs';
+import { createTypeMigrationRule, TypeMigration } from '../migrations/type-migration.cjs';
+import { CommentMigration, createCommentMigrationRule } from '../migrations/comment-migration.cjs';
+
+const IMPORT_PATHS: ImportRewriteOptions[] = [
+  { oldImport: '@sbb-esta/angular/<module>', newImport: '@sbb-esta/lyne-angular/<module>' },
+];
+
+const COMMENTS: CommentMigration[] = [
+  // Element: <!-- message --> above every <sbb-captcha>; the message is rendered as is
+  { selector: 'sbb-captcha', message: 'FIXME: <sbb-captcha> has no counterpart in lyne-angular.' },
+  // Attribute: only <sbb-button> elements using `mode`
+  { selector: 'sbb-button[mode]', message: 'TODO: `mode` was removed.' },
+  // Symbol: // message above every usage (import included)
+  { symbol: 'SbbCaptchaModule', importedFrom: '@sbb-esta/angular/<module>', message: '...' },
+];
+
+const TYPES: TypeMigration[] = [
+  // SbbBreadcrumbs → SbbBreadcrumbGroup
+  {
+    from: 'SbbBreadcrumbs',
+    to: 'SbbBreadcrumbGroup',
+    // Optional guard; list the legacy and the new path, because the import path migration can run first.
+    importedFrom: ['@sbb-esta/angular/<module>', '@sbb-esta/lyne-angular/<module>'],
+  },
+];
+
+const ATTRIBUTES: AttributeMigration[] = [
+  // <sbb-button svgIcon="x"> → <sbb-button iconName="x">
+  { selector: 'sbb-button', attribute: 'svgIcon', replaceWith: 'iconName' },
+  // Without `replaceWith` the attribute is removed:
+  { selector: 'sbb-button', attribute: 'obsoleteFlag' },
+  // If oldAttr is missing, defaultValue can automatically supply a fallback:
+  {
+    selector: 'sbb-button',
+    attribute: 'oldAttr',
+    replaceWith: 'newOne',
+    defaultValue: 'default-icon',
+  },
+];
+
+const SELECTORS: SelectorMigration[] = [
+  // <button sbb-button>x</button> → <sbb-button>x</sbb-button>
+  { selector: 'button[sbb-button]', replaceWith: 'sbb-button' },
+];
+
+/**
+ * Migrate <Module> module from @sbb-esta/angular to @sbb-esta/lyne-angular.
+ */
+export function migrate<Module>(scope?: MigrationScope): Rule {
+  return chain([
+    createImportPathMigrationRule(IMPORT_PATHS, scope),
+    createCommentMigrationRule(COMMENTS, scope),
+    createTypeMigrationRule(TYPES, scope),
+    createAttributeMigrationRule(ATTRIBUTES, scope),
+    createTemplateSelectorMigrationRule(SELECTORS, scope),
+  ]);
+}
+```
+
+For transformations which cannot be expressed declaratively, add a custom `Rule` to the `chain()`.
+Template based rules should build on `createTemplateMigrationRule()` from `./template-migration.cjs`,
+which provides the element traversal and applies the collected `MigrationEdit`s.
+
+### 2. Register in orchestrator
+
+Update `index.cts`:
+
+```typescript
+import { migrate<Module> } from './modules/<module-name>.cjs';
+
+// The `isStandardTheme` parameter is resolved once in `migrateLegacy()` via `isStandardThemeSet()`;
+// it can be used to customize migration rules based on the configured theme.
+function loadModuleMigration(
+  module: LegacyModuleName,
+  scope: MigrationScope,
+  isStandardTheme: boolean,
+): Rule {
+  switch (module) {
+    case '<module>':
+      return migrate<Module>(scope, isStandardTheme);
+    // ... other cases
+    default:
+      return noop();
+  }
+}
+```
+
+### 3. Test your module migration
+
+Create `test/<module-name>.spec.ts` using the `SchematicTestRunner` pattern from `schematics/migrate-legacy/modules/button.spec.ts`.
+
+The `MigrateLegacyTestUtils` class can be used to easily test a rule on an `HTML`/`TS` file;
+it also handles the schematic and the test runner creation.
+
+```ts
+const rule = migrate<module>({ root: '', excludedRoots: [] });
+
+const contentHTML = '<sbb-<module>>Content<sbb-<module>>';
+const migratedContentHTML = await MigrateLegacyTestUtils.migrateHtmlFile(contentHTML, rule);
+expect(migratedContentHTML).toBe('...');
+
+const contentTS = [
+  "import { Component } from '@angular/core';",
+  "import { <module> } from '@sbb-esta/angular/<module>';",
+  '',
+  '@Component({',
+  "  selector: 'app-root',",
+  '  imports: [<module>],',
+  "  template: '<sbb-<module>></sbb-<module>>',",
+  '})',
+  'export class AppComponent {}',
+].join('\n');
+const migratedContentTS = await MigrateLegacyTestUtils.migrateTsFile(contentTs, rule);
+expect(migratedContentTS).toBe('...');
+```
+
+## Usage
+
+```bash
+# Install lyne-angular with automatic setup
+ng add @sbb-esta/lyne-angular
+
+# Migrate all modules
+ng generate @sbb-esta/lyne-angular:migrate-legacy
+
+# Migrate specific project (for multi-application workspace).
+ng generate @sbb-esta/lyne-angular:migrate-legacy --project my-project
+
+# Migrate specific modules
+ng generate @sbb-esta/lyne-angular:migrate-legacy --module button
+ng generate @sbb-esta/lyne-angular:migrate-legacy --module button checkbox
+
+# Usage with both parameters
+ng generate @sbb-esta/lyne-angular:migrate-legacy --project my-project --module button
+```
+
+## Implementation Checklist
+
+For each module, use this checklist:
+
+- [ ] Create `modules/<module>.cts` with `migrate<Module>()` function
+- [ ] Transformation list:
+  - [ ] Change import path (using `createImportPathMigrationRule(...)`)
+  - [ ] Manual migration comments (using `createCommentMigrationRule(...)`)
+  - [ ] Type/class renames (using `createTypeMigrationRule(...)`)
+  - [ ] Attribute/input/output renames (using `createAttributeMigrationRule(...)`)
+  - [ ] Template selector updates (using `createTemplateSelectorMigrationRule(...)`)
+  - [ ] Custom rules (can be built on `createTemplateMigrationRule(...)`)
+- [ ] Register in `index.cts` switch statement
+- [ ] Create test file: `test/<module>.spec.ts`
+
+## Notes
+
+- Each module's migration is isolated and can be run independently
+- Only the files of the selected `--project` are migrated: `index.cts` resolves a `MigrationScope` (project root, minus nested projects) via `getProjectScope()`,
+  which modules forward to every rule factory (`create<Module>MigrationRule(migrations, scope)`)
+- Migrations are idempotent (safe to run multiple times)
+- `node_modules` and `*.d.ts` files are never migrated
+- Templates which cannot be parsed, and elements without a closing tag, are skipped instead of being corrupted
+- Edits are collected as `MigrationEdit`s and applied in reverse offset order, so offsets stay stable; every edit can carry a `log` callback

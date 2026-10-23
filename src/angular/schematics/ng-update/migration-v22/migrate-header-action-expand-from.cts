@@ -1,9 +1,6 @@
 import { ResolvedResource } from '@angular/cdk/schematics';
-import {
-  AttributeMigrationBase,
-  MigrationEdit,
-  queueFixmeComment,
-} from './attribute-migration-base.cjs';
+import { AttributeMigrationBase, queueFixmeComment } from './attribute-migration-base.cjs';
+import { MigrationEdit } from '../../utils.cjs';
 
 /**
  * Migration that manages the transition of the `expandFrom` and `expand-from` attributes to `hideLabelBelow`
