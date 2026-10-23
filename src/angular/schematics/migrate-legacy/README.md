@@ -41,6 +41,9 @@ This directory contains the migration schematic for converting `@sbb-esta/angula
 
 ## Adding a Custom Module Migration
 
+It is possible to generate the boilerplate code for a module migration running `npm run generate-migration <module name>`;
+it generates both the basic migration script and the corresponding test file under the folder `migrate-legacy/modules`.
+
 ### 1. Create migration file
 
 Create `modules/<module-name>.cts`, preferably declaratively by composing the shared rule factories:
