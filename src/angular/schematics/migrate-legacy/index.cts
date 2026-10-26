@@ -1,8 +1,9 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 
-import { migrateButton } from './modules/button.cjs';
-import { MigrateLegacyOptionsSchema } from './schema';
 import { getProjectScope, isStandardThemeSet, MigrationScope } from '../utils.cjs';
+import { MigrateLegacyOptionsSchema } from './schema';
+import { migrateBadge } from './modules/badge.cjs';
+import { migrateButton } from './modules/button.cjs';
 import { migrateCaptcha } from './modules/captcha.cjs';
 import { migrateTextarea } from './modules/textarea.cjs';
 import { migrateUsermenu } from './modules/usermenu.cjs';
@@ -13,7 +14,7 @@ const LEGACY_MODULES = [
   // 'expansion-panel',
   // 'alert',
   // 'autocomplete',
-  // 'badge',
+  'badge',
   // 'breadcrumb',
   'button',
   'captcha',
@@ -80,6 +81,8 @@ function loadModuleMigration(
 ): Rule {
   // TODO: Add more modules as they are implemented
   switch (module) {
+    case 'badge':
+      return migrateBadge(scope);
     case 'button':
       return migrateButton(scope);
     case 'captcha':
