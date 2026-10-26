@@ -6,6 +6,7 @@ import { getProjectScope, isStandardThemeSet, MigrationScope } from '../utils.cj
 import { migrateCaptcha } from './modules/captcha.cjs';
 import { migrateTextarea } from './modules/textarea.cjs';
 import { migrateUsermenu } from './modules/usermenu.cjs';
+import { migrateTextexpand } from './modules/textexpand.cjs';
 
 // TODO: Add more modules as they are implemented
 const LEGACY_MODULES = [
@@ -87,7 +88,7 @@ function loadModuleMigration(
     case 'textarea':
       return migrateTextarea(scope);
     case 'textexpand':
-      return migrateTextarea(scope);
+      return migrateTextexpand(scope);
     case 'usermenu':
       return migrateUsermenu(scope);
     default:
