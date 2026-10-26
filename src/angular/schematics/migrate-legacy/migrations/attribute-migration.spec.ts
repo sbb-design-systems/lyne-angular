@@ -144,6 +144,31 @@ describe('sbb-attribute-migration', () => {
       );
     });
 
+    describe('spelling-only rename', () => {
+      const spellingRule = createAttributeMigrationRule([
+        { selector: 'h3', attribute: 'sbbBadge', replaceWith: 'sbb-badge' },
+      ]);
+
+      it('should rename camelCase to dash-case', async () => {
+        expect(
+          await MigrateLegacyTestUtils.migrateHtmlFile(
+            '<h3 sbbBadge="4" [sbbBadgeHidden]="hidden">Text with a badge</h3>',
+            spellingRule,
+          ),
+        ).toBe('<h3 sbb-badge="4" [sbbBadgeHidden]="hidden">Text with a badge</h3>');
+      });
+
+      it('should be idempotent', async () => {
+        const template = '<h3 sbb-badge="4"></h3>';
+        expect(await MigrateLegacyTestUtils.migrateHtmlFile(template, spellingRule)).toBe(template);
+      });
+
+      it('should skip when the target is on another node', async () => {
+        const template = '<h3 sbbBadge="4" [sbb-badge]="x"></h3>';
+        expect(await MigrateLegacyTestUtils.migrateHtmlFile(template, spellingRule)).toBe(template);
+      });
+    });
+
     it('should migrate elements inside control flow blocks', async () => {
       expect(
         await MigrateLegacyTestUtils.migrateHtmlFile(

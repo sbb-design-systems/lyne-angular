@@ -217,6 +217,14 @@ describe('sbb-template-migration', () => {
     });
 
     describe('elementMatches', () => {
+      it('should match all tag name', () => {
+        expect(elementMatches(first('<a></a>'), parseSelector('*'))).toBe(true);
+        expect(elementMatches(first('<b></b>'), parseSelector('*'))).toBe(true);
+        expect(elementMatches(first('<div></div>'), parseSelector('*'))).toBe(true);
+        expect(elementMatches(first('<span></span>'), parseSelector('*'))).toBe(true);
+        expect(elementMatches(first('<sbb-button></sbb-button>'), parseSelector('*'))).toBe(true);
+      });
+
       it('should match a tag name', () => {
         expect(elementMatches(first('<a></a>'), parseSelector('a'))).toBe(true);
         expect(elementMatches(first('<b></b>'), parseSelector('a'))).toBe(false);

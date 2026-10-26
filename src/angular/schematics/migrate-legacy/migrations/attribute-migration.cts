@@ -18,6 +18,7 @@ import {
 export interface AttributeMigration {
   /**
    * CSS-like selector of the element owning the attribute, using the Angular selector syntax. Examples:
+   * - `'*'`                                - every element
    * - `'sbb-usermenu'`                     — tag name
    * - `'[sbb-button]'`                     — attribute on any tag
    * - `'button[sbb-button]'`               — tag name combined with an attribute
@@ -134,7 +135,9 @@ export function createAttributeMigrationRule(
         }
         handledOffsets.add(keySpan.start);
 
-        if (hasAttribute(element, migration.replaceWith)) {
+        // Only another node counts: the node being renamed may match the target spelling (`sbbBadge` vs `sbb-badge`).
+        const targetVariants = attributeNameVariants(migration.replaceWith);
+        if (nodes.some((node) => node !== matchingNode && targetVariants.includes(node.name))) {
           logger.warn(
             `  ⚠ Skipped renaming '${migration.attribute}' to '${migration.replaceWith}' in ` +
               `'${filePath}': '${tagAttributeForLogger}' already uses '${migration.replaceWith}'.`,
@@ -142,10 +145,16 @@ export function createAttributeMigrationRule(
           continue;
         }
 
-        // Keep the spelling the consumer used.
-        const replacement = writtenKey.includes('-')
-          ? toDashCase(migration.replaceWith)
-          : toCamelCase(migration.replaceWith);
+        // Same name in another spelling (`sbbBadge` -> `sbb-badge`): the spelling IS the change, use it as given.
+        // Otherwise, keep the spelling the consumer used.
+        const replacement = variants.includes(migration.replaceWith)
+          ? migration.replaceWith
+          : writtenKey.includes('-')
+            ? toDashCase(migration.replaceWith)
+            : toCamelCase(migration.replaceWith);
+        if (replacement === writtenKey) {
+          continue;
+        }
 
         edits.push({
           offset: baseOffset + keySpan.start,
