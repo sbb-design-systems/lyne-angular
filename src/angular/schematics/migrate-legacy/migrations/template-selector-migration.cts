@@ -1,46 +1,16 @@
 import type { CssSelector } from '@angular/compiler';
-import { noop, Rule } from '@angular-devkit/schematics';
+import type { Rule } from '@angular-devkit/schematics';
+import { noop } from '@angular-devkit/schematics';
 
 import type { MigrationScope } from '../../utils.cjs';
+import type { ParsedSelectorMigration, SelectorMigration } from '../common.cjs';
 import {
   createTemplateMigrationRule,
   matchSelector,
-  ParsedSelector,
   parseSelector,
   queueAttributeRemovals,
   selectorAttributes,
 } from '../template-migration.cjs';
-
-export type { RemovableAttribute } from '../template-migration.cjs';
-
-export interface SelectorMigration {
-  /**
-   * CSS-like selector of the legacy element, using the Angular selector syntax. Examples:
-   * - `'sbb-usermenu'`                     — tag name
-   * - `'[sbb-button]'`                     — attribute on any tag
-   * - `'button[sbb-button]'`               — tag name combined with an attribute
-   * - `'a.link'`                           — class
-   * - `'a[href=foo].link'`                 — attribute value and class
-   * - `'a:not(.link)'`                     — excluding a class
-   * - `'a:not([download])'`                — excluding an attribute
-   * - `'a:not([href="/"])'`                — excluding an attribute value
-   * - `'a.link[sbb-link]:not([download])'` — any combination of the above
-   * - `'a[sbb-link], button[sbb-link]'`    — list of alternatives
-   */
-  selector: string;
-  /** Tag name of the new element, e.g. `'sbb-button'`. */
-  replaceWith: string;
-  /**
-   * Whether to remove the attributes required by the selector from the migrated element, e.g.
-   * `sbb-button` for `'button[sbb-button]'`, because they are the tag name now.
-   *
-   * Defaults to `false`: the attributes are kept.
-   * Attributes inside `:not(...)` are never removed, and classes are never removed either.
-   */
-  removeSelectorAttributes?: boolean;
-}
-
-type ParsedSelectorMigration = SelectorMigration & { parsedSelector: ParsedSelector };
 
 /**
  * Creates a rule which replaces legacy template selectors with their Lyne

@@ -13,12 +13,8 @@ import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/te
 import { firstValueFrom } from 'rxjs';
 import { describe, expect, it, vi } from 'vitest';
 
-import {
-  getProjectScope,
-  isStandardThemeSet,
-  type MigrationScope,
-  visitScopedFiles,
-} from './utils.cjs';
+import { getProjectScope, isStandardThemeSet, visitScopedFiles } from './migrate-legacy/common.cjs';
+import { type MigrationScope } from './utils.cjs';
 
 describe(`sbb-utils`, () => {
   const tempCollectionPath = path.join(os.tmpdir(), 'sbb-dummy-collection.json');

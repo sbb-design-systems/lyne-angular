@@ -31,17 +31,14 @@ if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/.test(module)) {
   fail(`Invalid module name "${args[0]}". Use letters, digits and dashes, e.g. "date-picker".`);
 }
 
-const pascalCase = module
-  .split('-')
-  .map((part) => part[0].toUpperCase() + part.slice(1))
-  .join('');
-
-const migrationTemplate = `import { ImportRewriteOptions } from '../../utils.cjs';
-import { AttributeMigration } from '../migrations/attribute-migration.cjs';
-import { SelectorMigration } from '../migrations/template-selector-migration.cjs';
-import { CommentMigration } from '../migrations/comment-migration.cjs';
-import { TypeMigration } from '../migrations/type-migration.cjs';
-import { ModuleMigrations } from '../index.cjs';
+const migrationTemplate = `import type {
+  AttributeMigration,
+  CommentMigration,
+  ImportRewriteOptions,
+  ModuleMigrations,
+  SelectorMigration,
+  TypeMigration,
+} from '../common.cjs';
 
 const importPaths: ImportRewriteOptions[] = [
   // TODO
@@ -82,6 +79,7 @@ import { createCommentMigrationRule } from '../migrations/comment-migration.cjs'
 import { createImportPathMigrationRule } from '../migrations/import-path-migration.cjs';
 import { createTemplateSelectorMigrationRule } from '../migrations/template-selector-migration.cjs';
 import { createTypeMigrationRule } from '../migrations/type-migration.cjs';
+import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
 import { ${module.toUpperCase()}_MIGRATIONS } from './${module}.cjs';
 

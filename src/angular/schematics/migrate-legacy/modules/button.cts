@@ -1,8 +1,10 @@
-import { ImportRewriteOptions } from '../../utils.cjs';
-import { AttributeMigration } from '../migrations/attribute-migration.cjs';
-import { SelectorMigration } from '../migrations/template-selector-migration.cjs';
-import { CommentMigration } from '../migrations/comment-migration.cjs';
-import { ModuleMigrations } from '../index.cjs';
+import type {
+  AttributeMigration,
+  CommentMigration,
+  ImportRewriteOptions,
+  ModuleMigrations,
+  SelectorMigration,
+} from '../common.cjs';
 
 const importPaths: ImportRewriteOptions[] = [
   { oldImport: '@sbb-esta/angular/button', newImport: '@sbb-esta/lyne-angular/button' },

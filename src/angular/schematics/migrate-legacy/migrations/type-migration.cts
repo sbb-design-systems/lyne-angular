@@ -1,26 +1,11 @@
-import { noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { noop } from '@angular-devkit/schematics';
 import ts from 'typescript';
 
-import {
-  applyEdits,
-  isTypeScriptFile,
-  MigrationEdit,
-  MigrationScope,
-  visitScopedFiles,
-} from '../../utils.cjs';
+import type { MigrationEdit, MigrationScope } from '../../utils.cjs';
+import type { TypeMigration } from '../common.cjs';
+import { applyEdits, isTypeScriptFile, visitScopedFiles } from '../common.cjs';
 import { findSymbolReferences } from '../symbol-references.cjs';
-
-export interface TypeMigration {
-  /** Legacy symbol name, e.g. `'SbbBreadcrumbs'`. */
-  from: string;
-  /** New symbol name, e.g. `'SbbBreadcrumbGroup'`. */
-  to: string;
-  /**
-   * Only migrate the symbol when it is imported from this module (exact match
-   * or sub-path). When omitted, any import of `from` is migrated.
-   */
-  importedFrom?: string | string[];
-}
 
 /**
  * Ranges removing the given specifiers from an import list, or the whole list/declaration

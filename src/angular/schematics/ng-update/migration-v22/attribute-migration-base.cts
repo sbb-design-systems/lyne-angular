@@ -1,4 +1,5 @@
-import { Migration, ResolvedResource, TargetVersion } from '@angular/cdk/schematics';
+import type { ResolvedResource } from '@angular/cdk/schematics';
+import { Migration, TargetVersion } from '@angular/cdk/schematics';
 
 import type { MigrationEdit } from '../../utils.cjs';
 

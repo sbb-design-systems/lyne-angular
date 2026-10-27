@@ -1,11 +1,8 @@
 import { TargetVersion } from '@angular/cdk/schematics';
 import * as ts from 'typescript';
 
-import {
-  AddCommentBase,
-  AddCommentMigrationConfig,
-  ReplaceTokenAction,
-} from './add-comment-base.cjs';
+import type { AddCommentMigrationConfig, ReplaceTokenAction } from './add-comment-base.cjs';
+import { AddCommentBase } from './add-comment-base.cjs';
 
 const TYPE_PULL_REQUEST_URL = 'https://github.com/sbb-design-systems/lyne-components/pull/4864';
 const EVENTS_PULL_REQUEST_URL = 'https://github.com/sbb-design-systems/lyne-components/pull/4918';

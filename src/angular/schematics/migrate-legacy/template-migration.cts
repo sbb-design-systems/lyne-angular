@@ -1,11 +1,5 @@
-import type { ParseSourceSpan } from '@angular/compiler';
-import {
-  BindingType,
-  CssSelector,
-  parseTemplate,
-  type TmplAstBoundAttribute,
-  TmplAstElement,
-} from '@angular/compiler';
+import type { ParseSourceSpan, TmplAstBoundAttribute, TmplAstElement } from '@angular/compiler';
+import { BindingType, CssSelector, parseTemplate } from '@angular/compiler';
 import type { logging } from '@angular-devkit/core';
 import {
   type Rule,
@@ -15,18 +9,14 @@ import {
 } from '@angular-devkit/schematics';
 import ts from 'typescript';
 
-import {
-  applyEdits,
-  isHtmlFile,
-  isTypeScriptFile,
-  MigrationEdit,
-  MigrationScope,
-  visitElements,
-  visitScopedFiles,
-} from '../utils.cjs';
+import type { MigrationEdit, MigrationScope } from '../utils.cjs';
+import { visitElements } from '../utils.cjs';
+
+import type { ParsedSelector, RemovableAttribute } from './common.cjs';
+import { applyEdits, isHtmlFile, isTypeScriptFile, visitScopedFiles } from './common.cjs';
 
 /** A template which is declared inline via the `template` property of `@Component`. */
-export interface InlineTemplate {
+interface InlineTemplate {
   /** The raw template source, exactly as written in the file (escape sequences are not decoded). */
   content: string;
   /** Offset of `content` within the containing TypeScript file. */
@@ -40,10 +30,10 @@ export interface InlineTemplate {
 }
 
 /** Quote character of the literal enclosing an inline template. */
-export type InlineQuote = '"' | "'" | '`';
+type InlineQuote = '"' | "'" | '`';
 
 /** The effective text of an inline template literal together with a map back to the source. */
-export interface DecodedTemplate {
+interface DecodedTemplate {
   /** The template text with all escape sequences resolved; this is what the template parser sees. */
   text: string;
   /**
@@ -53,33 +43,15 @@ export interface DecodedTemplate {
   offsets: number[];
 }
 
-/** An attribute which should be dropped, optionally only for a specific value. */
-export type RemovableAttribute = string | { name: string; value?: string };
-
 /** Static attribute, bound input or output of an element. */
-export type AttributeNode = {
+interface AttributeNode {
   name: string;
   sourceSpan: ParseSourceSpan;
   keySpan?: ParseSourceSpan;
-};
-
-/**
- * A parsed CSS selector. A comma separated selector list yields one alternative per entry;
- * an element matches if it matches any of them.
- */
-export interface ParsedSelector {
-  /** The selector as it has been written. */
-  source: string;
-  alternatives: CssSelector[];
-}
-
-export interface Span {
-  start: number;
-  end: number;
 }
 
 /** Everything a template migration needs to describe its edits. */
-export interface TemplateMigrationContext {
+interface TemplateMigrationContext {
   /**
    * The effective template source, which the template parser saw. For inline templates, escape
    * sequences of the enclosing literal are already decoded (`[svgIcon]=\"x\"` is `[svgIcon]="x"`).
@@ -123,6 +95,15 @@ const SELECTOR_PATTERN = new RegExp(
   `^${COMPOUND_PATTERN}(?::not\\((?=[^)])${COMPOUND_PATTERN}\\))*$`,
 );
 
+const SIMPLE_ESCAPES: Record<string, string> = {
+  n: '\n',
+  r: '\r',
+  t: '\t',
+  b: '\b',
+  f: '\f',
+  v: '\v',
+};
+
 /**
  * Collects all inline templates (`@Component({ template: ... })`) of a file.
  *
@@ -134,7 +115,7 @@ const SELECTOR_PATTERN = new RegExp(
  * of its literal. Decode it with {@link decodeInlineTemplate} before parsing it:
  * the decoded offsets are mapped back to the file through the returned `offsets`.
  */
-export function findInlineTemplates(filePath: string, fileContent: string): InlineTemplate[] {
+function findInlineTemplates(filePath: string, fileContent: string): InlineTemplate[] {
   const sourceFile = ts.createSourceFile(filePath, fileContent, ts.ScriptTarget.Latest, true);
   const templates: InlineTemplate[] = [];
 
@@ -239,15 +220,6 @@ export function findInlineTemplates(filePath: string, fileContent: string): Inli
   return templates;
 }
 
-const SIMPLE_ESCAPES: Record<string, string> = {
-  n: '\n',
-  r: '\r',
-  t: '\t',
-  b: '\b',
-  f: '\f',
-  v: '\v',
-};
-
 /**
  * Resolves the escape sequences of the raw content of a string or template literal, so that the
  * template parser sees the effective template, and records where every character came from.
@@ -255,7 +227,7 @@ const SIMPLE_ESCAPES: Record<string, string> = {
  * Returns `undefined` for content with malformed or (in template literals) forbidden escapes,
  * which cannot be interpreted reliably.
  */
-export function decodeInlineTemplate(raw: string, quote: InlineQuote): DecodedTemplate | undefined {
+function decodeInlineTemplate(raw: string, quote: InlineQuote): DecodedTemplate | undefined {
   let text = '';
   const offsets: number[] = [];
 
@@ -300,7 +272,7 @@ export function decodeInlineTemplate(raw: string, quote: InlineQuote): DecodedTe
       emit(String.fromCharCode(parseInt(hex, 16)), i, i + 4);
       i += 4;
     } else if (next === 'u') {
-      const braced = /^\{([0-9a-fA-F]+)\}/.exec(raw.slice(i + 2));
+      const braced = /^\{([0-9a-fA-F]+)}/.exec(raw.slice(i + 2));
       const hex = braced ? braced[1] : /^[0-9a-fA-F]{4}/.exec(raw.slice(i + 2, i + 6))?.[0];
       const codePoint = hex ? parseInt(hex, 16) : NaN;
       if (!hex || codePoint > 0x10ffff) {
@@ -338,7 +310,7 @@ export function decodeInlineTemplate(raw: string, quote: InlineQuote): DecodedTe
 }
 
 /** Escapes inserted text so that it is part of the literal's value instead of ending or altering it. */
-export function escapeForInlineLiteral(text: string, quote: InlineQuote): string {
+function escapeForInlineLiteral(text: string, quote: InlineQuote): string {
   let result = '';
   for (let i = 0; i < text.length; i++) {
     const char = text[i];
@@ -641,25 +613,6 @@ export function queueAttributeRemovals(
       );
     }
   }
-}
-
-/**
- * Resolves the span of the attribute name itself (without binding syntax and value).
- * Falls back to a lookup inside the full attribute span for parser versions which do not provide a `keySpan`.
- */
-export function resolveKeySpan(
-  node: { sourceSpan: ParseSourceSpan; keySpan?: ParseSourceSpan },
-  name: string,
-  content: string,
-): Span | undefined {
-  if (node.keySpan) {
-    return { start: node.keySpan.start.offset, end: node.keySpan.end.offset };
-  }
-
-  const start = content.indexOf(name, node.sourceSpan.start.offset);
-  return start >= 0 && start < node.sourceSpan.end.offset
-    ? { start, end: start + name.length }
-    : undefined;
 }
 
 /**

@@ -1,5 +1,4 @@
-import { CommentMigration } from '../migrations/comment-migration.cjs';
-import { ModuleMigrations } from '../index.cjs';
+import type { CommentMigration, ModuleMigrations } from '../common.cjs';
 
 const comments: CommentMigration[] = [
   {

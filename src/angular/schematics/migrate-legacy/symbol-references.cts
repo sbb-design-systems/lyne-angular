@@ -16,16 +16,6 @@ export interface SymbolReference<T extends SymbolTarget> {
   target: T;
 }
 
-/** Whether `moduleSpecifier` equals one of `importedFrom` or is a sub-path of it. */
-export function matchesModule(moduleSpecifier: string, importedFrom?: string | string[]): boolean {
-  if (!importedFrom) {
-    return true;
-  }
-  return [importedFrom]
-    .flat()
-    .some((module) => moduleSpecifier === module || moduleSpecifier.startsWith(`${module}/`));
-}
-
 /** Whether the identifier refers to a binding, as opposed to a member name or an object/class key. */
 function isReference(node: ts.Identifier): boolean {
   const parent = node.parent;
@@ -44,6 +34,16 @@ function isReference(node: ts.Identifier): boolean {
     return parent.name !== node;
   }
   return true;
+}
+
+/** Whether `moduleSpecifier` equals one of `importedFrom` or is a sub-path of it. */
+export function matchesModule(moduleSpecifier: string, importedFrom?: string | string[]): boolean {
+  if (!importedFrom) {
+    return true;
+  }
+  return [importedFrom]
+    .flat()
+    .some((module) => moduleSpecifier === module || moduleSpecifier.startsWith(`${module}/`));
 }
 
 /**

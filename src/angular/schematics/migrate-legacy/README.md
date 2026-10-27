@@ -9,6 +9,9 @@ This directory contains the migration schematic for converting `@sbb-esta/angula
   Rules are called once after aggregating data from all the selected modules.
   It also retrieves the configured theme, which can be used in custom migration rules to handle theme-specific logic.
 
+- **`common.cts`**
+  Common files, interfaces, types and functions.
+
 - **`modules/`**
   Per-module custom migration data; each module (e.g., `button.cts`, `checkbox.cts`, ... ) exports a `Partial<ModuleMigrations>` object
   which must be added to the `MODULE_REGISTRY` in `index.ts` to perform the custom transformations for that module.
@@ -54,12 +57,17 @@ it generates both the basic migration script and the corresponding test file und
 Create `modules/<module-name>.cts`, preferably declaratively by composing the shared rule factories:
 
 ```typescript
-import { ImportRewriteOptions } from '../../utils.cjs';
-import { AttributeMigration } from '../migrations/attribute-migration.cjs';
-import { SelectorMigration } from '../migrations/template-selector-migration.cjs';
-import { CommentMigration } from '../migrations/comment-migration.cjs';
-import { TypeMigration } from '../migrations/type-migration.cjs';
-import { ModuleMigrations } from '../index.cjs';
+import type { Rule } from '@angular-devkit/schematics';
+
+import type { MigrationScope } from '../../utils.cjs';
+import type {
+  AttributeMigration,
+  CommentMigration,
+  ImportRewriteOptions,
+  ModuleMigrations,
+  SelectorMigration,
+  TypeMigration,
+} from '../common.cjs';
 
 const importPaths: ImportRewriteOptions[] = [
   { oldImport: '@sbb-esta/angular/<module>', newImport: '@sbb-esta/lyne-angular/<module>' },

@@ -1,8 +1,9 @@
-import { Migration, ResolvedResource, TargetVersion } from '@angular/cdk/schematics';
+import type { ResolvedResource, TargetVersion } from '@angular/cdk/schematics';
+import { Migration } from '@angular/cdk/schematics';
 import * as ts from 'typescript';
 
+import type { CommentDelimiters } from '../../comment-utils.cjs';
 import {
-  CommentDelimiters,
   CSS_DELIMITERS,
   formatComment,
   getIndent,
@@ -34,16 +35,16 @@ export interface ResourceMatch {
   commentText: string;
 }
 
-export type ReplaceTokenAction = {
+export interface ReplaceTokenAction {
   type: 'replace';
   replacement: string;
   prUrl: string;
-};
+}
 
-export type DeleteTokenAction = {
+export interface DeleteTokenAction {
   type: 'delete';
   prUrl: string;
-};
+}
 
 /** Used to define elements to be replaced or removed. */
 export type TokenAction = ReplaceTokenAction | DeleteTokenAction;
@@ -174,6 +175,18 @@ export abstract class AddCommentBase extends Migration<null> {
       return;
     }
     this._processResource(stylesheet, CSS_DELIMITERS, 'style');
+  }
+
+  override postAnalysis(): void {
+    for (const [filePath, ruleMap] of this._tsLog) {
+      const lines: string[] = [];
+      for (const [ruleName, { inserted, skipped }] of ruleMap) {
+        lines.push(this._formatRuleLog(ruleName, inserted, skipped));
+      }
+      if (lines.length > 0) {
+        this.logger.info(`  → ${filePath}\n${lines.map((l) => `    ${l}`).join('\n')}`);
+      }
+    }
   }
 
   /**
@@ -417,18 +430,6 @@ export abstract class AddCommentBase extends Migration<null> {
       fileMap.set(ruleLabel, entry);
     }
     return entry;
-  }
-
-  override postAnalysis(): void {
-    for (const [filePath, ruleMap] of this._tsLog) {
-      const lines: string[] = [];
-      for (const [ruleName, { inserted, skipped }] of ruleMap) {
-        lines.push(this._formatRuleLog(ruleName, inserted, skipped));
-      }
-      if (lines.length > 0) {
-        this.logger.info(`  → ${filePath}\n${lines.map((l) => `    ${l}`).join('\n')}`);
-      }
-    }
   }
 
   /** Formats a single per-rule log line. */

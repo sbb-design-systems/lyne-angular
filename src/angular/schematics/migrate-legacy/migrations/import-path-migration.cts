@@ -1,14 +1,10 @@
-import { noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { noop } from '@angular-devkit/schematics';
 import ts from 'typescript';
 
-import {
-  applyEdits,
-  ImportRewriteOptions,
-  isTypeScriptFile,
-  MigrationEdit,
-  MigrationScope,
-  visitScopedFiles,
-} from '../../utils.cjs';
+import type { MigrationEdit, MigrationScope } from '../../utils.cjs';
+import type { ImportRewriteOptions } from '../common.cjs';
+import { applyEdits, isTypeScriptFile, visitScopedFiles } from '../common.cjs';
 
 /** Rewrites the module specifiers of the imports and exports of a TypeScript source file. */
 function rewriteImportPaths(
@@ -74,7 +70,7 @@ export function createImportPathMigrationRule(
       if (updated !== original) {
         tree.overwrite(filePath, updated);
         context.logger.info(
-          `  → Updated '${mappings.map((e) => e.oldImport).join("', '")}\' imports in '${filePath}'.`,
+          `  → Updated '${mappings.map((e) => e.oldImport).join("', '")}' imports in '${filePath}'.`,
         );
       }
     });

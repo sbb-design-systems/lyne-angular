@@ -1,7 +1,7 @@
 import type { Rule } from '@angular-devkit/schematics';
 import { describe, expect, it } from 'vitest';
 
-import type { ImportRewriteOptions } from '../../utils.cjs';
+import type { ImportRewriteOptions } from '../common.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
 import { createImportPathMigrationRule } from './import-path-migration.cjs';
