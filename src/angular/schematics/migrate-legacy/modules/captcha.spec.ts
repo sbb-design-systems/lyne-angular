@@ -1,11 +1,17 @@
+import type { Rule } from '@angular-devkit/schematics';
+import { chain } from '@angular-devkit/schematics';
 import { describe, expect, it } from 'vitest';
 
+import { createCommentMigrationRule } from '../migrations/comment-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { migrateCaptcha } from './captcha.cjs';
+import { CAPTCHA_MIGRATIONS } from './captcha.cjs';
 
 describe('sbb-captcha', () => {
-  const defaultMigration = migrateCaptcha({ root: '', excludedRoots: [] });
+  const defaultMigration: Rule = () =>
+    chain([
+      createCommentMigrationRule(CAPTCHA_MIGRATIONS.comments, { root: '', excludedRoots: [] }),
+    ]);
 
   describe('should add comments', () => {
     it('for selector', async () => {

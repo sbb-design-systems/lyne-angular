@@ -1,4 +1,4 @@
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { chain } from '@angular-devkit/schematics';
 import ts from 'typescript';
 
@@ -198,9 +198,12 @@ function createSymbolCommentRule(
  * already present directly above a line are not added again.
  */
 export function createCommentMigrationRule(
-  migrations: CommentMigration[],
+  migrations?: CommentMigration[],
   scope?: MigrationScope,
 ): Rule {
+  if (!migrations || migrations.length === 0) {
+    return noop();
+  }
   const elementMigrations = migrations.filter(isElementCommentMigration);
   const symbolMigrations = migrations.filter(
     (migration): migration is SymbolCommentMigration => !isElementCommentMigration(migration),

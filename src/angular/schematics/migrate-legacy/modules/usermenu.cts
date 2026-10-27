@@ -1,9 +1,7 @@
-import { chain, Rule } from '@angular-devkit/schematics';
+import { CommentMigration } from '../migrations/comment-migration.cjs';
+import { ModuleMigrations } from '../index.cjs';
 
-import { MigrationScope } from '../../utils.cjs';
-import { CommentMigration, createCommentMigrationRule } from '../migrations/comment-migration.cjs';
-
-const COMMENTS: CommentMigration[] = [
+const comments: CommentMigration[] = [
   {
     selector: 'sbb-usermenu',
     message: `FIXME: this component has no direct counterpart in lyne-angular; you can replace it with a 'sbb-header-button' adapting its properties.`,
@@ -17,6 +15,4 @@ const COMMENTS: CommentMigration[] = [
 /**
  * Migrate the usermenu component from `@sbb-esta/angular` to `@sbb-esta/lyne-angular`.
  */
-export function migrateUsermenu(scope: MigrationScope): Rule {
-  return chain([createCommentMigrationRule(COMMENTS, scope)]);
-}
+export const USERMENU_MIGRATIONS: Partial<ModuleMigrations> = { comments };

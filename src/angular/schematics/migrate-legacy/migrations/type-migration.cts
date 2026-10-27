@@ -1,4 +1,4 @@
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import ts from 'typescript';
 
 import {
@@ -84,7 +84,14 @@ function getRemovalRanges(
  * and every identifier of the same name are renamed. If the file already imports `to`, the legacy
  * import specifier is removed instead of being renamed into a duplicate.
  */
-export function createTypeMigrationRule(migrations: TypeMigration[], scope?: MigrationScope): Rule {
+export function createTypeMigrationRule(
+  migrations?: TypeMigration[],
+  scope?: MigrationScope,
+): Rule {
+  if (!migrations || migrations.length === 0) {
+    return noop();
+  }
+
   const targets = migrations.map((migration) => ({
     name: migration.from,
     importedFrom: migration.importedFrom,

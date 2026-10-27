@@ -1,12 +1,27 @@
 import type { Rule } from '@angular-devkit/schematics';
+import { chain } from '@angular-devkit/schematics';
 import { describe, expect, it } from 'vitest';
 
+import { createAttributeMigrationRule } from '../migrations/attribute-migration.cjs';
+import { createCommentMigrationRule } from '../migrations/comment-migration.cjs';
+import { createImportPathMigrationRule } from '../migrations/import-path-migration.cjs';
+import { createTemplateSelectorMigrationRule } from '../migrations/template-selector-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { migrateButton } from './button.cjs';
+import { BUTTON_MIGRATIONS } from './button.cjs';
 
 describe('sbb-button', () => {
-  const defaultMigration: Rule = migrateButton({ root: '', excludedRoots: [] });
+  const defaultMigration: Rule = () => {
+    const { importPaths, comments, attributes, selectors } = BUTTON_MIGRATIONS;
+    const scope = { root: '', excludedRoots: [] };
+    return chain([
+      createImportPathMigrationRule(importPaths, scope),
+      createCommentMigrationRule(comments, scope),
+      createAttributeMigrationRule(attributes, scope),
+      createTemplateSelectorMigrationRule(selectors, scope),
+    ]);
+  };
+
   const migrateTemplate: (template: string) => Promise<string> = (template: string) =>
     MigrateLegacyTestUtils.migrateHtmlFile(template, defaultMigration);
 

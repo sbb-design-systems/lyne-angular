@@ -1,9 +1,7 @@
-import { chain, Rule } from '@angular-devkit/schematics';
+import { CommentMigration } from '../migrations/comment-migration.cjs';
+import { ModuleMigrations } from '../index.cjs';
 
-import { MigrationScope } from '../../utils.cjs';
-import { CommentMigration, createCommentMigrationRule } from '../migrations/comment-migration.cjs';
-
-const COMMENTS: CommentMigration[] = [
+const comments: CommentMigration[] = [
   {
     selector: 'sbb-captcha',
     message: 'FIXME: this component has no counterpart in lyne-angular.',
@@ -17,6 +15,4 @@ const COMMENTS: CommentMigration[] = [
 /**
  * Migrate the captcha component from `@sbb-esta/angular` to `@sbb-esta/lyne-angular`.
  */
-export function migrateCaptcha(scope: MigrationScope): Rule {
-  return chain([createCommentMigrationRule(COMMENTS, scope)]);
-}
+export const CAPTCHA_MIGRATIONS: Partial<ModuleMigrations> = { comments };

@@ -1,11 +1,17 @@
+import type { Rule } from '@angular-devkit/schematics';
+import { chain } from '@angular-devkit/schematics';
 import { describe, expect, it } from 'vitest';
 
+import { createCommentMigrationRule } from '../migrations/comment-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { migrateTextexpand } from './textexpand.cjs';
+import { TEXTEXPAND_MIGRATIONS } from './textexpand.cjs';
 
 describe('sbb-textexpand', () => {
-  const defaultMigration = migrateTextexpand({ root: '', excludedRoots: [] });
+  const defaultMigration: Rule = () =>
+    chain([
+      createCommentMigrationRule(TEXTEXPAND_MIGRATIONS.comments, { root: '', excludedRoots: [] }),
+    ]);
 
   describe('should add comments', () => {
     it('for selector', async () => {

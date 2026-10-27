@@ -1,4 +1,4 @@
-import type { Rule } from '@angular-devkit/schematics';
+import { noop, Rule } from '@angular-devkit/schematics';
 
 import type { MigrationScope } from '../../utils.cjs';
 import {
@@ -68,9 +68,12 @@ type ParsedAttributeMigration = AttributeMigration & { parsedSelectors: ParsedSe
  * are only migrated once, through their written key.
  */
 export function createAttributeMigrationRule(
-  migrations: AttributeMigration[],
+  migrations?: AttributeMigration[],
   scope?: MigrationScope,
 ): Rule {
+  if (!migrations || migrations.length === 0) {
+    return noop();
+  }
   const parsedMigrations: ParsedAttributeMigration[] = migrations.map((migration) => ({
     ...migration,
     parsedSelectors: (Array.isArray(migration.selector)

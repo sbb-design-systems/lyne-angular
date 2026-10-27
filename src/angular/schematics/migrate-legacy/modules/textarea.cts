@@ -1,9 +1,10 @@
-import { chain, Rule } from '@angular-devkit/schematics';
+import { Rule } from '@angular-devkit/schematics';
 
 import { getIndent, getLineStart } from '../../comment-utils.cjs';
 import { MigrationScope } from '../../utils.cjs';
 import { createTemplateMigrationRule, Span } from '../template-migration.cjs';
-import { CommentMigration, createCommentMigrationRule } from '../migrations/comment-migration.cjs';
+import { CommentMigration } from '../migrations/comment-migration.cjs';
+import { ModuleMigrations } from '../index.cjs';
 
 const TEXTAREA = 'sbb-textarea';
 const COUNTER = 'sbb-form-field-text-counter';
@@ -60,7 +61,7 @@ export function createTextareaMigrationRule(scope?: MigrationScope): Rule {
   }, scope);
 }
 
-const COMMENTS: CommentMigration[] = [
+const comments: CommentMigration[] = [
   {
     symbol: 'SbbTextareaModule',
     message:
@@ -71,6 +72,7 @@ const COMMENTS: CommentMigration[] = [
 /**
  * Migrate the textarea component from `@sbb-esta/angular` to `@sbb-esta/lyne-angular`.
  */
-export function migrateTextarea(scope: MigrationScope): Rule {
-  return chain([createCommentMigrationRule(COMMENTS, scope), createTextareaMigrationRule(scope)]);
-}
+export const TEXTAREA_MIGRATIONS: Partial<ModuleMigrations> = {
+  comments,
+  customRules: [(scope: MigrationScope) => createTextareaMigrationRule(scope)],
+};

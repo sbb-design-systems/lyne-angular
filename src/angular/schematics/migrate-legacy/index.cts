@@ -1,23 +1,48 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 
-import { migrateButton } from './modules/button.cjs';
+import {
+  getProjectScope,
+  ImportRewriteOptions,
+  isStandardThemeSet,
+  MigrationScope,
+} from '../utils.cjs';
 import { MigrateLegacyOptionsSchema } from './schema';
-import { getProjectScope, isStandardThemeSet, MigrationScope } from '../utils.cjs';
-import { migrateCaptcha } from './modules/captcha.cjs';
-import { migrateTextarea } from './modules/textarea.cjs';
-import { migrateUsermenu } from './modules/usermenu.cjs';
-import { migrateTextexpand } from './modules/textexpand.cjs';
+import { CommentMigration, createCommentMigrationRule } from './migrations/comment-migration.cjs';
+import {
+  AttributeMigration,
+  createAttributeMigrationRule,
+} from './migrations/attribute-migration.cjs';
+import { createImportPathMigrationRule } from './migrations/import-path-migration.cjs';
+import {
+  createTemplateSelectorMigrationRule,
+  SelectorMigration,
+} from './migrations/template-selector-migration.cjs';
+import { createTypeMigrationRule, TypeMigration } from './migrations/type-migration.cjs';
+import { BUTTON_MIGRATIONS } from './modules/button.cjs';
+import { CAPTCHA_MIGRATIONS } from './modules/captcha.cjs';
+import { TEXTAREA_MIGRATIONS } from './modules/textarea.cjs';
+import { TEXTEXPAND_MIGRATIONS } from './modules/textexpand.cjs';
+import { USERMENU_MIGRATIONS } from './modules/usermenu.cjs';
 
-// TODO: Add more modules as they are implemented
-const LEGACY_MODULES = [
+export interface ModuleMigrations {
+  importPaths: ImportRewriteOptions[];
+  comments: CommentMigration[];
+  types: TypeMigration[];
+  selectors: SelectorMigration[];
+  attributes: AttributeMigration[];
+  customRules: ((scope: MigrationScope, isStandardTheme?: boolean) => Rule)[];
+}
+
+// TODO: Add more migrations as they are implemented
+const MODULE_REGISTRY: Record<string, Partial<ModuleMigrations>> = {
   // 'accordion',
   // 'expansion-panel',
   // 'alert',
   // 'autocomplete',
   // 'badge',
   // 'breadcrumb',
-  'button',
-  'captcha',
+  button: BUTTON_MIGRATIONS,
+  captcha: CAPTCHA_MIGRATIONS,
   // 'checkbox',
   // 'checkbox-panel',
   // 'chips',
@@ -44,15 +69,17 @@ const LEGACY_MODULES = [
   // 'tabs',
   // 'table',
   // 'tag',
-  'textarea',
-  'textexpand',
+  textarea: TEXTAREA_MIGRATIONS,
+  textexpand: TEXTEXPAND_MIGRATIONS,
   // 'time-input',
   // 'toggle',
   // 'tooltip',
-  'usermenu',
-];
+  usermenu: USERMENU_MIGRATIONS,
+};
 
-type LegacyModuleName = (typeof LEGACY_MODULES)[number];
+export type LegacyModuleName = keyof typeof MODULE_REGISTRY;
+
+const LEGACY_MODULES = Object.keys(MODULE_REGISTRY) as LegacyModuleName[];
 
 function resolveLegacyModules(module: string[] | undefined): LegacyModuleName[] {
   const requestedModules = module ?? [];
@@ -73,29 +100,6 @@ function resolveLegacyModules(module: string[] | undefined): LegacyModuleName[] 
   return [...new Set(requestedModules)] as LegacyModuleName[];
 }
 
-/** Load migration rule for a specific legacy module. */
-function loadModuleMigration(
-  module: LegacyModuleName,
-  scope: MigrationScope,
-  _isStandardTheme: boolean,
-): Rule {
-  // TODO: Add more modules as they are implemented
-  switch (module) {
-    case 'button':
-      return migrateButton(scope);
-    case 'captcha':
-      return migrateCaptcha(scope);
-    case 'textarea':
-      return migrateTextarea(scope);
-    case 'textexpand':
-      return migrateTextexpand(scope);
-    case 'usermenu':
-      return migrateUsermenu(scope);
-    default:
-      return noop();
-  }
-}
-
 export function migrateLegacy(options: MigrateLegacyOptionsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     const isStandardTheme = await isStandardThemeSet(tree, context, options.project);
@@ -105,11 +109,46 @@ export function migrateLegacy(options: MigrateLegacyOptionsSchema): Rule {
       `Migrating project ${options.project} (${scope.root || 'workspace root'}` +
         `${scope.excludedRoots.length ? `, excluding ${scope.excludedRoots.join(', ')}` : ''}).`,
     );
-
+    const aggregatedMigrations: ModuleMigrations = resolveLegacyModules(
+      options.module,
+    ).reduce<ModuleMigrations>(
+      (acc, moduleName) => {
+        const moduleData = MODULE_REGISTRY[moduleName] ?? {};
+        return {
+          importPaths: [...acc.importPaths, ...(moduleData.importPaths ?? [])],
+          comments: [...acc.comments, ...(moduleData.comments ?? [])],
+          types: [...acc.types, ...(moduleData.types ?? [])],
+          selectors: [...acc.selectors, ...(moduleData.selectors ?? [])],
+          attributes: [...acc.attributes, ...(moduleData.attributes ?? [])],
+          customRules: [...acc.customRules, ...(moduleData.customRules ?? [])],
+        };
+      },
+      {
+        importPaths: [],
+        types: [],
+        comments: [],
+        selectors: [],
+        attributes: [],
+        customRules: [],
+      },
+    );
     return chain([
-      ...resolveLegacyModules(options.module).map((module) =>
-        loadModuleMigration(module, scope, isStandardTheme),
-      ),
+      aggregatedMigrations.importPaths.length > 0
+        ? createImportPathMigrationRule(aggregatedMigrations.importPaths, scope)
+        : noop(),
+      aggregatedMigrations.comments.length > 0
+        ? createCommentMigrationRule(aggregatedMigrations.comments, scope)
+        : noop(),
+      aggregatedMigrations.types.length > 0
+        ? createTypeMigrationRule(aggregatedMigrations.types, scope)
+        : noop(),
+      aggregatedMigrations.attributes.length > 0
+        ? createAttributeMigrationRule(aggregatedMigrations.attributes, scope)
+        : noop(),
+      aggregatedMigrations.selectors.length > 0
+        ? createTemplateSelectorMigrationRule(aggregatedMigrations.selectors, scope)
+        : noop(),
+      ...aggregatedMigrations.customRules.map((ruleFactory) => ruleFactory(scope, isStandardTheme)),
     ]);
   };
 }

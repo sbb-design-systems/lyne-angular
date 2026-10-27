@@ -1,4 +1,4 @@
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import ts from 'typescript';
 
 import {
@@ -57,9 +57,12 @@ function rewriteImportPaths(
  * Sub-paths (`@sbb-esta/angular/button/button`) are not rewritten.
  */
 export function createImportPathMigrationRule(
-  mappings: ImportRewriteOptions[],
+  mappings?: ImportRewriteOptions[],
   scope?: MigrationScope,
 ): Rule {
+  if (!mappings || mappings.length === 0) {
+    return noop();
+  }
   return (tree: Tree, context: SchematicContext) => {
     visitScopedFiles(tree, scope, (filePath) => {
       const original = isTypeScriptFile(filePath) ? tree.read(filePath)?.toString('utf-8') : null;

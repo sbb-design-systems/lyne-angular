@@ -1,5 +1,5 @@
 import type { CssSelector } from '@angular/compiler';
-import type { Rule } from '@angular-devkit/schematics';
+import { noop, Rule } from '@angular-devkit/schematics';
 
 import type { MigrationScope } from '../../utils.cjs';
 import {
@@ -54,9 +54,12 @@ type ParsedSelectorMigration = SelectorMigration & { parsedSelector: ParsedSelec
  * ```
  */
 export function createTemplateSelectorMigrationRule(
-  migrations: SelectorMigration[],
+  migrations?: SelectorMigration[],
   scope?: MigrationScope,
 ): Rule {
+  if (!migrations || migrations.length === 0) {
+    return noop();
+  }
   const parsedMigrations: ParsedSelectorMigration[] = migrations.map((migration) => ({
     ...migration,
     parsedSelector: parseSelector(migration.selector),
