@@ -2,9 +2,10 @@ import type { Rule } from '@angular-devkit/schematics';
 import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
 
+import type { AttributeMigration } from '../common.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { type AttributeMigration, createAttributeMigrationRule } from './attribute-migration.cjs';
+import { createAttributeMigrationRule } from './attribute-migration.cjs';
 
 describe('sbb-attribute-migration', () => {
   const rename: AttributeMigration[] = [

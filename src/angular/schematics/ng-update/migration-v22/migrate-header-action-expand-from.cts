@@ -1,15 +1,15 @@
-import { ResolvedResource } from '@angular/cdk/schematics';
+import type { ResolvedResource } from '@angular/cdk/schematics';
+
+import type { MigrationEdit } from '../../utils.cjs';
+
 import { AttributeMigrationBase, queueFixmeComment } from './attribute-migration-base.cjs';
-import { MigrationEdit } from '../../utils.cjs';
 
 /**
  * Migration that manages the transition of the `expandFrom` and `expand-from` attributes to `hideLabelBelow`
  * on <sbb-header-button> and <sbb-header-link> components.
  */
 export class MigrateHeaderActionExpandFrom extends AttributeMigrationBase {
-  private get TAG_PATTERN(): RegExp {
-    return /<(sbb-header-button|sbb-header-link)(\b[^>]*?)(\/?)>/gi;
-  }
+  private readonly TAG_PATTERN: RegExp = /<(sbb-header-button|sbb-header-link)(\b[^>]*?)(\/?)>/gi;
 
   /**
    * Matches ONLY strictly static expandFrom="value" or expand-from="value".

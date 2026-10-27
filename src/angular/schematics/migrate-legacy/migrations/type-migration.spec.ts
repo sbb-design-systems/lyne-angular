@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
+import type { TypeMigration } from '../common.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { createTypeMigrationRule, type TypeMigration } from './type-migration.cjs';
+import { createTypeMigrationRule } from './type-migration.cjs';
 
 describe('sbb-type-migration', () => {
   const BREADCRUMBS: TypeMigration[] = [

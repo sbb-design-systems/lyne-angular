@@ -1,11 +1,17 @@
+import type { Rule } from '@angular-devkit/schematics';
+import { chain } from '@angular-devkit/schematics';
 import { describe, expect, it } from 'vitest';
 
+import { createCommentMigrationRule } from '../migrations/comment-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { migrateUsermenu } from './usermenu.cjs';
+import { USERMENU_MIGRATIONS } from './usermenu.cjs';
 
 describe('sbb-usermenu', () => {
-  const defaultMigration = migrateUsermenu({ root: '', excludedRoots: [] });
+  const defaultMigration: Rule = () =>
+    chain([
+      createCommentMigrationRule(USERMENU_MIGRATIONS.comments, { root: '', excludedRoots: [] }),
+    ]);
 
   describe('should add comments', () => {
     it('for selector', async () => {

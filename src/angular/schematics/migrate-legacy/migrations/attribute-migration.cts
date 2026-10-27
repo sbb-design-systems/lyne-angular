@@ -1,51 +1,39 @@
+import type { ParseSourceSpan } from '@angular/compiler';
 import type { Rule } from '@angular-devkit/schematics';
+import { noop } from '@angular-devkit/schematics';
 
 import type { MigrationScope } from '../../utils.cjs';
+import type { AttributeMigration, ParsedAttributeMigration, Span } from '../common.cjs';
 import {
   attributeNameVariants,
   attributeNodes,
   createTemplateMigrationRule,
   elementMatches,
   hasAttribute,
-  ParsedSelector,
   parseSelector,
   queueAttributeRemoval,
-  resolveKeySpan,
   toCamelCase,
   toDashCase,
 } from '../template-migration.cjs';
 
-export interface AttributeMigration {
-  /**
-   * CSS-like selector of the element owning the attribute, using the Angular selector syntax. Examples:
-   * - `'*'`                                - every element
-   * - `'sbb-usermenu'`                     — tag name
-   * - `'[sbb-button]'`                     — attribute on any tag
-   * - `'button[sbb-button]'`               — tag name combined with an attribute
-   * - `'a.link'`                           — class
-   * - `'a[href=foo].link'`                 — attribute value and class
-   * - `'a:not(.link)'`                     — excluding a class
-   * - `'a:not([download])'`                — excluding an attribute
-   * - `'a:not([href="/"])'`                — excluding an attribute value
-   * - `'a.link[sbb-link]:not([download])'` — any combination of the above
-   * - `'a[sbb-link], button[sbb-link]'`    — list of alternatives
-   */
-  selector: string | string[];
-  /**
-   * Legacy attribute, input or output name.
-   * Both the camelCase and the dash-case spelling are matched, the original spelling is preserved.
-   */
-  attribute: string;
-  /** New name. When omitted, the attribute is removed instead of renamed. */
-  replaceWith?: string;
-  /**
-   * If attribute is not found, add a new `replaceWith` attribute with this value set.
-   * NOTE: defaultValue is inserted verbatim between double quotes, so it must be valid attribute-value HTML.
-   */
-  defaultValue?: string;
-}
+/**
+ * Resolves the span of the attribute name itself (without binding syntax and value).
+ * Falls back to a lookup inside the full attribute span for parser versions which do not provide a `keySpan`.
+ */
+export function resolveKeySpan(
+  node: { sourceSpan: ParseSourceSpan; keySpan?: ParseSourceSpan },
+  name: string,
+  content: string,
+): Span | undefined {
+  if (node.keySpan) {
+    return { start: node.keySpan.start.offset, end: node.keySpan.end.offset };
+  }
 
-type ParsedAttributeMigration = AttributeMigration & { parsedSelectors: ParsedSelector[] };
+  const start = content.indexOf(name, node.sourceSpan.start.offset);
+  return start >= 0 && start < node.sourceSpan.end.offset
+    ? { start, end: start + name.length }
+    : undefined;
+}
 
 /**
  * Creates a rule which renames (or removes) attributes, inputs and outputs of legacy elements,
@@ -68,9 +56,12 @@ type ParsedAttributeMigration = AttributeMigration & { parsedSelectors: ParsedSe
  * are only migrated once, through their written key.
  */
 export function createAttributeMigrationRule(
-  migrations: AttributeMigration[],
+  migrations?: AttributeMigration[],
   scope?: MigrationScope,
 ): Rule {
+  if (!migrations || migrations.length === 0) {
+    return noop();
+  }
   const parsedMigrations: ParsedAttributeMigration[] = migrations.map((migration) => ({
     ...migration,
     parsedSelectors: (Array.isArray(migration.selector)

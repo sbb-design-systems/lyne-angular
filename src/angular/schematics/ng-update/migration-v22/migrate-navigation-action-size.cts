@@ -1,15 +1,15 @@
-import { ResolvedResource } from '@angular/cdk/schematics';
+import type { ResolvedResource } from '@angular/cdk/schematics';
+
+import type { MigrationEdit } from '../../utils.cjs';
 
 import { AttributeMigrationBase } from './attribute-migration-base.cjs';
-import { MigrationEdit } from '../../utils.cjs';
 
 /**
  * Migration that removes the `size` property from `sbb-navigation-button` and `sbb-navigation-link`.
  */
 export class MigrateNavigationActionSize extends AttributeMigrationBase {
-  private get TAG_PATTERN(): RegExp {
-    return /<(sbb-navigation-button|sbb-navigation-link)(\b[^>]*?)(\/?)>/gi;
-  }
+  private readonly TAG_PATTERN: RegExp =
+    /<(sbb-navigation-button|sbb-navigation-link)(\b[^>]*?)(\/?)>/gi;
 
   /**
    * Matches size attribute variations, capturing leading whitespace.

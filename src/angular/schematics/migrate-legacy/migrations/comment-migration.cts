@@ -1,9 +1,9 @@
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { chain } from '@angular-devkit/schematics';
+import { chain, noop } from '@angular-devkit/schematics';
 import ts from 'typescript';
 
+import type { CommentDelimiters } from '../../comment-utils.cjs';
 import {
-  CommentDelimiters,
   formatComment,
   getCommentLinesAbove,
   getIndent,
@@ -11,59 +11,19 @@ import {
   HTML_DELIMITERS,
   TS_DELIMITERS,
 } from '../../comment-utils.cjs';
-import {
-  applyEdits,
-  isTypeScriptFile,
-  MigrationEdit,
-  MigrationScope,
-  visitScopedFiles,
-} from '../../utils.cjs';
+import type { MigrationEdit, MigrationScope } from '../../utils.cjs';
+import type {
+  CommentMigration,
+  ElementCommentMigration,
+  SymbolCommentMigration,
+} from '../common.cjs';
+import { applyEdits, isTypeScriptFile, visitScopedFiles } from '../common.cjs';
 import { findSymbolReferences } from '../symbol-references.cjs';
 import {
   createTemplateMigrationRule,
   elementMatches,
   parseSelector,
 } from '../template-migration.cjs';
-
-interface CommentMigrationBase {
-  /**
-   * Text of the comment. Multiline text is rendered as multiple comment lines.
-   */
-  message: string;
-}
-
-/**
- * Comments a template element, or an attribute of it, e.g. `<sbb-captcha>`.
- */
-export interface ElementCommentMigration extends CommentMigrationBase {
-  /**
-   * CSS-like selector of the target element, using the Angular selector syntax. Examples:
-   * - `'sbb-usermenu'`                     — tag name
-   * - `'[sbb-button]'`                     — attribute on any tag
-   * - `'button[sbb-button]'`               — tag name combined with an attribute
-   * - `'a.link'`                           — class
-   * - `'a[href=foo].link'`                 — attribute value and class
-   * - `'a:not(.link)'`                     — excluding a class
-   * - `'a:not([download])'`                — excluding an attribute
-   * - `'a:not([href="/"])'`                — excluding an attribute value
-   * - `'a.link[sbb-link]:not([download])'` — any combination of the above
-   * - `'a[sbb-link], button[sbb-link]'`    — list of alternatives
-   */
-  selector: string | string[];
-}
-
-/** Comments every usage of a TypeScript symbol, e.g. `SbbCaptchaModule`. */
-export interface SymbolCommentMigration extends CommentMigrationBase {
-  /** Exported name of the symbol. */
-  symbol: string;
-  /**
-   * Only comment the symbol when it is imported from this module (exact match or sub-path).
-   * When omitted, any import of `symbol` is considered.
-   */
-  importedFrom?: string | string[];
-}
-
-export type CommentMigration = ElementCommentMigration | SymbolCommentMigration;
 
 function isElementCommentMigration(
   migration: CommentMigration,
@@ -198,9 +158,12 @@ function createSymbolCommentRule(
  * already present directly above a line are not added again.
  */
 export function createCommentMigrationRule(
-  migrations: CommentMigration[],
+  migrations?: CommentMigration[],
   scope?: MigrationScope,
 ): Rule {
+  if (!migrations || migrations.length === 0) {
+    return noop();
+  }
   const elementMigrations = migrations.filter(isElementCommentMigration);
   const symbolMigrations = migrations.filter(
     (migration): migration is SymbolCommentMigration => !isElementCommentMigration(migration),

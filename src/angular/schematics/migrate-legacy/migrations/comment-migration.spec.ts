@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
+import type { CommentMigration } from '../common.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { type CommentMigration, createCommentMigrationRule } from './comment-migration.cjs';
+import { createCommentMigrationRule } from './comment-migration.cjs';
 
 describe('sbb-comment-migration', () => {
   const CAPTCHA: CommentMigration[] = [

@@ -81,7 +81,7 @@
     "husky": "9.1.7",
     "jiti": "2.7.0",
     "lint-staged": "17.6.0",
-    "marked": "18.1.1",
+    "marked": "18.1.2",
     "marked-highlight": "2.2.4",
     "ng-packagr": "22.2.5",
     "npm-run-all2": "9.0.4",
@@ -89,7 +89,7 @@
     "prettier": "3.9.10",
     "tsx": "4.23.15",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.72.0",
+    "typescript-eslint": "8.72.1",
     "vitest": "5.0.5"
   },
   "prettier": {

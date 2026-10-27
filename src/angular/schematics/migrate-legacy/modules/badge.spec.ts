@@ -1,11 +1,24 @@
+import type { Rule } from '@angular-devkit/schematics';
+import { chain } from '@angular-devkit/schematics';
 import { describe, expect, it } from 'vitest';
 
+import { createAttributeMigrationRule } from '../migrations/attribute-migration.cjs';
+import { createCommentMigrationRule } from '../migrations/comment-migration.cjs';
+import { createImportPathMigrationRule } from '../migrations/import-path-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { migrateBadge } from './badge.cjs';
+import { BADGE_MIGRATIONS } from './badge.cjs';
 
 describe('sbb-badge', () => {
-  const defaultMigration = migrateBadge({ root: '', excludedRoots: [] });
+  const defaultMigration: Rule = () => {
+    const { importPaths, comments, attributes } = BADGE_MIGRATIONS;
+    const scope = { root: '', excludedRoots: [] };
+    return chain([
+      createImportPathMigrationRule(importPaths, scope),
+      createCommentMigrationRule(comments, scope),
+      createAttributeMigrationRule(attributes, scope),
+    ]);
+  };
 
   describe('should migrate', () => {
     it('should migrate imports', async () => {

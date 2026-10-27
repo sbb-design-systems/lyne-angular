@@ -1,11 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
+import type { SelectorMigration } from '../common.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import {
-  createTemplateSelectorMigrationRule,
-  type SelectorMigration,
-} from './template-selector-migration.cjs';
+import { createTemplateSelectorMigrationRule } from './template-selector-migration.cjs';
 
 describe('sbb-template-selector-migration', () => {
   const defaultMigrations: SelectorMigration[] = [

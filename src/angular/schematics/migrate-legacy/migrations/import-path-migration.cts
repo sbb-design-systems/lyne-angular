@@ -1,14 +1,10 @@
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { noop } from '@angular-devkit/schematics';
 import ts from 'typescript';
 
-import {
-  applyEdits,
-  ImportRewriteOptions,
-  isTypeScriptFile,
-  MigrationEdit,
-  MigrationScope,
-  visitScopedFiles,
-} from '../../utils.cjs';
+import type { MigrationEdit, MigrationScope } from '../../utils.cjs';
+import type { ImportRewriteOptions } from '../common.cjs';
+import { applyEdits, isTypeScriptFile, visitScopedFiles } from '../common.cjs';
 
 /** Rewrites the module specifiers of the imports and exports of a TypeScript source file. */
 function rewriteImportPaths(
@@ -57,9 +53,14 @@ function rewriteImportPaths(
  * Sub-paths (`@sbb-esta/angular/button/button`) are not rewritten.
  */
 export function createImportPathMigrationRule(
-  mappings: ImportRewriteOptions[],
+  mappings?: ImportRewriteOptions[],
   scope?: MigrationScope,
 ): Rule {
+  if (!mappings || mappings.length === 0) {
+    return noop();
+  }
+  const migratedPathModules = mappings.map((e) => e.oldImport.split('/').at(-1)).join("', '");
+
   return (tree: Tree, context: SchematicContext) => {
     visitScopedFiles(tree, scope, (filePath) => {
       const original = isTypeScriptFile(filePath) ? tree.read(filePath)?.toString('utf-8') : null;
@@ -70,9 +71,7 @@ export function createImportPathMigrationRule(
       const updated = rewriteImportPaths(filePath, original, mappings);
       if (updated !== original) {
         tree.overwrite(filePath, updated);
-        context.logger.info(
-          `  → Updated '${mappings.map((e) => e.oldImport).join("', '")}\' imports in '${filePath}'.`,
-        );
+        context.logger.info(`  → Updated '${migratedPathModules}' imports in '${filePath}'.`);
       }
     });
   };

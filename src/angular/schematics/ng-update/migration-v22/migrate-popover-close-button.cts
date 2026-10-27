@@ -1,8 +1,11 @@
-import { ResolvedResource } from '@angular/cdk/schematics';
-import { parseTemplate, TmplAstBoundAttribute, TmplAstElement } from '@angular/compiler';
+import type { ResolvedResource } from '@angular/cdk/schematics';
+import type { TmplAstBoundAttribute } from '@angular/compiler';
+import { parseTemplate, TmplAstElement } from '@angular/compiler';
+
+import type { MigrationEdit } from '../../utils.cjs';
+import { visitElements } from '../../utils.cjs';
 
 import { AttributeMigrationBase, queueFixmeComment } from './attribute-migration-base.cjs';
-import { visitElements, MigrationEdit } from '../../utils.cjs';
 
 const PR_URL = 'https://github.com/sbb-design-systems/lyne-components/pull/4937';
 

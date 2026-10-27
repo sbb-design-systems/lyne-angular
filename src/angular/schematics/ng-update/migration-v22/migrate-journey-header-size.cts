@@ -1,6 +1,8 @@
-import { ResolvedResource } from '@angular/cdk/schematics';
+import type { ResolvedResource } from '@angular/cdk/schematics';
+
+import type { MigrationEdit } from '../../utils.cjs';
+
 import { AttributeMigrationBase, queueFixmeComment } from './attribute-migration-base.cjs';
-import { MigrationEdit } from '../../utils.cjs';
 
 const SIZE_TO_VISUAL_LEVEL: Record<string, string> = {
   s: '6',
@@ -12,9 +14,7 @@ const SIZE_TO_VISUAL_LEVEL: Record<string, string> = {
  * Migration that replaces the `size` property with `visualLevel` on `sbb-journey-header`.
  */
 export class MigrateJourneyHeaderSize extends AttributeMigrationBase {
-  private get TAG_PATTERN(): RegExp {
-    return /<(sbb-journey-header)(\b[^>]*?)(\/?)>/gi;
-  }
+  private readonly TAG_PATTERN: RegExp = /<(sbb-journey-header)(\b[^>]*?)(\/?)>/gi;
 
   /** Matches ONLY strictly static size="value" (capturing leading whitespace). */
   private readonly STATIC_SIZE_PATTERN = /(\s+)size\s*=\s*(?:"(?<dq>[^"]*)"|'(?<sq>[^']*)')/i;

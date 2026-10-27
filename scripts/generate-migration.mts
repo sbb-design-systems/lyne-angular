@@ -31,62 +31,70 @@ if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/.test(module)) {
   fail(`Invalid module name "${args[0]}". Use letters, digits and dashes, e.g. "date-picker".`);
 }
 
-const pascalCase = module
-  .split('-')
-  .map((part) => part[0].toUpperCase() + part.slice(1))
-  .join('');
-
-const migrationTemplate = `import { chain, Rule } from '@angular-devkit/schematics';
-
-import { ImportRewriteOptions, MigrationScope } from '../../utils.cjs';
-import {
+const migrationTemplate = `import type {
   AttributeMigration,
-  createAttributeMigrationRule,
-} from '../migrations/attribute-migration.cjs';
-import { createImportPathMigrationRule } from '../migrations/import-path-migration.cjs';
-import {
-  createTemplateSelectorMigrationRule,
+  CommentMigration,
+  ImportRewriteOptions,
+  ModuleMigrations,
   SelectorMigration,
-} from '../migrations/template-selector-migration.cjs';
-import { CommentMigration, createCommentMigrationRule } from '../migrations/comment-migration.cjs';
+  TypeMigration,
+} from '../common.cjs';
 
-const IMPORT_PATHS: ImportRewriteOptions[] = [
-  // todo
+const importPaths: ImportRewriteOptions[] = [
+  // TODO
 ];
 
-const COMMENTS: CommentMigration[] = [
-  // todo
+const comments: CommentMigration[] = [
+  // TODO
 ];
 
-const MIGRATIONS: SelectorMigration[] = [
-  // todo
+const types: TypeMigration[] = [
+  // TODO
 ];
 
-const ATTRIBUTES: AttributeMigration[] = [
-  // todo
+const selectors: SelectorMigration[] = [
+  // TODO
 ];
 
-/**
- * Migrate the ${module} module from \`@sbb-esta/angular\` to \`@sbb-esta/lyne-angular\`.
- */
-export function migrate${pascalCase}(scope: MigrationScope): Rule {
-  return chain([
-    createImportPathMigrationRule(IMPORT_PATHS, scope),
-    createCommentMigrationRule(COMMENTS, scope),
-    createAttributeMigrationRule(ATTRIBUTES, scope),
-    createTemplateSelectorMigrationRule(MIGRATIONS, scope),
-  ]);
-}
+const attributes: AttributeMigration[] = [
+  // TODO
+];
+
+export const ${module.toUpperCase()}_MIGRATIONS: Partial<ModuleMigrations> = {
+  importPaths,
+  comments,
+  types,
+  selectors,
+  attributes,
+  // TODO: create and add custom rules if needed
+};
 `;
 
-const specTemplate = `import { describe, expect, it } from 'vitest';
+const specTemplate = `import type { Rule } from '@angular-devkit/schematics';
+import { chain } from '@angular-devkit/schematics';
+import { describe, expect, it } from 'vitest';
 
+import { createAttributeMigrationRule } from '../migrations/attribute-migration.cjs';
+import { createCommentMigrationRule } from '../migrations/comment-migration.cjs';
+import { createImportPathMigrationRule } from '../migrations/import-path-migration.cjs';
+import { createTemplateSelectorMigrationRule } from '../migrations/template-selector-migration.cjs';
+import { createTypeMigrationRule } from '../migrations/type-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { migrate${pascalCase} } from './${module}.cjs';
+import { ${module.toUpperCase()}_MIGRATIONS } from './${module}.cjs';
 
 describe('sbb-${module}', () => {
-  const defaultMigration = migrate${pascalCase}({ root: '', excludedRoots: [] });
+  const defaultMigration: Rule = () => {
+    const { importPaths, comments, types, attributes, selectors } = ${module.toUpperCase()}_MIGRATIONS;
+    const scope = { root: '', excludedRoots: [] };
+    return chain([
+      createImportPathMigrationRule(importPaths, scope),
+      createCommentMigrationRule(comments, scope),
+      createTypeMigrationRule(types, scope),
+      createAttributeMigrationRule(attributes, scope),
+      createTemplateSelectorMigrationRule(selectors, scope),
+    ]);
+  };
 
   describe('should migrate', () => {
     // TODO
