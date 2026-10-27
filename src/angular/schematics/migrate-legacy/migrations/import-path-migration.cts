@@ -59,6 +59,8 @@ export function createImportPathMigrationRule(
   if (!mappings || mappings.length === 0) {
     return noop();
   }
+  const migratedPathModules = mappings.map((e) => e.oldImport.split('/').at(-1)).join("', '");
+
   return (tree: Tree, context: SchematicContext) => {
     visitScopedFiles(tree, scope, (filePath) => {
       const original = isTypeScriptFile(filePath) ? tree.read(filePath)?.toString('utf-8') : null;
@@ -69,9 +71,7 @@ export function createImportPathMigrationRule(
       const updated = rewriteImportPaths(filePath, original, mappings);
       if (updated !== original) {
         tree.overwrite(filePath, updated);
-        context.logger.info(
-          `  → Updated '${mappings.map((e) => e.oldImport).join("', '")}' imports in '${filePath}'.`,
-        );
+        context.logger.info(`  → Updated '${migratedPathModules}' imports in '${filePath}'.`);
       }
     });
   };
