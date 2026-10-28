@@ -8,8 +8,6 @@ import {
   createTemplateMigrationRule,
   matchSelector,
   parseSelector,
-  queueAttributeRemovals,
-  selectorAttributes,
 } from '../template-migration.cjs';
 
 /**
@@ -92,15 +90,5 @@ export function createTemplateSelectorMigrationRule(
         insertion: migration.replaceWith,
       });
     }
-
-    // Drop the attributes of the selector (they are the tag now).
-    queueAttributeRemovals(
-      element,
-      selectorAttributes(matchedAlternative),
-      content,
-      baseOffset,
-      edits,
-      nextIndex,
-    );
   }, scope);
 }

@@ -17,8 +17,8 @@ describe('sbb-button', () => {
     return chain([
       createImportPathMigrationRule(importPaths, scope),
       createCommentMigrationRule(comments, scope),
-      createAttributeMigrationRule(attributes, scope),
       createTemplateSelectorMigrationRule(selectors, scope),
+      createAttributeMigrationRule(attributes, scope),
     ]);
   };
 

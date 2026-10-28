@@ -41,9 +41,20 @@ const selectors: SelectorMigration[] = [
   { selector: 'a:not([sbb-link]):not(.sbb-link-reset)', replaceWith: 'sbb-link' },
 ];
 
+// The attribute migration runs after the selector migration, so it targets the new elements.
 const attributes: AttributeMigration[] = [
+  { selector: 'sbb-button', attribute: 'sbb-button' },
+  { selector: 'sbb-secondary-button', attribute: 'sbb-secondary-button' },
+  { selector: 'sbb-accent-button', attribute: 'sbb-ghost-button' },
+  { selector: 'sbb-transparent-button', attribute: 'sbb-frameless-button' },
+  { selector: 'sbb-button-link', attribute: 'sbb-button' },
+  { selector: 'sbb-secondary-button-link', attribute: 'sbb-secondary-button' },
+  { selector: 'sbb-accent-button-link', attribute: 'sbb-ghost-button' },
+  { selector: 'sbb-transparent-button-link', attribute: 'sbb-frameless-button' },
+  { selector: 'sbb-block-link-button', attribute: 'sbb-link' },
+  { selector: 'sbb-block-link', attribute: 'sbb-link' },
   {
-    selector: selectors.map((selector) => selector.selector),
+    selector: [...new Set(selectors.map(({ replaceWith }) => replaceWith))],
     attribute: 'svgIcon',
     replaceWith: 'iconName',
   },

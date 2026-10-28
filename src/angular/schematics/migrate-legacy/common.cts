@@ -119,7 +119,7 @@ export type ParsedAttributeMigration = AttributeMigration & { parsedSelectors: P
 
 /**
  * Interface used for tags migrations.
- * `selector` is replaced with the `replaceWith` value
+ * The selected element tag is replaced with the `replaceWith` value
  */
 export interface SelectorMigration {
   /**

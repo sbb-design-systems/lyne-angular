@@ -33,9 +33,9 @@ describe('sbb-template-selector-migration', () => {
   };
 
   describe('tag replacement', () => {
-    it('should replace tag and remove marker attribute for tag + attribute selector', async () => {
+    it('should replace the tag for a tag + attribute selector', async () => {
       expect(await migrate('<button sbb-button>Click me</button>')).toBe(
-        '<sbb-button>Click me</sbb-button>',
+        '<sbb-button sbb-button>Click me</sbb-button>',
       );
     });
 
@@ -53,7 +53,7 @@ describe('sbb-template-selector-migration', () => {
             replaceWith: 'sbb-card',
           },
         ]),
-      ).toBe('<sbb-card>Content</sbb-card>');
+      ).toBe('<sbb-card sbb-legacy-card>Content</sbb-card>');
     });
 
     it('should preserve attributes and structural directives on the element', async () => {
@@ -61,7 +61,9 @@ describe('sbb-template-selector-migration', () => {
         await migrate(
           '<button sbb-button *ngIf="show" class="primary" [disabled]="isDisabled">Click</button>',
         ),
-      ).toBe('<sbb-button *ngIf="show" class="primary" [disabled]="isDisabled">Click</sbb-button>');
+      ).toBe(
+        '<sbb-button sbb-button *ngIf="show" class="primary" [disabled]="isDisabled">Click</sbb-button>',
+      );
     });
 
     it('should handle self-closing / void elements correctly', async () => {
@@ -72,7 +74,7 @@ describe('sbb-template-selector-migration', () => {
             replaceWith: 'sbb-input',
           },
         ]),
-      ).toBe('<sbb-input />');
+      ).toBe('<sbb-input sbb-input />');
     });
 
     it('should migrate nested elements and multiple occurrences', async () => {
@@ -85,8 +87,8 @@ describe('sbb-template-selector-migration', () => {
 
       const expected = [
         '<sbb-user-menu>',
-        '  <sbb-button>Action 1</sbb-button>',
-        '  <sbb-button>Action 2</sbb-button>',
+        '  <sbb-button sbb-button>Action 1</sbb-button>',
+        '  <sbb-button sbb-button>Action 2</sbb-button>',
         '</sbb-user-menu>',
       ].join('\n');
 
@@ -95,7 +97,9 @@ describe('sbb-template-selector-migration', () => {
 
     it('should migrate elements inside control flow blocks', async () => {
       const template = ['@if (visible) {', '  <button sbb-button>Label</button>', '}'].join('\n');
-      const expected = ['@if (visible) {', '  <sbb-button>Label</sbb-button>', '}'].join('\n');
+      const expected = ['@if (visible) {', '  <sbb-button sbb-button>Label</sbb-button>', '}'].join(
+        '\n',
+      );
       expect(await migrate(template)).toBe(expected);
     });
 
@@ -104,7 +108,9 @@ describe('sbb-template-selector-migration', () => {
         await migrate(
           '<ng-container *ngIf="a"><button sbb-button *ngIf="b">X</button></ng-container>',
         ),
-      ).toBe('<ng-container *ngIf="a"><sbb-button *ngIf="b">X</sbb-button></ng-container>');
+      ).toBe(
+        '<ng-container *ngIf="a"><sbb-button sbb-button *ngIf="b">X</sbb-button></ng-container>',
+      );
     });
 
     it('should leave non-matching elements untouched', async () => {
@@ -123,125 +129,25 @@ describe('sbb-template-selector-migration', () => {
           { selector: 'a[sbb-link]', replaceWith: 'first-link' },
           { selector: '[sbb-link]', replaceWith: 'second-link' },
         ]),
-      ).toBe('<first-link>Go</first-link>');
+      ).toBe('<first-link sbb-link>Go</first-link>');
     });
   });
 
   describe('selector attributes', () => {
-    it('should remove the attributes of the selector', async () => {
-      expect(
-        await migrate('<button sbb-button type="button">Go</button>', [
-          {
-            selector: 'button[sbb-button]',
-            replaceWith: 'sbb-button',
-          },
-        ]),
-      ).toBe('<sbb-button type="button">Go</sbb-button>');
-    });
-
-    it('should remove a bound marker attribute', async () => {
-      expect(
-        await migrate('<button [sbb-button]="enabled">Go</button>', [
-          {
-            selector: 'button[sbb-button]',
-            replaceWith: 'sbb-button',
-          },
-        ]),
-      ).toBe('<sbb-button>Go</sbb-button>');
-    });
-
-    it('should remove a marker which is an output', async () => {
-      expect(
-        await migrate('<button (sbb-button)="go()" type="button">Go</button>', [
-          {
-            selector: 'button[sbb-button]',
-            replaceWith: 'sbb-button',
-          },
-        ]),
-      ).toBe('<sbb-button type="button">Go</sbb-button>');
-    });
-
-    it('should remove a two-way bound marker', async () => {
-      expect(
-        await migrate('<button [(sbb-button)]="on" type="button">Go</button>', [
-          {
-            selector: 'button[sbb-button]',
-            replaceWith: 'sbb-button',
-          },
-        ]),
-      ).toBe('<sbb-button type="button">Go</sbb-button>');
-    });
-
-    it('should not remove an attribute binding which only has the name of the marker', async () => {
-      expect(
-        await migrate('<button sbb-button [attr.sbb-button]="x">Go</button>', [
-          {
-            selector: 'button[sbb-button]',
-            replaceWith: 'sbb-button',
-          },
-        ]),
-      ).toBe('<sbb-button [attr.sbb-button]="x">Go</sbb-button>');
-    });
-
-    it('should remove the line of a marker attribute in a multiline tag', async () => {
-      expect(
-        await migrate(
-          ['<button', '  type="button"', '  sbb-button', '  (click)="go()"', '>Go</button>'].join(
-            '\n',
-          ),
-          [
-            {
-              selector: 'button[sbb-button]',
-              replaceWith: 'sbb-button',
-            },
-          ],
-        ),
-      ).toBe(['<sbb-button', '  type="button"', '  (click)="go()"', '>Go</sbb-button>'].join('\n'));
-    });
-
-    it('should remove every attribute the selector requires', async () => {
-      expect(
-        await migrate('<a sbb-link sbb-extra href="x">Go</a>', [
-          {
-            selector: 'a[sbb-link][sbb-extra]',
-            replaceWith: 'sbb-link',
-          },
-        ]),
-      ).toBe('<sbb-link href="x">Go</sbb-link>');
-    });
-
-    it('should only remove the attributes of the alternative which matched', async () => {
-      const migration: SelectorMigration[] = [
-        {
-          selector: 'a[sbb-link], button[sbb-btn]',
-          replaceWith: 'x-el',
-        },
-      ];
-      expect(await migrate('<a sbb-link sbb-btn>A</a><button sbb-btn>B</button>', migration)).toBe(
-        '<x-el sbb-btn>A</x-el><x-el>B</x-el>',
+    it('should keep the attributes of the selector', async () => {
+      expect(await migrate('<button sbb-button type="button">Go</button>')).toBe(
+        '<sbb-button sbb-button type="button">Go</sbb-button>',
       );
     });
 
-    it('should never remove classes', async () => {
+    it('should keep bound and multiline attributes untouched', async () => {
       expect(
-        await migrate('<a class="link" sbb-link>Go</a>', [
-          {
-            selector: 'a.link[sbb-link]',
-            replaceWith: 'sbb-link',
-          },
-        ]),
-      ).toBe('<sbb-link class="link">Go</sbb-link>');
-    });
-
-    it('should remove the attribute of an attribute value selector', async () => {
-      expect(
-        await migrate('<button type="submit" class="x">Go</button>', [
-          {
-            selector: 'button[type=submit]',
-            replaceWith: 'sbb-submit',
-          },
-        ]),
-      ).toBe('<sbb-submit class="x">Go</sbb-submit>');
+        await migrate(
+          ['<button', '  [sbb-button]="on"', '  (click)="go()"', '>Go</button>'].join('\n'),
+        ),
+      ).toBe(
+        ['<sbb-button', '  [sbb-button]="on"', '  (click)="go()"', '>Go</sbb-button>'].join('\n'),
+      );
     });
   });
 
@@ -267,7 +173,7 @@ describe('sbb-template-selector-migration', () => {
             addAttributes: 'size="s" [disabled]="x"',
           },
         ]),
-      ).toBe('<sbb-button size="s" [disabled]="x">Go</sbb-button>');
+      ).toBe('<sbb-button size="s" [disabled]="x" sbb-button>Go</sbb-button>');
     });
 
     it('should add the attributes to elements without other attributes', async () => {
@@ -426,8 +332,8 @@ describe('sbb-template-selector-migration', () => {
         [
           '<sbb-primary-link class="primary">1</sbb-primary-link>',
           '<sbb-link>2</sbb-link>',
-          '<sbb-download-link>3</sbb-download-link>',
-          '<sbb-download-link class="primary">4</sbb-download-link>',
+          '<sbb-download-link download>3</sbb-download-link>',
+          '<sbb-download-link class="primary" download>4</sbb-download-link>',
         ].join('\n'),
       );
     });
@@ -440,7 +346,7 @@ describe('sbb-template-selector-migration', () => {
         },
       ];
       const once = await migrate('<a sbb-link>Go</a>', migration);
-      expect(once).toBe('<sbb-link>Go</sbb-link>');
+      expect(once).toBe('<sbb-link sbb-link>Go</sbb-link>');
       expect(await migrate(once, migration)).toBe(once);
     });
 
@@ -493,7 +399,7 @@ describe('sbb-template-selector-migration', () => {
         createTemplateSelectorMigrationRule(defaultMigrations),
       );
 
-      expect(content).toContain('<sbb-button (click)="go()">Go</sbb-button>');
+      expect(content).toContain('<sbb-button sbb-button (click)="go()">Go</sbb-button>');
     });
 
     it('should migrate class and exclusion selectors in inline templates', async () => {
@@ -518,7 +424,7 @@ describe('sbb-template-selector-migration', () => {
         ]),
       );
 
-      expect(content).toContain('<sbb-link class="link" href="x">One</sbb-link>');
+      expect(content).toContain('<sbb-link class="link" sbb-link href="x">One</sbb-link>');
       expect(content).toContain('<a class="link" sbb-link download>Two</a>');
     });
 
