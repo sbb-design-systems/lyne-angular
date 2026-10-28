@@ -91,16 +91,14 @@ export function createTemplateSelectorMigrationRule(
       });
     }
 
-    // Drop the attributes of the selector (they are the tag now), but only if requested.
-    if (migration.removeSelectorAttributes) {
-      queueAttributeRemovals(
-        element,
-        selectorAttributes(matchedAlternative),
-        content,
-        baseOffset,
-        edits,
-        nextIndex,
-      );
-    }
+    // Drop the attributes of the selector (they are the tag now).
+    queueAttributeRemovals(
+      element,
+      selectorAttributes(matchedAlternative),
+      content,
+      baseOffset,
+      edits,
+      nextIndex,
+    );
   }, scope);
 }

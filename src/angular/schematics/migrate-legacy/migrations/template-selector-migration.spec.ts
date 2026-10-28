@@ -7,7 +7,7 @@ import { createTemplateSelectorMigrationRule } from './template-selector-migrati
 
 describe('sbb-template-selector-migration', () => {
   const defaultMigrations: SelectorMigration[] = [
-    { selector: 'button[sbb-button]', replaceWith: 'sbb-button', removeSelectorAttributes: true },
+    { selector: 'button[sbb-button]', replaceWith: 'sbb-button' },
     { selector: 'sbb-usermenu', replaceWith: 'sbb-user-menu' },
   ];
 
@@ -51,7 +51,6 @@ describe('sbb-template-selector-migration', () => {
           {
             selector: '[sbb-legacy-card]',
             replaceWith: 'sbb-card',
-            removeSelectorAttributes: true,
           },
         ]),
       ).toBe('<sbb-card>Content</sbb-card>');
@@ -71,7 +70,6 @@ describe('sbb-template-selector-migration', () => {
           {
             selector: 'input[sbb-input]',
             replaceWith: 'sbb-input',
-            removeSelectorAttributes: true,
           },
         ]),
       ).toBe('<sbb-input />');
@@ -125,54 +123,20 @@ describe('sbb-template-selector-migration', () => {
           { selector: 'a[sbb-link]', replaceWith: 'first-link' },
           { selector: '[sbb-link]', replaceWith: 'second-link' },
         ]),
-      ).toBe('<first-link sbb-link>Go</first-link>');
+      ).toBe('<first-link>Go</first-link>');
     });
   });
 
   describe('selector attributes', () => {
-    it('should keep the attributes of the selector by default', async () => {
+    it('should remove the attributes of the selector', async () => {
       expect(
         await migrate('<button sbb-button type="button">Go</button>', [
           {
             selector: 'button[sbb-button]',
             replaceWith: 'sbb-button',
-          },
-        ]),
-      ).toBe('<sbb-button sbb-button type="button">Go</sbb-button>');
-    });
-
-    it('should keep the attributes of the selector if the flag is false', async () => {
-      expect(
-        await migrate('<button sbb-button>Go</button>', [
-          {
-            selector: 'button[sbb-button]',
-            replaceWith: 'sbb-button',
-            removeSelectorAttributes: false,
-          },
-        ]),
-      ).toBe('<sbb-button sbb-button>Go</sbb-button>');
-    });
-
-    it('should remove the attributes of the selector if the flag is true', async () => {
-      expect(
-        await migrate('<button sbb-button type="button">Go</button>', [
-          {
-            selector: 'button[sbb-button]',
-            replaceWith: 'sbb-button',
-            removeSelectorAttributes: true,
           },
         ]),
       ).toBe('<sbb-button type="button">Go</sbb-button>');
-    });
-
-    it('should decide per migration', async () => {
-      const migrations: SelectorMigration[] = [
-        { selector: 'a[sbb-link]', replaceWith: 'sbb-link', removeSelectorAttributes: true },
-        { selector: 'button[sbb-link]', replaceWith: 'sbb-link-button' },
-      ];
-      expect(await migrate('<a sbb-link>A</a><button sbb-link>B</button>', migrations)).toBe(
-        '<sbb-link>A</sbb-link><sbb-link-button sbb-link>B</sbb-link-button>',
-      );
     });
 
     it('should remove a bound marker attribute', async () => {
@@ -181,7 +145,6 @@ describe('sbb-template-selector-migration', () => {
           {
             selector: 'button[sbb-button]',
             replaceWith: 'sbb-button',
-            removeSelectorAttributes: true,
           },
         ]),
       ).toBe('<sbb-button>Go</sbb-button>');
@@ -193,7 +156,6 @@ describe('sbb-template-selector-migration', () => {
           {
             selector: 'button[sbb-button]',
             replaceWith: 'sbb-button',
-            removeSelectorAttributes: true,
           },
         ]),
       ).toBe('<sbb-button type="button">Go</sbb-button>');
@@ -205,7 +167,6 @@ describe('sbb-template-selector-migration', () => {
           {
             selector: 'button[sbb-button]',
             replaceWith: 'sbb-button',
-            removeSelectorAttributes: true,
           },
         ]),
       ).toBe('<sbb-button type="button">Go</sbb-button>');
@@ -217,7 +178,6 @@ describe('sbb-template-selector-migration', () => {
           {
             selector: 'button[sbb-button]',
             replaceWith: 'sbb-button',
-            removeSelectorAttributes: true,
           },
         ]),
       ).toBe('<sbb-button [attr.sbb-button]="x">Go</sbb-button>');
@@ -233,7 +193,6 @@ describe('sbb-template-selector-migration', () => {
             {
               selector: 'button[sbb-button]',
               replaceWith: 'sbb-button',
-              removeSelectorAttributes: true,
             },
           ],
         ),
@@ -246,7 +205,6 @@ describe('sbb-template-selector-migration', () => {
           {
             selector: 'a[sbb-link][sbb-extra]',
             replaceWith: 'sbb-link',
-            removeSelectorAttributes: true,
           },
         ]),
       ).toBe('<sbb-link href="x">Go</sbb-link>');
@@ -257,7 +215,6 @@ describe('sbb-template-selector-migration', () => {
         {
           selector: 'a[sbb-link], button[sbb-btn]',
           replaceWith: 'x-el',
-          removeSelectorAttributes: true,
         },
       ];
       expect(await migrate('<a sbb-link sbb-btn>A</a><button sbb-btn>B</button>', migration)).toBe(
@@ -271,7 +228,6 @@ describe('sbb-template-selector-migration', () => {
           {
             selector: 'a.link[sbb-link]',
             replaceWith: 'sbb-link',
-            removeSelectorAttributes: true,
           },
         ]),
       ).toBe('<sbb-link class="link">Go</sbb-link>');
@@ -283,7 +239,6 @@ describe('sbb-template-selector-migration', () => {
           {
             selector: 'button[type=submit]',
             replaceWith: 'sbb-submit',
-            removeSelectorAttributes: true,
           },
         ]),
       ).toBe('<sbb-submit class="x">Go</sbb-submit>');
@@ -437,8 +392,8 @@ describe('sbb-template-selector-migration', () => {
         [
           '<sbb-primary-link class="primary">1</sbb-primary-link>',
           '<sbb-link>2</sbb-link>',
-          '<sbb-download-link download>3</sbb-download-link>',
-          '<sbb-download-link class="primary" download>4</sbb-download-link>',
+          '<sbb-download-link>3</sbb-download-link>',
+          '<sbb-download-link class="primary">4</sbb-download-link>',
         ].join('\n'),
       );
     });
@@ -448,7 +403,6 @@ describe('sbb-template-selector-migration', () => {
         {
           selector: 'a[sbb-link]:not([download])',
           replaceWith: 'sbb-link',
-          removeSelectorAttributes: true,
         },
       ];
       const once = await migrate('<a sbb-link>Go</a>', migration);
@@ -526,7 +480,6 @@ describe('sbb-template-selector-migration', () => {
           {
             selector: 'a.link[sbb-link]:not([download])',
             replaceWith: 'sbb-link',
-            removeSelectorAttributes: true,
           },
         ]),
       );

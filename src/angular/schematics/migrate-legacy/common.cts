@@ -119,6 +119,7 @@ export type ParsedAttributeMigration = AttributeMigration & { parsedSelectors: P
 
 /**
  * Interface used for tags migrations.
+ * `selector` is replaced with the `replaceWith` value
  */
 export interface SelectorMigration {
   /**
@@ -135,16 +136,10 @@ export interface SelectorMigration {
    * - `'a[sbb-link], button[sbb-link]'`    — list of alternatives
    */
   selector: string;
-  /** Tag name of the new element, e.g. `'sbb-button'`. */
-  replaceWith: string;
   /**
-   * Whether to remove the attributes required by the selector from the migrated element, e.g.
-   * `sbb-button` for `'button[sbb-button]'`, because they are the tag name now.
-   *
-   * Defaults to `false`: the attributes are kept.
-   * Attributes inside `:not(...)` are never removed, and classes are never removed either.
+   * Tag name of the new element, e.g. `'sbb-button'`.
    */
-  removeSelectorAttributes?: boolean;
+  replaceWith: string;
 }
 
 export type ParsedSelectorMigration = SelectorMigration & { parsedSelector: ParsedSelector };
