@@ -71,7 +71,9 @@ export function createTemplateSelectorMigrationRule(
       offset: baseOffset + element.startSourceSpan.start.offset + 1,
       index: nextIndex(),
       length: legacyName.length,
-      insertion: migration.replaceWith,
+      insertion: migration.addAttributes
+        ? `${migration.replaceWith} ${migration.addAttributes}`
+        : migration.replaceWith,
       log: () =>
         logger.info(
           `  → Replaced '${migration.selector}' with '${migration.replaceWith}' in '${filePath}'`,

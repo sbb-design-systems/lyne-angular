@@ -140,6 +140,11 @@ export interface SelectorMigration {
    * Tag name of the new element, e.g. `'sbb-button'`.
    */
   replaceWith: string;
+  /**
+   * Attributes to add to the migrated element, written as in a template and inserted verbatim
+   * right after the tag name, e.g. `'orientation="vertical"'` or `'size="s" [disabled]="x"'`.
+   */
+  addAttributes?: string;
 }
 
 export type ParsedSelectorMigration = SelectorMigration & { parsedSelector: ParsedSelector };

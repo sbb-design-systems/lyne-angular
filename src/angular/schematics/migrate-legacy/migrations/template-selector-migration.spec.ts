@@ -245,6 +245,40 @@ describe('sbb-template-selector-migration', () => {
     });
   });
 
+  describe('added attributes', () => {
+    it('should add the attributes after the tag name', async () => {
+      expect(
+        await migrate('<div class="vertical" id="x">Go</div>', [
+          {
+            selector: 'div.vertical',
+            replaceWith: 'sbb-group',
+            addAttributes: 'orientation="vertical"',
+          },
+        ]),
+      ).toBe('<sbb-group orientation="vertical" class="vertical" id="x">Go</sbb-group>');
+    });
+
+    it('should add several attributes and bindings', async () => {
+      expect(
+        await migrate('<button sbb-button>Go</button>', [
+          {
+            selector: 'button[sbb-button]',
+            replaceWith: 'sbb-button',
+            addAttributes: 'size="s" [disabled]="x"',
+          },
+        ]),
+      ).toBe('<sbb-button size="s" [disabled]="x">Go</sbb-button>');
+    });
+
+    it('should add the attributes to elements without other attributes', async () => {
+      expect(
+        await migrate('<sbb-usermenu></sbb-usermenu>', [
+          { selector: 'sbb-usermenu', replaceWith: 'sbb-user-menu', addAttributes: 'size="s"' },
+        ]),
+      ).toBe('<sbb-user-menu size="s"></sbb-user-menu>');
+    });
+  });
+
   describe('css selectors', () => {
     describe('classes', () => {
       const template = [
