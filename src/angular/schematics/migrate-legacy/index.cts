@@ -10,6 +10,7 @@ import { createTemplateSelectorMigrationRule } from './migrations/template-selec
 import { createTypeMigrationRule } from './migrations/type-migration.cjs';
 import { ACCORDION_MIGRATIONS } from './modules/accordion.cjs';
 import { ALERT_MIGRATIONS } from './modules/alert.cjs';
+import { AUTOCOMPLETE_MIGRATIONS } from './modules/autocomplete.cjs';
 import { BADGE_MIGRATIONS } from './modules/badge.cjs';
 import { BREADCRUMB_MIGRATIONS } from './modules/breadcrumb.cjs';
 import { BUTTON_MIGRATIONS } from './modules/button.cjs';
@@ -24,7 +25,7 @@ const MODULE_REGISTRY = {
   accordion: ACCORDION_MIGRATIONS,
   alert: ALERT_MIGRATIONS,
   // 'alert',
-  // 'autocomplete',
+  autocomplete: AUTOCOMPLETE_MIGRATIONS,
   badge: BADGE_MIGRATIONS,
   breadcrumb: BREADCRUMB_MIGRATIONS,
   button: BUTTON_MIGRATIONS,
