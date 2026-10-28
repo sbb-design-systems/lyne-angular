@@ -96,6 +96,11 @@ describe('sbb-${module}', () => {
     ]);
   };
 
+  const migrateTsFile = (content: string) =>
+    MigrateLegacyTestUtils.migrateTsFile(content, defaultMigration);
+  const migrateTemplate = (template: string) =>
+    MigrateLegacyTestUtils.migrateHtmlFile(template, defaultMigration);
+
   describe('should migrate', () => {
     // TODO
   });
