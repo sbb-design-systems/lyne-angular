@@ -196,7 +196,7 @@ export async function isStandardThemeSet(
   }
 
   const buildTarget = project.targets.get('build');
-  if (!buildTarget || !buildTarget.options) {
+  if (!buildTarget) {
     throw new SchematicsException(
       `Could not find build configuration for project ${projectName}; please check your \`angular.json.\``,
     );
@@ -209,7 +209,7 @@ export async function isStandardThemeSet(
     : [];
   const styles = configurationStyles.length
     ? configurationStyles
-    : styleInputs(buildTarget.options['styles']);
+    : styleInputs(buildTarget.options?.['styles']);
 
   let themes = styles.map(lyneThemeKind).filter((theme): theme is LyneThemeKind => Boolean(theme));
 
@@ -318,7 +318,7 @@ export function applyEdits(content: string, edits: MigrationEdit[]): string {
 }
 
 function styleInputs(value: unknown): string[] {
-  if (!Array.isArray(value)) {
+  if (!value || !Array.isArray(value)) {
     return [];
   }
   return value

@@ -125,11 +125,11 @@ export function migrateLegacy(options: MigrateLegacyOptionsSchema): Rule {
       aggregatedMigrations.types.length > 0
         ? createTypeMigrationRule(aggregatedMigrations.types, scope)
         : noop(),
-      aggregatedMigrations.attributes.length > 0
-        ? createAttributeMigrationRule(aggregatedMigrations.attributes, scope)
-        : noop(),
       aggregatedMigrations.selectors.length > 0
         ? createTemplateSelectorMigrationRule(aggregatedMigrations.selectors, scope)
+        : noop(),
+      aggregatedMigrations.attributes.length > 0
+        ? createAttributeMigrationRule(aggregatedMigrations.attributes, scope)
         : noop(),
       ...aggregatedMigrations.customRules.map((ruleFactory) => ruleFactory(scope, isStandardTheme)),
     ]);
