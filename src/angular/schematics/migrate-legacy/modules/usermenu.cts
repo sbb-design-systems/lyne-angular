@@ -154,7 +154,7 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
     // The username belongs to the menu now, which has to be done by hand.
     if (userName) {
       const comment =
-        `<!-- ${text(userName.sourceSpan).replace(/-->/g, '-- >')} ` +
+        `<!-- ${text(userName.sourceSpan).replace(/--!?>/g, '-- >')} ` +
         `should be included in the sbb-menu -->`;
       queue(elementStart, 0, onOwnLine ? `${comment}${eol}${indent}` : `${comment} `);
       queueAttributeRemoval(
