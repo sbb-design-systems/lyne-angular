@@ -5,15 +5,14 @@ import { describe, expect, it } from 'vitest';
 import { createCommentMigrationRule } from '../migrations/comment-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { createTextareaMigrationRule, TEXTAREA_MIGRATIONS } from './textarea.cjs';
+import { TEXTAREA_MIGRATIONS } from './textarea.cjs';
 
 describe('sbb-textarea', () => {
   const COUNTER = '<sbb-form-field-text-counter></sbb-form-field-text-counter>';
   const defaultMigration: Rule = () => {
-    const scope = { root: '', excludedRoots: [] };
     return chain([
-      createCommentMigrationRule(TEXTAREA_MIGRATIONS.comments, scope),
-      createTextareaMigrationRule(scope),
+      createCommentMigrationRule(TEXTAREA_MIGRATIONS.comments),
+      ...TEXTAREA_MIGRATIONS.customRules!.map((rule) => rule()),
     ]);
   };
   /** Wraps the lines in a `sbb-form-field`, each indented by one level. */

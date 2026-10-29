@@ -155,14 +155,13 @@ it also handles the schematic and the test runner creation.
 describe('sbb-<module>', () => {
   const defaultMigration: Rule = () => {
     const { importPaths, comments, types, attributes, selectors, customRules } = MODULE_MIGRATIONS;
-    const scope = { root: '', excludedRoots: [] };
     return chain([
-      createImportPathMigrationRule(importPaths, scope),
-      createCommentMigrationRule(comments, scope),
-      createTypeMigrationRule(types, scope),
-      createAttributeMigrationRule(attributes, scope),
-      createTemplateSelectorMigrationRule(selectors, scope),
-      ...customRules.map((ruleFactory) => ruleFactory(scope)),
+      createImportPathMigrationRule(importPaths),
+      createCommentMigrationRule(comments),
+      createTypeMigrationRule(types),
+      createAttributeMigrationRule(attributes),
+      createTemplateSelectorMigrationRule(selectors),
+      ...customRules.map((ruleFactory) => ruleFactory()),
     ]);
   };
 

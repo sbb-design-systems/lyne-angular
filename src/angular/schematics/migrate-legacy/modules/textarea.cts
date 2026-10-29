@@ -15,7 +15,7 @@ const FORM_FIELD = 'sbb-form-field';
  * - with a static or bound `maxlength` inside an `<sbb-form-field>`, it is replaced by a native `<textarea>` and a character counter is added right after it:
  * - with `maxlength` outside an `<sbb-form-field>`, the element is left as is and a comment is added.
  */
-export function createTextareaMigrationRule(scope?: MigrationScope): Rule {
+function createTextareaMigrationRule(scope?: MigrationScope): Rule {
   // Elements are visited parents first, so the form fields seen so far include all ancestors of an element.
   let formFields: { content: string; spans: Span[] } = { content: '', spans: [] };
 
@@ -73,5 +73,5 @@ const comments: CommentMigration[] = [
  */
 export const TEXTAREA_MIGRATIONS: Partial<ModuleMigrations> = {
   comments,
-  customRules: [(scope: MigrationScope) => createTextareaMigrationRule(scope)],
+  customRules: [(scope?: MigrationScope) => createTextareaMigrationRule(scope)],
 };

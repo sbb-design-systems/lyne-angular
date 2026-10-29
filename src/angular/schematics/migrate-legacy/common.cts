@@ -173,7 +173,7 @@ export interface ModuleMigrations {
   types: TypeMigration[];
   selectors: SelectorMigration[];
   attributes: AttributeMigration[];
-  customRules: ((scope: MigrationScope, isStandardTheme?: boolean) => Rule)[];
+  customRules: ((scope?: MigrationScope, isStandardTheme?: boolean) => Rule)[];
 }
 
 /**

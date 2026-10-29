@@ -13,12 +13,11 @@ import { BUTTON_MIGRATIONS } from './button.cjs';
 describe('sbb-button', () => {
   const defaultMigration: Rule = () => {
     const { importPaths, comments, attributes, selectors } = BUTTON_MIGRATIONS;
-    const scope = { root: '', excludedRoots: [] };
     return chain([
-      createImportPathMigrationRule(importPaths, scope),
-      createCommentMigrationRule(comments, scope),
-      createTemplateSelectorMigrationRule(selectors, scope),
-      createAttributeMigrationRule(attributes, scope),
+      createImportPathMigrationRule(importPaths),
+      createCommentMigrationRule(comments),
+      createTemplateSelectorMigrationRule(selectors),
+      createAttributeMigrationRule(attributes),
     ]);
   };
 

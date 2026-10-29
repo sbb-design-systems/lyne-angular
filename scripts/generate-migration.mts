@@ -86,13 +86,12 @@ import { ${module.toUpperCase()}_MIGRATIONS } from './${module}.cjs';
 describe('sbb-${module}', () => {
   const defaultMigration: Rule = () => {
     const { importPaths, comments, types, attributes, selectors } = ${module.toUpperCase()}_MIGRATIONS;
-    const scope = { root: '', excludedRoots: [] };
     return chain([
-      createImportPathMigrationRule(importPaths, scope),
-      createCommentMigrationRule(comments, scope),
-      createTypeMigrationRule(types, scope),
-      createAttributeMigrationRule(attributes, scope),
-      createTemplateSelectorMigrationRule(selectors, scope),
+      createImportPathMigrationRule(importPaths),
+      createCommentMigrationRule(comments),
+      createTypeMigrationRule(types),
+      createAttributeMigrationRule(attributes),
+      createTemplateSelectorMigrationRule(selectors),
     ]);
   };
 
