@@ -3,11 +3,11 @@ import { BindingType } from '@angular/compiler';
 import type { Rule } from '@angular-devkit/schematics';
 
 import type { MigrationScope } from '../../utils.cjs';
+import { visitElements } from '../../utils.cjs';
 import type {
   CommentMigration,
   ImportRewriteOptions,
   ModuleMigrations,
-  ParsedSelector,
   TypeMigration,
 } from '../common.cjs';
 import {
@@ -74,6 +74,9 @@ function stringLiteral(value: string, outer: string, inAttribute: boolean): stri
  * ```
  *
  * All other attributes of the element are kept.
+ * The default icon is only added when the usermenu has no icon of its own.
+ * An `<sbb-icon>` inside the usermenu stays where it is and the label is added after it.
+ * An `<img>` stays as well, but is commented, because the header button does not support it.
  * Without a `displayName` there is no way to tell whether the user is logged in,
  * so `(click)` and `[sbbMenu]` are not made conditional.
  */
@@ -126,6 +129,12 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
     const conditionFor = (outerQuote: string): string =>
       asOperand(displayNameFor(outerQuote, true));
 
+    // Icons of the usermenu itself, also the ones below a structural directive (`<img *sbbIcon />`).
+    const descendants: TmplAstElement[] = [];
+    visitElements(element.children, (child) => descendants.push(child));
+    const images = descendants.filter((child) => child.name === 'img');
+    const hasOwnIcon = images.length > 0 || descendants.some((child) => child.name === 'sbb-icon');
+
     // Layout of the element, so the generated markup follows it.
     const elementStart = start.start.offset;
     const lineStart = content.lastIndexOf('\n', elementStart - 1) + 1;
@@ -167,11 +176,26 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
       );
     }
 
-    // Tag names and default icon.
+    // Images are not supported as icon.
+    for (const image of images) {
+      const imageStart = image.startSourceSpan.start.offset;
+      const beforeImage = content.slice(content.lastIndexOf('\n', imageStart - 1) + 1, imageStart);
+      const imageComment =
+        '<!-- FIXME: an <img> is not supported as icon of the `sbb-header-button`. -->';
+      queue(
+        imageStart,
+        0,
+        beforeImage.trim() === '' && content.includes('\n')
+          ? `${imageComment}${eol}${/^[ \t]*/.exec(beforeImage)![0]}`
+          : `${imageComment} `,
+      );
+    }
+
+    // Tag names and default icon (unless the usermenu brings its own).
     queue(
       start.start.offset + 1,
       element.name.length,
-      'sbb-header-button iconName="user-small"',
+      hasOwnIcon ? 'sbb-header-button' : 'sbb-header-button iconName="user-small"',
       () => logger.info(`  → Migrated <sbb-usermenu> to <sbb-header-button> in '${filePath}'`),
     );
     queue(end.start.offset + 2, element.name.length, 'sbb-header-button');
@@ -213,24 +237,36 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
 
     // Add label
     const contentStart = start.end.offset;
-    if (content.slice(contentStart, end.start.offset).trim() === '') {
+    const innerContent = content.slice(contentStart, end.start.offset);
+    const isBlank = innerContent.trim() === '';
+
+    if (isBlank || hasOwnIcon) {
       // Text, not an attribute: a literal is free to use either quote.
       const displayName = hasDisplayName ? displayNameFor('"', false) : undefined;
-      let label: string;
-      if (!multiline) {
-        label =
-          displayName === undefined
-            ? 'Login'
-            : `@if (${displayName}) { {{ ${displayName} }} } @else { Login }`;
+      const inline =
+        displayName === undefined
+          ? 'Login'
+          : `@if (${displayName}) { {{ ${displayName} }} } @else { Login }`;
+      const lines =
+        displayName === undefined
+          ? ['Login']
+          : [`@if (${displayName}) {`, `  {{ ${displayName} }}`, '} @else {', '  Login', '}'];
+      const block = lines.map((line) => `${indent}  ${line}`).join(eol);
+
+      if (isBlank) {
+        queue(
+          contentStart,
+          innerContent.length,
+          multiline ? `${eol}${block}${eol}${indent}` : inline,
+        );
       } else {
-        const inner = `${indent}  `;
-        const lines =
-          displayName === undefined
-            ? ['Login']
-            : [`@if (${displayName}) {`, `  {{ ${displayName} }}`, '} @else {', '  Login', '}'];
-        label = `${eol}${lines.map((line) => `${inner}${line}`).join(eol)}${eol}${indent}`;
+        // The icon stays, the label follows it.
+        queue(
+          contentStart + innerContent.trimEnd().length,
+          0,
+          multiline ? `${eol}${block}` : ` ${inline}`,
+        );
       }
-      queue(contentStart, end.start.offset - contentStart, label);
     } else {
       logger.warn(
         `  ⚠ <sbb-usermenu> in '${filePath}' has content, which was left as it is: ` +
