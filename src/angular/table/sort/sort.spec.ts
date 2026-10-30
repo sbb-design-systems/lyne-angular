@@ -90,6 +90,28 @@ describe('sbb-sort', () => {
       expect(sortables.has('column_c')).toBe(true);
     });
 
+    it('should reset the sort state', () => {
+      const fixture = TestBed.createComponent(SbbTableSbbSortApp);
+      const component = fixture.componentInstance;
+
+      fixture.detectChanges();
+      fixture.detectChanges();
+
+      fixture.nativeElement.querySelector('sbb-header-cell.sbb-column-column_a').click();
+      fixture.detectChanges();
+
+      expect(component.sbbSort.active).toBe('column_a');
+      expect(component.sbbSort.direction).toBe('asc');
+
+      let counter = 0;
+      component.sbbSort.sortChange.subscribe(() => counter++);
+
+      component.sbbSort.reset();
+      expect(component.sbbSort.active).toBe('');
+      expect(component.sbbSort.direction).toBe('');
+      expect(counter).toBe(1);
+    });
+
     describe('checking correct arrow direction and view state for its various states', () => {
       let expectedStates: Map<string, { viewState: string; arrowDirection: string }>;
 
