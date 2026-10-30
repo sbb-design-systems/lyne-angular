@@ -81,16 +81,16 @@ describe('sbb-button', () => {
       expect(await migrateTemplate('<button sbb-frameless-button>A</button>')).toBe(
         '<sbb-transparent-button>A</sbb-transparent-button>',
       );
-      expect(await migrateTemplate('<a sbb-button>A</a>')).toBe(
+      expect(await migrateTemplate('<a sbb-button>A</a>')).toContain(
         '<sbb-button-link>A</sbb-button-link>',
       );
-      expect(await migrateTemplate('<a sbb-secondary-button>A</a>')).toBe(
+      expect(await migrateTemplate('<a sbb-secondary-button>A</a>')).toContain(
         '<sbb-secondary-button-link>A</sbb-secondary-button-link>',
       );
-      expect(await migrateTemplate('<a sbb-ghost-button>A</a>')).toBe(
+      expect(await migrateTemplate('<a sbb-ghost-button>A</a>')).toContain(
         '<sbb-accent-button-link>A</sbb-accent-button-link>',
       );
-      expect(await migrateTemplate('<a sbb-frameless-button>A</a>')).toBe(
+      expect(await migrateTemplate('<a sbb-frameless-button>A</a>')).toContain(
         '<sbb-transparent-button-link>A</sbb-transparent-button-link>',
       );
       expect(await migrateTemplate('<button sbb-link>A</button>')).toContain(
@@ -186,7 +186,7 @@ describe('sbb-button', () => {
     it('should migrate multiple buttons within one template', async () => {
       expect(
         await migrateTemplate('<a sbb-button>One</a><button sbb-frameless-button>Two</button>'),
-      ).toBe(
+      ).toContain(
         '<sbb-button-link>One</sbb-button-link><sbb-transparent-button>Two</sbb-transparent-button>',
       );
     });
@@ -213,9 +213,13 @@ describe('sbb-button', () => {
           '<sbb-secondary-button iconName="arrow-right">A</sbb-secondary-button>',
           '<sbb-accent-button iconName="arrow-right">A</sbb-accent-button>',
           '<sbb-transparent-button iconName="arrow-right">A</sbb-transparent-button>',
+          "<!-- FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the component's imports. -->",
           '<sbb-button-link iconName="arrow-right">A</sbb-button-link>',
+          "<!-- FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the component's imports. -->",
           '<sbb-secondary-button-link iconName="arrow-right">A</sbb-secondary-button-link>',
+          "<!-- FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the component's imports. -->",
           '<sbb-accent-button-link iconName="arrow-right">A</sbb-accent-button-link>',
+          "<!-- FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the component's imports. -->",
           '<sbb-transparent-button-link iconName="arrow-right">A</sbb-transparent-button-link>',
         ].join('\n'),
       );
