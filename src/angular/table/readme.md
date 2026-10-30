@@ -222,7 +222,7 @@ export class TablePaginatorExampleComponent implements OnInit {
 ## Sorting
 
 To add sorting behavior to the table, add the `sbbSort` directive to the table and add
-`sbb-sort-header` to each column header cell that should trigger sorting. Note that you have to import `SbbSortModule` in order to initialize the `sbbSort` directive.
+`sbb-sort-header` to each column header cell that should trigger sorting.
 
 ```html
 <!-- Name Column -->
@@ -273,7 +273,7 @@ To achieve default sorting of a column, use `sbbSortActive` directive to define 
 ></table>
 ```
 
-It's also possible to programmatically sort columns by calling `sort()` method of SbbSort directive and providing a SbbSortable.
+It's also possible to programmatically sort columns by calling `sort()` method of `SbbSort` directive and providing a SbbSortable.
 
 ```ts
 export class SortableTableExampleComponent implements AfterViewInit {
@@ -282,9 +282,21 @@ export class SortableTableExampleComponent implements AfterViewInit {
 
   constructor() {
     effect(() => {
-      this.dataSource.sort = this.sort;
-      this.sort.sort({ id: 'letter', start: 'asc', disableClear: false });
+      this.dataSource.sort = this.sort();
+      this.sort().sort({ id: 'letter', start: 'asc', disableClear: false });
     });
+  }
+}
+```
+
+To reset the sorting, call `reset()` on the `SbbSort` directive.
+
+```ts
+export class SortableTableExampleComponent implements AfterViewInit {
+  sort = viewChild.required(SbbSort);
+
+  resetSort() {
+    this.sort().reset();
   }
 }
 ```
