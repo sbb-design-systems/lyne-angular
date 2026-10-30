@@ -16,7 +16,7 @@ const comments: CommentMigration[] = [
     message: 'FIXME: this component has no counterpart in lyne-angular.',
   },
   {
-    selector: '[sbb-link]',
+    selector: ['[sbb-link]', 'a:not([sbb-link]):not(.sbb-link-reset)'],
     message:
       "FIXME: links are now imported from `SbbLinkModule` under `@sbb-esta/lyne-angular/link`. Check the component's imports.",
   },
