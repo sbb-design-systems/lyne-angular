@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, NgZone, inject, contentChildren } from '@angular/core';
 import { SbbPearlChainElement } from '@sbb-esta/lyne-elements/pearl-chain.pure.js';
 
-import { SbbPearlChainNode } from '../pearl-chain-node/pearl-chain-node';
+import { SbbPearlChainNode } from '../pearl-chain-node';
 
 /**
  * It displays a chain of `sbb-pearl-chain-node` elements connected by lines,
