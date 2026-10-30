@@ -1,10 +1,8 @@
-import { ResolvedResource } from '@angular/cdk/schematics';
+import type { ResolvedResource } from '@angular/cdk/schematics';
 
-import {
-  AttributeMigrationBase,
-  MigrationEdit,
-  queueFixmeComment,
-} from './attribute-migration-base.cjs';
+import type { MigrationEdit } from '../../utils.cjs';
+
+import { AttributeMigrationBase, queueFixmeComment } from './attribute-migration-base.cjs';
 
 const BUTTON_TAGS = [
   'sbb-accent-button',
@@ -30,13 +28,9 @@ const LINK_TAGS = [
  * The `buttonSize` and `linkSize` properties are proxied to the inner buttons/links before removal.
  */
 export class MigrateActionGroupProperties extends AttributeMigrationBase {
-  private get TAG_PATTERN(): RegExp {
-    return /<(sbb-action-group|sbb-dialog-actions)(\b[^>]*?)>/gi;
-  }
-
-  private get OTHER_ATTRS_PATTERN(): RegExp {
-    return /(\s+)(?:\[\(?(?:orientation|alignGroup|align-group|horizontalFrom|horizontal-from)\)?\]|\[attr\.(?:orientation|alignGroup|align-group|horizontalFrom|horizontal-from)\]|(?:orientation|alignGroup|align-group|horizontalFrom|horizontal-from))(?=\s|=|\$)(?:\s*=\s*(?:"[^"]*"|'[^']*'))?/gi;
-  }
+  private readonly TAG_PATTERN: RegExp = /<(sbb-action-group|sbb-dialog-actions)(\b[^>]*?)>/gi;
+  private readonly OTHER_ATTRS_PATTERN: RegExp =
+    /(\s+)(?:\[\(?(?:orientation|alignGroup|align-group|horizontalFrom|horizontal-from)\)?\]|\[attr\.(?:orientation|alignGroup|align-group|horizontalFrom|horizontal-from)\]|(?:orientation|alignGroup|align-group|horizontalFrom|horizontal-from))(?=\s|=|\$)(?:\s*=\s*(?:"[^"]*"|'[^']*'))?/gi;
 
   /** Matches ONLY strictly static buttonSize="value" (capturing leading whitespace). */
   private readonly STATIC_BUTTON_SIZE_PATTERN =
@@ -231,7 +225,7 @@ export class MigrateActionGroupProperties extends AttributeMigrationBase {
     // Sort tags by length descending so longer tags match before substring counterparts
     const sortedTags = [...targetTags].sort((a, b) => b.length - a.length);
     const childTagPattern = new RegExp(
-      `<(${sortedTags.join('|')})((?![\\w\\-])[^>]*?)(?:\/?)>`,
+      `<(${sortedTags.join('|')})((?![\\w\\-])[^>]*?)(?:/?)>`,
       'gi',
     );
     let childMatch: RegExpExecArray | null;

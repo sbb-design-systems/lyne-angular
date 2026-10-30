@@ -28,11 +28,11 @@ export default defineConfig([
   { ignores },
   eslintConfigPrettier,
   {
-    files: ['**/*.ts', '**/*.js'],
+    files: ['**/*.ts', '**/*.cts', '**/*.js'],
     ...importXFlatConfigs.recommended,
   },
   {
-    files: ['**/*.ts'],
+    files: ['**/*.cts', '**/*.ts'],
     extends: [
       eslint.configs.recommended,
       ...tseslint.recommended,

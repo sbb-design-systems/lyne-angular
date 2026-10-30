@@ -1,8 +1,12 @@
 import { TargetVersion } from '@angular/cdk/schematics';
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { chain } from '@angular-devkit/schematics';
 import { getWorkspace } from '@schematics/angular/utility/workspace';
+
 import { addThemeToProject, getProjectName } from '../../utils.cjs';
-import { AddCommentBase, AddCommentMigrationConfig, ResourceMatch } from './add-comment-base.cjs';
+
+import type { AddCommentMigrationConfig, ResourceMatch } from './add-comment-base.cjs';
+import { AddCommentBase } from './add-comment-base.cjs';
 
 const DEFAULT_LEAN_THEME_PATH = 'node_modules/@sbb-esta/lyne-elements/lean-theme.css';
 

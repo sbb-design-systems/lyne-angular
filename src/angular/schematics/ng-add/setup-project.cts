@@ -1,7 +1,11 @@
-import { NgAddOptionsSchema } from './schema';
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getWorkspace, WorkspaceDefinition } from '@schematics/angular/utility/workspace';
+import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { chain } from '@angular-devkit/schematics';
+import type { WorkspaceDefinition } from '@schematics/angular/utility/workspace';
+import { getWorkspace } from '@schematics/angular/utility/workspace';
+
 import { addThemeToProject, getProjectName } from '../utils.cjs';
+
+import type { NgAddOptionsSchema } from './schema';
 
 const THEME_PATH_PREFIX = 'node_modules/@sbb-esta/lyne-elements';
 const LYNE_ELEMENTS_FALLBACK_THEME = 'standard';
