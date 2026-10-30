@@ -20,32 +20,23 @@ import {
 
 const USERMENU = 'sbb-usermenu';
 
-/** Identifiers and property paths (`user.name`, `a?.b`) can be used in a condition as they are. */
-const SIMPLE_EXPRESSION = /^[\w$]+(?:\??\.[\w$]+)*$/;
-const STRING_LITERAL = /^(['"])(?:\\.|(?!\1)[^\\])*\1$/;
+const IMAGE_COMMENT =
+  '<!-- FIXME: an <img> is not supported as icon of the `sbb-header-button`. -->';
 
-/** Wraps anything but a simple path in parentheses, so it can be used as operand of `?:`. */
-function asOperand(expression: string): string {
-  return SIMPLE_EXPRESSION.test(expression) || STRING_LITERAL.test(expression)
-    ? expression
-    : `(${expression})`;
+/** Text for a static `displayName`: nothing in it may be read as markup, entity or control flow. */
+function escapeText(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/@/g, '&#64;')
+    .replace(/\{/g, '&#123;')
+    .replace(/\}/g, '&#125;');
 }
 
 /**
- * A string literal for an expression. Inside an attribute delimited by `outer` the literal uses
- * the other quote, and a raw `outer` in the value is written as an entity, which Angular decodes.
- */
-function stringLiteral(value: string, outer: string, inAttribute: boolean): string {
-  const inner = outer === '"' ? "'" : '"';
-  const escaped = value.replace(/\\/g, '\\\\').split(inner).join(`\\${inner}`);
-  const safe = inAttribute
-    ? escaped.split(outer).join(outer === '"' ? '&quot;' : '&#39;')
-    : escaped;
-  return `${inner}${safe}${inner}`;
-}
-
-/**
- * Migrates `<sbb-usermenu>` to a `<sbb-header-button>` with a menu:
+ * Migrates `<sbb-usermenu>` to a `<sbb-header-button>` with a menu;
+ * in the most general case, since `[sbbMenu]` and `(click)` cannot be bound to `null`,
+ * there are two buttons: one for the logged-in user (menu) and one for the user who is not (login).
  *
  * ```html
  * <sbb-usermenu
@@ -60,17 +51,15 @@ function stringLiteral(value: string, outer: string, inAttribute: boolean): stri
  *
  * ```html
  * <!-- [userName]="userName" should be included in the sbb-menu -->
- * <sbb-header-button
- *    iconName="user-small"
- *    (click)="displayName ? null : login()"
- *    [sbbMenu]="displayName ? menu : null"
- *  >
- *   @if (displayName) {
+ * @if (displayName) {
+ *   <sbb-header-button iconName="user-small" [sbbMenu]="menu">
  *     {{ displayName }}
- *   } @else {
+ *   </sbb-header-button>
+ * } @else {
+ *   <sbb-header-button iconName="user-small" (click)="login()">
  *     Login
- *   }
- * </sbb-header-button>
+ *   </sbb-header-button>
+ * }
  * ```
  *
  * All other attributes of the element are kept.
@@ -78,7 +67,7 @@ function stringLiteral(value: string, outer: string, inAttribute: boolean): stri
  * An `<sbb-icon>` inside the usermenu stays where it is and the label is added after it.
  * An `<img>` stays as well, but is commented, because the header button does not support it.
  * Without a `displayName` there is no way to tell whether the user is logged in,
- * so `(click)` and `[sbbMenu]` are not made conditional.
+ * so there is only one button with `(click)` and `[sbbMenu]`.
  */
 function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
   return createTemplateMigrationRule((element: TmplAstElement, context) => {
@@ -118,16 +107,11 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
       variants('loginRequest').includes(output.name),
     );
 
-    // `[displayName]="expr"` is used as is, `displayName="text"` becomes a string literal.
-    // The literal must not use the quote of the attribute it ends up in, hence the parameter.
-    const boundDisplayName = displayNameInput?.valueSpan
+    const displayName = displayNameInput?.valueSpan
       ? text(displayNameInput.valueSpan).trim()
       : undefined;
-    const hasDisplayName = boundDisplayName !== undefined || displayNameStatic !== undefined;
-    const displayNameFor = (outerQuote: string, inAttribute: boolean): string =>
-      boundDisplayName ?? stringLiteral(displayNameStatic!.value, outerQuote, inAttribute);
-    const conditionFor = (outerQuote: string): string =>
-      asOperand(displayNameFor(outerQuote, true));
+    const isConditional = displayName !== undefined;
+    const hasDisplayName = isConditional || displayNameStatic !== undefined;
 
     // Icons of the usermenu itself, also the ones below a structural directive (`<img *sbbIcon />`).
     const descendants: TmplAstElement[] = [];
@@ -139,11 +123,15 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
     const elementStart = start.start.offset;
     const lineStart = content.lastIndexOf('\n', elementStart - 1) + 1;
     const beforeElement = content.slice(lineStart, elementStart);
-    // Respect the layout: a template without line breaks stays a one-liner, so inline templates do not get `\n` escapes, and a single-line element does not get broken up.
+    // A template without line breaks stays a one-liner, so inline templates do not get `\n`
+    // escapes, and a single-line element does not get broken up.
     const onOwnLine = beforeElement.trim() === '' && content.includes('\n');
     const multiline = content.slice(start.start.offset, end.end.offset).includes('\n');
+    const block = onOwnLine || multiline;
     const indent = /^[ \t]*/.exec(beforeElement)![0];
     const eol = content.includes('\r\n') ? '\r\n' : '\n';
+    // With a display name the button is inside of the `@if`, so one level deeper.
+    const buttonIndent = isConditional ? `${indent}  ` : indent;
 
     const queue = (
       offset: number,
@@ -159,6 +147,22 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
         node.sourceSpan.end.offset - node.sourceSpan.start.offset,
         insertion,
       );
+    const removeAttribute = (node: { sourceSpan: ParseSourceSpan }): void =>
+      queueAttributeRemoval(
+        content,
+        baseOffset,
+        node.sourceSpan.start.offset,
+        node.sourceSpan.end.offset,
+        edits,
+        nextIndex,
+      );
+    /** What is inserted in front of an `<img>`. */
+    const imageInsertion = (imageStart: number): string => {
+      const beforeImage = content.slice(content.lastIndexOf('\n', imageStart - 1) + 1, imageStart);
+      return beforeImage.trim() === '' && content.includes('\n')
+        ? `${IMAGE_COMMENT}${eol}${/^[ \t]*/.exec(beforeImage)![0]}`
+        : `${IMAGE_COMMENT} `;
+    };
 
     // The username belongs to the menu now, which has to be done by hand.
     if (userName) {
@@ -166,28 +170,24 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
         `<!-- ${text(userName.sourceSpan).replace(/--!?>/g, '-- >')} ` +
         `should be included in the sbb-menu -->`;
       queue(elementStart, 0, onOwnLine ? `${comment}${eol}${indent}` : `${comment} `);
-      queueAttributeRemoval(
-        content,
-        baseOffset,
-        userName.sourceSpan.start.offset,
-        userName.sourceSpan.end.offset,
-        edits,
-        nextIndex,
+      removeAttribute(userName);
+    }
+
+    // The button for the logged-in user is the element itself, inside an `@if`.
+    if (isConditional) {
+      queue(
+        elementStart,
+        0,
+        block ? `@if (${displayName}) {${eol}${buttonIndent}` : `@if (${displayName}) { `,
       );
     }
 
     // Images are not supported as icon.
     for (const image of images) {
-      const imageStart = image.startSourceSpan.start.offset;
-      const beforeImage = content.slice(content.lastIndexOf('\n', imageStart - 1) + 1, imageStart);
-      const imageComment =
-        '<!-- FIXME: an <img> is not supported as icon of the `sbb-header-button`. -->';
       queue(
-        imageStart,
+        image.startSourceSpan.start.offset,
         0,
-        beforeImage.trim() === '' && content.includes('\n')
-          ? `${imageComment}${eol}${/^[ \t]*/.exec(beforeImage)![0]}`
-          : `${imageComment} `,
+        imageInsertion(image.startSourceSpan.start.offset),
       );
     }
 
@@ -200,77 +200,118 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
     );
     queue(end.start.offset + 2, element.name.length, 'sbb-header-button');
 
-    // The display name only drives the conditions and the content.
+    // The display name only drives the `@if` and the label.
     if (displayNameNode) {
-      queueAttributeRemoval(
-        content,
-        baseOffset,
-        displayNameNode.sourceSpan.start.offset,
-        displayNameNode.sourceSpan.end.offset,
-        edits,
-        nextIndex,
-      );
+      removeAttribute(displayNameNode);
     }
 
     // `(loginRequest)` only makes sense for a user who is not logged in.
+    // With a displayName it is removed, or it moves to the second button.
+    const handler = loginRequest ? text(loginRequest.handlerSpan).trim() : '';
+    const handlerQuote = quoteOf(loginRequest?.handlerSpan);
+    const click = `(click)=${handlerQuote}${handler}${handlerQuote}`;
     if (loginRequest) {
-      const handler = text(loginRequest.handlerSpan).trim();
-      const q = quoteOf(loginRequest.handlerSpan);
-      if (!hasDisplayName) {
-        replaceAttribute(loginRequest, `(click)=${q}${handler}${q}`);
+      if (hasDisplayName) {
+        removeAttribute(loginRequest);
       } else {
-        replaceAttribute(loginRequest, `(click)=${q}${conditionFor(q)} ? null : ${handler}${q}`);
+        replaceAttribute(loginRequest, click);
       }
     }
 
-    // `[menu]` is only shown for a logged in user.
+    // `[menu]` is the menu of the logged-in user.
     if (menu?.valueSpan) {
       const q = quoteOf(menu.valueSpan);
-      const value = text(menu.valueSpan).trim();
-      replaceAttribute(
-        menu,
-        hasDisplayName
-          ? `[sbbMenu]=${q}${conditionFor(q)} ? ${value} : null${q}`
-          : `[sbbMenu]=${q}${value}${q}`,
-      );
+      replaceAttribute(menu, `[sbbMenu]=${q}${text(menu.valueSpan).trim()}${q}`);
     }
 
     // Add label
     const contentStart = start.end.offset;
     const innerContent = content.slice(contentStart, end.start.offset);
     const isBlank = innerContent.trim() === '';
+    const label = isConditional
+      ? `{{ ${displayName} }}`
+      : displayNameStatic
+        ? escapeText(displayNameStatic.value)
+        : 'Login';
 
-    if (isBlank || hasOwnIcon) {
-      // Text, not an attribute: a literal is free to use either quote.
-      const displayName = hasDisplayName ? displayNameFor('"', false) : undefined;
-      const inline =
-        displayName === undefined
-          ? 'Login'
-          : `@if (${displayName}) { {{ ${displayName} }} } @else { Login }`;
-      const lines =
-        displayName === undefined
-          ? ['Login']
-          : [`@if (${displayName}) {`, `  {{ ${displayName} }}`, '} @else {', '  Login', '}'];
-      const block = lines.map((line) => `${indent}  ${line}`).join(eol);
-
-      if (isBlank) {
-        queue(
-          contentStart,
-          innerContent.length,
-          multiline ? `${eol}${block}${eol}${indent}` : inline,
-        );
-      } else {
-        // The icon stays, the label follows it.
-        queue(
-          contentStart + innerContent.trimEnd().length,
-          0,
-          multiline ? `${eol}${block}` : ` ${inline}`,
-        );
-      }
+    if (isBlank) {
+      queue(
+        contentStart,
+        innerContent.length,
+        multiline ? `${eol}${buttonIndent}  ${label}${eol}${buttonIndent}` : label,
+      );
+    } else if (hasOwnIcon) {
+      // The icon stays, the label follows it.
+      queue(
+        contentStart + innerContent.trimEnd().length,
+        0,
+        multiline ? `${eol}${buttonIndent}  ${label}` : ` ${label}`,
+      );
     } else {
       logger.warn(
         `  ⚠ <sbb-usermenu> in '${filePath}' has content, which was left as it is: ` +
           `add the label by hand.`,
+      );
+    }
+
+    // The button for the user who is not logged in, after the first one.
+    if (isConditional) {
+      // Everything but the handled attributes is copied (static, bound, outputs, references).
+      const handled = new Set(
+        [userName, displayNameNode, menu, loginRequest]
+          .filter((node) => !!node)
+          .map((node) => node!.sourceSpan.start.offset),
+      );
+      const copied = new Map<number, string>();
+      for (const node of [
+        ...element.attributes,
+        ...element.inputs,
+        ...element.outputs,
+        ...element.references,
+      ]) {
+        const offset = node.sourceSpan.start.offset;
+        if (!handled.has(offset) && !copied.has(offset)) {
+          copied.set(offset, text(node.sourceSpan));
+        }
+      }
+      const open = [
+        '<sbb-header-button',
+        hasOwnIcon ? undefined : 'iconName="user-small"',
+        loginRequest ? click : undefined,
+        ...[...copied.entries()].sort(([a], [b]) => a - b).map(([, value]) => value),
+      ]
+        .filter((part) => !!part)
+        .join(' ');
+
+      let inner: string;
+      if (isBlank) {
+        inner = multiline ? `${eol}${buttonIndent}  Login${eol}${buttonIndent}` : 'Login';
+      } else if (hasOwnIcon) {
+        // A copy of the icons, also with the comment for the images.
+        let icons = innerContent;
+        for (const image of [...images].sort(
+          (a, b) => b.startSourceSpan.start.offset - a.startSourceSpan.start.offset,
+        )) {
+          const offset = image.startSourceSpan.start.offset;
+          icons =
+            icons.slice(0, offset - contentStart) +
+            imageInsertion(offset) +
+            icons.slice(offset - contentStart);
+        }
+        inner = multiline
+          ? `${icons.trimEnd()}${eol}${buttonIndent}  Login${eol}${buttonIndent}`
+          : `${icons.trimEnd()} Login`;
+      } else {
+        inner = innerContent;
+      }
+      const loginButton = `${open}>${inner}</sbb-header-button>`;
+
+      queue(
+        end.end.offset,
+        0,
+        block
+          ? `${eol}${indent}} @else {${eol}${buttonIndent}${loginButton}${eol}${indent}}`
+          : ` } @else { ${loginButton} }`,
       );
     }
   }, scope);
@@ -296,5 +337,5 @@ export const USERMENU_MIGRATIONS: Partial<ModuleMigrations> = {
   importPaths,
   comments,
   types,
-  customRules: [(scope) => createUsermenuMigrationRule(scope)],
+  customRules: [(scope?) => createUsermenuMigrationRule(scope)],
 };

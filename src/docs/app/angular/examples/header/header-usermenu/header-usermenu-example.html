@@ -1,0 +1,25 @@
+<sbb-header>
+  <sbb-header-link iconName="hamburger-menu-small" href="https://sbb.ch/"> Menu </sbb-header-link>
+  <div class="sbb-header-spacer"></div>
+  @if (displayName) {
+    <sbb-header-button iconName="user-small" [sbbMenu]="menu">
+      {{ displayName }}
+    </sbb-header-button>
+    <sbb-menu #menu="sbbMenu">
+      <sbb-menu-button iconName="exit-small" (click)="logout()"> Logout </sbb-menu-button>
+    </sbb-menu>
+  } @else {
+    <sbb-header-button iconName="user-small" (click)="login()"> Login </sbb-header-button>
+  }
+  <a aria-label="Homepage" href="/" class="sbb-header-logo">
+    <sbb-logo protectiveRoom="none"></sbb-logo>
+  </a>
+</sbb-header>
+<sbb-container>
+  <sbb-title level="5">Content</sbb-title>
+  <p>This example mimics the behavior of SBB Angular's `sbb-usermenu` component.</p>
+  <p>
+    The `sbb-usermenu` can be replaced by a conditional `sbb-header-button`; it has a 'Login' label
+    when the `displayName` is not set, and has a connected menu when it is set.
+  </p>
+</sbb-container>

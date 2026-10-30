@@ -101,15 +101,16 @@ describe('sbb-usermenu', () => {
         [
           FIXME,
           '<!-- [userName]="userName" should be included in the sbb-menu -->',
-          '<sbb-header-button iconName="user-small"',
-          '  (click)="displayName ? null : login()"',
-          '  [sbbMenu]="displayName ? menu : null">',
-          '  @if (displayName) {',
+          '@if (displayName) {',
+          '  <sbb-header-button iconName="user-small"',
+          '  [sbbMenu]="menu">',
           '    {{ displayName }}',
-          '  } @else {',
+          '  </sbb-header-button>',
+          '} @else {',
+          '  <sbb-header-button iconName="user-small" (click)="login()">',
           '    Login',
-          '  }',
-          '</sbb-header-button>',
+          '  </sbb-header-button>',
+          '}',
         ].join('\n'),
       );
     });
@@ -129,15 +130,17 @@ describe('sbb-usermenu', () => {
         [
           FIXME,
           '<!-- [userName]="userProfile.email || userProfile.username" should be included in the sbb-menu -->',
-          '<sbb-header-button iconName="user-small"',
-          '              [sbbMenu]="userProfile.name ? menu : null"',
+          '@if (userProfile.name) {',
+          '  <sbb-header-button iconName="user-small"',
+          '              [sbbMenu]="menu"',
           '              >',
-          '  @if (userProfile.name) {',
           '    {{ userProfile.name }}',
-          '  } @else {',
+          '  </sbb-header-button>',
+          '} @else {',
+          '  <sbb-header-button iconName="user-small">',
           '    Login',
-          '  }',
-          '</sbb-header-button>',
+          '  </sbb-header-button>',
+          '}',
         ].join('\n'),
       );
     });
@@ -205,47 +208,185 @@ describe('sbb-usermenu', () => {
     });
   });
 
-  describe('displayName', () => {
-    // Literal is an edge case and one of the reason of the comment addition above the component.
-    it('should use a static displayName as string literal', async () => {
+  describe('displayName (bound)', () => {
+    it('should create a button for each state', async () => {
+      const result = await migrate(
+        '<sbb-usermenu [displayName]="name" (loginRequest)="login()" [menu]="menu"></sbb-usermenu>',
+      );
+
+      expect(result).toContain('@if (name) { <sbb-header-button iconName="user-small"');
+      expect(result).toContain(
+        '[sbbMenu]="menu">{{ name }}</sbb-header-button> } @else { <sbb-header-button iconName="user-small" (click)="login()">Login</sbb-header-button> }',
+      );
+      expect(result).not.toContain('displayName');
+      expect(result).not.toContain('loginRequest');
+    });
+
+    it('should not put the menu on the login button', async () => {
+      const result = await migrate(
+        '<sbb-usermenu [displayName]="name" (loginRequest)="login()" [menu]="menu"></sbb-usermenu>',
+      );
+
+      expect(result.match(/sbbMenu/g)).toHaveLength(1);
+      expect(result.match(/\(click\)/g)).toHaveLength(1);
+    });
+
+    it('should use the expression as it is', async () => {
+      const result = await migrate('<sbb-usermenu [displayName]="a ? b : c"></sbb-usermenu>');
+
+      expect(result).toContain('@if (a ? b : c) {');
+      expect(result).toContain('{{ a ? b : c }}');
+    });
+
+    it('should use a property path', async () => {
+      const result = await migrate(
+        '<sbb-usermenu [displayName]="user?.profile.name"></sbb-usermenu>',
+      );
+
+      expect(result).toContain('@if (user?.profile.name) {');
+      expect(result).toContain('{{ user?.profile.name }}');
+    });
+
+    it('should trim whitespace of the expression', async () => {
+      const result = await migrate('<sbb-usermenu [displayName]=" name "></sbb-usermenu>');
+
+      expect(result).toContain('@if (name) {');
+      expect(result).toContain('{{ name }}');
+    });
+
+    it('should keep single quotes', async () => {
+      const result = await migrate(
+        `<sbb-usermenu [displayName]='name' (loginRequest)='login()' [menu]='menu'></sbb-usermenu>`,
+      );
+
+      expect(result).toContain(`(click)='login()'`);
+      expect(result).toContain(`[sbbMenu]='menu'`);
+    });
+
+    it('should have no click on the login button without loginRequest', async () => {
+      const result = await migrate('<sbb-usermenu [displayName]="name"></sbb-usermenu>');
+
+      expect(result).not.toContain('click');
+      expect(result).toContain(
+        '} @else { <sbb-header-button iconName="user-small">Login</sbb-header-button> }',
+      );
+    });
+
+    it('should have no menu without [menu]', async () => {
+      const result = await migrate('<sbb-usermenu [displayName]="name"></sbb-usermenu>');
+
+      expect(result).not.toContain('sbbMenu');
+    });
+
+    it('should copy the other attributes to both buttons', async () => {
+      const result = await migrate(
+        '<sbb-usermenu [displayName]="name" (loginRequest)="login()" class="a" [disabled]="d" (focus)="f()"></sbb-usermenu>',
+      );
+
+      expect(result.match(/class="a"/g)).toHaveLength(2);
+      expect(result.match(/\[disabled\]="d"/g)).toHaveLength(2);
+      expect(result.match(/\(focus\)="f\(\)"/g)).toHaveLength(2);
+      expect(result).toContain('(click)="login()" class="a" [disabled]="d" (focus)="f()">Login');
+    });
+
+    it('should indent the buttons in a nested element', async () => {
+      const result = await migrate(
+        ['<div>', '  <sbb-usermenu [displayName]="name"></sbb-usermenu>', '</div>'].join('\n'),
+      );
+
+      expect(result).toContain('  @if (name) {\n    <sbb-header-button');
+      expect(result).toContain(
+        '{{ name }}</sbb-header-button>\n  } @else {\n    <sbb-header-button iconName="user-small">Login</sbb-header-button>\n  }',
+      );
+    });
+  });
+
+  describe('displayName (static)', () => {
+    // The user is always logged in: no @if, no login button, the value is the label.
+    it('should use the value as label', async () => {
       const result = await migrate(
         '<sbb-usermenu displayName="Hans" (loginRequest)="login()" [menu]="menu"></sbb-usermenu>',
       );
 
-      expect(result).toContain(`(click)="'Hans' ? null : login()"`);
-      expect(result).toContain(`[sbbMenu]="'Hans' ? menu : null"`);
-      expect(result).toContain(`@if ('Hans') { {{ 'Hans' }} } @else { Login }`);
+      expect(result).toContain('[sbbMenu]="menu">Hans</sbb-header-button>');
+      expect(result).not.toContain('@if');
+      expect(result).not.toContain('@else');
+      expect(result).not.toContain('Login');
+      expect(result).not.toContain('click');
       expect(result).not.toContain('displayName');
+      expect(result).not.toContain('loginRequest');
+      expect(result.match(/<sbb-header-button/g)).toHaveLength(1);
     });
 
-    it('should not wrap a property path in parentheses', async () => {
+    it('should migrate to one button', async () => {
+      expect(await migrate('<sbb-usermenu displayName="Hans"></sbb-usermenu>')).toMatch(
+        /^<sbb-header-button iconName="user-small"\s*>Hans<\/sbb-header-button>$/,
+      );
+    });
+
+    it('should keep other attributes', async () => {
       const result = await migrate(
-        '<sbb-usermenu [displayName]="user?.profile.name" (loginRequest)="login()"></sbb-usermenu>',
+        '<sbb-usermenu displayName="Hans" class="a" data-x="b"></sbb-usermenu>',
       );
 
-      expect(result).toContain('(click)="user?.profile.name ? null : login()"');
+      expect(result).toContain('class="a"');
+      expect(result).toContain('data-x="b"');
+      expect(result).toContain('>Hans</sbb-header-button>');
+    });
+
+    it('should work with userName', async () => {
+      const result = await migrate(
+        '<sbb-usermenu displayName="Hans" userName="hans@example.com"></sbb-usermenu>',
+      );
+
       expect(result).toContain(
-        '@if (user?.profile.name) { {{ user?.profile.name }} } @else { Login }',
+        '<!-- userName="hans@example.com" should be included in the sbb-menu -->',
       );
+      expect(result).toContain('>Hans</sbb-header-button>');
+      expect(result).not.toContain('@if');
     });
 
-    it('should wrap a complex expression in parentheses for the condition', async () => {
+    it('should put the label on its own line, multiline', async () => {
       const result = await migrate(
-        '<sbb-usermenu [displayName]="a ? b : c" (loginRequest)="login()" [menu]="menu"></sbb-usermenu>',
+        ['<sbb-usermenu', '  displayName="Hans"', '  [menu]="menu"', '></sbb-usermenu>'].join('\n'),
       );
 
-      expect(result).toContain('(click)="(a ? b : c) ? null : login()"');
-      expect(result).toContain('[sbbMenu]="(a ? b : c) ? menu : null"');
-      // In the @if and the interpolation no parentheses are needed.
-      expect(result).toContain('@if (a ? b : c) { {{ a ? b : c }} } @else { Login }');
+      expect(result).toContain('>\n  Hans\n</sbb-header-button>');
+      expect(result).not.toContain('@if');
     });
 
-    it('should wrap a call expression in parentheses', async () => {
+    it('should keep an icon and add the label after it', async () => {
       const result = await migrate(
-        '<sbb-usermenu [displayName]="name()" (loginRequest)="login()"></sbb-usermenu>',
+        '<sbb-usermenu displayName="Hans"><sbb-icon svgIcon="x"></sbb-icon></sbb-usermenu>',
       );
 
-      expect(result).toContain('(click)="(name()) ? null : login()"');
+      expect(result).not.toContain('iconName');
+      expect(result).toContain('<sbb-icon svgIcon="x"></sbb-icon> Hans</sbb-header-button>');
+    });
+
+    it('should leave content without icon as it is', async () => {
+      const result = await migrate('<sbb-usermenu displayName="Hans">Hello</sbb-usermenu>');
+
+      expect(result).toContain('>Hello</sbb-header-button>');
+      expect(result).not.toContain('Hans');
+    });
+
+    it('should escape what Angular would read as template syntax', async () => {
+      const result = await migrate('<sbb-usermenu displayName="Hans {x} @y"></sbb-usermenu>');
+
+      expect(result).toContain('>Hans &#123;x&#125; &#64;y</sbb-header-button>');
+    });
+
+    it('should escape an ampersand', async () => {
+      const result = await migrate('<sbb-usermenu displayName="Hans &amp; Co"></sbb-usermenu>');
+
+      expect(result).toContain('>Hans &amp; Co</sbb-header-button>');
+    });
+
+    it('should escape a quote', async () => {
+      const result = await migrate(`<sbb-usermenu displayName="O'Neil"></sbb-usermenu>`);
+
+      expect(result).toContain(`>O'Neil</sbb-header-button>`);
     });
   });
 
@@ -281,18 +422,18 @@ describe('sbb-usermenu', () => {
   });
 
   describe('icons', () => {
-    it('should keep an sbb-icon and add the label after it, single line', async () => {
+    it('should keep an sbb-icon in both buttons, single line', async () => {
       const result = await migrate(
         '<sbb-usermenu [displayName]="name"><sbb-icon svgIcon="x"></sbb-icon></sbb-usermenu>',
       );
 
       expect(result).not.toContain('iconName');
       expect(result).toContain(
-        '<sbb-icon svgIcon="x"></sbb-icon> @if (name) { {{ name }} } @else { Login }</sbb-header-button>',
+        '<sbb-icon svgIcon="x"></sbb-icon> {{ name }}</sbb-header-button> } @else { <sbb-header-button><sbb-icon svgIcon="x"></sbb-icon> Login</sbb-header-button> }',
       );
     });
 
-    it('should keep an sbb-icon and add the label after it, multiline', async () => {
+    it('should keep an sbb-icon in both buttons, multiline', async () => {
       const result = await migrate(
         [
           '<sbb-usermenu [displayName]="name">',
@@ -305,14 +446,25 @@ describe('sbb-usermenu', () => {
       expect(result).toContain(
         [
           '  <sbb-icon svgIcon="x"></sbb-icon>',
-          '  @if (name) {',
           '    {{ name }}',
-          '  } @else {',
-          '    Login',
-          '  }',
           '</sbb-header-button>',
+          '} @else {',
+          '  <sbb-header-button>',
+          '  <sbb-icon svgIcon="x"></sbb-icon>',
+          '    Login',
+          '  </sbb-header-button>',
+          '}',
         ].join('\n'),
       );
+    });
+
+    it('should keep an sbb-icon and add the label after it, without displayName', async () => {
+      const result = await migrate(
+        '<sbb-usermenu><sbb-icon svgIcon="x"></sbb-icon></sbb-usermenu>',
+      );
+
+      expect(result).not.toContain('iconName');
+      expect(result).toContain('<sbb-icon svgIcon="x"></sbb-icon> Login</sbb-header-button>');
     });
 
     it('should comment an img, single line', async () => {
@@ -340,6 +492,15 @@ describe('sbb-usermenu', () => {
       expect(result).toContain(IMG_FIXME);
       expect(result).not.toContain('iconName');
     });
+
+    it('should comment an img in both buttons', async () => {
+      const result = await migrate(
+        '<sbb-usermenu [displayName]="name"><img src="a.png"></sbb-usermenu>',
+      );
+
+      expect(result.split(IMG_FIXME).length - 1).toBe(2);
+      expect(result).not.toContain('iconName');
+    });
   });
 
   describe('inner content', () => {
@@ -352,9 +513,12 @@ describe('sbb-usermenu', () => {
     it('should not add a label to content without icon, even with displayName', async () => {
       const result = await migrate('<sbb-usermenu [displayName]="name">Hello</sbb-usermenu>');
 
-      expect(result).toContain('>Hello</sbb-header-button>');
-      expect(result).not.toContain('@if');
+      expect(result).toContain('>Hello</sbb-header-button> } @else {');
+      expect(result).toContain(
+        '<sbb-header-button iconName="user-small">Hello</sbb-header-button> }',
+      );
       expect(result).not.toContain('Login');
+      expect(result).not.toContain('{{');
     });
   });
 });
