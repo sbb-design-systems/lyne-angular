@@ -12,11 +12,10 @@ import { BADGE_MIGRATIONS } from './badge.cjs';
 describe('sbb-badge', () => {
   const defaultMigration: Rule = () => {
     const { importPaths, comments, attributes } = BADGE_MIGRATIONS;
-    const scope = { root: '', excludedRoots: [] };
     return chain([
-      createImportPathMigrationRule(importPaths, scope),
-      createCommentMigrationRule(comments, scope),
-      createAttributeMigrationRule(attributes, scope),
+      createImportPathMigrationRule(importPaths),
+      createCommentMigrationRule(comments),
+      createAttributeMigrationRule(attributes),
     ]);
   };
 
