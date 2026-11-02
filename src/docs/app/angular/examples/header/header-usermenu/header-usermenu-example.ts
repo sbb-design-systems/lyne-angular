@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import type { WritableSignal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { SbbContainerModule } from '@sbb-esta/lyne-angular/container';
 import { SbbHeaderModule } from '@sbb-esta/lyne-angular/header';
 import { SbbLogoModule } from '@sbb-esta/lyne-angular/logo';
@@ -18,13 +19,13 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
   },
 })
 export class HeaderUsermenuExample {
-  protected displayName?: string;
+  protected displayName: WritableSignal<string | undefined> = signal(undefined);
 
   protected logout(): void {
-    this.displayName = undefined;
+    this.displayName.set(undefined);
   }
 
   protected login(): void {
-    this.displayName = 'Arthur Morgan';
+    this.displayName.set('Arthur Morgan');
   }
 }

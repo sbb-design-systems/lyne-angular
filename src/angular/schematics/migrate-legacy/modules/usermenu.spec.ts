@@ -2,6 +2,7 @@ import type { Rule } from '@angular-devkit/schematics';
 import { chain } from '@angular-devkit/schematics';
 import { describe, expect, it } from 'vitest';
 
+import type { ModuleMigrations } from '../common.cjs';
 import { createCommentMigrationRule } from '../migrations/comment-migration.cjs';
 import { createImportPathMigrationRule } from '../migrations/import-path-migration.cjs';
 import { createTypeMigrationRule } from '../migrations/type-migration.cjs';
@@ -9,22 +10,28 @@ import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
 import { USERMENU_MIGRATIONS } from './usermenu.cjs';
 
-const FIXME =
-  "<!-- FIXME: this component can be replaced by 'sbb-header-button' with a connected 'sbb-menu'; please check and possibly adapt the auto-migrated code. -->";
-const IMG_FIXME = '<!-- FIXME: an <img> is not supported as icon of the `sbb-header-button`. -->';
+const FIXME_TEXT =
+  "FIXME: this component can be replaced by 'sbb-header-button' with a connected 'sbb-menu'; please check and possibly adapt the auto-migrated code.";
+const FIXME = `<!-- ${FIXME_TEXT} -->`;
+const IMG_FIXME =
+  '<!-- FIXME: images are allowed as icons with the \'slot="icon"\' attribute. Check the component styling for an optimal result. -->';
 
 describe('sbb-usermenu', () => {
-  const { importPaths, comments, types, customRules } = USERMENU_MIGRATIONS;
+  const { importPaths, comments, types, customRules } = USERMENU_MIGRATIONS as Required<
+    Pick<ModuleMigrations, 'importPaths' | 'comments' | 'types' | 'customRules'>
+  >;
   const defaultMigration: Rule = () =>
     chain([
       createImportPathMigrationRule(importPaths),
       createCommentMigrationRule(comments),
       createTypeMigrationRule(types),
-      ...customRules!.map((rule) => rule()),
+      ...customRules.map((rule) => rule()),
     ]);
   // Only the custom rule: no FIXME comment, so output is easy to compare.
   const migrate = (html: string) =>
-    MigrateLegacyTestUtils.migrateHtmlFile(html, chain(customRules!.map((rule) => rule())));
+    MigrateLegacyTestUtils.migrateHtmlFile(html, chain(customRules.map((rule) => rule())));
+  const migrateTs = (source: string) =>
+    MigrateLegacyTestUtils.migrateTsFile(source, defaultMigration);
 
   describe('import paths and types', () => {
     it('should migrate', async () => {
@@ -103,7 +110,7 @@ describe('sbb-usermenu', () => {
           '<!-- [userName]="userName" should be included in the sbb-menu -->',
           '@if (displayName) {',
           '  <sbb-header-button iconName="user-small"',
-          '  [sbbMenu]="menu">',
+          '    [sbbMenu]="menu">',
           '    {{ displayName }}',
           '  </sbb-header-button>',
           '} @else {',
@@ -132,8 +139,8 @@ describe('sbb-usermenu', () => {
           '<!-- [userName]="userProfile.email || userProfile.username" should be included in the sbb-menu -->',
           '@if (userProfile.name) {',
           '  <sbb-header-button iconName="user-small"',
-          '              [sbbMenu]="menu"',
-          '              >',
+          '                [sbbMenu]="menu"',
+          '                >',
           '    {{ userProfile.name }}',
           '  </sbb-header-button>',
           '} @else {',
@@ -294,9 +301,16 @@ describe('sbb-usermenu', () => {
         ['<div>', '  <sbb-usermenu [displayName]="name"></sbb-usermenu>', '</div>'].join('\n'),
       );
 
-      expect(result).toContain('  @if (name) {\n    <sbb-header-button');
-      expect(result).toContain(
-        '{{ name }}</sbb-header-button>\n  } @else {\n    <sbb-header-button iconName="user-small">Login</sbb-header-button>\n  }',
+      expect(result).toBe(
+        [
+          '<div>',
+          '  @if (name) {',
+          '    <sbb-header-button iconName="user-small">{{ name }}</sbb-header-button>',
+          '  } @else {',
+          '    <sbb-header-button iconName="user-small">Login</sbb-header-button>',
+          '  }',
+          '</div>',
+        ].join('\n'),
       );
     });
   });
@@ -351,7 +365,7 @@ describe('sbb-usermenu', () => {
         ['<sbb-usermenu', '  displayName="Hans"', '  [menu]="menu"', '></sbb-usermenu>'].join('\n'),
       );
 
-      expect(result).toContain('>\n  Hans\n</sbb-header-button>');
+      expect(result).toContain(['>', '  Hans', '</sbb-header-button>'].join('\n'));
       expect(result).not.toContain('@if');
     });
 
@@ -442,15 +456,16 @@ describe('sbb-usermenu', () => {
         ].join('\n'),
       );
 
-      expect(result).not.toContain('iconName');
-      expect(result).toContain(
+      expect(result).toBe(
         [
-          '  <sbb-icon svgIcon="x"></sbb-icon>',
+          '@if (name) {',
+          '  <sbb-header-button>',
+          '    <sbb-icon svgIcon="x"></sbb-icon>',
           '    {{ name }}',
-          '</sbb-header-button>',
+          '  </sbb-header-button>',
           '} @else {',
           '  <sbb-header-button>',
-          '  <sbb-icon svgIcon="x"></sbb-icon>',
+          '    <sbb-icon svgIcon="x"></sbb-icon>',
           '    Login',
           '  </sbb-header-button>',
           '}',
@@ -467,39 +482,150 @@ describe('sbb-usermenu', () => {
       expect(result).toContain('<sbb-icon svgIcon="x"></sbb-icon> Login</sbb-header-button>');
     });
 
-    it('should comment an img, single line', async () => {
+    it('should add the slot and comment an img, single line', async () => {
       const result = await migrate('<sbb-usermenu><img src="a.png"></sbb-usermenu>');
 
       expect(result).not.toContain('iconName');
-      expect(result).toContain(`${IMG_FIXME} <img src="a.png">`);
+      expect(result).toContain(`${IMG_FIXME} <img slot="icon" src="a.png">`);
       expect(result).toContain('Login</sbb-header-button>');
     });
 
-    it('should comment an img, multiline, with the same indent', async () => {
+    it('should add the slot and comment an img, multiline, with the same indent', async () => {
       const result = await migrate(
         ['<sbb-usermenu>', '  <img src="a.png" />', '</sbb-usermenu>'].join('\n'),
       );
 
-      expect(result).toContain([`  ${IMG_FIXME}`, '  <img src="a.png" />'].join('\n'));
-      expect(result).not.toContain('iconName');
+      expect(result).toBe(
+        [
+          '<sbb-header-button>',
+          `  ${IMG_FIXME}`,
+          '  <img slot="icon" src="a.png" />',
+          '  Login',
+          '</sbb-header-button>',
+        ].join('\n'),
+      );
     });
 
-    it('should comment an img below a structural directive', async () => {
+    it('should add the slot and comment an img below a structural directive', async () => {
       const result = await migrate(
         ['<sbb-usermenu>', '  <img src="a.png" *sbbIcon />', '</sbb-usermenu>'].join('\n'),
       );
 
       expect(result).toContain(IMG_FIXME);
+      expect(result).toContain('<img slot="icon" src="a.png" *sbbIcon />');
       expect(result).not.toContain('iconName');
     });
 
-    it('should comment an img in both buttons', async () => {
+    it('should add the slot and comment an img in both buttons', async () => {
       const result = await migrate(
         '<sbb-usermenu [displayName]="name"><img src="a.png"></sbb-usermenu>',
       );
 
       expect(result.split(IMG_FIXME).length - 1).toBe(2);
+      expect(result.split('<img slot="icon" src="a.png">').length - 1).toBe(2);
       expect(result).not.toContain('iconName');
+    });
+  });
+
+  describe('images', () => {
+    it('should handle an img with userName, menu and login', async () => {
+      expect(
+        await migrate(
+          [
+            '<sbb-usermenu [userName]="userName" (loginRequest)="login()" [menu]="menu">',
+            '  <img src="assets/sbb-logo.png" alt="SBB Logo" *sbbIcon />',
+            '</sbb-usermenu>',
+          ].join('\n'),
+        ),
+      ).toBe(
+        [
+          '<!-- [userName]="userName" should be included in the sbb-menu -->',
+          '<sbb-header-button (click)="login()" [sbbMenu]="menu">',
+          `  ${IMG_FIXME}`,
+          '  <img slot="icon" src="assets/sbb-logo.png" alt="SBB Logo" *sbbIcon />',
+          '  Login',
+          '</sbb-header-button>',
+        ].join('\n'),
+      );
+    });
+
+    it('should handle an sbb-image in both buttons', async () => {
+      expect(
+        await migrate(
+          [
+            '<sbb-usermenu [displayName]="n" [menu]="menu" (loginRequest)="go()">',
+            '  <sbb-image src="avatar.png"></sbb-image>',
+            '</sbb-usermenu>',
+          ].join('\n'),
+        ),
+      ).toBe(
+        [
+          '@if (n) {',
+          '  <sbb-header-button [sbbMenu]="menu">',
+          `    ${IMG_FIXME}`,
+          '    <sbb-image slot="icon" src="avatar.png"></sbb-image>',
+          '    {{ n }}',
+          '  </sbb-header-button>',
+          '} @else {',
+          '  <sbb-header-button (click)="go()">',
+          `    ${IMG_FIXME}`,
+          '    <sbb-image slot="icon" src="avatar.png"></sbb-image>',
+          '    Login',
+          '  </sbb-header-button>',
+          '}',
+        ].join('\n'),
+      );
+    });
+
+    it('should keep slot="icon" and still comment the image', async () => {
+      expect(
+        await migrate(
+          [
+            '<sbb-usermenu (loginRequest)="login()">',
+            '  <img slot="icon" src="a.png" />',
+            '</sbb-usermenu>',
+          ].join('\n'),
+        ),
+      ).toBe(
+        [
+          '<sbb-header-button (click)="login()">',
+          `  ${IMG_FIXME}`,
+          '  <img slot="icon" src="a.png" />',
+          '  Login',
+          '</sbb-header-button>',
+        ].join('\n'),
+      );
+    });
+
+    it('should not touch another or a bound slot', async () => {
+      expect(
+        await migrate(
+          [
+            '<sbb-usermenu (loginRequest)="login()">',
+            '  <img slot="other" src="a.png" />',
+            '  <sbb-image [slot]="s" src="b.png"></sbb-image>',
+            '</sbb-usermenu>',
+          ].join('\n'),
+        ),
+      ).toBe(
+        [
+          '<sbb-header-button (click)="login()">',
+          `  ${IMG_FIXME}`,
+          '  <img slot="other" src="a.png" />',
+          `  ${IMG_FIXME}`,
+          '  <sbb-image [slot]="s" src="b.png"></sbb-image>',
+          '  Login',
+          '</sbb-header-button>',
+        ].join('\n'),
+      );
+    });
+
+    it('should migrate an image in a one-liner with login', async () => {
+      expect(
+        await migrate('<sbb-usermenu (loginRequest)="login()"><img src="a.png"></sbb-usermenu>'),
+      ).toBe(
+        `<sbb-header-button (click)="login()">${IMG_FIXME} <img slot="icon" src="a.png"> Login</sbb-header-button>`,
+      );
     });
   });
 
@@ -519,6 +645,106 @@ describe('sbb-usermenu', () => {
       );
       expect(result).not.toContain('Login');
       expect(result).not.toContain('{{');
+    });
+
+    it('should keep content without icon in both buttons', async () => {
+      expect(
+        await migrate(
+          [
+            '<sbb-usermenu [displayName]="n" [menu]="menu" (loginRequest)="login()">',
+            '  Test',
+            '</sbb-usermenu>',
+          ].join('\n'),
+        ),
+      ).toBe(
+        [
+          '@if (n) {',
+          '  <sbb-header-button iconName="user-small" [sbbMenu]="menu">',
+          '    Test',
+          '  </sbb-header-button>',
+          '} @else {',
+          '  <sbb-header-button iconName="user-small" (click)="login()">',
+          '    Test',
+          '  </sbb-header-button>',
+          '}',
+        ].join('\n'),
+      );
+    });
+  });
+
+  describe('inline templates', () => {
+    it('should migrate a single quoted template', async () => {
+      expect(
+        await migrateTs(
+          [
+            "import { Component } from '@angular/core';",
+            '',
+            '@Component({',
+            "  selector: 'app-root',",
+            '  template: \'<sbb-usermenu [displayName]="n" (loginRequest)="go()" [menu]="m"></sbb-usermenu>\',',
+            '})',
+            'export class AppComponent {}',
+          ].join('\n'),
+        ),
+      ).toBe(
+        [
+          "import { Component } from '@angular/core';",
+          '',
+          '@Component({',
+          "  selector: 'app-root',",
+          `  // ${FIXME_TEXT}`,
+          '  template: \'@if (n) { <sbb-header-button iconName="user-small" [sbbMenu]="m">{{ n }}</sbb-header-button> } @else { <sbb-header-button iconName="user-small" (click)="go()">Login</sbb-header-button> }\',',
+          '})',
+          'export class AppComponent {}',
+        ].join('\n'),
+      );
+    });
+
+    it('should migrate a multiline template literal', async () => {
+      expect(
+        await migrateTs(
+          [
+            "import { Component } from '@angular/core';",
+            '',
+            '@Component({',
+            "  selector: 'app-root',",
+            '  template: `',
+            '    <sbb-usermenu',
+            '      [userName]="u"',
+            '      [displayName]="n"',
+            '      (loginRequest)="go()"',
+            '      [menu]="m"',
+            '    ></sbb-usermenu>',
+            '  `,',
+            '})',
+            'export class AppComponent {}',
+          ].join('\n'),
+        ),
+      ).toBe(
+        [
+          "import { Component } from '@angular/core';",
+          '',
+          '@Component({',
+          "  selector: 'app-root',",
+          `  // ${FIXME_TEXT}`,
+          '  template: `',
+          '    <!-- [userName]="u" should be included in the sbb-menu -->',
+          '    @if (n) {',
+          '      <sbb-header-button iconName="user-small"',
+          '        [sbbMenu]="m"',
+          '      >',
+          '        {{ n }}',
+          '      </sbb-header-button>',
+          '    } @else {',
+          '      <sbb-header-button iconName="user-small" (click)="go()">',
+          '        Login',
+          '      </sbb-header-button>',
+          '    }',
+          '  `,',
+          '})',
+          'export class AppComponent {}',
+        ].join('\n'),
+      );
     });
   });
 });

@@ -21,7 +21,8 @@ import {
 const USERMENU = 'sbb-usermenu';
 
 const IMAGE_COMMENT =
-  '<!-- FIXME: an <img> is not supported as icon of the `sbb-header-button`. -->';
+  '<!-- FIXME: images are allowed as icons with the \'slot="icon"\' attribute. Check the component styling for an optimal result. -->';
+const IMAGE_TAGS = ['img', 'sbb-image'];
 
 /** Text for a static `displayName`: nothing in it may be read as markup, entity or control flow. */
 function escapeText(value: string): string {
@@ -65,7 +66,7 @@ function escapeText(value: string): string {
  * All other attributes of the element are kept.
  * The default icon is only added when the usermenu has no icon of its own.
  * An `<sbb-icon>` inside the usermenu stays where it is and the label is added after it.
- * An `<img>` stays as well, but is commented, because the header button does not support it.
+ * An `<img>` or `<sbb-image>` stays as well and gets `slot="icon"` unless it has a slot already.
  * Without a `displayName` there is no way to tell whether the user is logged in,
  * so there is only one button with `(click)` and `[sbbMenu]`.
  */
@@ -76,6 +77,7 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
     }
 
     const { content, baseOffset, filePath, edits, nextIndex, logger } = context;
+    const firstEdit = edits.length;
     const start = element.startSourceSpan;
     const end = element.endSourceSpan;
 
@@ -116,7 +118,7 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
     // Icons of the usermenu itself, also the ones below a structural directive (`<img *sbbIcon />`).
     const descendants: TmplAstElement[] = [];
     visitElements(element.children, (child) => descendants.push(child));
-    const images = descendants.filter((child) => child.name === 'img');
+    const images = descendants.filter((child) => IMAGE_TAGS.includes(child.name));
     const hasOwnIcon = images.length > 0 || descendants.some((child) => child.name === 'sbb-icon');
 
     // Layout of the element, so the generated markup follows it.
@@ -132,6 +134,8 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
     const eol = content.includes('\r\n') ? '\r\n' : '\n';
     // With a display name the button is inside of the `@if`, so one level deeper.
     const buttonIndent = isConditional ? `${indent}  ` : indent;
+    /** Indents every line but the first one more level, for code which moves into the `@if`. */
+    const nest = (code: string): string => code.replace(/\n(?=[^\r\n])/g, '\n  ');
 
     const queue = (
       offset: number,
@@ -156,11 +160,19 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
         edits,
         nextIndex,
       );
-    /** What is inserted in front of an `<img>`. */
-    const imageInsertion = (imageStart: number): string => {
+    /**
+     * Where ` slot="icon"` goes (behind the tag name), unless the image has a slot already.
+     * A slot which is there, also a bound one, is not touched, whatever its value is.
+     */
+    const slotOffset = (image: TmplAstElement): number | undefined =>
+      [...image.attributes, ...image.inputs].some((node) => node.name === 'slot')
+        ? undefined
+        : image.startSourceSpan.start.offset + 1 + image.name.length;
+    /** What is inserted in front of an image; `extraIndent` for the line which follows the comment. */
+    const imageInsertion = (imageStart: number, extraIndent = ''): string => {
       const beforeImage = content.slice(content.lastIndexOf('\n', imageStart - 1) + 1, imageStart);
       return beforeImage.trim() === '' && content.includes('\n')
-        ? `${IMAGE_COMMENT}${eol}${/^[ \t]*/.exec(beforeImage)![0]}`
+        ? `${IMAGE_COMMENT}${eol}${/^[ \t]*/.exec(beforeImage)![0]}${extraIndent}`
         : `${IMAGE_COMMENT} `;
     };
 
@@ -182,13 +194,18 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
       );
     }
 
-    // Images are not supported as icon.
+    // Images are allowed as icon
     for (const image of images) {
       queue(
         image.startSourceSpan.start.offset,
         0,
-        imageInsertion(image.startSourceSpan.start.offset),
+        // Inside the `@if` the image is one level deeper, which the re-indent below cannot see.
+        imageInsertion(image.startSourceSpan.start.offset, isConditional ? '  ' : ''),
       );
+      const slot = slotOffset(image);
+      if (slot !== undefined) {
+        queue(slot, 0, ' slot="icon"');
+      }
     }
 
     // Tag names and default icon (unless the usermenu brings its own).
@@ -287,22 +304,30 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
       if (isBlank) {
         inner = multiline ? `${eol}${buttonIndent}  Login${eol}${buttonIndent}` : 'Login';
       } else if (hasOwnIcon) {
-        // A copy of the icons, also with the comment for the images.
+        // A copy of the icons, also with the comment and the slot for the images.
+        // From the back, so the offsets of the images in front stay valid.
         let icons = innerContent;
+        const insertIntoIcons = (offset: number, insertion: string): void => {
+          icons =
+            icons.slice(0, offset - contentStart) + insertion + icons.slice(offset - contentStart);
+        };
         for (const image of [...images].sort(
           (a, b) => b.startSourceSpan.start.offset - a.startSourceSpan.start.offset,
         )) {
-          const offset = image.startSourceSpan.start.offset;
-          icons =
-            icons.slice(0, offset - contentStart) +
-            imageInsertion(offset) +
-            icons.slice(offset - contentStart);
+          const slot = slotOffset(image);
+          if (slot !== undefined) {
+            insertIntoIcons(slot, ' slot="icon"');
+          }
+          insertIntoIcons(
+            image.startSourceSpan.start.offset,
+            imageInsertion(image.startSourceSpan.start.offset),
+          );
         }
         inner = multiline
-          ? `${icons.trimEnd()}${eol}${buttonIndent}  Login${eol}${buttonIndent}`
+          ? `${nest(icons).trimEnd()}${eol}${buttonIndent}  Login${eol}${buttonIndent}`
           : `${icons.trimEnd()} Login`;
       } else {
-        inner = innerContent;
+        inner = multiline ? `${nest(innerContent).trimEnd()}${eol}${buttonIndent}` : innerContent;
       }
       const loginButton = `${open}>${inner}</sbb-header-button>`;
 
@@ -313,6 +338,30 @@ function createUsermenuMigrationRule(scope?: MigrationScope): Rule {
           ? `${eol}${indent}} @else {${eol}${buttonIndent}${loginButton}${eol}${indent}}`
           : ` } @else { ${loginButton} }`,
       );
+
+      // The first button moved into the `@if` as well, so its lines are indented one more level.
+      // Lines which an edit removes or replaces are skipped: their replacement has its own indent.
+      const edited = edits
+        .slice(firstEdit)
+        .filter((edit) => edit.length > 0)
+        .map((edit) => [edit.offset - baseOffset, edit.offset - baseOffset + edit.length]);
+      for (
+        let newline = content.indexOf('\n', elementStart);
+        newline !== -1 && newline < end.end.offset;
+      ) {
+        const lineStartOffset = newline + 1;
+        const isEmpty = ['\n', '\r'].includes(content[lineStartOffset]);
+        if (!isEmpty && !edited.some(([from, to]) => from <= newline && newline < to)) {
+          // The lowest index: at the same offset, the spaces end up in front of anything else.
+          edits.push({
+            offset: baseOffset + lineStartOffset,
+            index: -1,
+            length: 0,
+            insertion: '  ',
+          });
+        }
+        newline = content.indexOf('\n', lineStartOffset);
+      }
     }
   }, scope);
 }
