@@ -99,7 +99,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'file-selector-template-driven',
   ],
   'flip-card': ['flip-card-showcase', 'flip-card-basic', 'flip-card-chip'],
-  footer: ['footer-basic', 'footer-clock'],
+  footer: ['footer-basic', { id: 'footer-clock', hasStyle: true }],
   'form-field': [
     'form-field-showcase',
     'form-field-native-select',
@@ -219,7 +219,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'table-grouped-rows-and-columns',
     'table-sortable',
     { id: 'table-paginator', hasStyle: true },
-    'table-selectable',
+    { id: 'table-selectable', hasStyle: true },
     { id: 'table-filter-sort-paginator', hasStyle: true },
     { id: 'table-native', hasStyle: true },
     { id: 'table-expandable', hasStyle: true },
@@ -247,7 +247,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'teaser-static',
   ],
   'teaser-hero': ['teaser-hero-basic', 'teaser-hero-with-chip', 'teaser-hero-chip-only'],
-  'teaser-panel': ['teaser-panel-basic'],
+  'teaser-panel': [{ id: 'teaser-panel-basic', hasStyle: true }],
   'teaser-product': ['teaser-product-showcase', 'teaser-product-static', 'teaser-product-chip'],
   'time-input': [
     'time-input-showcase',
