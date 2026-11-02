@@ -1,12 +1,7 @@
-import { Migration, ResolvedResource, TargetVersion } from '@angular/cdk/schematics';
+import type { ResolvedResource } from '@angular/cdk/schematics';
+import { Migration, TargetVersion } from '@angular/cdk/schematics';
 
-export interface MigrationEdit {
-  offset: number;
-  index: number;
-  length: number;
-  insertion?: string;
-  log?: () => void;
-}
+import type { MigrationEdit } from '../../utils.cjs';
 
 /**
  * Base class for attribute-level template migrations.

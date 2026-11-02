@@ -1,22 +1,41 @@
+import { getProjectFromWorkspace } from '@angular/cdk/schematics';
+import type { TmplAstNode } from '@angular/compiler';
 import {
   TmplAstDeferredBlock,
   TmplAstElement,
   TmplAstForLoopBlock,
   TmplAstIfBlock,
-  TmplAstNode,
   TmplAstSwitchBlock,
   TmplAstTemplate,
 } from '@angular/compiler';
-import { getProjectFromWorkspace } from '@angular/cdk/schematics';
-import type { logging } from '@angular-devkit/core';
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { SchematicsException } from '@angular-devkit/schematics';
-import type {
-  ProjectDefinition,
-  TargetDefinition,
-  WorkspaceDefinition,
+import type { JsonObject, logging } from '@angular-devkit/core';
+import {
+  type Rule,
+  type SchematicContext,
+  SchematicsException,
+  type Tree,
+} from '@angular-devkit/schematics';
+import {
+  type ProjectDefinition,
+  type TargetDefinition,
+  updateWorkspace,
+  type WorkspaceDefinition,
 } from '@schematics/angular/utility/workspace';
-import { updateWorkspace } from '@schematics/angular/utility/workspace';
+
+/**
+ * A single, position based source edit.
+ *
+ * `length` characters are removed at `offset`, then `insertion` (if any) is
+ * inserted at the very same offset. `index` is a monotonically increasing
+ * counter used as a stable tiebreaker when multiple edits share an offset.
+ */
+export interface MigrationEdit {
+  offset: number;
+  index: number;
+  length: number;
+  insertion?: string;
+  log?: () => void;
+}
 
 interface Package {
   dependencies?: Record<string, string>;
@@ -131,6 +150,14 @@ export function validateDefaultTargetBuilder(
   return target;
 }
 
+/** Part of the workspace a migration is limited to. */
+export interface MigrationScope {
+  /** Root directory of the project, relative to the workspace (`''` for the workspace root). */
+  root: string;
+  /** Roots of other projects nested inside `root` (e.g. `projects/lib` of a root app), which are skipped. */
+  excludedRoots: string[];
+}
+
 export function addThemeToProject(
   projectName: string,
   targetName: 'build' | 'test',
@@ -160,7 +187,7 @@ export function addThemeToProject(
       }
 
       const styles = target.options['styles'] as
-        (string | { input: string; [key: string]: any })[] | undefined;
+        (string | (JsonObject & { input: string }))[] | undefined;
 
       if (!styles) {
         target.options['styles'] = [themePath];

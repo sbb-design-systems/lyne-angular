@@ -1,4 +1,5 @@
-import { TargetVersion, UpgradeData } from '@angular/cdk/schematics';
+import type { UpgradeData } from '@angular/cdk/schematics';
+import { TargetVersion } from '@angular/cdk/schematics';
 
 export const SBB_UPGRADE_DATA: UpgradeData = {
   attributeSelectors: {},

@@ -1,9 +1,8 @@
-import { ResolvedResource } from '@angular/cdk/schematics';
-import {
-  AttributeMigrationBase,
-  MigrationEdit,
-  queueFixmeComment,
-} from './attribute-migration-base.cjs';
+import type { ResolvedResource } from '@angular/cdk/schematics';
+
+import type { MigrationEdit } from '../../utils.cjs';
+
+import { AttributeMigrationBase, queueFixmeComment } from './attribute-migration-base.cjs';
 
 /**
  * Migration that removes `alignSelf` or `align-self` properties from buttons and adds a comment to check layout styles manually.
@@ -32,9 +31,8 @@ export class MigrateButtonAlignSelf extends AttributeMigrationBase {
   /**
    * Matches static, property-bound, and attribute-bound forms of alignSelf and align-self.
    */
-  private get ALIGN_SELF_PATTERN(): RegExp {
-    return /(\s+)(?:\[\(?(alignSelf|align-self)\)?\]|\[attr\.(alignSelf|align-self)\]|(alignSelf|align-self))(?=\s|=|\$)(?:\s*=\s*(?:"[^"]*"|'[^']*'))?/i;
-  }
+  private readonly ALIGN_SELF_PATTERN: RegExp =
+    /(\s+)(?:\[\(?(alignSelf|align-self)\)?\]|\[attr\.(alignSelf|align-self)\]|(alignSelf|align-self))(?=\s|=|\$)(?:\s*=\s*(?:"[^"]*"|'[^']*'))?/i;
 
   protected override collectEdits(
     template: ResolvedResource,
