@@ -15,7 +15,7 @@
     "@angular/forms": "^22.0.0",
     "@angular/platform-browser": "^22.0.0",
     "@angular/router": "^22.0.0",
-    "@oxc-parser/binding-wasm32-wasi": "0.150.0",
+    "@oxc-parser/binding-wasm32-wasi": "0.156.0",
     "@rolldown/binding-wasm32-wasi": "1.2.16",
     "@sbb-esta/lyne-design-tokens": "{{token_version}}",
     "@sbb-esta/lyne-elements": "{{components_version}}",
