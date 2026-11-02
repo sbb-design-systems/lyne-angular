@@ -99,7 +99,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'file-selector-template-driven',
   ],
   'flip-card': ['flip-card-showcase', 'flip-card-basic', 'flip-card-chip'],
-  footer: ['footer-basic', 'footer-clock'],
+  footer: ['footer-basic', { id: 'footer-clock', hasStyle: true }],
   'form-field': [
     'form-field-showcase',
     'form-field-native-select',

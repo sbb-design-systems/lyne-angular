@@ -13,6 +13,7 @@ import { SbbTitleModule } from '@sbb-esta/lyne-angular/title';
 @Component({
   selector: 'sbb-footer-clock-example',
   templateUrl: 'footer-clock-example.html',
+  styleUrl: 'footer-clock-example.scss',
   imports: [
     SbbFooterModule,
     SbbLinkListModule,
