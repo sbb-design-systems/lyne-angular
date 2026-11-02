@@ -219,7 +219,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'table-grouped-rows-and-columns',
     'table-sortable',
     { id: 'table-paginator', hasStyle: true },
-    'table-selectable',
+    { id: 'table-selectable', hasStyle: true },
     { id: 'table-filter-sort-paginator', hasStyle: true },
     { id: 'table-native', hasStyle: true },
     { id: 'table-expandable', hasStyle: true },

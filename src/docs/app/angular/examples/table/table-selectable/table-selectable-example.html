@@ -2,7 +2,7 @@
   <table sbb-table [dataSource]="dataSource" class="sbb-table--hover">
     <!-- Checkbox Column -->
     <ng-container sbbColumnDef="select">
-      <th sbb-header-cell *sbbHeaderCellDef style="width: 50px">
+      <th sbb-header-cell *sbbHeaderCellDef class="checkbox-th">
         <sbb-checkbox
           (change)="$event ? parentToggle() : null"
           [checked]="selection.hasValue() && isAllSelected()"
