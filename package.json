@@ -26,6 +26,7 @@
     "compodoc:api": "tsx scripts/api-generator.mts",
     "generate-example": "node tools/generate-example/index.ts",
     "generate-keywords": "tsx scripts/generate-keywords.mts",
+    "generate-migrations": "tsx scripts/generate-migration.mts",
     "format": "prettier \"**/*\" --write --ignore-unknown",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",

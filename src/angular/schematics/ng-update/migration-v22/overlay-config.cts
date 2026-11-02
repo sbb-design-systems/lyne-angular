@@ -1,7 +1,8 @@
 import { TargetVersion } from '@angular/cdk/schematics';
 import * as ts from 'typescript';
 
-import { AddCommentBase, AddCommentMigrationConfig } from './add-comment-base.cjs';
+import type { AddCommentMigrationConfig } from './add-comment-base.cjs';
+import { AddCommentBase } from './add-comment-base.cjs';
 
 export class OverlayConfigMigration extends AddCommentBase {
   protected override readonly config: AddCommentMigrationConfig = {

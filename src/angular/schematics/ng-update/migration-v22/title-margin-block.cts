@@ -1,6 +1,7 @@
 import { TargetVersion } from '@angular/cdk/schematics';
 
-import { AddCommentBase, AddCommentMigrationConfig } from './add-comment-base.cjs';
+import type { AddCommentMigrationConfig } from './add-comment-base.cjs';
+import { AddCommentBase } from './add-comment-base.cjs';
 
 export class TitleMarginBlockMigration extends AddCommentBase {
   protected override readonly config: AddCommentMigrationConfig = {

@@ -1,5 +1,8 @@
-import { ResolvedResource } from '@angular/cdk/schematics';
-import { AttributeMigrationBase, MigrationEdit } from './attribute-migration-base.cjs';
+import type { ResolvedResource } from '@angular/cdk/schematics';
+
+import type { MigrationEdit } from '../../utils.cjs';
+
+import { AttributeMigrationBase } from './attribute-migration-base.cjs';
 
 /**
  * Checks for a standalone 'sbb-table' class name (ignoring modifier variants like sbb-table--*)
@@ -20,9 +23,7 @@ export class MigrateTableStriped extends AttributeMigrationBase {
    * Matches standard HTML class attributes with single or double quotes:
    * e.g., class="sbb-table test" or class='test sbb-table'
    */
-  private get CLASS_ATTRIBUTE_PATTERN(): RegExp {
-    return /\bclass\s*=\s*(["'])(.*?)\1/gi;
-  }
+  private readonly CLASS_ATTRIBUTE_PATTERN: RegExp = /\bclass\s*=\s*(["'])(.*?)\1/gi;
 
   protected override collectEdits(
     template: ResolvedResource,

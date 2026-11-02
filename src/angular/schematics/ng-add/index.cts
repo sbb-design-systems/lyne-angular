@@ -1,8 +1,9 @@
-import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schematics/tasks';
 
-import { NgAddOptionsSchema } from './schema';
 import { addPackageToPackageJson, getPackageVersion } from '../utils.cjs';
+
+import type { NgAddOptionsSchema } from './schema';
 
 const PACKAGE_FALLBACK_VERSION = 'latest';
 
