@@ -33,6 +33,6 @@
     "typescript": "^6.0.3"
   },
   "overrides": {
-    "@napi-rs/wasm-runtime": "1.2.2"
+    "@napi-rs/wasm-runtime": "1.2.6"
   }
 }
