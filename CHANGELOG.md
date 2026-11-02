@@ -1,5 +1,19 @@
 # Changelog
 
+## [22.10.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.9.1...v22.10.0) (2026-11-02)
+
+
+### Features
+
+* sbb-angular auto migration setup ([#606](https://github.com/sbb-design-systems/lyne-angular/issues/606)) ([6993b1d](https://github.com/sbb-design-systems/lyne-angular/commit/6993b1d7a04c578fcabab357611c027ed0419590))
+* **table:** add reset method to SbbSort ([#618](https://github.com/sbb-design-systems/lyne-angular/issues/618)) ([940eda1](https://github.com/sbb-design-systems/lyne-angular/commit/940eda176bccd071d2a3945b4125ecb2dbeb862d))
+
+
+### Documentation
+
+* fix Stackblitz integration ([#621](https://github.com/sbb-design-systems/lyne-angular/issues/621)) ([20b8ba8](https://github.com/sbb-design-systems/lyne-angular/commit/20b8ba86e96fb6a5ef64de37cd9ffd02b98d427d))
+* remove inline styling ([#622](https://github.com/sbb-design-systems/lyne-angular/issues/622)) ([4a4b594](https://github.com/sbb-design-systems/lyne-angular/commit/4a4b5942089b2fea9f854636c7c2fe221a25b6cb))
+
 ## [22.9.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.9.0...v22.9.1) (2026-10-27)
 
 
