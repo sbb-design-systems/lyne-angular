@@ -247,7 +247,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'teaser-static',
   ],
   'teaser-hero': ['teaser-hero-basic', 'teaser-hero-with-chip', 'teaser-hero-chip-only'],
-  'teaser-panel': ['teaser-panel-basic'],
+  'teaser-panel': [{ id: 'teaser-panel-basic', hasStyle: true }],
   'teaser-product': ['teaser-product-showcase', 'teaser-product-static', 'teaser-product-chip'],
   'time-input': [
     'time-input-showcase',
