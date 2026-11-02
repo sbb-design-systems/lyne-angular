@@ -129,13 +129,6 @@
   dependencies:
     "@angular-eslint/bundled-angular-compiler" "22.6.0"
 
-"@angular/animations@22.2.4":
-  version "22.2.4"
-  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-22.2.4.tgz#4fb405e5d688a15bd30dd1cc57fbce832ea7905d"
-  integrity sha512-xReQVMwND+JLpI1C9AUIwkdb/u5KO11hRrECGVsNt4ATQ4njS5ZeTXFgLgPSAjb4DoTPvzcNrDHoDS/Hbd7qCQ==
-  dependencies:
-    tslib "^2.3.0"
-
 "@angular/build@22.2.5":
   version "22.2.5"
   resolved "https://registry.yarnpkg.com/@angular/build/-/build-22.2.5.tgz#87e631e629acedbd742ba16329d6ac4b75f62538"
@@ -243,13 +236,6 @@
     "@standard-schema/spec" "^1.0.0"
     tslib "^2.3.0"
     zod "^4.0.10"
-
-"@angular/platform-browser-dynamic@22.2.4":
-  version "22.2.4"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-22.2.4.tgz#6b8555f02e638e6313a17a6ad575609fa17edd58"
-  integrity sha512-952+4obWSfa0yJE2hOzL/dgOyXrriU1X72I5b3U8ER0jXmGoHLbcIZDRRuol8yxygnHi9GYKnScogRQCXIMxPg==
-  dependencies:
-    tslib "^2.3.0"
 
 "@angular/platform-browser@22.2.4":
   version "22.2.4"
