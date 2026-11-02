@@ -1,5 +1,12 @@
 # Changelog
 
+## [22.9.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.9.0...v22.9.1) (2026-10-27)
+
+
+### Bug Fixes
+
+* update docs from lyne ([#616](https://github.com/sbb-design-systems/lyne-angular/issues/616)) ([85584a5](https://github.com/sbb-design-systems/lyne-angular/commit/85584a5ab71e6b0feb12622319c29007e5eb3f60))
+
 ## [22.9.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.8.0...v22.9.0) (2026-10-19)
 
 

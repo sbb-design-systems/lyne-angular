@@ -25,6 +25,8 @@ import {
   parseSelector,
 } from '../template-migration.cjs';
 
+const COMMENT_OPEN = '<!--';
+
 function isElementCommentMigration(
   migration: CommentMigration,
 ): migration is ElementCommentMigration {
@@ -60,9 +62,75 @@ function queueComment(
 }
 
 /**
+ * Whether `offset` lies within a tag (or an HTML comment),
+ * e.g. at the start of the line `  ><a` in `<span\n  ><a>`.
+ * A comment must not be inserted there.
+ */
+function isInsideTag(content: string, offset: number): boolean {
+  let quote: string | undefined;
+  let inTag = false;
+  let i = 0;
+
+  while (i < offset) {
+    const char = content[i];
+
+    if (inTag) {
+      if (quote) {
+        quote = char === quote ? undefined : quote;
+      } else if (char === '"' || char === "'") {
+        quote = char;
+      } else if (char === '>') {
+        inTag = false;
+      }
+      i++;
+    } else if (content.startsWith(COMMENT_OPEN, i)) {
+      const close = content.indexOf('-->', i + COMMENT_OPEN.length);
+      if (close === -1 || close + 3 > offset) {
+        return true;
+      }
+      i = close + 3;
+    } else {
+      // `<a` and `</a` open a tag; `a < b` and `<` followed by anything else are text.
+      inTag = char === '<' && /^\/?[a-zA-Z]/.test(content.slice(i + 1, i + 3));
+      i++;
+    }
+  }
+
+  return inTag;
+}
+
+/**
+ * Queues an HTML comment on its own line directly in front of the element at `offset`,
+ * which is moved to a new line as well.
+ *
+ * Used when the line of the element begins inside a tag of an enclosing element (e.g. `  ><a`),
+ * so a comment above that line would end up in the middle of that tag.
+ * Afterward the element starts its own line, so a next run finds the comment above it like for any other element.
+ */
+function queueCommentOnNewLine(
+  content: string,
+  offset: number,
+  message: string,
+  edits: MigrationEdit[],
+  index: number,
+  log: () => void,
+): void {
+  const indent = getIndent(content, getLineStart(content, offset));
+  // The first comment moves everything to a new line, every comment leaves the next line ready,
+  // so the element ends up on its own line behind all comments (edits at one offset keep their order).
+  const isFirst = !edits.some((edit) => edit.offset === offset);
+  const comment = formatComment(indent, HTML_DELIMITERS, message).trimStart();
+  const insertion = `${isFirst ? `\n${indent}` : ''}${comment}\n${indent}`;
+
+  if (!edits.some((edit) => edit.offset === offset && edit.insertion?.includes(comment))) {
+    edits.push({ offset, index, length: 0, insertion, log });
+  }
+}
+
+/**
  * Comments in templates:
- * - external templates: an HTML comment above the line of the element
- * - inline templates: a `//` comment above the `template:` property, because a comment cannot be safely inserted into a string literal
+ * - external templates: an HTML comment above the line of the element, or on its own line directly in front of the element when that line begins inside a tag;
+ * - inline templates: a `//` comment above the `template:` property, because a comment cannot be safely inserted into a string literal.
  */
 function createElementCommentRule(
   migrations: ElementCommentMigration[],
@@ -83,16 +151,21 @@ function createElementCommentRule(
       }
 
       const target = `${element.name}`;
+      const log = (): void => logger.info(`  → Added comment for '${target}' in '${filePath}'`);
 
-      queueComment(
-        fileContent,
-        anchor,
-        inline ? TS_DELIMITERS : HTML_DELIMITERS,
-        migration.message,
-        fileEdits,
-        nextIndex(),
-        () => logger.info(`  → Added comment for '${target}' in '${filePath}'`),
-      );
+      if (!inline && isInsideTag(fileContent, getLineStart(fileContent, anchor))) {
+        queueCommentOnNewLine(fileContent, anchor, migration.message, fileEdits, nextIndex(), log);
+      } else {
+        queueComment(
+          fileContent,
+          anchor,
+          inline ? TS_DELIMITERS : HTML_DELIMITERS,
+          migration.message,
+          fileEdits,
+          nextIndex(),
+          log,
+        );
+      }
     }
   }, scope);
 }

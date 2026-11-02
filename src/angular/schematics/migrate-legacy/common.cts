@@ -119,6 +119,7 @@ export type ParsedAttributeMigration = AttributeMigration & { parsedSelectors: P
 
 /**
  * Interface used for tags migrations.
+ * The selected element tag is replaced with the `replaceWith` value
  */
 export interface SelectorMigration {
   /**
@@ -135,16 +136,15 @@ export interface SelectorMigration {
    * - `'a[sbb-link], button[sbb-link]'`    — list of alternatives
    */
   selector: string;
-  /** Tag name of the new element, e.g. `'sbb-button'`. */
+  /**
+   * Tag name of the new element, e.g. `'sbb-button'`.
+   */
   replaceWith: string;
   /**
-   * Whether to remove the attributes required by the selector from the migrated element, e.g.
-   * `sbb-button` for `'button[sbb-button]'`, because they are the tag name now.
-   *
-   * Defaults to `false`: the attributes are kept.
-   * Attributes inside `:not(...)` are never removed, and classes are never removed either.
+   * Attributes to add to the migrated element, written as in a template and inserted verbatim
+   * right after the tag name, e.g. `'orientation="vertical"'` or `'size="s" [disabled]="x"'`.
    */
-  removeSelectorAttributes?: boolean;
+  addAttributes?: string;
 }
 
 export type ParsedSelectorMigration = SelectorMigration & { parsedSelector: ParsedSelector };
@@ -173,7 +173,7 @@ export interface ModuleMigrations {
   types: TypeMigration[];
   selectors: SelectorMigration[];
   attributes: AttributeMigration[];
-  customRules: ((scope: MigrationScope, isStandardTheme?: boolean) => Rule)[];
+  customRules: ((scope?: MigrationScope, isStandardTheme?: boolean) => Rule)[];
 }
 
 /**
@@ -196,7 +196,7 @@ export async function isStandardThemeSet(
   }
 
   const buildTarget = project.targets.get('build');
-  if (!buildTarget || !buildTarget.options) {
+  if (!buildTarget) {
     throw new SchematicsException(
       `Could not find build configuration for project ${projectName}; please check your \`angular.json.\``,
     );
@@ -209,7 +209,7 @@ export async function isStandardThemeSet(
     : [];
   const styles = configurationStyles.length
     ? configurationStyles
-    : styleInputs(buildTarget.options['styles']);
+    : styleInputs(buildTarget.options?.['styles']);
 
   let themes = styles.map(lyneThemeKind).filter((theme): theme is LyneThemeKind => Boolean(theme));
 
@@ -318,7 +318,7 @@ export function applyEdits(content: string, edits: MigrationEdit[]): string {
 }
 
 function styleInputs(value: unknown): string[] {
-  if (!Array.isArray(value)) {
+  if (!value || !Array.isArray(value)) {
     return [];
   }
   return value

@@ -108,7 +108,12 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'form-field-text-counter',
     'form-field-prefix-suffix',
   ],
-  header: ['header-showcase', 'header-environment', { id: 'header-scroll-origin', hasStyle: true }],
+  header: [
+    'header-showcase',
+    'header-environment',
+    { id: 'header-scroll-origin', hasStyle: true },
+    'header-usermenu',
+  ],
   icon: ['icon-basic'],
   'icon-sidebar': [{ id: 'icon-sidebar-showcase', hasStyle: true }, 'icon-sidebar-nested'],
   image: ['image-basic', 'image-with-chip', 'image-round'],
@@ -398,6 +403,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
     case 'header-environment':
     case 'header-scroll-origin':
     case 'header-showcase':
+    case 'header-usermenu':
       return import('../angular/examples/header');
     case 'icon-basic':
       return import('../angular/examples/icon');
