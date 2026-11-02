@@ -8,15 +8,15 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^22.0.0",
     "@angular/cdk": "^22.0.0",
     "@angular/common": "^22.0.0",
     "@angular/compiler": "^22.0.0",
     "@angular/core": "^22.0.0",
     "@angular/forms": "^22.0.0",
     "@angular/platform-browser": "^22.0.0",
-    "@angular/platform-browser-dynamic": "^22.0.0",
     "@angular/router": "^22.0.0",
+    "@oxc-parser/binding-wasm32-wasi": "0.150.0",
+    "@rolldown/binding-wasm32-wasi": "1.2.16",
     "@sbb-esta/lyne-design-tokens": "{{token_version}}",
     "@sbb-esta/lyne-elements": "{{components_version}}",
     "@sbb-esta/lyne-elements-experimental": "{{components_version}}",
@@ -31,5 +31,8 @@
     "@angular/compiler-cli": "^22.0.0",
     "@types/node": "^24.0.0",
     "typescript": "^6.0.3"
+  },
+  "overrides": {
+    "@napi-rs/wasm-runtime": "1.2.6"
   }
 }

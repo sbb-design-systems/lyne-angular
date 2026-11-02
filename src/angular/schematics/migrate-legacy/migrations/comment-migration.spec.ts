@@ -134,6 +134,122 @@ describe('sbb-comment-migration', () => {
     });
   });
 
+  describe('elements which do not start their line', () => {
+    const LINK: CommentMigration[] = [{ selector: 'a', message: 'FIXME: link.' }];
+
+    it('should not break the tag of the parent when its line starts inside it', async () => {
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          [
+            '<span',
+            '  ><a',
+            '    [href]="',
+            '      url',
+            '    "',
+            '    target="_blank"',
+            '    >{{ label }}</a',
+            '  >',
+            '</span>',
+          ].join('\n'),
+          createCommentMigrationRule(LINK),
+        ),
+      ).toBe(
+        [
+          '<span',
+          '  >',
+          '  <!-- FIXME: link. -->',
+          '  <a',
+          '    [href]="',
+          '      url',
+          '    "',
+          '    target="_blank"',
+          '    >{{ label }}</a',
+          '  >',
+          '</span>',
+        ].join('\n'),
+      );
+    });
+
+    it('should handle a line which starts inside a closing tag', async () => {
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          ['<b>x</b', '  ><a>y</a>'].join('\n'),
+          createCommentMigrationRule(LINK),
+        ),
+      ).toBe(['<b>x</b', '  >', '  <!-- FIXME: link. -->', '  <a>y</a>'].join('\n'));
+    });
+
+    it('should not be confused by quoted `>` and `<` in attribute values', async () => {
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          ['<span title="a > b" data-x=\'<a\'', '  ><a>y</a></span>'].join('\n'),
+          createCommentMigrationRule(LINK),
+        ),
+      ).toBe(
+        [
+          '<span title="a > b" data-x=\'<a\'',
+          '  >',
+          '  <!-- FIXME: link. -->',
+          '  <a>y</a></span>',
+        ].join('\n'),
+      );
+    });
+
+    it('should place several messages next to each other', async () => {
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          ['<span', '  ><a>y</a></span>'].join('\n'),
+          createCommentMigrationRule([...LINK, { selector: 'a', message: 'TODO: second.' }]),
+        ),
+      ).toBe(
+        [
+          '<span',
+          '  >',
+          '  <!-- FIXME: link. -->',
+          '  <!-- TODO: second. -->',
+          '  <a>y</a></span>',
+        ].join('\n'),
+      );
+    });
+
+    it('should be idempotent', async () => {
+      const rule = createCommentMigrationRule([
+        ...LINK,
+        { selector: 'a', message: 'TODO: second.' },
+      ]);
+      const once = await MigrateLegacyTestUtils.migrateHtmlFile(
+        ['<span', '  ><a>y</a></span>'].join('\n'),
+        rule,
+      );
+      expect(await MigrateLegacyTestUtils.migrateHtmlFile(once, rule)).toBe(once);
+    });
+
+    it('should keep commenting above the line when the line starts outside of a tag', async () => {
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          [
+            '<p>1 < 2 and text <a>x</a></p>',
+            '<!-- <span -->',
+            '<div title="<b">',
+            '  <a>y</a>',
+            '</div>',
+          ].join('\n'),
+          createCommentMigrationRule(LINK),
+        ),
+      ).toBe(
+        [
+          '<!-- FIXME: link. -->',
+          '<p>1 < 2 and text <a>x</a></p>',
+          '<!-- <span -->',
+          '<div title="<b">',
+          '  <!-- FIXME: link. -->',
+          '  <a>y</a>',
+          '</div>',
+        ].join('\n'),
+      );
+    });
+  });
+
   describe('attributes', () => {
     const MODE: CommentMigration[] = [
       {

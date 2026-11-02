@@ -1,5 +1,7 @@
 # Pearl Chain Vertical Item
 
+> **Deprecated:** `<sbb-pearl-chain-vertical-item>` is deprecated. Use `<sbb-pearl-chain>` and `<sbb-pearl-chain-node>` from `@sbb-esta/lyne-elements` instead.
+
 The `<sbb-pearl-chain-vertical-item>` is intended to be used
 with the [sbb-pearl-chain-vertical](/angular-experimental/components/pearl-chain-vertical/overview) component.
 

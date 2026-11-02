@@ -8,8 +8,6 @@ import {
   createTemplateMigrationRule,
   matchSelector,
   parseSelector,
-  queueAttributeRemovals,
-  selectorAttributes,
 } from '../template-migration.cjs';
 
 /**
@@ -71,7 +69,9 @@ export function createTemplateSelectorMigrationRule(
       offset: baseOffset + element.startSourceSpan.start.offset + 1,
       index: nextIndex(),
       length: legacyName.length,
-      insertion: migration.replaceWith,
+      insertion: migration.addAttributes
+        ? `${migration.replaceWith} ${migration.addAttributes}`
+        : migration.replaceWith,
       log: () =>
         logger.info(
           `  → Replaced '${migration.selector}' with '${migration.replaceWith}' in '${filePath}'`,
@@ -89,18 +89,6 @@ export function createTemplateSelectorMigrationRule(
         length: legacyName.length,
         insertion: migration.replaceWith,
       });
-    }
-
-    // Drop the attributes of the selector (they are the tag now), but only if requested.
-    if (migration.removeSelectorAttributes) {
-      queueAttributeRemovals(
-        element,
-        selectorAttributes(matchedAlternative),
-        content,
-        baseOffset,
-        edits,
-        nextIndex,
-      );
     }
   }, scope);
 }

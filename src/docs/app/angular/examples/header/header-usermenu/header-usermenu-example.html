@@ -1,0 +1,32 @@
+<sbb-header>
+  <sbb-header-link iconName="hamburger-menu-small" href="https://sbb.ch/"> Menu</sbb-header-link>
+  <div class="sbb-header-spacer"></div>
+  @if (displayName()) {
+    <sbb-header-button iconName="user-small" [sbbMenu]="menu">
+      {{ displayName() }}
+    </sbb-header-button>
+    <sbb-menu #menu="sbbMenu">
+      <sbb-menu-button iconName="exit-small" (click)="logout()"> Logout</sbb-menu-button>
+    </sbb-menu>
+  } @else {
+    <sbb-header-button iconName="user-small" (click)="login()"> Login</sbb-header-button>
+  }
+  <a aria-label="Homepage" href="/" class="sbb-header-logo">
+    <sbb-logo protectiveRoom="none"></sbb-logo>
+  </a>
+</sbb-header>
+<sbb-container>
+  <sbb-title level="5">Content</sbb-title>
+  <p>This example shows how to implement a simple 'login'/'logout' button.</p>
+  <p>The `sbb-header-button` is rendered conditionally:</p>
+  <ul>
+    <li>
+      if the user is not logged-in, it displays a 'Login' label and it has a click handler for
+      login;
+    </li>
+    <li>
+      if the user is logged-in, it shows the username and it has a connected `sbb-menu` which allows
+      to logout.
+    </li>
+  </ul>
+</sbb-container>

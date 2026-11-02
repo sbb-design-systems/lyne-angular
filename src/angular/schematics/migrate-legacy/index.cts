@@ -97,6 +97,9 @@ function collect<K extends keyof ModuleMigrations>(
 
 export function migrateLegacy(options: MigrateLegacyOptionsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
+    // TODO: remove when migration complete
+    logExperimentalFeatureWarnMessage(context);
+
     const [isStandardTheme, scope] = await Promise.all([
       isStandardThemeSet(tree, context, options.project),
       // Only the files of the selected project are migrated, not the whole workspace.
@@ -125,13 +128,22 @@ export function migrateLegacy(options: MigrateLegacyOptionsSchema): Rule {
       aggregatedMigrations.types.length > 0
         ? createTypeMigrationRule(aggregatedMigrations.types, scope)
         : noop(),
-      aggregatedMigrations.attributes.length > 0
-        ? createAttributeMigrationRule(aggregatedMigrations.attributes, scope)
-        : noop(),
       aggregatedMigrations.selectors.length > 0
         ? createTemplateSelectorMigrationRule(aggregatedMigrations.selectors, scope)
+        : noop(),
+      aggregatedMigrations.attributes.length > 0
+        ? createAttributeMigrationRule(aggregatedMigrations.attributes, scope)
         : noop(),
       ...aggregatedMigrations.customRules.map((ruleFactory) => ruleFactory(scope, isStandardTheme)),
     ]);
   };
+}
+
+function logExperimentalFeatureWarnMessage(context: SchematicContext): void {
+  const message = `WARNING: this migration util is still experimental, and it is subject to change in future releases. Use it at your own risk until marked as production-ready.`;
+  const horizontalLine = '─'.repeat(message.length + 8);
+  const emptyLine = `│${' '.repeat(message.length + 8)}│`;
+  context.logger.warn(
+    `╭${horizontalLine}╮\n${emptyLine}\n│    ${message}    │\n${emptyLine}\n╰${horizontalLine}╯`,
+  );
 }
