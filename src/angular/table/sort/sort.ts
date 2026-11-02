@@ -158,6 +158,12 @@ export class SbbSort implements OnInit, OnChanges, OnDestroy {
     this.sortChange.emit({ active: this.active, direction: this.direction });
   }
 
+  reset(): void {
+    this.active = '';
+    this.direction = '';
+    this.sortChange.emit({ active: this.active, direction: this.direction });
+  }
+
   /** Returns the next sort direction of the active sortable, checking for potential overrides. */
   getNextSortDirection(sortable: SbbSortable): SbbSortDirection {
     if (!sortable) {
