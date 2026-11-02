@@ -118,7 +118,7 @@
         routerLinkActive="sbb-active"
         #rla="routerLinkActive"
         [accessibilityCurrent]="rla.isActive ? 'page' : ''"
-        [style.text-decoration]="packageEntry.value.isDeprecated ? 'line-through' : ''"
+        [class.deprecated]="packageEntry.value.isDeprecated"
         [sbb-tooltip]="packageEntry.value['name']"
         [accessibilityLabel]="packageEntry.value['name']"
       >

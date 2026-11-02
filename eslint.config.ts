@@ -86,7 +86,12 @@ export default defineConfig([
     extends: [...angulareslint.templateRecommended, ...angulareslint.templateAccessibility],
     rules: {
       '@angular-eslint/template/label-has-associated-control': 'off',
-      '@angular-eslint/template/no-inline-styles': 'error',
+      '@angular-eslint/template/no-inline-styles': [
+        'error',
+        {
+          allowBindToStyle: 'dynamic',
+        },
+      ],
     },
   },
   // @ts-expect-error The returned config will exist.
