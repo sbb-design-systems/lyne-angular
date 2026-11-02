@@ -24,7 +24,7 @@ const HEADER = 'sbb-expansion-panel-header';
 const CONTENT = 'sbb-expansion-panel-content';
 
 /** Wraps everything following the header of an expansion panel into `<sbb-expansion-panel-content>`. */
-export const wrapPanelContentMigration = (scope: MigrationScope) =>
+export const wrapPanelContentMigration = (scope?: MigrationScope) =>
   createTemplateMigrationRule((element, context) => {
     const end = element.endSourceSpan;
     if (element.name !== PANEL || !end || !context.content.startsWith('</', end.start.offset)) {
