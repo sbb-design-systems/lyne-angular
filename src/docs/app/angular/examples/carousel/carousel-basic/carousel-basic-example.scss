@@ -9,3 +9,13 @@
   margin: var(--sbb-spacing-fixed-12x);
   z-index: 1;
 }
+
+.image {
+  width: 600px;
+  height: 338px;
+}
+
+.absolute-stretched {
+  position: absolute;
+  inset: 0;
+}
