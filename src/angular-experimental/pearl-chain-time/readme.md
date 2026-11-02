@@ -1,5 +1,7 @@
 # Pearl Chain Time
 
+> **Deprecated:** `<sbb-pearl-chain-time>` is deprecated. Use `<sbb-pearl-chain>` and `<sbb-pearl-chain-node>` from `@sbb-esta/lyne-elements` instead.
+
 The `<sbb-pearl-chain-time>` component adds an optional walk icon and a duration in minutes
 before and/or after the [sbb-pearl-chain](/angular-experimental/components/pearl-chain/overview).
 
