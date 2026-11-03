@@ -13,7 +13,8 @@ const importPaths: ImportRewriteOptions[] = [
 const comments: CommentMigration[] = [
   {
     selector: 'sbb-alert-outlet',
-    message: 'FIXME: this component has no counterpart in lyne-angular.',
+    message:
+      'FIXME: this component has no counterpart in lyne-angular. Consider the use of the `sbb-alert-group` instead.',
   },
   {
     selector: 'a[SbbAlert]',

@@ -12,12 +12,11 @@ import { ALERT_MIGRATIONS } from './alert.cjs';
 describe('sbb-alert', () => {
   const defaultMigration: Rule = () => {
     const { importPaths, comments, attributes, selectors } = ALERT_MIGRATIONS;
-    const scope = { root: '', excludedRoots: [] };
     return chain([
-      createImportPathMigrationRule(importPaths, scope),
-      createCommentMigrationRule(comments, scope),
-      createTemplateSelectorMigrationRule(selectors, scope),
-      createAttributeMigrationRule(attributes, scope),
+      createImportPathMigrationRule(importPaths),
+      createCommentMigrationRule(comments),
+      createTemplateSelectorMigrationRule(selectors),
+      createAttributeMigrationRule(attributes),
     ]);
   };
 
