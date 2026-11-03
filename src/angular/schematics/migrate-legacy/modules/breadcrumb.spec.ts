@@ -79,67 +79,24 @@ describe('sbb-breadcrumb', () => {
     expect(content).toContain('imports: [SbbBreadcrumbGroup],');
   });
 
-  describe('selectors and attributes', () => {
-    it('should migrate template', async () => {
-      const content = await MigrateLegacyTestUtils.migrateHtmlFile(
-        [
-          '<sbb-breadcrumbs aria-label="Test">',
-          '  <sbb-link sbb-breadcrumb-root routerLink="/">',
-          '    Link',
-          '   </sbb-link>',
-          '</sbb-breadcrumbs>',
-        ].join('\n'),
-        defaultMigration,
-      );
-      const result = [
-        '<sbb-breadcrumb-group aria-label="Test">',
-        '  <sbb-breadcrumb iconName="house-small" routerLink="/">',
-        '    Link',
-        '   </sbb-breadcrumb>',
-        '</sbb-breadcrumb-group>',
-      ].join('\n');
-      expect(content).toBe(result);
-    });
-
-    it('should migrate ts', async () => {
-      const content = await MigrateLegacyTestUtils.migrateTsFile(
-        [
-          "import { Component } from '@angular/core';",
-          "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
-          '',
-          '@Component({',
-          "  selector: 'app-root',",
-          '  imports: [SbbBreadcrumbs],',
-          '  template: `',
-          '    <sbb-breadcrumbs aria-label="Test">',
-          '      <sbb-breadcrumb sbb-breadcrumb-root routerLink="/">Link</sbb-breadcrumb>',
-          '      <sbb-link sbb-breadcrumb-root routerLink="/">Link</sbb-link>',
-          '      <a sbb-breadcrumb-root routerLink="/">Link</a>',
-          '    </sbb-breadcrumbs>',
-          '  `,',
-          '})',
-          'export class AppComponent {}',
-        ].join('\n'),
-        defaultMigration,
-      );
-      const result = [
-        "import { Component } from '@angular/core';",
-        "import { SbbBreadcrumbGroup } from '@sbb-esta/lyne-angular/breadcrumb';",
-        '',
-        '@Component({',
-        "  selector: 'app-root',",
-        '  imports: [SbbBreadcrumbGroup],',
-        '  template: `',
-        '    <sbb-breadcrumb-group aria-label="Test">',
-        '      <sbb-breadcrumb iconName="house-small" routerLink="/">Link</sbb-breadcrumb>',
-        '      <sbb-breadcrumb iconName="house-small" routerLink="/">Link</sbb-breadcrumb>',
-        '      <sbb-breadcrumb iconName="house-small" routerLink="/">Link</sbb-breadcrumb>',
-        '    </sbb-breadcrumb-group>',
-        '  `,',
-        '})',
-        'export class AppComponent {}',
-      ].join('\n');
-      expect(content).toBe(result);
-    });
+  it('should migrate template', async () => {
+    const content = await MigrateLegacyTestUtils.migrateHtmlFile(
+      [
+        '<sbb-breadcrumbs aria-label="Test">',
+        '  <sbb-breadcrumb sbb-breadcrumb-root routerLink="/">Link</sbb-breadcrumb>',
+        '  <sbb-link sbb-breadcrumb-root routerLink="/">Link</sbb-link>',
+        '  <a sbb-breadcrumb-root routerLink="/">Link</a>',
+        '</sbb-breadcrumbs>',
+      ].join('\n'),
+      defaultMigration,
+    );
+    const result = [
+      '<sbb-breadcrumb-group aria-label="Test">',
+      '  <sbb-breadcrumb iconName="house-small" routerLink="/">Link</sbb-breadcrumb>',
+      '  <sbb-breadcrumb iconName="house-small" routerLink="/">Link</sbb-breadcrumb>',
+      '  <sbb-breadcrumb iconName="house-small" routerLink="/">Link</sbb-breadcrumb>',
+      '</sbb-breadcrumb-group>',
+    ].join('\n');
+    expect(content).toBe(result);
   });
 });
