@@ -61,7 +61,6 @@ describe('sbb-autocomplete', () => {
 
   describe('unsupported', () => {
     it.each([
-      ['<div sbbAutocompleteOrigin></div>', 'sbbAutocompleteOrigin'],
       ['<input [sbbAutocompleteConnectedTo]="origin" />', 'sbbAutocompleteConnectedTo'],
       ['<input sbbAutocompletePosition="above" />', 'sbbAutocompletePosition'],
       ['<input [sbbAutocompleteDisabled]="true" />', 'sbbAutocompleteDisabled'],

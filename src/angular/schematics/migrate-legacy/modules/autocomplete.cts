@@ -6,44 +6,39 @@ import type {
 } from '../common.cjs';
 
 const importPaths: ImportRewriteOptions[] = [
-  { oldImport: '@sbb-esta/angular/autocomplete', newImport: '@sbb-esta/lyne-angular/autocomplete' },
+  { oldImport: '@sbb-esta/angular/autocomplete', newImport: '@sbb-esta/Lyne-angular/autocomplete' },
 ];
 
 const comments: CommentMigration[] = [
   {
-    selector: '[sbbAutocompleteOrigin]',
-    message:
-      'FIXME: the `sbbAutocompleteOrigin` directive does not exist in lyne. You can set the `origin` on the `sbb-autocomplete` component instead.',
-  },
-  {
     selector: '[sbbAutocompleteConnectedTo]',
     message:
-      'FIXME: the `sbbAutocompleteConnectedTo` input does not exist in lyne. You can set the `origin` on the `sbb-autocomplete` component instead.',
+      'FIXME: the `sbbAutocompleteConnectedTo` input does not exist in Lyne. You can set the `origin` on the `sbb-autocomplete` component instead.',
   },
   {
     selector: '[sbbAutocompletePosition]',
     message:
-      'FIXME: the `sbbAutocompletePosition` input does not exist in lyne. You can set the `position` on the `sbb-autocomplete` component instead.',
+      'FIXME: the `sbbAutocompletePosition` input does not exist in Lyne. You can set the `position` on the `sbb-autocomplete` component instead.',
   },
   {
     selector: '[sbbAutocompleteDisabled]',
-    message: 'FIXME: the `sbbAutocompleteDisabled` input does not exist in lyne.',
+    message: 'FIXME: the `sbbAutocompleteDisabled` input does not exist in Lyne.',
   },
   {
     selector: 'sbb-autocomplete[optionActivated]',
-    message: 'FIXME: the `optionActivated` event does not exist in lyne.',
+    message: 'FIXME: the `optionActivated` event does not exist in Lyne.',
   },
   {
     selector: 'sbb-autocomplete[localeNormalizer]',
-    message: 'FIXME: the `localeNormalizer` input does not exist in lyne.',
+    message: 'FIXME: the `localeNormalizer` input does not exist in Lyne.',
   },
   {
     selector: 'sbb-autocomplete[panelWidth]',
-    message: 'FIXME: the `panelWidth` input does not exist in lyne.',
+    message: 'FIXME: the `panelWidth` input does not exist in Lyne.',
   },
   {
     selector: 'sbb-autocomplete[showHintIfNoOptions]',
-    message: 'FIXME: the `showHintIfNoOptions` input does not exist in lyne.',
+    message: 'FIXME: the `showHintIfNoOptions` input does not exist in Lyne.',
   },
 ];
 
