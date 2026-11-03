@@ -6,7 +6,7 @@ import type {
 } from '../common.cjs';
 
 const importPaths: ImportRewriteOptions[] = [
-  { oldImport: '@sbb-esta/angular/autocomplete', newImport: '@sbb-esta/Lyne-angular/autocomplete' },
+  { oldImport: '@sbb-esta/angular/autocomplete', newImport: '@sbb-esta/lyne-angular/autocomplete' },
 ];
 
 const comments: CommentMigration[] = [
