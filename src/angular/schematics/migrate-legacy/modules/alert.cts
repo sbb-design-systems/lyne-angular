@@ -18,7 +18,7 @@ const comments: CommentMigration[] = [
   },
   {
     selector: 'a[SbbAlert]',
-    message: `FIXME: Anchor alerts are not supported in lyne-angular. You can slot an \`<sbb-button-link>\` into the alert instead.`,
+    message: `FIXME: Anchor alerts are not supported in lyne-angular. You can slot an \`<sbb-link>\` into the alert instead.`,
   },
   {
     symbol: 'SbbAlertService',
