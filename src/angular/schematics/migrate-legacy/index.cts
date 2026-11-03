@@ -8,6 +8,7 @@ import { createCommentMigrationRule } from './migrations/comment-migration.cjs';
 import { createImportPathMigrationRule } from './migrations/import-path-migration.cjs';
 import { createTemplateSelectorMigrationRule } from './migrations/template-selector-migration.cjs';
 import { createTypeMigrationRule } from './migrations/type-migration.cjs';
+import { BREADCRUMB_MIGRATIONS } from './modules/breadcrumb.cjs';
 import { BUTTON_MIGRATIONS } from './modules/button.cjs';
 import { CAPTCHA_MIGRATIONS } from './modules/captcha.cjs';
 import { TEXTAREA_MIGRATIONS } from './modules/textarea.cjs';
@@ -22,7 +23,7 @@ const MODULE_REGISTRY = {
   // 'alert',
   // 'autocomplete',
   // 'badge',
-  // 'breadcrumb',
+  breadcrumb: BREADCRUMB_MIGRATIONS,
   button: BUTTON_MIGRATIONS,
   captcha: CAPTCHA_MIGRATIONS,
   // 'checkbox',
