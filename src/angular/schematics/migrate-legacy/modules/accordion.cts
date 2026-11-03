@@ -1,7 +1,12 @@
 import { TmplAstElement } from '@angular/compiler';
 
 import type { MigrationScope } from '../../utils.cjs';
-import type { CommentMigration, ImportRewriteOptions, ModuleMigrations } from '../common.cjs';
+import type {
+  AttributeMigration,
+  CommentMigration,
+  ImportRewriteOptions,
+  ModuleMigrations,
+} from '../common.cjs';
 import { createTemplateMigrationRule } from '../template-migration.cjs';
 
 const importPaths: ImportRewriteOptions[] = [
@@ -17,6 +22,11 @@ const comments: CommentMigration[] = [
     selector: 'sbb-expansion-panel[hideToggle]',
     message: "FIXME: 'hideToggle' has no counterpart in lyne-angular.",
   },
+];
+
+const attributes: AttributeMigration[] = [
+  { selector: 'sbb-expansion-panel', attribute: 'afterExpand', replaceWith: 'open' },
+  { selector: 'sbb-expansion-panel', attribute: 'afterCollapse', replaceWith: 'close' },
 ];
 
 const PANEL = 'sbb-expansion-panel';
@@ -65,10 +75,12 @@ export const wrapPanelContentMigration = (scope?: MigrationScope) =>
  * Transformations:
  * 1. ✓ Rewrite import paths
  * 2. ✓ mark 'hideToggle' usages with a comment, because it has no counterpart in lyne-angular
- * 3. ✓ Wrap the content of `<sbb-expansion-panel>` into `<sbb-expansion-panel-content>`
+ * 3. ✓ Rename events on `<sbb-expansion-panel>`: `afterExpand` → `open`, `afterCollapse` → `close`
+ * 4. ✓ Wrap the content of `<sbb-expansion-panel>` into `<sbb-expansion-panel-content>`
  */
 export const ACCORDION_MIGRATIONS: Partial<ModuleMigrations> = {
   importPaths,
   comments,
+  attributes,
   customRules: [wrapPanelContentMigration],
 };

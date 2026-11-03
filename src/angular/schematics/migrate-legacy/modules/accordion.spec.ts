@@ -1,6 +1,7 @@
 import { chain, type Rule } from '@angular-devkit/schematics';
 import { describe, expect, it } from 'vitest';
 
+import { createAttributeMigrationRule } from '../migrations/attribute-migration.cjs';
 import { createCommentMigrationRule } from '../migrations/comment-migration.cjs';
 import { createImportPathMigrationRule } from '../migrations/import-path-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
@@ -9,11 +10,12 @@ import { ACCORDION_MIGRATIONS, wrapPanelContentMigration } from './accordion.cjs
 
 describe('sbb-accordion', () => {
   const defaultMigration: Rule = () => {
-    const { importPaths, comments } = ACCORDION_MIGRATIONS;
+    const { importPaths, comments, attributes } = ACCORDION_MIGRATIONS;
     const scope = { root: '', excludedRoots: [] };
     return chain([
       createImportPathMigrationRule(importPaths, scope),
       createCommentMigrationRule(comments, scope),
+      createAttributeMigrationRule(attributes, scope),
       wrapPanelContentMigration(scope),
     ]);
   };
@@ -62,6 +64,20 @@ describe('sbb-accordion', () => {
     it('should not mark elements without hideToggle', async () => {
       const template = '<sbb-accordion></sbb-accordion>';
       expect(await migrateTemplate(template)).toBe(template);
+    });
+  });
+
+  describe('events', () => {
+    it('should rename afterExpand to open', async () => {
+      expect(
+        await migrateTemplate('<sbb-expansion-panel (afterExpand)="func"></sbb-expansion-panel>'),
+      ).toBe('<sbb-expansion-panel (open)="func"></sbb-expansion-panel>');
+    });
+
+    it('should rename afterCollapse to close', async () => {
+      expect(
+        await migrateTemplate('<sbb-expansion-panel (afterCollapse)="func"></sbb-expansion-panel>'),
+      ).toBe('<sbb-expansion-panel (close)="func"></sbb-expansion-panel>');
     });
   });
 

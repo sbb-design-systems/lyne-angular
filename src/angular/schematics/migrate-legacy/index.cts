@@ -19,7 +19,6 @@ import type { MigrateLegacyOptionsSchema } from './schema';
 // TODO: Add more migrations as they are implemented
 const MODULE_REGISTRY = {
   accordion: ACCORDION_MIGRATIONS,
-  // 'expansion-panel',
   // 'alert',
   // 'autocomplete',
   // 'badge',
