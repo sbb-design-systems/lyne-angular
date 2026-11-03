@@ -8,6 +8,8 @@ import { createCommentMigrationRule } from './migrations/comment-migration.cjs';
 import { createImportPathMigrationRule } from './migrations/import-path-migration.cjs';
 import { createTemplateSelectorMigrationRule } from './migrations/template-selector-migration.cjs';
 import { createTypeMigrationRule } from './migrations/type-migration.cjs';
+import { ACCORDION_MIGRATIONS } from './modules/accordion.cjs';
+import { BADGE_MIGRATIONS } from './modules/badge.cjs';
 import { BREADCRUMB_MIGRATIONS } from './modules/breadcrumb.cjs';
 import { BUTTON_MIGRATIONS } from './modules/button.cjs';
 import { CAPTCHA_MIGRATIONS } from './modules/captcha.cjs';
@@ -18,11 +20,10 @@ import type { MigrateLegacyOptionsSchema } from './schema';
 
 // TODO: Add more migrations as they are implemented
 const MODULE_REGISTRY = {
-  // 'accordion',
-  // 'expansion-panel',
+  accordion: ACCORDION_MIGRATIONS,
   // 'alert',
   // 'autocomplete',
-  // 'badge',
+  badge: BADGE_MIGRATIONS,
   breadcrumb: BREADCRUMB_MIGRATIONS,
   button: BUTTON_MIGRATIONS,
   captcha: CAPTCHA_MIGRATIONS,
