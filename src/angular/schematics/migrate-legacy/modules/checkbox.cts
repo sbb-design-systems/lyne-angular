@@ -1,12 +1,7 @@
 import type { Rule } from '@angular-devkit/schematics';
 
 import type { MigrationScope } from '../../utils.cjs';
-import type {
-  CommentMigration,
-  ImportRewriteOptions,
-  ModuleMigrations,
-  SelectorMigration,
-} from '../common.cjs';
+import type { CommentMigration, ImportRewriteOptions, ModuleMigrations } from '../common.cjs';
 import { createTemplateMigrationRule, queueAttributeRemoval } from '../template-migration.cjs';
 
 const importPaths: ImportRewriteOptions[] = [

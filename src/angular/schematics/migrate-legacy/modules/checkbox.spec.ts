@@ -7,17 +7,16 @@ import { createImportPathMigrationRule } from '../migrations/import-path-migrati
 import { createTemplateSelectorMigrationRule } from '../migrations/template-selector-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { CHECKBOX_MIGRATIONS } from './checkbox.cjs';
+import { CHECKBOX_MIGRATIONS, convertWrapperToCheckboxGroupMigration } from './checkbox.cjs';
 
 describe('sbb-checkbox', () => {
   const defaultMigration: Rule = () => {
-    const { importPaths, comments, selectors, customRules } = CHECKBOX_MIGRATIONS;
-    const scope = { root: '', excludedRoots: [] };
+    const { importPaths, comments, selectors } = CHECKBOX_MIGRATIONS;
     return chain([
-      createImportPathMigrationRule(importPaths, scope),
-      createCommentMigrationRule(comments, scope),
-      createTemplateSelectorMigrationRule(selectors, scope),
-      ...(customRules ?? []).map((rule) => rule(scope)),
+      createImportPathMigrationRule(importPaths),
+      createCommentMigrationRule(comments),
+      createTemplateSelectorMigrationRule(selectors),
+      convertWrapperToCheckboxGroupMigration(),
     ]);
   };
 

@@ -12,11 +12,10 @@ import { CHECKBOX_PANEL_MIGRATIONS } from './checkbox-panel.cjs';
 describe('sbb-checkbox-panel', () => {
   const defaultMigration: Rule = () => {
     const { importPaths, comments, selectors } = CHECKBOX_PANEL_MIGRATIONS;
-    const scope = { root: '', excludedRoots: [] };
     return chain([
-      createImportPathMigrationRule(importPaths, scope),
-      createCommentMigrationRule(comments, scope),
-      createTemplateSelectorMigrationRule(selectors, scope),
+      createImportPathMigrationRule(importPaths),
+      createCommentMigrationRule(comments),
+      createTemplateSelectorMigrationRule(selectors),
     ]);
   };
 
