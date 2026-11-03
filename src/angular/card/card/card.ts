@@ -4,9 +4,7 @@ import { SbbCardElement } from '@sbb-esta/lyne-elements/card.pure.js';
 /**
  * It displays content related to a single subject.
  *
- * @slot  - Use the unnamed slot to add content to the card.
- * @slot badge - Use this slot to render a `sbb-card-badge` component.
- * @slot action - Use this slot to render a `sbb-card-button` or a `sbb-card-link` component.
+ * @slot  - Use the unnamed slot to add content to the card. For specific use cases, `<sbb-card-button>`, `<sbb-card-link>` or `<sbb-card-badge>` elements can be slotted.
  */
 @Directive({
   selector: 'sbb-card',
