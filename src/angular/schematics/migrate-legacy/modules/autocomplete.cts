@@ -56,7 +56,7 @@ const attributes: AttributeMigration[] = [
  * Transformations:
  * 1. ✓ Rewrite import paths
  * 2. ✓ Add comments for unsupported features
- * 3. ✓ Output migration 'opened/closed' → 'opne/close'
+ * 3. ✓ Output migration 'opened/closed' → 'open/close'
  */
 export const AUTOCOMPLETE_MIGRATIONS: Partial<ModuleMigrations> = {
   importPaths,

@@ -12,11 +12,10 @@ import { AUTOCOMPLETE_MIGRATIONS } from './autocomplete.cjs';
 describe('sbb-autocomplete', () => {
   const defaultMigration: Rule = () => {
     const { importPaths, comments, attributes } = AUTOCOMPLETE_MIGRATIONS;
-    const scope = { root: '', excludedRoots: [] };
     return chain([
-      createImportPathMigrationRule(importPaths, scope),
-      createCommentMigrationRule(comments, scope),
-      createAttributeMigrationRule(attributes, scope),
+      createImportPathMigrationRule(importPaths),
+      createCommentMigrationRule(comments),
+      createAttributeMigrationRule(attributes),
     ]);
   };
 
