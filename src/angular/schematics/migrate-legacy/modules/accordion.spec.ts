@@ -11,12 +11,11 @@ import { ACCORDION_MIGRATIONS, wrapPanelContentMigration } from './accordion.cjs
 describe('sbb-accordion', () => {
   const defaultMigration: Rule = () => {
     const { importPaths, comments, attributes } = ACCORDION_MIGRATIONS;
-    const scope = { root: '', excludedRoots: [] };
     return chain([
-      createImportPathMigrationRule(importPaths, scope),
-      createCommentMigrationRule(comments, scope),
-      createAttributeMigrationRule(attributes, scope),
-      wrapPanelContentMigration(scope),
+      createImportPathMigrationRule(importPaths),
+      createCommentMigrationRule(comments),
+      createAttributeMigrationRule(attributes),
+      wrapPanelContentMigration(),
     ]);
   };
 
