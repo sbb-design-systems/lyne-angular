@@ -8,6 +8,7 @@ import { createCommentMigrationRule } from './migrations/comment-migration.cjs';
 import { createImportPathMigrationRule } from './migrations/import-path-migration.cjs';
 import { createTemplateSelectorMigrationRule } from './migrations/template-selector-migration.cjs';
 import { createTypeMigrationRule } from './migrations/type-migration.cjs';
+import { BADGE_MIGRATIONS } from './modules/badge.cjs';
 import { BUTTON_MIGRATIONS } from './modules/button.cjs';
 import { CAPTCHA_MIGRATIONS } from './modules/captcha.cjs';
 import { TEXTAREA_MIGRATIONS } from './modules/textarea.cjs';
@@ -21,7 +22,7 @@ const MODULE_REGISTRY = {
   // 'expansion-panel',
   // 'alert',
   // 'autocomplete',
-  // 'badge',
+  badge: BADGE_MIGRATIONS,
   // 'breadcrumb',
   button: BUTTON_MIGRATIONS,
   captcha: CAPTCHA_MIGRATIONS,
