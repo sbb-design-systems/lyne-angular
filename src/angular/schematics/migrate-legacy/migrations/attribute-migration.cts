@@ -50,6 +50,8 @@ export function resolveKeySpan(
  * ]);
  * ```
  *
+ * `fullyReplace: true` replaces the whole attribute (binding syntax and value included) with `replaceWith`, verbatim.
+ *
  * Handled spellings: `svgIcon="x"`, `svg-icon="x"`, `[svgIcon]="x"` and `(svgIconChange)="x"`.
  * Bindings whose written name does not literally match the legacy attribute
  * (e.g. the synthetic `xChange` output of a `[(x)]` two-way binding)
@@ -125,6 +127,24 @@ export function createAttributeMigrationRule(
           continue;
         }
         handledOffsets.add(keySpan.start);
+
+        if (migration.fullyReplace) {
+          const { start, end } = matchingNode.sourceSpan;
+          if (content.slice(start.offset, end.offset) === migration.replaceWith) {
+            continue;
+          }
+          edits.push({
+            offset: baseOffset + start.offset,
+            index: nextIndex(),
+            length: end.offset - start.offset,
+            insertion: migration.replaceWith,
+            log: () =>
+              logger.info(
+                `  → Replaced '${writtenKey}' with '${migration.replaceWith}' on '${tagAttributeForLogger}' in '${filePath}'`,
+              ),
+          });
+          continue;
+        }
 
         // Only another node counts: the node being renamed may match the target spelling (`sbbBadge` vs `sbb-badge`).
         const targetVariants = attributeNameVariants(migration.replaceWith);

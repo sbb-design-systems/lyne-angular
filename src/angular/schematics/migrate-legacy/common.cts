@@ -103,6 +103,11 @@ export interface AttributeMigration {
    * NOTE: defaultValue is inserted verbatim between double quotes, so it must be valid attribute-value HTML.
    */
   defaultValue?: string;
+  /**
+   * Whether the attribute should be fully replaced, including its value.
+   * `replaceWith` is then inserted verbatim, e.g. `[svgIcon]="x"` => `iconName="y"`.
+   */
+  fullyReplace?: boolean;
 }
 
 /**

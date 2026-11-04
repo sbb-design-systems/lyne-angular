@@ -469,4 +469,30 @@ describe('sbb-attribute-migration', () => {
       ).toBe('<sbb-button iconName="default-icon" size="m">A</sbb-button>');
     });
   });
+
+  describe('fully replace', () => {
+    const rule = createAttributeMigrationRule([
+      { selector: 'sbb-x', attribute: 'old', replaceWith: 'new="v"', fullyReplace: true },
+    ]);
+    const migrate = (html: string) => MigrateLegacyTestUtils.migrateHtmlFile(html, rule);
+
+    it('should replace a static attribute with its value', async () => {
+      expect(await migrate('<sbb-x old="a" id="i"></sbb-x>')).toBe(
+        '<sbb-x new="v" id="i"></sbb-x>',
+      );
+    });
+
+    it('should replace a bound input with its binding syntax', async () => {
+      expect(await migrate('<sbb-x [old]="expr"></sbb-x>')).toBe('<sbb-x new="v"></sbb-x>');
+    });
+
+    it('should replace an output', async () => {
+      expect(await migrate('<sbb-x (old)="fn()"></sbb-x>')).toBe('<sbb-x new="v"></sbb-x>');
+    });
+
+    it('should be idempotent', async () => {
+      const once = await migrate('<sbb-x old="a"></sbb-x>');
+      expect(await migrate(once)).toBe(once);
+    });
+  });
 });
