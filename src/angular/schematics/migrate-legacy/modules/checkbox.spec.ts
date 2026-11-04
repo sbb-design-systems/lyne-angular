@@ -71,7 +71,7 @@ describe('sbb-checkbox', () => {
         ].join('\n'),
       );
 
-      expect(content).toContain('// FIXME: SBB_CHECKBOX_DEFAULT_OPTIONS does not exist in lyne.');
+      expect(content).toContain('// FIXME: SBB_CHECKBOX_DEFAULT_OPTIONS does not exist in Lyne.');
     });
 
     it('should not mark supported usages', async () => {
