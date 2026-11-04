@@ -146,7 +146,7 @@ export interface SelectorMigration {
    */
   addAttributes?: string;
   /**
-   * Whether the tag should be changed from void to paired (e.g. `<input sbbDateInput />` to `<sbb-date-input></sbb-date-input>`.
+   * Whether the tag should be changed from void to paired (e.g. `<input sbbDateInput />` to `<sbb-date-input></sbb-date-input>`).
    */
   transformToPairedTag?: boolean;
 }
