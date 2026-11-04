@@ -3998,10 +3998,10 @@ neotraverse@^1.0.1:
   resolved "https://registry.yarnpkg.com/neotraverse/-/neotraverse-1.0.1.tgz#7c89b43f6504ef85928c718f578c68621576d194"
   integrity sha512-WmmLty1YWwJl9yZi77v2dVIV6X2kuYV8YYBI/G3LWGKdGHmHUvL1z7FW0iDvEvGAwNEoc5x1tOOOyDnf5jJw/w==
 
-ng-packagr@22.2.5:
-  version "22.2.5"
-  resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-22.2.5.tgz#72cc6a9ef021db0ea412de4a374a602549b633f6"
-  integrity sha512-AlAruvF6HQa9TIMg17TyLRQ1gxIyTeJgF/KMABWdH0vCkzXE6PatQeTII0ukrkElSgahPRlZZwW/1bm3m7nJQA==
+ng-packagr@22.2.6:
+  version "22.2.6"
+  resolved "https://registry.yarnpkg.com/ng-packagr/-/ng-packagr-22.2.6.tgz#3a28dbf704d70bc699131332bb2e668ad8864f2e"
+  integrity sha512-nScWmyg2zI+nkGwURWVZQqvaDvW3VmBJJjaCnzuRz/GkwcrsVwN4FN+LnGbl2jjPrB0uStAtPiwBnK/BiZUWNw==
   dependencies:
     "@ampproject/remapping" "^2.3.0"
     ajv "^8.17.1"
