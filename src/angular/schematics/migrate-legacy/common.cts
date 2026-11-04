@@ -96,6 +96,10 @@ export interface AttributeMigration {
    * Both the camelCase and the dash-case spelling are matched, the original spelling is preserved.
    */
   attribute: string;
+
+  /** Optional value of the legacy attribute, input or output. When omitted, any value is matched. */
+  attributeValue?: string;
+
   /** New name. When omitted, the attribute is removed instead of renamed. */
   replaceWith?: string;
   /**

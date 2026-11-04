@@ -495,4 +495,41 @@ describe('sbb-attribute-migration', () => {
       expect(await migrate(once)).toBe(once);
     });
   });
+
+  describe('attribute value', () => {
+    const rule = createAttributeMigrationRule([
+      { selector: 'sbb-x', attribute: 'mode', attributeValue: 'a', replaceWith: 'kind' },
+      { selector: 'sbb-y', attribute: 'mode', attributeValue: 'b' },
+      {
+        selector: 'sbb-z',
+        attribute: 'mode',
+        attributeValue: 'a',
+        replaceWith: `kind="a"`,
+        fullyReplace: true,
+      },
+    ]);
+    const migrate = (html: string) => MigrateLegacyTestUtils.migrateHtmlFile(html, rule);
+
+    it('should migrate only a matching static value', async () => {
+      expect(await migrate('<sbb-x mode="a"></sbb-x><sbb-x mode="c"></sbb-x>')).toBe(
+        '<sbb-x kind="a"></sbb-x><sbb-x mode="c"></sbb-x>',
+      );
+    });
+
+    it('should match a quoted literal binding', async () => {
+      expect(await migrate(`<sbb-x [mode]="'a'"></sbb-x><sbb-x [mode]="expr"></sbb-x>`)).toBe(
+        `<sbb-x [kind]="'a'"></sbb-x><sbb-x [mode]="expr"></sbb-x>`,
+      );
+    });
+
+    it('should remove only when matching the value', async () => {
+      expect(await migrate('<sbb-y mode="b"></sbb-y><sbb-y mode="c"></sbb-y>')).toBe(
+        '<sbb-y></sbb-y><sbb-y mode="c"></sbb-y>',
+      );
+    });
+
+    it('should work with "fullyReplace"', async () => {
+      expect(await migrate('<sbb-z mode="a"></sbb-z>')).toBe('<sbb-z kind="a"></sbb-z>');
+    });
+  });
 });

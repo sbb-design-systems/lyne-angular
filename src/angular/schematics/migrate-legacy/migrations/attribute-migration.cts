@@ -35,6 +35,16 @@ export function resolveKeySpan(
     : undefined;
 }
 
+/** The value of an attribute as written: the text of a static attribute, or the unquoted literal / source of a binding. */
+function attributeValueOf(node: ReturnType<typeof attributeNodes>[number]): string | undefined {
+  const { value } = node as { value?: unknown };
+  if (typeof value === 'string') {
+    return value;
+  }
+  const bound = value as { source?: string | null; ast?: { value?: unknown } } | undefined;
+  return typeof bound?.ast?.value === 'string' ? bound.ast.value : bound?.source?.trim();
+}
+
 /**
  * Creates a rule which renames (or removes) attributes, inputs and outputs of legacy elements,
  * both in external templates (`templateUrl`) and in inline templates (`template`).
@@ -50,6 +60,7 @@ export function resolveKeySpan(
  * ]);
  * ```
  *
+ * `attributeValue` restricts a migration to attributes with that value (static, or the literal / source of a binding).
  * `fullyReplace: true` replaces the whole attribute (binding syntax and value included) with `replaceWith`, verbatim.
  *
  * Handled spellings: `svgIcon="x"`, `svg-icon="x"`, `[svgIcon]="x"` and `(svgIconChange)="x"`.
@@ -89,7 +100,11 @@ export function createAttributeMigrationRule(
 
       const variants = attributeNameVariants(migration.attribute);
       const nodes = attributeNodes(element);
-      const matchingNode = nodes.find((node) => variants.includes(node.name));
+      const matchingNode = nodes.find(
+        (node) =>
+          variants.includes(node.name) &&
+          (!migration.attributeValue || migration.attributeValue === attributeValueOf(node)),
+      );
 
       // The legacy attributes exists in the element to migrate.
       if (matchingNode) {
