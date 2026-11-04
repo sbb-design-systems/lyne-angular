@@ -11,15 +11,15 @@ const importPaths: ImportRewriteOptions[] = [
 const comments: CommentMigration[] = [
   {
     selector: 'sbb-checkbox[labelPosition]',
-    message: 'FIXME: the `labelPosition` input does not exist in lyne.',
+    message: 'FIXME: the `labelPosition` input does not exist in Lyne.',
   },
   {
     selector: 'sbb-checkbox[indeterminateChange]',
-    message: 'FIXME: the `indeterminateChange` event does not exist in lyne.',
+    message: 'FIXME: the `indeterminateChange` event does not exist in Lyne.',
   },
   {
     symbol: 'SBB_CHECKBOX_DEFAULT_OPTIONS',
-    message: 'FIXME: SBB_CHECKBOX_DEFAULT_OPTIONS does not exist in lyne.',
+    message: 'FIXME: SBB_CHECKBOX_DEFAULT_OPTIONS does not exist in Lyne.',
   },
 ];
 
