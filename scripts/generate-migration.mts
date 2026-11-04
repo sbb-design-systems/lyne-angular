@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const modulesDir = join(root, 'src/angular/schematics/migrate-legacy/modules');
 
-function fail(message) {
+function fail(message: string) {
   console.error(message);
   process.exit(1);
 }
