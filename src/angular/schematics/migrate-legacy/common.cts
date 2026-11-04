@@ -145,6 +145,10 @@ export interface SelectorMigration {
    * right after the tag name, e.g. `'orientation="vertical"'` or `'size="s" [disabled]="x"'`.
    */
   addAttributes?: string;
+  /**
+   * Whether the tag should be changed from void to paired (e.g. `<input sbbDateInput />` to `<sbb-date-input></sbb-date-input>`.
+   */
+  transformToPairedTag?: boolean;
 }
 
 export type ParsedSelectorMigration = SelectorMigration & { parsedSelector: ParsedSelector };
@@ -162,6 +166,12 @@ export interface TypeMigration {
    * or sub-path). When omitted, any import of `from` is migrated.
    */
   importedFrom?: string | string[];
+  /**
+   * Whether the migration should skip the import;
+   * the use case is changing a custom event to the JavaScript `Event`,
+   * which will import the `Event` from a wrong path.
+   */
+  skipImports?: boolean;
 }
 
 /**
