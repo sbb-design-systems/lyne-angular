@@ -38,8 +38,8 @@ describe('sbb-breadcrumb', () => {
     expect(content).not.toContain("'@sbb-esta/angular/breadcrumb';");
   });
 
-  describe('comments', () => {
-    it('should add comment if aria-label is missing', async () => {
+  describe('should handle comments', () => {
+    it('addition when aria-label is missing', async () => {
       expect(
         await MigrateLegacyTestUtils.migrateHtmlFile(
           '<sbb-breadcrumbs>Test</sbb-breadcrumbs>',
@@ -48,7 +48,7 @@ describe('sbb-breadcrumb', () => {
       ).toContain(comment);
     });
 
-    it('should not add comment if aria-label is present', async () => {
+    it('no addition when aria-label is present', async () => {
       expect(
         await MigrateLegacyTestUtils.migrateHtmlFile(
           '<sbb-breadcrumbs aria-label="label">Test</sbb-breadcrumbs>',
