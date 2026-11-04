@@ -15,6 +15,8 @@ import { BADGE_MIGRATIONS } from './modules/badge.cjs';
 import { BREADCRUMB_MIGRATIONS } from './modules/breadcrumb.cjs';
 import { BUTTON_MIGRATIONS } from './modules/button.cjs';
 import { CAPTCHA_MIGRATIONS } from './modules/captcha.cjs';
+import { CHECKBOX_PANEL_MIGRATIONS } from './modules/checkbox-panel.cjs';
+import { CHECKBOX_MIGRATIONS } from './modules/checkbox.cjs';
 import { TEXTAREA_MIGRATIONS } from './modules/textarea.cjs';
 import { TEXTEXPAND_MIGRATIONS } from './modules/textexpand.cjs';
 import { USERMENU_MIGRATIONS } from './modules/usermenu.cjs';
@@ -30,8 +32,8 @@ const MODULE_REGISTRY = {
   breadcrumb: BREADCRUMB_MIGRATIONS,
   button: BUTTON_MIGRATIONS,
   captcha: CAPTCHA_MIGRATIONS,
-  // 'checkbox',
-  // 'checkbox-panel',
+  checkbox: CHECKBOX_MIGRATIONS,
+  'checkbox-panel': CHECKBOX_PANEL_MIGRATIONS,
   // 'chips',
   // 'datepicker',
   // 'dialog',
