@@ -6,12 +6,11 @@ import type { CommentDelimiters } from '../../comment-utils.cjs';
 import {
   CSS_DELIMITERS,
   formatComment,
-  getIndent,
-  getLineStart,
   HTML_DELIMITERS,
   ProcessedLines,
   TS_DELIMITERS,
 } from '../../comment-utils.cjs';
+import { getIndent, getLineStart } from '../../utils.cjs';
 
 /** Default SyntaxKind for TS processing. */
 const DECLARATION_KINDS = new Set<ts.SyntaxKind>([

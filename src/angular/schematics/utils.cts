@@ -287,3 +287,14 @@ export function visitElements(nodes: TmplAstNode[], cb: (el: TmplAstElement) => 
     }
   }
 }
+/** Returns the offset of the first character of the line containing `offset`. */
+export function getLineStart(text: string, offset: number): number {
+  return Math.max(0, text.lastIndexOf('\n', offset - 1) + 1);
+}
+
+/** Returns the leading whitespace of the line starting at `lineStart`. */
+export function getIndent(text: string, lineStart: number): string {
+  const lineEnd = text.indexOf('\n', lineStart);
+  const line = text.slice(lineStart, lineEnd === -1 ? text.length : lineEnd);
+  return line.match(/^\s*/)?.[0] ?? '';
+}
