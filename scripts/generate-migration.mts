@@ -90,8 +90,8 @@ describe('sbb-${module}', () => {
       createImportPathMigrationRule(importPaths),
       createCommentMigrationRule(comments),
       createTypeMigrationRule(types),
-      createAttributeMigrationRule(attributes),
       createTemplateSelectorMigrationRule(selectors),
+      createAttributeMigrationRule(attributes),
     ]);
   };
 

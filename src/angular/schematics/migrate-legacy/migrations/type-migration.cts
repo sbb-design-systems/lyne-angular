@@ -68,6 +68,7 @@ function getRemovalRanges(
  * Only files which import the legacy symbol (`import { Legacy } from '…'`) are touched. The import
  * and every identifier of the same name are renamed. If the file already imports `to`, the legacy
  * import specifier is removed instead of being renamed into a duplicate.
+ * With `skipImports`, the legacy import specifier is removed without importing its replacement.
  */
 export function createTypeMigrationRule(
   migrations?: TypeMigration[],
@@ -107,11 +108,11 @@ export function createTypeMigrationRule(
       let index = 0;
 
       for (const { node, target } of findSymbolReferences(sourceFile, targets)) {
-        const { from, to } = target.migration;
+        const { from, to, skipImports } = target.migration;
         const specifier = ts.isImportSpecifier(node.parent) ? node.parent : undefined;
 
-        // `to` is already imported: drop the legacy specifier, its usages are renamed below.
-        if (specifier && !specifier.propertyName && importedNames.has(to)) {
+        // Drop the legacy specifier when no replacement import is needed.
+        if (specifier && (skipImports || (!specifier.propertyName && importedNames.has(to)))) {
           const list = specifier.parent;
           removals.set(list, (removals.get(list) ?? new Set()).add(specifier));
           continue;
@@ -137,10 +138,7 @@ export function createTypeMigrationRule(
             index: index++,
             log:
               i === 0
-                ? () =>
-                    context.logger.info(
-                      `  → Removed ${names} in '${filePath}', its replacement is already imported`,
-                    )
+                ? () => context.logger.info(`  → Removed ${names} from imports in '${filePath}'`)
                 : undefined,
           }),
         );

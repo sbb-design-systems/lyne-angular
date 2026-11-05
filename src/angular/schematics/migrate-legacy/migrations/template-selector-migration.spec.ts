@@ -66,7 +66,7 @@ describe('sbb-template-selector-migration', () => {
       );
     });
 
-    it('should handle self-closing / void elements correctly', async () => {
+    it('should handle void elements correctly', async () => {
       expect(
         await migrate('<input sbb-input />', [
           {
@@ -75,6 +75,18 @@ describe('sbb-template-selector-migration', () => {
           },
         ]),
       ).toBe('<sbb-input sbb-input />');
+    });
+
+    it('should transform void elements if requested', async () => {
+      expect(
+        await migrate('<input sbb-input />', [
+          {
+            selector: 'input[sbb-input]',
+            replaceWith: 'sbb-something',
+            transformToPairedTag: true,
+          },
+        ]),
+      ).toBe('<sbb-something sbb-input></sbb-something>');
     });
 
     it('should migrate nested elements and multiple occurrences', async () => {
