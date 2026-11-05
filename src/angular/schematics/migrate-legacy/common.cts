@@ -96,6 +96,10 @@ export interface AttributeMigration {
    * Both the camelCase and the dash-case spelling are matched, the original spelling is preserved.
    */
   attribute: string;
+
+  /** Optional value of the legacy attribute, input or output. When omitted, any value is matched. */
+  attributeValue?: string;
+
   /** New name. When omitted, the attribute is removed instead of renamed. */
   replaceWith?: string;
   /**
@@ -103,6 +107,11 @@ export interface AttributeMigration {
    * NOTE: defaultValue is inserted verbatim between double quotes, so it must be valid attribute-value HTML.
    */
   defaultValue?: string;
+  /**
+   * Whether the attribute should be fully replaced, including its value.
+   * `replaceWith` is then inserted verbatim, e.g. `[svgIcon]="x"` => `iconName="y"`.
+   */
+  fullyReplace?: boolean;
 }
 
 /**
@@ -145,6 +154,10 @@ export interface SelectorMigration {
    * right after the tag name, e.g. `'orientation="vertical"'` or `'size="s" [disabled]="x"'`.
    */
   addAttributes?: string;
+  /**
+   * Whether the tag should be changed from void to paired (e.g. `<input sbbDateInput />` to `<sbb-date-input></sbb-date-input>`).
+   */
+  transformToPairedTag?: boolean;
 }
 
 export type ParsedSelectorMigration = SelectorMigration & { parsedSelector: ParsedSelector };
@@ -162,6 +175,12 @@ export interface TypeMigration {
    * or sub-path). When omitted, any import of `from` is migrated.
    */
   importedFrom?: string | string[];
+  /**
+   * Whether the migration should skip the import;
+   * the use case is changing a custom event to the JavaScript `Event`,
+   * which will import the `Event` from a wrong path.
+   */
+  skipImports?: boolean;
 }
 
 /**

@@ -41,6 +41,34 @@ describe('sbb-type-migration', () => {
       );
     });
 
+    it('should skip the import', async () => {
+      const result = await MigrateLegacyTestUtils.migrateTsFile(
+        [
+          "import { SbbBreadcrumbs } from '@sbb-esta/angular/breadcrumb';",
+          '',
+          'export class AppComponent {',
+          '  breadcrumbs?: SbbBreadcrumbs;',
+          '  create(): SbbBreadcrumbs {',
+          '    return new SbbBreadcrumbs();',
+          '  }',
+          '}',
+        ].join('\n'),
+        createTypeMigrationRule([{ from: 'SbbBreadcrumbs', to: 'Event', skipImports: true }]),
+      );
+
+      expect(result).toBe(
+        [
+          '',
+          'export class AppComponent {',
+          '  breadcrumbs?: Event;',
+          '  create(): Event {',
+          '    return new Event();',
+          '  }',
+          '}',
+        ].join('\n'),
+      );
+    });
+
     it('should rename type-only imports and generic usages', async () => {
       const result = await MigrateLegacyTestUtils.migrateTsFile(
         [

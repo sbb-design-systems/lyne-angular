@@ -24,7 +24,7 @@ This directory contains the migration schematic for converting `@sbb-esta/angula
 
 - **`migrations/type-migration.cts`**
   Rule factory which renames type/class/symbol usages in TypeScript files, e.g. `SbbBreadcrumbs` → `SbbBreadcrumbGroup`.
-  Only files which import the legacy symbol are touched.
+  Only files which import the legacy symbol are touched; it's possible to skip the renaming of the imports.
 
 - **`migrations/attribute-migration.cts`**
   Rule factory which renames (or removes) attributes, inputs and outputs of given elements, e.g. `svgIcon` → `iconName` on `<sbb-button>`.
@@ -32,7 +32,7 @@ This directory contains the migration schematic for converting `@sbb-esta/angula
 
 - **`migrations/template-selector-migration.cts`**
   Rule factory which replaces legacy selectors with a new element, in external templates (`templateUrl`) as well as in inline templates (`template`).
-  It supports several selectors, including tags, classes, attributes, exclusions and any combinations.
+  It supports several selectors, including tags, classes, attributes, exclusions and any combinations, and also the possibility to change a void tag in a paired one.
 
 - **`template-migration.cts`**
   Shared foundation of all template migrations: file traversal, inline template lookup, template parsing, selector parsing/matching, attribute removal and edit application.

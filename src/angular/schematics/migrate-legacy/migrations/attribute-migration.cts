@@ -35,6 +35,16 @@ export function resolveKeySpan(
     : undefined;
 }
 
+/** The value of an attribute as written: the text of a static attribute, or the unquoted literal / source of a binding. */
+function attributeValueOf(node: ReturnType<typeof attributeNodes>[number]): string | undefined {
+  const { value } = node as { value?: unknown };
+  if (typeof value === 'string') {
+    return value;
+  }
+  const bound = value as { source?: string | null; ast?: { value?: unknown } } | undefined;
+  return typeof bound?.ast?.value === 'string' ? bound.ast.value : bound?.source?.trim();
+}
+
 /**
  * Creates a rule which renames (or removes) attributes, inputs and outputs of legacy elements,
  * both in external templates (`templateUrl`) and in inline templates (`template`).
@@ -49,6 +59,9 @@ export function resolveKeySpan(
  *   { selector: 'sbb-button', attribute: 'svgIcon', replaceWith: 'iconName', defaultValue: 'arrow-right-small' },
  * ]);
  * ```
+ *
+ * `attributeValue` restricts a migration to attributes with that value (static, or the literal / source of a binding).
+ * `fullyReplace: true` replaces the whole attribute (binding syntax and value included) with `replaceWith`, verbatim.
  *
  * Handled spellings: `svgIcon="x"`, `svg-icon="x"`, `[svgIcon]="x"` and `(svgIconChange)="x"`.
  * Bindings whose written name does not literally match the legacy attribute
@@ -87,7 +100,11 @@ export function createAttributeMigrationRule(
 
       const variants = attributeNameVariants(migration.attribute);
       const nodes = attributeNodes(element);
-      const matchingNode = nodes.find((node) => variants.includes(node.name));
+      const matchingNode = nodes.find(
+        (node) =>
+          variants.includes(node.name) &&
+          (!migration.attributeValue || migration.attributeValue === attributeValueOf(node)),
+      );
 
       // The legacy attributes exists in the element to migrate.
       if (matchingNode) {
@@ -125,6 +142,24 @@ export function createAttributeMigrationRule(
           continue;
         }
         handledOffsets.add(keySpan.start);
+
+        if (migration.fullyReplace) {
+          const { start, end } = matchingNode.sourceSpan;
+          if (content.slice(start.offset, end.offset) === migration.replaceWith) {
+            continue;
+          }
+          edits.push({
+            offset: baseOffset + start.offset,
+            index: nextIndex(),
+            length: end.offset - start.offset,
+            insertion: migration.replaceWith,
+            log: () =>
+              logger.info(
+                `  → Replaced '${writtenKey}' with '${migration.replaceWith}' on '${tagAttributeForLogger}' in '${filePath}'`,
+              ),
+          });
+          continue;
+        }
 
         // Only another node counts: the node being renamed may match the target spelling (`sbbBadge` vs `sbb-badge`).
         const targetVariants = attributeNameVariants(migration.replaceWith);
