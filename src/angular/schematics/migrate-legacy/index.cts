@@ -17,6 +17,7 @@ import { BUTTON_MIGRATIONS } from './modules/button.cjs';
 import { CAPTCHA_MIGRATIONS } from './modules/captcha.cjs';
 import { CHECKBOX_PANEL_MIGRATIONS } from './modules/checkbox-panel.cjs';
 import { CHECKBOX_MIGRATIONS } from './modules/checkbox.cjs';
+import { TAG_MIGRATIONS } from './modules/tag.cjs';
 import { TEXTAREA_MIGRATIONS } from './modules/textarea.cjs';
 import { TEXTEXPAND_MIGRATIONS } from './modules/textexpand.cjs';
 import { USERMENU_MIGRATIONS } from './modules/usermenu.cjs';
@@ -57,7 +58,7 @@ const MODULE_REGISTRY = {
   // 'status',
   // 'tabs',
   // 'table',
-  // 'tag',
+  tag: TAG_MIGRATIONS,
   textarea: TEXTAREA_MIGRATIONS,
   textexpand: TEXTEXPAND_MIGRATIONS,
   // 'time-input',
