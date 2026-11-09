@@ -19,6 +19,7 @@ import { CHECKBOX_PANEL_MIGRATIONS } from './modules/checkbox-panel.cjs';
 import { CHECKBOX_MIGRATIONS } from './modules/checkbox.cjs';
 import { TEXTAREA_MIGRATIONS } from './modules/textarea.cjs';
 import { TEXTEXPAND_MIGRATIONS } from './modules/textexpand.cjs';
+import { TOGGLE_MIGRATIONS } from './modules/toggle.cjs';
 import { USERMENU_MIGRATIONS } from './modules/usermenu.cjs';
 import type { MigrateLegacyOptionsSchema } from './schema';
 
@@ -61,7 +62,7 @@ const MODULE_REGISTRY = {
   textarea: TEXTAREA_MIGRATIONS,
   textexpand: TEXTEXPAND_MIGRATIONS,
   // 'time-input',
-  // 'toggle',
+  toggle: TOGGLE_MIGRATIONS,
   // 'tooltip',
   usermenu: USERMENU_MIGRATIONS,
 } satisfies Record<string, Partial<ModuleMigrations>>;
