@@ -18,6 +18,15 @@ import {
   queueAttributeRemoval,
 } from '../template-migration.cjs';
 
+export const DEPRECATED_DATEPICKER_ATTRIBUTES = [
+  'calendarHeaderComponent',
+  'connected',
+  'nextDayAriaLabel',
+  'prevDayAriaLabel',
+  'panelClass',
+  'startAt',
+];
+
 function createDatepickerMigrationRule(scope?: MigrationScope): Rule {
   const selector = parseSelector('sbb-datepicker');
 
@@ -138,12 +147,13 @@ const importPaths: ImportRewriteOptions[] = [
   { oldImport: '@sbb-esta/angular/datepicker', newImport: '@sbb-esta/lyne-angular/datepicker' },
 ];
 
-const comments: CommentMigration[] = [
-  {
-    selector: 'input[sbbDateInput][inputBlurred]',
-    message: 'FIXME: `inputBlurred` does not exist anymore on `sbb-date-input`.',
-  },
-];
+const comments: CommentMigration[] = DEPRECATED_DATEPICKER_ATTRIBUTES.map((attr) => ({
+  selector: `sbb-datepicker[${attr}]`,
+  message: `FIXME: the attribute \`${attr}\` does not exist anymore on \`sbb-datepicker\`.`,
+})).concat({
+  selector: 'input[sbbDateInput][inputBlurred]',
+  message: 'FIXME: `inputBlurred` does not exist anymore on `sbb-date-input`.',
+});
 
 const selectors: SelectorMigration[] = [
   { selector: 'input[sbbDateInput]', replaceWith: 'sbb-date-input', transformToPairedTag: true },

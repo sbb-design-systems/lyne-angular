@@ -9,7 +9,7 @@ import { createImportPathMigrationRule } from '../migrations/import-path-migrati
 import { createTemplateSelectorMigrationRule } from '../migrations/template-selector-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { DATEPICKER_MIGRATIONS } from './datepicker.cjs';
+import { DATEPICKER_MIGRATIONS, DEPRECATED_DATEPICKER_ATTRIBUTES } from './datepicker.cjs';
 
 describe('sbb-datepicker', () => {
   const defaultMigration: Rule = () => {
@@ -156,6 +156,15 @@ describe('sbb-datepicker', () => {
         ].join('\n');
         expect(migrated).toBe(result);
       });
+    });
+
+    it.each(DEPRECATED_DATEPICKER_ATTRIBUTES)('should add comment for %s', async (attribute) => {
+      const content = await migrateTemplate(
+        `<sbb-datepicker [${attribute}]="test"></sbb-datepicker>`,
+      );
+      expect(content).toContain(
+        `<!-- FIXME: the attribute \`${attribute}\` does not exist anymore on \`sbb-datepicker\`. -->`,
+      );
     });
   });
 });
