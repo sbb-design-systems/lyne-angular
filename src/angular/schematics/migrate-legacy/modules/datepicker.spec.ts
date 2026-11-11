@@ -9,7 +9,11 @@ import { createImportPathMigrationRule } from '../migrations/import-path-migrati
 import { createTemplateSelectorMigrationRule } from '../migrations/template-selector-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { DATEPICKER_MIGRATIONS, DEPRECATED_DATEPICKER_ATTRIBUTES } from './datepicker.cjs';
+import {
+  DATEPICKER_MIGRATIONS,
+  DEPRECATED_DATEPICKER_ATTRIBUTES,
+  DEPRECATED_DATEPICKER_TYPES,
+} from './datepicker.cjs';
 
 describe('sbb-datepicker', () => {
   const defaultMigration: Rule = () => {
@@ -165,6 +169,25 @@ describe('sbb-datepicker', () => {
       expect(content).toContain(
         `<!-- FIXME: the attribute \`${attribute}\` does not exist anymore on \`sbb-datepicker\`. -->`,
       );
+    });
+
+    it.each(DEPRECATED_DATEPICKER_TYPES)('should add comment for %s', async (type) => {
+      const content = await migrateTsFile(
+        [
+          "import { Component } from '@angular/core';",
+          `import { SbbDatepickerModule, ${type} } from '@sbb-esta/angular/datepicker';`,
+          '',
+          '@Component({',
+          "  selector: 'app-root',",
+          '  imports: [SbbDatepickerModule],',
+          '  templateUrl: "./app.html"',
+          '})',
+          'export class AppComponent {',
+          `  myVariable: ${type} | null = null;`,
+          '}',
+        ].join('\n'),
+      );
+      expect(content).toContain(`  // FIXME: the \`${type}\` type does not exist in Lyne.`);
     });
   });
 });

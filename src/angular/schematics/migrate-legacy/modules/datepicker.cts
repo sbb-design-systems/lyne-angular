@@ -27,6 +27,13 @@ export const DEPRECATED_DATEPICKER_ATTRIBUTES = [
   'startAt',
 ];
 
+export const DEPRECATED_DATEPICKER_TYPES = [
+  'SbbCalendarCellCssClasses',
+  'SbbCalendarCellClassFunction',
+];
+
+export const DEPRECATED_CALENDAR_COMPONENTS = ['sbb-calendar-header', 'sbb-calendar-body'];
+
 function createDatepickerMigrationRule(scope?: MigrationScope): Rule {
   const selector = parseSelector('sbb-datepicker');
 
@@ -147,10 +154,20 @@ const importPaths: ImportRewriteOptions[] = [
   { oldImport: '@sbb-esta/angular/datepicker', newImport: '@sbb-esta/lyne-angular/datepicker' },
 ];
 
-const comments: CommentMigration[] = DEPRECATED_DATEPICKER_ATTRIBUTES.map((attr) => ({
-  selector: `sbb-datepicker[${attr}]`,
-  message: `FIXME: the attribute \`${attr}\` does not exist anymore on \`sbb-datepicker\`.`,
-})).concat({
+const comments: CommentMigration[] = [
+  ...DEPRECATED_DATEPICKER_ATTRIBUTES.map<CommentMigration>((attr) => ({
+    selector: `sbb-datepicker[${attr}]`,
+    message: `FIXME: the attribute \`${attr}\` does not exist anymore on \`sbb-datepicker\`.`,
+  })),
+  ...DEPRECATED_DATEPICKER_TYPES.map<CommentMigration>((symbol) => ({
+    symbol,
+    message: `FIXME: the \`${symbol}\` type does not exist in Lyne.`,
+  })),
+  ...DEPRECATED_CALENDAR_COMPONENTS.map<CommentMigration>((selector) => ({
+    selector,
+    message: `FIXME: the \`${selector}\` component does not exist in Lyne.`,
+  })),
+].concat({
   selector: 'input[sbbDateInput][inputBlurred]',
   message: 'FIXME: `inputBlurred` does not exist anymore on `sbb-date-input`.',
 });
