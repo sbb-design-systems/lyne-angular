@@ -253,6 +253,26 @@ export function visitElements(nodes: TmplAstNode[], cb: (el: TmplAstElement) => 
       cb(node);
       visitElements(node.children, cb);
     } else if (node instanceof TmplAstTemplate) {
+      // An explicit `<ng-template>` (without structural directive) is reported as an element.
+      if (node.tagName === 'ng-template' && !node.templateAttrs.length) {
+        cb(
+          new TmplAstElement(
+            node.tagName,
+            node.attributes,
+            node.inputs,
+            node.outputs,
+            node.directives,
+            node.children,
+            node.references,
+            node.isSelfClosing,
+            node.sourceSpan,
+            node.startSourceSpan,
+            node.endSourceSpan,
+            false,
+            node.i18n,
+          ),
+        );
+      }
       // Structural-directive host: *ngIf, *ngFor, *ngSwitch, etc.
       visitElements(node.children, cb);
     } else if (node instanceof TmplAstIfBlock) {
