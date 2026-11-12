@@ -22,7 +22,8 @@ const comments: CommentMigration[] = [
   },
   {
     selector: 'sbb-toggle-details',
-    message: 'FIXME: this component has no counterpart in Lyne.',
+    message:
+      'FIXME: this component has no counterpart in Lyne. As an alternative, you can use the `sbb-selection-expansion-panel` component with a `sbb-radio-button-group`',
   },
   {
     selector: 'sbb-toggle-icon',
