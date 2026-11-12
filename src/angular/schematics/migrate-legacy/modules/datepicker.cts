@@ -50,18 +50,6 @@ function createDatepickerMigrationRule(scope?: MigrationScope): Rule {
     ];
     const findAttribute = (name: string) =>
       attributes.find((attribute) => attributeNameVariants(name).includes(attribute.name));
-    const arrow = findAttribute('arrows');
-    const toggle = findAttribute('toggle');
-    const disabled = findAttribute('disabled');
-    const tags: string[] = [];
-
-    if (arrow) {
-      tags.push('sbb-datepicker-previous-day', 'sbb-datepicker-next-day');
-    }
-    if (toggle) {
-      tags.push('sbb-datepicker-toggle');
-    }
-
     const removeAttribute = (attribute: (typeof attributes)[number]) =>
       queueAttributeRemoval(
         content,
@@ -71,13 +59,20 @@ function createDatepickerMigrationRule(scope?: MigrationScope): Rule {
         edits,
         nextIndex,
       );
+
+    const tags: string[] = [];
+    const arrow = findAttribute('arrows');
+    const toggle = findAttribute('toggle');
     if (arrow) {
+      tags.push('sbb-datepicker-previous-day', 'sbb-datepicker-next-day');
       removeAttribute(arrow);
     }
     if (toggle) {
+      tags.push('sbb-datepicker-toggle');
       removeAttribute(toggle);
     }
 
+    const disabled = findAttribute('disabled');
     const disabledText = disabled
       ? ` ${content.slice(disabled.sourceSpan.start.offset, disabled.sourceSpan.end.offset)}`
       : '';
