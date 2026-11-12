@@ -1,4 +1,9 @@
-import type { ParseSourceSpan, TmplAstBoundAttribute, TmplAstElement } from '@angular/compiler';
+import type {
+  ParseSourceSpan,
+  TmplAstBoundAttribute,
+  TmplAstElement,
+  TmplAstNode,
+} from '@angular/compiler';
 import { BindingType, CssSelector, parseTemplate } from '@angular/compiler';
 import type { logging } from '@angular-devkit/core';
 import {
@@ -63,6 +68,8 @@ interface TemplateMigrationContext {
    * back to the source and their `insertion` is escaped for the enclosing literal afterwards.
    */
   baseOffset: number;
+  /** Root nodes of the parsed template, for rules which need to look beyond the current element. */
+  rootNodes: TmplAstNode[];
   /** Path of the file which contains the template. */
   filePath: string;
   /**
@@ -673,6 +680,7 @@ export function createTemplateMigrationRule(
         visitElements(ast.nodes, (element) =>
           collectEdits(element, {
             content,
+            rootNodes: ast.nodes,
             baseOffset: template.start,
             filePath,
             fileContent: original,

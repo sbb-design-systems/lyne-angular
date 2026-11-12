@@ -173,11 +173,13 @@ export function createAttributeMigrationRule(
 
         // Same name in another spelling (`sbbBadge` -> `sbb-badge`): the spelling IS the change, use it as given.
         // Otherwise, keep the spelling the consumer used.
-        const replacement = variants.includes(migration.replaceWith)
-          ? migration.replaceWith
-          : writtenKey.includes('-')
-            ? toDashCase(migration.replaceWith)
-            : toCamelCase(migration.replaceWith);
+        // A dash-case target (e.g. `sbb-tooltip-open-delay`) is an exact alias and has no camelCase form.
+        const replacement =
+          variants.includes(migration.replaceWith) || migration.replaceWith.includes('-')
+            ? migration.replaceWith
+            : writtenKey.includes('-')
+              ? toDashCase(migration.replaceWith)
+              : toCamelCase(migration.replaceWith);
         if (replacement === writtenKey) {
           continue;
         }
