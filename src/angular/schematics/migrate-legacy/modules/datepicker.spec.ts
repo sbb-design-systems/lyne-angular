@@ -207,5 +207,19 @@ describe('sbb-datepicker', () => {
         `<!-- FIXME: the \`${attribute}\` component does not exist in Lyne. -->`,
       );
     });
+
+    it('should add comment for selected', async () => {
+      const migrated = await migrateTemplate('<sbb-calendar [selected]="selected"></sbb-calendar>');
+      expect(migrated).toContain(
+        'FIXME: `selected` is now named `value`; when `multiple` is set, it is typed as array. Check your code.',
+      );
+    });
+
+    it('should add comment for startAt', async () => {
+      const migrated = await migrateTemplate('<sbb-calendar [startAt]="startAt"></sbb-calendar>');
+      expect(migrated).toContain(
+        'FIXME: `startAt` has been replaced by `activeMonth`, and it is not a date, but a string with the format YYYY-MM. Check your code.',
+      );
+    });
   });
 });
