@@ -19,7 +19,7 @@ const comments: CommentMigration[] = [
   },
   {
     selector: `sbb-tag[sbbBadgeDescription]`,
-    message: `FIXME: 'sbbBadgeDescription' has no counterpart in Lyne.`,
+    message: `FIXME: 'sbbBadgeDescription' has no counterpart in Lyne. Use aria-describedby or aria-description.`,
   },
   {
     selector: `sbb-tag[labelPosition]`,
