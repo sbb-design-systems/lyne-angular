@@ -1,4 +1,4 @@
-import type { CssSelector } from '@angular/compiler';
+import type { CssSelector, TmplAstElement } from '@angular/compiler';
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { SchematicsException } from '@angular-devkit/schematics';
 import { getWorkspace } from '@schematics/angular/utility/workspace';
@@ -46,6 +46,8 @@ export interface ElementCommentMigration extends CommentMigrationBase {
    * - `'a[sbb-link], button[sbb-link]'`    — list of alternatives
    */
   selector: string | string[];
+  /** Further restricts the matched elements, e.g. to tell an input from an output of the same name. */
+  filter?: (element: TmplAstElement) => boolean;
 }
 
 /**
@@ -112,6 +114,10 @@ export interface AttributeMigration {
    * `replaceWith` is then inserted verbatim, e.g. `[svgIcon]="x"` => `iconName="y"`.
    */
   fullyReplace?: boolean;
+  /** Whether the rules should exclude outputs */
+  excludeOutputs?: boolean;
+  /** Whether the rules should be applied exclusively to outputs */
+  onlyOutputs?: boolean;
 }
 
 /**
