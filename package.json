@@ -84,7 +84,7 @@
     "ng-packagr": "22.2.6",
     "npm-run-all2": "9.0.4",
     "playwright": "1.65.0",
-    "prettier": "3.10.0",
+    "prettier": "3.10.1",
     "tsx": "4.23.15",
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.2",
