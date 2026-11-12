@@ -19,6 +19,7 @@ import { CHECKBOX_PANEL_MIGRATIONS } from './modules/checkbox-panel.cjs';
 import { CHECKBOX_MIGRATIONS } from './modules/checkbox.cjs';
 import { TEXTAREA_MIGRATIONS } from './modules/textarea.cjs';
 import { TEXTEXPAND_MIGRATIONS } from './modules/textexpand.cjs';
+import { TOOLTIP_MIGRATIONS } from './modules/tooltip.cjs';
 import { USERMENU_MIGRATIONS } from './modules/usermenu.cjs';
 import type { MigrateLegacyOptionsSchema } from './schema';
 
@@ -62,7 +63,7 @@ const MODULE_REGISTRY = {
   textexpand: TEXTEXPAND_MIGRATIONS,
   // 'time-input',
   // 'toggle',
-  // 'tooltip',
+  tooltip: TOOLTIP_MIGRATIONS,
   usermenu: USERMENU_MIGRATIONS,
 } satisfies Record<string, Partial<ModuleMigrations>>;
 
