@@ -26,12 +26,11 @@ export const DEPRECATED_DATEPICKER_ATTRIBUTES = [
   'panelClass',
   'startAt',
 ];
-
 export const DEPRECATED_DATEPICKER_TYPES = [
   'SbbCalendarCellCssClasses',
   'SbbCalendarCellClassFunction',
 ];
-
+export const DEPRECATED_CALENDAR_ATTRIBUTES = ['dateRange', 'dateClass'];
 export const DEPRECATED_CALENDAR_COMPONENTS = ['sbb-calendar-header', 'sbb-calendar-body'];
 
 function createDatepickerMigrationRule(scope?: MigrationScope): Rule {
@@ -163,14 +162,30 @@ const comments: CommentMigration[] = [
     symbol,
     message: `FIXME: the \`${symbol}\` type does not exist in Lyne.`,
   })),
+  ...DEPRECATED_CALENDAR_ATTRIBUTES.map<CommentMigration>((attr) => ({
+    selector: `sbb-calendar[${attr}]`,
+    message: `FIXME: the attribute \`${attr}\` does not exist anymore on \`sbb-calendar\`.`,
+  })),
   ...DEPRECATED_CALENDAR_COMPONENTS.map<CommentMigration>((selector) => ({
     selector,
     message: `FIXME: the \`${selector}\` component does not exist in Lyne.`,
   })),
-].concat({
-  selector: 'input[sbbDateInput][inputBlurred]',
-  message: 'FIXME: `inputBlurred` does not exist anymore on `sbb-date-input`.',
-});
+].concat([
+  {
+    selector: 'input[sbbDateInput][inputBlurred]',
+    message: 'FIXME: `inputBlurred` does not exist anymore on `sbb-date-input`.',
+  },
+  {
+    selector: 'sbb-calendar[selected]',
+    message:
+      'FIXME: `selected` is now named `value`; when `multiple` is set, it is typed as array. Check your code.',
+  },
+  {
+    selector: 'sbb-calendar[startAt]',
+    message:
+      'FIXME: `startAt` has been replaced by `activeMonth`, and it is not a date, but a string with the format YYYY-MM. Check your code.',
+  },
+]);
 
 const selectors: SelectorMigration[] = [
   { selector: 'input[sbbDateInput]', replaceWith: 'sbb-date-input', transformToPairedTag: true },
@@ -183,6 +198,10 @@ const attributes: AttributeMigration[] = [
   { selector: 'sbb-date-input[sbbDateInput]', attribute: 'sbbDateInput' },
   { selector: 'sbb-datepicker', attribute: 'closed', replaceWith: 'close' },
   { selector: 'sbb-datepicker', attribute: 'opened', replaceWith: 'open' },
+  { selector: 'sbb-calendar', attribute: 'minDate', replaceWith: 'min' },
+  { selector: 'sbb-calendar', attribute: 'maxDate', replaceWith: 'max' },
+  { selector: 'sbb-calendar', attribute: 'showWeekNumbers', replaceWith: 'weekNumbers' },
+  { selector: 'sbb-calendar', attribute: 'selectedChange', replaceWith: 'dateSelected' },
 ];
 
 export const DATEPICKER_MIGRATIONS: Partial<ModuleMigrations> = {
