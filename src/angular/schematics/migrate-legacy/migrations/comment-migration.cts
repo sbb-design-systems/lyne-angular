@@ -146,7 +146,10 @@ function createElementCommentRule(
     const anchor = inline ? baseOffset : baseOffset + element.startSourceSpan.start.offset;
 
     for (const migration of parsed) {
-      if (!migration.selectors.some((selector) => elementMatches(element, selector))) {
+      if (
+        !migration.selectors.some((selector) => elementMatches(element, selector)) ||
+        migration.filter?.(element) === false
+      ) {
         continue;
       }
 
