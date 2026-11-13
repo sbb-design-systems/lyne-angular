@@ -20,12 +20,7 @@ import {
 describe('sbb-datepicker', () => {
   const defaultMigration: Rule = () => {
     const { importPaths, comments, selectors, attributes, customRules } =
-      DATEPICKER_MIGRATIONS as Required<
-        Pick<
-          ModuleMigrations,
-          'importPaths' | 'comments' | 'selectors' | 'attributes' | 'customRules'
-        >
-      >;
+      DATEPICKER_MIGRATIONS as Required<Omit<ModuleMigrations, 'types'>>;
     return chain([
       createImportPathMigrationRule(importPaths),
       createCommentMigrationRule(comments),
