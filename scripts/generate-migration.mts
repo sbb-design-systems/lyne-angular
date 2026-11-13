@@ -85,7 +85,7 @@ import { ${module.toUpperCase()}_MIGRATIONS } from './${module}.cjs';
 
 describe('sbb-${module}', () => {
   const defaultMigration: Rule = () => {
-    const { importPaths, comments, types, attributes, selectors } = ${module.toUpperCase()}_MIGRATIONS;
+    const { importPaths, comments, types, selectors, attributes } = ${module.toUpperCase()}_MIGRATIONS;
     return chain([
       createImportPathMigrationRule(importPaths),
       createCommentMigrationRule(comments),
