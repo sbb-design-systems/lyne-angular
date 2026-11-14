@@ -1,5 +1,12 @@
 # Changelog
 
+## [22.10.2](https://github.com/sbb-design-systems/lyne-angular/compare/v22.10.1...v22.10.2) (2026-11-14)
+
+
+### Documentation
+
+* update readme from upstream ([dea49bd](https://github.com/sbb-design-systems/lyne-angular/commit/dea49bded0e18c2d69de08ab6151d0f378e9a644))
+
 ## [22.10.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.10.0...v22.10.1) (2026-11-10)
 
 
