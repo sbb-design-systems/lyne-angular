@@ -30,7 +30,11 @@ const comments: CommentMigration[] = [
     message:
       "FIXME: 'preserveContent' has no counterpart in lyne-angular. The content is preserved by default.",
   },
-  noCounterpart('sbb-tab-group[animationDuration]', 'animationDuration'),
+  {
+    selector: 'sbb-tab-group[animationDuration]',
+    message:
+      "FIXME: 'animationDuration' has no counterpart in lyne-angular. You can use the `--sbb-disable-animation-duration` css variable instead",
+  },
   noCounterpart('sbb-tab-group[disablePagination]', 'disablePagination'),
   noCounterpart('sbb-tab-group[focusChange]', 'focusChange'),
   noCounterpart('sbb-tab-group[animationDone]', 'animationDone'),
