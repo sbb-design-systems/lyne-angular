@@ -89,7 +89,7 @@ import { ${moduleMigrationsName(module)} } from './${module}.cjs';
 
 describe('sbb-${module}', () => {
   const defaultMigration: Rule = () => {
-    const { importPaths, comments, types, attributes, selectors } = ${moduleMigrationsName(module)};
+    const { importPaths, comments, types, selectors, attributes } = ${moduleMigrationsName(module)};
     return chain([
       createImportPathMigrationRule(importPaths),
       createCommentMigrationRule(comments),
