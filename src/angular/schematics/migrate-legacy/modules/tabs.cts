@@ -33,21 +33,21 @@ const comments: CommentMigration[] = [
   {
     selector: 'sbb-tab-group[animationDuration]',
     message:
-      "FIXME: 'animationDuration' has no counterpart in lyne-angular. You can use the `--sbb-disable-animation-duration` css variable instead",
+      "FIXME: 'animationDuration' has no counterpart in lyne-angular. You can use the `--sbb-disable-animation-duration` CSS variable instead",
   },
   noCounterpart('sbb-tab-group[disablePagination]', 'disablePagination'),
   noCounterpart('sbb-tab-group[focusChange]', 'focusChange'),
   noCounterpart('sbb-tab-group[animationDone]', 'animationDone'),
   {
     selector: 'sbb-tab-group[selectedTabChange]',
-    message: "FIXME: 'selectedTabChange' is now 'tabChange'; Check the new documentation.",
+    message: "FIXME: 'selectedTabChange' is now 'tabChange'; check the new documentation.",
   },
   noCounterpart('sbb-tab[labelClass]', 'labelClass'),
   noCounterpart('sbb-tab[bodyClass]', 'bodyClass'),
   {
     symbol: 'SbbTabChangeEvent',
     importedFrom: '@sbb-esta/lyne-angular/tabs',
-    message: 'FIXME: the event changed, check the new documentation.',
+    message: 'FIXME: the `SbbTabChangeEvent` event changed; check the new documentation.',
   },
 ];
 

@@ -350,6 +350,34 @@ describe('sbb-comment-migration', () => {
     });
   });
 
+  describe('filter', () => {
+    const OPENED: CommentMigration[] = [
+      {
+        selector: 'sbb-x[opened]',
+        message: 'FIXME: opened input.',
+        filter: (element) => element.inputs.some((input) => input.name === 'opened'),
+      },
+    ];
+    const migrate = (template: string) =>
+      MigrateLegacyTestUtils.migrateHtmlFile(template, createCommentMigrationRule(OPENED));
+
+    it('should comment when the filter accepts the element', async () => {
+      expect(await migrate('<sbb-x [opened]="o"></sbb-x>')).toBe(
+        '<!-- FIXME: opened input. -->\n<sbb-x [opened]="o"></sbb-x>',
+      );
+    });
+
+    it('should not comment when the filter rejects the element', async () => {
+      const template = '<sbb-x (opened)="o()"></sbb-x>';
+      expect(await migrate(template)).toBe(template);
+    });
+
+    it('should still require the selector to match', async () => {
+      const template = '<sbb-y [opened]="o"></sbb-y>';
+      expect(await migrate(template)).toBe(template);
+    });
+  });
+
   describe('inline templates', () => {
     it('should add a // comment above the template property', async () => {
       const result = await MigrateLegacyTestUtils.migrateTsFile(

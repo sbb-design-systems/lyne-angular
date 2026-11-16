@@ -7,17 +7,17 @@ import { createImportPathMigrationRule } from '../migrations/import-path-migrati
 import { createTemplateSelectorMigrationRule } from '../migrations/template-selector-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { TABS_MIGRATIONS, tabLabelMigration } from './tabs.cjs';
+import { TABS_MIGRATIONS } from './tabs.cjs';
 
 describe('sbb-tabs', () => {
   const defaultMigration: Rule = () => {
-    const { importPaths, comments, selectors, attributes } = TABS_MIGRATIONS;
+    const { importPaths, comments, selectors, attributes, customRules } = TABS_MIGRATIONS;
     return chain([
       createImportPathMigrationRule(importPaths),
       createCommentMigrationRule(comments),
       createTemplateSelectorMigrationRule(selectors),
       createAttributeMigrationRule(attributes),
-      tabLabelMigration(),
+      ...customRules!.map((rule) => rule()),
     ]);
   };
 
@@ -47,7 +47,7 @@ describe('sbb-tabs', () => {
         ].join('\n'),
       );
 
-      expect(content).toContain('FIXME: the event changed');
+      expect(content).toContain('FIXME: the `SbbTabChangeEvent` event');
     });
   });
 
