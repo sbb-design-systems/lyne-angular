@@ -4,13 +4,14 @@ import { describe, expect, it } from 'vitest';
 import { createImportPathMigrationRule } from '../migrations/import-path-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { addStripedClassMigration, TABLE_MIGRATIONS } from './table.cjs';
+import { TABLE_MIGRATIONS } from './table.cjs';
 
 describe('sbb-table', () => {
+  const { importPaths, customRules } = TABLE_MIGRATIONS;
   const defaultMigration: Rule = () =>
     chain([
-      createImportPathMigrationRule(TABLE_MIGRATIONS.importPaths),
-      addStripedClassMigration(),
+      createImportPathMigrationRule(importPaths),
+      ...customRules!.map((rule) => rule(undefined, true)),
     ]);
 
   const migrateTsFile = (content: string) =>

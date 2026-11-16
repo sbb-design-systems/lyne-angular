@@ -9,12 +9,12 @@ const importPaths: ImportRewriteOptions[] = [
 const STRIPED = 'sbb-table--striped';
 
 /** Adds the `sbb-table--striped` class to `<sbb-table>` and `<table sbb-table>`. */
-export const addStripedClassMigration = (scope?: MigrationScope) =>
+export const addStripedClassMigration = (scope?: MigrationScope, isStandardTheme?: boolean) =>
   createTemplateMigrationRule((element, context) => {
     const isTable =
       element.name === 'sbb-table' ||
       (element.name === 'table' && element.attributes.some((a) => a.name === 'sbb-table'));
-    if (!isTable) {
+    if (!isTable || !isStandardTheme) {
       return;
     }
 
