@@ -8,17 +8,17 @@ import { createTemplateSelectorMigrationRule } from '../migrations/template-sele
 import { createTypeMigrationRule } from '../migrations/type-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { RADIO_BUTTON_MIGRATIONS, radioGroupOrientationMigration } from './radio-button.cjs';
+import { RADIO_BUTTON_MIGRATIONS } from './radio-button.cjs';
 
 describe('sbb-radio-button', () => {
   const defaultMigration: Rule = () => {
-    const { importPaths, comments, types, selectors } = RADIO_BUTTON_MIGRATIONS;
+    const { importPaths, comments, types, selectors, customRules } = RADIO_BUTTON_MIGRATIONS;
     return chain([
       createImportPathMigrationRule(importPaths),
       createCommentMigrationRule(comments),
       createTypeMigrationRule(types),
       createTemplateSelectorMigrationRule(selectors),
-      radioGroupOrientationMigration(),
+      ...customRules!.map((rule) => rule()),
     ]);
   };
 
