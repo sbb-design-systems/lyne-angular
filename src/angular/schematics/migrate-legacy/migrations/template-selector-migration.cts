@@ -106,7 +106,7 @@ export function createTemplateSelectorMigrationRule(
       if (isSelfClosing) {
         // Remove the slash and the blanks in front of it: `<a href="x" />` → `<a href="x">`.
         const slash = startTag.lastIndexOf('/');
-        const blanks = /[ \t]*$/.exec(startTag.slice(0, slash))![0].length;
+        const blanks = /(?<=\S)[ \t]*$/.exec(startTag.slice(0, slash))?.[0].length ?? 0;
         edits.push({
           offset: baseOffset + startSpan.start.offset + slash - blanks,
           index: nextIndex(),
