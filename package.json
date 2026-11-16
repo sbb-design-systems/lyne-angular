@@ -68,7 +68,7 @@
     "@types/node": "24.19.2",
     "@vitest/browser-playwright": "5.1.0",
     "@vitest/coverage-v8": "5.1.0",
-    "angular-eslint": "22.6.0",
+    "angular-eslint": "22.7.0",
     "custom-elements-manifest": "2.1.0",
     "eslint": "10.15.0",
     "eslint-config-prettier": "10.1.8",
