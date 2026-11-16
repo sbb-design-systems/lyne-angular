@@ -28,6 +28,18 @@ describe('sbb-sidebar', () => {
       expect(component).toBeDefined();
     });
 
+    it('should support two-way binding for opened', async () => {
+      await fixture.whenStable();
+
+      expect(component.opened).toBe(true);
+
+      sidebarElement.close();
+      expect(component.opened).toBe(false);
+
+      sidebarElement.open();
+      expect(component.opened).toBe(true);
+    });
+
     it('should have animation deferred', async () => {
       expect(containerElement.classList.contains('sbb-disable-animation')).toBe(true);
       await waitForLitRender(sidebarElement);
@@ -59,13 +71,15 @@ describe('sbb-sidebar', () => {
 @Component({
   template: `<div class="sbb-enable-animation">
     <sbb-sidebar-container>
-      <sbb-sidebar [opened]="true"></sbb-sidebar>
+      <sbb-sidebar [(opened)]="opened"></sbb-sidebar>
       <sbb-sidebar-content (transitionend)="transitionend()"></sbb-sidebar-content>
     </sbb-sidebar-container>
   </div>`,
   imports: [SbbSidebarModule],
 })
 class TestComponent {
+  opened = true;
+
   transitionend() {
     throw new Error('transitionend event should not be triggered');
   }

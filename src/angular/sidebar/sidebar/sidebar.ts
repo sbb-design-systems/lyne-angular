@@ -13,7 +13,7 @@ import {
   type SbbSidebarContainerElement,
   SbbSidebarElement,
 } from '@sbb-esta/lyne-elements/sidebar.pure.js';
-import { fromEvent, NEVER } from 'rxjs';
+import { fromEvent, map, merge, NEVER } from 'rxjs';
 
 /**
  * This component corresponds to a sidebar that can be opened on the sidebar container.
@@ -79,6 +79,17 @@ export class SbbSidebar implements OnInit {
   public get opened(): boolean {
     return this.#element.nativeElement.opened;
   }
+
+  /**
+   * Emits whenever the opened state changes.
+   */
+  public openedChangeOutput: OutputRef<boolean> = outputFromObservable(
+    merge(
+      fromEvent(this.#element.nativeElement, 'beforeopen').pipe(map(() => true)),
+      fromEvent(this.#element.nativeElement, 'beforeclose').pipe(map(() => false)),
+    ),
+    { alias: 'openedChange' },
+  );
 
   /**
    * Whether the sidebar should focus the first focusable element automatically when opened.
