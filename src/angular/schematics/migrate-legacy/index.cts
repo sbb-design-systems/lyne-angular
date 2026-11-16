@@ -17,6 +17,7 @@ import { BUTTON_MIGRATIONS } from './modules/button.cjs';
 import { CAPTCHA_MIGRATIONS } from './modules/captcha.cjs';
 import { CHECKBOX_PANEL_MIGRATIONS } from './modules/checkbox-panel.cjs';
 import { CHECKBOX_MIGRATIONS } from './modules/checkbox.cjs';
+import { RADIO_BUTTON_PANEL_MIGRATIONS } from './modules/radio-button-panel.cjs';
 import { RADIO_BUTTON_MIGRATIONS } from './modules/radio-button.cjs';
 import { TAG_MIGRATIONS } from './modules/tag.cjs';
 import { TEXTAREA_MIGRATIONS } from './modules/textarea.cjs';
@@ -54,7 +55,7 @@ const MODULE_REGISTRY = {
   // 'pagination',
   // 'processflow',
   'radio-button': RADIO_BUTTON_MIGRATIONS,
-  // 'radio-button-panel',
+  'radio-button-panel': RADIO_BUTTON_PANEL_MIGRATIONS,
   // 'search',
   // 'select',
   // 'sidebar',
