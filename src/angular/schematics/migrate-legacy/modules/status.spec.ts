@@ -5,15 +5,15 @@ import { createAttributeMigrationRule } from '../migrations/attribute-migration.
 import { createImportPathMigrationRule } from '../migrations/import-path-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { STATUS_MIGRATIONS, statusMessageMigration } from './status.cjs';
+import { STATUS_MIGRATIONS } from './status.cjs';
 
 describe('sbb-status', () => {
   const defaultMigration: Rule = () => {
-    const { importPaths, attributes } = STATUS_MIGRATIONS;
+    const { importPaths, attributes, customRules } = STATUS_MIGRATIONS;
     return chain([
       createImportPathMigrationRule(importPaths),
       createAttributeMigrationRule(attributes),
-      statusMessageMigration(),
+      ...customRules!.map((rule) => rule()),
     ]);
   };
 
