@@ -6,12 +6,10 @@ import type { CommentDelimiters } from '../../comment-utils.cjs';
 import {
   formatComment,
   getCommentLinesAbove,
-  getIndent,
-  getLineStart,
   HTML_DELIMITERS,
   TS_DELIMITERS,
 } from '../../comment-utils.cjs';
-import type { MigrationEdit, MigrationScope } from '../../utils.cjs';
+import { getIndent, getLineStart, MigrationEdit, MigrationScope } from '../../utils.cjs';
 import type {
   CommentMigration,
   ElementCommentMigration,
