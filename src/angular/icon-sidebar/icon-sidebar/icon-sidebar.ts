@@ -20,7 +20,7 @@ export class SbbIconSidebar {
   #ngZone: NgZone = inject(NgZone);
 
   /**
-   * Background color of the icon sidebar. Either `white` or `milk`. *
+   * Background color of the icon sidebar. Either `white` or `milk`.
    */
   @Input()
   public set color(value: 'white' | 'milk') {

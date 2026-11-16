@@ -5,6 +5,6 @@ export * from './tooltip-trigger';
 export * from './tooltip.module';
 
 export {
-  /** @deprecated Use SbbTooltipTrigger instead **/
+  /** @deprecated Use SbbTooltipTrigger instead */
   SbbTooltipTrigger as SbbTooltipDirective,
 };
