@@ -9,18 +9,18 @@ import { createTemplateSelectorMigrationRule } from '../migrations/template-sele
 import { createTypeMigrationRule } from '../migrations/type-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { SIDEBAR_MIGRATIONS, iconSidebarItemMigration } from './sidebar.cjs';
+import { SIDEBAR_MIGRATIONS } from './sidebar.cjs';
 
 describe('sbb-sidebar', () => {
   const defaultMigration: Rule = () => {
-    const { importPaths, comments, types, attributes, selectors } = SIDEBAR_MIGRATIONS;
+    const { importPaths, comments, types, attributes, selectors, customRules } = SIDEBAR_MIGRATIONS;
     return chain([
       createImportPathMigrationRule(importPaths),
       createCommentMigrationRule(comments),
       createTypeMigrationRule(types),
       createTemplateSelectorMigrationRule(selectors),
       createAttributeMigrationRule(attributes),
-      iconSidebarItemMigration(),
+      ...customRules!.map((rule) => rule()),
     ]);
   };
 
