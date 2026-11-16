@@ -30,19 +30,13 @@ const comments: CommentMigration[] = [
     message: "FIXME: 'triggerSvgIcon' has no counterpart in Lyne.",
   },
   {
-    selector: 'sbb-sidebar[opened]',
-    // Exclude the (opened) output.
-    filter: (element) =>
-      [...element.attributes, ...element.inputs].some((n) => n.name === 'opened'),
-    message: "WARNING: 'opened' only sets the initial state now and is not kept in sync.",
-  },
-  {
     selector: 'sbb-icon-sidebar[expanded]',
     message: "FIXME: 'expanded' has no counterpart in Lyne.",
   },
   {
     selector: 'sbb-icon-sidebar[position]',
-    message: "FIXME: 'position' has no counterpart in Lyne.",
+    message:
+      "FIXME: 'position' has no counterpart in Lyne. The position depends from the DOM order.",
   },
 ];
 
