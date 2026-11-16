@@ -33,6 +33,13 @@ export const DEPRECATED_DATEPICKER_TYPES = [
 export const DEPRECATED_CALENDAR_ATTRIBUTES = ['dateRange', 'dateClass'];
 export const DEPRECATED_CALENDAR_COMPONENTS = ['sbb-calendar-header', 'sbb-calendar-body'];
 
+/**
+ * Custom rule for datepicker migration:
+ * - moves the inner `sbb-date-input` as sibling of the `sbb-datepicker`;
+ * - adds the `sbb-datepicker-previous` and `sbb-datepicker-next` components if the `arrow` property is set on the datepicker;
+ * - adds the `sbb-datepicker-toggle` component if the `toggle` property is set on the datepicker;
+ * - turns off the associated components if the `disabled` property is set on datepicker.
+ */
 function createDatepickerMigrationRule(scope?: MigrationScope): Rule {
   const selector = parseSelector('sbb-datepicker');
 
