@@ -13,6 +13,10 @@ function fail(message: string) {
   process.exit(1);
 }
 
+function moduleMigrationsName(moduleName: string): string {
+  return moduleName.toUpperCase().replaceAll('-', '_').concat('_MIGRATIONS');
+}
+
 const args = process.argv.slice(2);
 if (args.length !== 1) {
   fail(
@@ -60,7 +64,7 @@ const attributes: AttributeMigration[] = [
   // TODO
 ];
 
-export const ${module.toUpperCase()}_MIGRATIONS: Partial<ModuleMigrations> = {
+export const ${moduleMigrationsName(module)}: Partial<ModuleMigrations> = {
   importPaths,
   comments,
   types,
@@ -81,11 +85,11 @@ import { createTemplateSelectorMigrationRule } from '../migrations/template-sele
 import { createTypeMigrationRule } from '../migrations/type-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { ${module.toUpperCase()}_MIGRATIONS } from './${module}.cjs';
+import { ${moduleMigrationsName(module)} } from './${module}.cjs';
 
 describe('sbb-${module}', () => {
   const defaultMigration: Rule = () => {
-    const { importPaths, comments, types, attributes, selectors } = ${module.toUpperCase()}_MIGRATIONS;
+    const { importPaths, comments, types, attributes, selectors } = ${moduleMigrationsName(module)};
     return chain([
       createImportPathMigrationRule(importPaths),
       createCommentMigrationRule(comments),
