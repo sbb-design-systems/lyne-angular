@@ -5,6 +5,7 @@ import type {
   ModuleMigrations,
 } from '../common.cjs';
 
+// TODO: possibly adapt after merge of https://github.com/sbb-design-systems/lyne-components/issues/5405
 export const DEPRECATED_BADGE_ATTRIBUTES = [
   'sbbBadgeDescription',
   'sbbBadgeDisabled',
