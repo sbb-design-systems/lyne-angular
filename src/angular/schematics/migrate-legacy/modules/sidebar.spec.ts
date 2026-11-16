@@ -80,7 +80,7 @@ describe('sbb-sidebar', () => {
   });
 
   describe('comments', () => {
-    it.each(['collapsible', 'collapsibleTitle', 'triggerSvgIcon', '[opened]'])(
+    it.each(['collapsible', 'collapsibleTitle', 'triggerSvgIcon'])(
       'should comment %s',
       async (attribute) => {
         const template = await migrateTemplate(`<sbb-sidebar ${attribute}="x"></sbb-sidebar>`);

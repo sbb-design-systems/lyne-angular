@@ -47,7 +47,7 @@ describe('sbb-tabs', () => {
         ].join('\n'),
       );
 
-      expect(content).toContain('FIXME: the event changed');
+      expect(content).toContain('FIXME: the `SbbTabChangeEvent` event');
     });
   });
 
