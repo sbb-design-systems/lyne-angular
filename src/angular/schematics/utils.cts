@@ -253,6 +253,26 @@ export function visitElements(nodes: TmplAstNode[], cb: (el: TmplAstElement) => 
       cb(node);
       visitElements(node.children, cb);
     } else if (node instanceof TmplAstTemplate) {
+      // An explicit `<ng-template>` (without structural directive) is reported as an element.
+      if (node.tagName === 'ng-template' && !node.templateAttrs.length) {
+        cb(
+          new TmplAstElement(
+            node.tagName,
+            node.attributes,
+            node.inputs,
+            node.outputs,
+            node.directives,
+            node.children,
+            node.references,
+            node.isSelfClosing,
+            node.sourceSpan,
+            node.startSourceSpan,
+            node.endSourceSpan,
+            false,
+            node.i18n,
+          ),
+        );
+      }
       // Structural-directive host: *ngIf, *ngFor, *ngSwitch, etc.
       visitElements(node.children, cb);
     } else if (node instanceof TmplAstIfBlock) {
@@ -286,4 +306,15 @@ export function visitElements(nodes: TmplAstNode[], cb: (el: TmplAstElement) => 
       }
     }
   }
+}
+/** Returns the offset of the first character of the line containing `offset`. */
+export function getLineStart(text: string, offset: number): number {
+  return Math.max(0, text.lastIndexOf('\n', offset - 1) + 1);
+}
+
+/** Returns the leading whitespace of the line starting at `lineStart`. */
+export function getIndent(text: string, lineStart: number): string {
+  const lineEnd = text.indexOf('\n', lineStart);
+  const line = text.slice(lineStart, lineEnd === -1 ? text.length : lineEnd);
+  return line.match(/^\s*/)?.[0] ?? '';
 }
