@@ -94,6 +94,14 @@ describe('sbb-tooltip', () => {
       component.trigger().position = null;
       expect(triggerEl(fixture).hasAttribute('sbb-tooltip-position')).toBe(false);
     });
+
+    it('should set sbb-tooltip-disabled attribute on the trigger element', () => {
+      component.trigger().disabled = true;
+      expect(triggerEl(fixture)).toHaveAttribute('sbb-tooltip-disabled');
+
+      component.trigger().disabled = false;
+      expect(triggerEl(fixture)).not.toHaveAttribute('sbb-tooltip-disabled');
+    });
   });
 
   describe('dynamic tooltip assignment', () => {

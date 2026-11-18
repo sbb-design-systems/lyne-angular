@@ -1,4 +1,11 @@
-import { Directive, Input, ElementRef, inject, numberAttribute } from '@angular/core';
+import {
+  booleanAttribute,
+  Directive,
+  ElementRef,
+  inject,
+  Input,
+  numberAttribute,
+} from '@angular/core';
 import { SbbTriggerBase } from '@sbb-esta/lyne-angular/core';
 import { SbbTooltipElement } from '@sbb-esta/lyne-elements/tooltip.pure.js';
 
@@ -62,6 +69,14 @@ export class SbbTooltipTrigger extends SbbTriggerBase<SbbTooltip> {
   }
   public get position(): string | null {
     return this.#elementRef.nativeElement.getAttribute('sbb-tooltip-position');
+  }
+
+  @Input({ alias: 'sbb-tooltip-disabled', transform: booleanAttribute })
+  public set disabled(value: boolean) {
+    this.#elementRef.nativeElement.toggleAttribute('sbb-tooltip-disabled', value);
+  }
+  public get disabled(): boolean {
+    return this.#elementRef.nativeElement.hasAttribute('sbb-tooltip-disabled');
   }
 
   #assignAttribute(name: string, value: string | null): void {
