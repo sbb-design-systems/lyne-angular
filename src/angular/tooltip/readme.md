@@ -25,11 +25,23 @@ The attribute's value is the tooltip's rendered message
 
 If the component is used this way, it's also possible to set the open and close delays
 using the `sbb-tooltip-open-delay` and the `sbb-tooltip-close-delay` attributes.
+These trigger attributes also configure an explicitly connected `<sbb-tooltip>` instance.
 
 ```html
-<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-open-delay="250" sbb-tooltip-close-delay="250"
-  >Button</sbb-button
+<sbb-button
+  sbb-tooltip="Tooltip message"
+  sbb-tooltip-open-delay="250"
+  sbb-tooltip-close-delay="250"
 >
+  Button
+</sbb-button>
+```
+
+To disable the tooltip, you can set the `sbb-tooltip-disabled` attribute on the trigger element.
+When disabled, the tooltip will not open.
+
+```html
+<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-disabled>Button</sbb-button>
 ```
 
 ## Interactions
