@@ -8,7 +8,11 @@ import {
   type OutputRef,
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
+import {
+  booleanAttribute,
+  commaSeparatedListAttribute,
+  internalOutputFromObservable,
+} from '@sbb-esta/lyne-angular/core';
 import { SbbTooltipElement } from '@sbb-esta/lyne-elements/tooltip.pure.js';
 import { NEVER, fromEvent } from 'rxjs';
 
@@ -52,7 +56,7 @@ export class SbbTooltip {
    * Global configuration is used as default, if not set.
    */
   @Input({ transform: numberAttribute })
-  public set openDelay(value: number) {
+  public set openDelay(value: number | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.openDelay = value));
   }
   public get openDelay(): number {
@@ -64,7 +68,7 @@ export class SbbTooltip {
    * Global configuration is used as default, if not set.
    */
   @Input({ transform: numberAttribute })
-  public set closeDelay(value: number) {
+  public set closeDelay(value: number | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.closeDelay = value));
   }
   public get closeDelay(): number {
@@ -92,6 +96,17 @@ export class SbbTooltip {
   }
   public get disabled(): boolean {
     return this.#element.nativeElement.disabled;
+  }
+
+  /**
+   * TBD
+   */
+  @Input({ transform: commaSeparatedListAttribute })
+  public set positions(value: string[] | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.positions = value));
+  }
+  public get positions(): string[] | null {
+    return this.#element.nativeElement.positions;
   }
 
   /**

@@ -50,6 +50,7 @@ describe('sbb-tooltip', () => {
     it('should set sbb-tooltip-open-delay attribute on the trigger element', () => {
       component.trigger().openDelay = 300;
       expect(triggerEl(fixture).getAttribute('sbb-tooltip-open-delay')).toBe('300');
+      expect(component.tooltip().openDelay).toBe(300);
     });
 
     it('should read back openDelay from attribute', () => {
@@ -61,11 +62,13 @@ describe('sbb-tooltip', () => {
       component.trigger().openDelay = 300;
       component.trigger().openDelay = null;
       expect(triggerEl(fixture).hasAttribute('sbb-tooltip-open-delay')).toBe(false);
+      expect(component.tooltip().openDelay).toBe(0);
     });
 
     it('should set sbb-tooltip-close-delay attribute on the trigger element', () => {
       component.trigger().closeDelay = 500;
       expect(triggerEl(fixture).getAttribute('sbb-tooltip-close-delay')).toBe('500');
+      expect(component.tooltip().closeDelay).toBe(500);
     });
 
     it('should read back closeDelay from attribute', () => {
@@ -77,11 +80,13 @@ describe('sbb-tooltip', () => {
       component.trigger().closeDelay = 500;
       component.trigger().closeDelay = null;
       expect(triggerEl(fixture).hasAttribute('sbb-tooltip-close-delay')).toBe(false);
+      expect(component.tooltip().closeDelay).toBe(0);
     });
 
     it('should set sbb-tooltip-position attribute on the trigger element', () => {
       component.trigger().position = 'block-start';
       expect(triggerEl(fixture).getAttribute('sbb-tooltip-position')).toBe('block-start');
+      expect(component.tooltip().positions).toEqual(['block-start']);
     });
 
     it('should read back position from attribute', () => {
@@ -93,14 +98,19 @@ describe('sbb-tooltip', () => {
       component.trigger().position = 'block-start';
       component.trigger().position = null;
       expect(triggerEl(fixture).hasAttribute('sbb-tooltip-position')).toBe(false);
+      expect(component.tooltip().positions).toEqual(null);
     });
 
-    it('should set sbb-tooltip-disabled attribute on the trigger element', () => {
+    it('should disable the referenced tooltip when the trigger is disabled', () => {
       component.trigger().disabled = true;
       expect(triggerEl(fixture)).toHaveAttribute('sbb-tooltip-disabled');
+      expect(component.tooltip().disabled).toBe(true);
+      component.tooltip().open();
+      expect(component.tooltip().isOpen).toBe(false);
 
       component.trigger().disabled = false;
       expect(triggerEl(fixture)).not.toHaveAttribute('sbb-tooltip-disabled');
+      expect(component.tooltip().disabled).toBe(false);
     });
   });
 
@@ -113,6 +123,21 @@ describe('sbb-tooltip', () => {
       component = fixture.componentInstance;
       fixture.detectChanges();
       await waitForLitRender(fixture.nativeElement);
+    });
+
+    it('applies trigger options when the tooltip reference is assigned later', () => {
+      component.trigger().openDelay = 300;
+      component.trigger().closeDelay = 500;
+      component.trigger().position = 'block-start';
+      component.trigger().disabled = true;
+
+      component.tooltipValue.set(component.tooltipRef());
+      fixture.detectChanges();
+
+      expect(component.tooltipRef().openDelay).toBe(300);
+      expect(component.tooltipRef().closeDelay).toBe(500);
+      expect(component.tooltipRef().disabled).toBe(true);
+      expect(component.tooltipRef().positions).toEqual(['block-start']);
     });
 
     it('should switch from SbbTooltip instance to string', () => {
