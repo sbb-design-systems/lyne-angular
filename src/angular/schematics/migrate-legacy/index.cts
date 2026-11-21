@@ -18,6 +18,7 @@ import { CAPTCHA_MIGRATIONS } from './modules/captcha.cjs';
 import { CHECKBOX_PANEL_MIGRATIONS } from './modules/checkbox-panel.cjs';
 import { CHECKBOX_MIGRATIONS } from './modules/checkbox.cjs';
 import { DATEPICKER_MIGRATIONS } from './modules/datepicker.cjs';
+import { DIALOG_MIGRATIONS } from './modules/dialog.cjs';
 import { SIDEBAR_MIGRATIONS } from './modules/sidebar.cjs';
 import { STATUS_MIGRATIONS } from './modules/status.cjs';
 import { TABS_MIGRATIONS } from './modules/tabs.cjs';
@@ -43,7 +44,7 @@ const MODULE_REGISTRY = {
   'checkbox-panel': CHECKBOX_PANEL_MIGRATIONS,
   // 'chips',
   datepicker: DATEPICKER_MIGRATIONS,
-  // 'dialog',
+  dialog: DIALOG_MIGRATIONS,
   // 'file-selector',
   // 'form-field',
   // 'header-lean',
