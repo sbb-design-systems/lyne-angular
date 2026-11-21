@@ -1,5 +1,12 @@
-import { Directive, Input, ElementRef, inject, numberAttribute } from '@angular/core';
-import { SbbTriggerBase } from '@sbb-esta/lyne-angular/core';
+import {
+  booleanAttribute,
+  Directive,
+  ElementRef,
+  inject,
+  Input,
+  numberAttribute,
+} from '@angular/core';
+import { commaSeparatedListAttribute, SbbTriggerBase } from '@sbb-esta/lyne-angular/core';
 import { SbbTooltipElement } from '@sbb-esta/lyne-elements/tooltip.pure.js';
 
 import { SbbTooltip } from './tooltip';
@@ -15,11 +22,16 @@ export class SbbTooltipTrigger extends SbbTriggerBase<SbbTooltip> {
 
   #elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
+  /**
+   * The text for an inline tooltip or a reference to an explicit `SbbTooltip` instance.
+   * Set to `null` to remove the tooltip assignment.
+   */
   @Input('sbbTooltip')
   public set tooltip(value: string | SbbTooltip | null) {
     if (value instanceof SbbTooltip) {
       this.referenceElement = value;
       this.#elementRef.nativeElement.removeAttribute('sbb-tooltip');
+      this.#applyOptions();
     } else {
       this.referenceElement = null;
       this.#assignAttribute('sbb-tooltip', value);
@@ -40,28 +52,69 @@ export class SbbTooltipTrigger extends SbbTriggerBase<SbbTooltip> {
     this.tooltip = value;
   }
 
+  /**
+   * The delay in milliseconds before the tooltip opens in response to a trigger interaction.
+   */
   @Input({ alias: 'sbb-tooltip-open-delay', transform: numberAttribute })
   public set openDelay(value: number | null) {
     this.#assignNumberAttribute('sbb-tooltip-open-delay', value);
+    if (this.referenceElement) {
+      this.referenceElement.openDelay = value;
+    }
   }
   public get openDelay(): number {
-    return Number(this.#elementRef.nativeElement.getAttribute('sbb-tooltip-open-delay'));
+    return this.referenceElement
+      ? this.referenceElement.openDelay
+      : Number(this.#elementRef.nativeElement.getAttribute('sbb-tooltip-open-delay'));
   }
 
+  /**
+   * The delay in milliseconds before the tooltip closes in response to a trigger interaction.
+   */
   @Input({ alias: 'sbb-tooltip-close-delay', transform: numberAttribute })
   public set closeDelay(value: number | null) {
     this.#assignNumberAttribute('sbb-tooltip-close-delay', value);
+    if (this.referenceElement) {
+      this.referenceElement.closeDelay = value;
+    }
   }
   public get closeDelay(): number {
-    return Number(this.#elementRef.nativeElement.getAttribute('sbb-tooltip-close-delay'));
+    return this.referenceElement
+      ? this.referenceElement.closeDelay
+      : Number(this.#elementRef.nativeElement.getAttribute('sbb-tooltip-close-delay'));
   }
 
-  @Input({ alias: 'sbb-tooltip-position' })
-  public set position(value: string | null) {
-    this.#assignAttribute('sbb-tooltip-position', value);
+  /**
+   * The preferred tooltip position followed by fallback positions, as a comma-separated
+   * list or an array.
+   */
+  @Input({ alias: 'sbb-tooltip-position', transform: commaSeparatedListAttribute })
+  public set position(value: string | string[] | null) {
+    const positionString = Array.isArray(value) ? value.join(', ') : value;
+    this.#assignAttribute('sbb-tooltip-position', positionString);
+
+    if (this.referenceElement) {
+      this.referenceElement.positions = typeof value === 'string' ? [value] : value;
+    }
   }
-  public get position(): string | null {
-    return this.#elementRef.nativeElement.getAttribute('sbb-tooltip-position');
+  public get position(): string | string[] | null {
+    return this.referenceElement
+      ? this.referenceElement.positions
+      : this.#elementRef.nativeElement.getAttribute('sbb-tooltip-position');
+  }
+
+  /** Whether the tooltip is prevented from opening. */
+  @Input({ alias: 'sbb-tooltip-disabled', transform: booleanAttribute })
+  public set disabled(value: boolean) {
+    this.#elementRef.nativeElement.toggleAttribute('sbb-tooltip-disabled', value);
+    if (this.referenceElement) {
+      this.referenceElement.disabled = value;
+    }
+  }
+  public get disabled(): boolean {
+    return this.referenceElement
+      ? this.referenceElement.disabled
+      : this.#elementRef.nativeElement.hasAttribute('sbb-tooltip-disabled');
   }
 
   #assignAttribute(name: string, value: string | null): void {
@@ -77,6 +130,31 @@ export class SbbTooltipTrigger extends SbbTriggerBase<SbbTooltip> {
       this.#elementRef.nativeElement.setAttribute(name, String(value));
     } else {
       this.#elementRef.nativeElement.removeAttribute(name);
+    }
+  }
+
+  #applyOptions(): void {
+    if (!this.referenceElement) {
+      return;
+    }
+    const element = this.#elementRef.nativeElement;
+    if (element.hasAttribute('sbb-tooltip-open-delay')) {
+      this.referenceElement.openDelay = numberAttribute(
+        element.getAttribute('sbb-tooltip-open-delay'),
+      );
+    }
+    if (element.hasAttribute('sbb-tooltip-close-delay')) {
+      this.referenceElement.closeDelay = numberAttribute(
+        element.getAttribute('sbb-tooltip-close-delay'),
+      );
+    }
+    if (element.hasAttribute('sbb-tooltip-position')) {
+      this.referenceElement.positions = commaSeparatedListAttribute(
+        element.getAttribute('sbb-tooltip-position'),
+      );
+    }
+    if (element.hasAttribute('sbb-tooltip-disabled')) {
+      this.referenceElement.disabled = true;
     }
   }
 }
