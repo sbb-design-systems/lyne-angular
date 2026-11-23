@@ -64,7 +64,6 @@ describe('sbb-tooltip', () => {
       ['<span sbbTooltip="a" [sbbTooltipClass]="c"></span>', 'sbbTooltipClass'],
       ['<span sbbTooltip="a" sbbTooltipPanelClass="c"></span>', 'sbbTooltipPanelClass'],
       ['<span sbbTooltip="a" sbbTooltipTouchGestures="auto"></span>', 'sbbTooltipTouchGestures'],
-      ['<span sbbTooltip="a" [sbbTooltipDisabled]="d"></span>', 'sbbTooltipDisabled'],
       ['<span sbbTooltip="a" sbbTooltipPosition="above"></span>', 'position'],
       ['<sbb-tooltip position="above">A</sbb-tooltip>', 'position'],
       ['<sbb-tooltip disabled>A</sbb-tooltip>', 'disabled'],
@@ -86,6 +85,12 @@ describe('sbb-tooltip', () => {
         ),
       ).toBe(
         '<span sbbTooltip="a" sbb-tooltip-open-delay="1" [sbb-tooltip-close-delay]="2"></span>',
+      );
+    });
+
+    it('should rename sbbTooltipDisabled', async () => {
+      expect(await migrateTemplate('<span sbbTooltip="a" [sbbTooltipDisabled]="d"></span>')).toBe(
+        '<span sbbTooltip="a" [sbb-tooltip-disabled]="d"></span>',
       );
     });
 

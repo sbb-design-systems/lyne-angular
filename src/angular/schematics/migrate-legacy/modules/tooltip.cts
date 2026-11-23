@@ -42,10 +42,6 @@ const comments: CommentMigration[] = [
     message: 'FIXME: the `sbbTooltipTouchGestures` input does not exist in Lyne.',
   },
   {
-    selector: '[sbbTooltipDisabled]',
-    message: 'FIXME: the `sbbTooltipDisabled` input does not exist in Lyne.',
-  },
-  {
     selector: 'sbb-tooltip[disabled]',
     message: 'FIXME: the `disabled` input does not exist in Lyne.',
   },
@@ -81,6 +77,11 @@ const attributes: AttributeMigration[] = [
     selector: '*[sbbTooltip]',
     attribute: 'sbbTooltipHideDelay',
     replaceWith: 'sbb-tooltip-close-delay',
+  },
+  {
+    selector: '*[sbbTooltip]',
+    attribute: 'sbbTooltipDisabled',
+    replaceWith: 'sbb-tooltip-disabled',
   },
 ];
 
