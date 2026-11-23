@@ -23,6 +23,7 @@ import { SEARCH_MIGRATIONS } from './modules/search.cjs';
 import { SELECT_MIGRATIONS } from './modules/select.cjs';
 import { SIDEBAR_MIGRATIONS } from './modules/sidebar.cjs';
 import { STATUS_MIGRATIONS } from './modules/status.cjs';
+import { TABLE_MIGRATIONS } from './modules/table.cjs';
 import { TABS_MIGRATIONS } from './modules/tabs.cjs';
 import { TAG_MIGRATIONS } from './modules/tag.cjs';
 import { TEXTAREA_MIGRATIONS } from './modules/textarea.cjs';
@@ -65,7 +66,7 @@ const MODULE_REGISTRY = {
   select: SELECT_MIGRATIONS,
   sidebar: SIDEBAR_MIGRATIONS,
   status: STATUS_MIGRATIONS,
-  // 'table',
+  table: TABLE_MIGRATIONS,
   tabs: TABS_MIGRATIONS,
   tag: TAG_MIGRATIONS,
   textarea: TEXTAREA_MIGRATIONS,
