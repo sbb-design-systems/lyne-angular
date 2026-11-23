@@ -25,7 +25,6 @@ The attribute's value is the tooltip's rendered message
 
 If the component is used this way, it's also possible to set the open and close delays
 using the `sbb-tooltip-open-delay` and the `sbb-tooltip-close-delay` attributes.
-These trigger attributes also configure an explicitly connected `<sbb-tooltip>` instance.
 
 ```html
 <sbb-button
@@ -38,8 +37,7 @@ These trigger attributes also configure an explicitly connected `<sbb-tooltip>` 
 ```
 
 To disable the tooltip, you can set the `sbb-tooltip-disabled` attribute on the trigger element.
-When disabled, the tooltip will not open, including when connected to an explicit `<sbb-tooltip>`
-instance.
+When disabled, the tooltip will not open.
 
 ```html
 <sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-disabled>Button</sbb-button>
@@ -91,8 +89,7 @@ By default, it appears above the trigger element and, if there is insufficient s
 
 ### Attribute usage
 
-You can configure the position from the trigger by setting the `sbb-tooltip-position` attribute,
-both for attribute usage and when connected to an explicit `<sbb-tooltip>` instance.
+When using the `sbb-tooltip` attribute, you can configure the position by setting the `sbb-tooltip-position` attribute.
 The value of the attribute is a comma-separated list of positions.
 
 ```html
