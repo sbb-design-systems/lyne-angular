@@ -92,7 +92,8 @@ describe('sbb-tooltip', () => {
 
     it('should read back positions from attribute', () => {
       component.trigger().positions = 'block-start';
-      expect(component.trigger().positions).toBe('block-start');
+      expect(component.trigger().positions).toEqual(['block-start']);
+      expect(component.trigger().position).toEqual('block-start');
     });
 
     it('should remove sbb-tooltip-positions attribute when set to null', () => {
