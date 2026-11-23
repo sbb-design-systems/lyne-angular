@@ -1,5 +1,12 @@
 # Changelog
 
+## [22.12.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.11.0...v22.12.0) (2026-11-23)
+
+
+### Features
+
+* **tooltip:** add `sbb-tooltip-disabled` handling to tooltip-trigger directive ([#658](https://github.com/sbb-design-systems/lyne-angular/issues/658)) ([b8e598c](https://github.com/sbb-design-systems/lyne-angular/commit/b8e598cfbfcc229e1d9cf2486ec3fb0d6ba0b30e))
+
 ## [22.11.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.10.1...v22.11.0) (2026-11-16)
 
 
