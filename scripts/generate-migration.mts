@@ -4,9 +4,11 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'fs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const modulesDir = join(root, 'src/angular/schematics/migrate-legacy/modules');
+const migrateLegacyDir = join(root, 'src/angular/schematics/migrate-legacy');
+const modulesDir = join(migrateLegacyDir, 'modules');
 
 function fail(message: string) {
   console.error(message);
@@ -125,6 +127,21 @@ if (existing.length) {
 
 mkdirSync(modulesDir, { recursive: true });
 for (const [file, content] of files) {
+  // Create files
   writeFileSync(file, content, { flag: 'wx' });
   console.log(`Created ${relative(root, file)}`);
+
+  // Update the index; linting is needed to fix import sorting and unneeded quotation mark on the module name.
+  const indexPath = join(migrateLegacyDir, 'index.cts');
+  const commentedModuleKey = `// '${module}'`;
+  let indexContent = readFileSync(indexPath, 'utf8');
+  if (indexContent.includes(commentedModuleKey)) {
+    const moduleImport = `import { ${moduleMigrationsName(module)} } from './modules/${module}.cjs';\n`;
+    indexContent = moduleImport.concat(indexContent.padStart(indexContent.length, ''));
+    indexContent = indexContent.replaceAll(
+      commentedModuleKey,
+      `'${module}': ${moduleMigrationsName(module)}`,
+    );
+    writeFileSync(indexPath, indexContent, 'utf8');
+  }
 }

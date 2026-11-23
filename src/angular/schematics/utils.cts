@@ -261,7 +261,6 @@ export function visitElements(nodes: TmplAstNode[], cb: (el: TmplAstElement) => 
             node.attributes,
             node.inputs,
             node.outputs,
-            node.directives,
             node.children,
             node.references,
             node.isSelfClosing,
