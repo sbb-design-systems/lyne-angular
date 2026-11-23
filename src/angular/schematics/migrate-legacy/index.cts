@@ -19,6 +19,7 @@ import { CHECKBOX_PANEL_MIGRATIONS } from './modules/checkbox-panel.cjs';
 import { CHECKBOX_MIGRATIONS } from './modules/checkbox.cjs';
 import { DATEPICKER_MIGRATIONS } from './modules/datepicker.cjs';
 import { DIALOG_MIGRATIONS } from './modules/dialog.cjs';
+import { SEARCH_MIGRATIONS } from './modules/search.cjs';
 import { SIDEBAR_MIGRATIONS } from './modules/sidebar.cjs';
 import { STATUS_MIGRATIONS } from './modules/status.cjs';
 import { TABS_MIGRATIONS } from './modules/tabs.cjs';
@@ -59,7 +60,7 @@ const MODULE_REGISTRY = {
   // 'processflow',
   // 'radio-button',
   // 'radio-button-panel',
-  // 'search',
+  search: SEARCH_MIGRATIONS,
   // 'select',
   sidebar: SIDEBAR_MIGRATIONS,
   status: STATUS_MIGRATIONS,
