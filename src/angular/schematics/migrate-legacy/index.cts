@@ -19,6 +19,8 @@ import { CHECKBOX_PANEL_MIGRATIONS } from './modules/checkbox-panel.cjs';
 import { CHECKBOX_MIGRATIONS } from './modules/checkbox.cjs';
 import { DATEPICKER_MIGRATIONS } from './modules/datepicker.cjs';
 import { DIALOG_MIGRATIONS } from './modules/dialog.cjs';
+import { RADIO_BUTTON_PANEL_MIGRATIONS } from './modules/radio-button-panel.cjs';
+import { RADIO_BUTTON_MIGRATIONS } from './modules/radio-button.cjs';
 import { SEARCH_MIGRATIONS } from './modules/search.cjs';
 import { SELECT_MIGRATIONS } from './modules/select.cjs';
 import { SIDEBAR_MIGRATIONS } from './modules/sidebar.cjs';
@@ -60,8 +62,8 @@ const MODULE_REGISTRY = {
   // 'notification-toast',
   // 'pagination',
   // 'processflow',
-  // 'radio-button',
-  // 'radio-button-panel',
+  'radio-button': RADIO_BUTTON_MIGRATIONS,
+  'radio-button-panel': RADIO_BUTTON_PANEL_MIGRATIONS,
   search: SEARCH_MIGRATIONS,
   select: SELECT_MIGRATIONS,
   sidebar: SIDEBAR_MIGRATIONS,
