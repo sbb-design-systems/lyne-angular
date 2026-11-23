@@ -105,7 +105,7 @@ export class SbbTooltip {
   public set positions(value: string | string[] | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.positions = value));
   }
-  public get positions(): string[] | null {
+  public get positions(): string[] {
     return this.#element.nativeElement.positions;
   }
 

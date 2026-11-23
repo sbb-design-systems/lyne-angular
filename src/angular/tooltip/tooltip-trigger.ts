@@ -87,19 +87,38 @@ export class SbbTooltipTrigger extends SbbTriggerBase<SbbTooltip> {
   /**
    * The preferred tooltip position followed by fallback positions, as a comma-separated
    * list or an array.
+   * @deprecated Use `positions` / `sbb-tooltip-positions` instead.
    */
   @Input({ alias: 'sbb-tooltip-position' })
   public set position(value: string | string[] | null) {
-    this.#assignAttribute('sbb-tooltip-position', Array.isArray(value) ? value.join(', ') : value);
+    this.positions = value;
+  }
+  public get position(): string | null {
+    return this.positions.join(', ') || null;
+  }
+
+  /**
+   * The preferred tooltip position followed by fallback positions, as a comma-separated
+   * list or an array.
+   */
+  @Input({ alias: 'sbb-tooltip-positions' })
+  public set positions(value: string | string[] | null) {
+    this.#assignAttribute('sbb-tooltip-positions', Array.isArray(value) ? value.join(', ') : value);
 
     if (this.referenceElement) {
       this.referenceElement.positions = value;
     }
   }
-  public get position(): string | string[] | null {
-    return this.referenceElement
-      ? this.referenceElement.positions
-      : this.#elementRef.nativeElement.getAttribute('sbb-tooltip-position');
+  public get positions(): string[] {
+    return (
+      this.referenceElement?.positions ??
+      this.#elementRef.nativeElement
+        .getAttribute('sbb-tooltip-positions')
+        ?.split(',')
+        .map((p) => p.trim())
+        .filter((p) => !!p) ??
+      []
+    );
   }
 
   /** Whether the tooltip is prevented from opening. */
@@ -147,8 +166,13 @@ export class SbbTooltipTrigger extends SbbTriggerBase<SbbTooltip> {
         element.getAttribute('sbb-tooltip-close-delay'),
       );
     }
-    if (element.hasAttribute('sbb-tooltip-position')) {
-      this.referenceElement.positions = element.getAttribute('sbb-tooltip-position');
+    if (
+      element.hasAttribute('sbb-tooltip-positions') ||
+      element.hasAttribute('sbb-tooltip-position')
+    ) {
+      this.referenceElement.positions =
+        element.getAttribute('sbb-tooltip-positions') ??
+        element.getAttribute('sbb-tooltip-position');
     }
     if (element.hasAttribute('sbb-tooltip-disabled')) {
       this.referenceElement.disabled = true;

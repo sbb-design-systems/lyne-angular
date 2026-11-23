@@ -83,9 +83,9 @@ describe('sbb-tooltip', () => {
       expect(component.tooltip().closeDelay).toBe(0);
     });
 
-    it('should set sbb-tooltip-position attribute on the trigger element', () => {
+    it('should set sbb-tooltip-positions attribute on the trigger element', () => {
       component.trigger().position = 'block-start';
-      expect(triggerEl(fixture).getAttribute('sbb-tooltip-position')).toBe('block-start');
+      expect(triggerEl(fixture).getAttribute('sbb-tooltip-positions')).toBe('block-start');
       expect(component.tooltip().positions).toEqual(['block-start']);
     });
 
@@ -94,11 +94,11 @@ describe('sbb-tooltip', () => {
       expect(component.trigger().position).toBe('block-start');
     });
 
-    it('should remove sbb-tooltip-position attribute when set to null', () => {
+    it('should remove sbb-tooltip-positions attribute when set to null', () => {
       component.trigger().position = 'block-start';
       component.trigger().position = null;
-      expect(triggerEl(fixture).hasAttribute('sbb-tooltip-position')).toBe(false);
-      expect(component.tooltip().positions).toEqual(null);
+      expect(triggerEl(fixture).hasAttribute('sbb-tooltip-positions')).toBe(false);
+      expect(component.tooltip().positions).toEqual([]);
     });
 
     it('should disable the referenced tooltip when the trigger is disabled', () => {

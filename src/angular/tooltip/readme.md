@@ -102,11 +102,14 @@ These are used if the `positions` property is not set.
 
 ### Attribute usage
 
-When using the `sbb-tooltip` attribute, you can configure the position by setting the `sbb-tooltip-position` attribute on the trigger element.
+When using the `sbb-tooltip` attribute, you can configure the position by setting the `sbb-tooltip-positions` attribute on the trigger element.
 The value of the attribute is a comma-separated list of positions and is applied to the `positions` property of the created tooltip.
 
 ```html
-<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-position="block-end, block-start, inline-end">
+<sbb-button
+  sbb-tooltip="Tooltip message"
+  sbb-tooltip-positions="block-end, block-start, inline-end"
+>
   Button
 </sbb-button>
 ```
