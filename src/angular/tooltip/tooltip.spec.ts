@@ -2,6 +2,7 @@ import { Component, signal, viewChild } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { SbbButtonModule } from '@sbb-esta/lyne-angular/button';
 import { waitForLitRender } from '@sbb-esta/lyne-elements/core/testing.js';
+import type { SbbTooltipElement } from '@sbb-esta/lyne-elements/tooltip.pure.js';
 import { userEvent } from 'vitest/browser';
 
 import { SbbTooltip } from './tooltip';
@@ -84,19 +85,19 @@ describe('sbb-tooltip', () => {
     });
 
     it('should set sbb-tooltip-positions attribute on the trigger element', () => {
-      component.trigger().position = 'block-start';
+      component.trigger().positions = 'block-start';
       expect(triggerEl(fixture).getAttribute('sbb-tooltip-positions')).toBe('block-start');
       expect(component.tooltip().positions).toEqual(['block-start']);
     });
 
-    it('should read back position from attribute', () => {
-      component.trigger().position = 'block-start';
-      expect(component.trigger().position).toBe('block-start');
+    it('should read back positions from attribute', () => {
+      component.trigger().positions = 'block-start';
+      expect(component.trigger().positions).toBe('block-start');
     });
 
     it('should remove sbb-tooltip-positions attribute when set to null', () => {
-      component.trigger().position = 'block-start';
-      component.trigger().position = null;
+      component.trigger().positions = 'block-start';
+      component.trigger().positions = null;
       expect(triggerEl(fixture).hasAttribute('sbb-tooltip-positions')).toBe(false);
       expect(component.tooltip().positions).toEqual([]);
     });
@@ -111,6 +112,40 @@ describe('sbb-tooltip', () => {
       component.trigger().disabled = false;
       expect(triggerEl(fixture)).not.toHaveAttribute('sbb-tooltip-disabled');
       expect(component.tooltip().disabled).toBe(false);
+    });
+
+    it('should open the referenced tooltip again after re-enabling it', () => {
+      component.trigger().disabled = true;
+      component.tooltip().open();
+      expect(component.tooltip().isOpen).toBe(false);
+
+      component.trigger().disabled = false;
+      component.tooltip().open();
+      expect(component.tooltip().isOpen).toBe(true);
+    });
+
+    it('should forward position array and comma-separated positions to the tooltip', () => {
+      component.trigger().positions = ['block-start', 'inline-end'];
+      expect(triggerEl(fixture).getAttribute('sbb-tooltip-positions')).toBe(
+        'block-start, inline-end',
+      );
+      expect(component.trigger().positions).toEqual(['block-start', 'inline-end']);
+      expect(component.tooltip().positions).toEqual(['block-start', 'inline-end']);
+
+      component.trigger().positions = 'block-end, inline-start';
+      expect(component.tooltip().positions).toEqual(['block-end', 'inline-start']);
+    });
+
+    it('should read values changed directly on the referenced tooltip', () => {
+      component.tooltip().openDelay = 125;
+      component.tooltip().closeDelay = 250;
+      component.tooltip().positions = ['inline-end'];
+      component.tooltip().disabled = true;
+
+      expect(component.trigger().openDelay).toBe(125);
+      expect(component.trigger().closeDelay).toBe(250);
+      expect(component.trigger().positions).toEqual(['inline-end']);
+      expect(component.trigger().disabled).toBe(true);
     });
   });
 
@@ -128,7 +163,7 @@ describe('sbb-tooltip', () => {
     it('applies trigger options when the tooltip reference is assigned later', () => {
       component.trigger().openDelay = 300;
       component.trigger().closeDelay = 500;
-      component.trigger().position = 'block-start';
+      component.trigger().positions = 'block-start';
       component.trigger().disabled = true;
 
       component.tooltipValue.set(component.tooltipRef());
@@ -212,6 +247,31 @@ describe('sbb-tooltip', () => {
     });
   });
 
+  describe('trigger input bindings', () => {
+    it('coerces and forwards bound options to the referenced tooltip', async () => {
+      const fixture = TestBed.createComponent(TestSbbTooltipBindings);
+      fixture.detectChanges();
+      await waitForLitRender(fixture.nativeElement);
+
+      const component = fixture.componentInstance;
+      expect(component.tooltip().openDelay).toBe(100);
+      expect(component.tooltip().closeDelay).toBe(200);
+      expect(component.tooltip().positions).toEqual(['block-start', 'inline-end']);
+      expect(component.tooltip().disabled).toBe(true);
+
+      component.openDelay.set('0');
+      component.closeDelay.set('0');
+      component.positions.set(['block-end', 'inline-start']);
+      component.disabled.set('false');
+      fixture.detectChanges();
+
+      expect(component.tooltip().openDelay).toBe(0);
+      expect(component.tooltip().closeDelay).toBe(0);
+      expect(component.tooltip().positions).toEqual(['block-end', 'inline-start']);
+      expect(component.tooltip().disabled).toBe(false);
+    });
+  });
+
   describe('string tooltip syntax', () => {
     let fixture: ComponentFixture<TestSbbTooltipStringTrigger>,
       component: TestSbbTooltipStringTrigger;
@@ -235,6 +295,35 @@ describe('sbb-tooltip', () => {
 
     it('tooltip getter returns the string value', () => {
       expect(component.trigger().tooltip).toBe('Tooltip message');
+    });
+
+    it('forwards trigger options to the inline tooltip and updates them', async () => {
+      const trigger = fixture.nativeElement.querySelector('sbb-secondary-button')!;
+      component.trigger().openDelay = 120;
+      component.trigger().closeDelay = 250;
+      component.trigger().positions = ['block-end', 'inline-start'];
+      component.trigger().disabled = true;
+
+      await vi.waitFor(() => {
+        const tooltip = Array.from(
+          document.querySelectorAll<SbbTooltipElement>('sbb-tooltip'),
+        ).find((element) => element.trigger === trigger);
+        expect(tooltip).toBeDefined();
+        expect(tooltip!.openDelay).toBe(120);
+        expect(tooltip!.closeDelay).toBe(250);
+        expect(tooltip!.positions).toEqual(['block-end', 'inline-start']);
+        expect(tooltip!.disabled).toBe(true);
+      });
+
+      component.trigger().disabled = false;
+      component.trigger().positions = null;
+      await vi.waitFor(() => {
+        const tooltip = Array.from(
+          document.querySelectorAll<SbbTooltipElement>('sbb-tooltip'),
+        ).find((element) => element.trigger === trigger)!;
+        expect(tooltip.disabled).toBe(false);
+        expect(tooltip.positions).toEqual([]);
+      });
     });
 
     it('should update sbb-tooltip attribute when value changes', () => {
@@ -283,6 +372,29 @@ class TestComponent {}
 class TestSbbTooltipTrigger {
   tooltip = viewChild.required(SbbTooltip);
   trigger = viewChild.required(SbbTooltipTrigger);
+}
+
+@Component({
+  template: `
+    <sbb-secondary-button
+      [sbbTooltip]="tooltip"
+      [sbb-tooltip-open-delay]="openDelay()"
+      [sbb-tooltip-close-delay]="closeDelay()"
+      [sbb-tooltip-positions]="positions()"
+      [sbb-tooltip-disabled]="disabled()"
+    >
+      Trigger
+    </sbb-secondary-button>
+    <sbb-tooltip #tooltip="sbbTooltip">Tooltip content</sbb-tooltip>
+  `,
+  imports: [SbbTooltip, SbbTooltipTrigger, SbbButtonModule],
+})
+class TestSbbTooltipBindings {
+  openDelay = signal('100');
+  closeDelay = signal('200');
+  positions = signal<string | string[]>('block-start, inline-end');
+  disabled = signal<string | boolean>('');
+  tooltip = viewChild.required(SbbTooltip);
 }
 
 @Component({
