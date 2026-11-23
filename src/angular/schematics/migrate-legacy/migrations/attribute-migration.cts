@@ -99,7 +99,9 @@ export function createAttributeMigrationRule(
       const tagAttributeForLogger = element.name;
 
       const variants = attributeNameVariants(migration.attribute);
-      const nodes = attributeNodes(element);
+      const nodes = migration.onlyOutputs
+        ? [...element.outputs]
+        : attributeNodes(element, migration.excludeOutputs);
       const matchingNode = nodes.find(
         (node) =>
           variants.includes(node.name) &&
