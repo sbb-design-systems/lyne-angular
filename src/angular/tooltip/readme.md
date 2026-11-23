@@ -27,9 +27,20 @@ If the component is used this way, it's also possible to set the open and close 
 using the `sbb-tooltip-open-delay` and the `sbb-tooltip-close-delay` attributes.
 
 ```html
-<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-open-delay="250" sbb-tooltip-close-delay="250"
-  >Button</sbb-button
+<sbb-button
+  sbb-tooltip="Tooltip message"
+  sbb-tooltip-open-delay="250"
+  sbb-tooltip-close-delay="250"
 >
+  Button
+</sbb-button>
+```
+
+To disable the tooltip, you can set the `sbb-tooltip-disabled` attribute on the trigger element.
+When disabled, the tooltip will not open.
+
+```html
+<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-disabled>Button</sbb-button>
 ```
 
 ## Interactions
@@ -44,8 +55,21 @@ The tooltip uses the [CSS anchor positioning](https://developer.mozilla.org/en-U
 Specifically, it uses the "[position-area](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning/Using#setting_a_position-area)"
 and "[position-try-fallbacks](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning/Try_options_hiding#using_position-area_try_fallback_options)" CSS properties to define where the tooltip should be positioned.
 
-You can control the positioning of the tooltip by overriding the `--sbb-overlay-position-area` and `--sbb-overlay-position-try-fallbacks` CSS variables.
-By default, it appears above the trigger element and, if there is insufficient space, it automatically chooses the best available position.
+By default, the tooltip appears above the trigger element and, if there is insufficient space, it automatically chooses the best available position.
+
+You can control the positioning of the tooltip with the `positions` property.
+The first entry is used as primary position, the following entries as fallbacks.
+
+The attribute accepts a comma-separated list, the property accepts either a comma-separated string or an array.
+
+```html
+<sbb-tooltip trigger="trigger-id" positions="block-end, block-start, inline-end">
+  Tooltip
+</sbb-tooltip>
+```
+
+Alternatively, you can override the `--sbb-overlay-position-area` and `--sbb-overlay-position-try-fallbacks` CSS variables.
+These are used if the `positions` property is not set.
 
 ```scss
 // Primary position
@@ -78,11 +102,14 @@ By default, it appears above the trigger element and, if there is insufficient s
 
 ### Attribute usage
 
-When using the `sbb-tooltip` attribute, you can configure the position by setting the `sbb-tooltip-position` attribute.
-The value of the attribute is a comma-separated list of positions.
+When using the `sbb-tooltip` attribute, you can configure the position by setting the `sbb-tooltip-positions` attribute on the trigger element.
+The value of the attribute is a comma-separated list of positions and is applied to the `positions` property of the created tooltip.
 
 ```html
-<sbb-button sbb-tooltip="Tooltip message" sbb-tooltip-position="block-end, block-start, inline-end">
+<sbb-button
+  sbb-tooltip="Tooltip message"
+  sbb-tooltip-positions="block-end, block-start, inline-end"
+>
   Button
 </sbb-button>
 ```
@@ -106,6 +133,7 @@ mergeConfig({
 ## Accessibility
 
 The `<sbb-tooltip>` adds an `ariaDescribedby` reference to an element containing the tooltip's message.
+If the tooltip is disabled, the reference is removed.
 
 Avoid interactions that exclusively show a tooltip with pointer events like click and mouseenter.
 Always ensure that keyboard users can perform the same set of actions available to mouse and touch users.
