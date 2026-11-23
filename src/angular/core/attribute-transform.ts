@@ -16,12 +16,3 @@ export function booleanAttribute(value: unknown): boolean {
 export function nullOnEmptyAttribute(value: unknown): unknown {
   return value === '' ? null : value;
 }
-
-/**
- * Attribute transform function to convert a string to an array of strings.
- * The string is split by commas and trimmed of whitespace.
- * If the value is not a string, null is returned.
- */
-export function commaSeparatedListAttribute(value: unknown): string[] | null {
-  return typeof value === 'string' ? value.split(',').map((v) => v.trim()) : null;
-}

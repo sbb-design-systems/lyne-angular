@@ -6,7 +6,7 @@ import {
   Input,
   numberAttribute,
 } from '@angular/core';
-import { commaSeparatedListAttribute, SbbTriggerBase } from '@sbb-esta/lyne-angular/core';
+import { SbbTriggerBase } from '@sbb-esta/lyne-angular/core';
 import { SbbTooltipElement } from '@sbb-esta/lyne-elements/tooltip.pure.js';
 
 import { SbbTooltip } from './tooltip';
@@ -88,13 +88,12 @@ export class SbbTooltipTrigger extends SbbTriggerBase<SbbTooltip> {
    * The preferred tooltip position followed by fallback positions, as a comma-separated
    * list or an array.
    */
-  @Input({ alias: 'sbb-tooltip-position', transform: commaSeparatedListAttribute })
+  @Input({ alias: 'sbb-tooltip-position' })
   public set position(value: string | string[] | null) {
-    const positionString = Array.isArray(value) ? value.join(', ') : value;
-    this.#assignAttribute('sbb-tooltip-position', positionString);
+    this.#assignAttribute('sbb-tooltip-position', Array.isArray(value) ? value.join(', ') : value);
 
     if (this.referenceElement) {
-      this.referenceElement.positions = typeof value === 'string' ? [value] : value;
+      this.referenceElement.positions = value;
     }
   }
   public get position(): string | string[] | null {
@@ -149,9 +148,7 @@ export class SbbTooltipTrigger extends SbbTriggerBase<SbbTooltip> {
       );
     }
     if (element.hasAttribute('sbb-tooltip-position')) {
-      this.referenceElement.positions = commaSeparatedListAttribute(
-        element.getAttribute('sbb-tooltip-position'),
-      );
+      this.referenceElement.positions = element.getAttribute('sbb-tooltip-position');
     }
     if (element.hasAttribute('sbb-tooltip-disabled')) {
       this.referenceElement.disabled = true;

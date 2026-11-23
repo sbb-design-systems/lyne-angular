@@ -1,20 +1,16 @@
 import {
   Directive,
   ElementRef,
+  inject,
   Input,
   NgZone,
-  inject,
   numberAttribute,
   type OutputRef,
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
-import {
-  booleanAttribute,
-  commaSeparatedListAttribute,
-  internalOutputFromObservable,
-} from '@sbb-esta/lyne-angular/core';
+import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import { SbbTooltipElement } from '@sbb-esta/lyne-elements/tooltip.pure.js';
-import { NEVER, fromEvent } from 'rxjs';
+import { fromEvent, NEVER } from 'rxjs';
 
 /**
  * It displays text content within a tooltip.
@@ -99,10 +95,14 @@ export class SbbTooltip {
   }
 
   /**
-   * TBD
+   * The positions of the tooltip, relative to the trigger.
+   * Provide either a comma-separated list or an array of positions.
+   * The first entry is the primary position (`--sbb-overlay-position-area`),
+   * the following ones are the fallback positions (`--sbb-overlay-position-try-fallbacks`).
+   * If not set, the default positions of the trigger (`tooltipPositions`) or the CSS variables are used.
    */
-  @Input({ transform: commaSeparatedListAttribute })
-  public set positions(value: string[] | null) {
+  @Input()
+  public set positions(value: string | string[] | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.positions = value));
   }
   public get positions(): string[] | null {
