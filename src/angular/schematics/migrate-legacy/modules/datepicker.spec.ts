@@ -37,9 +37,8 @@ describe('sbb-datepicker', () => {
 
   describe('sbb-date-input', () => {
     it('imports', async () => {
-      const content = await MigrateLegacyTestUtils.migrateTsFile(
+      const content = await migrateTsFile(
         "import { SbbDateInput } from '@sbb-esta/angular/datepicker';",
-        defaultMigration,
       );
       expect(content).toBe("import { SbbDateInput } from '@sbb-esta/lyne-angular/datepicker';");
     });
