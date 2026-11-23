@@ -1,7 +1,6 @@
 import type { Rule } from '@angular-devkit/schematics';
 
-import { getIndent, getLineStart } from '../../comment-utils.cjs';
-import type { MigrationScope } from '../../utils.cjs';
+import { getIndent, getLineStart, MigrationScope } from '../../utils.cjs';
 import type { CommentMigration, ModuleMigrations, Span } from '../common.cjs';
 import { createTemplateMigrationRule } from '../template-migration.cjs';
 

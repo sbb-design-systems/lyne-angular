@@ -1,5 +1,17 @@
 # Changelog
 
+## [22.11.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.10.1...v22.11.0) (2026-11-16)
+
+
+### Features
+
+* **sidebar:** add openedChange output ([#654](https://github.com/sbb-design-systems/lyne-angular/issues/654)) ([c06956c](https://github.com/sbb-design-systems/lyne-angular/commit/c06956c52347e15a6cb494be3e6d7c6c6b05f6c4))
+
+
+### Documentation
+
+* update readme from upstream ([dea49bd](https://github.com/sbb-design-systems/lyne-angular/commit/dea49bded0e18c2d69de08ab6151d0f378e9a644))
+
 ## [22.10.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.10.0...v22.10.1) (2026-11-10)
 
 

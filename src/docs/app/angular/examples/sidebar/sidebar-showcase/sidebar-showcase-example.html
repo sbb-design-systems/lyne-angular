@@ -3,6 +3,7 @@
     <sbb-sidebar
       role="navigation"
       [opened]="controls.opened().value()"
+      (openedChange)="controls.opened().value.set($event)"
       [color]="controls.color().value()"
       [position]="controls.position().value()"
       [mode]="controls.mode().value()"
@@ -54,7 +55,7 @@
   </sbb-radio-button-group>
 
   <label for="opened">Opened</label>
-  <div><sbb-checkbox id="opened" [formField]="controls.opened"></sbb-checkbox> (unsynced)</div>
+  <div><sbb-checkbox id="opened" [formField]="controls.opened"></sbb-checkbox></div>
 
   <label>Color</label>
   <sbb-radio-button-group aria-label="Color" [formField]="controls.color">

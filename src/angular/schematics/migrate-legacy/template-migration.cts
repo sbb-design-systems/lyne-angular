@@ -526,8 +526,10 @@ export function attributeNameVariants(name: string): string[] {
   return [...new Set([name, toCamelCase(name), toDashCase(name)])];
 }
 
-export function attributeNodes(element: TmplAstElement): AttributeNode[] {
-  return [...element.attributes, ...element.inputs, ...element.outputs];
+export function attributeNodes(element: TmplAstElement, excludeOutputs = false): AttributeNode[] {
+  return excludeOutputs
+    ? [...element.attributes, ...element.inputs]
+    : [...element.attributes, ...element.inputs, ...element.outputs];
 }
 
 /** Whether the element already uses the target name, which would create a duplicate. */

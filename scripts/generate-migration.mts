@@ -4,13 +4,19 @@
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'fs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const modulesDir = join(root, 'src/angular/schematics/migrate-legacy/modules');
+const migrateLegacyDir = join(root, 'src/angular/schematics/migrate-legacy');
+const modulesDir = join(migrateLegacyDir, 'modules');
 
 function fail(message: string) {
   console.error(message);
   process.exit(1);
+}
+
+function moduleMigrationsName(moduleName: string): string {
+  return moduleName.toUpperCase().replaceAll('-', '_').concat('_MIGRATIONS');
 }
 
 const args = process.argv.slice(2);
@@ -60,7 +66,7 @@ const attributes: AttributeMigration[] = [
   // TODO
 ];
 
-export const ${module.toUpperCase()}_MIGRATIONS: Partial<ModuleMigrations> = {
+export const ${moduleMigrationsName(module)}: Partial<ModuleMigrations> = {
   importPaths,
   comments,
   types,
@@ -81,11 +87,11 @@ import { createTemplateSelectorMigrationRule } from '../migrations/template-sele
 import { createTypeMigrationRule } from '../migrations/type-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { ${module.toUpperCase()}_MIGRATIONS } from './${module}.cjs';
+import { ${moduleMigrationsName(module)} } from './${module}.cjs';
 
 describe('sbb-${module}', () => {
   const defaultMigration: Rule = () => {
-    const { importPaths, comments, types, attributes, selectors } = ${module.toUpperCase()}_MIGRATIONS;
+    const { importPaths, comments, types, selectors, attributes } = ${moduleMigrationsName(module)};
     return chain([
       createImportPathMigrationRule(importPaths),
       createCommentMigrationRule(comments),
@@ -121,6 +127,21 @@ if (existing.length) {
 
 mkdirSync(modulesDir, { recursive: true });
 for (const [file, content] of files) {
+  // Create files
   writeFileSync(file, content, { flag: 'wx' });
   console.log(`Created ${relative(root, file)}`);
+
+  // Update the index; linting is needed to fix import sorting and unneeded quotation mark on the module name.
+  const indexPath = join(migrateLegacyDir, 'index.cts');
+  const commentedModuleKey = `// '${module}'`;
+  let indexContent = readFileSync(indexPath, 'utf8');
+  if (indexContent.includes(commentedModuleKey)) {
+    const moduleImport = `import { ${moduleMigrationsName(module)} } from './modules/${module}.cjs';\n`;
+    indexContent = moduleImport.concat(indexContent.padStart(indexContent.length, ''));
+    indexContent = indexContent.replaceAll(
+      commentedModuleKey,
+      `'${module}': ${moduleMigrationsName(module)}`,
+    );
+    writeFileSync(indexPath, indexContent, 'utf8');
+  }
 }

@@ -532,4 +532,60 @@ describe('sbb-attribute-migration', () => {
       expect(await migrate('<sbb-z mode="a"></sbb-z>')).toBe('<sbb-z kind="a"></sbb-z>');
     });
   });
+  describe('output filters', () => {
+    const migrate = (html: string, migration: Partial<AttributeMigration>) =>
+      MigrateLegacyTestUtils.migrateHtmlFile(
+        html,
+        createAttributeMigrationRule([
+          { selector: 'sbb-x', attribute: 'opened', replaceWith: 'open', ...migration },
+        ]),
+      );
+
+    describe('onlyOutputs', () => {
+      it('should rename the output and leave the input', async () => {
+        expect(
+          await migrate('<sbb-x [opened]="o" (opened)="f()"></sbb-x>', { onlyOutputs: true }),
+        ).toBe('<sbb-x [opened]="o" (open)="f()"></sbb-x>');
+      });
+
+      it('should rename the output when it is written first', async () => {
+        expect(
+          await migrate('<sbb-x (opened)="f()" [opened]="o"></sbb-x>', { onlyOutputs: true }),
+        ).toBe('<sbb-x (open)="f()" [opened]="o"></sbb-x>');
+      });
+
+      it('should not rename a static attribute or an input', async () => {
+        const html = '<sbb-x opened [opened]="o"></sbb-x>';
+        expect(await migrate(html, { onlyOutputs: true })).toBe(html);
+      });
+
+      it('should remove only the output', async () => {
+        expect(
+          await migrate('<sbb-x [opened]="o" (opened)="f()"></sbb-x>', {
+            onlyOutputs: true,
+            replaceWith: undefined,
+          }),
+        ).toBe('<sbb-x [opened]="o"></sbb-x>');
+      });
+    });
+
+    describe('excludeOutputs', () => {
+      it('should rename the input and leave the output', async () => {
+        expect(
+          await migrate('<sbb-x (opened)="f()" [opened]="o"></sbb-x>', { excludeOutputs: true }),
+        ).toBe('<sbb-x (opened)="f()" [open]="o"></sbb-x>');
+      });
+
+      it('should rename a static attribute', async () => {
+        expect(await migrate('<sbb-x opened></sbb-x>', { excludeOutputs: true })).toBe(
+          '<sbb-x open></sbb-x>',
+        );
+      });
+
+      it('should not rename an output', async () => {
+        const html = '<sbb-x (opened)="f()"></sbb-x>';
+        expect(await migrate(html, { excludeOutputs: true })).toBe(html);
+      });
+    });
+  });
 });
