@@ -45,7 +45,7 @@ export class SidebarShowcaseExample {
 
   constructor() {
     toObservable(this.sidebar)
-      .pipe(switchMap((sidebar) => outputToObservable(sidebar.openOutput)))
-      .subscribe((sidebar) => console.log(sidebar, 'opened'));
+      .pipe(switchMap((sidebar) => outputToObservable(sidebar.openedChangeOutput)))
+      .subscribe((opened) => console.log(`opened: ${opened}`));
   }
 }

@@ -4,8 +4,8 @@ import { SbbMiniButtonElement } from '@sbb-esta/lyne-elements/button.pure.js';
 
 /**
  * It displays an icon-only button enhanced with the SBB Design;
-it's meant to be used mainly within the sbb-form-field in prefix/suffix slot
-or the `sbb-mini-button-group`. *
+ * it's meant to be used mainly within the sbb-form-field in prefix/suffix slot
+ * or the `sbb-mini-button-group`.
  *
  * @slot  - Use the unnamed slot to add a label to the mini-button.
  * @slot icon - Slot used to display the icon, if one is set

@@ -7,7 +7,7 @@ import { createCommentMigrationRule } from '../migrations/comment-migration.cjs'
 import { createImportPathMigrationRule } from '../migrations/import-path-migration.cjs';
 import { MigrateLegacyTestUtils } from '../test-utils.cjs';
 
-import { BADGE_MIGRATIONS } from './badge.cjs';
+import { BADGE_MIGRATIONS, DEPRECATED_BADGE_ATTRIBUTES } from './badge.cjs';
 
 describe('sbb-badge', () => {
   const defaultMigration: Rule = () => {
@@ -29,28 +29,16 @@ describe('sbb-badge', () => {
       expect(content).toContain("import { SbbBadgeModule } from '@sbb-esta/lyne-angular/badge';");
     });
 
-    it('should add comments', async () => {
-      expect(
-        await MigrateLegacyTestUtils.migrateHtmlFile(
-          '<h3 sbbBadge="4" sbbBadgeDescription="Test">Text with a badge</h3>',
-          defaultMigration,
-        ),
-      ).toContain('<!-- FIXME: the attribute `sbbBadgeDescription` does not exist anymore. -->');
-
-      expect(
-        await MigrateLegacyTestUtils.migrateHtmlFile(
-          '<h3 sbbBadge="4" [sbbBadgeDisabled]="true">Text with a badge</h3>',
-          defaultMigration,
-        ),
-      ).toContain('<!-- FIXME: the attribute `sbbBadgeDisabled` does not exist anymore. -->');
-
-      expect(
-        await MigrateLegacyTestUtils.migrateHtmlFile(
-          '<h3 sbbBadge="4" [sbbBadgeHidden]="true">Text with a badge</h3>',
-          defaultMigration,
-        ),
-      ).toContain('<!-- FIXME: the attribute `sbbBadgeHidden` does not exist anymore. -->');
-
+    it.each(DEPRECATED_BADGE_ATTRIBUTES)('should add comment for %s', async (attribute) => {
+      const content = await MigrateLegacyTestUtils.migrateHtmlFile(
+        `<h3 sbbBadge="4" [${attribute}]="true">Text with a badge</h3>`,
+        defaultMigration,
+      );
+      expect(content).toContain(
+        `<!-- FIXME: the attribute \`${attribute}\` does not exist anymore. -->`,
+      );
+    });
+    it('should add comments for sbbBadgePosition', async () => {
       expect(
         await MigrateLegacyTestUtils.migrateHtmlFile(
           '<h3 sbbBadge="4" sbbBadgePosition="above">Text with a badge</h3>',

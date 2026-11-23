@@ -6,12 +6,10 @@ import type { CommentDelimiters } from '../../comment-utils.cjs';
 import {
   formatComment,
   getCommentLinesAbove,
-  getIndent,
-  getLineStart,
   HTML_DELIMITERS,
   TS_DELIMITERS,
 } from '../../comment-utils.cjs';
-import type { MigrationEdit, MigrationScope } from '../../utils.cjs';
+import { getIndent, getLineStart, MigrationEdit, MigrationScope } from '../../utils.cjs';
 import type {
   CommentMigration,
   ElementCommentMigration,
@@ -146,7 +144,10 @@ function createElementCommentRule(
     const anchor = inline ? baseOffset : baseOffset + element.startSourceSpan.start.offset;
 
     for (const migration of parsed) {
-      if (!migration.selectors.some((selector) => elementMatches(element, selector))) {
+      if (
+        !migration.selectors.some((selector) => elementMatches(element, selector)) ||
+        migration.filter?.(element) === false
+      ) {
         continue;
       }
 
