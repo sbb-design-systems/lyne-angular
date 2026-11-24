@@ -38,7 +38,7 @@ const selectors: SelectorMigration[] = [
 ];
 
 const attributes: AttributeMigration[] = [
-  { selector: 'sbb-tag', attribute: 'svgIcon', replaceWith: 'iconName' },
+  { action: 'rename', selector: 'sbb-tag', attribute: 'svgIcon', replaceWith: 'iconName' },
 ];
 
 /**

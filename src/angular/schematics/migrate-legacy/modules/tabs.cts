@@ -1,5 +1,3 @@
-import { TmplAstTemplate } from '@angular/compiler';
-
 import type { MigrationScope } from '../../utils.cjs';
 import type {
   AttributeMigration,
@@ -64,10 +62,20 @@ const selectors: SelectorMigration[] = [
 ];
 
 const attributes: AttributeMigration[] = [
-  { selector: 'sbb-tab-group', attribute: 'selectedIndex', replaceWith: 'initialSelectedIndex' },
-  { selector: 'sbb-tab-group', attribute: 'selectedTabChange', replaceWith: 'tabChange' },
-  { selector: 'sbb-tab-group', attribute: 'dynamicHeight' },
-  { selector: 'sbb-tab-label', attribute: 'sbb-tab-label' },
+  {
+    action: 'rename',
+    selector: 'sbb-tab-group',
+    attribute: 'selectedIndex',
+    replaceWith: 'initialSelectedIndex',
+  },
+  {
+    action: 'rename',
+    selector: 'sbb-tab-group',
+    attribute: 'selectedTabChange',
+    replaceWith: 'tabChange',
+  },
+  { action: 'remove', selector: 'sbb-tab-group', attribute: 'dynamicHeight' },
+  { action: 'remove', selector: 'sbb-tab-label', attribute: 'sbb-tab-label' },
 ];
 
 const TAB = 'sbb-tab';

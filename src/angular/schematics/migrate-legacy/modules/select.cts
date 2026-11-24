@@ -33,9 +33,9 @@ const comments: CommentMigration[] = [
 ];
 
 const attributes: AttributeMigration[] = [
-  { selector: 'sbb-select', attribute: 'readonly', replaceWith: 'readOnly' },
-  { selector: 'sbb-select', attribute: 'opened', replaceWith: 'open' },
-  { selector: 'sbb-select', attribute: 'closed', replaceWith: 'close' },
+  { action: 'rename', selector: 'sbb-select', attribute: 'readonly', replaceWith: 'readOnly' },
+  { action: 'rename', selector: 'sbb-select', attribute: 'opened', replaceWith: 'open' },
+  { action: 'rename', selector: 'sbb-select', attribute: 'closed', replaceWith: 'close' },
 ];
 
 /**
