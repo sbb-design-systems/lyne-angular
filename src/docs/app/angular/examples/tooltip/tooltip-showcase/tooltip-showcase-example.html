@@ -6,6 +6,7 @@
   "
   [openDelay]="controls.openDelay().value()"
   [closeDelay]="controls.closeDelay().value()"
+  [disabled]="controls.disabled().value()"
 >
   Tooltip message
 </sbb-tooltip>
@@ -36,4 +37,7 @@
   <sbb-form-field size="s">
     <input id="close-delay" type="number" [formField]="controls.closeDelay" />
   </sbb-form-field>
+
+  <label for="disabled">Disabled</label>
+  <sbb-checkbox id="disabled" [formField]="controls.disabled" />
 </div>

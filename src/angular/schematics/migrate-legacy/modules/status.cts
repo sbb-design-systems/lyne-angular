@@ -1,5 +1,3 @@
-import { TmplAstText } from '@angular/compiler';
-
 import type { MigrationScope } from '../../utils.cjs';
 import type { AttributeMigration, ImportRewriteOptions, ModuleMigrations } from '../common.cjs';
 import { createTemplateMigrationRule, queueAttributeRemoval } from '../template-migration.cjs';
@@ -10,18 +8,18 @@ const importPaths: ImportRewriteOptions[] = [
 
 const attributes: AttributeMigration[] = [
   {
+    action: 'replace',
     selector: 'sbb-status',
     attribute: 'type',
     attributeValue: 'valid',
     replaceWith: 'type="success"',
-    fullyReplace: true,
   },
   {
+    action: 'replace',
     selector: 'sbb-status',
     attribute: 'type',
     attributeValue: 'invalid',
     replaceWith: 'type="error"',
-    fullyReplace: true,
   },
 ];
 

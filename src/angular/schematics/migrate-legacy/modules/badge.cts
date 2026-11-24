@@ -25,11 +25,7 @@ const comments: CommentMigration[] = DEPRECATED_BADGE_ATTRIBUTES.map((attr) => (
 });
 
 const attributes: AttributeMigration[] = [
-  {
-    selector: '*',
-    attribute: 'sbbBadge',
-    replaceWith: 'sbb-badge',
-  },
+  { action: 'rename', selector: '*', attribute: 'sbbBadge', replaceWith: 'sbb-badge' },
 ];
 
 /**

@@ -1,16 +1,16 @@
 import {
   Directive,
   ElementRef,
+  inject,
   Input,
   NgZone,
-  inject,
   numberAttribute,
   type OutputRef,
 } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { booleanAttribute, internalOutputFromObservable } from '@sbb-esta/lyne-angular/core';
 import { SbbTooltipElement } from '@sbb-esta/lyne-elements/tooltip.pure.js';
-import { NEVER, fromEvent } from 'rxjs';
+import { fromEvent, NEVER } from 'rxjs';
 
 /**
  * It displays text content within a tooltip.
@@ -52,7 +52,7 @@ export class SbbTooltip {
    * Global configuration is used as default, if not set.
    */
   @Input({ transform: numberAttribute })
-  public set openDelay(value: number) {
+  public set openDelay(value: number | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.openDelay = value));
   }
   public get openDelay(): number {
@@ -64,7 +64,7 @@ export class SbbTooltip {
    * Global configuration is used as default, if not set.
    */
   @Input({ transform: numberAttribute })
-  public set closeDelay(value: number) {
+  public set closeDelay(value: number | null) {
     this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.closeDelay = value));
   }
   public get closeDelay(): number {
@@ -92,6 +92,21 @@ export class SbbTooltip {
   }
   public get disabled(): boolean {
     return this.#element.nativeElement.disabled;
+  }
+
+  /**
+   * The positions of the tooltip, relative to the trigger.
+   * Provide either a comma-separated list or an array of positions.
+   * The first entry is the primary position (`--sbb-overlay-position-area`),
+   * the following ones are the fallback positions (`--sbb-overlay-position-try-fallbacks`).
+   * If not set, the default positions of the trigger (`tooltipPositions`) or the CSS variables are used.
+   */
+  @Input()
+  public set positions(value: string | string[] | null) {
+    this.#ngZone.runOutsideAngular(() => (this.#element.nativeElement.positions = value));
+  }
+  public get positions(): string[] {
+    return this.#element.nativeElement.positions;
   }
 
   /**

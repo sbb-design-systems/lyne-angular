@@ -75,9 +75,9 @@ export interface Span {
 }
 
 /**
- * Interface used for attribute migrations.
+ * Shared options for attribute migrations.
  */
-export interface AttributeMigration {
+interface AttributeMigrationBase {
   /**
    * CSS-like selector of the element owning the attribute, using the Angular selector syntax. Examples:
    * - `'*'`                                - every element
@@ -93,32 +93,87 @@ export interface AttributeMigration {
    * - `'a[sbb-link], button[sbb-link]'`    — list of alternatives
    */
   selector: string | string[];
+
   /**
-   * Legacy attribute, input or output name.
+   * Legacy attribute, input, output or template reference name.
    * Both the camelCase and the dash-case spelling are matched, the original spelling is preserved.
+   * `'*'` matches every supported name with the specified `attributeValue`;
+   * when the attribute is `'*'`, the selector must not be a wildcard too.
+   * Wildcard migrations require `attributeValue`, and do not support `defaultValue`.
+   * Bindings whose written key differs from the parsed name are not matched.
+   * Template references are matched only by `replace-value` migrations.
    */
   attribute: string;
 
-  /** Optional value of the legacy attribute, input or output. When omitted, any value is matched. */
+  /**
+   * Value of the legacy attribute, input or output. When omitted, any value is matched.
+   * Bindings match a string literal or their written expression, not their runtime value.
+   */
   attributeValue?: string;
 
-  /** New name. When omitted, the attribute is removed instead of renamed. */
-  replaceWith?: string;
-  /**
-   * If attribute is not found, add a new `replaceWith` attribute with this value set.
-   * NOTE: defaultValue is inserted verbatim between double quotes, so it must be valid attribute-value HTML.
-   */
-  defaultValue?: string;
-  /**
-   * Whether the attribute should be fully replaced, including its value.
-   * `replaceWith` is then inserted verbatim, e.g. `[svgIcon]="x"` => `iconName="y"`.
-   */
-  fullyReplace?: boolean;
   /** Whether the rules should exclude outputs */
   excludeOutputs?: boolean;
+
   /** Whether the rules should be applied exclusively to outputs */
   onlyOutputs?: boolean;
 }
+
+export interface RemoveAttributeMigration extends AttributeMigrationBase {
+  action: 'remove';
+  // Restricted options; `never` type reinforces TS checks
+  replaceWith?: never;
+  replaceValueWith?: never;
+  defaultValue?: never;
+}
+
+export interface RenameAttributeMigration extends AttributeMigrationBase {
+  action: 'rename';
+  /** New attribute name; wildcard replacements that create duplicates are skipped. */
+  replaceWith: string;
+  // Restricted options; `never` type reinforces TS checks
+  replaceValueWith?: never;
+  defaultValue?: never;
+}
+
+export interface RenameOrAddAttributeMigration extends AttributeMigrationBase {
+  action: 'rename-or-add';
+  replaceWith: string;
+  /** Inserted verbatim between double quotes; must be valid attribute-value HTML. */
+  defaultValue: string;
+  // Restricted options; `never` type reinforces TS checks
+  replaceValueWith?: never;
+}
+
+export interface ReplaceAttributeMigration extends AttributeMigrationBase {
+  action: 'replace';
+  /**
+   * Whole replacement attribute, including binding syntax and value, inserted verbatim.
+   * For a wildcard, this must describe exactly one supported attribute.
+   */
+  replaceWith: string;
+  // Restricted options; `never` type reinforces TS checks
+  replaceValueWith?: never;
+  defaultValue?: never;
+}
+
+export interface ReplaceAttributeValueMigration extends AttributeMigrationBase {
+  action: 'replace-value';
+  /**
+   * New literal value or binding expression, preserving the attribute name and syntax.
+   * HTML special characters, quotes, backslashes and control characters are not supported.
+   */
+  replaceValueWith: string;
+  // Restricted options; `never` type reinforces TS checks
+  replaceWith?: never;
+  defaultValue?: never;
+}
+
+export type AttributeMigration =
+  | RemoveAttributeMigration
+  | RenameAttributeMigration
+  | RenameOrAddAttributeMigration
+  | ReplaceAttributeMigration
+  | ReplaceAttributeValueMigration;
 
 /**
  * A parsed CSS selector. A comma separated selector list yields one alternative per entry;
@@ -151,18 +206,17 @@ export interface SelectorMigration {
    * - `'a[sbb-link], button[sbb-link]'`    — list of alternatives
    */
   selector: string;
-  /**
-   * Tag name of the new element, e.g. `'sbb-button'`.
-   */
+
+  /** Tag name of the new element, e.g. `'sbb-button'`. */
   replaceWith: string;
+
   /**
    * Attributes to add to the migrated element, written as in a template and inserted verbatim
    * right after the tag name, e.g. `'orientation="vertical"'` or `'size="s" [disabled]="x"'`.
    */
   addAttributes?: string;
-  /**
-   * Whether the tag should be changed from void to paired (e.g. `<input sbbDateInput />` to `<sbb-date-input></sbb-date-input>`).
-   */
+
+  /** Whether the tag should be changed from void to paired (e.g. `<input sbbDateInput />` to `<sbb-date-input></sbb-date-input>`). */
   transformToPairedTag?: boolean;
 }
 
@@ -174,13 +228,16 @@ export type ParsedSelectorMigration = SelectorMigration & { parsedSelector: Pars
 export interface TypeMigration {
   /** Legacy symbol name, e.g. `'SbbBreadcrumbs'`. */
   from: string;
+
   /** New symbol name, e.g. `'SbbBreadcrumbGroup'`. */
   to: string;
+
   /**
    * Only migrate the symbol when it is imported from this module (exact match
    * or sub-path). When omitted, any import of `from` is migrated.
    */
   importedFrom?: string | string[];
+
   /**
    * Whether the migration should skip the import;
    * the use case is changing a custom event to the JavaScript `Event`,

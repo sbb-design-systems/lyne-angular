@@ -43,8 +43,8 @@ const comments: CommentMigration[] = [
 ];
 
 const attributes: AttributeMigration[] = [
-  { selector: 'sbb-autocomplete', attribute: 'opened', replaceWith: 'open' },
-  { selector: 'sbb-autocomplete', attribute: 'closed', replaceWith: 'close' },
+  { action: 'rename', selector: 'sbb-autocomplete', attribute: 'opened', replaceWith: 'open' },
+  { action: 'rename', selector: 'sbb-autocomplete', attribute: 'closed', replaceWith: 'close' },
 ];
 
 /**

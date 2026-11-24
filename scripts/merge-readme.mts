@@ -130,8 +130,9 @@ const immutableAttributes = [
   'sbb-stepper-previous',
   'sbb-tooltip',
   'sbb-tooltip-open-delay',
+  'sbb-tooltip-disabled',
   'sbb-tooltip-close-delay',
-  'sbb-tooltip-position',
+  'sbb-tooltip-positions',
 ];
 
 for (const [path, content] of Array.from(readmeMap)) {

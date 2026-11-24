@@ -18,9 +18,15 @@ import { CAPTCHA_MIGRATIONS } from './modules/captcha.cjs';
 import { CHECKBOX_PANEL_MIGRATIONS } from './modules/checkbox-panel.cjs';
 import { CHECKBOX_MIGRATIONS } from './modules/checkbox.cjs';
 import { DATEPICKER_MIGRATIONS } from './modules/datepicker.cjs';
+import { DIALOG_MIGRATIONS } from './modules/dialog.cjs';
 import { FILE_SELECTOR_MIGRATIONS } from './modules/file-selector.cjs';
+import { RADIO_BUTTON_PANEL_MIGRATIONS } from './modules/radio-button-panel.cjs';
+import { RADIO_BUTTON_MIGRATIONS } from './modules/radio-button.cjs';
+import { SEARCH_MIGRATIONS } from './modules/search.cjs';
+import { SELECT_MIGRATIONS } from './modules/select.cjs';
 import { SIDEBAR_MIGRATIONS } from './modules/sidebar.cjs';
 import { STATUS_MIGRATIONS } from './modules/status.cjs';
+import { TABLE_MIGRATIONS } from './modules/table.cjs';
 import { TABS_MIGRATIONS } from './modules/tabs.cjs';
 import { TAG_MIGRATIONS } from './modules/tag.cjs';
 import { TEXTAREA_MIGRATIONS } from './modules/textarea.cjs';
@@ -44,7 +50,7 @@ const MODULE_REGISTRY = {
   'checkbox-panel': CHECKBOX_PANEL_MIGRATIONS,
   // 'chips',
   datepicker: DATEPICKER_MIGRATIONS,
-  // 'dialog',
+  dialog: DIALOG_MIGRATIONS,
   'file-selector': FILE_SELECTOR_MIGRATIONS,
   // 'form-field',
   // 'header-lean',
@@ -57,13 +63,13 @@ const MODULE_REGISTRY = {
   // 'notification-toast',
   // 'pagination',
   // 'processflow',
-  // 'radio-button',
-  // 'radio-button-panel',
-  // 'search',
-  // 'select',
+  'radio-button': RADIO_BUTTON_MIGRATIONS,
+  'radio-button-panel': RADIO_BUTTON_PANEL_MIGRATIONS,
+  search: SEARCH_MIGRATIONS,
+  select: SELECT_MIGRATIONS,
   sidebar: SIDEBAR_MIGRATIONS,
   status: STATUS_MIGRATIONS,
-  // 'table',
+  table: TABLE_MIGRATIONS,
   tabs: TABS_MIGRATIONS,
   tag: TAG_MIGRATIONS,
   textarea: TEXTAREA_MIGRATIONS,
