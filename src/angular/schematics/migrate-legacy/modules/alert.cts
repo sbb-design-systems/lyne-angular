@@ -17,7 +17,7 @@ const comments: CommentMigration[] = [
       'FIXME: this component has no counterpart in lyne-angular. Consider the use of the `sbb-alert-group` instead.',
   },
   {
-    selector: 'a[SbbAlert]',
+    selector: 'a[sbbAlert]',
     message: `FIXME: Anchor alerts are not supported in lyne-angular. You can slot an \`<sbb-link>\` into the alert instead.`,
   },
   {
@@ -26,12 +26,12 @@ const comments: CommentMigration[] = [
   },
 ];
 
-const selectors: SelectorMigration[] = [{ selector: 'a[SbbAlert]', replaceWith: 'sbb-alert' }];
+const selectors: SelectorMigration[] = [{ selector: 'a[sbbAlert]', replaceWith: 'sbb-alert' }];
 
 const attributes: AttributeMigration[] = [
-  { selector: 'sbb-alert', attribute: 'svgIcon', replaceWith: 'iconName' },
-  { selector: 'sbb-alert', attribute: 'dismissed', replaceWith: 'close' },
-  { selector: 'sbb-alert', attribute: 'SbbAlert' },
+  { action: 'rename', selector: 'sbb-alert', attribute: 'svgIcon', replaceWith: 'iconName' },
+  { action: 'rename', selector: 'sbb-alert', attribute: 'dismissed', replaceWith: 'close' },
+  { action: 'remove', selector: 'sbb-alert', attribute: 'sbbAlert' },
 ];
 
 /**
@@ -41,7 +41,7 @@ const attributes: AttributeMigration[] = [
  * 1. ✓ Rewrite import paths
  * 2. ✓ Attribute migration 'svgIcon' → 'iconName'
  * 3. ✓ Output migration 'dismissed' → 'close'
- * 4. ✓ <a SbbAlert> not supported anymore
+ * 4. ✓ <a sbbAlert> not supported anymore
  * 5. ✓ <sbb-alert-outlet> and SbbAlertService not supported anymore
  * 6. x [Not doable] Method migration 'dismiss()' → 'close()'
  */

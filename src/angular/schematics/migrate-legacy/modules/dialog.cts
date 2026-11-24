@@ -31,9 +31,9 @@ const selectors: SelectorMigration[] = [
 ];
 
 const attributes: AttributeMigration[] = [
-  { selector: '*', attribute: 'sbbDialogTitle' },
-  { selector: '*', attribute: 'sbbDialogContent' },
-  { selector: '*', attribute: 'sbbDialogActions' },
+  { action: 'remove', selector: '*', attribute: 'sbbDialogTitle' },
+  { action: 'remove', selector: '*', attribute: 'sbbDialogContent' },
+  { action: 'remove', selector: '*', attribute: 'sbbDialogActions' },
 ];
 
 export const DIALOG_MIGRATIONS: Partial<ModuleMigrations> = {

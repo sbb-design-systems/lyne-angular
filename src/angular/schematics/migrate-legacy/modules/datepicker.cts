@@ -194,16 +194,36 @@ const selectors: SelectorMigration[] = [
 ];
 
 const attributes: AttributeMigration[] = [
-  { selector: 'sbb-date-input[dateChange]', attribute: 'dateChange', replaceWith: 'change' },
-  { selector: 'sbb-date-input[dateInput]', attribute: 'dateInput', replaceWith: 'input' },
-  { selector: 'sbb-date-input[sbbInput]', attribute: 'sbbInput' },
-  { selector: 'sbb-date-input[sbbDateInput]', attribute: 'sbbDateInput' },
-  { selector: 'sbb-datepicker', attribute: 'closed', replaceWith: 'close' },
-  { selector: 'sbb-datepicker', attribute: 'opened', replaceWith: 'open' },
-  { selector: 'sbb-calendar', attribute: 'minDate', replaceWith: 'min' },
-  { selector: 'sbb-calendar', attribute: 'maxDate', replaceWith: 'max' },
-  { selector: 'sbb-calendar', attribute: 'showWeekNumbers', replaceWith: 'weekNumbers' },
-  { selector: 'sbb-calendar', attribute: 'selectedChange', replaceWith: 'dateSelected' },
+  {
+    action: 'rename',
+    selector: 'sbb-date-input[dateChange]',
+    attribute: 'dateChange',
+    replaceWith: 'change',
+  },
+  {
+    action: 'rename',
+    selector: 'sbb-date-input[dateInput]',
+    attribute: 'dateInput',
+    replaceWith: 'input',
+  },
+  { action: 'remove', selector: 'sbb-date-input[sbbInput]', attribute: 'sbbInput' },
+  { action: 'remove', selector: 'sbb-date-input[sbbDateInput]', attribute: 'sbbDateInput' },
+  { action: 'rename', selector: 'sbb-datepicker', attribute: 'closed', replaceWith: 'close' },
+  { action: 'rename', selector: 'sbb-datepicker', attribute: 'opened', replaceWith: 'open' },
+  { action: 'rename', selector: 'sbb-calendar', attribute: 'minDate', replaceWith: 'min' },
+  { action: 'rename', selector: 'sbb-calendar', attribute: 'maxDate', replaceWith: 'max' },
+  {
+    action: 'rename',
+    selector: 'sbb-calendar',
+    attribute: 'showWeekNumbers',
+    replaceWith: 'weekNumbers',
+  },
+  {
+    action: 'rename',
+    selector: 'sbb-calendar',
+    attribute: 'selectedChange',
+    replaceWith: 'dateSelected',
+  },
 ];
 
 export const DATEPICKER_MIGRATIONS: Partial<ModuleMigrations> = {

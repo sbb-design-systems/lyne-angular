@@ -18,8 +18,8 @@ const selectors: SelectorMigration[] = [
 ];
 
 const attributes: AttributeMigration[] = [
-  { selector: 'sbb-time-input[sbbInput]', attribute: 'sbbInput' },
-  { selector: 'sbb-time-input[sbbTimeInput]', attribute: 'sbbTimeInput' },
+  { action: 'remove', selector: 'sbb-time-input[sbbInput]', attribute: 'sbbInput' },
+  { action: 'remove', selector: 'sbb-time-input[sbbTimeInput]', attribute: 'sbbTimeInput' },
 ];
 
 export const TIME_INPUT_MIGRATIONS: Partial<ModuleMigrations> = {

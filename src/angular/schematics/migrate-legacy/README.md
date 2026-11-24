@@ -28,7 +28,7 @@ This directory contains the migration schematic for converting `@sbb-esta/angula
 
 - **`migrations/attribute-migration.cts`**
   Rule factory which renames (or removes) attributes, inputs and outputs of given elements, e.g. `svgIcon` → `iconName` on `<sbb-button>`.
-  Supports configuring a `defaultValue` to automatically inject an attribute if the legacy attribute is missing.
+  Supports different configurations for attribute addition, removal, renaming, and replacement of value or both name and value.
 
 - **`migrations/template-selector-migration.cts`**
   Rule factory which replaces legacy selectors with a new element, in external templates (`templateUrl`) as well as in inline templates (`template`).
@@ -96,6 +96,7 @@ const selectors: SelectorMigration[] = [
 
 const attributes: AttributeMigration[] = [
   {
+    action: 'rename',
     selector: 'sbb-<module>',
     attribute: 'svgIcon',
     replaceWith: 'iconName',
@@ -125,6 +126,47 @@ export const MODULE_MIGRATIONS: Partial<ModuleMigrations> = {
   ],
 };
 ```
+
+Attribute migrations use an explicit `action`: `remove`, `rename`, `rename-or-add`, `replace` (the whole attribute), or `replace-value` (the value only).
+For example:
+
+```typescript
+{
+  action: 'rename',
+  selector: 'sbb-alert',
+  attribute: 'dismissed',
+  replaceWith: 'close',
+},
+{
+  action: 'remove',
+  selector: 'sbb-date-input[sbbDateInput]',
+  attribute: 'sbbDateInput',
+},
+{
+  action: 'rename-or-add',
+  selector: 'sbb-button',
+  attribute: 'svgIcon',
+  replaceWith: 'iconName',
+  defaultValue: 'default-icon',
+},
+{
+  action: 'replace',
+  selector: 'sbb-status',
+  attribute: 'type',
+  attributeValue: 'valid',
+  replaceWith: 'type="success"',
+},
+{
+  action: 'replace-value',
+  selector: 'sbb-menu',
+  attribute: '*',
+  attributeValue: 'sbbHeaderMenu',
+  replaceValueWith: 'sbbMenu',
+}
+```
+
+The attribute wildcard requires `attributeValue` and cannot be used with `rename-or-add` or a universal element selector (`*`).
+`replace-value` does not support HTML special characters, quotes, backslashes or control characters in `replaceValueWith`.
 
 Template-based custom rules should build on `createTemplateMigrationRule()` from `./template-migration.cjs`,
 which provides the element traversal and applies the collected `MigrationEdit`s.
