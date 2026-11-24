@@ -33,6 +33,7 @@ const comments: CommentMigration[] = [
 
 const attributes: AttributeMigration[] = [
   {
+    action: 'rename',
     selector: 'sbb-file-selector',
     attribute: 'filesList',
     replaceWith: 'files',
