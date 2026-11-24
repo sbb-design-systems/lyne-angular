@@ -31,6 +31,7 @@ import { TAG_MIGRATIONS } from './modules/tag.cjs';
 import { TEXTAREA_MIGRATIONS } from './modules/textarea.cjs';
 import { TEXTEXPAND_MIGRATIONS } from './modules/textexpand.cjs';
 import { TIME_INPUT_MIGRATIONS } from './modules/time-input.cjs';
+import { TOAST_MIGRATIONS } from './modules/toast.cjs';
 import { TOGGLE_MIGRATIONS } from './modules/toggle.cjs';
 import { TOOLTIP_MIGRATIONS } from './modules/tooltip.cjs';
 import { USERMENU_MIGRATIONS } from './modules/usermenu.cjs';
@@ -59,7 +60,7 @@ const MODULE_REGISTRY = {
   // 'loading-indicator',
   // 'menu',
   // 'notification',
-  // 'notification-toast',
+  'notification-toast': TOAST_MIGRATIONS,
   // 'pagination',
   // 'processflow',
   'radio-button': RADIO_BUTTON_MIGRATIONS,
