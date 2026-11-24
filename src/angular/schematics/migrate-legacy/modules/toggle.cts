@@ -45,7 +45,12 @@ const types: TypeMigration[] = [{ from: 'SbbRadioChange', to: 'Event', skipImpor
 const selectors: SelectorMigration[] = [{ selector: 'sbb-toggle-icon', replaceWith: 'sbb-alert' }];
 
 const attributes: AttributeMigration[] = [
-  { selector: 'sbb-toggle-option', attribute: 'svgIcon', replaceWith: 'iconName' },
+  {
+    action: 'rename',
+    selector: 'sbb-toggle-option',
+    attribute: 'svgIcon',
+    replaceWith: 'iconName',
+  },
 ];
 
 const OPTION = 'sbb-toggle-option';

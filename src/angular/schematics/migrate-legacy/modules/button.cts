@@ -43,17 +43,18 @@ const selectors: SelectorMigration[] = [
 
 // The attribute migration runs after the selector migration, so it targets the new elements.
 const attributes: AttributeMigration[] = [
-  { selector: 'sbb-button', attribute: 'sbb-button' },
-  { selector: 'sbb-secondary-button', attribute: 'sbb-secondary-button' },
-  { selector: 'sbb-accent-button', attribute: 'sbb-ghost-button' },
-  { selector: 'sbb-transparent-button', attribute: 'sbb-frameless-button' },
-  { selector: 'sbb-button-link', attribute: 'sbb-button' },
-  { selector: 'sbb-secondary-button-link', attribute: 'sbb-secondary-button' },
-  { selector: 'sbb-accent-button-link', attribute: 'sbb-ghost-button' },
-  { selector: 'sbb-transparent-button-link', attribute: 'sbb-frameless-button' },
-  { selector: 'sbb-block-link-button', attribute: 'sbb-link' },
-  { selector: 'sbb-block-link', attribute: 'sbb-link' },
+  { action: 'remove', selector: 'sbb-button', attribute: 'sbb-button' },
+  { action: 'remove', selector: 'sbb-secondary-button', attribute: 'sbb-secondary-button' },
+  { action: 'remove', selector: 'sbb-accent-button', attribute: 'sbb-ghost-button' },
+  { action: 'remove', selector: 'sbb-transparent-button', attribute: 'sbb-frameless-button' },
+  { action: 'remove', selector: 'sbb-button-link', attribute: 'sbb-button' },
+  { action: 'remove', selector: 'sbb-secondary-button-link', attribute: 'sbb-secondary-button' },
+  { action: 'remove', selector: 'sbb-accent-button-link', attribute: 'sbb-ghost-button' },
+  { action: 'remove', selector: 'sbb-transparent-button-link', attribute: 'sbb-frameless-button' },
+  { action: 'remove', selector: 'sbb-block-link-button', attribute: 'sbb-link' },
+  { action: 'remove', selector: 'sbb-block-link', attribute: 'sbb-link' },
   {
+    action: 'rename',
     selector: [...new Set(selectors.map(({ replaceWith }) => replaceWith))],
     attribute: 'svgIcon',
     replaceWith: 'iconName',

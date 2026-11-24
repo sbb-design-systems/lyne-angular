@@ -25,8 +25,18 @@ const comments: CommentMigration[] = [
 ];
 
 const attributes: AttributeMigration[] = [
-  { selector: 'sbb-expansion-panel', attribute: 'afterExpand', replaceWith: 'open' },
-  { selector: 'sbb-expansion-panel', attribute: 'afterCollapse', replaceWith: 'close' },
+  {
+    action: 'rename',
+    selector: 'sbb-expansion-panel',
+    attribute: 'afterExpand',
+    replaceWith: 'open',
+  },
+  {
+    action: 'rename',
+    selector: 'sbb-expansion-panel',
+    attribute: 'afterCollapse',
+    replaceWith: 'close',
+  },
 ];
 
 const PANEL = 'sbb-expansion-panel';

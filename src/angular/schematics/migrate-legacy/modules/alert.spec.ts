@@ -66,9 +66,9 @@ describe('sbb-alert', () => {
   });
 
   describe('anchor alerts', () => {
-    it('should replace <a SbbAlert> with <sbb-alert>', async () => {
+    it('should replace <a sbbAlert> with <sbb-alert>', async () => {
       const content = await migrateTemplate(
-        '<a SbbAlert href="/x" svgIcon="arrow" (dismissed)="onClose()">Text</a>',
+        '<a sbbAlert href="/x" svgIcon="arrow" (dismissed)="onClose()">Text</a>',
       );
 
       expect(content).toContain('<sbb-alert');
@@ -79,7 +79,7 @@ describe('sbb-alert', () => {
     });
 
     it('should add a FIXME comment for anchor alerts', async () => {
-      expect(await migrateTemplate('<a SbbAlert href="/x">Text</a>')).toContain(
+      expect(await migrateTemplate('<a sbbAlert href="/x">Text</a>')).toContain(
         'FIXME: Anchor alerts are not supported in lyne-angular.',
       );
     });

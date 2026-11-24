@@ -45,16 +45,30 @@ const selectors: SelectorMigration[] = [
 ];
 
 const attributes: AttributeMigration[] = [
-  { selector: 'sbb-block-link', attribute: 'sbbSidebarLink' },
-  { selector: 'sbb-sidebar', attribute: 'opened', replaceWith: 'open', onlyOutputs: true },
-  { selector: 'sbb-sidebar', attribute: 'closed', replaceWith: 'close', onlyOutputs: true },
+  { action: 'remove', selector: 'sbb-block-link', attribute: 'sbbSidebarLink' },
   {
+    action: 'rename',
+    selector: 'sbb-sidebar',
+    attribute: 'opened',
+    replaceWith: 'open',
+    onlyOutputs: true,
+  },
+  {
+    action: 'rename',
+    selector: 'sbb-sidebar',
+    attribute: 'closed',
+    replaceWith: 'close',
+    onlyOutputs: true,
+  },
+  {
+    action: 'rename',
     selector: 'sbb-sidebar',
     attribute: 'openedStart',
     replaceWith: 'beforeOpen',
     onlyOutputs: true,
   },
   {
+    action: 'rename',
     selector: 'sbb-sidebar',
     attribute: 'closedStart',
     replaceWith: 'beforeClose',

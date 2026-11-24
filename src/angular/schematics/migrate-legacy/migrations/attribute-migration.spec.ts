@@ -1,3 +1,4 @@
+import { ASTWithSource, LiteralPrimitive, parseTemplate, TmplAstElement } from '@angular/compiler';
 import type { Rule } from '@angular-devkit/schematics';
 import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
@@ -9,9 +10,334 @@ import { createAttributeMigrationRule } from './attribute-migration.cjs';
 
 describe('sbb-attribute-migration', () => {
   const rename: AttributeMigration[] = [
-    { selector: 'sbb-button', attribute: 'svgIcon', replaceWith: 'iconName' },
+    { action: 'rename', selector: 'sbb-button', attribute: 'svgIcon', replaceWith: 'iconName' },
   ];
   const basicAttributeRule: Rule = createAttributeMigrationRule(rename);
+
+  it('should enforce action-specific migration options', () => {
+    const valid: AttributeMigration[] = [
+      { action: 'remove', selector: '*', attribute: 'old' },
+      { action: 'rename', selector: '*', attribute: 'old', replaceWith: 'new' },
+      {
+        action: 'rename-or-add',
+        selector: '*',
+        attribute: 'old',
+        replaceWith: 'new',
+        defaultValue: '',
+      },
+      { action: 'replace', selector: '*', attribute: 'old', replaceWith: 'new="value"' },
+      {
+        action: 'replace-value',
+        selector: 'sbb-x',
+        attribute: '*',
+        attributeValue: 'old',
+        replaceValueWith: 'new',
+      },
+    ];
+    // @ts-expect-error A rename requires its replacement name.
+    const missingName: AttributeMigration = { action: 'rename', selector: '*', attribute: 'old' };
+    // @ts-expect-error A removal cannot specify a replacement.
+    const removalWithReplacement: AttributeMigration = {
+      action: 'remove',
+      selector: '*',
+      attribute: 'old',
+      replaceWith: 'new',
+    };
+    // @ts-expect-error A value replacement cannot also rename the attribute.
+    const incompatible: AttributeMigration = {
+      action: 'replace-value',
+      selector: '*',
+      attribute: 'old',
+      replaceValueWith: 'new',
+      replaceWith: 'name',
+    };
+    expect(valid).toHaveLength(5);
+    for (const invalid of [
+      missingName,
+      removalWithReplacement,
+      incompatible,
+      { action: 'unknown' },
+    ]) {
+      expect(() => Reflect.apply(createAttributeMigrationRule, undefined, [[invalid]])).toThrow(
+        'Invalid attribute migration action or options.',
+      );
+    }
+  });
+
+  describe('attribute wildcard', () => {
+    const removal = createAttributeMigrationRule([
+      { action: 'remove', selector: 'sbb-x', attribute: '*', attributeValue: 'legacy' },
+    ]);
+
+    it('should reject universal selectors with a wildcard attribute', () => {
+      for (const selector of ['*', ['sbb-x', '*'], 'sbb-x, *', '*, sbb-x']) {
+        expect(() =>
+          createAttributeMigrationRule([
+            { action: 'remove', selector, attribute: '*', attributeValue: 'legacy' },
+          ]),
+        ).toThrow(
+          "An attribute wildcard cannot be combined with a universal element selector '*'.",
+        );
+      }
+    });
+
+    it('should allow constrained selectors with a wildcard attribute', async () => {
+      for (const selector of ['sbb-x', '*[marker]', ['sbb-x', 'sbb-y'], 'sbb-x, sbb-y']) {
+        const rule = createAttributeMigrationRule([
+          { action: 'remove', selector, attribute: '*', attributeValue: 'legacy' },
+        ]);
+        expect(
+          await MigrateLegacyTestUtils.migrateHtmlFile('<sbb-x marker old="legacy"></sbb-x>', rule),
+        ).toBe('<sbb-x marker></sbb-x>');
+      }
+    });
+
+    it('should allow a universal selector with a named attribute', async () => {
+      const rule = createAttributeMigrationRule([
+        { action: 'remove', selector: '*', attribute: 'old', attributeValue: 'legacy' },
+      ]);
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          '<sbb-x old="legacy"></sbb-x><sbb-y old="legacy"></sbb-y>',
+          rule,
+        ),
+      ).toBe('<sbb-x></sbb-x><sbb-y></sbb-y>');
+    });
+
+    it('should remove every matching attribute and binding on selected elements', async () => {
+      const html =
+        `<sbb-x first="legacy" second="legacy" keep="other" [third]="'legacy'" [fourth]="legacy" (done)="legacy"></sbb-x>` +
+        '<sbb-y first="legacy"></sbb-y>';
+      expect(await MigrateLegacyTestUtils.migrateHtmlFile(html, removal)).toBe(
+        '<sbb-x keep="other"></sbb-x><sbb-y first="legacy"></sbb-y>',
+      );
+    });
+
+    it('should match empty values rather than every value', async () => {
+      const rule = createAttributeMigrationRule([
+        { action: 'remove', selector: 'sbb-x', attribute: '*', attributeValue: '' },
+      ]);
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          '<sbb-x empty="" flag keep="value"></sbb-x>',
+          rule,
+        ),
+      ).toBe('<sbb-x keep="value"></sbb-x>');
+      const named = createAttributeMigrationRule([
+        { action: 'remove', selector: '*', attribute: 'empty', attributeValue: '' },
+      ]);
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile('<sbb-x empty="value"></sbb-x>', named),
+      ).toBe('<sbb-x empty="value"></sbb-x>');
+    });
+
+    it('should preserve output filters and handle two-way bindings once', async () => {
+      const onlyOutputs = createAttributeMigrationRule([
+        {
+          action: 'remove',
+          selector: 'sbb-x',
+          attribute: '*',
+          attributeValue: 'legacy',
+          onlyOutputs: true,
+        },
+      ]);
+      const excludeOutputs = createAttributeMigrationRule([
+        {
+          action: 'remove',
+          selector: 'sbb-x',
+          attribute: '*',
+          attributeValue: 'legacy',
+          excludeOutputs: true,
+        },
+      ]);
+      const html = '<sbb-x [(model)]="legacy" (done)="legacy" static="legacy"></sbb-x>';
+      expect(await MigrateLegacyTestUtils.migrateHtmlFile(html, onlyOutputs)).toBe(
+        '<sbb-x [(model)]="legacy" static="legacy"></sbb-x>',
+      );
+      expect(await MigrateLegacyTestUtils.migrateHtmlFile(html, excludeOutputs)).toBe(
+        '<sbb-x (done)="legacy"></sbb-x>',
+      );
+      expect(await MigrateLegacyTestUtils.migrateHtmlFile(html, removal)).toBe('<sbb-x></sbb-x>');
+    });
+
+    it('should not migrate unsupported binding syntax or runtime values', async () => {
+      const html = `<sbb-x [attr.title]="'legacy'" [property]="dynamic"></sbb-x>`;
+      expect(await MigrateLegacyTestUtils.migrateHtmlFile(html, removal)).toBe(html);
+    });
+
+    it('should rename one match and preserve its spelling and value', async () => {
+      const rule = createAttributeMigrationRule([
+        {
+          action: 'rename',
+          selector: 'sbb-x',
+          attribute: '*',
+          attributeValue: 'legacy',
+          replaceWith: 'newName',
+        },
+      ]);
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          '<sbb-x old-name="legacy" keep="other"></sbb-x>',
+          rule,
+        ),
+      ).toBe('<sbb-x new-name="legacy" keep="other"></sbb-x>');
+    });
+
+    it('should skip replacement when multiple matches or an existing target would collide', async () => {
+      for (const action of ['rename', 'replace'] as const) {
+        const rule = createAttributeMigrationRule([
+          {
+            action,
+            selector: 'sbb-x',
+            attribute: '*',
+            attributeValue: 'legacy',
+            replaceWith: action === 'replace' ? 'newName="new"' : 'newName',
+          },
+        ]);
+        for (const html of [
+          '<sbb-x first="legacy" second="legacy"></sbb-x>',
+          '<sbb-x first="legacy" newName="other"></sbb-x>',
+        ]) {
+          expect(await MigrateLegacyTestUtils.migrateHtmlFile(html, rule)).toBe(html);
+        }
+      }
+    });
+
+    it('should fully replace one match and be idempotent', async () => {
+      const rule = createAttributeMigrationRule([
+        {
+          action: 'replace',
+          selector: 'sbb-x',
+          attribute: '*',
+          attributeValue: 'legacy',
+          replaceWith: 'newName="new"',
+        },
+      ]);
+      const once = await MigrateLegacyTestUtils.migrateHtmlFile(
+        `<sbb-x [old]="'legacy'"></sbb-x>`,
+        rule,
+      );
+      expect(once).toBe('<sbb-x newName="new"></sbb-x>');
+      expect(await MigrateLegacyTestUtils.migrateHtmlFile(once, rule)).toBe(once);
+    });
+
+    it('should not edit one attribute twice or create targets reserved by another migration', async () => {
+      const rule = createAttributeMigrationRule([
+        { action: 'rename', selector: '*', attribute: 'first', replaceWith: 'target' },
+        {
+          action: 'rename',
+          selector: 'sbb-x',
+          attribute: '*',
+          attributeValue: 'legacy',
+          replaceWith: 'target',
+        },
+      ]);
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          '<sbb-x first="other" second="legacy"></sbb-x>',
+          rule,
+        ),
+      ).toBe('<sbb-x target="other" second="legacy"></sbb-x>');
+      const overlapping = createAttributeMigrationRule([
+        { action: 'rename', selector: '*', attribute: 'first', replaceWith: 'target' },
+        { action: 'remove', selector: 'sbb-x', attribute: '*', attributeValue: 'legacy' },
+      ]);
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          '<sbb-x first="legacy" second="legacy"></sbb-x>',
+          overlapping,
+        ),
+      ).toBe('<sbb-x target="legacy"></sbb-x>');
+
+      const fullyReplaced = createAttributeMigrationRule([
+        { action: 'replace', selector: '*', attribute: 'first', replaceWith: 'target="new"' },
+        {
+          action: 'rename',
+          selector: 'sbb-x',
+          attribute: '*',
+          attributeValue: 'legacy',
+          replaceWith: 'target',
+        },
+      ]);
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          '<sbb-x first="other" second="legacy"></sbb-x>',
+          fullyReplaced,
+        ),
+      ).toBe('<sbb-x target="new" second="legacy"></sbb-x>');
+    });
+
+    it('should handle adjacent multiline removals and inline templates', async () => {
+      const source = [
+        "import { Component } from '@angular/core';",
+        '@Component({',
+        '  template: `<sbb-x',
+        '    first="legacy"',
+        '    second="legacy"',
+        '    keep="other"',
+        '  ></sbb-x>`,',
+        '})',
+        'export class AppComponent {}',
+      ].join('\n');
+      expect(await MigrateLegacyTestUtils.migrateTsFile(source, removal)).toBe(
+        source.replace('    first="legacy"\n    second="legacy"\n', ''),
+      );
+    });
+
+    it('should preserve a default inserted at the start of a removed attribute', async () => {
+      const remove: AttributeMigration = {
+        action: 'remove',
+        selector: 'sbb-x',
+        attribute: '*',
+        attributeValue: 'legacy',
+      };
+      const add: AttributeMigration = {
+        action: 'rename-or-add',
+        selector: 'sbb-x',
+        attribute: 'missing',
+        replaceWith: 'newName',
+        defaultValue: 'new',
+      };
+      for (const migrations of [
+        [remove, add],
+        [add, remove],
+      ]) {
+        const rule = createAttributeMigrationRule(migrations);
+        expect(
+          await MigrateLegacyTestUtils.migrateHtmlFile('<sbb-x first="legacy"></sbb-x>', rule),
+        ).toBe('<sbb-x newName="new"></sbb-x>');
+      }
+    });
+
+    it('should reject incomplete or unsafe wildcard configurations', () => {
+      expect(() =>
+        createAttributeMigrationRule([{ action: 'remove', selector: 'sbb-x', attribute: '*' }]),
+      ).toThrow("An attribute wildcard requires 'attributeValue'.");
+      expect(() =>
+        createAttributeMigrationRule([
+          {
+            action: 'rename-or-add',
+            selector: 'sbb-x',
+            attribute: '*',
+            attributeValue: '',
+            replaceWith: 'x',
+            defaultValue: 'x',
+          },
+        ]),
+      ).toThrow("An attribute wildcard does not support 'defaultValue'.");
+      expect(() =>
+        createAttributeMigrationRule([
+          {
+            action: 'replace',
+            selector: 'sbb-x',
+            attribute: '*',
+            attributeValue: 'x',
+            replaceWith: 'first="a" second="b"',
+          },
+        ]),
+      ).toThrow('A wildcard replacement must contain one valid attribute.');
+    });
+  });
 
   describe('renaming', () => {
     it('should rename a static attribute', async () => {
@@ -62,6 +388,7 @@ describe('sbb-attribute-migration', () => {
           '<sbb-button (svgIconChange)="onChange($event)">A</sbb-button>',
           createAttributeMigrationRule([
             {
+              action: 'rename',
               selector: 'sbb-button',
               attribute: 'svgIconChange',
               replaceWith: 'iconNameChange',
@@ -104,6 +431,7 @@ describe('sbb-attribute-migration', () => {
           '<sbb-button svgIcon="a"></sbb-button><sbb-secondary-button svgIcon="b"></sbb-secondary-button>',
           createAttributeMigrationRule([
             {
+              action: 'rename',
               selector: ['sbb-button', 'sbb-secondary-button'],
               attribute: 'svgIcon',
               replaceWith: 'iconName',
@@ -121,6 +449,7 @@ describe('sbb-attribute-migration', () => {
           '<button sbb-button svgIcon="a">A</button>',
           createAttributeMigrationRule([
             {
+              action: 'rename',
               selector: 'button[sbb-button]',
               attribute: 'svgIcon',
               replaceWith: 'iconName',
@@ -147,7 +476,7 @@ describe('sbb-attribute-migration', () => {
 
     describe('spelling-only rename', () => {
       const spellingRule = createAttributeMigrationRule([
-        { selector: 'h3', attribute: 'sbbBadge', replaceWith: 'sbb-badge' },
+        { action: 'rename', selector: 'h3', attribute: 'sbbBadge', replaceWith: 'sbb-badge' },
       ]);
 
       it('should rename camelCase to dash-case', async () => {
@@ -182,7 +511,7 @@ describe('sbb-attribute-migration', () => {
 
   describe('removal', () => {
     const removal: Rule = createAttributeMigrationRule([
-      { selector: 'sbb-button', attribute: 'svgIcon' },
+      { action: 'remove', selector: 'sbb-button', attribute: 'svgIcon' },
     ]);
 
     it('should remove a static attribute', async () => {
@@ -268,6 +597,7 @@ describe('sbb-attribute-migration', () => {
     const defaultFor = (defaultValue: string): Rule =>
       createAttributeMigrationRule([
         {
+          action: 'rename-or-add',
           selector: 'button[sbb-button]',
           attribute: 'svgIcon',
           replaceWith: 'iconName',
@@ -338,7 +668,9 @@ describe('sbb-attribute-migration', () => {
         component(
           String.raw`"<sbb-button class=\"a\" svgIcon=\"x\" [disabled]=\"d\">A</sbb-button>"`,
         ),
-        createAttributeMigrationRule([{ selector: 'sbb-button', attribute: 'svgIcon' }]),
+        createAttributeMigrationRule([
+          { action: 'remove', selector: 'sbb-button', attribute: 'svgIcon' },
+        ]),
       );
 
       expect(result).toBe(
@@ -350,7 +682,9 @@ describe('sbb-attribute-migration', () => {
     it('should remove the whole line of a template written with `\\n` escapes', async () => {
       const result = await MigrateLegacyTestUtils.migrateTsFile(
         component(String.raw`'<sbb-button\n  svgIcon="a"\n  [disabled]="d"\n>A</sbb-button>'`),
-        createAttributeMigrationRule([{ selector: 'sbb-button', attribute: 'svgIcon' }]),
+        createAttributeMigrationRule([
+          { action: 'remove', selector: 'sbb-button', attribute: 'svgIcon' },
+        ]),
       );
 
       expect(result).toBe(component(String.raw`'<sbb-button\n  [disabled]="d"\n>A</sbb-button>'`));
@@ -378,7 +712,9 @@ describe('sbb-attribute-migration', () => {
       expect(
         await MigrateLegacyTestUtils.migrateTsFile(
           component('`<sbb-button\r\n  svgIcon="a"\r\n  [disabled]="d"\r\n>A</sbb-button>`'),
-          createAttributeMigrationRule([{ selector: 'sbb-button', attribute: 'svgIcon' }]),
+          createAttributeMigrationRule([
+            { action: 'remove', selector: 'sbb-button', attribute: 'svgIcon' },
+          ]),
         ),
       ).toBe(component('`<sbb-button\r\n  [disabled]="d"\r\n>A</sbb-button>`'));
     });
@@ -391,7 +727,7 @@ describe('sbb-attribute-migration', () => {
       const second = await MigrateLegacyTestUtils.migrateTsFile(
         first,
         createAttributeMigrationRule([
-          { selector: 'sbb-button', attribute: 'iconName', replaceWith: 'name' },
+          { action: 'rename', selector: 'sbb-button', attribute: 'iconName', replaceWith: 'name' },
         ]),
       );
 
@@ -419,6 +755,7 @@ describe('sbb-attribute-migration', () => {
   describe('default value', () => {
     const migrationWithDefault: AttributeMigration[] = [
       {
+        action: 'rename-or-add',
         selector: 'sbb-button',
         attribute: 'svgIcon',
         replaceWith: 'iconName',
@@ -459,6 +796,7 @@ describe('sbb-attribute-migration', () => {
           createAttributeMigrationRule([
             ...migrationWithDefault,
             {
+              action: 'rename-or-add',
               selector: 'sbb-button',
               attribute: 'mode',
               replaceWith: 'size',
@@ -472,7 +810,7 @@ describe('sbb-attribute-migration', () => {
 
   describe('fully replace', () => {
     const rule = createAttributeMigrationRule([
-      { selector: 'sbb-x', attribute: 'old', replaceWith: 'new="v"', fullyReplace: true },
+      { action: 'replace', selector: 'sbb-x', attribute: 'old', replaceWith: 'new="v"' },
     ]);
     const migrate = (html: string) => MigrateLegacyTestUtils.migrateHtmlFile(html, rule);
 
@@ -498,14 +836,20 @@ describe('sbb-attribute-migration', () => {
 
   describe('attribute value', () => {
     const rule = createAttributeMigrationRule([
-      { selector: 'sbb-x', attribute: 'mode', attributeValue: 'a', replaceWith: 'kind' },
-      { selector: 'sbb-y', attribute: 'mode', attributeValue: 'b' },
       {
+        action: 'rename',
+        selector: 'sbb-x',
+        attribute: 'mode',
+        attributeValue: 'a',
+        replaceWith: 'kind',
+      },
+      { action: 'remove', selector: 'sbb-y', attribute: 'mode', attributeValue: 'b' },
+      {
+        action: 'replace',
         selector: 'sbb-z',
         attribute: 'mode',
         attributeValue: 'a',
         replaceWith: `kind="a"`,
-        fullyReplace: true,
       },
     ]);
     const migrate = (html: string) => MigrateLegacyTestUtils.migrateHtmlFile(html, rule);
@@ -528,16 +872,199 @@ describe('sbb-attribute-migration', () => {
       );
     });
 
-    it('should work with "fullyReplace"', async () => {
+    it('should work with the replace action', async () => {
       expect(await migrate('<sbb-z mode="a"></sbb-z>')).toBe('<sbb-z kind="a"></sbb-z>');
     });
   });
+
+  describe('value replacement', () => {
+    const rule = createAttributeMigrationRule([
+      {
+        action: 'replace-value',
+        selector: 'sbb-menu',
+        attribute: '*',
+        attributeValue: 'sbbHeaderMenu',
+        replaceValueWith: 'sbbMenu',
+      },
+    ]);
+
+    it('should replace reference values without changing reference names', async () => {
+      const source =
+        `<sbb-menu #menu="sbbHeaderMenu" #another='sbbHeaderMenu' ` +
+        'ref-third=sbbHeaderMenu #unchanged="other"></sbb-menu>' +
+        '<other-element #menu="sbbHeaderMenu"></other-element>';
+      const expected =
+        `<sbb-menu #menu="sbbMenu" #another='sbbMenu' ` +
+        'ref-third="sbbMenu" #unchanged="other"></sbb-menu>' +
+        '<other-element #menu="sbbHeaderMenu"></other-element>';
+      const once = await MigrateLegacyTestUtils.migrateHtmlFile(source, rule);
+      expect(once).toBe(expected);
+      expect(await MigrateLegacyTestUtils.migrateHtmlFile(once, rule)).toBe(expected);
+    });
+
+    it('should replace all matching values and preserve binding semantics', async () => {
+      const source =
+        `<sbb-menu #menu="sbbHeaderMenu" text="sbbHeaderMenu" ` +
+        `[literal]="'sbbHeaderMenu'" [expression]="sbbHeaderMenu" ` +
+        `(event)="sbbHeaderMenu" [(model)]="sbbHeaderMenu"></sbb-menu>`;
+      expect(await MigrateLegacyTestUtils.migrateHtmlFile(source, rule)).toBe(
+        `<sbb-menu #menu="sbbMenu" text="sbbMenu" ` +
+          `[literal]="'sbbMenu'" [expression]="sbbMenu" ` +
+          `(event)="sbbMenu" [(model)]="sbbMenu"></sbb-menu>`,
+      );
+    });
+
+    it('should preserve string literal semantics in both quote styles', async () => {
+      const literalRule = createAttributeMigrationRule([
+        {
+          action: 'replace-value',
+          selector: 'sbb-menu',
+          attribute: '*',
+          attributeValue: 'old',
+          replaceValueWith: 'new',
+        },
+      ]);
+      const source = `<sbb-menu [first]="'old'" [second]='"old"'></sbb-menu>`;
+      const migrated = await MigrateLegacyTestUtils.migrateHtmlFile(source, literalRule);
+      expect(migrated).toBe(`<sbb-menu [first]="'new'" [second]='"new"'></sbb-menu>`);
+      const parsed = parseTemplate(migrated, 'test.html');
+      expect(parsed.errors).toBeNull();
+      const element = parsed.nodes[0];
+      expect(element).toBeInstanceOf(TmplAstElement);
+      if (!(element instanceof TmplAstElement)) {
+        throw new Error('Expected an element');
+      }
+      for (const input of element.inputs) {
+        expect(input.value).toBeInstanceOf(ASTWithSource);
+        if (
+          !(input.value instanceof ASTWithSource) ||
+          !(input.value.ast instanceof LiteralPrimitive)
+        ) {
+          throw new Error('Expected a string literal');
+        }
+        expect(input.value.ast.value).toBe('new');
+      }
+    });
+
+    it('should reject replacement values requiring escaping', () => {
+      for (const replaceValueWith of ['&amp;', '<', '>', '"', "'", '\\', '\n']) {
+        expect(() =>
+          createAttributeMigrationRule([
+            {
+              action: 'replace-value',
+              selector: 'sbb-menu',
+              attribute: '*',
+              attributeValue: 'old',
+              replaceValueWith,
+            },
+          ]),
+        ).toThrow("'replaceValueWith' does not support HTML or expression special characters.");
+      }
+    });
+
+    it('should support named references and empty values', async () => {
+      const named = createAttributeMigrationRule([
+        {
+          action: 'replace-value',
+          selector: '*',
+          attribute: 'menu',
+          attributeValue: '',
+          replaceValueWith: 'new',
+        },
+      ]);
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          '<sbb-menu #menu #other=""></sbb-menu>',
+          named,
+        ),
+      ).toBe('<sbb-menu #menu="new" #other=""></sbb-menu>');
+      const empty = createAttributeMigrationRule([
+        {
+          action: 'replace-value',
+          selector: 'sbb-menu',
+          attribute: '*',
+          attributeValue: 'old',
+          replaceValueWith: '',
+        },
+      ]);
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile('<sbb-menu #menu=old></sbb-menu>', empty),
+      ).toBe('<sbb-menu #menu=""></sbb-menu>');
+    });
+
+    it('should preserve inline template quoting and respect output filters', async () => {
+      const source = [
+        "import { Component } from '@angular/core';",
+        '@Component({',
+        `  template: '<sbb-menu #menu="sbbHeaderMenu"></sbb-menu>',`,
+        '})',
+        'export class AppComponent {}',
+      ].join('\n');
+      expect(await MigrateLegacyTestUtils.migrateTsFile(source, rule)).toBe(
+        source.replace('sbbHeaderMenu', 'sbbMenu'),
+      );
+      const outputOnly = createAttributeMigrationRule([
+        {
+          action: 'replace-value',
+          selector: 'sbb-menu',
+          attribute: '*',
+          attributeValue: 'sbbHeaderMenu',
+          replaceValueWith: 'sbbMenu',
+          onlyOutputs: true,
+        },
+      ]);
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          '<sbb-menu #menu="sbbHeaderMenu" (event)="sbbHeaderMenu"></sbb-menu>',
+          outputOnly,
+        ),
+      ).toBe('<sbb-menu #menu="sbbHeaderMenu" (event)="sbbMenu"></sbb-menu>');
+    });
+
+    it('should reject incompatible replacement options', () => {
+      for (const options of [{ replaceWith: 'name' }, { defaultValue: 'default' }]) {
+        expect(() =>
+          Reflect.apply(createAttributeMigrationRule, undefined, [
+            [
+              {
+                action: 'replace-value',
+                selector: 'sbb-x',
+                attribute: '*',
+                attributeValue: 'old',
+                replaceValueWith: '',
+                ...options,
+              },
+            ],
+          ]),
+        ).toThrow('Invalid attribute migration action or options.');
+      }
+    });
+  });
+
   describe('output filters', () => {
-    const migrate = (html: string, migration: Partial<AttributeMigration>) =>
+    const migrate = (
+      html: string,
+      migration: { onlyOutputs?: boolean; excludeOutputs?: boolean; remove?: boolean },
+    ) =>
       MigrateLegacyTestUtils.migrateHtmlFile(
         html,
         createAttributeMigrationRule([
-          { selector: 'sbb-x', attribute: 'opened', replaceWith: 'open', ...migration },
+          migration.remove
+            ? {
+                action: 'remove',
+                selector: 'sbb-x',
+                attribute: 'opened',
+                onlyOutputs: migration.onlyOutputs,
+                excludeOutputs: migration.excludeOutputs,
+              }
+            : {
+                action: 'rename',
+                selector: 'sbb-x',
+                attribute: 'opened',
+                replaceWith: 'open',
+                onlyOutputs: migration.onlyOutputs,
+                excludeOutputs: migration.excludeOutputs,
+              },
         ]),
       );
 
@@ -563,7 +1090,7 @@ describe('sbb-attribute-migration', () => {
         expect(
           await migrate('<sbb-x [opened]="o" (opened)="f()"></sbb-x>', {
             onlyOutputs: true,
-            replaceWith: undefined,
+            remove: true,
           }),
         ).toBe('<sbb-x [opened]="o"></sbb-x>');
       });
