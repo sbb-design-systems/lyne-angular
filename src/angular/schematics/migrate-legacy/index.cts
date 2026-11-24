@@ -19,6 +19,8 @@ import { CHECKBOX_PANEL_MIGRATIONS } from './modules/checkbox-panel.cjs';
 import { CHECKBOX_MIGRATIONS } from './modules/checkbox.cjs';
 import { DATEPICKER_MIGRATIONS } from './modules/datepicker.cjs';
 import { DIALOG_MIGRATIONS } from './modules/dialog.cjs';
+import { FORM_FIELD_MIGRATIONS } from './modules/form-field.cjs';
+import { HEADER_LEAN_MIGRATIONS } from './modules/header-lean.cjs';
 import { RADIO_BUTTON_PANEL_MIGRATIONS } from './modules/radio-button-panel.cjs';
 import { RADIO_BUTTON_MIGRATIONS } from './modules/radio-button.cjs';
 import { SEARCH_MIGRATIONS } from './modules/search.cjs';
@@ -51,8 +53,8 @@ const MODULE_REGISTRY = {
   datepicker: DATEPICKER_MIGRATIONS,
   dialog: DIALOG_MIGRATIONS,
   // 'file-selector',
-  // 'form-field',
-  // 'header-lean',
+  'form-field': FORM_FIELD_MIGRATIONS,
+  'header-lean': HEADER_LEAN_MIGRATIONS,
   // 'icon',
   // 'input',
   // 'lightbox',
