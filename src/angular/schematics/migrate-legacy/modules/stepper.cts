@@ -47,18 +47,21 @@ const selectors: SelectorMigration[] = [
 ];
 
 const attributes: AttributeMigration[] = [
-  { selector: 'sbb-stepper', attribute: 'sbbProcessflow' },
+  { action: 'remove', selector: 'sbb-stepper', attribute: 'sbbProcessflow' },
   {
+    action: 'rename',
     selector: '[sbbProcessflowNext]',
     attribute: 'sbbProcessflowNext',
     replaceWith: 'sbb-stepper-next',
   },
   {
+    action: 'rename',
     selector: '[sbbProcessflowPrevious]',
     attribute: 'sbbProcessflowPrevious',
     replaceWith: 'sbb-stepper-previous',
   },
   {
+    action: 'rename',
     selector: 'sbb-stepper',
     attribute: 'selectionChange',
     replaceWith: 'stepchange',
