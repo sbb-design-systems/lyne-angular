@@ -19,6 +19,7 @@ import { CHECKBOX_PANEL_MIGRATIONS } from './modules/checkbox-panel.cjs';
 import { CHECKBOX_MIGRATIONS } from './modules/checkbox.cjs';
 import { DATEPICKER_MIGRATIONS } from './modules/datepicker.cjs';
 import { DIALOG_MIGRATIONS } from './modules/dialog.cjs';
+import { PAGINATOR_MIGRATIONS } from './modules/paginator.cjs';
 import { RADIO_BUTTON_PANEL_MIGRATIONS } from './modules/radio-button-panel.cjs';
 import { RADIO_BUTTON_MIGRATIONS } from './modules/radio-button.cjs';
 import { SEARCH_MIGRATIONS } from './modules/search.cjs';
@@ -60,7 +61,7 @@ const MODULE_REGISTRY = {
   // 'menu',
   // 'notification',
   // 'notification-toast',
-  // 'pagination',
+  pagination: PAGINATOR_MIGRATIONS,
   // 'processflow',
   'radio-button': RADIO_BUTTON_MIGRATIONS,
   'radio-button-panel': RADIO_BUTTON_PANEL_MIGRATIONS,
