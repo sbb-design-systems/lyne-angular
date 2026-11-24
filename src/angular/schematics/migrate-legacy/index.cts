@@ -35,6 +35,7 @@ import { TOGGLE_MIGRATIONS } from './modules/toggle.cjs';
 import { TOOLTIP_MIGRATIONS } from './modules/tooltip.cjs';
 import { USERMENU_MIGRATIONS } from './modules/usermenu.cjs';
 import type { MigrateLegacyOptionsSchema } from './schema';
+import { STEPPER_MIGRATIONS } from './modules/stepper.cjs';
 
 // TODO: Add more migrations as they are implemented
 const MODULE_REGISTRY = {
@@ -61,7 +62,7 @@ const MODULE_REGISTRY = {
   // 'notification',
   // 'notification-toast',
   // 'pagination',
-  // 'processflow',
+  processflow: STEPPER_MIGRATIONS,
   'radio-button': RADIO_BUTTON_MIGRATIONS,
   'radio-button-panel': RADIO_BUTTON_PANEL_MIGRATIONS,
   search: SEARCH_MIGRATIONS,
