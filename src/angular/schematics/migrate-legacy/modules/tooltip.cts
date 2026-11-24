@@ -54,31 +54,44 @@ const comments: CommentMigration[] = [
 const types: TypeMigration[] = [{ from: 'SbbTooltipChangeEvent', to: 'Event', skipImports: true }];
 
 const attributes: AttributeMigration[] = [
-  { selector: 'sbb-tooltip', attribute: 'svgIcon', replaceWith: 'iconName' },
-  { selector: 'sbb-tooltip', attribute: 'hoverShowDelay', replaceWith: 'openDelay' },
-  { selector: 'sbb-tooltip', attribute: 'hoverHideDelay', replaceWith: 'closeDelay' },
-  { selector: 'sbb-tooltip', attribute: 'opened', replaceWith: 'open' },
-  { selector: 'sbb-tooltip', attribute: 'dismissed', replaceWith: 'close' },
+  { action: 'rename', selector: 'sbb-tooltip', attribute: 'svgIcon', replaceWith: 'iconName' },
   {
+    action: 'rename',
+    selector: 'sbb-tooltip',
+    attribute: 'hoverShowDelay',
+    replaceWith: 'openDelay',
+  },
+  {
+    action: 'rename',
+    selector: 'sbb-tooltip',
+    attribute: 'hoverHideDelay',
+    replaceWith: 'closeDelay',
+  },
+  { action: 'rename', selector: 'sbb-tooltip', attribute: 'opened', replaceWith: 'open' },
+  { action: 'rename', selector: 'sbb-tooltip', attribute: 'dismissed', replaceWith: 'close' },
+  {
+    action: 'replace',
     selector: 'sbb-tooltip',
     attribute: 'trigger',
     attributeValue: 'hover',
     replaceWith: 'hoverTrigger',
-    fullyReplace: true,
   },
-  { selector: 'sbb-tooltip', attribute: 'trigger', attributeValue: 'click' },
+  { action: 'remove', selector: 'sbb-tooltip', attribute: 'trigger', attributeValue: 'click' },
 
   {
+    action: 'rename',
     selector: '*[sbbTooltip]',
     attribute: 'sbbTooltipShowDelay',
     replaceWith: 'sbb-tooltip-open-delay',
   },
   {
+    action: 'rename',
     selector: '*[sbbTooltip]',
     attribute: 'sbbTooltipHideDelay',
     replaceWith: 'sbb-tooltip-close-delay',
   },
   {
+    action: 'rename',
     selector: '*[sbbTooltip]',
     attribute: 'sbbTooltipDisabled',
     replaceWith: 'sbb-tooltip-disabled',

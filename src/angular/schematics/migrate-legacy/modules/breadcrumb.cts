@@ -41,10 +41,7 @@ const selectors: SelectorMigration[] = [
 ];
 
 const attributes: AttributeMigration[] = [
-  {
-    selector: 'sbb-breadcrumb',
-    attribute: 'sbb-breadcrumb-root',
-  },
+  { action: 'remove', selector: 'sbb-breadcrumb', attribute: 'sbb-breadcrumb-root' },
 ];
 
 export const BREADCRUMB_MIGRATIONS: Partial<ModuleMigrations> = {
