@@ -115,9 +115,9 @@ const readmeMap = globSync(join(cachePath, '**/readme.md'))
     new Map<string, string>(),
   );
 const immutableAttributes = [
-  'align-self',
   'sbb-badge',
   'sbb-badge-position',
+  'sbb-badge-disabled',
   'sbb-dialog-close',
   'sbb-focus-initial',
   'sbb-header-scroll-origin',
@@ -130,8 +130,8 @@ const immutableAttributes = [
   'sbb-stepper-previous',
   'sbb-tooltip',
   'sbb-tooltip-open-delay',
-  'sbb-tooltip-disabled',
   'sbb-tooltip-close-delay',
+  'sbb-tooltip-disabled',
   'sbb-tooltip-positions',
 ];
 

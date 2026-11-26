@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { type ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SbbBadge } from './badge';
@@ -19,6 +19,20 @@ describe(`sbb-badge`, () => {
       expect(fixture.nativeElement.querySelector('button').getAttribute('sbb-badge-position')).toBe(
         'before',
       );
+    });
+
+    it('should toggle the disabled attribute', () => {
+      const badgeElement = fixture.nativeElement.querySelector('button');
+
+      expect(badgeElement).not.toHaveAttribute('sbb-badge-disabled');
+
+      component.disabled.set(true);
+      fixture.detectChanges();
+      expect(badgeElement).toHaveAttribute('sbb-badge-disabled');
+
+      component.disabled.set(false);
+      fixture.detectChanges();
+      expect(badgeElement).not.toHaveAttribute('sbb-badge-disabled');
     });
   });
 
@@ -42,10 +56,14 @@ describe(`sbb-badge`, () => {
 });
 
 @Component({
-  template: `<button sbb-badge="99" sbb-badge-position="before">Label</button>`,
+  template: `<button sbb-badge="99" sbb-badge-position="before" [sbb-badge-disabled]="disabled()">
+    Label
+  </button>`,
   imports: [SbbBadge],
 })
-class TestComponent {}
+class TestComponent {
+  disabled = signal(false);
+}
 
 @Component({
   selector: 'sbb-test-button',
