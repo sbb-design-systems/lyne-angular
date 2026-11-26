@@ -3,7 +3,7 @@ import { SbbBadgeModule } from '@sbb-esta/lyne-angular/badge';
 import { SbbIconModule } from '@sbb-esta/lyne-angular/icon';
 
 /**
- * @title Badge position before
+ * @title Badge disabled example
  * @order 4
  */
 @Component({
