@@ -58,6 +58,15 @@ describe('sbb-badge', () => {
       ).toBe('<h3 sbb-badge="4">Text with a badge</h3>');
     });
 
+    it('should migrate sbbBadgeHidden attribute', async () => {
+      expect(
+        await MigrateLegacyTestUtils.migrateHtmlFile(
+          '<h3 sbbBadge="4" sbbBadgeHidden>Text with a badge</h3>',
+          defaultMigration,
+        ),
+      ).toBe('<h3 sbb-badge="4" sbb-badge-disabled>Text with a badge</h3>');
+    });
+
     it('should migrate in inline templates', async () => {
       const content = await MigrateLegacyTestUtils.migrateTsFile(
         [
