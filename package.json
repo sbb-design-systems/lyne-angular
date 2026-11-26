@@ -66,8 +66,8 @@
     "@eslint/js": "10.0.1",
     "@schematics/angular": "22.3.0",
     "@types/node": "24.19.4",
-    "@vitest/browser-playwright": "5.1.1",
-    "@vitest/coverage-v8": "5.1.1",
+    "@vitest/browser-playwright": "5.1.2",
+    "@vitest/coverage-v8": "5.1.2",
     "angular-eslint": "22.8.0",
     "custom-elements-manifest": "2.1.0",
     "eslint": "10.15.0",
@@ -88,7 +88,7 @@
     "tsx": "4.23.15",
     "typescript": "6.0.3",
     "typescript-eslint": "8.74.0",
-    "vitest": "5.1.1"
+    "vitest": "5.1.2"
   },
   "prettier": {
     "singleQuote": true,
