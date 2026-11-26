@@ -5,12 +5,7 @@ import type {
   ModuleMigrations,
 } from '../common.cjs';
 
-// TODO: possibly adapt after merge of https://github.com/sbb-design-systems/lyne-components/issues/5405
-export const DEPRECATED_BADGE_ATTRIBUTES = [
-  'sbbBadgeDescription',
-  'sbbBadgeDisabled',
-  'sbbBadgeHidden',
-];
+export const DEPRECATED_BADGE_ATTRIBUTES = ['sbbBadgeDescription', 'sbbBadgeDisabled'];
 
 const importPaths: ImportRewriteOptions[] = [
   { oldImport: '@sbb-esta/angular/badge', newImport: '@sbb-esta/lyne-angular/badge' },
@@ -26,6 +21,12 @@ const comments: CommentMigration[] = DEPRECATED_BADGE_ATTRIBUTES.map((attr) => (
 
 const attributes: AttributeMigration[] = [
   { action: 'rename', selector: '*', attribute: 'sbbBadge', replaceWith: 'sbb-badge' },
+  {
+    action: 'rename',
+    selector: '*',
+    attribute: 'sbbBadgeHidden',
+    replaceWith: 'sbb-badge-disabled',
+  },
 ];
 
 /**
