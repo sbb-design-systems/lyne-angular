@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input } from '@angular/core';
+import { booleanAttribute, Directive, ElementRef, inject, Input } from '@angular/core';
 
 /**
  * Directive to display a badge for an element.
@@ -41,5 +41,14 @@ export class SbbBadge {
   }
   public get position(): string | null {
     return this.#elementRef.nativeElement.getAttribute('sbb-badge-position');
+  }
+
+  /** Whether the badge is disabled or not. */
+  @Input({ alias: 'sbb-badge-disabled', transform: booleanAttribute })
+  public set disabled(value: boolean) {
+    this.#elementRef.nativeElement.toggleAttribute('sbb-badge-disabled', value);
+  }
+  public get disabled(): string | null {
+    return this.#elementRef.nativeElement.getAttribute('sbb-badge-disabled');
   }
 }

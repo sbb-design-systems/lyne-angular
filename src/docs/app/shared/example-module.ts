@@ -18,7 +18,7 @@ export const EXAMPLE_COMPONENTS: Record<string, (string | Partial<ExampleData>)[
     'autocomplete-complex-value',
     'autocomplete-with-actions',
   ],
-  badge: ['badge-basic', 'badge-before', 'badge-header-button'],
+  badge: ['badge-basic', 'badge-before', 'badge-header-button', 'badge-disabled'],
   breadcrumb: ['breadcrumb-basic', 'breadcrumb-collapsed'],
   button: [
     'button-showcase',
@@ -302,6 +302,7 @@ export async function loadExample(id: string): Promise<Record<string, Type<unkno
       return import('../angular/examples/autocomplete');
     case 'badge-basic':
     case 'badge-before':
+    case 'badge-disabled':
     case 'badge-header-button':
       return import('../angular/examples/badge');
     case 'breadcrumb-basic':

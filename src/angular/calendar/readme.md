@@ -145,7 +145,7 @@ this behavior can be changed by setting the `multiple` attribute to true.
 In this case the `value` property, if set, must be an array; moreover,
 the days of the week become clickable, allowing to select an entire column
 (e.g. all the Mondays, all the Tuesdays and so on).
-Additionally it is possible to select a range of dates, by clicking on a
+Additionally, it is possible to select a range of dates, by clicking on a
 date and then Shift clicking on another date.
 
 ```html
@@ -253,7 +253,8 @@ pressing the `<kbd>Home</kbd>` when the first day of the month is disabled will 
 
 If `multiple` is set, it is possible to navigate among weekdays using arrows and special keys;
 similarly, if `weekNumbers` is set, it is possible to navigate the week numbers group.
-Using the `Tab` button, the first row is reached first (weekday in `horizontal` orientation, week numbers in `vertical`),
+Using the `Tab` button, the select all button is focused first, then the first row is reached
+(weekday in `horizontal` orientation, week numbers in `vertical`),
 then the opposite group (week numbers in `horizontal` orientation, weekday in `vertical`), then the calendar days.
 
 ## Accessibility
