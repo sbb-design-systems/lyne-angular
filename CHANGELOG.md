@@ -1,5 +1,12 @@
 # Changelog
 
+## [22.12.1](https://github.com/sbb-design-systems/lyne-angular/compare/v22.12.0...v22.12.1) (2026-11-28)
+
+
+### Documentation
+
+* **tooltip:** fix tooltip showcase example ([#669](https://github.com/sbb-design-systems/lyne-angular/issues/669)) ([d79fa71](https://github.com/sbb-design-systems/lyne-angular/commit/d79fa71c115032dba22d265246979b9e49860b37))
+
 ## [22.12.0](https://github.com/sbb-design-systems/lyne-angular/compare/v22.11.0...v22.12.0) (2026-11-23)
 
 
